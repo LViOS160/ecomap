@@ -81,8 +81,6 @@
 		B3AC66D11A7A2CBB00C7A98D /* ecomap */ = {
 			isa = PBXGroup;
 			children = (
-				B3AC66D61A7A2CBB00C7A98D /* AppDelegate.h */,
-				B3AC66D71A7A2CBB00C7A98D /* AppDelegate.m */,
 				B3AC66D91A7A2CBB00C7A98D /* ViewController.h */,
 				B3AC66DA1A7A2CBB00C7A98D /* ViewController.m */,
 				B3AC66DC1A7A2CBB00C7A98D /* Main.storyboard */,
@@ -96,6 +94,8 @@
 		B3AC66D21A7A2CBB00C7A98D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B3AC66D61A7A2CBB00C7A98D /* AppDelegate.h */,
+				B3AC66D71A7A2CBB00C7A98D /* AppDelegate.m */,
 				B3AC66D31A7A2CBB00C7A98D /* Info.plist */,
 				B3AC66D41A7A2CBB00C7A98D /* main.m */,
 			);
