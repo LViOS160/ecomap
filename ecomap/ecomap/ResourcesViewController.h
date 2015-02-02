@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ResourcesViewController.h
 //  ecomap
 //
 //  Created by Anton Kovernik on 02.02.15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface ResourcesViewController : UITableViewController
 
 @end
-

@@ -10,11 +10,19 @@
 		B353431F1A7F73ED00DD2F03 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B353431E1A7F73ED00DD2F03 /* main.m */; };
 		B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B35343211A7F73ED00DD2F03 /* AppDelegate.m */; };
 		B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B35343231A7F73ED00DD2F03 /* ecomap.xcdatamodeld */; };
-		B35343281A7F73ED00DD2F03 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35343271A7F73ED00DD2F03 /* ViewController.m */; };
+		B35343281A7F73ED00DD2F03 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35343271A7F73ED00DD2F03 /* MapViewController.m */; };
 		B353432B1A7F73ED00DD2F03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B35343291A7F73ED00DD2F03 /* Main.storyboard */; };
 		B353432D1A7F73ED00DD2F03 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B353432C1A7F73ED00DD2F03 /* Images.xcassets */; };
 		B35343301A7F73ED00DD2F03 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B353432E1A7F73ED00DD2F03 /* LaunchScreen.xib */; };
 		B353433C1A7F73ED00DD2F03 /* ecomapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B353433B1A7F73ED00DD2F03 /* ecomapTests.m */; };
+		B353434A1A7F758000DD2F03 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35343491A7F758000DD2F03 /* SWRevealViewController.m */; };
+		B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B353434C1A7F778000DD2F03 /* EcomapRevealViewController.m */; };
+		B35343501A7F78A200DD2F03 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B353434F1A7F78A200DD2F03 /* MenuViewController.m */; };
+		B388FEFD1A7F863F009C421C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B388FEFC1A7F863F009C421C /* MapKit.framework */; };
+		B388FF001A7F8832009C421C /* MapSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FEFF1A7F8832009C421C /* MapSegue.m */; };
+		B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FF041A7F8AFF009C421C /* ResourcesViewController.m */; };
+		B388FF081A7F905B009C421C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FF071A7F905B009C421C /* LoginViewController.m */; };
+		B388FF0B1A7F9072009C421C /* StatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FF0A1A7F9072009C421C /* StatisticViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,14 +42,29 @@
 		B35343201A7F73ED00DD2F03 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B35343211A7F73ED00DD2F03 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B35343241A7F73ED00DD2F03 /* ecomap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ecomap.xcdatamodel; sourceTree = "<group>"; };
-		B35343261A7F73ED00DD2F03 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B35343271A7F73ED00DD2F03 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B35343261A7F73ED00DD2F03 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		B35343271A7F73ED00DD2F03 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		B353432A1A7F73ED00DD2F03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B353432C1A7F73ED00DD2F03 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B353432F1A7F73ED00DD2F03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B35343351A7F73ED00DD2F03 /* ecomapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ecomapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B353433A1A7F73ED00DD2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B353433B1A7F73ED00DD2F03 /* ecomapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ecomapTests.m; sourceTree = "<group>"; };
+		B35343481A7F758000DD2F03 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		B35343491A7F758000DD2F03 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		B353434B1A7F778000DD2F03 /* EcomapRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapRevealViewController.h; sourceTree = "<group>"; };
+		B353434C1A7F778000DD2F03 /* EcomapRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapRevealViewController.m; sourceTree = "<group>"; };
+		B353434E1A7F78A200DD2F03 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		B353434F1A7F78A200DD2F03 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		B388FEFC1A7F863F009C421C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B388FEFE1A7F8832009C421C /* MapSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapSegue.h; sourceTree = "<group>"; };
+		B388FEFF1A7F8832009C421C /* MapSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapSegue.m; sourceTree = "<group>"; };
+		B388FF031A7F8AFF009C421C /* ResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesViewController.h; sourceTree = "<group>"; };
+		B388FF041A7F8AFF009C421C /* ResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesViewController.m; sourceTree = "<group>"; };
+		B388FF061A7F905B009C421C /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B388FF071A7F905B009C421C /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		B388FF091A7F9072009C421C /* StatisticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticViewController.h; sourceTree = "<group>"; };
+		B388FF0A1A7F9072009C421C /* StatisticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B388FEFD1A7F863F009C421C /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +92,7 @@
 				B353431B1A7F73ED00DD2F03 /* ecomap */,
 				B35343381A7F73ED00DD2F03 /* ecomapTests */,
 				B353431A1A7F73ED00DD2F03 /* Products */,
+				B388FF011A7F884A009C421C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,14 +108,19 @@
 		B353431B1A7F73ED00DD2F03 /* ecomap */ = {
 			isa = PBXGroup;
 			children = (
-				B35343201A7F73ED00DD2F03 /* AppDelegate.h */,
-				B35343211A7F73ED00DD2F03 /* AppDelegate.m */,
-				B35343261A7F73ED00DD2F03 /* ViewController.h */,
-				B35343271A7F73ED00DD2F03 /* ViewController.m */,
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
-				B353432C1A7F73ED00DD2F03 /* Images.xcassets */,
-				B353432E1A7F73ED00DD2F03 /* LaunchScreen.xib */,
-				B35343231A7F73ED00DD2F03 /* ecomap.xcdatamodeld */,
+				B388FF091A7F9072009C421C /* StatisticViewController.h */,
+				B388FF0A1A7F9072009C421C /* StatisticViewController.m */,
+				B388FF061A7F905B009C421C /* LoginViewController.h */,
+				B388FF071A7F905B009C421C /* LoginViewController.m */,
+				B35343261A7F73ED00DD2F03 /* MapViewController.h */,
+				B35343271A7F73ED00DD2F03 /* MapViewController.m */,
+				B353434E1A7F78A200DD2F03 /* MenuViewController.h */,
+				B353434F1A7F78A200DD2F03 /* MenuViewController.m */,
+				B388FF031A7F8AFF009C421C /* ResourcesViewController.h */,
+				B388FF041A7F8AFF009C421C /* ResourcesViewController.m */,
+				B388FF021A7F89D5009C421C /* Segues */,
+				B35343471A7F758000DD2F03 /* SWRevealViewController */,
 				B353431C1A7F73ED00DD2F03 /* Supporting Files */,
 			);
 			path = ecomap;
@@ -99,6 +129,11 @@
 		B353431C1A7F73ED00DD2F03 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B35343201A7F73ED00DD2F03 /* AppDelegate.h */,
+				B35343211A7F73ED00DD2F03 /* AppDelegate.m */,
+				B353432C1A7F73ED00DD2F03 /* Images.xcassets */,
+				B353432E1A7F73ED00DD2F03 /* LaunchScreen.xib */,
+				B35343231A7F73ED00DD2F03 /* ecomap.xcdatamodeld */,
 				B353431D1A7F73ED00DD2F03 /* Info.plist */,
 				B353431E1A7F73ED00DD2F03 /* main.m */,
 			);
@@ -120,6 +155,34 @@
 				B353433A1A7F73ED00DD2F03 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B35343471A7F758000DD2F03 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B35343481A7F758000DD2F03 /* SWRevealViewController.h */,
+				B35343491A7F758000DD2F03 /* SWRevealViewController.m */,
+				B353434B1A7F778000DD2F03 /* EcomapRevealViewController.h */,
+				B353434C1A7F778000DD2F03 /* EcomapRevealViewController.m */,
+			);
+			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		B388FF011A7F884A009C421C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B388FEFC1A7F863F009C421C /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B388FF021A7F89D5009C421C /* Segues */ = {
+			isa = PBXGroup;
+			children = (
+				B388FEFE1A7F8832009C421C /* MapSegue.h */,
+				B388FEFF1A7F8832009C421C /* MapSegue.m */,
+			);
+			name = Segues;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,8 +286,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */,
+				B388FF0B1A7F9072009C421C /* StatisticViewController.m in Sources */,
 				B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */,
-				B35343281A7F73ED00DD2F03 /* ViewController.m in Sources */,
+				B353434A1A7F758000DD2F03 /* SWRevealViewController.m in Sources */,
+				B35343281A7F73ED00DD2F03 /* MapViewController.m in Sources */,
+				B388FF081A7F905B009C421C /* LoginViewController.m in Sources */,
+				B388FF001A7F8832009C421C /* MapSegue.m in Sources */,
+				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
+				B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */,
+				B35343501A7F78A200DD2F03 /* MenuViewController.m in Sources */,
 				B353431F1A7F73ED00DD2F03 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +486,7 @@
 				B35343411A7F73ED00DD2F03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B35343421A7F73ED00DD2F03 /* Build configuration list for PBXNativeTarget "ecomapTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +495,7 @@
 				B35343441A7F73ED00DD2F03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
