@@ -8,6 +8,9 @@
 
 #import "MapViewController.h"
 #import "EcomapRevealViewController.h"
+#import "TileOverlay.h"
+#import "TileOverlayView.h"
+
 
 @interface MapViewController ()
 
@@ -20,6 +23,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self customSetup];
+    
+    self.overlay = [[TileOverlay alloc] initOverlay];
+    [self.mapView addOverlay:self.overlay];
+    MKMapRect visibleRect = [self.mapView mapRectThatFits:self.overlay.boundingMapRect];
+    visibleRect.size.width /= 2;
+    visibleRect.size.height /= 2;
+    visibleRect.origin.x += visibleRect.size.width / 2;
+    visibleRect.origin.y += visibleRect.size.height / 2;
+    self.mapView.visibleMapRect = visibleRect;
+    self.mapView.delegate = self;
+
 }
 
 - (void)customSetup
@@ -34,5 +48,13 @@
     }
     
 }
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)ovl
+{
+    TileOverlayView *view = [[TileOverlayView alloc] initWithOverlay:ovl];
+    view.tileAlpha = 1.0; // e.g. 0.6 alpha for semi-transparent overlay
+    return view;
+}
+
 
 @end

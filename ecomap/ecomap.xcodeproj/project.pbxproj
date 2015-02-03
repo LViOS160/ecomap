@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DBA2BA01A80D49A00909F94 /* TileOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA2B9D1A80D49A00909F94 /* TileOverlay.m */; };
+		2DBA2BA11A80D49A00909F94 /* TileOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA2B9F1A80D49A00909F94 /* TileOverlayView.m */; };
 		B353431F1A7F73ED00DD2F03 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B353431E1A7F73ED00DD2F03 /* main.m */; };
 		B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B35343211A7F73ED00DD2F03 /* AppDelegate.m */; };
 		B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B35343231A7F73ED00DD2F03 /* ecomap.xcdatamodeld */; };
@@ -36,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DBA2B9C1A80D49A00909F94 /* TileOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileOverlay.h; sourceTree = "<group>"; };
+		2DBA2B9D1A80D49A00909F94 /* TileOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileOverlay.m; sourceTree = "<group>"; };
+		2DBA2B9E1A80D49A00909F94 /* TileOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileOverlayView.h; sourceTree = "<group>"; };
+		2DBA2B9F1A80D49A00909F94 /* TileOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileOverlayView.m; sourceTree = "<group>"; };
 		B35343191A7F73ED00DD2F03 /* ecomap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ecomap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B353431D1A7F73ED00DD2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B353431E1A7F73ED00DD2F03 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -108,6 +114,10 @@
 		B353431B1A7F73ED00DD2F03 /* ecomap */ = {
 			isa = PBXGroup;
 			children = (
+				2DBA2B9C1A80D49A00909F94 /* TileOverlay.h */,
+				2DBA2B9D1A80D49A00909F94 /* TileOverlay.m */,
+				2DBA2B9E1A80D49A00909F94 /* TileOverlayView.h */,
+				2DBA2B9F1A80D49A00909F94 /* TileOverlayView.m */,
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
 				B388FF091A7F9072009C421C /* StatisticViewController.h */,
 				B388FF0A1A7F9072009C421C /* StatisticViewController.m */,
@@ -293,9 +303,11 @@
 				B388FF081A7F905B009C421C /* LoginViewController.m in Sources */,
 				B388FF001A7F8832009C421C /* MapSegue.m in Sources */,
 				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
+				2DBA2BA01A80D49A00909F94 /* TileOverlay.m in Sources */,
 				B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */,
 				B35343501A7F78A200DD2F03 /* MenuViewController.m in Sources */,
 				B353431F1A7F73ED00DD2F03 /* main.m in Sources */,
+				2DBA2BA11A80D49A00909F94 /* TileOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,8 +430,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ecomap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -428,8 +442,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ecomap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
