@@ -75,6 +75,7 @@
 		B388FF071A7F905B009C421C /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		B388FF091A7F9072009C421C /* StatisticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticViewController.h; sourceTree = "<group>"; };
 		B388FF0A1A7F9072009C421C /* StatisticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticViewController.m; sourceTree = "<group>"; };
+		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
 		E5F27C921A80F9A300121A7E /* EcomapFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapFetcher.m; path = Model/EcomapFetcher.m; sourceTree = "<group>"; };
 		E5F27C931A80F9A300121A7E /* EcomapProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapProblem.h; path = Model/EcomapProblem.h; sourceTree = "<group>"; };
@@ -211,6 +212,7 @@
 		E5F27C901A80F98D00121A7E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E5A978951A80FE2000D8283B /* EcomapPathDefine.h */,
 				E5F27C911A80F9A300121A7E /* EcomapFetcher.h */,
 				E5F27C921A80F9A300121A7E /* EcomapFetcher.m */,
 				E5F27C931A80F9A300121A7E /* EcomapProblem.h */,
