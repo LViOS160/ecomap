@@ -39,4 +39,10 @@
     return [self URLForAPIQuery:query];
 }
 
+#pragma mark - Ask URL for logIn
++ (NSURL *)URLforLogin
+{
+    return [self URLForAPIQuery:ECOMAP_POST_LOGIN_API];
+}
+
 @end

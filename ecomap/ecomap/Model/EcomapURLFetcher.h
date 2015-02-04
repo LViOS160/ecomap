@@ -16,4 +16,6 @@
 //Return API URL to get problem with ID
 + (NSURL *)URLforProblemWithID:(NSUInteger)problemID;
 
+//Return API URL to logIn
++ (NSURL *)URLforLogin;
 @end

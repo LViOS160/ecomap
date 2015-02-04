@@ -8,14 +8,20 @@
 
 #import <Foundation/Foundation.h>
 @class EcomapProblemDetails;
+@class EcomapLoggedUser;
 
 @interface EcomapFetcher : NSObject
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GET API for Problems~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#pragma mark - GET API
 //Load all problems to array in completionHandler not blocking the main thread
 //NSArray *problems is a collection of EcomapProblem objects;
 + (void)loadAllProblemsOnCompletion:(void (^)(NSArray *problems, NSError *error))completionHandler;
 
 //Load problem details not blocking the main thread
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler;
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~END GET API for Problems~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#pragma mark - POST API
+//Login
++ (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(EcomapLoggedUser *loggedUser, NSError *error))completionHandler;
+
 @end
