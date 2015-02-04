@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self customSetup];
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
                                                             longitude:30.52173614501953
                                                                  zoom:6];
@@ -36,6 +37,18 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)customSetup
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    if ( revealViewController )
+    {
+        revealViewController.mapViewController = self.navigationController;
+        [self.revealButtonItem setTarget: self.revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
 }
 
 - (void)startStandardUpdates
