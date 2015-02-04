@@ -8,13 +8,15 @@
 
 #import "MapViewController.h"
 #import "EcomapRevealViewController.h"
-#import "TileOverlay.h"
-#import "TileOverlayView.h"
+#import <GoogleMaps/GoogleMaps.h>
 
-
-@interface MapViewController ()
+@interface MapViewController ()<CLLocationManagerDelegate>
+{
+    GMSMapView *_mapView;
+}
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -22,39 +24,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self customSetup];
-    
-    self.overlay = [[TileOverlay alloc] initOverlay];
-    [self.mapView addOverlay:self.overlay];
-    MKMapRect visibleRect = [self.mapView mapRectThatFits:self.overlay.boundingMapRect];
-    visibleRect.size.width /= 2;
-    visibleRect.size.height /= 2;
-    visibleRect.origin.x += visibleRect.size.width / 2;
-    visibleRect.origin.y += visibleRect.size.height / 2;
-    self.mapView.visibleMapRect = visibleRect;
-    self.mapView.delegate = self;
-
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
+                                                            longitude:30.52173614501953
+                                                                 zoom:6];
+    _mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    _mapView.myLocationEnabled = YES;
+    self.view = _mapView;
+    [self startStandardUpdates];
 }
 
-- (void)customSetup
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)startStandardUpdates
 {
-    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if ( revealViewController )
-    {
-        revealViewController.mapViewController = self.navigationController;
-        [self.revealButtonItem setTarget: self.revealViewController];
-        [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
-    }
+    if (self.locationManager == nil)
+        self.locationManager = [[CLLocationManager alloc] init];
     
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    self.locationManager.distanceFilter = 500; // meters
+    [self.locationManager requestWhenInUseAuthorization];
+    [self.locationManager startUpdatingLocation];
 }
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)ovl
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations
 {
-    TileOverlayView *view = [[TileOverlayView alloc] initWithOverlay:ovl];
-    view.tileAlpha = 1.0; // e.g. 0.6 alpha for semi-transparent overlay
-    return view;
+    CLLocation *location = [locations lastObject];
+    GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:17];
+    GMSCameraUpdate *update = [GMSCameraUpdate setCamera:position];
+    [_mapView moveCamera:update];
 }
-
 
 @end
