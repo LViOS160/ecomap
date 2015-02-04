@@ -9,14 +9,15 @@
 #import "MapViewController.h"
 #import "EcomapRevealViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "EcomapProblem.h"
+#import "EcomapFetcher.h"
 
 @interface MapViewController ()<CLLocationManagerDelegate>
-{
-    GMSMapView *_mapView;
-}
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) GMSMapView *mapView;
+@property (nonatomic, strong) NSSet *markers;
 
 @end
 
@@ -28,10 +29,16 @@
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
                                                             longitude:30.52173614501953
                                                                  zoom:6];
-    _mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    _mapView.myLocationEnabled = YES;
-    self.view = _mapView;
+    self.mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
+    self.mapView.myLocationEnabled = YES;
+    self.mapView.settings.myLocationButton = YES;
+    self.mapView.settings.compassButton = YES;
+    [self.view addSubview:self.mapView];
     [self startStandardUpdates];
+    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+        self.markers = [MapViewController markersFromProblems:problems];
+        [self drawMarkers];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,13 +70,59 @@
     [self.locationManager startUpdatingLocation];
 }
 
+- (void)drawMarkers
+{
+    for(GMSMarker *marker in self.markers) {
+        if(marker.map == nil)
+            marker.map = self.mapView;
+    }
+}
+
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
     CLLocation *location = [locations lastObject];
     GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:17];
     GMSCameraUpdate *update = [GMSCameraUpdate setCamera:position];
-    [_mapView moveCamera:update];
+    [self.mapView moveCamera:update];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    self.mapView.padding = UIEdgeInsetsMake(self.topLayoutGuide.length + 5,
+                                        0,
+                                        self.bottomLayoutGuide.length + 5,
+                                        0);
+}
+
+#pragma mark - Utility methods
+
++ (NSSet *)markersFromProblems:(NSArray *)problems
+{
+    NSMutableSet *markers = [[NSMutableSet alloc] initWithCapacity:problems.count];
+    for(EcomapProblem *problem in problems) {
+        if([problem isKindOfClass:[EcomapProblem class]])
+            [markers addObject:[MapViewController markerFromProblem:problem]];
+    }
+    return markers;
+}
+
++ (GMSMarker*)markerFromProblem:(EcomapProblem *)problem
+{
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
+    marker.title = problem.title;
+    marker.snippet = problem.problemTypeTitle;
+    marker.icon = [MapViewController iconForMarkerType:problem.problemTypesID];
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.map = nil;
+    return marker;
+}
+
++ (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
+{
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID]];
 }
 
 @end
