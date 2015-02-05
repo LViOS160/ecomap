@@ -8,8 +8,14 @@
 
 #import "LoginViewController.h"
 #import "EcomapRevealViewController.h"
+#import "EcomapLoggedUser.h"
+#import "EcomapFetcher.h"
 
 @interface LoginViewController ()
+
+@property (strong, nonatomic) IBOutlet UITextField *loginText;
+
+@property (strong, nonatomic) IBOutlet UITextField *passwordText;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 
@@ -21,6 +27,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self customSetup];
+}
+- (IBAction)loginButton:(UIButton *)sender {
+    NSString *login = self.loginText.text;
+    NSString *password = self.passwordText.text;
+    __block EcomapLoggedUser *loggedUser  = nil;
+    
+    [EcomapFetcher loginWithEmail:login andPassword:password OnCompletion:
+     ^(EcomapLoggedUser *user, NSError *error){
+         if (error){
+             UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Incorrect password or email" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+             [alertView show];
+         }
+         else{
+             UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+             [alertView show];
+             loggedUser = user;
+         }
+     }
+        ];
+    //loggedUser
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12B47F281A83A142008FAF8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B47F271A83A142008FAF8D /* RegisterViewController.m */; };
 		2D37BDF21A822EF0009A6562 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BDF11A822EF0009A6562 /* GoogleMaps.framework */; };
 		2D37BDF41A822F37009A6562 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D37BDF31A822F37009A6562 /* GoogleMaps.bundle */; };
 		2D37BDF61A822F74009A6562 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BDF51A822F74009A6562 /* AVFoundation.framework */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12B47F261A83A142008FAF8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		12B47F271A83A142008FAF8D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		2D37BDF11A822EF0009A6562 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		2D37BDF31A822F37009A6562 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		2D37BDF51A822F74009A6562 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -174,6 +177,8 @@
 				B353434F1A7F78A200DD2F03 /* MenuViewController.m */,
 				B388FF031A7F8AFF009C421C /* ResourcesViewController.h */,
 				B388FF041A7F8AFF009C421C /* ResourcesViewController.m */,
+				12B47F261A83A142008FAF8D /* RegisterViewController.h */,
+				12B47F271A83A142008FAF8D /* RegisterViewController.m */,
 				B388FF021A7F89D5009C421C /* Segues */,
 				B35343471A7F758000DD2F03 /* SWRevealViewController */,
 				B353431C1A7F73ED00DD2F03 /* Supporting Files */,
@@ -373,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */,
+				12B47F281A83A142008FAF8D /* RegisterViewController.m in Sources */,
 				B388FF0B1A7F9072009C421C /* StatisticViewController.m in Sources */,
 				B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */,
 				B353434A1A7F758000DD2F03 /* SWRevealViewController.m in Sources */,
