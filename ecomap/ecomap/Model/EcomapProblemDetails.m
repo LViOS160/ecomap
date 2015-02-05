@@ -20,57 +20,27 @@
 
 @implementation EcomapProblemDetails
 
-#pragma mark - Parsing problem
+#pragma mark - Overriding problem init
+//Override
+-(instancetype)initWithProblem:(NSDictionary *)problem
+{
+    self = [super initWithProblem:problem];
+    if (self) {
+        if (!problem) return nil;
+        [self parseProblem:problem];
+    }
+    return self;
+}
+
 -(void)parseProblem:(NSDictionary *)problem
 {
     if (problem) {
-        [super parseProblem:problem];
-        self.content = [self contentOfProblem:problem];
-        self.proposal = [self proposalOfProblem:problem];
-        self.severity = [self severityOfProblem:problem];
-        self.moderation = [self moderationOfProblem:problem];
-        self.votes = [self votesOfProblem:problem];
+        self.content = [problem valueForKey:ECOMAP_PROBLEM_CONTENT];
+        self.proposal = [problem valueForKey:ECOMAP_PROBLEM_PROPOSAL];
+        self.severity = [[problem valueForKey:ECOMAP_PROBLEM_SEVERITY] integerValue];
+        self.moderation = [[problem valueForKey:ECOMAP_PROBLEM_MODERATION] integerValue];
+        self.votes = [[problem valueForKey:ECOMAP_PROBLEM_VOTES] integerValue];
     }
-}
-
-
-//Returns problem content
-- (NSString *)contentOfProblem:(NSDictionary *)problem{
-    NSString *content = (NSString *)[problem valueForKey:ECOMAP_PROBLEM_CONTENT];
-    if (content) {
-        return content;
-    }
-    return nil;
-}
-
-//Returns problem proposal
-- (NSString *)proposalOfProblem:(NSDictionary *)problem{
-    NSString *proposal = (NSString *)[problem valueForKey:ECOMAP_PROBLEM_PROPOSAL];
-    if (proposal) {
-        return proposal;
-    }
-    return nil;
-}
-
-//Returns problem severity
-- (NSUInteger)severityOfProblem:(NSDictionary *)problem
-{
-    NSUInteger problemSeverity = [[problem valueForKey:ECOMAP_PROBLEM_SEVERITY] integerValue];
-    return problemSeverity;
-}
-
-//Returns problem moderation
-- (NSUInteger)moderationOfProblem:(NSDictionary *)problem
-{
-    NSUInteger problemModeration = [[problem valueForKey:ECOMAP_PROBLEM_MODERATION] integerValue];
-    return problemModeration;
-}
-
-//Returns problem votes
-- (NSUInteger)votesOfProblem:(NSDictionary *)problem
-{
-    NSUInteger problemVotes = [[problem valueForKey:ECOMAP_PROBLEM_VOTES] integerValue];
-    return problemVotes;
 }
 
 @end

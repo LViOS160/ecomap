@@ -22,6 +22,7 @@
 
 #pragma mark - POST API
 //Login
+//Use [EcomapLoggedUser currentLoggedUser] to get an instance of current logged user
 + (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(EcomapLoggedUser *loggedUser, NSError *error))completionHandler;
 
 @end
