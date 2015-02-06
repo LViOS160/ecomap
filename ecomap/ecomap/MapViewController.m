@@ -11,6 +11,10 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "EcomapProblem.h"
 #import "EcomapFetcher.h"
+#import "Spot.h"
+#import "NonHierarchicalDistanceBasedAlgorithm.h"
+#import "GDefaultClusterRenderer.h"
+
 
 @interface MapViewController ()<CLLocationManagerDelegate>
 
@@ -18,6 +22,8 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSSet *markers;
+@property (nonatomic, strong) GClusterManager *clusterManager;
+@property (nonatomic, strong) NSArray *problems;
 
 @end
 
@@ -37,9 +43,27 @@
     [self startStandardUpdates];
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
         self.markers = [MapViewController markersFromProblems:problems];
-        [self drawMarkers];
-    }];
+        //[self drawMarkers];
+        self.problems = problems;
+        }];
+    
+    //clasterization
+    self.clusterManager = [GClusterManager managerWithMapView:self.mapView
+                                                algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
+                                                 renderer:[[GDefaultClusterRenderer alloc] initWithMapView:self.mapView]];
+    
+    [self.mapView setDelegate:self.clusterManager];
+    
+    for(EcomapProblem *problem in self.problems) {
+        if([problem isKindOfClass:[EcomapProblem class]]){
+            Spot* spot = [self generateSpot:problem];
+        [self.clusterManager addItem:spot];
+        }
+    }
+    [self.clusterManager cluster];
+
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -85,6 +109,24 @@
     GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:17];
     GMSCameraUpdate *update = [GMSCameraUpdate setCamera:position];
     [self.mapView moveCamera:update];
+}
+
+//Spot from problem
+- (Spot*)generateSpot:(EcomapProblem *)problem
+{
+    Spot* spot = [[Spot alloc] init];
+    spot.location = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
+    return spot;
+}
+
+- (NSSet *)spotsFromProblems:(NSArray *)problems
+{
+    NSMutableSet *spots = [[NSMutableSet alloc]initWithCapacity:self.problems.count];
+    for(EcomapProblem *problem in self.problems) {
+        if([problem isKindOfClass:[EcomapProblem class]])
+            [spots addObject:[self generateSpot:problem]];
+    }
+    return spots;
 }
 
 - (void)viewWillLayoutSubviews
