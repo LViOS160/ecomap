@@ -11,6 +11,11 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "EcomapProblem.h"
 #import "EcomapFetcher.h"
+#import "Spot.h"
+#import "NonHierarchicalDistanceBasedAlgorithm.h"
+#import "GDefaultClusterRenderer.h"
+#import "EcomapClusterRenderer.h"
+
 
 @interface MapViewController ()<CLLocationManagerDelegate>
 
@@ -18,6 +23,8 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSSet *markers;
+@property (nonatomic, strong) GClusterManager *clusterManager;
+@property (nonatomic, strong) NSArray *problems;
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
@@ -70,9 +77,28 @@
     [self.view insertSubview:self.mapView atIndex:0];
     [self startStandardUpdates];
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-        self.markers = [MapViewController markersFromProblems:problems];
-        [self drawMarkers];
-    }];
+       // self.markers = [MapViewController markersFromProblems:problems];
+        //[self drawMarkers];
+        self.problems = problems;
+        for(EcomapProblem *problem in self.problems) {
+        if([problem isKindOfClass:[EcomapProblem class]]){
+            Spot* spot = [self generateSpot:problem];
+        [self.clusterManager addItem:spot];
+        [self.mapView setDelegate:self.clusterManager];
+        }
+    }
+    [self.clusterManager cluster];
+
+        }];
+    
+    //clasterization
+    self.clusterManager = [GClusterManager managerWithMapView:self.mapView
+                                                algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
+                                                 renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
+    
+   
+    
+    
 }
 
 - (void)customSetup
@@ -116,6 +142,25 @@
     [self.mapView moveCamera:update];
 }
 
+//Spot from problem
+- (Spot*)generateSpot:(EcomapProblem *)problem
+{
+    Spot* spot = [[Spot alloc] init];
+    spot.problem = problem;
+    spot.location = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
+    return spot;
+}
+
+- (NSSet *)spotsFromProblems:(NSArray *)problems
+{
+    NSMutableSet *spots = [[NSMutableSet alloc]initWithCapacity:self.problems.count];
+    for(EcomapProblem *problem in self.problems) {
+        if([problem isKindOfClass:[EcomapProblem class]])
+            [spots addObject:[self generateSpot:problem]];
+    }
+    return spots;
+}
+
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
@@ -127,7 +172,7 @@
 
 #pragma mark - Utility methods
 
-+ (NSSet *)markersFromProblems:(NSArray *)problems
+/*+ (NSSet *)markersFromProblems:(NSArray *)problems
 {
     NSMutableSet *markers = [[NSMutableSet alloc] initWithCapacity:problems.count];
     for(EcomapProblem *problem in problems) {
@@ -152,7 +197,7 @@
 + (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
 {
     return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID]];
-}
+}*/
 
 
 

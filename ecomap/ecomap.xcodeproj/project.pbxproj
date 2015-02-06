@@ -42,6 +42,16 @@
 		B388FF081A7F905B009C421C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FF071A7F905B009C421C /* LoginViewController.m */; };
 		B388FF0B1A7F9072009C421C /* StatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FF0A1A7F9072009C421C /* StatisticViewController.m */; };
 		B3FF8F9E1A84DCC3008FED3D /* AddProblemNavigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigation.xib */; };
+		CABBB5121A853D400089065B /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB4FF1A853D400089065B /* GQuadItem.m */; };
+		CABBB5131A853D400089065B /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5011A853D400089065B /* GStaticCluster.m */; };
+		CABBB5141A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5031A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m */; };
+		CABBB5151A853D400089065B /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5071A853D400089065B /* GClusterManager.m */; };
+		CABBB5161A853D400089065B /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5091A853D400089065B /* SphericalMercatorProjection.m */; };
+		CABBB5171A853D400089065B /* EcomapClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB50C1A853D400089065B /* EcomapClusterRenderer.m */; };
+		CABBB5181A853D400089065B /* GDefaultClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB50F1A853D400089065B /* GDefaultClusterRenderer.m */; };
+		CABBB5191A853D400089065B /* Spot.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5111A853D400089065B /* Spot.m */; };
+		CABBB5221A853D6F0089065B /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB51E1A853D6F0089065B /* GQTPointQuadTree.m */; };
+		CABBB5231A853D6F0089065B /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5201A853D6F0089065B /* GQTPointQuadTreeChild.m */; };
 		E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C921A80F9A300121A7E /* EcomapFetcher.m */; };
 		E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C941A80F9A300121A7E /* EcomapProblem.m */; };
 		E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C961A80F9A300121A7E /* EcomapProblemDetails.m */; };
@@ -112,6 +122,33 @@
 		B388FF091A7F9072009C421C /* StatisticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticViewController.h; sourceTree = "<group>"; };
 		B388FF0A1A7F9072009C421C /* StatisticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticViewController.m; sourceTree = "<group>"; };
 		B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNavigation.xib; sourceTree = "<group>"; };
+		CABBB4FD1A853D400089065B /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
+		CABBB4FE1A853D400089065B /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
+		CABBB4FF1A853D400089065B /* GQuadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQuadItem.m; sourceTree = "<group>"; };
+		CABBB5001A853D400089065B /* GStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GStaticCluster.h; sourceTree = "<group>"; };
+		CABBB5011A853D400089065B /* GStaticCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GStaticCluster.m; sourceTree = "<group>"; };
+		CABBB5021A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonHierarchicalDistanceBasedAlgorithm.h; sourceTree = "<group>"; };
+		CABBB5031A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonHierarchicalDistanceBasedAlgorithm.m; sourceTree = "<group>"; };
+		CABBB5041A853D400089065B /* GCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCluster.h; sourceTree = "<group>"; };
+		CABBB5051A853D400089065B /* GClusterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterItem.h; sourceTree = "<group>"; };
+		CABBB5061A853D400089065B /* GClusterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterManager.h; sourceTree = "<group>"; };
+		CABBB5071A853D400089065B /* GClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GClusterManager.m; sourceTree = "<group>"; };
+		CABBB5081A853D400089065B /* SphericalMercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalMercatorProjection.h; sourceTree = "<group>"; };
+		CABBB5091A853D400089065B /* SphericalMercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SphericalMercatorProjection.m; sourceTree = "<group>"; };
+		CABBB50B1A853D400089065B /* EcomapClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapClusterRenderer.h; sourceTree = "<group>"; };
+		CABBB50C1A853D400089065B /* EcomapClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapClusterRenderer.m; sourceTree = "<group>"; };
+		CABBB50D1A853D400089065B /* GClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterRenderer.h; sourceTree = "<group>"; };
+		CABBB50E1A853D400089065B /* GDefaultClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDefaultClusterRenderer.h; sourceTree = "<group>"; };
+		CABBB50F1A853D400089065B /* GDefaultClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDefaultClusterRenderer.m; sourceTree = "<group>"; };
+		CABBB5101A853D400089065B /* Spot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spot.h; sourceTree = "<group>"; };
+		CABBB5111A853D400089065B /* Spot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spot.m; sourceTree = "<group>"; };
+		CABBB51B1A853D6F0089065B /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
+		CABBB51C1A853D6F0089065B /* GQTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPoint.h; sourceTree = "<group>"; };
+		CABBB51D1A853D6F0089065B /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
+		CABBB51E1A853D6F0089065B /* GQTPointQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTree.m; sourceTree = "<group>"; };
+		CABBB51F1A853D6F0089065B /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
+		CABBB5201A853D6F0089065B /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
+		CABBB5211A853D6F0089065B /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
 		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
 		E5F27C921A80F9A300121A7E /* EcomapFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapFetcher.m; path = Model/EcomapFetcher.m; sourceTree = "<group>"; };
@@ -210,6 +247,7 @@
 		B353431B1A7F73ED00DD2F03 /* ecomap */ = {
 			isa = PBXGroup;
 			children = (
+				CABBB4FB1A853D400089065B /* Clustering */,
 				E5F27C901A80F98D00121A7E /* Model */,
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
 				B388FF091A7F9072009C421C /* StatisticViewController.h */,
@@ -313,6 +351,64 @@
 				B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigation.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		CABBB4FB1A853D400089065B /* Clustering */ = {
+			isa = PBXGroup;
+			children = (
+				CABBB51A1A853D6F0089065B /* QuadTree */,
+				CABBB4FC1A853D400089065B /* Algorithms */,
+				CABBB5041A853D400089065B /* GCluster.h */,
+				CABBB5051A853D400089065B /* GClusterItem.h */,
+				CABBB5061A853D400089065B /* GClusterManager.h */,
+				CABBB5071A853D400089065B /* GClusterManager.m */,
+				CABBB5081A853D400089065B /* SphericalMercatorProjection.h */,
+				CABBB5091A853D400089065B /* SphericalMercatorProjection.m */,
+				CABBB50A1A853D400089065B /* View */,
+			);
+			path = Clustering;
+			sourceTree = "<group>";
+		};
+		CABBB4FC1A853D400089065B /* Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				CABBB4FD1A853D400089065B /* GClusterAlgorithm.h */,
+				CABBB4FE1A853D400089065B /* GQuadItem.h */,
+				CABBB4FF1A853D400089065B /* GQuadItem.m */,
+				CABBB5001A853D400089065B /* GStaticCluster.h */,
+				CABBB5011A853D400089065B /* GStaticCluster.m */,
+				CABBB5021A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.h */,
+				CABBB5031A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m */,
+			);
+			path = Algorithms;
+			sourceTree = "<group>";
+		};
+		CABBB50A1A853D400089065B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CABBB50B1A853D400089065B /* EcomapClusterRenderer.h */,
+				CABBB50C1A853D400089065B /* EcomapClusterRenderer.m */,
+				CABBB50D1A853D400089065B /* GClusterRenderer.h */,
+				CABBB50E1A853D400089065B /* GDefaultClusterRenderer.h */,
+				CABBB50F1A853D400089065B /* GDefaultClusterRenderer.m */,
+				CABBB5101A853D400089065B /* Spot.h */,
+				CABBB5111A853D400089065B /* Spot.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CABBB51A1A853D6F0089065B /* QuadTree */ = {
+			isa = PBXGroup;
+			children = (
+				CABBB51B1A853D6F0089065B /* GQTBounds.h */,
+				CABBB51C1A853D6F0089065B /* GQTPoint.h */,
+				CABBB51D1A853D6F0089065B /* GQTPointQuadTree.h */,
+				CABBB51E1A853D6F0089065B /* GQTPointQuadTree.m */,
+				CABBB51F1A853D6F0089065B /* GQTPointQuadTreeChild.h */,
+				CABBB5201A853D6F0089065B /* GQTPointQuadTreeChild.m */,
+				CABBB5211A853D6F0089065B /* GQTPointQuadTreeItem.h */,
+			);
+			path = QuadTree;
 			sourceTree = "<group>";
 		};
 		E5F27C901A80F98D00121A7E /* Model */ = {
@@ -429,18 +525,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */,
+				CABBB5121A853D400089065B /* GQuadItem.m in Sources */,
+				CABBB5221A853D6F0089065B /* GQTPointQuadTree.m in Sources */,
+				CABBB5131A853D400089065B /* GStaticCluster.m in Sources */,
 				B388FF0B1A7F9072009C421C /* StatisticViewController.m in Sources */,
+				CABBB5231A853D6F0089065B /* GQTPointQuadTreeChild.m in Sources */,
 				B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */,
+				CABBB5181A853D400089065B /* GDefaultClusterRenderer.m in Sources */,
 				51B485271A8417CB00BA8AFF /* EcomapLoggedUser.m in Sources */,
 				90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */,
 				B353434A1A7F758000DD2F03 /* SWRevealViewController.m in Sources */,
+				CABBB5141A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				B35343281A7F73ED00DD2F03 /* MapViewController.m in Sources */,
+				CABBB5171A853D400089065B /* EcomapClusterRenderer.m in Sources */,
+				CABBB5161A853D400089065B /* SphericalMercatorProjection.m in Sources */,
 				B388FF081A7F905B009C421C /* LoginViewController.m in Sources */,
 				E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */,
+				CABBB5191A853D400089065B /* Spot.m in Sources */,
 				B388FF001A7F8832009C421C /* MapSegue.m in Sources */,
 				E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */,
 				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
 				90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */,
+				CABBB5151A853D400089065B /* GClusterManager.m in Sources */,
 				90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */,
 				B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */,
 				90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */,
