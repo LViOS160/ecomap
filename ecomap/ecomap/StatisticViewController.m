@@ -27,6 +27,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (void)customSetup
 {
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
@@ -36,7 +37,6 @@
         [self.revealButtonItem setAction: @selector( revealToggle: )];
         [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
     }
-    
 }
 
 /*
