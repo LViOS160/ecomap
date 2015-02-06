@@ -45,6 +45,15 @@
         self.markers = [MapViewController markersFromProblems:problems];
         //[self drawMarkers];
         self.problems = problems;
+        for(EcomapProblem *problem in self.problems) {
+        if([problem isKindOfClass:[EcomapProblem class]]){
+            Spot* spot = [self generateSpot:problem];
+        [self.clusterManager addItem:spot];
+        [self.mapView setDelegate:self.clusterManager];
+        }
+    }
+    [self.clusterManager cluster];
+
         }];
     
     //clasterization
@@ -52,16 +61,9 @@
                                                 algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                  renderer:[[GDefaultClusterRenderer alloc] initWithMapView:self.mapView]];
     
-    [self.mapView setDelegate:self.clusterManager];
+   
     
-    for(EcomapProblem *problem in self.problems) {
-        if([problem isKindOfClass:[EcomapProblem class]]){
-            Spot* spot = [self generateSpot:problem];
-        [self.clusterManager addItem:spot];
-        }
-    }
-    [self.clusterManager cluster];
-
+    
 }
 
 
