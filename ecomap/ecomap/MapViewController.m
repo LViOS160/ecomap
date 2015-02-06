@@ -118,6 +118,7 @@
 - (Spot*)generateSpot:(EcomapProblem *)problem
 {
     Spot* spot = [[Spot alloc] init];
+    spot.problem = problem;
     spot.location = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
     return spot;
 }
