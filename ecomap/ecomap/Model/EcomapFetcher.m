@@ -85,6 +85,46 @@
                 }];
 }
 
+#pragma mark - Register
+
+// added by Gregory Chereda
++ (void)registerWithName:(NSString*)name andSurname:(NSString*) surname andEmail: (NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(NSError *error))completionHandler{
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    
+    //Set up request
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforRegister]];
+    [request setHTTPMethod:@"POST"];
+    
+    //Create JSON data to send to  server
+    NSDictionary *loginData = @{@"first_name": name, @"last_name":surname, @"email" : email, @"password" : password};
+    NSData *data = [NSJSONSerialization dataWithJSONObject:loginData options:0
+                                                     error:nil];
+    [self uploadDataTaskWithRequest:request
+                           fromData:data
+               sessionConfiguration:sessionConfiguration
+                  completionHandler:^(NSData *JSON, NSError *error) {
+                     // EcomapLoggedUser *loggedUser = nil;
+                      //NSDictionary *userInfo = nil;
+                      if (!error) {
+                          //Parse JSON
+                          //userInfo = [EcomapFetcher parseJSONtoDictionary:JSON];
+//                          loggedUser = [[EcomapLoggedUser alloc] initWithUserInfo:userInfo];
+//                          //Log success login
+//                          if (loggedUser) {
+                              //NSLog(@"LogIN to ecomap success! %@", loggedUser.description);
+//                          }
+                      }
+                      
+                      //set up completionHandler
+                      completionHandler(error);
+                  }];
+
+    
+}
+
+
+
 #pragma mark - Login
 + (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(EcomapLoggedUser *loggedUser, NSError *error))completionHandler
 {
@@ -229,11 +269,13 @@
         case 400:
             error = [[NSError alloc] initWithDomain:@"Bad Request" code:statusCode userInfo:@{@"error" : @"Incorect email or password"}];
             break;
-            
+        
         case 404:
             error = [[NSError alloc] initWithDomain:@"Not Found" code:statusCode userInfo:@{@"error" : @"The server has not found anything matching the Request URL"}];
             break;
             
+        case 401: // added by Gregory Chereda
+            error = [[NSError alloc] initWithDomain:@"Unauthorized" code:401 userInfo:@{@"error" : @"Request error"}];
         default:
             error = [[NSError alloc] initWithDomain:@"Unknown error" code:statusCode userInfo:@{@"error" : @"Unknown error"}];
             break;

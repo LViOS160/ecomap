@@ -8,6 +8,7 @@
 
 
 #import "RegisterViewController.h"
+#import "EcomapFetcher.h"
 
 typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // types of showing alerts
 
@@ -37,7 +38,7 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
 }
 
 // show the allerts in different cases
--(void)showTheAlert:(Alerts) alert{
+-(void)showTheUIRoutineAlert:(Alerts) alert{
     UIAlertView* alertView;
     
     switch(alert){
@@ -65,21 +66,65 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
     
 }
 
+-(void)showhttpErrorAlert:(NSUInteger) error{
+    UIAlertView* alertView;
+    switch (error){
+        case 0:
+            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@" Registration is succesfull." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            break;
+        case 400:
+            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@" This email has already existed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            break;
+        case 401:
+            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Please, try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            break;
+        default:
+            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Unknown error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            break;
+    }
+}
+
 - (IBAction)registerButton:(UIButton *)sender {
+    //__block
     if (self.confirmText.text.length !=0 && self.passwordText.text.length!=0 && self.emailText.text.length!=0 && self.surnameText.text.length!=0 && self.nameText.text.length!=0){
-        if([self validateEmail:self.emailText.text]){
+        if(true)//[self validateEmail:self.emailText.text])
+        {
             if([self.confirmText.text isEqualToString:self.passwordText.text]){
                 if(self.passwordText.text.length > 4)
                 {
-                }
-                else [self showTheAlert:smallLength];
-            }
-            else [self showTheAlert:differentPasswords];
-        }
-        else [self showTheAlert:notEmail];
-    }
-    else [self showTheAlert:oneIsEmpty];
+                    [EcomapFetcher registerWithName:self.nameText.text
+                                         andSurname:self.surnameText.text
+                                           andEmail:self.emailText.text
+                                        andPassword:self.passwordText.text OnCompletion:^(NSError *error) {
+                                            NSInteger httpErrorCode = 0;
+                                            if(error) httpErrorCode = error.code;
+                                            [self showhttpErrorAlert:httpErrorCode];
+                                            if(httpErrorCode == 0){
+                                                [EcomapFetcher loginWithEmail:self.emailText.text andPassword:self.passwordText.text OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                                    if(!error){
+                                                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                                                        [alertView show];
+                                                    }
+                                                }
+                                                 ];
+                                            }
 
+                                            
+                                        }
+                     ];
+                }
+                else [self showTheUIRoutineAlert:smallLength];
+            }
+            else [self showTheUIRoutineAlert:differentPasswords];
+        }
+        else [self showTheUIRoutineAlert:notEmail];
+    }
+    else [self showTheUIRoutineAlert:oneIsEmpty];
+   
 }
 
 - (void)didReceiveMemoryWarning {

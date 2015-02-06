@@ -15,6 +15,7 @@
 #define ECOMAP_API @"api/"
 #define ECOMAP_GET_PROBLEMS_API @"problems/"
 #define ECOMAP_POST_LOGIN_API @"login/"
+#define ECOMAP_POST_REGISTER_API @"register/"
 #define ECOMAP_GET_PHOTOS_ADDRESS @"photos/large/"
 
 //Problems types descripton

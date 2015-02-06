@@ -31,11 +31,13 @@
 - (IBAction)loginButton:(UIButton *)sender {
     NSString *login = self.loginText.text;
     NSString *password = self.passwordText.text;
+    
     __block EcomapLoggedUser *loggedUser  = nil;
     
     [EcomapFetcher loginWithEmail:login andPassword:password OnCompletion:
      ^(EcomapLoggedUser *user, NSError *error){
          if (error){
+            // int errorCode = error.code;
              UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Incorrect password or email" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
              [alertView show];
          }

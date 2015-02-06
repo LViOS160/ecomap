@@ -18,4 +18,7 @@
 
 //Return API URL to logIn
 + (NSURL *)URLforLogin;
+
+//Return API URL to Register
++(NSURL*)URLforRegister;
 @end
