@@ -22,9 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) GMSMapView *mapView;
-@property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) GClusterManager *clusterManager;
-@property (nonatomic, strong) NSArray *problems;
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
@@ -77,28 +75,19 @@
     [self.view insertSubview:self.mapView atIndex:0];
     [self startStandardUpdates];
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-       // self.markers = [MapViewController markersFromProblems:problems];
-        //[self drawMarkers];
-        self.problems = problems;
-        for(EcomapProblem *problem in self.problems) {
-        if([problem isKindOfClass:[EcomapProblem class]]){
-            Spot* spot = [self generateSpot:problem];
-        [self.clusterManager addItem:spot];
-        [self.mapView setDelegate:self.clusterManager];
+        for(EcomapProblem *problem in problems) {
+            if([problem isKindOfClass:[EcomapProblem class]]){
+                Spot* spot = [self generateSpot:problem];
+                [self.clusterManager addItem:spot];
+            }
         }
-    }
-    [self.clusterManager cluster];
-
-        }];
-    
-    //clasterization
+        [self.mapView setDelegate:self.clusterManager];
+        [self.clusterManager cluster];
+        
+    }];
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
                                                 algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                  renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
-    
-   
-    
-    
 }
 
 - (void)customSetup
@@ -125,14 +114,6 @@
     [self.locationManager startUpdatingLocation];
 }
 
-- (void)drawMarkers
-{
-    for(GMSMarker *marker in self.markers) {
-        if(marker.map == nil)
-            marker.map = self.mapView;
-    }
-}
-
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
@@ -142,7 +123,6 @@
     [self.mapView moveCamera:update];
 }
 
-//Spot from problem
 - (Spot*)generateSpot:(EcomapProblem *)problem
 {
     Spot* spot = [[Spot alloc] init];
@@ -151,55 +131,15 @@
     return spot;
 }
 
-- (NSSet *)spotsFromProblems:(NSArray *)problems
-{
-    NSMutableSet *spots = [[NSMutableSet alloc]initWithCapacity:self.problems.count];
-    for(EcomapProblem *problem in self.problems) {
-        if([problem isKindOfClass:[EcomapProblem class]])
-            [spots addObject:[self generateSpot:problem]];
-    }
-    return spots;
-}
-
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
+    self.mapView.frame = self.view.frame;
     self.mapView.padding = UIEdgeInsetsMake(self.topLayoutGuide.length + 5,
                                         0,
                                         self.bottomLayoutGuide.length + 5,
                                         0);
 }
-
-#pragma mark - Utility methods
-
-/*+ (NSSet *)markersFromProblems:(NSArray *)problems
-{
-    NSMutableSet *markers = [[NSMutableSet alloc] initWithCapacity:problems.count];
-    for(EcomapProblem *problem in problems) {
-        if([problem isKindOfClass:[EcomapProblem class]])
-            [markers addObject:[MapViewController markerFromProblem:problem]];
-    }
-    return markers;
-}
-
-+ (GMSMarker*)markerFromProblem:(EcomapProblem *)problem
-{
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
-    marker.title = problem.title;
-    marker.snippet = problem.problemTypeTitle;
-    marker.icon = [MapViewController iconForMarkerType:problem.problemTypesID];
-    marker.appearAnimation = kGMSMarkerAnimationPop;
-    marker.map = nil;
-    return marker;
-}
-
-+ (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
-{
-    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID]];
-}*/
-
-
 
 #pragma mark - AddProblem
 
