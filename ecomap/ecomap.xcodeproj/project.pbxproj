@@ -16,6 +16,7 @@
 		2D24DEA11A84BFA200A7B086 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D24DE9E1A84BFA200A7B086 /* GQTPointQuadTreeChild.m */; };
 		2D24DEA41A84C0C600A7B086 /* Spot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D24DEA31A84C0C600A7B086 /* Spot.m */; };
 		2D24DEA71A84CC5B00A7B086 /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D24DEA61A84CC5B00A7B086 /* SphericalMercatorProjection.m */; };
+		2D24DEAA1A84E52000A7B086 /* EcomapClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D24DEA91A84E52000A7B086 /* EcomapClusterRenderer.m */; };
 		2D37BDF21A822EF0009A6562 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BDF11A822EF0009A6562 /* GoogleMaps.framework */; };
 		2D37BDF41A822F37009A6562 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D37BDF31A822F37009A6562 /* GoogleMaps.bundle */; };
 		2D37BDF61A822F74009A6562 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BDF51A822F74009A6562 /* AVFoundation.framework */; };
@@ -88,6 +89,8 @@
 		2D24DEA31A84C0C600A7B086 /* Spot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Spot.m; path = Model/Spot.m; sourceTree = "<group>"; };
 		2D24DEA51A84CC5B00A7B086 /* SphericalMercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalMercatorProjection.h; sourceTree = "<group>"; };
 		2D24DEA61A84CC5B00A7B086 /* SphericalMercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SphericalMercatorProjection.m; sourceTree = "<group>"; };
+		2D24DEA81A84E52000A7B086 /* EcomapClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapClusterRenderer.h; sourceTree = "<group>"; };
+		2D24DEA91A84E52000A7B086 /* EcomapClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapClusterRenderer.m; sourceTree = "<group>"; };
 		2D37BDF11A822EF0009A6562 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		2D37BDF31A822F37009A6562 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		2D37BDF51A822F74009A6562 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -177,6 +180,8 @@
 		2D24DE821A84BF4900A7B086 /* Clustering */ = {
 			isa = PBXGroup;
 			children = (
+				2D24DEA81A84E52000A7B086 /* EcomapClusterRenderer.h */,
+				2D24DEA91A84E52000A7B086 /* EcomapClusterRenderer.m */,
 				2D24DEA51A84CC5B00A7B086 /* SphericalMercatorProjection.h */,
 				2D24DEA61A84CC5B00A7B086 /* SphericalMercatorProjection.m */,
 				2D24DE831A84BF4900A7B086 /* Algorithms */,
@@ -473,6 +478,7 @@
 				B388FF081A7F905B009C421C /* LoginViewController.m in Sources */,
 				E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */,
 				B388FF001A7F8832009C421C /* MapSegue.m in Sources */,
+				2D24DEAA1A84E52000A7B086 /* EcomapClusterRenderer.m in Sources */,
 				2D24DEA71A84CC5B00A7B086 /* SphericalMercatorProjection.m in Sources */,
 				2D24DE931A84BF4900A7B086 /* GQuadItem.m in Sources */,
 				E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */,

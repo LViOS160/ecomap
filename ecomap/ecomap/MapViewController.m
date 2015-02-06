@@ -14,6 +14,7 @@
 #import "Spot.h"
 #import "NonHierarchicalDistanceBasedAlgorithm.h"
 #import "GDefaultClusterRenderer.h"
+#import "EcomapClusterRenderer.h"
 
 
 @interface MapViewController ()<CLLocationManagerDelegate>
@@ -42,7 +43,7 @@
     [self.view addSubview:self.mapView];
     [self startStandardUpdates];
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-        self.markers = [MapViewController markersFromProblems:problems];
+       // self.markers = [MapViewController markersFromProblems:problems];
         //[self drawMarkers];
         self.problems = problems;
         for(EcomapProblem *problem in self.problems) {
@@ -59,7 +60,7 @@
     //clasterization
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
                                                 algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
-                                                 renderer:[[GDefaultClusterRenderer alloc] initWithMapView:self.mapView]];
+                                                 renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
     
    
     
@@ -142,7 +143,7 @@
 
 #pragma mark - Utility methods
 
-+ (NSSet *)markersFromProblems:(NSArray *)problems
+/*+ (NSSet *)markersFromProblems:(NSArray *)problems
 {
     NSMutableSet *markers = [[NSMutableSet alloc] initWithCapacity:problems.count];
     for(EcomapProblem *problem in problems) {
@@ -167,6 +168,6 @@
 + (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
 {
     return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID]];
-}
+}*/
 
 @end
