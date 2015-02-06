@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statsRangeSegmentedControl;
 
 @property(nonatomic, strong) NSMutableArray *slices;
-@property(nonatomic, strong) NSArray        *sliceColors;
+@property(nonatomic, strong) NSArray *sliceColors;
 
 @end
 
@@ -28,8 +28,8 @@
 
 -(void)setStatsForPieChart:(NSArray *)statsForPieChart
 {
-    [self redrawPieChart];
     _statsForPieChart = statsForPieChart;
+    [self drawPieChart];
 }
 
 - (IBAction)changeRangeOfShowingStats:(UISegmentedControl *)sender
@@ -37,52 +37,72 @@
     [self fetchStats];
 }
 
-- (void)updateUI
-{
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
-    [self fetchStats];
-    [self redrawPieChart];
 }
 
-- (void)redrawPieChart
+- (void)drawPieChart
 {
-    NSLog(@"Redraw Pie Chart");
     self.slices = [[NSMutableArray alloc] init];
-    
-    NSLog(@"Stats count = %lu", (unsigned long)[self.statsForPieChart count]);
     
     for(int i = 0; i < [self.statsForPieChart count]; i++)
     {
         NSDictionary *problems = self.statsForPieChart[i];
         NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
-        NSLog(@"number = %@", number);
         [self.slices addObject:number];
     }
     
+    [self.pieChartView setDelegate:self];
     [self.pieChartView setDataSource:self];
-    [self.pieChartView setStartPieAngle:M_PI_2];
     [self.pieChartView setAnimationSpeed:1.0];
-    [self.pieChartView setLabelFont:[UIFont fontWithName:@"DBLCDTempBlack" size:24]];
-    [self.pieChartView setLabelRadius:160];
-    [self.pieChartView setShowPercentage:YES];
-    [self.pieChartView setPieBackgroundColor:[UIColor colorWithWhite:0.95 alpha:1]];
-    [self.pieChartView setPieCenter:CGPointMake(240, 240)];
+    [self.pieChartView setShowPercentage:NO];
+    [self.pieChartView setPieCenter:CGPointMake(self.pieChartView.bounds.size.width /2 , self.pieChartView.bounds.size.height / 2)];
     [self.pieChartView setUserInteractionEnabled:NO];
-    [self.pieChartView setLabelShadowColor:[UIColor blackColor]];
+    [self.pieChartView setLabelColor:[UIColor whiteColor]];
     
-    self.sliceColors =[NSArray arrayWithObjects:
-                       [UIColor colorWithRed:246/255.0 green:155/255.0 blue:0/255.0 alpha:1],
-                       [UIColor colorWithRed:129/255.0 green:195/255.0 blue:29/255.0 alpha:1],
-                       [UIColor colorWithRed:62/255.0 green:173/255.0 blue:219/255.0 alpha:1],
-                       [UIColor colorWithRed:229/255.0 green:66/255.0 blue:115/255.0 alpha:1],
-                       [UIColor colorWithRed:148/255.0 green:141/255.0 blue:139/255.0 alpha:1],nil];
+    self.sliceColors = [self generateSliceColors];
     
     [self.pieChartView reloadData];
+}
+
+- (UIColor *)getSliceColorForProblemType:(NSNumber *)problemTypeID
+{
+    NSInteger iProblemTypeID = [problemTypeID integerValue];
+    
+    switch (iProblemTypeID) {
+        case 1: return [UIColor colorWithRed:9/255.0 green:91/255.0 blue:15/255.0 alpha:1];
+        case 2: return [UIColor colorWithRed:35/255.0 green:31/255.0 blue:32/255.0 alpha:1];
+        case 3: return [UIColor colorWithRed:152/255.0 green:68/255.0 blue:43/255.0 alpha:1];
+        case 4: return [UIColor colorWithRed:27/255.0 green:154/255.0 blue:214/255.0 alpha:1];
+        case 5: return [UIColor colorWithRed:113/255.0 green:191/255.0 blue:68/255.0 alpha:1];
+        case 6: return [UIColor colorWithRed:255/255.0 green:171/255.0 blue:9/255.0 alpha:1];
+        case 7: return [UIColor colorWithRed:80/255.0 green:9/255.0 blue:91/255.0 alpha:1];
+    }
+    
+    return [UIColor clearColor];
+}
+
+- (NSArray *)generateSliceColors
+{
+    NSMutableArray *mutableSliceColors = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [self.statsForPieChart count]; i++)
+    {
+        NSDictionary *problems = self.statsForPieChart[i];
+        NSNumber *problemID = [NSNumber numberWithInteger:[[problems valueForKey:@"id"] integerValue]];
+        UIColor *sliceColor = [self getSliceColorForProblemType:problemID];
+        [mutableSliceColors addObject:sliceColor];
+    }
+    
+    /*NSArray *sliceColors = [NSArray arrayWithObjects:
+                            [UIColor colorWithRed:246/255.0 green:155/255.0 blue:0/255.0 alpha:1],
+                            [UIColor colorWithRed:129/255.0 green:195/255.0 blue:29/255.0 alpha:1],
+                            [UIColor colorWithRed:62/255.0 green:173/255.0 blue:219/255.0 alpha:1],
+                            [UIColor colorWithRed:229/255.0 green:66/255.0 blue:115/255.0 alpha:1],
+                            [UIColor colorWithRed:148/255.0 green:141/255.0 blue:139/255.0 alpha:1],nil];
+    */
+    return mutableSliceColors;
 }
 
 - (void)fetchStats
@@ -94,10 +114,10 @@
         NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
                                                                    options:0
                                                                      error:NULL];
-        dispatch_async(dispatch_get_main_queue(), ^{
+      dispatch_async(dispatch_get_main_queue(), ^{
             self.statsForPieChart = propertyListResults;
-            //NSLog(@"%@", propertyListResults);
-        });
+            NSLog(@"%@", propertyListResults);
+      });
     });
 
 }
@@ -116,7 +136,7 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [self updateUI];
+    
 }
 
 /*
