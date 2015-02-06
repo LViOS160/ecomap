@@ -19,6 +19,9 @@
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSSet *markers;
 
+//AddProblemViews
+@property (nonatomic, strong) UIView* addProblemNavigationView;
+
 @end
 
 @implementation MapViewController
@@ -26,6 +29,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self customSetup];
+    [self mapSetup];
+    [self loadNibs];
+    
+//    [_addProblemNavigationView setFrame:CGRectMake(0, 60, 320, 52)];
+//    
+//   
+//
+//
+//    [self.view addSubview:_addProblemNavigationView];
+//    
+//    NSDictionary *metrics = @{@"height":@52.0};
+//    NSDictionary *dict = [NSDictionary dictionaryWithObjects:@[self.topLayoutGuide, _addProblemNavigationView]
+//                                                     forKeys:@[@"topGuide", @"grayView"]];
+//    [_addProblemNavigationView setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[grayView]"
+//                                                                      options:0
+//                                                                      metrics:nil
+//                                                                        views:dict]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[grayView(height)]-|"
+//                                                                      options:0
+//                                                                      metrics:metrics
+//                                                                        views:dict]];
+    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[grayView]-|"
+//                                                                      options:0
+//                                                                      metrics:nil
+//                                                                        views:dict]];
+}
+
+- (void)mapSetup {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
                                                             longitude:30.52173614501953
                                                                  zoom:6];
@@ -33,17 +67,12 @@
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.compassButton = YES;
-    [self.view addSubview:self.mapView];
+    [self.view insertSubview:self.mapView atIndex:0];
     [self startStandardUpdates];
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
         self.markers = [MapViewController markersFromProblems:problems];
         [self drawMarkers];
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)customSetup
@@ -123,6 +152,15 @@
 + (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
 {
     return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID]];
+}
+
+
+
+#pragma mark - AddProblem
+
+- (void)loadNibs {
+    _addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigation" owner:self options:nil][0];
+    
 }
 
 @end

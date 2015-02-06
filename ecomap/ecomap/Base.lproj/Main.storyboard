@@ -289,6 +289,27 @@
         <scene sceneID="Auy-CR-RWp">
             <objects>
                 <viewController id="bov-97-S05" customClass="MapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kuJ-4W-yhv"/>
+                        <viewControllerLayoutGuide type="bottom" id="HGO-LG-HWP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WRP-KO-eoO" userLabel="ContainerView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vm5-Cq-zWt">
+                                <rect key="frame" x="253" y="431" width="58" height="60"/>
+                                <state key="normal" image="add">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="Vm5-Cq-zWt" secondAttribute="bottom" constant="77" id="FFa-3E-dEE"/>
+                            <constraint firstAttribute="trailing" secondItem="Vm5-Cq-zWt" secondAttribute="trailing" constant="9" id="S9y-3g-6fY"/>
+                        </constraints>
+                    </view>
                     <navigationItem key="navigationItem" title="Ecomap" id="k5h-KU-feq">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="XHY-cf-hKr"/>
                     </navigationItem>
@@ -489,6 +510,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="58" height="60"/>
         <image name="reveal-icon" width="22" height="17"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
