@@ -11,16 +11,33 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "EcomapProblem.h"
 #import "EcomapFetcher.h"
+#import "Defines.h"
 
-@interface MapViewController ()<CLLocationManagerDelegate>
+@interface MapViewController () {
+    CGFloat padding;
+    CGFloat paddingWithNavigationView;
+    CGFloat screenWidth;
+}
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSSet *markers;
+//AddProblemProperties
+
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UIButton *prevButton;
+@property (strong, nonatomic) UIBarButtonItem *closeButton;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
+@property (nonatomic, strong) UIView* addProblemNameView;
+@property (nonatomic, strong) UIView* addProblemLocationView;
+@property (nonatomic, strong) UIView* curView;
+@property (nonatomic, strong) UIView* prevView;
+@property (nonatomic, strong) UIView* nextView;
+
 
 @end
 
@@ -31,33 +48,141 @@
     [self customSetup];
     [self mapSetup];
     [self loadNibs];
-    
-//    [_addProblemNavigationView setFrame:CGRectMake(0, 60, 320, 52)];
-//    
-//   
-//
-//
-//    [self.view addSubview:_addProblemNavigationView];
-//    
-//    NSDictionary *metrics = @{@"height":@52.0};
-//    NSDictionary *dict = [NSDictionary dictionaryWithObjects:@[self.topLayoutGuide, _addProblemNavigationView]
-//                                                     forKeys:@[@"topGuide", @"grayView"]];
-//    [_addProblemNavigationView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[grayView]"
-//                                                                      options:0
-//                                                                      metrics:nil
-//                                                                        views:dict]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[grayView(height)]-|"
-//                                                                      options:0
-//                                                                      metrics:metrics
-//                                                                        views:dict]];
-    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[grayView]-|"
-//                                                                      options:0
-//                                                                      metrics:nil
-//                                                                        views:dict]];
 }
+
+- (IBAction)nextButtonTap:(UIButton *)sender {
+
+    _prevButton.hidden = NO;
+    
+    [self slideViewFromRight:_nextView withPadding:paddingWithNavigationView];
+    [self slideViewToLeft:_curView];
+    _prevView = _curView;
+    _curView = _nextView;
+//    _nextView =
+    
+}
+- (IBAction)prevButtonTap:(UIButton *)sender {
+    if (_pageControl.currentPage == 0) _prevButton.hidden = YES;
+    [self slideViewToRight:_curView];
+    [self slideViewFromLeft:_prevView];
+    _nextView = _curView;
+    _curView = _prevView;
+    
+}
+
+- (void)slideViewFromRight:(UIView *)view withPadding:(CGFloat)pad {
+    
+    CGRect frame = view.frame;
+    [view setFrame:CGRectMake(screenWidth*2, pad, frame.size.width, frame.size.height)];
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         [view setFrame:CGRectMake(0, pad, frame.size.width, frame.size.height)];
+                     }];
+}
+
+- (void)slideViewFromLeft:(UIView *)view {
+    
+    CGFloat pad;
+    if (view == _addProblemNavigationView)
+        pad = padding;
+    else
+        pad = paddingWithNavigationView;
+    CGRect frame = view.frame;
+    [view setFrame:CGRectMake(-screenWidth*2, pad, frame.size.width, frame.size.height)];
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         [view setFrame:CGRectMake(0, pad, frame.size.width, frame.size.height)];
+                     }];
+}
+
+- (void)slideViewToRight:(UIView *)view {
+    
+    CGFloat pad;
+    if (view == _addProblemNavigationView)
+        pad = padding;
+    else
+        pad = paddingWithNavigationView;
+    CGRect frame = view.frame;
+    [view setFrame:CGRectMake(0, pad, frame.size.width, frame.size.height)];
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         [view setFrame:CGRectMake(screenWidth, pad, frame.size.width, frame.size.height)];
+                     }];
+}
+
+- (void)slideViewToLeft:(UIView *)view {
+    CGFloat pad;
+    if (view == _addProblemNavigationView)
+        pad = padding;
+    else
+        pad = paddingWithNavigationView;
+    CGRect frame = view.frame;
+    [view setFrame:CGRectMake(0, pad, frame.size.width, frame.size.height)];
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         [view setFrame:CGRectMake(-screenWidth, pad, frame.size.width, frame.size.height)];
+                     }];
+}
+
+- (void)orientationChanged:(id *)sender {
+    [self setPaddings];
+    [self layoutAddProblemNavigationView];
+    [self layoutAddProblemLocationView];
+    [self layoutAddProblemNameView];
+    [self.mapView setFrame: [UIScreen mainScreen].bounds];
+}
+
+- (void)showAddProblemView {
+    [self setPaddings];
+    [self layoutAddProblemNavigationView];
+    [self layoutAddProblemLocationView];
+    [self layoutAddProblemNameView];
+    [self.view addSubview:_addProblemLocationView];
+    [self.view addSubview:_addProblemNavigationView];
+    [self.view addSubview:_addProblemNameView];
+    [self slideViewFromRight:_addProblemNavigationView withPadding:padding];
+    [self slideViewFromRight:_addProblemLocationView withPadding:paddingWithNavigationView];
+    
+    _curView = _addProblemLocationView;
+    _prevView = nil;
+    _nextView = _addProblemNameView;
+    _prevButton.hidden = YES;
+    
+}
+
+- (void)hideAddProblemNavigationView {
+    [self.addProblemNavigationView removeFromSuperview];
+}
+
+- (void)setPaddings {
+    padding = self.navigationController.navigationBar.frame.size.height +
+    [UIApplication sharedApplication].statusBarFrame.size.height;
+    screenWidth = [UIScreen mainScreen].bounds.size.width;
+    paddingWithNavigationView = padding + ADDPROBLEMNAVIGATIONVIEWHEIGHT;
+}
+
+- (void)layoutAddProblemNavigationView {
+    
+    [_addProblemNavigationView setFrame:CGRectMake(0, padding, screenWidth, ADDPROBLEMNAVIGATIONVIEWHEIGHT)];
+}
+
+-(void)layoutAddProblemLocationView {
+    
+    [_addProblemLocationView setFrame:CGRectMake(0, paddingWithNavigationView, screenWidth, ADDPROBLEMLOCATIONHEIGHT)];
+}
+
+-(void)layoutAddProblemNameView {
+    
+    [_addProblemNameView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMNAMEHEIGHT)];
+}
+- (IBAction)addProblemButton:(id)sender {
+    [self showAddProblemView];
+}
+
 
 - (void)mapSetup {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
@@ -77,6 +202,10 @@
 
 - (void)customSetup
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+    
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
     if ( revealViewController )
     {
@@ -151,7 +280,7 @@
 
 + (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
 {
-    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID]];
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", (unsigned long)problemTypeID]];
 }
 
 
@@ -159,8 +288,9 @@
 #pragma mark - AddProblem
 
 - (void)loadNibs {
-    _addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigation" owner:self options:nil][0];
-    
+    _addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigationView" owner:self options:nil][0];
+    _addProblemNameView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNameView" owner:self options:nil][0];
+    _addProblemLocationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemLocationView" owner:self options:nil][0];
 }
 
 @end

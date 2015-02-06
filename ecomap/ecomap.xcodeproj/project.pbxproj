@@ -41,7 +41,12 @@
 		B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FF041A7F8AFF009C421C /* ResourcesViewController.m */; };
 		B388FF081A7F905B009C421C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FF071A7F905B009C421C /* LoginViewController.m */; };
 		B388FF0B1A7F9072009C421C /* StatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B388FF0A1A7F9072009C421C /* StatisticViewController.m */; };
-		B3FF8F9E1A84DCC3008FED3D /* AddProblemNavigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigation.xib */; };
+		B3A8D0851A85414C00017BAE /* AddProblemNameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D0841A85414C00017BAE /* AddProblemNameView.xib */; };
+		B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D0861A85439500017BAE /* AddProblemLocationView.xib */; };
+		B3A8D0891A8553E500017BAE /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D0881A8553E500017BAE /* AddProblemTypeView.xib */; };
+		B3A8D08B1A85540C00017BAE /* AddProblemDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08A1A85540C00017BAE /* AddProblemDescriptionView.xib */; };
+		B3A8D08D1A85541800017BAE /* AddProblemSolutionVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08C1A85541800017BAE /* AddProblemSolutionVIew.xib */; };
+		B3FF8F9E1A84DCC3008FED3D /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigationView.xib */; };
 		E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C921A80F9A300121A7E /* EcomapFetcher.m */; };
 		E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C941A80F9A300121A7E /* EcomapProblem.m */; };
 		E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C961A80F9A300121A7E /* EcomapProblemDetails.m */; };
@@ -111,7 +116,13 @@
 		B388FF071A7F905B009C421C /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		B388FF091A7F9072009C421C /* StatisticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticViewController.h; sourceTree = "<group>"; };
 		B388FF0A1A7F9072009C421C /* StatisticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticViewController.m; sourceTree = "<group>"; };
-		B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNavigation.xib; sourceTree = "<group>"; };
+		B3A8D0831A853FFF00017BAE /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
+		B3A8D0841A85414C00017BAE /* AddProblemNameView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNameView.xib; sourceTree = "<group>"; };
+		B3A8D0861A85439500017BAE /* AddProblemLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemLocationView.xib; sourceTree = "<group>"; };
+		B3A8D0881A8553E500017BAE /* AddProblemTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemTypeView.xib; sourceTree = "<group>"; };
+		B3A8D08A1A85540C00017BAE /* AddProblemDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemDescriptionView.xib; sourceTree = "<group>"; };
+		B3A8D08C1A85541800017BAE /* AddProblemSolutionVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionVIew.xib; sourceTree = "<group>"; };
+		B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNavigationView.xib; sourceTree = "<group>"; };
 		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
 		E5F27C921A80F9A300121A7E /* EcomapFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapFetcher.m; path = Model/EcomapFetcher.m; sourceTree = "<group>"; };
@@ -238,6 +249,7 @@
 		B353431C1A7F73ED00DD2F03 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B3A8D0831A853FFF00017BAE /* Defines.h */,
 				B35343201A7F73ED00DD2F03 /* AppDelegate.h */,
 				B35343211A7F73ED00DD2F03 /* AppDelegate.m */,
 				B353432C1A7F73ED00DD2F03 /* Images.xcassets */,
@@ -310,7 +322,12 @@
 		B3FF8F9F1A84DE0B008FED3D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigation.xib */,
+				B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigationView.xib */,
+				B3A8D0841A85414C00017BAE /* AddProblemNameView.xib */,
+				B3A8D0861A85439500017BAE /* AddProblemLocationView.xib */,
+				B3A8D0881A8553E500017BAE /* AddProblemTypeView.xib */,
+				B3A8D08A1A85540C00017BAE /* AddProblemDescriptionView.xib */,
+				B3A8D08C1A85541800017BAE /* AddProblemSolutionVIew.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -406,11 +423,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3FF8F9E1A84DCC3008FED3D /* AddProblemNavigation.xib in Resources */,
+				B3FF8F9E1A84DCC3008FED3D /* AddProblemNavigationView.xib in Resources */,
+				B3A8D0851A85414C00017BAE /* AddProblemNameView.xib in Resources */,
 				B353432B1A7F73ED00DD2F03 /* Main.storyboard in Resources */,
 				B35343301A7F73ED00DD2F03 /* LaunchScreen.xib in Resources */,
+				B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */,
+				B3A8D08D1A85541800017BAE /* AddProblemSolutionVIew.xib in Resources */,
 				B353432D1A7F73ED00DD2F03 /* Images.xcassets in Resources */,
+				B3A8D0891A8553E500017BAE /* AddProblemTypeView.xib in Resources */,
 				2D37BDF41A822F37009A6562 /* GoogleMaps.bundle in Resources */,
+				B3A8D08B1A85540C00017BAE /* AddProblemDescriptionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

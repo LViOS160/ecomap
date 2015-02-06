@@ -139,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3Z-sN-def" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1228" y="-1192"/>
+            <point key="canvasLocation" x="1228" y="-1191.9999999999998"/>
         </scene>
         <!--Login-->
         <scene sceneID="Agy-ac-TCO">
@@ -193,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qoL-KS-shb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1021" y="-1859"/>
+            <point key="canvasLocation" x="1021" y="-1858.9999999999998"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="d5K-EI-X9c">
@@ -209,7 +209,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUq-Gd-bL0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="813" y="-1192"/>
+            <point key="canvasLocation" x="813" y="-1191.9999999999998"/>
         </scene>
         <!--Ресурсы-->
         <scene sceneID="kg4-HK-6pH">
@@ -290,24 +290,26 @@
             <objects>
                 <viewController id="bov-97-S05" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kuJ-4W-yhv"/>
-                        <viewControllerLayoutGuide type="bottom" id="HGO-LG-HWP"/>
+                        <viewControllerLayoutGuide type="top" id="uVJ-JK-UmX"/>
+                        <viewControllerLayoutGuide type="bottom" id="HL5-bf-VRB"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WRP-KO-eoO" userLabel="ContainerView">
+                    <view key="view" contentMode="scaleToFill" id="tZN-Pd-LDM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vm5-Cq-zWt">
-                                <rect key="frame" x="253" y="431" width="58" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8XM-um-6Gf">
+                                <rect key="frame" x="254" y="434" width="58" height="60"/>
                                 <state key="normal" image="add">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="addProblemButton:" destination="bov-97-S05" eventType="touchUpInside" id="iIN-8I-Gvd"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="Vm5-Cq-zWt" secondAttribute="bottom" constant="77" id="FFa-3E-dEE"/>
-                            <constraint firstAttribute="trailing" secondItem="Vm5-Cq-zWt" secondAttribute="trailing" constant="9" id="S9y-3g-6fY"/>
+                            <constraint firstAttribute="trailing" secondItem="8XM-um-6Gf" secondAttribute="trailing" constant="8" id="VB2-si-wV8"/>
+                            <constraint firstItem="HL5-bf-VRB" firstAttribute="top" secondItem="8XM-um-6Gf" secondAttribute="bottom" constant="74" id="kj6-JD-ssN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Ecomap" id="k5h-KU-feq">
@@ -337,7 +339,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRo-GF-Wlm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="419" y="-1859"/>
+            <point key="canvasLocation" x="419" y="-1858.9999999999998"/>
         </scene>
         <!--Pie Chart View Controller-->
         <scene sceneID="nZ0-Jq-RNk">
@@ -448,7 +450,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KnC-3O-RxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892" y="-1173"/>
+            <point key="canvasLocation" x="1892" y="-1172.9999999999998"/>
         </scene>
         <!--Problems Top ListTVC-->
         <scene sceneID="cW2-CD-igG">
@@ -506,7 +508,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Rc-v8-xmn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2402" y="-1173"/>
+            <point key="canvasLocation" x="2402" y="-1172.9999999999998"/>
         </scene>
     </scenes>
     <resources>
@@ -519,6 +521,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="FV4-dD-aqm"/>
+        <segue reference="WgQ-oX-LnI"/>
     </inferredMetricsTieBreakers>
 </document>
