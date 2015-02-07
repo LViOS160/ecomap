@@ -105,10 +105,10 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
                                             [self showhttpErrorAlert:httpErrorCode];
                                             if(httpErrorCode == 0){
                                                 [EcomapFetcher loginWithEmail:self.emailText.text andPassword:self.passwordText.text OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                                                    if(!error){
+                                                    /*if(!error){
                                                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                                                         [alertView show];
-                                                    }
+                                                    }*/
                                                 }
                                                  ];
                                             }

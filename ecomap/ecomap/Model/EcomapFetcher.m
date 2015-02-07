@@ -112,7 +112,7 @@
 //                          loggedUser = [[EcomapLoggedUser alloc] initWithUserInfo:userInfo];
 //                          //Log success login
 //                          if (loggedUser) {
-                              //NSLog(@"LogIN to ecomap success! %@", loggedUser.description);
+                        NSLog(@"Register to ecomap success!");
 //                          }
                       }
                       
