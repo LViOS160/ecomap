@@ -91,7 +91,7 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
 - (IBAction)registerButton:(UIButton *)sender {
     //__block
     if (self.confirmText.text.length !=0 && self.passwordText.text.length!=0 && self.emailText.text.length!=0 && self.surnameText.text.length!=0 && self.nameText.text.length!=0){
-        if(true)//[self validateEmail:self.emailText.text])
+        if([self validateEmail:self.emailText.text])
         {
             if([self.confirmText.text isEqualToString:self.passwordText.text]){
                 if(self.passwordText.text.length > 4)
