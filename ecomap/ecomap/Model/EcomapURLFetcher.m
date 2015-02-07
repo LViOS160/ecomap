@@ -45,7 +45,7 @@
     return [self URLForAPIQuery:ECOMAP_POST_LOGIN_API];
 }
 
-#pragma mark - Ask URL for logIn 
+#pragma mark - Ask URL for Register
 // added by Gregory Chereda
 +(NSURL*)URLforRegister{
     return [self URLForAPIQuery:ECOMAP_POST_REGISTER_API];
