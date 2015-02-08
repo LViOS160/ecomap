@@ -45,7 +45,8 @@
 		B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D0861A85439500017BAE /* AddProblemLocationView.xib */; };
 		B3A8D0891A8553E500017BAE /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D0881A8553E500017BAE /* AddProblemTypeView.xib */; };
 		B3A8D08B1A85540C00017BAE /* AddProblemDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08A1A85540C00017BAE /* AddProblemDescriptionView.xib */; };
-		B3A8D08D1A85541800017BAE /* AddProblemSolutionVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08C1A85541800017BAE /* AddProblemSolutionVIew.xib */; };
+		B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */; };
+		B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */; };
 		B3FF8F9E1A84DCC3008FED3D /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigationView.xib */; };
 		E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C921A80F9A300121A7E /* EcomapFetcher.m */; };
 		E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C941A80F9A300121A7E /* EcomapProblem.m */; };
@@ -121,7 +122,8 @@
 		B3A8D0861A85439500017BAE /* AddProblemLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemLocationView.xib; sourceTree = "<group>"; };
 		B3A8D0881A8553E500017BAE /* AddProblemTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemTypeView.xib; sourceTree = "<group>"; };
 		B3A8D08A1A85540C00017BAE /* AddProblemDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemDescriptionView.xib; sourceTree = "<group>"; };
-		B3A8D08C1A85541800017BAE /* AddProblemSolutionVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionVIew.xib; sourceTree = "<group>"; };
+		B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionView.xib; sourceTree = "<group>"; };
+		B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemPhotoView.xib; sourceTree = "<group>"; };
 		B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNavigationView.xib; sourceTree = "<group>"; };
 		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
@@ -237,7 +239,7 @@
 				90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */,
 				90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */,
 				90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */,
-				B3FF8F9F1A84DE0B008FED3D /* Views */,
+				B3A8D0901A85545D00017BAE /* AddProblem */,
 				90AE1B801A84BD730009F641 /* XYPieChart */,
 				B388FF021A7F89D5009C421C /* Segues */,
 				B35343471A7F758000DD2F03 /* SWRevealViewController */,
@@ -319,15 +321,24 @@
 			name = Segues;
 			sourceTree = "<group>";
 		};
+		B3A8D0901A85545D00017BAE /* AddProblem */ = {
+			isa = PBXGroup;
+			children = (
+				B3FF8F9F1A84DE0B008FED3D /* Views */,
+			);
+			name = AddProblem;
+			sourceTree = "<group>";
+		};
 		B3FF8F9F1A84DE0B008FED3D /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				B3FF8F9D1A84DCC3008FED3D /* AddProblemNavigationView.xib */,
-				B3A8D0841A85414C00017BAE /* AddProblemNameView.xib */,
 				B3A8D0861A85439500017BAE /* AddProblemLocationView.xib */,
+				B3A8D0841A85414C00017BAE /* AddProblemNameView.xib */,
 				B3A8D0881A8553E500017BAE /* AddProblemTypeView.xib */,
 				B3A8D08A1A85540C00017BAE /* AddProblemDescriptionView.xib */,
-				B3A8D08C1A85541800017BAE /* AddProblemSolutionVIew.xib */,
+				B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */,
+				B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -423,12 +434,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */,
 				B3FF8F9E1A84DCC3008FED3D /* AddProblemNavigationView.xib in Resources */,
 				B3A8D0851A85414C00017BAE /* AddProblemNameView.xib in Resources */,
 				B353432B1A7F73ED00DD2F03 /* Main.storyboard in Resources */,
 				B35343301A7F73ED00DD2F03 /* LaunchScreen.xib in Resources */,
 				B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */,
-				B3A8D08D1A85541800017BAE /* AddProblemSolutionVIew.xib in Resources */,
+				B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */,
 				B353432D1A7F73ED00DD2F03 /* Images.xcassets in Resources */,
 				B3A8D0891A8553E500017BAE /* AddProblemTypeView.xib in Resources */,
 				2D37BDF41A822F37009A6562 /* GoogleMaps.bundle in Resources */,

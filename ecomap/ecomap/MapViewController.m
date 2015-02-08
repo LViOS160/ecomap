@@ -32,8 +32,15 @@
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
-@property (nonatomic, strong) UIView* addProblemNameView;
 @property (nonatomic, strong) UIView* addProblemLocationView;
+@property (nonatomic, strong) UIView* addProblemNameView;
+@property (nonatomic, strong) UIView* addProblemTypeView;
+@property (nonatomic, strong) UIView* addProblemDescriptionView;
+@property (nonatomic, strong) UIView* addProblemSolutionView;
+@property (nonatomic, strong) UIView* addProblemPhotoView;
+@property (nonatomic) BOOL isAddProblemShown;
+
+
 @property (nonatomic, strong) UIView* curView;
 @property (nonatomic, strong) UIView* prevView;
 @property (nonatomic, strong) UIView* nextView;
@@ -56,17 +63,54 @@
     
     [self slideViewFromRight:_nextView withPadding:paddingWithNavigationView];
     [self slideViewToLeft:_curView];
+    
     _prevView = _curView;
     _curView = _nextView;
+    _pageControl.currentPage = _pageControl.currentPage + 1;
+    NSLog(@"%d", _pageControl.currentPage);
+    switch (_pageControl.currentPage) {
+        case 1:
+            _nextView = _addProblemTypeView;
+            break;
+        case 2:
+            _nextView = _addProblemDescriptionView;
+            break;
+        case 3:
+            _nextView = _addProblemSolutionView;
+            break;
+        case 4:
+            _nextButton.hidden = YES;
+           break;
+        default:
+            break;
+    }
+
 //    _nextView =
     
 }
 - (IBAction)prevButtonTap:(UIButton *)sender {
-    if (_pageControl.currentPage == 0) _prevButton.hidden = YES;
+    _nextButton.hidden = NO;
+    _pageControl.currentPage = _pageControl.currentPage - 1;
     [self slideViewToRight:_curView];
     [self slideViewFromLeft:_prevView];
     _nextView = _curView;
     _curView = _prevView;
+    switch (_pageControl.currentPage) {
+        case 0:
+            _prevButton.hidden = YES;
+            break;
+        case 1:
+            _prevView = _addProblemLocationView;
+            break;
+        case 2:
+            _prevView = _addProblemNameView;
+            break;
+        case 3:
+            _prevView = _addProblemTypeView;
+            break;
+        default:
+            break;
+    }
     
 }
 
@@ -133,17 +177,50 @@
     [self layoutAddProblemNavigationView];
     [self layoutAddProblemLocationView];
     [self layoutAddProblemNameView];
+    [self layoutAddProblemDescriptionView];
+    
+    
     [self.mapView setFrame: [UIScreen mainScreen].bounds];
 }
-
+- (void)closeButtonPresed:(id *)sender {
+    [self slideViewToRight:_curView];
+    [self slideViewToRight:_addProblemNavigationView];
+    
+//    [self.view addSubview:_addProblemLocationView];
+//    [self.view addSubview:_addProblemNavigationView];
+//    [self.view addSubview:_addProblemNameView];
+//    [self.view addSubview:_addProblemTypeView];
+//    [self.view addSubview:_addProblemDescriptionView];
+//    [self.view addSubview:_addProblemSolutionView];
+    self.navigationItem.rightBarButtonItem = nil;
+    _pageControl.currentPage = 0;
+}
 - (void)showAddProblemView {
+    
+    
+    
+    _isAddProblemShown = true;
+    self.closeButton = [[UIBarButtonItem alloc] init];
+    self.closeButton.title = @"Close";
+    [self.closeButton setAction:@selector(closeButtonPresed:)];
+    [self.closeButton setTarget:self];
+    self.navigationItem.rightBarButtonItem = self.closeButton;
     [self setPaddings];
     [self layoutAddProblemNavigationView];
     [self layoutAddProblemLocationView];
     [self layoutAddProblemNameView];
+    [self layoutAddProblemTypeView];
+    [self layoutAddProblemDescriptionView];
+    [self layoutAddProblemSolutionView];
+    
     [self.view addSubview:_addProblemLocationView];
     [self.view addSubview:_addProblemNavigationView];
     [self.view addSubview:_addProblemNameView];
+    [self.view addSubview:_addProblemTypeView];
+    [self.view addSubview:_addProblemDescriptionView];
+    [self.view addSubview:_addProblemSolutionView];
+    
+    NSLog(@"%@", _addProblemSolutionView);
     [self slideViewFromRight:_addProblemNavigationView withPadding:padding];
     [self slideViewFromRight:_addProblemLocationView withPadding:paddingWithNavigationView];
     
@@ -179,8 +256,27 @@
     
     [_addProblemNameView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMNAMEHEIGHT)];
 }
+
+-(void)layoutAddProblemTypeView {
+    
+    [_addProblemTypeView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMTYPEHEIGHT)];
+}
+
+-(void)layoutAddProblemDescriptionView {
+    
+    [_addProblemDescriptionView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMDESCRIPTIONHEIGHT)];
+}
+
+-(void)layoutAddProblemSolutionView {
+    
+    [_addProblemSolutionView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMSOLUTIONHEIGHT)];
+}
+
+
+
 - (IBAction)addProblemButton:(id)sender {
     [self showAddProblemView];
+    _nextButton.hidden = NO;
 }
 
 
@@ -289,8 +385,12 @@
 
 - (void)loadNibs {
     _addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigationView" owner:self options:nil][0];
-    _addProblemNameView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNameView" owner:self options:nil][0];
     _addProblemLocationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemLocationView" owner:self options:nil][0];
+    _addProblemNameView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNameView" owner:self options:nil][0];
+    _addProblemTypeView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemTypeView" owner:self options:nil][0];
+    _addProblemDescriptionView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemDescriptionView" owner:self options:nil][0];
+    _addProblemSolutionView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemSolutionView" owner:self options:nil][0];
+    _addProblemPhotoView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemPhotoView" owner:self options:nil][0];
 }
 
 @end
