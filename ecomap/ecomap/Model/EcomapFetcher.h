@@ -20,6 +20,9 @@
 //Load problem details not blocking the main thread
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler;
 
+//Logout
++ (void)logoutUser:(EcomapLoggedUser *)loggedUser OnCompletion:(void (^)(BOOL *result, NSError *error))completionHandler;
+
 #pragma mark - POST API
 //Login
 //Use [EcomapLoggedUser currentLoggedUser] to get an instance of current logged user

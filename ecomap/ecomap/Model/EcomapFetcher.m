@@ -121,6 +121,16 @@
                   }];
 }
 
+#pragma mark - Logout
+//Code in progress...
++ (void)logoutUser:(EcomapLoggedUser *)loggedUser OnCompletion:(void (^)(BOOL *result, NSError *error))completionHandler
+{
+    if (loggedUser) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"NO" forKey:@"isUserLogged"];
+    }
+}
+
 #pragma mark - Load data task
 +(void)loadDataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
 {
