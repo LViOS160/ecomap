@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "GClusterManager.h"
 
-@interface MapViewController : UIViewController 
+@interface MapViewController : UIViewController <GMSMapViewDelegate>
 
 @end
 

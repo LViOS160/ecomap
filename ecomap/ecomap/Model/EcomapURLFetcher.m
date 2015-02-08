@@ -12,6 +12,7 @@
 @implementation EcomapURLFetcher
 
 #pragma mark - Form final URL
+//Add Server adress
 + (NSURL *)URLForQuery:(NSString *)query
 {
     query = [NSString stringWithFormat:@"%@%@", ECOMAP_ADDRESS, query];
@@ -19,27 +20,25 @@
     return [NSURL URLWithString:query];
 }
 
-#pragma mark - Add API address
+//Add API address
 + (NSURL *)URLForAPIQuery:(NSString *)query
 {
     query = [NSString stringWithFormat:@"%@%@", ECOMAP_API, query];
     return [self URLForQuery:query];
 }
 
-#pragma mark - Ask URL for all problems
+#pragma mark - Ask URL methods
 + (NSURL *)URLforAllProblems
 {
     return [self URLForAPIQuery:ECOMAP_GET_PROBLEMS_API];
 }
 
-#pragma mark - Ask URL for problem with ID
 + (NSURL *)URLforProblemWithID:(NSUInteger)problemID
 {
     NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEMS_API, (unsigned long)problemID];
     return [self URLForAPIQuery:query];
 }
 
-#pragma mark - Ask URL for logIn
 + (NSURL *)URLforLogin
 {
     return [self URLForAPIQuery:ECOMAP_POST_LOGIN_API];

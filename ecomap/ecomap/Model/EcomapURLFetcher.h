@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+// Time periods to get stats url
+typedef enum {
+    EcomapStatsForAllTheTime,
+    EcomapStatsForLastYear,
+    EcomapStatsForLastMonth,
+    EcomapStatsForLastWeek,
+    EcomapStatsForLastDay
+} EcomapStatsTimePeriod;
+
 @interface EcomapURLFetcher : NSObject
 
 //Return API URL to get all problems
