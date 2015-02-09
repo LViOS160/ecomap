@@ -125,39 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PVo-yu-sQI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="277" y="-490"/>
-        </scene>
-        <!--Статистика-->
-        <scene sceneID="Yma-tn-tvC">
-            <objects>
-                <viewController id="uWL-ij-w0l" customClass="StatisticViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RPm-eR-VP7"/>
-                        <viewControllerLayoutGuide type="bottom" id="7gq-3F-410"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Jlf-44-sRa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Статистика" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AZ-c4-Uam">
-                                <rect key="frame" x="114" y="273" width="93" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Статистика" id="8cO-1c-IUJ">
-                        <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="bcV-2C-1iY"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="revealButtonItem" destination="bcV-2C-1iY" id="E8i-bz-cGX"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="q3Z-sN-def" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1228" y="-1192"/>
+            <point key="canvasLocation" x="-424" y="128"/>
         </scene>
         <!--Login-->
         <scene sceneID="Agy-ac-TCO">
@@ -263,6 +231,9 @@
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="txu-54-JN0"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="revealButtonItem" destination="txu-54-JN0" id="4cs-zE-mdK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubG-LU-CKa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
