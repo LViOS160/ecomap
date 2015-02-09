@@ -15,7 +15,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-161" y="228"/>
+            <point key="canvasLocation" x="-873" y="128"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="v3t-lW-aml">
@@ -77,7 +77,25 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="label" destination="hgP-dj-liO" id="dCP-Gu-XlC"/>
-                                    <segue destination="9Ka-2h-TcU" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="lNu-T9-COL"/>
+                                    <segue destination="9Ka-2h-TcU" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="d7d-GZ-xhv"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="top_chart" id="cJg-aT-4mq" customClass="SWUITableViewCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cJg-aT-4mq" id="9hU-A3-DEC">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Топи проблем" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6e-Sb-usr">
+                                            <rect key="frame" x="8" y="11" width="114" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="label" destination="S6e-Sb-usr" id="ISt-Z4-jGR"/>
+                                    <segue destination="2PN-O9-OTB" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="zH4-e7-F4m"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="login" id="pPf-Q2-fBd" customClass="SWUITableViewCell">
@@ -193,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qoL-KS-shb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1021" y="-1859"/>
+            <point key="canvasLocation" x="567" y="1469"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="d5K-EI-X9c">
@@ -204,12 +222,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="uWL-ij-w0l" kind="relationship" relationship="rootViewController" id="uBd-AZ-fAv"/>
+                        <segue destination="jVG-Fj-m9H" kind="relationship" relationship="rootViewController" id="hLI-37-V0B"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUq-Gd-bL0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="813" y="-1192"/>
+            <point key="canvasLocation" x="113" y="128"/>
         </scene>
         <!--Ресурсы-->
         <scene sceneID="kg4-HK-6pH">
@@ -242,16 +260,13 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Ресурсы" id="gUe-aJ-2bh">
-                        <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="W7P-X3-n2M"/>
+                        <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="txu-54-JN0"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="revealButtonItem" destination="W7P-X3-n2M" id="Mse-13-vF7"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubG-LU-CKa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1347" y="-490"/>
+            <point key="canvasLocation" x="567" y="-522"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iw2-vn-DLc">
@@ -267,7 +282,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Veh-UA-QxF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="791" y="-490"/>
+            <point key="canvasLocation" x="113" y="-534"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3cv-8Z-yUW">
@@ -283,7 +298,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WdE-uh-Mn7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="791" y="228"/>
+            <point key="canvasLocation" x="113" y="-1192"/>
         </scene>
         <!--Ecomap-->
         <scene sceneID="Auy-CR-RWp">
@@ -319,7 +334,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ab6-h2-osB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1447" y="228"/>
+            <point key="canvasLocation" x="567" y="-1192"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rTh-jy-pBC">
@@ -337,9 +352,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRo-GF-Wlm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="419" y="-1859"/>
+            <point key="canvasLocation" x="113" y="1469"/>
         </scene>
-        <!--Pie Chart View Controller-->
+        <!--Статистика-->
         <scene sceneID="nZ0-Jq-RNk">
             <objects>
                 <viewController id="jVG-Fj-m9H" customClass="PieChartViewController" sceneMemberID="viewController">
@@ -351,44 +366,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rEK-99-bfh">
-                                <rect key="frame" x="0.0" y="28" width="320" height="149"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Проблем" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fng-mC-7fw">
-                                        <rect key="frame" x="8" y="28" width="91" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Голосів" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpq-sh-9C5">
-                                        <rect key="frame" x="8" y="56" width="91" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Коментарів" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiY-J3-6qk">
-                                        <rect key="frame" x="8" y="84" width="91" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Фотографій" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKj-cK-jeJ">
-                                        <rect key="frame" x="8" y="112" width="91" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Статистика за весь час" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPW-Mx-piL">
-                                        <rect key="frame" x="68" y="0.0" width="184" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZR-Dw-1Hi">
-                                <rect key="frame" x="0.0" y="185" width="320" height="68"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZR-Dw-1Hi" userLabel="Segmented Control Item View">
+                                <rect key="frame" x="0.0" y="257" width="320" height="68"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Кількість доданих проблем за останній" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-Qg-V45">
                                         <rect key="frame" x="-124" y="0.0" width="568" height="20"/>
@@ -412,25 +391,65 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DBB-NG-TJ2" customClass="XYPieChart">
-                                <rect key="frame" x="0.0" y="261" width="320" height="307"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DBB-NG-TJ2" userLabel="Pie Chart View" customClass="XYPieChart">
+                                <rect key="frame" x="0.0" y="333" width="320" height="235"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rEK-99-bfh" userLabel="General Stats View">
+                                <rect key="frame" x="0.0" y="64" width="320" height="159"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Проблем" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fng-mC-7fw">
+                                        <rect key="frame" x="10" y="35" width="302" height="20"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Голосів" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpq-sh-9C5">
+                                        <rect key="frame" x="10" y="63" width="302" height="20"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Коментарів" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiY-J3-6qk">
+                                        <rect key="frame" x="10" y="91" width="302" height="20"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Фотографій" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKj-cK-jeJ">
+                                        <rect key="frame" x="10" y="119" width="302" height="20"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Статистика за весь час" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPW-Mx-piL">
+                                        <rect key="frame" x="70" y="7" width="184" height="20"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Статистика" id="fps-eh-5lf">
+                        <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="MDJ-Pv-oAv"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="numOfCommentsLabel" destination="PiY-J3-6qk" id="c3U-TC-aeH"/>
                         <outlet property="numOfPhotosLabel" destination="NKj-cK-jeJ" id="bnz-PP-3AO"/>
                         <outlet property="numOfProblemsLabel" destination="Fng-mC-7fw" id="mTE-tY-6Oe"/>
                         <outlet property="numOfVotesLabel" destination="zpq-sh-9C5" id="FOV-qX-Dqd"/>
                         <outlet property="pieChartView" destination="DBB-NG-TJ2" id="drS-8s-QFo"/>
+                        <outlet property="revealButtonItem" destination="MDJ-Pv-oAv" id="gFS-5j-6us"/>
                         <outlet property="statsRangeSegmentedControl" destination="Wq9-3K-2vu" id="5RX-mI-iP0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozZ-8K-k1t" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892" y="-490"/>
+            <point key="canvasLocation" x="567" y="128"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OZ0-nX-FNF">
@@ -448,9 +467,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KnC-3O-RxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892" y="-1173"/>
+            <point key="canvasLocation" x="113" y="795"/>
         </scene>
-        <!--Problems Top ListTVC-->
+        <!--TOP CHART-->
         <scene sceneID="cW2-CD-igG">
             <objects>
                 <tableViewController id="NS2-ae-7zV" customClass="ProblemsTopListTVC" sceneMemberID="viewController">
@@ -458,6 +477,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="1OQ-Ft-EXy">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="0qm-vi-3sa">
+                                    <rect key="frame" x="8" y="7" width="304" height="30"/>
+                                    <segments>
+                                        <segment title="ТОП популярних"/>
+                                        <segment title="ТОП важливих"/>
+                                        <segment title="ТОП обговорюваних"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="changeKindOfTopChart:" destination="NS2-ae-7zV" eventType="valueChanged" id="HWE-Nq-eAW"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ecomap Problem Cell" textLabel="MuK-ev-Fhb" detailTextLabel="Tgd-sp-E80" style="IBUITableViewCellStyleValue2" id="oU9-Y8-nOy">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -485,28 +522,18 @@
                             <outlet property="delegate" destination="NS2-ae-7zV" id="ONO-xd-dYU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="QZs-aD-ccy">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" id="0qm-vi-3sa">
-                            <rect key="frame" x="8" y="7" width="304" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="ТОП популярних"/>
-                                <segment title="ТОП важливих"/>
-                                <segment title="ТОП обговорюваних"/>
-                            </segments>
-                            <connections>
-                                <action selector="changeKindOfTopChart:" destination="NS2-ae-7zV" eventType="valueChanged" id="HWE-Nq-eAW"/>
-                            </connections>
-                        </segmentedControl>
+                    <navigationItem key="navigationItem" title="TOP CHART" id="QZs-aD-ccy">
+                        <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="IVg-WA-W5j"/>
                     </navigationItem>
                     <connections>
                         <outlet property="kindOfTopChartSegmentedControl" destination="0qm-vi-3sa" id="sK9-fq-dHN"/>
+                        <outlet property="revealButtonItem" destination="IVg-WA-W5j" id="OSF-pk-bOW"/>
+                        <outlet property="topChartTableView" destination="yri-oc-utg" id="UYa-Yv-BbH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Rc-v8-xmn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2402" y="-1173"/>
+            <point key="canvasLocation" x="567" y="795"/>
         </scene>
     </scenes>
     <resources>
@@ -519,6 +546,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="FV4-dD-aqm"/>
+        <segue reference="WgQ-oX-LnI"/>
     </inferredMetricsTieBreakers>
 </document>

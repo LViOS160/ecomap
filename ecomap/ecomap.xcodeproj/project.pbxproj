@@ -25,6 +25,7 @@
 		90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */; };
 		90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B821A84BD730009F641 /* XYPieChart.m */; };
 		90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */; };
+		90FF71B61A88D75600991A65 /* EcomapStatsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FF71B51A88D75600991A65 /* EcomapStatsParser.m */; };
 		B353431F1A7F73ED00DD2F03 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B353431E1A7F73ED00DD2F03 /* main.m */; };
 		B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B35343211A7F73ED00DD2F03 /* AppDelegate.m */; };
 		B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B35343231A7F73ED00DD2F03 /* ecomap.xcdatamodeld */; };
@@ -92,6 +93,8 @@
 		90AE1B821A84BD730009F641 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
 		90AE1B841A84BE5D0009F641 /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
 		90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
+		90FF71B41A88D75600991A65 /* EcomapStatsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsParser.h; sourceTree = "<group>"; };
+		90FF71B51A88D75600991A65 /* EcomapStatsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsParser.m; sourceTree = "<group>"; };
 		B35343191A7F73ED00DD2F03 /* ecomap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ecomap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B353431D1A7F73ED00DD2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B353431E1A7F73ED00DD2F03 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -197,8 +200,6 @@
 				E5A978951A80FE2000D8283B /* EcomapPathDefine.h */,
 				E5F27C971A80F9A300121A7E /* EcomapURLFetcher.h */,
 				E5F27C981A80F9A300121A7E /* EcomapURLFetcher.m */,
-				90AE1B841A84BE5D0009F641 /* EcomapStatsFetcher.h */,
-				90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */,
 			);
 			name = "Fetcher Helper Classes";
 			sourceTree = "<group>";
@@ -250,8 +251,6 @@
 				CABBB4FB1A853D400089065B /* Clustering */,
 				E5F27C901A80F98D00121A7E /* Model */,
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
-				B388FF091A7F9072009C421C /* StatisticViewController.h */,
-				B388FF0A1A7F9072009C421C /* StatisticViewController.m */,
 				B388FF061A7F905B009C421C /* LoginViewController.h */,
 				B388FF071A7F905B009C421C /* LoginViewController.m */,
 				B35343261A7F73ED00DD2F03 /* MapViewController.h */,
@@ -418,6 +417,10 @@
 				51B485241A8415F800BA8AFF /* Value-Object Classes */,
 				E5F27C911A80F9A300121A7E /* EcomapFetcher.h */,
 				E5F27C921A80F9A300121A7E /* EcomapFetcher.m */,
+				90AE1B841A84BE5D0009F641 /* EcomapStatsFetcher.h */,
+				90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */,
+				90FF71B41A88D75600991A65 /* EcomapStatsParser.h */,
+				90FF71B51A88D75600991A65 /* EcomapStatsParser.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */,
 				CABBB5181A853D400089065B /* GDefaultClusterRenderer.m in Sources */,
 				51B485271A8417CB00BA8AFF /* EcomapLoggedUser.m in Sources */,
+				90FF71B61A88D75600991A65 /* EcomapStatsParser.m in Sources */,
 				90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */,
 				B353434A1A7F758000DD2F03 /* SWRevealViewController.m in Sources */,
 				CABBB5141A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,

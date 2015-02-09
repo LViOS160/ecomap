@@ -49,7 +49,7 @@
     return [self URLForAPIQuery:ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS];
 }
 
-+ (NSURL *)URLforStatsParticularPeriod:(EcomapStatsTimePeriod)period
++ (NSURL *)URLforStatsForParticularPeriod:(EcomapStatsTimePeriod)period
 {
     switch(period) {
         case EcomapStatsForAllTheTime: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_ALL_THE_TIME];
@@ -58,6 +58,11 @@
         case EcomapStatsForLastWeek: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_LAST_WEEK];
         case EcomapStatsForLastDay: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_LAST_DAY];
     }
+}
+
++ (NSURL *)URLforGeneralStats
+{
+    return [self URLForAPIQuery:ECOMAP_GET_GENERAL_STATS];
 }
 
 

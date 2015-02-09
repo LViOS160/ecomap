@@ -32,6 +32,8 @@ typedef enum {
 + (NSURL *)URLforTopChartsOfProblems;
 
 //Return URL for stats for particular period
-+ (NSURL *)URLforStatsParticularPeriod:(EcomapStatsTimePeriod)period;
++ (NSURL *)URLforStatsForParticularPeriod:(EcomapStatsTimePeriod)period;
 
+//Return URL for general stats
++ (NSURL *)URLforGeneralStats;
 @end
