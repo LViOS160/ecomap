@@ -416,7 +416,7 @@
             </objects>
             <point key="canvasLocation" x="113" y="795"/>
         </scene>
-        <!--Problems Top ListTVC-->
+        <!--TOP CHART-->
         <scene sceneID="cW2-CD-igG">
             <objects>
                 <tableViewController id="NS2-ae-7zV" customClass="ProblemsTopListTVC" sceneMemberID="viewController">
@@ -424,6 +424,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="1OQ-Ft-EXy">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="0qm-vi-3sa">
+                                    <rect key="frame" x="8" y="7" width="304" height="30"/>
+                                    <segments>
+                                        <segment title="ТОП популярних"/>
+                                        <segment title="ТОП важливих"/>
+                                        <segment title="ТОП обговорюваних"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="changeKindOfTopChart:" destination="NS2-ae-7zV" eventType="valueChanged" id="HWE-Nq-eAW"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ecomap Problem Cell" textLabel="MuK-ev-Fhb" detailTextLabel="Tgd-sp-E80" style="IBUITableViewCellStyleValue2" id="oU9-Y8-nOy">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -451,23 +469,12 @@
                             <outlet property="delegate" destination="NS2-ae-7zV" id="ONO-xd-dYU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="QZs-aD-ccy">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" id="0qm-vi-3sa">
-                            <rect key="frame" x="8" y="7" width="304" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="ТОП популярних"/>
-                                <segment title="ТОП важливих"/>
-                                <segment title="ТОП обговорюваних"/>
-                            </segments>
-                            <connections>
-                                <action selector="changeKindOfTopChart:" destination="NS2-ae-7zV" eventType="valueChanged" id="HWE-Nq-eAW"/>
-                            </connections>
-                        </segmentedControl>
+                    <navigationItem key="navigationItem" title="TOP CHART" id="QZs-aD-ccy">
+                        <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="IVg-WA-W5j"/>
                     </navigationItem>
                     <connections>
                         <outlet property="kindOfTopChartSegmentedControl" destination="0qm-vi-3sa" id="sK9-fq-dHN"/>
+                        <outlet property="revealButtonItem" destination="IVg-WA-W5j" id="OSF-pk-bOW"/>
                         <outlet property="topChartTableView" destination="yri-oc-utg" id="UYa-Yv-BbH"/>
                     </connections>
                 </tableViewController>
