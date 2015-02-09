@@ -44,10 +44,26 @@
     return [self URLForAPIQuery:ECOMAP_POST_LOGIN_API];
 }
 
++ (NSURL *)URLforTopChartsOfProblems
+{
+    return [self URLForAPIQuery:ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS];
+}
 #pragma mark - Ask URL for Register
 // added by Gregory Chereda
 +(NSURL*)URLforRegister{
     return [self URLForAPIQuery:ECOMAP_POST_REGISTER_API];
 }
+
++ (NSURL *)URLforStatsParticularPeriod:(EcomapStatsTimePeriod)period
+{
+    switch(period) {
+        case EcomapStatsForAllTheTime: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_ALL_THE_TIME];
+        case EcomapStatsForLastYear: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_LAST_YEAR];
+        case EcomapStatsForLastMonth: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_LAST_MOTH];
+        case EcomapStatsForLastWeek: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_LAST_WEEK];
+        case EcomapStatsForLastDay: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_LAST_DAY];
+    }
+}
+
 
 @end

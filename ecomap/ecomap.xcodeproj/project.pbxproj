@@ -263,6 +263,12 @@
 				B353434F1A7F78A200DD2F03 /* MenuViewController.m */,
 				B388FF031A7F8AFF009C421C /* ResourcesViewController.h */,
 				B388FF041A7F8AFF009C421C /* ResourcesViewController.m */,
+				90AE1B7A1A84BD3E0009F641 /* ProblemsTopListTVC.h */,
+				90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */,
+				90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */,
+				90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */,
+				B3FF8F9F1A84DE0B008FED3D /* Views */,
+				90AE1B801A84BD730009F641 /* XYPieChart */,
 				12B47F261A83A142008FAF8D /* RegisterViewController.h */,
 				12B47F271A83A142008FAF8D /* RegisterViewController.m */,
 				B388FF021A7F89D5009C421C /* Segues */,
@@ -524,6 +530,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */,
+				CABBB5121A853D400089065B /* GQuadItem.m in Sources */,
+				CABBB5221A853D6F0089065B /* GQTPointQuadTree.m in Sources */,
+				CABBB5131A853D400089065B /* GStaticCluster.m in Sources */,
 				12B47F281A83A142008FAF8D /* RegisterViewController.m in Sources */,
 				B388FF0B1A7F9072009C421C /* StatisticViewController.m in Sources */,
 				CABBB5231A853D6F0089065B /* GQTPointQuadTreeChild.m in Sources */,

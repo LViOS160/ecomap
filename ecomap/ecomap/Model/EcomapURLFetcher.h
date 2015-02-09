@@ -28,6 +28,12 @@ typedef enum {
 //Return API URL to logIn
 + (NSURL *)URLforLogin;
 
+//Return URL for top charts of problems
++ (NSURL *)URLforTopChartsOfProblems;
+
+//Return URL for stats for particular period
++ (NSURL *)URLforStatsParticularPeriod:(EcomapStatsTimePeriod)period;
+
 //Return API URL to Register
 +(NSURL*)URLforRegister;
 @end
