@@ -4,14 +4,89 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapViewController">
+            <connections>
+                <outlet property="scrollView" destination="dc5-nQ-Y1i" id="oN2-0l-IW2"/>
+                <outlet property="scrollViewPageControl" destination="j2f-md-3mb" id="htR-DM-rEL"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4q-V6-JfP">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NKS-c5-KrV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FgC-W4-tG0">
+                                <rect key="frame" x="86" y="9" width="148" height="30"/>
+                                <state key="normal" title="Chose Existing Photo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="choseExistingPhotoButton:" destination="-1" eventType="touchUpInside" id="vCO-xK-Gma"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yok-wR-h11">
+                                <rect key="frame" x="119" y="82" width="83" height="30"/>
+                                <state key="normal" title="Make Photo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="makePhotoButton:" destination="-1" eventType="touchUpInside" id="2d4-OO-zyK"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKt-9U-hJJ">
+                                <rect key="frame" x="144" y="50" width="32" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWt-yb-FFH" userLabel="ScrollViewContainer">
+                                <rect key="frame" x="0.0" y="120" width="320" height="200"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dc5-nQ-Y1i">
+                                        <rect key="frame" x="60" y="0.0" width="200" height="200"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="-1" id="QZ1-Cx-dTb"/>
+                                        </connections>
+                                    </scrollView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="bGN-jw-Q5h"/>
+                                </constraints>
+                            </view>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="j2f-md-3mb">
+                                <rect key="frame" x="141" y="328" width="39" height="37"/>
+                            </pageControl>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="DKt-9U-hJJ" firstAttribute="top" secondItem="FgC-W4-tG0" secondAttribute="bottom" constant="11" id="05f-uh-ANI"/>
+                            <constraint firstAttribute="centerX" secondItem="Yok-wR-h11" secondAttribute="centerX" id="44I-SD-Ryx"/>
+                            <constraint firstItem="fWt-yb-FFH" firstAttribute="top" secondItem="Yok-wR-h11" secondAttribute="bottom" constant="8" id="ImG-kQ-wgT"/>
+                            <constraint firstItem="fWt-yb-FFH" firstAttribute="leading" secondItem="NKS-c5-KrV" secondAttribute="leading" id="ORM-6g-Nze"/>
+                            <constraint firstAttribute="centerX" secondItem="DKt-9U-hJJ" secondAttribute="centerX" id="VIH-KI-05V"/>
+                            <constraint firstAttribute="centerX" secondItem="FgC-W4-tG0" secondAttribute="centerX" id="d1R-tU-upH"/>
+                            <constraint firstItem="fWt-yb-FFH" firstAttribute="top" secondItem="Yok-wR-h11" secondAttribute="bottom" constant="8" id="jdo-cv-UFk"/>
+                            <constraint firstItem="FgC-W4-tG0" firstAttribute="top" secondItem="NKS-c5-KrV" secondAttribute="top" constant="9" id="jig-0y-8Hr"/>
+                            <constraint firstAttribute="trailing" secondItem="fWt-yb-FFH" secondAttribute="trailing" id="mCa-lY-qKp"/>
+                            <constraint firstItem="Yok-wR-h11" firstAttribute="top" secondItem="DKt-9U-hJJ" secondAttribute="bottom" constant="11" id="xHK-cK-85b"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="l4q-V6-JfP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="E7G-zH-GZ5"/>
+                <constraint firstAttribute="trailing" secondItem="l4q-V6-JfP" secondAttribute="trailing" id="PXu-7B-GiO"/>
+                <constraint firstAttribute="bottom" secondItem="l4q-V6-JfP" secondAttribute="bottom" id="Uln-9k-Mb5"/>
+                <constraint firstItem="l4q-V6-JfP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="etw-Kc-zu5"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="242" y="258"/>
+            <point key="canvasLocation" x="243" y="157"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

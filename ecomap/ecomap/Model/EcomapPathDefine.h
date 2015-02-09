@@ -9,11 +9,12 @@
 #define EcomapFetcher_Header_h
 
 //API address
-#define ECOMAP_ADDRESS @"http://176.36.11.25/"
-//#define ECOMAP_ADDRESS @"http://ecomap.org/"
+//#define ECOMAP_ADDRESS @"http://176.36.11.25/"
+#define ECOMAP_ADDRESS @"http://ecomap.org/"
 
 #define ECOMAP_API @"api/"
 #define ECOMAP_GET_PROBLEMS_API @"problems/"
+#define ECOMAP_GET_PROBLEM_TYPES @"problems/"
 #define ECOMAP_POST_LOGIN_API @"login/"
 #define ECOMAP_GET_PHOTOS_ADDRESS @"photos/large/"
 

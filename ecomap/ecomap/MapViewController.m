@@ -19,16 +19,28 @@
     CGFloat screenWidth;
 }
 
+// Gallery
+
+@property (nonatomic, strong) NSArray *pageImages;
+@property (nonatomic, strong) NSMutableArray *pageViews;
+
+- (void)loadVisiblePages;
+- (void)loadPage:(NSInteger)page;
+- (void)purgePage:(NSInteger)page;
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSSet *markers;
-//AddProblemProperties
 
+//AddProblemProperties
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *prevButton;
-@property (strong, nonatomic) UIBarButtonItem *closeButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) UIBarButtonItem *closeButton;
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
@@ -38,13 +50,15 @@
 @property (nonatomic, strong) UIView* addProblemDescriptionView;
 @property (nonatomic, strong) UIView* addProblemSolutionView;
 @property (nonatomic, strong) UIView* addProblemPhotoView;
-@property (nonatomic) BOOL isAddProblemShown;
+@property (nonatomic) BOOL nextButtonTaped;
 
 
 @property (nonatomic, strong) UIView* curView;
 @property (nonatomic, strong) UIView* prevView;
 @property (nonatomic, strong) UIView* nextView;
 
+@property (nonatomic, strong) NSArray *problemTypes;
+@property (weak, nonatomic) IBOutlet UIPickerView *problemTypesPickerVIew;
 
 @end
 
@@ -55,185 +69,247 @@
     [self customSetup];
     [self mapSetup];
     [self loadNibs];
+//    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
+
+#pragma mark - PickerView
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return _problemTypes[row];
+}
+
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return 7;
+}
+
+#pragma mark - PageControlViewButtons
 
 - (IBAction)nextButtonTap:(UIButton *)sender {
-
     _prevButton.hidden = NO;
+    _nextButtonTaped = YES;
+    _pageControl.currentPage = _pageControl.currentPage + 1;
     
-    [self slideViewFromRight:_nextView withPadding:paddingWithNavigationView];
     [self slideViewToLeft:_curView];
     
-    _prevView = _curView;
-    _curView = _nextView;
-    _pageControl.currentPage = _pageControl.currentPage + 1;
-    NSLog(@"%d", _pageControl.currentPage);
-    switch (_pageControl.currentPage) {
-        case 1:
-            _nextView = _addProblemTypeView;
-            break;
-        case 2:
-            _nextView = _addProblemDescriptionView;
-            break;
-        case 3:
-            _nextView = _addProblemSolutionView;
-            break;
-        case 4:
-            _nextButton.hidden = YES;
-           break;
-        default:
-            break;
-    }
+    self.curView = _nextView;
+    
+    [self switchPage];
+}
+- (IBAction)choseExistingPhotoButton:(UIButton *)sender {
+    [self startMediaBrowserFromViewController:self usingDelegate:self];
+}
 
-//    _nextView =
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // Code here to work with media
+    NSLog(@"YEY");
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self layoutView:_curView];
+//    [self layoutView:_addProblemNavigationView];
+//    [self.view setNeedsDisplay];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     
 }
+
+//-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+//{
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+
+- (BOOL) startMediaBrowserFromViewController: (UIViewController*) controller
+                               usingDelegate: (id <UIImagePickerControllerDelegate,
+                                               UINavigationControllerDelegate>) delegate {
+    
+    if (([UIImagePickerController isSourceTypeAvailable:
+          UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)
+        || (delegate == nil)
+        || (controller == nil))
+        return NO;
+    
+    UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
+    mediaUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    
+    // Displays saved pictures and movies, if both are available, from the
+    // Camera Roll album.
+    mediaUI.mediaTypes =
+    [UIImagePickerController availableMediaTypesForSourceType:
+     UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    
+    // Hides the controls for moving & scaling pictures, or for
+    // trimming movies. To instead show the controls, use YES.
+    mediaUI.allowsEditing = NO;
+    
+    mediaUI.delegate = delegate;
+    
+    [controller presentViewController:mediaUI animated:YES completion:^{}];
+    return YES;
+}
+
+- (IBAction)makePhotoButton:(UIButton *)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
 - (IBAction)prevButtonTap:(UIButton *)sender {
     _nextButton.hidden = NO;
+    _nextButtonTaped = NO;
     _pageControl.currentPage = _pageControl.currentPage - 1;
     [self slideViewToRight:_curView];
-    [self slideViewFromLeft:_prevView];
-    _nextView = _curView;
-    _curView = _prevView;
+    self.curView = _prevView;
+    [self switchPage];
+
+}
+
+- (void)closeButtonPresed:(id *)sender {
+    
+    [self slideViewToRight:_curView];
+    [self slideViewToRight:_addProblemNavigationView];
+    
+  //  self.navigationItem.rightBarButtonItem = nil;
+    _pageControl.currentPage = 0;
+}
+
+- (void)switchPage{
     switch (_pageControl.currentPage) {
         case 0:
             _prevButton.hidden = YES;
+            _nextView = _addProblemNameView;
             break;
         case 1:
+            _nextView = _addProblemTypeView;
             _prevView = _addProblemLocationView;
             break;
         case 2:
+            _nextView = _addProblemDescriptionView;
             _prevView = _addProblemNameView;
             break;
         case 3:
+            _nextView = _addProblemSolutionView;
             _prevView = _addProblemTypeView;
+            break;
+        case 4:
+            _prevView = _addProblemDescriptionView;
+            _nextView = _addProblemPhotoView;
+            break;
+        case 5:
+            _prevView = _addProblemSolutionView;
+            _nextButton.hidden = YES;
             break;
         default:
             break;
     }
-    
 }
 
-- (void)slideViewFromRight:(UIView *)view withPadding:(CGFloat)pad {
-    
-    CGRect frame = view.frame;
-    [view setFrame:CGRectMake(screenWidth*2, pad, frame.size.width, frame.size.height)];
-    
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         [view setFrame:CGRectMake(0, pad, frame.size.width, frame.size.height)];
-                     }];
+
+
+#pragma mark - AddProblemAnimation
+
+- (void)slideViewFromRight:(UIView *)view {
+    [self slideView:view from:YES right:YES];
 }
 
 - (void)slideViewFromLeft:(UIView *)view {
     
-    CGFloat pad;
-    if (view == _addProblemNavigationView)
-        pad = padding;
-    else
-        pad = paddingWithNavigationView;
-    CGRect frame = view.frame;
-    [view setFrame:CGRectMake(-screenWidth*2, pad, frame.size.width, frame.size.height)];
-    
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         [view setFrame:CGRectMake(0, pad, frame.size.width, frame.size.height)];
-                     }];
+    [self slideView:view from:YES right:NO];
 }
 
 - (void)slideViewToRight:(UIView *)view {
     
-    CGFloat pad;
-    if (view == _addProblemNavigationView)
-        pad = padding;
-    else
-        pad = paddingWithNavigationView;
-    CGRect frame = view.frame;
-    [view setFrame:CGRectMake(0, pad, frame.size.width, frame.size.height)];
-    
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         [view setFrame:CGRectMake(screenWidth, pad, frame.size.width, frame.size.height)];
-                     }];
+    [self slideView:view from:NO right:YES];
 }
 
 - (void)slideViewToLeft:(UIView *)view {
+    [self slideView:view from:NO right:NO];
+}
+
+
+- (void)slideView:(UIView*)view from:(BOOL)from right:(BOOL)right {
     CGFloat pad;
     if (view == _addProblemNavigationView)
         pad = padding;
     else
         pad = paddingWithNavigationView;
-    CGRect frame = view.frame;
-    [view setFrame:CGRectMake(0, pad, frame.size.width, frame.size.height)];
+    CGRect rectOne;
+    CGRect rectTwo;
     
+    if (from) {             // slide from
+        rectOne.origin.x = right ? screenWidth * 2 : -screenWidth * 2;
+        rectTwo.origin.x = 0;
+    } else {                // slide to
+        rectOne.origin.x = 0;
+        rectTwo.origin.x = right ? screenWidth : -screenWidth;
+    }
+    
+    rectOne.origin.y = pad;
+    rectOne.size.width = screenWidth;
+    rectOne.size.height = [self getViewHeight:view];
+    
+    rectTwo.origin.y = pad;
+    rectTwo.size.width = rectOne.size.width;
+    rectTwo.size.height = rectOne.size.height;
+    
+    [view setFrame:rectOne];
+    NSLog(@"%@", [view constraints]);
+//    [view removeConstraints:[view constraints]];
     [UIView animateWithDuration:0.5
                      animations:^{
-                         [view setFrame:CGRectMake(-screenWidth, pad, frame.size.width, frame.size.height)];
-                     }];
+                         [view setFrame:rectTwo];
+                     }
+                     completion:^(BOOL ok){if (!from)[view removeFromSuperview];}];
 }
 
 - (void)orientationChanged:(id *)sender {
-    [self setPaddings];
-    [self layoutAddProblemNavigationView];
-    [self layoutAddProblemLocationView];
-    [self layoutAddProblemNameView];
-    [self layoutAddProblemDescriptionView];
-    
-    
+    [self setPaddings];    
+    [self layoutView:_curView];
+    [self layoutView:_addProblemNavigationView];
     [self.mapView setFrame: [UIScreen mainScreen].bounds];
 }
-- (void)closeButtonPresed:(id *)sender {
-    [self slideViewToRight:_curView];
-    [self slideViewToRight:_addProblemNavigationView];
-    
-//    [self.view addSubview:_addProblemLocationView];
-//    [self.view addSubview:_addProblemNavigationView];
-//    [self.view addSubview:_addProblemNameView];
-//    [self.view addSubview:_addProblemTypeView];
-//    [self.view addSubview:_addProblemDescriptionView];
-//    [self.view addSubview:_addProblemSolutionView];
-    self.navigationItem.rightBarButtonItem = nil;
-    _pageControl.currentPage = 0;
-}
+
 - (void)showAddProblemView {
     
-    
-    
-    _isAddProblemShown = true;
+    // Close button SetUp
     self.closeButton = [[UIBarButtonItem alloc] init];
     self.closeButton.title = @"Close";
     [self.closeButton setAction:@selector(closeButtonPresed:)];
     [self.closeButton setTarget:self];
     self.navigationItem.rightBarButtonItem = self.closeButton;
+    
+    
     [self setPaddings];
-    [self layoutAddProblemNavigationView];
-    [self layoutAddProblemLocationView];
-    [self layoutAddProblemNameView];
-    [self layoutAddProblemTypeView];
-    [self layoutAddProblemDescriptionView];
-    [self layoutAddProblemSolutionView];
-    
-    [self.view addSubview:_addProblemLocationView];
     [self.view addSubview:_addProblemNavigationView];
-    [self.view addSubview:_addProblemNameView];
-    [self.view addSubview:_addProblemTypeView];
-    [self.view addSubview:_addProblemDescriptionView];
-    [self.view addSubview:_addProblemSolutionView];
+    [self slideViewFromRight:_addProblemNavigationView];
     
-    NSLog(@"%@", _addProblemSolutionView);
-    [self slideViewFromRight:_addProblemNavigationView withPadding:padding];
-    [self slideViewFromRight:_addProblemLocationView withPadding:paddingWithNavigationView];
-    
-    _curView = _addProblemLocationView;
+    self.curView = _addProblemLocationView;
     _prevView = nil;
     _nextView = _addProblemNameView;
     _prevButton.hidden = YES;
     
 }
 
-- (void)hideAddProblemNavigationView {
-    [self.addProblemNavigationView removeFromSuperview];
+- (void)setCurView:(UIView *)curView {
+    _curView = curView;
+    [self.view addSubview:_curView];
+    if (_nextButtonTaped) {
+        [self slideViewFromRight:_curView];
+    } else {
+        [self slideViewFromLeft:_curView];
+    }
 }
+
+#pragma mark - ViewLayouts
 
 - (void)setPaddings {
     padding = self.navigationController.navigationBar.frame.size.height +
@@ -242,42 +318,42 @@
     paddingWithNavigationView = padding + ADDPROBLEMNAVIGATIONVIEWHEIGHT;
 }
 
-- (void)layoutAddProblemNavigationView {
-    
-    [_addProblemNavigationView setFrame:CGRectMake(0, padding, screenWidth, ADDPROBLEMNAVIGATIONVIEWHEIGHT)];
+
+- (void)layoutView:(UIView *)view {
+    CGFloat pad;
+    CGFloat height = [self getViewHeight:view];
+    if (view == _addProblemNavigationView)
+        pad = padding;
+    else
+        pad = paddingWithNavigationView;
+    [view setFrame:CGRectMake(0, pad, screenWidth, height)];
 }
 
--(void)layoutAddProblemLocationView {
-    
-    [_addProblemLocationView setFrame:CGRectMake(0, paddingWithNavigationView, screenWidth, ADDPROBLEMLOCATIONHEIGHT)];
+- (CGFloat)getViewHeight:(UIView *)view {
+    CGFloat height = 0.0;
+    if (view == _addProblemNavigationView)
+        height = ADDPROBLEMNAVIGATIONVIEWHEIGHT;
+    else if (view == _addProblemLocationView)
+        height = ADDPROBLEMLOCATIONHEIGHT;
+    else if (view == _addProblemNameView)
+        height = ADDPROBLEMNAMEHEIGHT;
+    else if (view == _addProblemTypeView)
+        height = ADDPROBLEMTYPEHEIGHT;
+    else if (view == _addProblemDescriptionView)
+        height = ADDPROBLEMDESCRIPTIONHEIGHT;
+    else if (view == _addProblemSolutionView)
+        height = ADDPROBLEMSOLUTIONHEIGHT;
+    else if (view == _addProblemPhotoView)
+        height = ADDPROBLEMPHOTOHEIGHT;
+    return height;
 }
-
--(void)layoutAddProblemNameView {
-    
-    [_addProblemNameView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMNAMEHEIGHT)];
-}
-
--(void)layoutAddProblemTypeView {
-    
-    [_addProblemTypeView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMTYPEHEIGHT)];
-}
-
--(void)layoutAddProblemDescriptionView {
-    
-    [_addProblemDescriptionView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMDESCRIPTIONHEIGHT)];
-}
-
--(void)layoutAddProblemSolutionView {
-    
-    [_addProblemSolutionView setFrame:CGRectMake(screenWidth, padding, screenWidth, ADDPROBLEMSOLUTIONHEIGHT)];
-}
-
-
 
 - (IBAction)addProblemButton:(id)sender {
     [self showAddProblemView];
     _nextButton.hidden = NO;
 }
+
+#pragma mark - GMAP
 
 
 - (void)mapSetup {
@@ -348,6 +424,8 @@
                                         0,
                                         self.bottomLayoutGuide.length + 5,
                                         0);
+    [self layoutView:_curView];
+    [self layoutView:_addProblemNavigationView];
 }
 
 #pragma mark - Utility methods
@@ -391,6 +469,82 @@
     _addProblemDescriptionView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemDescriptionView" owner:self options:nil][0];
     _addProblemSolutionView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemSolutionView" owner:self options:nil][0];
     _addProblemPhotoView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemPhotoView" owner:self options:nil][0];
+    [_problemTypesPickerVIew selectRow:4 inComponent:0 animated:NO];
+    _problemTypes = [NSArray arrayWithObjects:@"Проблеми лісів", @"Сміттєзвалища", @"Незаконна забудова",
+                     @"Проблеми водойм", @"Загрози біорізноманіттю", @"Браконьєрство", @"Інші проблеми", nil];
+
+}
+
+#pragma mark - PhotoView
+
+- (void)loadVisiblePages {
+    // First, determine which page is currently visible
+    CGFloat pageWidth = self.scrollView.frame.size.width;
+    NSInteger page = (NSInteger)floor((self.scrollView.contentOffset.x * 2.0f + pageWidth) / (pageWidth * 2.0f));
+    
+    // Update the page control
+    self.pageControl.currentPage = page;
+    
+    // Work out which pages we want to load
+    NSInteger firstPage = page - 1;
+    NSInteger lastPage = page + 1;
+    
+    // Purge anything before the first page
+    for (NSInteger i=0; i<firstPage; i++) {
+        [self purgePage:i];
+    }
+    for (NSInteger i=firstPage; i<=lastPage; i++) {
+        [self loadPage:i];
+    }
+    for (NSInteger i=lastPage+1; i<self.pageImages.count; i++) {
+        [self purgePage:i];
+    }
+}
+
+- (void)loadPage:(NSInteger)page {
+    if (page < 0 || page >= self.pageImages.count) {
+        // If it's outside the range of what we have to display, then do nothing
+        return;
+    }
+    
+    // Load an individual page, first seeing if we've already loaded it
+    UIView *pageView = [self.pageViews objectAtIndex:page];
+    if ((NSNull*)pageView == [NSNull null]) {
+        CGRect frame = self.scrollView.bounds;
+        frame.origin.x = frame.size.width * page;
+        frame.origin.y = 0.0f;
+        frame = CGRectInset(frame, 10.0f, 0.0f);
+        
+        UIImageView *newPageView = [[UIImageView alloc] initWithImage:[self.pageImages objectAtIndex:page]];
+        newPageView.contentMode = UIViewContentModeScaleAspectFit;
+        newPageView.frame = frame;
+        [self.scrollView addSubview:newPageView];
+        [self.pageViews replaceObjectAtIndex:page withObject:newPageView];
+    }
+}
+
+- (void)purgePage:(NSInteger)page {
+    if (page < 0 || page >= self.pageImages.count) {
+        // If it's outside the range of what we have to display, then do nothing
+        return;
+    }
+    
+    // Remove a page from the scroll view and reset the container array
+    UIView *pageView = [self.pageViews objectAtIndex:page];
+    if ((NSNull*)pageView != [NSNull null]) {
+        [pageView removeFromSuperview];
+        [self.pageViews replaceObjectAtIndex:page withObject:[NSNull null]];
+    }
+}
+
+
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // Load the pages which are now on screen
+    [self loadVisiblePages];
 }
 
 @end

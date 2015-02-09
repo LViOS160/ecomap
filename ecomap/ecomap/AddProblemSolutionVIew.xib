@@ -41,6 +41,9 @@
                             <constraint firstAttribute="centerX" secondItem="Ae6-Nx-izn" secondAttribute="centerX" id="VKA-Eg-08s"/>
                         </constraints>
                     </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="170" id="yV2-Pd-Vco"/>
+                    </constraints>
                     <blurEffect style="light"/>
                 </visualEffectView>
             </subviews>
