@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *kindOfTopChartSegmentedControl;
 @property (nonatomic) EcomapKindfOfTheProblemsTopList kindOfTopChart;
 @property (strong, nonatomic) NSArray *propertyListResults;
+@property (strong, nonatomic) IBOutlet UITableView *topChartTableView;
 
 @end
 
@@ -36,8 +37,10 @@
         case 1: self.kindOfTopChart = EcomapMostSevereProblemsTopList; break;
         case 2: self.kindOfTopChart = EcomapMostCommentedProblemsTopList; break;
     }
+    
     NSArray *problems = [EcomapStatsFetcher getPaticularTopChart:self.kindOfTopChart
                                                             from:self.propertyListResults];
+    
     self.navigationItem.title = ECOMAP_MOST_SEVERE_PROBLEMS_CHART_TITLE;
     self.problems = problems;
 }

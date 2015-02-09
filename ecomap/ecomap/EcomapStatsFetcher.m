@@ -33,4 +33,9 @@
     return @"";
 }
 
+/*+ (NSInteger)getNumberOfObjectsByKey:(NSString *)key inGeneralStats:(NSArray *)generalStats
+{
+    for(NSDictionary *stats in generalStats)
+}*/
+
 @end
