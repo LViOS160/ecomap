@@ -11,6 +11,7 @@
 #import "XYPieChart.h"
 #import "EcomapURLFetcher.h"
 #import "EcomapPathDefine.h"
+#import "EcomapStatsParser.h"
 
 @interface PieChartViewController ()
 
@@ -131,9 +132,18 @@
                                                                          error:NULL];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.generalStats = propertyListResults;
+            [self updateUI];
             NSLog(@"%@", propertyListResults);
         });
     });
+}
+
+- (void)updateUI
+{
+    self.numOfProblemsLabel.text = [NSString stringWithFormat:@"Problems: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PROBLEMS inGeneralStatsArray:self.generalStats]];
+    self.numOfVotesLabel.text = [NSString stringWithFormat:@"Votes: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_VOTES inGeneralStatsArray:self.generalStats]];
+    self.numOfPhotosLabel.text = [NSString stringWithFormat:@"Photos: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PHOTOS inGeneralStatsArray:self.generalStats]];
+    self.numOfCommentsLabel.text = [NSString stringWithFormat:@"Comments: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_COMMENTS inGeneralStatsArray:self.generalStats]];
 }
 
 -(EcomapStatsTimePeriod)getPeriodForStats

@@ -70,4 +70,10 @@
 #define ECOMAP_USER_TOKEN @"token"
 #define ECOMAP_USER_EMAIL @"email"
 
+// keys (paths) to values in a STAT dictionary in GENERAL STATS array
+#define ECOMAP_GENERAL_STATS_PROBLEMS @"problems"
+#define ECOMAP_GENERAL_STATS_VOTES @"votes"
+#define ECOMAP_GENERAL_STATS_PHOTOS @"photos"
+#define ECOMAP_GENERAL_STATS_COMMENTS @"comments"
+
 #endif
