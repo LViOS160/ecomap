@@ -17,15 +17,10 @@
 #import "EcomapClusterRenderer.h"
 
 
-@interface MapViewController ()
+@interface MapViewController ()<CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) GClusterManager *clusterManager;
-
-//AddProblemViews
-@property (nonatomic, strong) UIView* addProblemNavigationView;
 
 @end
 
@@ -119,11 +114,33 @@
                                         0);
 }
 
-#pragma mark - AddProblem
+#pragma mark - Utility methods
 
-- (void)loadNibs {
-    _addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigation" owner:self options:nil][0];
-    
++ (NSSet *)markersFromProblems:(NSArray *)problems
+{
+    NSMutableSet *markers = [[NSMutableSet alloc] initWithCapacity:problems.count];
+    for(EcomapProblem *problem in problems) {
+        if([problem isKindOfClass:[EcomapProblem class]])
+            [markers addObject:[MapViewController markerFromProblem:problem]];
+    }
+    return markers;
+}
+
++ (GMSMarker*)markerFromProblem:(EcomapProblem *)problem
+{
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
+    marker.title = problem.title;
+    marker.snippet = problem.problemTypeTitle;
+    marker.icon = [MapViewController iconForMarkerType:problem.problemTypesID];
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.map = nil;
+    return marker;
+}
+
++ (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
+{
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", (unsigned long)problemTypeID]];
 }
 
 @end
