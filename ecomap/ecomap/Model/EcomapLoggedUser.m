@@ -37,15 +37,16 @@ EcomapLoggedUser *currentLoggedUser = nil;
     self = [super init];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (self) {
+        // Add Observer
+        [defaults addObserver:self
+                   forKeyPath:@"isUserLogged"
+                      options:NSKeyValueObservingOptionNew
+                      context:NULL];
         if (userInfo){
             [self parseUser:userInfo];
             [defaults setObject:@"YES" forKey:@"isUserLogged"];
             currentLoggedUser = self;
-            // Add Observer
-            [defaults addObserver:self
-                       forKeyPath:@"isUserLogged"
-                          options:NSKeyValueObservingOptionNew
-                          context:NULL];
+            
         } else {
             [defaults setObject:@"NO" forKey:@"isUserLogged"];
             currentLoggedUser = nil;
