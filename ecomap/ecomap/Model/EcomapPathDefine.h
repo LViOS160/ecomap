@@ -65,6 +65,14 @@
 #define ECOMAP_PHOTO_PROBLEMS_ID @"Problems_Id"
 #define ECOMAP_PHOTO_USERS_ID @"Users_Id"
 
+// keys (paths) to values in a THIRD dictionary (comments to problems) in PROBLEM array
+#define ECOMAP_COMMENT_ID @"Id"
+#define ECOMAP_COMMENT_CONTENT @"Content"
+#define ECOMAP_COMMENT_DATE @"Date"
+#define ECOMAP_COMMENT_ACTYVITYTYPES_ID @"ActivityTypes_Id"
+#define ECOMAP_COMMENT_USERS_ID @"Users_Id"
+#define ECOMAP_COMMENT_PROBLEMS_ID @"Problems_Id"
+
 // keys (paths) to values in a USER dictionary
 #define ECOMAP_USER_ID @"Id"
 #define ECOMAP_USER_NAME @"name"

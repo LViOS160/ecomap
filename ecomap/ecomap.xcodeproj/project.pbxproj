@@ -61,6 +61,8 @@
 		CABBB5191A853D400089065B /* Spot.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5111A853D400089065B /* Spot.m */; };
 		CABBB5221A853D6F0089065B /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB51E1A853D6F0089065B /* GQTPointQuadTree.m */; };
 		CABBB5231A853D6F0089065B /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5201A853D6F0089065B /* GQTPointQuadTreeChild.m */; };
+		CABBB5261A8A844D0089065B /* EcomapPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5251A8A844D0089065B /* EcomapPhoto.m */; };
+		CABBB5291A8A84690089065B /* EcomapComments.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5281A8A84690089065B /* EcomapComments.m */; };
 		E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C921A80F9A300121A7E /* EcomapFetcher.m */; };
 		E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C941A80F9A300121A7E /* EcomapProblem.m */; };
 		E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C961A80F9A300121A7E /* EcomapProblemDetails.m */; };
@@ -170,6 +172,10 @@
 		CABBB51F1A853D6F0089065B /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
 		CABBB5201A853D6F0089065B /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
 		CABBB5211A853D6F0089065B /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
+		CABBB5241A8A844D0089065B /* EcomapPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapPhoto.h; sourceTree = "<group>"; };
+		CABBB5251A8A844D0089065B /* EcomapPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapPhoto.m; sourceTree = "<group>"; };
+		CABBB5271A8A84690089065B /* EcomapComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapComments.h; sourceTree = "<group>"; };
+		CABBB5281A8A84690089065B /* EcomapComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapComments.m; sourceTree = "<group>"; };
 		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
 		E5F27C921A80F9A300121A7E /* EcomapFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapFetcher.m; path = Model/EcomapFetcher.m; sourceTree = "<group>"; };
@@ -231,6 +237,10 @@
 				E5F27C961A80F9A300121A7E /* EcomapProblemDetails.m */,
 				51B485251A8417CB00BA8AFF /* EcomapLoggedUser.h */,
 				51B485261A8417CB00BA8AFF /* EcomapLoggedUser.m */,
+				CABBB5241A8A844D0089065B /* EcomapPhoto.h */,
+				CABBB5251A8A844D0089065B /* EcomapPhoto.m */,
+				CABBB5271A8A84690089065B /* EcomapComments.h */,
+				CABBB5281A8A84690089065B /* EcomapComments.m */,
 			);
 			name = "Value-Object Classes";
 			sourceTree = "<group>";
@@ -577,7 +587,6 @@
 				CABBB5221A853D6F0089065B /* GQTPointQuadTree.m in Sources */,
 				CABBB5131A853D400089065B /* GStaticCluster.m in Sources */,
 				12B47F281A83A142008FAF8D /* RegisterViewController.m in Sources */,
-				B388FF0B1A7F9072009C421C /* StatisticViewController.m in Sources */,
 				CABBB5231A853D6F0089065B /* GQTPointQuadTreeChild.m in Sources */,
 				B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */,
 				B323B57A1A89F8FF00D02E2D /* AddProblemViewController.m in Sources */,
@@ -597,6 +606,7 @@
 				E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */,
 				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
 				90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */,
+				CABBB5291A8A84690089065B /* EcomapComments.m in Sources */,
 				CABBB5151A853D400089065B /* GClusterManager.m in Sources */,
 				90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */,
 				B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */,
@@ -604,6 +614,7 @@
 				B35343501A7F78A200DD2F03 /* MenuViewController.m in Sources */,
 				E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */,
 				E5F27C9C1A80F9A300121A7E /* EcomapURLFetcher.m in Sources */,
+				CABBB5261A8A844D0089065B /* EcomapPhoto.m in Sources */,
 				B353431F1A7F73ED00DD2F03 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

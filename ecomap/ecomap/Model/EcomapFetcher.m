@@ -12,6 +12,8 @@
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
 #import "EcomapLoggedUser.h"
+#import "EcomapPhoto.h"
+#import "EcomapComments.h"
 
 @import MobileCoreServices;
 
@@ -86,7 +88,13 @@
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
                     NSDictionary *problem = nil;
+                    NSArray *photos = nil;
+                    NSArray *comments = nil;
+                    
                     EcomapProblemDetails *problemDetails = nil;
+                    NSMutableArray *problemPhotos = nil;
+                    NSMutableArray *problemComments = nil;
+                    
                     if (!error) {
                         //Extract received data
                         if (JSON != nil) {
@@ -106,8 +114,27 @@
                             
                             //Extract problemDetails from JSON
                             //Parse JSON
-                            problem = [[[EcomapFetcher parseJSONtoArray:JSON] objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
+                            NSArray *jsonArray = [EcomapFetcher parseJSONtoArray:JSON];
+                            problem = [[jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
                             problemDetails = [[EcomapProblemDetails alloc] initWithProblem:problem];
+                            
+                            photos = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_PHOTOS];
+                            problemPhotos = [NSMutableArray array];
+                            for(NSDictionary *photo in photos){
+                                id ecoPhoto = [[EcomapPhoto alloc] initWithInfo:photo];
+                                if(photo)
+                                    [problemPhotos addObject:ecoPhoto];
+                            }
+                            
+                            comments = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_COMMENTS];
+                            problemComments = [NSMutableArray array];
+                            for(NSDictionary *comment in comments){
+                                id ecoComment = [[EcomapComments alloc] initWithInfo:comment];
+                                if(ecoComment)
+                                    [problemComments addObject:ecoComment];
+                            }
+                            problemDetails.photos = problemPhotos;
+                            problemDetails.comments = problemComments;
                         }
                     }
                     

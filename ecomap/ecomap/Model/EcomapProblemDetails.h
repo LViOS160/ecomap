@@ -15,5 +15,7 @@
 @property (nonatomic, readonly) NSUInteger severity;
 @property (nonatomic, readonly) NSUInteger moderation;
 @property (nonatomic, readonly) NSUInteger votes;
+@property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, strong) NSArray *comments;
 
 @end
