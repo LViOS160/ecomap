@@ -33,7 +33,7 @@
     [super viewDidLoad];
     [self customSetup];
     [self mapSetup];
-    [EcomapFetcher problemPost:^{}];
+
 }
 
 
