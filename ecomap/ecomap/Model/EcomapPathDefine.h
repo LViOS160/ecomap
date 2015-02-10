@@ -10,7 +10,7 @@
 
 //API address
 //#define ECOMAP_ADDRESS @"http://176.36.11.25/"
-#define ECOMAP_ADDRESS @"http://ecomap.org/"
+#define ECOMAP_ADDRESS @"http://localhost:8090/"
 
 #define ECOMAP_API @"api/"
 #define ECOMAP_GET_PROBLEMS_API @"problems/"
@@ -18,6 +18,7 @@
 #define ECOMAP_POST_LOGIN_API @"login/"
 #define ECOMAP_POST_REGISTER_API @"register/"
 #define ECOMAP_GET_PHOTOS_ADDRESS @"photos/large/"
+#define ECOMAP_POST_PROBLEM @"problempost"
 
 //Queries for statistics
 #define ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS @"getStats4"

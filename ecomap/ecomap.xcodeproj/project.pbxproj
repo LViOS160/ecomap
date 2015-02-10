@@ -50,6 +50,7 @@
 		B3A8D08B1A85540C00017BAE /* AddProblemDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08A1A85540C00017BAE /* AddProblemDescriptionView.xib */; };
 		B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */; };
 		B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */; };
+		B3C56A4F1A8A169000877227 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C56A4E1A8A169000877227 /* add.png */; };
 		CABBB5121A853D400089065B /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB4FF1A853D400089065B /* GQuadItem.m */; };
 		CABBB5131A853D400089065B /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5011A853D400089065B /* GStaticCluster.m */; };
 		CABBB5141A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5031A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m */; };
@@ -141,6 +142,7 @@
 		B3A8D08A1A85540C00017BAE /* AddProblemDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemDescriptionView.xib; sourceTree = "<group>"; };
 		B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionView.xib; sourceTree = "<group>"; };
 		B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemPhotoView.xib; sourceTree = "<group>"; };
+		B3C56A4E1A8A169000877227 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = Images.xcassets/add.imageset/add.png; sourceTree = "<group>"; };
 		CABBB4FD1A853D400089065B /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
 		CABBB4FE1A853D400089065B /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
 		CABBB4FF1A853D400089065B /* GQuadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQuadItem.m; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			children = (
 				B3A8D0831A853FFF00017BAE /* Defines.h */,
 				B35343201A7F73ED00DD2F03 /* AppDelegate.h */,
+				B3C56A4E1A8A169000877227 /* add.png */,
 				B35343211A7F73ED00DD2F03 /* AppDelegate.m */,
 				B353432C1A7F73ED00DD2F03 /* Images.xcassets */,
 				B353432E1A7F73ED00DD2F03 /* LaunchScreen.xib */,
@@ -543,6 +546,7 @@
 				B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */,
 				B3A8D0851A85414C00017BAE /* AddProblemNameView.xib in Resources */,
 				B353432B1A7F73ED00DD2F03 /* Main.storyboard in Resources */,
+				B3C56A4F1A8A169000877227 /* add.png in Resources */,
 				B35343301A7F73ED00DD2F03 /* LaunchScreen.xib in Resources */,
 				B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */,
 				B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */,

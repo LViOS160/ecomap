@@ -12,9 +12,6 @@
 #import "GClusterManager.h"
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate>
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) GMSMapView *mapView;
-@property (nonatomic, strong) NSSet *markers;
 
 @end
 

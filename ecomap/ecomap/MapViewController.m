@@ -17,10 +17,13 @@
 #import "EcomapClusterRenderer.h"
 
 
-@interface MapViewController ()<CLLocationManagerDelegate>
+@interface MapViewController () <CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) GMSMapView *mapView;
+@property (nonatomic, strong) NSSet *markers;
 
 @end
 
@@ -30,6 +33,7 @@
     [super viewDidLoad];
     [self customSetup];
     [self mapSetup];
+    [EcomapFetcher problemPost:^{}];
 }
 
 

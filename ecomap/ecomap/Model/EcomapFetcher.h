@@ -28,6 +28,8 @@
 //Use [EcomapLoggedUser currentLoggedUser] to get an instance of current logged user
 + (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(EcomapLoggedUser *loggedUser, NSError *error))completionHandler;
 
++ (void)problemPost:(void (^)())completionHandler;
+
 //Registration. We don't need the instance of logged user after registration
 // added by Gregory Chereda
 + (void)registerWithName:(NSString*)name andSurname:(NSString*) surname andEmail: (NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(NSError *error))completionHandler;

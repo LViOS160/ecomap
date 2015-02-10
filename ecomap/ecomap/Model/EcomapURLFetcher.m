@@ -75,5 +75,10 @@
     return [self URLForAPIQuery:ECOMAP_GET_GENERAL_STATS];
 }
 
++ (NSURL *)URLforProblemPost
+{
+    return [self URLForAPIQuery:ECOMAP_POST_PROBLEM];
+}
+
 
 @end

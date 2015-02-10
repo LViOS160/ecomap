@@ -94,9 +94,9 @@
 - (void)closeButtonTap:(id *)sender {
     _addProblemButton.enabled = YES;
     [self slideViewToRight:_curView];
-    _curView = nil;
+  //  _curView = nil;
     [self slideViewToRight:_addProblemNavigationView];
-    _addProblemNavigationView = nil;
+//    _addProblemNavigationView = nil;
     self.navigationItem.rightBarButtonItem = nil;
     _pageControl.currentPage = 0;
 }

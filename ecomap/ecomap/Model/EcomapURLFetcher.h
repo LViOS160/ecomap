@@ -36,6 +36,10 @@ typedef enum {
 
 //Return URL for general stats
 + (NSURL *)URLforGeneralStats;
+
+//Return URL for problem post
++ (NSURL *)URLforProblemPost;
+
 //Return API URL to Register
 +(NSURL*)URLforRegister;
 @end
