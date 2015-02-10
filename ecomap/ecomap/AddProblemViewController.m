@@ -215,7 +215,7 @@
     
 }
 
-- (IBAction)addProblemButton:(id)sender {
+- (IBAction)addProblemButtonTap:(id)sender {
     [self loadNibs];
     [self showAddProblemView];
     _nextButton.hidden = NO;
