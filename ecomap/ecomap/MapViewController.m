@@ -17,7 +17,7 @@
 #import "EcomapClusterRenderer.h"
 
 
-@interface MapViewController ()<CLLocationManagerDelegate>
+@interface MapViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -35,34 +35,12 @@
     [super viewDidLoad];
     [self customSetup];
     [self mapSetup];
-    [self loadNibs];
-    
-//    [_addProblemNavigationView setFrame:CGRectMake(0, 60, 320, 52)];
-//    
-//   
-//
-//
-//    [self.view addSubview:_addProblemNavigationView];
-//    
-//    NSDictionary *metrics = @{@"height":@52.0};
-//    NSDictionary *dict = [NSDictionary dictionaryWithObjects:@[self.topLayoutGuide, _addProblemNavigationView]
-//                                                     forKeys:@[@"topGuide", @"grayView"]];
-//    [_addProblemNavigationView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[grayView]"
-//                                                                      options:0
-//                                                                      metrics:nil
-//                                                                        views:dict]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[grayView(height)]-|"
-//                                                                      options:0
-//                                                                      metrics:metrics
-//                                                                        views:dict]];
-    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[grayView]-|"
-//                                                                      options:0
-//                                                                      metrics:nil
-//                                                                        views:dict]];
 }
+
+
+
+#pragma mark - GMAP
+
 
 - (void)mapSetup {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
@@ -91,7 +69,7 @@
 }
 
 - (void)customSetup
-{
+{    
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
     if ( revealViewController )
     {

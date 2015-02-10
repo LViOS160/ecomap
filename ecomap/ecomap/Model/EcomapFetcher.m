@@ -47,6 +47,35 @@
                 }];
     
 }
+#pragma mark - Load All Problem Types
++ (void)loadAllPorblemTypes:(void (^)(NSArray *problemTypes, NSError *error))completionHandler {
+    [self loadDataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAllProblems]]
+             sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                completionHandler:^(NSData *JSON, NSError *error) {
+                    NSMutableArray *problemTypes = nil;
+                    NSArray *problemsFromJSON = nil;
+                    if (!error) {
+                        //Extract received data
+                        if (JSON != nil) {
+                            //Parse JSON
+                            problemsFromJSON = [EcomapFetcher parseJSONtoArray:JSON];
+                            
+                            //Fill problems array
+                            if (problemsFromJSON) {
+                                problemTypes = [NSMutableArray array];
+                                //Fill array with EcomapProblem
+                                for (NSDictionary *problem in problemsFromJSON) {
+                                    EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblem:problem];
+                                    [problemTypes addObject:ecoProblem];
+                                }
+                            }
+                            
+                        }
+                    }
+                    //set up completionHandler
+                    completionHandler(problemTypes, error);
+                }];
+}
 
 #pragma mark - Load Problem with ID
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler

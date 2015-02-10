@@ -33,6 +33,11 @@
     return [self URLForAPIQuery:ECOMAP_GET_PROBLEMS_API];
 }
 
++ (NSURL *)URLforAllProblemsTypes
+{
+    return [self URLForAPIQuery:ECOMAP_GET_PROBLEM_TYPES];
+}
+
 + (NSURL *)URLforProblemWithID:(NSUInteger)problemID
 {
     NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEMS_API, (unsigned long)problemID];
