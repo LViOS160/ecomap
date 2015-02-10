@@ -9,17 +9,19 @@
 #define EcomapFetcher_Header_h
 
 //API address
-#define ECOMAP_ADDRESS @"http://176.36.11.25/"
-//#define ECOMAP_ADDRESS @"http://ecomap.org/"
+//#define ECOMAP_ADDRESS @"http://176.36.11.25/"
+#define ECOMAP_ADDRESS @"http://ecomap.org/"
 
 #define ECOMAP_API @"api/"
 #define ECOMAP_GET_PROBLEMS_API @"problems/"
+#define ECOMAP_GET_PROBLEM_TYPES @"problems/"
 #define ECOMAP_POST_LOGIN_API @"login/"
 #define ECOMAP_POST_REGISTER_API @"register/"
 #define ECOMAP_GET_PHOTOS_ADDRESS @"photos/large/"
 
 //Queries for statistics
 #define ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS @"getStats4"
+#define ECOMAP_GET_GENERAL_STATS @"getStats3"
 #define ECOMAP_GET_STATS_FOR_ALL_THE_TIME @"getStats2/A"
 #define ECOMAP_GET_STATS_FOR_LAST_YEAR @"getStats2/Y"
 #define ECOMAP_GET_STATS_FOR_LAST_MOTH @"getStats2/M"
@@ -69,5 +71,11 @@
 #define ECOMAP_USER_ITA @"iat"
 #define ECOMAP_USER_TOKEN @"token"
 #define ECOMAP_USER_EMAIL @"email"
+
+// keys (paths) to values in a STAT dictionary in GENERAL STATS array
+#define ECOMAP_GENERAL_STATS_PROBLEMS @"problems"
+#define ECOMAP_GENERAL_STATS_VOTES @"votes"
+#define ECOMAP_GENERAL_STATS_PHOTOS @"photos"
+#define ECOMAP_GENERAL_STATS_COMMENTS @"comments"
 
 #endif

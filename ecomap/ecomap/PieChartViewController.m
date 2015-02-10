@@ -7,9 +7,11 @@
 //
 
 #import "PieChartViewController.h"
+#import "EcomapRevealViewController.h"
 #import "XYPieChart.h"
 #import "EcomapURLFetcher.h"
 #import "EcomapPathDefine.h"
+#import "EcomapStatsParser.h"
 
 @interface PieChartViewController ()
 
@@ -18,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *numOfCommentsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numOfPhotosLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statsRangeSegmentedControl;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 
 @property(nonatomic, strong) NSMutableArray *slices;
 @property(nonatomic, strong) NSArray *sliceColors;
@@ -39,7 +42,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
+    [self fetchGeneralStats];
+    [self customSetup];
 }
 
 - (void)drawPieChart
@@ -95,19 +101,12 @@
         [mutableSliceColors addObject:sliceColor];
     }
     
-    /*NSArray *sliceColors = [NSArray arrayWithObjects:
-                            [UIColor colorWithRed:246/255.0 green:155/255.0 blue:0/255.0 alpha:1],
-                            [UIColor colorWithRed:129/255.0 green:195/255.0 blue:29/255.0 alpha:1],
-                            [UIColor colorWithRed:62/255.0 green:173/255.0 blue:219/255.0 alpha:1],
-                            [UIColor colorWithRed:229/255.0 green:66/255.0 blue:115/255.0 alpha:1],
-                            [UIColor colorWithRed:148/255.0 green:141/255.0 blue:139/255.0 alpha:1],nil];
-    */
     return mutableSliceColors;
 }
 
 - (void)fetchStats
 {
-    NSURL *url = [EcomapURLFetcher URLforStatsParticularPeriod:[self getPeriodForStats]];
+    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[self getPeriodForStats]];
     dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
     dispatch_async(fetchQ, ^{
         NSData *jsonResults = [NSData dataWithContentsOfURL:url];
@@ -116,10 +115,35 @@
                                                                      error:NULL];
       dispatch_async(dispatch_get_main_queue(), ^{
             self.statsForPieChart = propertyListResults;
-            NSLog(@"%@", propertyListResults);
+            //NSLog(@"%@", propertyListResults);
       });
     });
 
+}
+
+- (void)fetchGeneralStats
+{
+    NSURL *url = [EcomapURLFetcher URLforGeneralStats];
+    dispatch_queue_t fetchGSQ = dispatch_queue_create("fetchGSQ", NULL);
+    dispatch_async(fetchGSQ, ^{
+        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
+        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
+                                                                       options:0
+                                                                         error:NULL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.generalStats = propertyListResults;
+            [self updateUI];
+            NSLog(@"%@", propertyListResults);
+        });
+    });
+}
+
+- (void)updateUI
+{
+    self.numOfProblemsLabel.text = [NSString stringWithFormat:@"Problems: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PROBLEMS inGeneralStatsArray:self.generalStats]];
+    self.numOfVotesLabel.text = [NSString stringWithFormat:@"Votes: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_VOTES inGeneralStatsArray:self.generalStats]];
+    self.numOfPhotosLabel.text = [NSString stringWithFormat:@"Photos: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PHOTOS inGeneralStatsArray:self.generalStats]];
+    self.numOfCommentsLabel.text = [NSString stringWithFormat:@"Comments: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_COMMENTS inGeneralStatsArray:self.generalStats]];
 }
 
 -(EcomapStatsTimePeriod)getPeriodForStats
@@ -137,6 +161,17 @@
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     
+}
+
+- (void)customSetup
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.revealButtonItem setTarget: self.revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
 }
 
 /*

@@ -33,6 +33,11 @@
     return [self URLForAPIQuery:ECOMAP_GET_PROBLEMS_API];
 }
 
++ (NSURL *)URLforAllProblemsTypes
+{
+    return [self URLForAPIQuery:ECOMAP_GET_PROBLEM_TYPES];
+}
+
 + (NSURL *)URLforProblemWithID:(NSUInteger)problemID
 {
     NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEMS_API, (unsigned long)problemID];
@@ -54,7 +59,7 @@
     return [self URLForAPIQuery:ECOMAP_POST_REGISTER_API];
 }
 
-+ (NSURL *)URLforStatsParticularPeriod:(EcomapStatsTimePeriod)period
++ (NSURL *)URLforStatsForParticularPeriod:(EcomapStatsTimePeriod)period
 {
     switch(period) {
         case EcomapStatsForAllTheTime: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_ALL_THE_TIME];
@@ -63,6 +68,11 @@
         case EcomapStatsForLastWeek: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_LAST_WEEK];
         case EcomapStatsForLastDay: return [self URLForAPIQuery:ECOMAP_GET_STATS_FOR_LAST_DAY];
     }
+}
+
++ (NSURL *)URLforGeneralStats
+{
+    return [self URLForAPIQuery:ECOMAP_GET_GENERAL_STATS];
 }
 
 

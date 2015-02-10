@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 #import "GClusterManager.h"
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate>
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) GMSMapView *mapView;
+@property (nonatomic, strong) NSSet *markers;
 
 @end
 

@@ -41,6 +41,11 @@ EcomapLoggedUser *currentLoggedUser = nil;
             [self parseUser:userInfo];
             [defaults setObject:@"YES" forKey:@"isUserLogged"];
             currentLoggedUser = self;
+            // Add Observer
+            [defaults addObserver:self
+                       forKeyPath:@"isUserLogged"
+                          options:NSKeyValueObservingOptionNew
+                          context:NULL];
         } else {
             [defaults setObject:@"NO" forKey:@"isUserLogged"];
             currentLoggedUser = nil;
@@ -71,11 +76,24 @@ EcomapLoggedUser *currentLoggedUser = nil;
     }
 }
 
-#pragma mark - Override NSObject methods
 //Override
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"Logged user: %@", self.name];
+}
+
+#pragma mark - Observer
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"isUserLogged"]) {
+        if ([[object valueForKey:@"isUserLogged"] isEqualToString:@"NO"]) {
+            currentLoggedUser = nil;
+        }
+    }
+}
+
+//RemoveObserver
+- (void)dealloc {
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"isUserLogged"];
 }
 
 @end

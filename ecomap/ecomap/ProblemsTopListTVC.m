@@ -12,12 +12,16 @@
 #import "EcomapURLFetcher.h"
 #import "EcomapStatsFetcher.h"
 #import "EcomapPathDefine.h"
+#import "EcomapRevealViewController.h"
 
 @interface ProblemsTopListTVC ()
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *kindOfTopChartSegmentedControl;
 @property (nonatomic) EcomapKindfOfTheProblemsTopList kindOfTopChart;
 @property (strong, nonatomic) NSArray *propertyListResults;
+@property (strong, nonatomic) IBOutlet UITableView *topChartTableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
+
 
 @end
 
@@ -32,13 +36,23 @@
 - (IBAction)changeKindOfTopChart:(UISegmentedControl *)sender
 {
     switch(sender.selectedSegmentIndex) {
-        case 0: self.kindOfTopChart = EcomapMostVotedProblemsTopList; break;
-        case 1: self.kindOfTopChart = EcomapMostSevereProblemsTopList; break;
-        case 2: self.kindOfTopChart = EcomapMostCommentedProblemsTopList; break;
+        case 0:
+            self.kindOfTopChart = EcomapMostVotedProblemsTopList;
+            self.navigationItem.title = ECOMAP_MOST_VOTED_PROBLEMS_CHART_TITLE;
+            break;
+        case 1:
+            self.kindOfTopChart = EcomapMostSevereProblemsTopList;
+            self.navigationItem.title = ECOMAP_MOST_SEVERE_PROBLEMS_CHART_TITLE;
+            break;
+        case 2:
+            self.kindOfTopChart = EcomapMostCommentedProblemsTopList;
+            self.navigationItem.title = ECOMAP_MOST_COMMENTED_PROBLEMS_CHART_TITLE;
+            break;
     }
+    
     NSArray *problems = [EcomapStatsFetcher getPaticularTopChart:self.kindOfTopChart
                                                             from:self.propertyListResults];
-    self.navigationItem.title = ECOMAP_MOST_SEVERE_PROBLEMS_CHART_TITLE;
+    
     self.problems = problems;
 }
 
@@ -54,6 +68,18 @@
     [super viewDidLoad];
     [self fetchProblems];
     [self changeKindOfTopChart:self.kindOfTopChartSegmentedControl];
+    [self customSetup];
+}
+
+- (void)customSetup
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.revealButtonItem setTarget: self.revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
 }
 
 - (void)fetchProblems
