@@ -398,7 +398,7 @@
                                                     //Set data
                                                     if ([EcomapFetcher statusCodeFromResponse:response] == 200) {
                                                         //Log to console
-                                                        NSLog(@"JSON data downloaded success from URL: %@", request.URL);
+                                                        NSLog(@"Data task performed success from URL: %@", request.URL);
                                                         JSON = data;
                                                     } else {
                                                         //Create error message
@@ -426,7 +426,7 @@
             //Set data
             if ([EcomapFetcher statusCodeFromResponse:response] == 200) {
                 //Log to console
-                NSLog(@"Data uploaded success to url: %@", request.URL);
+                NSLog(@"Upload task performed success to url: %@", request.URL);
                 JSON = data;
             } else {
                 //Create error message

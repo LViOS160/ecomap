@@ -21,6 +21,7 @@
 		2D37BE061A822FD5009A6562 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BE051A822FD5009A6562 /* OpenGLES.framework */; };
 		2D37BE081A822FDF009A6562 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BE071A822FDF009A6562 /* QuartzCore.framework */; };
 		2D37BE0A1A822FEA009A6562 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BE091A822FEA009A6562 /* SystemConfiguration.framework */; };
+		51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */; };
 		51B485271A8417CB00BA8AFF /* EcomapLoggedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B485261A8417CB00BA8AFF /* EcomapLoggedUser.m */; };
 		90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */; };
 		90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */; };
@@ -95,6 +96,8 @@
 		2D37BE051A822FD5009A6562 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2D37BE071A822FDF009A6562 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2D37BE091A822FEA009A6562 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		51A9F1CD1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VasylKorsiubaViewControllerForTestsViewController.h; sourceTree = "<group>"; };
+		51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VasylKorsiubaViewControllerForTestsViewController.m; sourceTree = "<group>"; };
 		51B485251A8417CB00BA8AFF /* EcomapLoggedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapLoggedUser.h; path = Model/EcomapLoggedUser.h; sourceTree = "<group>"; };
 		51B485261A8417CB00BA8AFF /* EcomapLoggedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapLoggedUser.m; path = Model/EcomapLoggedUser.m; sourceTree = "<group>"; };
 		90AE1B7A1A84BD3E0009F641 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemsTopListTVC.h; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */,
 				90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */,
 				90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */,
+				51A9F1CD1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.h */,
+				51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */,
 				B3A8D0901A85545D00017BAE /* AddProblem */,
 				90AE1B801A84BD730009F641 /* XYPieChart */,
 				12B47F261A83A142008FAF8D /* RegisterViewController.h */,
@@ -608,6 +613,7 @@
 				90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */,
 				CABBB5291A8A84690089065B /* EcomapComments.m in Sources */,
 				CABBB5151A853D400089065B /* GClusterManager.m in Sources */,
+				51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */,
 				90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */,
 				B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */,
 				90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */,

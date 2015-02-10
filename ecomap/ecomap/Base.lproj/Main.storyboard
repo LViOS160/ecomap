@@ -1,10 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Vasyl Korsiuba View Controller For Tests View Controller-->
+        <scene sceneID="LcV-lf-qA7">
+            <objects>
+                <viewController id="amz-Ot-bek" customClass="VasylKorsiubaViewControllerForTestsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nXn-11-anI"/>
+                        <viewControllerLayoutGuide type="bottom" id="sZd-Y5-HNf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kBk-oZ-rD8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bY5-jb-ZC2">
+                                <rect key="frame" x="142" y="231" width="38" height="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="login:" destination="amz-Ot-bek" eventType="touchUpInside" id="xeo-oj-55m"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wwj-QA-LOI">
+                                <rect key="frame" x="16" y="518" width="123" height="30"/>
+                                <state key="normal" title="Load all problems">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loadAllProblems:" destination="amz-Ot-bek" eventType="touchUpInside" id="AIE-o8-A8J"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rqj-6E-E9Y">
+                                <rect key="frame" x="196" y="518" width="108" height="30"/>
+                                <state key="normal" title="Load 1 problem">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loadProblemWithId:" destination="amz-Ot-bek" eventType="touchUpInside" id="f1U-K5-YJU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWu-af-SUk">
+                                <rect key="frame" x="136" y="307" width="49" height="30"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="logout:" destination="amz-Ot-bek" eventType="touchUpInside" id="FRr-8w-4uD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pZ-ps-D59">
+                                <rect key="frame" x="118" y="269" width="85" height="30"/>
+                                <state key="normal" title="Current user">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="currentUser:" destination="amz-Ot-bek" eventType="touchUpInside" id="obf-z4-Jvm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DWu-af-SUk" firstAttribute="top" secondItem="5pZ-ps-D59" secondAttribute="bottom" constant="8" id="65S-57-AST"/>
+                            <constraint firstItem="5pZ-ps-D59" firstAttribute="centerX" secondItem="bY5-jb-ZC2" secondAttribute="centerX" id="I72-eF-Wv8"/>
+                            <constraint firstItem="sZd-Y5-HNf" firstAttribute="top" secondItem="Rqj-6E-E9Y" secondAttribute="bottom" constant="20" id="L4I-NC-SYw"/>
+                            <constraint firstItem="sZd-Y5-HNf" firstAttribute="top" secondItem="Wwj-QA-LOI" secondAttribute="bottom" constant="20" id="LUx-qE-nuR"/>
+                            <constraint firstAttribute="centerX" secondItem="5pZ-ps-D59" secondAttribute="centerX" id="UXS-zl-yTg"/>
+                            <constraint firstItem="Wwj-QA-LOI" firstAttribute="leading" secondItem="kBk-oZ-rD8" secondAttribute="leadingMargin" id="aho-VB-xMp"/>
+                            <constraint firstItem="5pZ-ps-D59" firstAttribute="centerX" secondItem="DWu-af-SUk" secondAttribute="centerX" id="iNk-HU-Bmx"/>
+                            <constraint firstItem="5pZ-ps-D59" firstAttribute="top" secondItem="bY5-jb-ZC2" secondAttribute="bottom" constant="8" id="jNQ-yL-vIP"/>
+                            <constraint firstAttribute="centerY" secondItem="5pZ-ps-D59" secondAttribute="centerY" id="rHf-jH-V1D"/>
+                            <constraint firstItem="Rqj-6E-E9Y" firstAttribute="trailing" secondItem="kBk-oZ-rD8" secondAttribute="trailingMargin" id="wVv-H8-wqr"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="36M-AJ-aQi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-899" y="-552"/>
+        </scene>
         <!--Ecomap Reveal View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
