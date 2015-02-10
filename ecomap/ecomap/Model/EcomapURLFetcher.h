@@ -34,6 +34,8 @@ typedef enum {
 //Return URL for stats for particular period
 + (NSURL *)URLforStatsForParticularPeriod:(EcomapStatsTimePeriod)period;
 
+//Return URL for general stats
++ (NSURL *)URLforGeneralStats;
 //Return API URL to Register
 +(NSURL*)URLforRegister;
 @end
