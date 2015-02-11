@@ -147,6 +147,7 @@
                         parameters:(NSDictionary *)parameters
                              paths:(NSArray *)paths
                          fieldName:(NSString *)fieldName
+                  photoDescription:(NSArray*)descriptions
 {
     NSMutableData *httpBody = [NSMutableData data];
     
@@ -158,6 +159,16 @@
         [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", parameterValue] dataUsingEncoding:NSUTF8StringEncoding]];
     }];
     
+    
+    for (NSString *description in descriptions) {
+        [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"description\";"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", description] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"null\";"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
     // add image data
     
     for (NSString *path in paths) {
@@ -168,6 +179,7 @@
         NSLog(@"%@", [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fieldName, filename]);
         NSLog(@"%@", [NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimetype]);
         NSLog(@"%@", [NSString stringWithFormat:@"--%@--\r\n", boundary]);
+
         
         [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fieldName, filename] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -222,15 +234,31 @@
     // return uuidStr;
 }
 
-+ (void)problemPost:(void (^)())completionHandler {
++ (void)problemPost:(EcomapProblem*)problem
+     problemDetails:(EcomapProblemDetails*)problemDetails
+               user:(EcomapLoggedUser*)user
+       OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler {
+    NSDictionary *params = @{@"title"     : problem.title,
+                             @"content"    : problemDetails.content,
+                             @"proposal" : problemDetails.proposal,
+                             @"latitude" : @(problem.latitude),
+                             @"longtitude" : @(problem.longtitude),
+                             @"ProblemTypes_Id" : @(problem.problemTypesID),
+                             @"userId" : @(user.userID),
+                             @"userName" : user.name,
+                             @"userSurname" : user.surname
+                             };
     
-    NSDictionary *params = @{@"type"     : @"1",
-                             @"userEmail"    : @"rob@email.com",
-                             @"userPassword" : @"password"};
+    NSMutableArray *descriptions = [[NSMutableArray alloc] init];
+    NSMutableArray *pathes = [[NSMutableArray alloc] init];
     
     // Determine the path for the image
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"add" ofType:@"png"];
+    for (EcomapPhoto *photo in problemDetails.photos) {
+        [descriptions addObject:photo.description];
+        [pathes addObject:photo.link];
+    }
+
     
     // Create the request
     
@@ -248,7 +276,7 @@
     
     // create body
     
-    NSData *httpBody = [EcomapFetcher createBodyWithBoundary:boundary parameters:params paths:@[path] fieldName:@"file[0]"];
+    NSData *httpBody = [EcomapFetcher createBodyWithBoundary:boundary parameters:params paths:pathes fieldName:@"file[0]" photoDescription:descriptions];
 
     NSURLSession *session = [NSURLSession sharedSession];  // use sharedSession or create your own
     
@@ -260,6 +288,7 @@
         
         NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"result = %@", result);
+        completionHandler(result, error);
     }];
     [task resume];
     
