@@ -53,6 +53,7 @@
     marker.snippet = problem.problemTypeTitle;
     marker.icon = [self iconForMarkerType:problem.problemTypesID];
     marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.userData = problem;
     marker.map = nil;
     return marker;
 }

@@ -24,7 +24,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSSet *markers;
-
+@property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
 @end
 
 @implementation MapViewController
@@ -58,7 +58,7 @@
                 [self.clusterManager addItem:spot];
             }
         }
-        [self.mapView setDelegate:self.clusterManager];
+        [self.mapView setDelegate:self];
         [self.clusterManager cluster];
         
     }];
@@ -116,6 +116,27 @@
                                         0,
                                         self.bottomLayoutGuide.length + 5,
                                         0);
+}
+
+- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
+    assert(mapView == _mapView);
+    
+    // Don't re-compute clusters if the map has just been panned/tilted/rotated.
+    GMSCameraPosition *position = [mapView camera];
+    if (self.previousCameraPosition != nil && self.previousCameraPosition.zoom == position.zoom) {
+        return;
+    }
+    self.previousCameraPosition = [mapView camera];
+    
+    [self.clusterManager cluster];
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker
+{
+    if([marker.userData isKindOfClass:[EcomapProblem class]]) {
+        //EcomapProblem *problem = marker.userData;
+        //TODO: create new view controller for problem details
+    }
 }
 
 #pragma mark - Utility methods
