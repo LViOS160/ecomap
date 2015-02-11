@@ -49,6 +49,23 @@
     return [self URLForAPIQuery:ECOMAP_POST_LOGIN_API];
 }
 
++ (NSURL *)URLforLogout
+{
+    return [self URLForAPIQuery:ECOMAP_GET_LOGOUT_API];
+}
+
++ (NSURL *)URLforServer
+{
+    return [self URLForQuery:@""];
+}
+
++ (NSString *)serverDomain
+{
+    NSString *domain = [ECOMAP_ADDRESS stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+    
+    return [domain stringByReplacingOccurrencesOfString:@"/" withString:@""];
+}
+
 + (NSURL *)URLforTopChartsOfProblems
 {
     return [self URLForAPIQuery:ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS];
