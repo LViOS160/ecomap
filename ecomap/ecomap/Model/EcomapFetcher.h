@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 @class EcomapProblemDetails;
 @class EcomapLoggedUser;
+@class EcomapProblem;
 
 @interface EcomapFetcher : NSObject
 
@@ -37,7 +38,10 @@
 //Use [EcomapLoggedUser currentLoggedUser] to get an instance of current logged user anytime
 + (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(EcomapLoggedUser *loggedUser, NSError *error))completionHandler;
 
-+ (void)problemPost:(void (^)())completionHandler;
++ (void)problemPost:(EcomapProblem*)problem
+     problemDetails:(EcomapProblemDetails*)problemDetails
+               user:(EcomapLoggedUser*)user
+       OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
 
 //Registration. We don't need the instance of logged user after registration
 // added by Gregory Chereda
