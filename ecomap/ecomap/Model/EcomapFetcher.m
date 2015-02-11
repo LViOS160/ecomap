@@ -14,6 +14,8 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapPhoto.h"
 #import "EcomapComments.h"
+#import "EcomapResources.h"
+#import "EcomapAlias.h"
 
 @import MobileCoreServices;
 
@@ -81,6 +83,76 @@
                 }];
 }
 
+#pragma mark - load all allias content
+
++(void)loadAliasOnCompletion:(void (^)(NSArray *alias, NSError *error))completionHandler String:(NSString *)str
+{
+    
+    
+    
+    [self dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAlias:str]]
+             sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                completionHandler:^(NSData *JSON, NSError *error) {
+                    NSLog(@"%@",str);
+                    NSMutableArray *alias = nil;
+                    NSArray *aliasFromJSON = nil;
+                    
+                    if(!error)
+                    {
+                        //Parse JSON
+                        aliasFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
+                        alias = [NSMutableArray array];
+                        
+                        //Fill array with ECOMAPRESOURCES
+                        for(NSDictionary *aliases in aliasFromJSON)
+                        {
+                            EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:aliases];
+                            //  NSLog(@"%@",ecoAl.content);
+                            [alias addObject:ecoAl];
+                            
+                        }
+                    }
+                    completionHandler(alias,error);
+                    
+                }];
+    
+    
+}
+
+#pragma mark - Load all Resources
+
++(void)loadResourcesOnCompletion:(void (^)(NSArray *resources, NSError *error))completionHandler
+{
+    [self dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforResources]]
+             sessionConfiguration:[NSURLSessionConfiguration  ephemeralSessionConfiguration]
+                completionHandler:^(NSData *JSON, NSError *error) {
+                    
+                    NSMutableArray *resources = nil;
+                    NSArray *resourcesFromJSON = nil;
+                    if(!error)
+                    {
+                        //Parse JSON
+                        resourcesFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
+                        resources = [NSMutableArray array];
+                        
+                        //Fill array with ECOMAPRESOURCES
+                        for(NSDictionary *resource in resourcesFromJSON)
+                        {
+                            EcomapResources *ecoRes = [[EcomapResources alloc] initWithResource:resource];
+                            [resources addObject:ecoRes];
+                            
+                            // NSLog(@"%@",resources);
+                            
+                        }
+                    }
+                    completionHandler(resources,error);
+                    
+                }];
+    
+}
+
+
+
 #pragma mark - Get Problem with ID
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler
 {
@@ -142,6 +214,8 @@
                     completionHandler(problemDetails, error);
                 }];
 }
+
+
 
 + (NSData *)createBodyWithBoundary:(NSString *)boundary
                         parameters:(NSDictionary *)parameters
@@ -530,7 +604,7 @@
         NSString *tokenValue = [NSString stringWithFormat:@"token=%@", token];
         
         //Form id value
-        NSString *idValue = [NSString stringWithFormat:@"id=%d", userData.userID];
+        NSString *idValue = [NSString stringWithFormat:@"id=%lu", (unsigned long)userData.userID];
         
         //Form userEmail value
         NSString *userEmail = userData.email ? [userData.email stringByReplacingOccurrencesOfString:@"@" withString:@"%"] : @"null";
@@ -554,5 +628,6 @@
     
     return cookie;
 }
+
 
 @end

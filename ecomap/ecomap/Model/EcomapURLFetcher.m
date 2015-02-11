@@ -97,5 +97,18 @@
     return [self URLForAPIQuery:ECOMAP_POST_PROBLEM];
 }
 
+#pragma mark - Ask URL for all resources
++(NSURL *)URLforResources
+{
+    return [self URLForAPIQuery:ECOMAP_GET_RESOURCES];
+}
+
++(NSURL*)URLforAlias:(NSString*)query
+{
+    query = [NSString stringWithFormat:@"%@%@",[self URLForAPIQuery:ECOMAP_GET_ALIAS],query];
+    query = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    return [NSURL URLWithString:query];
+}
 
 @end
