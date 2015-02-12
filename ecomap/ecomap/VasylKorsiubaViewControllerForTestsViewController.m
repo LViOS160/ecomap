@@ -11,8 +11,9 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapProblemDetails.h"
 #import "CocoaLumberjack.h"
+//#import "GlobalLoggerLevel.h"
 
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @interface VasylKorsiubaViewControllerForTestsViewController ()
 
