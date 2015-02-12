@@ -51,4 +51,8 @@ typedef enum {
 
 //Return API URL to Register
 +(NSURL*)URLforRegister;
+
++ (NSURL *)URLforResources;
+
++(NSURL*)URLforAlias:(NSString*)query;
 @end

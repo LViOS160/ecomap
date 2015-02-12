@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface ResourcesViewController : UITableViewController
+@property (nonatomic,strong) NSMutableArray *titleRes;   // titles of resources
+//@property (nonatomic,strong) NSMutableArray *descriptionRes;
+@property (nonatomic,strong) NSString *descriptionRes;    // description in html format from EcomapAlias Parser
+@property (nonatomic,strong) NSArray *pathes;           // array of aliases [about/ cleaning..]
+@property (nonatomic, strong) NSString *currentPath;  // current allias
+
 
 @end
