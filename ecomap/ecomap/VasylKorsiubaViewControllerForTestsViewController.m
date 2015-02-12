@@ -10,6 +10,9 @@
 #import "EcomapFetcher.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapProblemDetails.h"
+#import "CocoaLumberjack.h"
+
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 @interface VasylKorsiubaViewControllerForTestsViewController ()
 
@@ -17,6 +20,13 @@
 
 @implementation VasylKorsiubaViewControllerForTestsViewController
 
+-(void)viewDidLoad
+{
+    DDLogError(@"This is an error.");
+    DDLogWarn(@"This is a warning.");
+    DDLogInfo(@"This is just a message.");
+    DDLogVerbose(@"This is a verbose message.");
+}
 - (IBAction)login:(id)sender {
     [EcomapFetcher loginWithEmail:@"clic@ukr.net"
                       andPassword:@"eco"
