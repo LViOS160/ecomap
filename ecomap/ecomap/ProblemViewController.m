@@ -18,9 +18,11 @@ typedef enum : NSUInteger {
 @interface ProblemViewController()
 
 @property (nonatomic, strong) EcomapProblemDetails *problemDetails;
+@property (weak, nonatomic) IBOutlet UILabel *severityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 @property (weak, nonatomic) IBOutlet UIView *photoViewContainer;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
 
 @end
 
@@ -54,6 +56,11 @@ typedef enum : NSUInteger {
     [self updateUI:ComentViewType];
 }
 
+- (IBAction)likeClick:(id)sender
+{
+    
+}
+
 - (void)updateUI:(ViewType)type
 {
     if(self.problemDetails) {
@@ -76,21 +83,47 @@ typedef enum : NSUInteger {
 - (void)updateHeader
 {
     self.title = self.problem.title;
-    self.statusLabel.text = [self statusString];
+    self.severityLabel.text = [self severityString];
+    self.statusLabel.attributedText = [self statusString];
+    self.likeButton.titleLabel.text = [self likeString];
 }
 
-- (NSString*)statusString
+- (NSString*)severityString
 {
     if (self.problemDetails) {
-        NSMutableString *status = [[NSMutableString alloc] init];
+        NSMutableString *severity = [[NSMutableString alloc] init];
         NSString *blackStars = [@"" stringByPaddingToLength:self.problemDetails.severity withString:@"★" startingAtIndex:0];
         NSString *whiteStars = [@"" stringByPaddingToLength:5-self.problemDetails.severity withString:@"☆" startingAtIndex:0];
-        [status appendString:blackStars];
-        [status appendString:whiteStars];
-        return status;
+        [severity appendString:blackStars];
+        [severity appendString:whiteStars];
+        return severity;
     } else {
-        return @"Завантаження...";
+        return @"☆☆☆☆☆";
     }
+}
+
+- (NSAttributedString *)statusString
+{
+    if (self.problemDetails) {
+        if(self.problem.isSolved) {
+            return [[NSAttributedString alloc] initWithString:@"вирішена"
+                                                   attributes:@{
+                                                                NSForegroundColorAttributeName:[UIColor greenColor]
+                                                                    }];
+        } else {
+            return [[NSAttributedString alloc] initWithString:@"не вирішена"
+                                                   attributes:@{
+                                                                NSForegroundColorAttributeName:[UIColor redColor]
+                                                                }];
+        }
+    } else {
+        return [[NSAttributedString alloc] initWithString:@"Завантаження..."];
+    }
+}
+
+- (NSString *)likeString
+{
+    return [NSString stringWithFormat:@"♡%lu", self.problemDetails.votes];
 }
 
 - (void)updateDetailedView
