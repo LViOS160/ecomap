@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EcomapProblem.h"
+#import "EcomapProblemDetails.h"
 
 @interface ProblemViewController : UIViewController
+
+@property (nonatomic, strong) EcomapProblem* problem;
 
 @end

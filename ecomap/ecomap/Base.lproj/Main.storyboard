@@ -468,23 +468,31 @@
                                 <state key="normal" title="Детально">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="detailedClick:" destination="2UE-DX-Tsm" eventType="touchUpInside" id="xhS-3H-Dk4"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qkt-jT-iyv">
                                 <rect key="frame" x="121" y="101" width="78" height="30"/>
                                 <state key="normal" title="Активність">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="activityClick:" destination="2UE-DX-Tsm" eventType="touchUpInside" id="ose-vQ-jnY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ko3-GR-ZlZ">
                                 <rect key="frame" x="230" y="101" width="74" height="30"/>
                                 <state key="normal" title="Коментарі">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="comentClick:" destination="2UE-DX-Tsm" eventType="touchUpInside" id="Nyl-6i-lok"/>
+                                </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HK3-fu-urd">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HK3-fu-urd">
                                 <rect key="frame" x="16" y="139" width="288" height="311"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -510,6 +518,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OJD-g6-uM3"/>
+                    <connections>
+                        <outlet property="descriptionText" destination="HK3-fu-urd" id="MaM-4W-KxK"/>
+                        <outlet property="photoViewContainer" destination="f11-zM-j0L" id="Smn-BH-DSK"/>
+                        <outlet property="statusLabel" destination="a7L-VL-BoI" id="7wf-6F-WNb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="itI-vo-ryp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

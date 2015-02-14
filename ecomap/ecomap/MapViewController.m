@@ -15,6 +15,7 @@
 #import "NonHierarchicalDistanceBasedAlgorithm.h"
 #import "GDefaultClusterRenderer.h"
 #import "EcomapClusterRenderer.h"
+#import "ProblemViewController.h"
 
 
 @interface MapViewController () <CLLocationManagerDelegate>
@@ -134,9 +135,17 @@
 - (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker
 {
     if([marker.userData isKindOfClass:[EcomapProblem class]]) {
-        EcomapProblem *problem = marker.userData;
-        [self performSegueWithIdentifier:@"Show problem" sender:problem];
-        //TODO: create new view controller for problem details
+        [self performSegueWithIdentifier:@"Show problem" sender:marker];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Show problem"]){
+        if([segue.destinationViewController isKindOfClass:[ProblemViewController class]]){
+            ProblemViewController *problemVC = (ProblemViewController *)segue.destinationViewController;
+            problemVC.problem = ((GMSMarker *)sender).userData;
+        }
     }
 }
 
