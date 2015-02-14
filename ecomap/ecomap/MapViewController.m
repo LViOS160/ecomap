@@ -134,7 +134,8 @@
 - (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker
 {
     if([marker.userData isKindOfClass:[EcomapProblem class]]) {
-        //EcomapProblem *problem = marker.userData;
+        EcomapProblem *problem = marker.userData;
+        [self performSegueWithIdentifier:@"Show problem" sender:problem];
         //TODO: create new view controller for problem details
     }
 }

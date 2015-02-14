@@ -57,6 +57,7 @@
 		B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */; };
 		B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */; };
 		B3C56A4F1A8A169000877227 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C56A4E1A8A169000877227 /* add.png */; };
+		CA4027A81A8F632800CA835F /* ProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4027A71A8F632800CA835F /* ProblemViewController.m */; };
 		CABBB5121A853D400089065B /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB4FF1A853D400089065B /* GQuadItem.m */; };
 		CABBB5131A853D400089065B /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5011A853D400089065B /* GStaticCluster.m */; };
 		CABBB5141A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5031A853D400089065B /* NonHierarchicalDistanceBasedAlgorithm.m */; };
@@ -164,6 +165,8 @@
 		B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionView.xib; sourceTree = "<group>"; };
 		B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemPhotoView.xib; sourceTree = "<group>"; };
 		B3C56A4E1A8A169000877227 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = Images.xcassets/add.imageset/add.png; sourceTree = "<group>"; };
+		CA4027A61A8F632800CA835F /* ProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemViewController.h; sourceTree = "<group>"; };
+		CA4027A71A8F632800CA835F /* ProblemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemViewController.m; sourceTree = "<group>"; };
 		CABBB4FD1A853D400089065B /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
 		CABBB4FE1A853D400089065B /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
 		CABBB4FF1A853D400089065B /* GQuadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQuadItem.m; sourceTree = "<group>"; };
@@ -315,6 +318,8 @@
 				B353434F1A7F78A200DD2F03 /* MenuViewController.m */,
 				90AE1B7A1A84BD3E0009F641 /* ProblemsTopListTVC.h */,
 				90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */,
+				CA4027A61A8F632800CA835F /* ProblemViewController.h */,
+				CA4027A71A8F632800CA835F /* ProblemViewController.m */,
 				90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */,
 				90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */,
 				51A9F1CD1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.h */,
@@ -686,6 +691,7 @@
 				B388FF001A7F8832009C421C /* MapSegue.m in Sources */,
 				E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */,
 				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
+				CA4027A81A8F632800CA835F /* ProblemViewController.m in Sources */,
 				90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */,
 				CABBB5291A8A84690089065B /* EcomapComments.m in Sources */,
 				CABBB5151A853D400089065B /* GClusterManager.m in Sources */,
