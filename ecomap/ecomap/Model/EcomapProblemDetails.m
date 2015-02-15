@@ -37,9 +37,9 @@
     if (problem) {
         self.content = [problem valueForKey:ECOMAP_PROBLEM_CONTENT];
         self.proposal = [problem valueForKey:ECOMAP_PROBLEM_PROPOSAL];
-        self.severity = [[problem valueForKey:ECOMAP_PROBLEM_SEVERITY] integerValue];
-        self.moderation = [[problem valueForKey:ECOMAP_PROBLEM_MODERATION] integerValue];
-        self.votes = [[problem valueForKey:ECOMAP_PROBLEM_VOTES] integerValue];
+        self.severity = ![[problem valueForKey:ECOMAP_PROBLEM_SEVERITY] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_SEVERITY] integerValue] : 0;
+        self.moderation = ![[problem valueForKey:ECOMAP_PROBLEM_MODERATION] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_MODERATION] integerValue] : 0;
+        self.votes = ![[problem valueForKey:ECOMAP_PROBLEM_VOTES] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_VOTES] integerValue] : 0;
     }
 }
 

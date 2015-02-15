@@ -14,7 +14,7 @@
 @property (nonatomic, readwrite) NSUInteger photoID;
 @property (nonatomic, strong, readwrite) NSString *link;
 @property (nonatomic, readwrite) BOOL isSolved;
-@property (nonatomic, strong, readwrite) NSString *description;
+@property (nonatomic, strong, readwrite) NSString *caption;
 @property (nonatomic, readwrite) NSUInteger problemsID;
 @property (nonatomic, readwrite) NSUInteger usersID;
 @end
@@ -26,12 +26,12 @@
     self = [super init];
     if (self) {
         if (!problem) return nil;
-        self.photoID = [[problem valueForKey:ECOMAP_PHOTO_ID] integerValue];
+        self.photoID = ![[problem valueForKey:ECOMAP_PHOTO_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PHOTO_ID] integerValue] : 0;
         self.link = [problem valueForKey:ECOMAP_PHOTO_LINK];
         self.isSolved = [[problem valueForKey:ECOMAP_PHOTO_STATUS] integerValue] == 0 ? NO : YES;
-        self.description = [problem valueForKey:ECOMAP_PHOTO_DESCRIPTION];
-        self.problemsID = [[problem valueForKey:ECOMAP_PHOTO_PROBLEMS_ID] integerValue];
-        self.usersID = [[problem valueForKey:ECOMAP_PHOTO_USERS_ID] integerValue];
+        self.caption = ![[problem valueForKey:ECOMAP_PHOTO_DESCRIPTION] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PHOTO_DESCRIPTION] : nil;
+        self.problemsID = ![[problem valueForKey:ECOMAP_PHOTO_PROBLEMS_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PHOTO_PROBLEMS_ID] integerValue] : 0;
+        self.usersID = ![[problem valueForKey:ECOMAP_PHOTO_USERS_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PHOTO_USERS_ID] integerValue] : 0;
         }
     return self;
 }

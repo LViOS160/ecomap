@@ -70,6 +70,12 @@
 {
     return [self URLForAPIQuery:ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS];
 }
+
++ (NSURL *)URLforLargePhotoWithLink:(NSString *)link
+{
+    return [self URLForQuery:[ECOMAP_GET_PHOTOS_ADDRESS stringByAppendingString:link]];
+}
+
 #pragma mark - Ask URL for Register
 // added by Gregory Chereda
 +(NSURL*)URLforRegister{

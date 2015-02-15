@@ -50,7 +50,10 @@ typedef enum {
 + (NSURL *)URLforProblemPost;
 
 //Return API URL to Register
-+(NSURL*)URLforRegister;
++(NSURL *)URLforRegister;
+
+//Return URL to large photo on server
++ (NSURL *)URLforLargePhotoWithLink:(NSString *)link;
 
 + (NSURL *)URLforResources;
 

@@ -13,7 +13,7 @@
 @property (nonatomic, readonly) NSUInteger photoID;
 @property (nonatomic, strong, readonly) NSString *link;
 @property (nonatomic, readonly) BOOL isSolved;
-@property (nonatomic, strong, readonly) NSString *description;
+@property (nonatomic, strong, readonly) NSString *caption;
 @property (nonatomic, readonly) NSUInteger problemsID;
 @property (nonatomic, readonly) NSUInteger usersID;
 
