@@ -23,6 +23,7 @@
 #define ECOMAP_POST_PROBLEM @"problempost"
 #define ECOMAP_GET_RESOURCES @"gettitles/"
 #define ECOMAP_GET_ALIAS @"resources/"
+#define ECOMAP_POST_VOTE @"vote/"
 
 //Queries for statistics
 #define ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS @"getStats4"

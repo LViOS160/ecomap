@@ -668,5 +668,69 @@
     return cookie;
 }
 
++ (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler
+{
+    BOOL canVote = YES;
+    if(user) {
+        for(EcomapComments *comment in problemDetails.comments) {
+            if (comment.activityTypes_Id == 3) { // vote activity type
+                canVote &= comment.usersID != user.userID;
+            }
+        }
+    } else {
+        if([[[NSUserDefaults standardUserDefaults] arrayForKey:@"votedPosts"] containsObject:@(problemDetails.problemID)])
+            canVote = NO;
+    }
+    
+    if (!canVote) {
+        completionHandler([NSError errorWithDomain:@"EcomapVote" code:1 userInfo:nil]);
+        return;
+    }
+    
+    NSDictionary *voteData = nil;
+    if(user) {
+        voteData = @{
+                     @"idProblem":@(problemDetails.problemID),
+                     @"userId":@(user.userID),
+                     @"userName":user.name? user.name : @"",
+                     @"userSurname":user.surname? user.surname : @""
+                     };
+    } else {
+        voteData = @{
+                     @"idProblem":@(problemDetails.problemID)
+                     };
+    }
+    NSData *data = [NSJSONSerialization dataWithJSONObject:voteData options:0 error:nil];
+    //Set up session configuration
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    
+    //Set up request
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforPostVotes]];
+    [request setHTTPMethod:@"POST"];
+    
+   [self uploadDataTaskWithRequest:request
+                           fromData:data
+               sessionConfiguration:sessionConfiguration
+                  completionHandler:^(NSData *JSON, NSError *error) {
+                      NSDictionary *voteResponse = nil;
+                      if (!error) {
+                          voteResponse = [EcomapFetcher parseJSONtoDictionary:JSON];
+                          if (!voteResponse[@"json"]) {
+                              error = [NSError errorWithDomain:@"EcomapVote" code:2 userInfo:nil];
+                          } else {
+                              NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                              NSArray *votedPosts = [userDefaults arrayForKey:@"votedPosts"];
+                              if(!votedPosts){
+                                  votedPosts = [NSArray arrayWithObject:@(problemDetails.problemID)];
+                              } else {
+                                  votedPosts = [votedPosts arrayByAddingObject:@(problemDetails.problemID)];
+                              }
+                              [userDefaults setObject:votedPosts forKey:@"votedPosts"];
+                          }
+                      }
+                      completionHandler(error);
+                  }];
+}
 
 @end

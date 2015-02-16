@@ -11,6 +11,7 @@
 #import "EcomapURLFetcher.h"
 #import "EcomapPhoto.h"
 #import "IDMPhotoBrowser.h"
+#import "EcomapLoggedUser.h"
 
 //Setup DDLog
 #import "CocoaLumberjack.h"
@@ -41,6 +42,11 @@ typedef enum : NSUInteger {
     [super viewWillAppear:animated];
     [self updateEmptyView];
     [self updateHeader];
+    [self loadProblemDetails:nil];
+}
+
+- (void)loadProblemDetails:(void(^)())onFinish
+{
     [EcomapFetcher loadProblemDetailsWithID:self.problem.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    self.problemDetails = problemDetails;
@@ -65,9 +71,22 @@ typedef enum : NSUInteger {
     [self updateUI:ComentViewType];
 }
 
-- (IBAction)likeClick:(id)sender
+- (IBAction)likeClick:(UIButton*)sender
 {
-    
+    if(self.problemDetails) {
+        sender.enabled = NO;
+        [EcomapFetcher addVoteForProblem:self.problemDetails
+                                withUser:[EcomapLoggedUser currentLoggedUser]
+                            OnCompletion:^(NSError *error) {
+                                if (!error) {
+                                    [self loadProblemDetails:^{
+                                        sender.enabled = YES;
+                                    }];
+                                } else {
+                                    sender.enabled = YES;
+                                }
+                            }];
+    }
 }
 
 - (void)updateUI:(ViewType)type

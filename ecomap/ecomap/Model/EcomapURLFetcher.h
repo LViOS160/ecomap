@@ -49,6 +49,9 @@ typedef enum {
 //Return URL for problem post
 + (NSURL *)URLforProblemPost;
 
+//Return URL for POST votes
++ (NSURL *)URLforPostVotes;
+
 //Return API URL to Register
 +(NSURL *)URLforRegister;
 

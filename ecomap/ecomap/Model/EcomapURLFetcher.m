@@ -103,6 +103,10 @@
     return [self URLForAPIQuery:ECOMAP_POST_PROBLEM];
 }
 
++ (NSURL *)URLforPostVotes
+{
+    return [self URLForAPIQuery:ECOMAP_POST_VOTE];
+}
 #pragma mark - Ask URL for all resources
 +(NSURL *)URLforResources
 {
