@@ -79,4 +79,14 @@
 }
 */
 
+//Show error to the user in UIAlertView
+- (void)showAlertViewOfError:(NSError *)error
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Title"
+                                                    message:[error localizedDescription]  //human-readable dwscription of the error
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
 @end
