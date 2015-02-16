@@ -11,7 +11,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "GClusterManager.h"
 
-@interface MapViewController : UIViewController <GMSMapViewDelegate>
+@interface MapViewController : UIViewController <GMSMapViewDelegate> 
 
 @end
 

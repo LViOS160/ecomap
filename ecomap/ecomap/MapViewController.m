@@ -17,7 +17,6 @@
 #import "EcomapClusterRenderer.h"
 #import "ProblemViewController.h"
 
-
 @interface MapViewController () <CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
@@ -43,9 +42,11 @@
 
 
 - (void)mapSetup {
+  
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
                                                             longitude:30.52173614501953
                                                                  zoom:6];
+    
     self.mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
@@ -66,6 +67,8 @@
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
                                                 algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                  renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
+    
+   
 }
 
 - (void)customSetup
@@ -90,6 +93,7 @@
     self.locationManager.distanceFilter = 500; // meters
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager startUpdatingLocation];
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -99,6 +103,7 @@
     GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:17];
     GMSCameraUpdate *update = [GMSCameraUpdate setCamera:position];
     [self.mapView moveCamera:update];
+    
 }
 
 - (Spot*)generateSpot:(EcomapProblem *)problem

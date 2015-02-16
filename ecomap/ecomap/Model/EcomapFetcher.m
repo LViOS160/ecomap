@@ -16,6 +16,7 @@
 #import "EcomapComments.h"
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
+#import "NetworkActivityIndicator.h"
 
 @import MobileCoreServices;
 
@@ -55,6 +56,7 @@
 }
 #pragma mark - Load All Problem Types
 + (void)loadAllPorblemTypes:(void (^)(NSArray *problemTypes, NSError *error))completionHandler {
+   
     [self dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAllProblems]]
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
@@ -81,14 +83,13 @@
                     //set up completionHandler
                     completionHandler(problemTypes, error);
                 }];
+    
 }
 
 #pragma mark - load all allias content
 
 +(void)loadAliasOnCompletion:(void (^)(NSArray *alias, NSError *error))completionHandler String:(NSString *)str
 {
-    
-    
     
     [self dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAlias:str]]
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
@@ -148,6 +149,7 @@
                     completionHandler(resources,error);
                     
                 }];
+    
     
 }
 
@@ -213,6 +215,7 @@
                     //Return problemDetails
                     completionHandler(problemDetails, error);
                 }];
+    
 }
 
 
@@ -490,12 +493,13 @@
 #pragma mark - Data tasks
 //Data task
 +(void)dataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
-{
+{ [[NetworkActivityIndicator sharedManager]startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     //Perform download task on different thread
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                
                                                 NSData *JSON = nil;
                                                 if (!error) {
                                                     //Set data
@@ -511,15 +515,19 @@
                                                 //Perform completionHandler task on main thread
                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     completionHandler(JSON, error);
+                                                    [[NetworkActivityIndicator sharedManager]endActivity];
+                                                   
                                                 });
+                                                
                                             }];
     
     [task resume];
+    
 }
 
 //Upload data task
 +(void)uploadDataTaskWithRequest:(NSURLRequest *)request fromData:(NSData *)data sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
-{
+{    [[NetworkActivityIndicator sharedManager]startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     //Perform upload task on different thread
@@ -539,9 +547,11 @@
         //Perform completionHandler task on main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             completionHandler(JSON, error);
+            [[NetworkActivityIndicator sharedManager]endActivity];
         });
     }];
     [task resume];
+    
 }
 
 #pragma mark - Parse JSON
