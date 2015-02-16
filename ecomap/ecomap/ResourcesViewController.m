@@ -103,9 +103,12 @@
                  
                  
              }
+             
+
              self.titleRes = [[NSMutableArray alloc]initWithArray:titlesOfResources];
              self.pathes = [[NSArray alloc]initWithArray:aliasesFromResources];
              [self.refreshControl endRefreshing];
+             
          }
          else
          {
@@ -113,9 +116,7 @@
              
          }
      }
-     
      ];
-    
     
 }
 
