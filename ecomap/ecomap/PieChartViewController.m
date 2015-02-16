@@ -12,6 +12,7 @@
 #import "EcomapURLFetcher.h"
 #import "EcomapPathDefine.h"
 #import "EcomapStatsParser.h"
+#import "GeneralStatsTopLabelView.h"
 
 @interface PieChartViewController ()
 
@@ -21,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *numOfPhotosLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statsRangeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
+@property (strong, nonatomic) IBOutlet GeneralStatsTopLabelView *topLabelView;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) IBOutlet UIButton *prevButton;
+@property (strong, nonatomic) IBOutlet UIButton *nextButton;
 
 @property(nonatomic, strong) NSMutableArray *slices;
 @property(nonatomic, strong) NSArray *sliceColors;
@@ -43,10 +48,71 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // Setting top label
+    self.topLabelView.numberOfInstances = 348;
+    self.topLabelView.nameOfInstances = @"Проблем";
+    
     [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
     [self fetchGeneralStats];
     [self customSetup];
 }
+
+- (IBAction)touchPrevButton:(UIButton *)sender
+{
+    self.nextButton.hidden = NO;
+    self.pageControl.currentPage--;
+    [self switchPage];
+}
+
+- (IBAction)touchNextButton:(UIButton *)sender
+{
+    self.prevButton.hidden = NO;
+    self.pageControl.currentPage++;
+    [self switchPage];
+}
+
+- (void)switchPage
+{
+    if(self.pageControl.currentPage <= 0) {
+        self.prevButton.hidden = YES;
+    } else if(self.pageControl.currentPage >= [self.pageControl numberOfPages] - 1) {
+        self.nextButton.hidden = YES;
+    }
+    self.topLabelView.numberOfInstances = [self numberOfInstances];
+    self.topLabelView.nameOfInstances = [self nameOfIntances];
+}
+
+- (NSUInteger)numberOfInstances
+{
+    NSUInteger number = 0;
+    
+    switch(self.pageControl.currentPage) {
+        case 0: number = [[EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PROBLEMS inGeneralStatsArray:self.generalStats] integerValue]; break;
+        case 1: number = [[EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_VOTES inGeneralStatsArray:self.generalStats] integerValue]; break;
+        case 2: number = [[EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_COMMENTS inGeneralStatsArray:self.generalStats] integerValue]; break;
+        case 3: number = [[EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PHOTOS inGeneralStatsArray:self.generalStats] integerValue]; break;
+    }
+    
+    return number;
+}
+
+- (NSString *)nameOfIntances
+{
+    NSString *name = @"";
+    
+    switch(self.pageControl.currentPage) {
+        case 0: name = @"Проблем"; break;
+        case 1: name = @"Голосів"; break;
+        case 2: name = @"Коментарів"; break;
+        case 3: name = @"Фотографій"; break;
+    }
+    
+    return name;
+    
+}
+
+
 
 - (void)drawPieChart
 {
