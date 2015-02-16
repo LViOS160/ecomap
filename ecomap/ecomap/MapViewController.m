@@ -17,7 +17,6 @@
 #import "EcomapClusterRenderer.h"
 #import "ProblemViewController.h"
 
-
 @interface MapViewController () <CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
