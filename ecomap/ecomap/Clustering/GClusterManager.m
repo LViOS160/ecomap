@@ -1,5 +1,5 @@
 #import "GClusterManager.h"
-
+#import "NetworkActivityIndicator.h"
 @implementation GClusterManager {
     GMSCameraPosition *previousCameraPosition;
 }
@@ -35,6 +35,7 @@
 #pragma mark mapview delegate
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
+    
     assert(mapView == _mapView);
     
     // Don't re-compute clusters if the map has just been panned/tilted/rotated.
@@ -45,6 +46,7 @@
     previousCameraPosition = [mapView camera];
     
     [self cluster];
+    
 }
 
 #pragma mark convenience
