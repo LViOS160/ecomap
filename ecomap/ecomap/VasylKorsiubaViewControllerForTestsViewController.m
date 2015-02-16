@@ -36,7 +36,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    if (!error) {
                                        _problemDetails = problemDetails;
-                                       [self scrollViewSetup];
+                                       [self updateScrollView];
                                    } else
                                    {
                                        DDLogError(@"Error loading problem ditails for photo browser. %@", error);
@@ -51,78 +51,39 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     DDLogInfo(@"This is just a message.");
     DDLogVerbose(@"This is a verbose message.");
     
-    [self scrollViewSetup];
+    [self updateScrollView];
 }
 
 #define HORIZONTAL_OFFSET 24.0f
 #define VERTICAL_OFFSET 10.0f
 #define BUTTON_HEIGHT 80.0f
 #define BUTTON_WIDTH 80.0f
-#define BUTTONS_OFFSET 1.5
 
-- (void)scrollViewSetup 
+- (void)updateScrollView 
 {
-    //self.scrollView.backgroundColor = [UIColor lightGrayColor];
-    
     //Set ScrollView Initial offset
     CGFloat contentOffSet = HORIZONTAL_OFFSET;
     
     NSArray *photosDitailsArray = self.problemDetails.photos;
     
-    //Check if we nees to display add button
-    if ([photosDitailsArray count] < 10) {
-        [self addButtonToScrollViewWithImage:[UIImage imageNamed:@"addButtonImage.png"]
-                                      offset:contentOffSet
-                                         tag:0];
-        contentOffSet += BUTTON_WIDTH + HORIZONTAL_OFFSET;
-    }
-    
-    //Array to hold the images to displayed in the scrollView
-    NSArray *imageNames = [NSArray arrayWithObjects:@"button1.jpg",
-                           @"button2.jpg",@"button1.jpg",
-                           @"button2.jpg", nil];
-    
-    if ([photosDitailsArray count]) {
-        int count = 1;
-        for (EcomapPhoto *photoDitails in photosDitailsArray)
+    if (photosDitailsArray) {
+        
+        if (![photosDitailsArray count]) DDLogVerbose(@"No photos for problem");
+        
+        //Count is tag for view. tag == 0 is for add button
+        for (int count = 0; count <= [photosDitailsArray count]; count++)
         {
-            [self addButtonToScrollViewWithImage:[UIImage imageNamed:imageNames[count -1]]
+            UIImage *image = (count == 0) ? [UIImage imageNamed:@"addButtonImage.png"] : [UIImage imageNamed:@"photo"];
+            //Create button
+            [self addButtonToScrollViewWithImage:image
                                           offset:contentOffSet
                                              tag:count];
             contentOffSet += BUTTON_WIDTH + HORIZONTAL_OFFSET;
-            //Increase the count value
-            count++;
         }
-    } else {
-        DDLogWarn(@"No photos for problem");
     }
 
     //Set contentView
     self.scrollView.contentSize = CGSizeMake(contentOffSet, self.scrollView.frame.size.height);
-    
-    
-    
-    
-    
-//    for (NSString *singleImageFilename in imageNames) {
-//        
-//        //Create button
-//        UIButton *customButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        customButton.adjustsImageWhenHighlighted = NO;
-//        customButton.tag = count;
-//        customButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
-//        customButton.backgroundColor = [UIColor blackColor];
-//        [customButton setBackgroundImage:[UIImage imageNamed:singleImageFilename] forState:UIControlStateNormal];
-//        [customButton addTarget:self
-//                         action:@selector(buttonWithImageOnScreenPressed:)
-//               forControlEvents:UIControlEventTouchUpInside];
-//        customButton.frame = buttonViewFrame;
-//        
-//        [self.scrollView addSubview:customButton];
-//        contentOffSet += customButton.frame.size.width * 1.5;
-//        self.scrollView.contentSize = CGSizeMake(contentOffSet, self.scrollView.frame.size.height);
-//        
-//    }
 }
 
 -(void)addButtonToScrollViewWithImage:(UIImage *)image offset:(CGFloat)offset tag:(NSUInteger)tag
@@ -135,17 +96,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     customButton.adjustsImageWhenHighlighted = NO;
     customButton.tag = tag;
     customButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    customButton.backgroundColor = tag != 0 ? [UIColor blackColor] : [UIColor clearColor];
+    customButton.backgroundColor = (tag != 0) ? [UIColor blackColor] : [UIColor clearColor];
     [customButton setBackgroundImage:image forState:UIControlStateNormal];
     //add target-action
     if (tag == 0) {
         [customButton addTarget:self
                          action:@selector(buttonToAddImagePressed:)
                forControlEvents:UIControlEventTouchUpInside];
+        DDLogVerbose(@"'Add image' button created");
     } else {
         [customButton addTarget:self
                          action:@selector(buttonWithImageOnScreenPressed:)
                forControlEvents:UIControlEventTouchUpInside];
+        DDLogVerbose(@"Button with photo number %d created", tag);
     }
     
     customButton.frame = buttonViewFrame;
@@ -155,12 +118,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)buttonToAddImagePressed:(id)sender
 {
-    DDLogVerbose(@"Add image button pressed");
+    DDLogVerbose(@"'Add image' button pressed");
 }
 
 - (void)buttonWithImageOnScreenPressed:(id)sender
 {
     UIButton *buttonSender = (UIButton*)sender;
+    
+    DDLogVerbose(@"Button with photo number %d pressed", buttonSender.tag);
     
     NSArray *photosDitailsArray = self.problemDetails.photos;
     // Create an array to store IDMPhoto objects
@@ -275,7 +240,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     browser.displayArrowButton = YES;
     browser.displayCounterLabel = YES;
     browser.usePopAnimation = YES;
-    //browser.scaleImage = buttonSender.currentImage;
+    browser.scaleImage = buttonSender.currentImage;
     
     // Show
     [self presentViewController:browser animated:YES completion:nil];
