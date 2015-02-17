@@ -374,7 +374,7 @@ typedef enum : NSUInteger {
 
 -(void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
 {
-    if (self.initialPageIndex != index) self.scrollViewPhotoGallary.contentOffset = CGPointMake((BUTTON_WIDTH + HORIZONTAL_OFFSET) * (index + 1) - (BUTTON_WIDTH + HORIZONTAL_OFFSET), 0);
+    if (self.initialPageIndex != index) self.scrollViewPhotoGallary.contentOffset = CGPointMake((BUTTON_WIDTH + HORIZONTAL_OFFSET) * index , 0);
 }
 
 @end
