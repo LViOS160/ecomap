@@ -131,7 +131,7 @@ typedef enum : NSUInteger {
     self.title = self.problem.title;
     self.severityLabel.text = [self severityString];
     self.statusLabel.attributedText = [self statusString];
-    self.likeButton.titleLabel.text = [self likeString];
+    [self.likeButton setTitle:[self likeString] forState:UIControlStateNormal];
 }
 
 - (NSString*)severityString
@@ -180,8 +180,9 @@ typedef enum : NSUInteger {
                                          attributes:@{
                                                       NSFontAttributeName: [UIFont boldSystemFontOfSize:13]
                                                       }];
+    NSString *contentString = [self.problemDetails.content isEqual:[NSNull null]]? @"": self.problemDetails.content;
     NSAttributedString *content = [[NSAttributedString alloc]
-                                   initWithString:[self.problemDetails.content stringByAppendingString:@"\n"]
+                                   initWithString:[contentString stringByAppendingString:@"\n"]
                                    attributes:@{
                                                 NSFontAttributeName: [UIFont systemFontOfSize:13]
                                                 }];
@@ -191,8 +192,9 @@ typedef enum : NSUInteger {
                                          attributes:@{
                                                       NSFontAttributeName: [UIFont boldSystemFontOfSize:13]
                                                       }];
+    NSString *proposalString = [self.problemDetails.proposal isEqual:[NSNull null]]? @"": self.problemDetails.proposal;
     NSAttributedString *proposal = [[NSAttributedString alloc]
-                                   initWithString:[self.problemDetails.proposal stringByAppendingString:@"\n"]
+                                   initWithString:[proposalString stringByAppendingString:@"\n"]
                                    attributes:@{
                                                 NSFontAttributeName: [UIFont systemFontOfSize:13]
                                                 }];
@@ -202,6 +204,7 @@ typedef enum : NSUInteger {
     [text appendAttributedString:proposalHeader];
     [text appendAttributedString:proposal];
     self.descriptionText.attributedText = text;
+    [self.descriptionText setContentOffset:CGPointZero animated:YES];
 }
 
 - (void)updateActivityView
