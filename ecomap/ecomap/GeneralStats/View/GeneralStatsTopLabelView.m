@@ -8,8 +8,11 @@
 
 #import "GeneralStatsTopLabelView.h"
 
-#define TOP_LABEL_STANDART_HEIGHT 128
-#define OFFSET_BETWEEN_NUMBER_AND_NAME 3
+#define TOP_LABEL_STANDART_HEIGHT 116
+#define TOP_LABEL_NUMBER_FONT_SIZE 76
+#define TOP_LABEL_NAME_FONT_SIZE 20
+#define TOP_LABEL_OFFSET_FROM_TOP -8
+#define TOP_LABEL_OFFSET_BETWEEN_NUMBER_AND_NAME -25
 
 @implementation GeneralStatsTopLabelView
 
@@ -29,59 +32,45 @@
 
 #pragma mark - Drawing
 
+// Helper methods to calculate sizes of fonts, offset, etc.
+
+- (CGFloat)topLabelScaleFactor { return self.bounds.size.height / TOP_LABEL_STANDART_HEIGHT; }
+- (CGFloat)numberFontSize { return TOP_LABEL_NUMBER_FONT_SIZE * [self topLabelScaleFactor]; }
+- (CGFloat)nameFontSize { return TOP_LABEL_NAME_FONT_SIZE * [self topLabelScaleFactor]; }
+- (CGFloat)offsetFromTop { return TOP_LABEL_OFFSET_FROM_TOP * [self topLabelScaleFactor]; }
+- (CGFloat)offsetBetweenNumberAndName { return TOP_LABEL_OFFSET_BETWEEN_NUMBER_AND_NAME * [self topLabelScaleFactor]; }
+
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code    
+    // Drawing code
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:rect];
+    
+    [[UIColor blackColor] setStroke];
+    [path stroke];
+    
     [self drawLabel];
 }
 
 - (void)drawLabel
 {
-    //NSLog(@"Fonts: %@", [UIFont familyNames]);
-    
-    /*NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
-    
-    NSArray *fontNames;
-    NSInteger indFamily, indFont;
-    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
-
-    {
-     
-        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
-     
-        fontNames = [[NSArray alloc] initWithArray:
-                
-                     [UIFont fontNamesForFamilyName:
-              
-                      [familyNames objectAtIndex:indFamily]]];
-     
-        for (indFont=0; indFont<[fontNames count]; ++indFont)
-    
-        {
-      
-            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
-       
-        }
-     
-    }*/
-    
     // Drawing number of instances
     
-    UIFont *numberFont = [UIFont fontWithName:@"OpenSans-Light" size:76.0f];
+    UIFont *numberFont = [UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]];
     
     NSAttributedString *numberText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", self.numberOfInstances]
                                                                      attributes:@{ NSFontAttributeName : numberFont}];
     
     CGRect numberTextBounds;
     numberTextBounds.size = [numberText size];
-    numberTextBounds.origin = CGPointMake((self.bounds.size.width - numberTextBounds.size.width) / 2, 0);
+    numberTextBounds.origin = CGPointMake((self.bounds.size.width - numberTextBounds.size.width) / 2, [self offsetFromTop]);
     [numberText drawInRect:numberTextBounds];
     
     // Drawing name of instances
     
-    UIFont *nameFont = [UIFont fontWithName:@"OpenSans-Semibold" size:20.0f];
+    UIFont *nameFont = [UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]];
     
     UIColor *fontColor = [UIColor lightGrayColor];
     
@@ -91,7 +80,7 @@
     
     CGRect nameTextBounds;
     nameTextBounds.size = [nameText size];
-    nameTextBounds.origin = CGPointMake((self.bounds.size.width - nameTextBounds.size.width) / 2, numberTextBounds.size.height);
+    nameTextBounds.origin = CGPointMake((self.bounds.size.width - nameTextBounds.size.width) / 2, numberTextBounds.size.height + [self offsetBetweenNumberAndName]);
     [nameText drawInRect:nameTextBounds];
 }
 

@@ -16,10 +16,6 @@
 
 @interface PieChartViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *numOfProblemsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numOfVotesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numOfCommentsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numOfPhotosLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statsRangeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (strong, nonatomic) IBOutlet GeneralStatsTopLabelView *topLabelView;
@@ -34,28 +30,34 @@
 
 @implementation PieChartViewController
 
+#pragma mark - Properties
+
 -(void)setStatsForPieChart:(NSArray *)statsForPieChart
 {
     _statsForPieChart = statsForPieChart;
     [self drawPieChart];
 }
 
+#pragma mark - Gesture handlers
+
+- (IBAction)swipeRightTopLabel:(UISwipeGestureRecognizer *)sender
+{
+    [self touchNextButton:self.nextButton];
+}
+
+- (IBAction)swipeLeftTopLabel:(UISwipeGestureRecognizer *)sender
+{
+    [self touchPrevButton:self.prevButton];
+}
+
+- (IBAction)touchPageControl:(UIPageControl *)sender
+{
+    [self switchPage];
+}
+
 - (IBAction)changeRangeOfShowingStats:(UISegmentedControl *)sender
 {
     [self fetchStats];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    // Setting top label
-    self.topLabelView.numberOfInstances = 348;
-    self.topLabelView.nameOfInstances = @"Проблем";
-    
-    [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
-    [self fetchGeneralStats];
-    [self customSetup];
 }
 
 - (IBAction)touchPrevButton:(UIButton *)sender
@@ -78,7 +80,11 @@
         self.prevButton.hidden = YES;
     } else if(self.pageControl.currentPage >= [self.pageControl numberOfPages] - 1) {
         self.nextButton.hidden = YES;
+    } else {
+        self.prevButton.hidden = NO;
+        self.nextButton.hidden = NO;
     }
+    
     self.topLabelView.numberOfInstances = [self numberOfInstances];
     self.topLabelView.nameOfInstances = [self nameOfIntances];
 }
@@ -198,18 +204,8 @@
                                                                          error:NULL];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.generalStats = propertyListResults;
-            [self updateUI];
-            NSLog(@"%@", propertyListResults);
         });
     });
-}
-
-- (void)updateUI
-{
-    self.numOfProblemsLabel.text = [NSString stringWithFormat:@"Problems: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PROBLEMS inGeneralStatsArray:self.generalStats]];
-    self.numOfVotesLabel.text = [NSString stringWithFormat:@"Votes: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_VOTES inGeneralStatsArray:self.generalStats]];
-    self.numOfPhotosLabel.text = [NSString stringWithFormat:@"Photos: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PHOTOS inGeneralStatsArray:self.generalStats]];
-    self.numOfCommentsLabel.text = [NSString stringWithFormat:@"Comments: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_COMMENTS inGeneralStatsArray:self.generalStats]];
 }
 
 -(EcomapStatsTimePeriod)getPeriodForStats
@@ -239,6 +235,27 @@
         [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
     }
 }
+
+#pragma mark - View Controller Life Cycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Do any additional setup after loading the view.
+    
+    [self.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    
+    // Setting top label
+    
+    self.prevButton.hidden = YES;
+    self.topLabelView.numberOfInstances = [self numberOfInstances];
+    self.topLabelView.nameOfInstances = [self nameOfIntances];
+    
+    [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
+    [self fetchGeneralStats];
+    [self customSetup];
+}
+
 
 /*
 #pragma mark - Navigation
