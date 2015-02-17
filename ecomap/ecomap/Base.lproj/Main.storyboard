@@ -556,8 +556,7 @@
                                     <segment title="Коментарі"/>
                                 </segments>
                                 <connections>
-                                    <action selector="segmentControl:" destination="2UE-DX-Tsm" eventType="valueChanged" id="AuJ-0e-X1K"/>
-                                    <action selector="segmentController:" destination="2UE-DX-Tsm" eventType="valueChanged" id="cPI-m3-kPV"/>
+                                    <action selector="segmentControlChanged:" destination="2UE-DX-Tsm" eventType="valueChanged" id="D43-UC-wRp"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
