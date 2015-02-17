@@ -22,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIButton *prevButton;
 @property (strong, nonatomic) IBOutlet UIButton *nextButton;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *topLabelSpinner;
 
 @property(nonatomic, strong) NSMutableArray *slices;
 @property(nonatomic, strong) NSArray *sliceColors;
@@ -42,12 +43,12 @@
 
 - (IBAction)swipeRightTopLabel:(UISwipeGestureRecognizer *)sender
 {
-    [self touchNextButton:self.nextButton];
+    [self touchPrevButton:self.prevButton];
 }
 
 - (IBAction)swipeLeftTopLabel:(UISwipeGestureRecognizer *)sender
 {
-    [self touchPrevButton:self.prevButton];
+    [self touchNextButton:self.nextButton];
 }
 
 - (IBAction)touchPageControl:(UIPageControl *)sender
@@ -85,8 +86,19 @@
         self.nextButton.hidden = NO;
     }
     
-    self.topLabelView.numberOfInstances = [self numberOfInstances];
-    self.topLabelView.nameOfInstances = [self nameOfIntances];
+    [UIView transitionWithView:self.topLabelView
+                      duration:0.5
+                       options:(UIViewAnimationOptionTransitionFlipFromLeft)
+                    animations:^{
+                        self.topLabelView.numberOfInstances = [self numberOfInstances];
+                        self.topLabelView.nameOfInstances = [self nameOfIntances];
+                    }
+                    completion:^(BOOL finished) {
+                        
+                    }];
+    
+    //self.topLabelView.numberOfInstances = [self numberOfInstances];
+    //self.topLabelView.nameOfInstances = [self nameOfIntances];
 }
 
 - (NSUInteger)numberOfInstances
@@ -186,8 +198,7 @@
                                                                    options:0
                                                                      error:NULL];
       dispatch_async(dispatch_get_main_queue(), ^{
-            self.statsForPieChart = propertyListResults;
-            //NSLog(@"%@", propertyListResults);
+          self.statsForPieChart = propertyListResults;
       });
     });
 
@@ -250,6 +261,7 @@
     self.prevButton.hidden = YES;
     self.topLabelView.numberOfInstances = [self numberOfInstances];
     self.topLabelView.nameOfInstances = [self nameOfIntances];
+
     
     [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
     [self fetchGeneralStats];
