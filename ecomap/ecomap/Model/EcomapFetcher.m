@@ -17,6 +17,10 @@
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
 #import "NetworkActivityIndicator.h"
+#import "EMThumbnailImageStore.h"
+
+//Setup DDLog
+#import "GlobalLoggerLevel.h"
 
 @import MobileCoreServices;
 
@@ -218,7 +222,7 @@
     
 }
 
-
+#pragma mark -
 
 + (NSData *)createBodyWithBoundary:(NSString *)boundary
                         parameters:(NSDictionary *)parameters
@@ -371,6 +375,25 @@
     
 }
 
+#pragma mark - Load image
++ (void)loadSmallImagesFromLink:(NSString *)link OnCompletion:(void (^)(UIImage *image, NSError *error))completionHandler
+{
+    [self downloadDataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforSmallPhotoWithLink:link]]
+                 sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                    completionHandler:^(NSData *data, NSError *error) {
+                        UIImage *image = nil;
+                        if (!error) {
+                            if (data) {
+                                image = [UIImage imageWithData:data];
+                                //Cacke image
+                                [[EMThumbnailImageStore sharedStore] setImage:image forKey:link];
+                            }
+                        }
+                        //Return image
+                        completionHandler(image, error);
+                    }];
+}
+
 #pragma mark - Register
 
 // added by Gregory Chereda
@@ -437,12 +460,12 @@
                           loggedUser = [[EcomapLoggedUser alloc] initWithUserInfo:userInfo];
                           
                           if (loggedUser) {
-                              NSLog(@"LogIN to ecomap success! %@", loggedUser.description);
+                              DDLogVerbose(@"LogIN to ecomap success! %@", loggedUser.description);
                               
                               //Create cookie
                               NSHTTPCookie *cookie = [self createCookieForUser:[EcomapLoggedUser currentLoggedUser]];
                               if (cookie) {
-                                  NSLog(@"Cookies created success!");
+                                  DDLogVerbose(@"Cookies created success!");
                                   //Put cookie to NSHTTPCookieStorage
                                   [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
                                   [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:@[cookie]
@@ -471,7 +494,7 @@
                     //Read response Data (it is not JSON actualy, just plain text)
                     NSString *statusResponse =[[NSString alloc]initWithData:JSON encoding:NSUTF8StringEncoding];
                     result = [statusResponse isEqualToString:@"OK"] ? YES : NO;
-                    NSLog(@"Logout %@!", statusResponse);
+                    DDLogVerbose(@"Logout %@!", statusResponse);
                     
                     //Clear coockies
                     NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[EcomapURLFetcher URLforServer]];
@@ -493,7 +516,8 @@
 #pragma mark - Data tasks
 //Data task
 +(void)dataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
-{ [[NetworkActivityIndicator sharedManager]startActivity];
+{
+    [[NetworkActivityIndicator sharedManager] startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     //Perform download task on different thread
@@ -505,7 +529,7 @@
                                                     //Set data
                                                     if ([EcomapFetcher statusCodeFromResponse:response] == 200) {
                                                         //Log to console
-                                                        NSLog(@"Data task performed success from URL: %@", request.URL);
+                                                        DDLogVerbose(@"Data task performed success from URL: %@", request.URL);
                                                         JSON = data;
                                                     } else {
                                                         //Create error message
@@ -525,9 +549,44 @@
     
 }
 
+//Download data task
++(void)downloadDataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *data, NSError *error))completionHandler
+{
+    [[NetworkActivityIndicator sharedManager] startActivity];
+    //Create new session to download JSON file
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    //Perform download task on different thread
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+                                                    completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                                        NSData *data = nil;
+                                                        if (!error) {
+                                                            //Set data
+                                                            if ([EcomapFetcher statusCodeFromResponse:response] == 200) {
+                                                                //Log to console
+                                                                DDLogVerbose(@"Download data task performed success from URL: %@", request.URL);
+                                                                data = [NSData dataWithContentsOfURL:location];;
+                                                            } else {
+                                                                //Create error message
+                                                                error = [EcomapFetcher errorForStatusCode:[EcomapFetcher statusCodeFromResponse:response]];
+                                                            }
+                                                        }
+                                                        //Perform completionHandler task on main thread
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            completionHandler(data, error);
+                                                            [[NetworkActivityIndicator sharedManager]endActivity];
+                                                        });
+ 
+                                                    }];
+    
+    
+    [task resume];
+    
+}
+
 //Upload data task
 +(void)uploadDataTaskWithRequest:(NSURLRequest *)request fromData:(NSData *)data sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
-{    [[NetworkActivityIndicator sharedManager]startActivity];
+{
+    [[NetworkActivityIndicator sharedManager] startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     //Perform upload task on different thread
@@ -537,7 +596,7 @@
             //Set data
             if ([EcomapFetcher statusCodeFromResponse:response] == 200) {
                 //Log to console
-                NSLog(@"Upload task performed success to url: %@", request.URL);
+                DDLogVerbose(@"Upload task performed success to url: %@", request.URL);
                 JSON = data;
             } else {
                 //Create error message
@@ -566,7 +625,7 @@
             dataFromJSON = (NSArray *)parsedJSON;
         }
     } else {
-        NSLog(@"Error parsing JSON data: %@", error);
+        DDLogError(@"Error parsing JSON data: %@", [error localizedDescription]);
     }
     
     return dataFromJSON;
@@ -583,7 +642,7 @@
             dataFromJSON = (NSDictionary *)parsedJSON;
         }
     } else {
-        NSLog(@"Error parsing JSON data: %@", error);
+        DDLogError(@"Error parsing JSON data: %@", [error localizedDescription]);
     }
     
     return dataFromJSON;
@@ -616,7 +675,7 @@
             break;
             
         default:
-            error = [[NSError alloc] initWithDomain:@"Unknown error" code:statusCode userInfo:@{@"error" : @"Unknown error"}];
+            error = [[NSError alloc] initWithDomain:@"Unknown" code:statusCode userInfo:@{@"error" : @"Unknown error"}];
             break;
     }
     return error;

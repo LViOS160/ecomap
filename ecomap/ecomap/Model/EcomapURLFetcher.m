@@ -73,7 +73,12 @@
 
 + (NSURL *)URLforLargePhotoWithLink:(NSString *)link
 {
-    return [self URLForQuery:[ECOMAP_GET_PHOTOS_ADDRESS stringByAppendingString:link]];
+    return [self URLForQuery:[ECOMAP_GET_LARGE_PHOTOS_ADDRESS stringByAppendingString:link]];
+}
+
++ (NSURL *)URLforSmallPhotoWithLink:(NSString *)link
+{
+    return [self URLForQuery:[ECOMAP_GET_SMALL_PHOTOS_ADDRESS stringByAppendingString:link]];
 }
 
 #pragma mark - Ask URL for Register

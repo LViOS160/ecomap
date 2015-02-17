@@ -15,10 +15,9 @@
 #import "IDMPhotoBrowser.h"
 
 //Setup DDLog
-#import "CocoaLumberjack.h"
-//#import "GlobalLoggerLevel.h"
-
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+//#import "CocoaLumberjack.h"
+#import "GlobalLoggerLevel.h"
+//static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @interface VasylKorsiubaViewControllerForTestsViewController () <IDMPhotoBrowserDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *ShowAllPhotosButton;
@@ -39,7 +38,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                        [self updateScrollView];
                                    } else
                                    {
-                                       DDLogError(@"Error loading problem ditails for photo browser. %@", error);
+                                       DDLogError(@"Error loading problem ditails for photo browser. %@", [error localizedDescription]);
+                                       [self showAlertViewOfError:error];
                                    }
                                }];
 }
@@ -54,6 +54,32 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self updateScrollView];
 }
 
+//Show error to the user in UIAlertView
+- (void)showAlertViewOfError:(NSError *)error
+{
+    NSString *alertTitle = nil;
+    NSString *errorMessage = nil;  //human-readable dwscription of the error
+    switch (error.code / 100) {
+        case 5:
+            alertTitle = @"Ecomap server error!";
+            errorMessage = @"There are technical problems on server. We are working to fix it. Please try again later."; 
+            break;
+            
+        default:
+            alertTitle = @"Error";
+            errorMessage = [error localizedDescription];  //human-readable dwscription of the error
+            break;
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                    message:errorMessage
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+
+#pragma mark - Scroll View Gallery
 #define HORIZONTAL_OFFSET 24.0f
 #define VERTICAL_OFFSET 10.0f
 #define BUTTON_HEIGHT 80.0f
@@ -68,14 +94,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     
     if (photosDitailsArray) {
         
-        if (![photosDitailsArray count]) DDLogVerbose(@"No photos for problem");
+        if (![photosDitailsArray count]) {
+            DDLogVerbose(@"No photos for problem");
+        }
         
-        //Count is tag for view. tag == 0 is for add button
+        //Count is tag for view. tag == 0 is for 'add image' button
         for (int count = 0; count <= [photosDitailsArray count]; count++)
         {
-            UIImage *image = (count == 0) ? [UIImage imageNamed:@"addButtonImage.png"] : [UIImage imageNamed:@"photo"];
+            __block UIImage *smallImage = nil;
+            if (count == 0) {
+                //Image for 'add image' button
+                smallImage = [UIImage imageNamed:@"addButtonImage.png"];
+            } else
+            {
+                EcomapPhoto *photoDitails = photosDitailsArray[count - 1];
+                [EcomapFetcher loadSmallImagesFromLink:photoDitails.link
+                                          OnCompletion:^(UIImage *image, NSError *error) {
+                                              if (!error) {
+                                                  smallImage = image;
+                                              }
+                                          }];
+            }
+   
             //Create button
-            [self addButtonToScrollViewWithImage:image
+            [self addButtonToScrollViewWithImage:smallImage
                                           offset:contentOffSet
                                              tag:count];
             contentOffSet += BUTTON_WIDTH + HORIZONTAL_OFFSET;
@@ -134,19 +176,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     IDMPhoto *photo;
     
     //Fill array with IDMPhoto objects
-    if ([photosDitailsArray count]) {
-        for (EcomapPhoto *photoDitails in photosDitailsArray)
-        {
-            photo = [IDMPhoto photoWithURL:[EcomapURLFetcher URLforLargePhotoWithLink:photoDitails.link]];
-            if (photoDitails.caption ) {
-                photo.caption = photoDitails.caption;
-            }
-            [photos addObject:photo];
+    for (EcomapPhoto *photoDitails in photosDitailsArray)
+    {
+        photo = [IDMPhoto photoWithURL:[EcomapURLFetcher URLforLargePhotoWithLink:photoDitails.link]];
+        if (photoDitails.caption ) {
+            photo.caption = photoDitails.caption;
         }
-    } else {
-        DDLogWarn(@"No photos for problem");
+        [photos addObject:photo];
     }
-    
+   
     // Create and setup browser
     IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:sender]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
     browser.delegate = self;
@@ -161,6 +199,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self presentViewController:browser animated:YES completion:nil];
 }
 
+
+#pragma mark - Login
 - (IBAction)login:(id)sender {
     [EcomapFetcher loginWithEmail:@"clic@ukr.net"
                       andPassword:@"eco"

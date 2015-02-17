@@ -14,9 +14,7 @@
 #import "EcomapLoggedUser.h"
 
 //Setup DDLog
-#import "CocoaLumberjack.h"
-
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#import "GlobalLoggerLevel.h"
 
 typedef enum : NSUInteger {
     DetailedViewType,
@@ -169,7 +167,7 @@ typedef enum : NSUInteger {
 
 - (NSString *)likeString
 {
-    return [NSString stringWithFormat:@"♡%lu", self.problemDetails.votes];
+    return [NSString stringWithFormat:@"♡%ul", self.problemDetails.votes];
 }
 
 - (void)updateDetailedView
