@@ -46,10 +46,11 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    /*
     UIBezierPath *path = [UIBezierPath bezierPathWithRect:rect];
     
     [[UIColor blackColor] setStroke];
-    [path stroke];
+    [path stroke];*/
     
     [self drawLabel];
 }
@@ -66,7 +67,9 @@
     CGRect numberTextBounds;
     numberTextBounds.size = [numberText size];
     numberTextBounds.origin = CGPointMake((self.bounds.size.width - numberTextBounds.size.width) / 2, [self offsetFromTop]);
-    [numberText drawInRect:numberTextBounds];
+    if(self.numberOfInstances) {
+        [numberText drawInRect:numberTextBounds];
+    }
     
     // Drawing name of instances
     
@@ -81,7 +84,10 @@
     CGRect nameTextBounds;
     nameTextBounds.size = [nameText size];
     nameTextBounds.origin = CGPointMake((self.bounds.size.width - nameTextBounds.size.width) / 2, numberTextBounds.size.height + [self offsetBetweenNumberAndName]);
-    [nameText drawInRect:nameTextBounds];
+    
+    if(self.nameOfInstances) {
+        [nameText drawInRect:nameTextBounds];
+    }
 }
 
 #pragma mark - Initialization

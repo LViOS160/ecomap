@@ -33,10 +33,22 @@
 
 #pragma mark - Properties
 
--(void)setStatsForPieChart:(NSArray *)statsForPieChart
+- (void)setStatsForPieChart:(NSArray *)statsForPieChart
 {
     _statsForPieChart = statsForPieChart;
     [self drawPieChart];
+}
+
+- (GeneralStatsTopLabelView *)topLabelView
+{
+    if(!_topLabelView) _topLabelView = [[GeneralStatsTopLabelView alloc] init];
+    return _topLabelView;
+}
+
+- (void)setGeneralStats:(NSArray *)generalStats
+{
+    _generalStats = generalStats;
+    [self.topLabelSpinner stopAnimating];
 }
 
 #pragma mark - Gesture handlers
@@ -86,19 +98,8 @@
         self.nextButton.hidden = NO;
     }
     
-    [UIView transitionWithView:self.topLabelView
-                      duration:0.5
-                       options:(UIViewAnimationOptionTransitionFlipFromLeft)
-                    animations:^{
-                        self.topLabelView.numberOfInstances = [self numberOfInstances];
-                        self.topLabelView.nameOfInstances = [self nameOfIntances];
-                    }
-                    completion:^(BOOL finished) {
-                        
-                    }];
-    
-    //self.topLabelView.numberOfInstances = [self numberOfInstances];
-    //self.topLabelView.nameOfInstances = [self nameOfIntances];
+    self.topLabelView.numberOfInstances = [self numberOfInstances];
+    self.topLabelView.nameOfInstances = [self nameOfIntances];
 }
 
 - (NSUInteger)numberOfInstances
@@ -129,8 +130,6 @@
     return name;
     
 }
-
-
 
 - (void)drawPieChart
 {
@@ -188,37 +187,6 @@
     return mutableSliceColors;
 }
 
-- (void)fetchStats
-{
-    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[self getPeriodForStats]];
-    dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
-    dispatch_async(fetchQ, ^{
-        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                   options:0
-                                                                     error:NULL];
-      dispatch_async(dispatch_get_main_queue(), ^{
-          self.statsForPieChart = propertyListResults;
-      });
-    });
-
-}
-
-- (void)fetchGeneralStats
-{
-    NSURL *url = [EcomapURLFetcher URLforGeneralStats];
-    dispatch_queue_t fetchGSQ = dispatch_queue_create("fetchGSQ", NULL);
-    dispatch_async(fetchGSQ, ^{
-        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                       options:0
-                                                                         error:NULL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.generalStats = propertyListResults;
-        });
-    });
-}
-
 -(EcomapStatsTimePeriod)getPeriodForStats
 {
     switch(self.statsRangeSegmentedControl.selectedSegmentIndex) {
@@ -229,11 +197,6 @@
         case 4: return EcomapStatsForAllTheTime;
         default: return EcomapStatsForAllTheTime;
     }
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    
 }
 
 - (void)customSetup
@@ -247,21 +210,53 @@
     }
 }
 
-#pragma mark - View Controller Life Cycle
+#pragma mark - Fetching
+
+- (void)fetchStats
+{
+    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[self getPeriodForStats]];
+    dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
+    dispatch_async(fetchQ, ^{
+        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
+        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
+                                                                       options:0
+                                                                         error:NULL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.statsForPieChart = propertyListResults;
+        });
+    });
+    
+}
+
+- (void)fetchGeneralStats
+{
+    self.generalStats = nil;
+    [self.topLabelSpinner startAnimating];
+    
+    NSURL *url = [EcomapURLFetcher URLforGeneralStats];
+    dispatch_queue_t fetchGSQ = dispatch_queue_create("fetchGSQ", NULL);
+    dispatch_async(fetchGSQ, ^{
+        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
+        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
+                                                                       options:0
+                                                                         error:NULL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.generalStats = propertyListResults;
+            [self switchPage];
+        });
+    });
+}
+
+#pragma mark - ViewController Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    
-    [self.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-    
+        
     // Setting top label
     
     self.prevButton.hidden = YES;
-    self.topLabelView.numberOfInstances = [self numberOfInstances];
-    self.topLabelView.nameOfInstances = [self nameOfIntances];
-
     
     [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
     [self fetchGeneralStats];
