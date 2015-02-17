@@ -385,7 +385,7 @@
                         if (!error) {
                             if (data) {
                                 image = [UIImage imageWithData:data];
-                                //Cacke image
+                                //Cache image
                                 [[EMThumbnailImageStore sharedStore] setImage:image forKey:link];
                             }
                         }

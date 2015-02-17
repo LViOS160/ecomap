@@ -49,20 +49,25 @@
 #pragma mark -
 -(void)setImage:(UIImage *)image forKey:(NSString *)key
 {
+    DDLogVerbose(@"Image %@ cached", key);
     self.cache[key] = image;
 }
 
 -(UIImage *)imageForKey:(NSString *)key
 {
+    UIImage *image = self.cache[key];
+    if (image) {
+        DDLogVerbose(@"Image %@ loaded from cache", key);
+    }
 
-    return self.cache[key];
+    return image;
 }
 
 #pragma mark -
 //Notificatin trigger
 - (void)clearCache:(NSNotification *)note
 {
-    DDLogWarn(@"Flushing %ul images out if the cache", [self.cache count]);
+    DDLogWarn(@"Flushing %u images out if the cache", [self.cache count]);
     [self.cache removeAllObjects];
 }
 @end

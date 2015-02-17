@@ -12,6 +12,7 @@
 #import "EcomapPhoto.h"
 #import "IDMPhotoBrowser.h"
 #import "EcomapLoggedUser.h"
+#import "EMThumbnailImageStore.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -22,7 +23,7 @@ typedef enum : NSUInteger {
     ComentViewType,
 } ViewType;
 
-@interface ProblemViewController()
+@interface ProblemViewController() <IDMPhotoBrowserDelegate>
 
 @property (nonatomic, strong) EcomapProblemDetails *problemDetails;
 @property (weak, nonatomic) IBOutlet UILabel *severityLabel;
@@ -31,6 +32,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPhotoGallary;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (nonatomic) NSInteger initialPageIndex;
 
 @end
 
@@ -167,7 +169,7 @@ typedef enum : NSUInteger {
 
 - (NSString *)likeString
 {
-    return [NSString stringWithFormat:@"♡%ul", self.problemDetails.votes];
+    return [NSString stringWithFormat:@"♡%lu", self.problemDetails.votes];
 }
 
 - (void)updateDetailedView
@@ -222,7 +224,7 @@ typedef enum : NSUInteger {
     
 }
 
-#pragma mark - ScrollView setup
+#pragma mark - Scroll View Gallery setup
 #define HORIZONTAL_OFFSET 24.0f
 #define VERTICAL_OFFSET 10.0f
 #define BUTTON_HEIGHT 80.0f
@@ -237,16 +239,23 @@ typedef enum : NSUInteger {
     
     if (photosDitailsArray) {
         
-        if (![photosDitailsArray count]) DDLogVerbose(@"No photos for problem");
+        if (![photosDitailsArray count]) {
+            DDLogVerbose(@"No photos for problem");
+        }
         
-        //Count is tag for view. tag == 0 is for add button
+        //Count is tag for view. tag == 0 is for 'add image' button
         for (int count = 0; count <= [photosDitailsArray count]; count++)
         {
-            UIImage *image = (count == 0) ? [UIImage imageNamed:@"addButtonImage.png"] : [UIImage imageNamed:@"photo"];
+            NSString *link = nil;
+            if (count != 0) {
+                EcomapPhoto *photoDitails = photosDitailsArray[count - 1];
+                link = photoDitails.link;
+            }
+            
             //Create button
-            [self addButtonToScrollViewWithImage:image
-                                          offset:contentOffSet
-                                             tag:count];
+            [self addButtonToScrollViewWithImageOnLink:link
+                                                offset:contentOffSet
+                                                   tag:count];
             contentOffSet += BUTTON_WIDTH + HORIZONTAL_OFFSET;
         }
     }
@@ -255,7 +264,7 @@ typedef enum : NSUInteger {
     self.scrollViewPhotoGallary.contentSize = CGSizeMake(contentOffSet, self.scrollViewPhotoGallary.frame.size.height);
 }
 
--(void)addButtonToScrollViewWithImage:(UIImage *)image offset:(CGFloat)offset tag:(NSUInteger)tag
+-(void)addButtonToScrollViewWithImageOnLink:(NSString *)link offset:(CGFloat)offset tag:(NSUInteger)tag
 {
     //Set button frame
     CGRect buttonViewFrame = CGRectMake(offset, VERTICAL_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -265,22 +274,58 @@ typedef enum : NSUInteger {
     customButton.adjustsImageWhenHighlighted = NO;
     customButton.tag = tag;
     customButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    customButton.backgroundColor = (tag != 0) ? [UIColor blackColor] : [UIColor clearColor];
-    [customButton setBackgroundImage:image forState:UIControlStateNormal];
-    //add target-action
+    customButton.frame = buttonViewFrame;
     if (tag == 0) {
+        //Set background color
+        customButton.backgroundColor = [UIColor clearColor];
+        //Set image
+        [customButton setBackgroundImage:[UIImage imageNamed:@"addButtonImage.png"]
+                                forState:UIControlStateNormal];
+        //Add target-action
         [customButton addTarget:self
                          action:@selector(buttonToAddImagePressed:)
                forControlEvents:UIControlEventTouchUpInside];
         DDLogVerbose(@"'Add image' button created");
     } else {
+        //Set background color
+        customButton.backgroundColor = [UIColor blackColor];
+        
+        //Set image. First look in cache
+        UIImage *thumnailImage = [[EMThumbnailImageStore sharedStore] imageForKey:link];
+        
+        if (!thumnailImage) {
+            //Star loading spinner
+            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            activityIndicator.center = CGPointMake(BUTTON_WIDTH / 2, BUTTON_HEIGHT / 2);
+            [customButton addSubview:activityIndicator];
+            [activityIndicator startAnimating];
+            
+            //Set image in background
+            [EcomapFetcher loadSmallImagesFromLink:link
+                                      OnCompletion:^(UIImage *image, NSError *error) {
+                                          if (!error) {
+                                              [customButton setBackgroundImage:image
+                                                                      forState:UIControlStateNormal];
+                                          } else { DDLogError(@"Error loadind image at URL: %@", [error localizedDescription]);
+                                            }
+                                          
+                                          //Stop loadind spinner
+                                          [activityIndicator stopAnimating];
+                                      }];
+            
+        } else {
+            //Set image from cache
+            [customButton setBackgroundImage:thumnailImage
+                                    forState:UIControlStateNormal];
+        }
+        //Add target-action
         [customButton addTarget:self
                          action:@selector(buttonWithImageOnScreenPressed:)
                forControlEvents:UIControlEventTouchUpInside];
         DDLogVerbose(@"Button with photo number %d created", tag);
     }
     
-    customButton.frame = buttonViewFrame;
+    
     
     [self.scrollViewPhotoGallary addSubview:customButton];
 }
@@ -294,6 +339,7 @@ typedef enum : NSUInteger {
 {
     UIButton *buttonSender = (UIButton*)sender;
     
+    self.initialPageIndex = buttonSender.tag - 1;
     DDLogVerbose(@"Button with photo number %d pressed", buttonSender.tag);
     
     NSArray *photosDitailsArray = self.problemDetails.photos;
@@ -303,22 +349,18 @@ typedef enum : NSUInteger {
     IDMPhoto *photo;
     
     //Fill array with IDMPhoto objects
-    if ([photosDitailsArray count]) {
-        for (EcomapPhoto *photoDitails in photosDitailsArray)
-        {
-            photo = [IDMPhoto photoWithURL:[EcomapURLFetcher URLforLargePhotoWithLink:photoDitails.link]];
-            if (photoDitails.caption ) {
-                photo.caption = photoDitails.caption;
-            }
-            [photos addObject:photo];
+    for (EcomapPhoto *photoDitails in photosDitailsArray)
+    {
+        photo = [IDMPhoto photoWithURL:[EcomapURLFetcher URLforLargePhotoWithLink:photoDitails.link]];
+        if (photoDitails.caption ) {
+            photo.caption = photoDitails.caption;
         }
-    } else {
-        DDLogWarn(@"No photos for problem");
+        [photos addObject:photo];
     }
     
     // Create and setup browser
     IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:sender]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
-    //browser.delegate = self;
+    browser.delegate = self;
     browser.displayActionButton = YES;
     browser.displayArrowButton = YES;
     browser.displayCounterLabel = YES;
@@ -328,6 +370,11 @@ typedef enum : NSUInteger {
     
     // Show modaly
     [self presentViewController:browser animated:YES completion:nil];
+}
+
+-(void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
+{
+    if (self.initialPageIndex != index) self.scrollViewPhotoGallary.contentOffset = CGPointMake((BUTTON_WIDTH + HORIZONTAL_OFFSET) * (index + 1) - (BUTTON_WIDTH + HORIZONTAL_OFFSET), 0);
 }
 
 @end
