@@ -32,6 +32,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPhotoGallary;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @end
 
@@ -45,6 +46,7 @@ typedef enum : NSUInteger {
     [self loadProblemDetails:nil];
 }
 
+
 - (void)loadProblemDetails:(void(^)())onFinish
 {
     [EcomapFetcher loadProblemDetailsWithID:self.problem.problemID
@@ -56,7 +58,23 @@ typedef enum : NSUInteger {
                                }];
 }
 
-- (IBAction)detailedClick:(id)sender
+- (IBAction)segmentControlChanged:(UISegmentedControl *)sender
+{
+    switch(sender.selectedSegmentIndex)
+    {
+        case 0:
+            [self updateUI:DetailedViewType];
+            break;
+        case 1:
+            [self updateUI:ActivityViewType];
+            break;
+        case 2:
+            [self updateUI:ComentViewType];
+            break;
+    }
+}
+
+/*- (IBAction)detailedClick:(id)sender
 {
     [self updateUI:DetailedViewType];
 }
@@ -69,7 +87,7 @@ typedef enum : NSUInteger {
 - (IBAction)comentClick:(id)sender
 {
     [self updateUI:ComentViewType];
-}
+}*/
 
 - (IBAction)likeClick:(UIButton*)sender
 {

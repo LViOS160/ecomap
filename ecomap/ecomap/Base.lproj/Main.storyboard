@@ -497,33 +497,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TWU-BO-qUK">
-                                <rect key="frame" x="16" y="101" width="69" height="30"/>
-                                <state key="normal" title="Детально">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="detailedClick:" destination="2UE-DX-Tsm" eventType="touchUpInside" id="xhS-3H-Dk4"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qkt-jT-iyv">
-                                <rect key="frame" x="121" y="101" width="78" height="30"/>
-                                <state key="normal" title="Активність">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="activityClick:" destination="2UE-DX-Tsm" eventType="touchUpInside" id="ose-vQ-jnY"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ko3-GR-ZlZ">
-                                <rect key="frame" x="230" y="101" width="74" height="30"/>
-                                <state key="normal" title="Коментарі">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="comentClick:" destination="2UE-DX-Tsm" eventType="touchUpInside" id="Nyl-6i-lok"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HK3-fu-urd">
                                 <rect key="frame" x="16" y="139" width="288" height="311"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -575,25 +548,34 @@
                                     <constraint firstAttribute="height" constant="100" id="Qek-Pg-Z99"/>
                                 </constraints>
                             </scrollView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hMs-WN-LhN">
+                                <rect key="frame" x="16" y="101" width="288" height="29"/>
+                                <segments>
+                                    <segment title="Детально"/>
+                                    <segment title="Активність"/>
+                                    <segment title="Коментарі"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentControl:" destination="2UE-DX-Tsm" eventType="valueChanged" id="AuJ-0e-X1K"/>
+                                    <action selector="segmentController:" destination="2UE-DX-Tsm" eventType="valueChanged" id="cPI-m3-kPV"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Qkt-jT-iyv" firstAttribute="baseline" secondItem="Ko3-GR-ZlZ" secondAttribute="baseline" id="1d8-5b-oKE"/>
-                            <constraint firstItem="HK3-fu-urd" firstAttribute="top" secondItem="TWU-BO-qUK" secondAttribute="bottom" constant="8" symbolic="YES" id="2kF-gh-bRF"/>
-                            <constraint firstItem="TWU-BO-qUK" firstAttribute="leading" secondItem="HK3-fu-urd" secondAttribute="leading" id="6Ds-BY-h9b"/>
+                            <constraint firstItem="hMs-WN-LhN" firstAttribute="top" secondItem="LiH-Qu-8e4" secondAttribute="bottom" constant="8" symbolic="YES" id="1vV-Ke-D7k"/>
+                            <constraint firstItem="HK3-fu-urd" firstAttribute="leading" secondItem="hMs-WN-LhN" secondAttribute="leading" id="3NG-KA-Z0x"/>
                             <constraint firstAttribute="centerX" secondItem="HK3-fu-urd" secondAttribute="centerX" id="AfR-EY-oaz"/>
                             <constraint firstItem="LiH-Qu-8e4" firstAttribute="top" secondItem="Ca8-CY-Noy" secondAttribute="bottom" constant="8" symbolic="YES" id="BLO-Iu-pBg"/>
-                            <constraint firstItem="HK3-fu-urd" firstAttribute="trailing" secondItem="Ko3-GR-ZlZ" secondAttribute="trailing" id="Ha4-qP-tau"/>
-                            <constraint firstItem="TWU-BO-qUK" firstAttribute="top" secondItem="LiH-Qu-8e4" secondAttribute="bottom" constant="8" symbolic="YES" id="HhF-9S-hqO"/>
+                            <constraint firstItem="LiH-Qu-8e4" firstAttribute="leading" secondItem="hMs-WN-LhN" secondAttribute="leading" id="C49-3l-bLr"/>
                             <constraint firstItem="Y3f-DH-cSw" firstAttribute="leading" secondItem="o99-kz-IvI" secondAttribute="leadingMargin" id="LIi-P6-VWN"/>
                             <constraint firstItem="Y3f-DH-cSw" firstAttribute="top" secondItem="HK3-fu-urd" secondAttribute="bottom" constant="8" id="Mts-Oz-Xl3"/>
                             <constraint firstItem="Y3f-DH-cSw" firstAttribute="trailing" secondItem="o99-kz-IvI" secondAttribute="trailingMargin" id="Qbe-Wj-8x4"/>
-                            <constraint firstItem="Qkt-jT-iyv" firstAttribute="centerX" secondItem="LiH-Qu-8e4" secondAttribute="centerX" id="SNW-H2-Cth"/>
-                            <constraint firstItem="LiH-Qu-8e4" firstAttribute="trailing" secondItem="Ko3-GR-ZlZ" secondAttribute="trailing" id="WXa-DZ-n1C"/>
-                            <constraint firstItem="TWU-BO-qUK" firstAttribute="leading" secondItem="o99-kz-IvI" secondAttribute="leadingMargin" id="XAb-0j-2XV"/>
-                            <constraint firstItem="TWU-BO-qUK" firstAttribute="baseline" secondItem="Qkt-jT-iyv" secondAttribute="baseline" id="hop-iC-wYZ"/>
-                            <constraint firstItem="TWU-BO-qUK" firstAttribute="leading" secondItem="LiH-Qu-8e4" secondAttribute="leading" id="jO6-ln-cCB"/>
+                            <constraint firstItem="HK3-fu-urd" firstAttribute="leading" secondItem="Y3f-DH-cSw" secondAttribute="leading" id="YmG-B8-8YA"/>
+                            <constraint firstItem="HK3-fu-urd" firstAttribute="trailing" secondItem="hMs-WN-LhN" secondAttribute="trailing" id="ZmI-HB-q4M"/>
+                            <constraint firstItem="HK3-fu-urd" firstAttribute="top" secondItem="hMs-WN-LhN" secondAttribute="bottom" constant="10" id="iDv-YF-ug0"/>
                             <constraint firstItem="Awx-0R-tRe" firstAttribute="top" secondItem="Y3f-DH-cSw" secondAttribute="bottom" constant="10" id="pJJ-I1-E9J"/>
+                            <constraint firstItem="hMs-WN-LhN" firstAttribute="trailing" secondItem="LiH-Qu-8e4" secondAttribute="trailing" id="xUB-6D-eTF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OJD-g6-uM3"/>
@@ -601,6 +583,7 @@
                         <outlet property="descriptionText" destination="HK3-fu-urd" id="MaM-4W-KxK"/>
                         <outlet property="likeButton" destination="MoS-mP-85A" id="GFv-hi-Hmc"/>
                         <outlet property="scrollViewPhotoGallary" destination="Y3f-DH-cSw" id="i16-rK-VfO"/>
+                        <outlet property="segmentControl" destination="hMs-WN-LhN" id="uHl-Kj-8Vf"/>
                         <outlet property="severityLabel" destination="3u7-WT-ydj" id="AiH-Dx-nNm"/>
                         <outlet property="statusLabel" destination="xWe-iM-cMF" id="xZu-Ki-qWp"/>
                     </connections>
