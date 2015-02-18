@@ -20,7 +20,7 @@
 #define ECOMAP_GET_LOGOUT_API @"logout/"
 #define ECOMAP_POST_REGISTER_API @"register/"
 #define ECOMAP_GET_LARGE_PHOTOS_ADDRESS @"photos/large/"
-#define ECOMAP_GET_SMALL_PHOTOS_ADDRESS @"photos/large/"
+#define ECOMAP_GET_SMALL_PHOTOS_ADDRESS @"photos/small/"
 #define ECOMAP_POST_PROBLEM @"problempost"
 #define ECOMAP_GET_RESOURCES @"gettitles/"
 #define ECOMAP_GET_ALIAS @"resources/"
