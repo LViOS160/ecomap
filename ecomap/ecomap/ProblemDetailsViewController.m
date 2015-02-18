@@ -29,12 +29,14 @@
 {
     [super viewWillAppear:animated];
     [self updateUI];
+    [self updateScrollView];
 }
 
 - (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
     _problemDetails = problemDetails;
     [self updateUI];
+    [self updateScrollView];
 }
 
 - (void)updateUI

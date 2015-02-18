@@ -11,6 +11,7 @@
 @interface ContainerViewController ()
 
 @property (nonatomic) NSUInteger currentIndex;
+@property (weak, nonatomic) UIViewController *currentView;
 
 @end
 
@@ -23,6 +24,13 @@
              @"ActivityView",
              @"CommentsView"
              ];
+}
+
+- (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
+{
+    if([self.currentView conformsToProtocol:@protocol(EcomapProblemDetailsHolder)]) {
+        [((id<EcomapProblemDetailsHolder>)self.currentView) setProblemDetails:problemDetails];
+    }
 }
 
 - (void)viewDidLoad
@@ -48,8 +56,10 @@
 {
     if([[ContainerViewController availableSegues] containsObject:segue.identifier]) {
         if (self.childViewControllers.count > 0) {
+            self.currentView = segue.destinationViewController;
             [self swapFromViewController:[self.childViewControllers objectAtIndex:0] toViewController:segue.destinationViewController];
         } else {
+            self.currentView = segue.destinationViewController;
             [self addChildViewController:segue.destinationViewController];
             ((UIViewController *)segue.destinationViewController).view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
             [self.view addSubview:((UIViewController *)segue.destinationViewController).view];

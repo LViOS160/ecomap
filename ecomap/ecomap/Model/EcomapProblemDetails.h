@@ -19,3 +19,9 @@
 @property (nonatomic, strong) NSArray *comments;
 
 @end
+
+@protocol EcomapProblemDetailsHolder
+
+- (void)setProblemDetails:(EcomapProblemDetails*)problemDetails;
+
+@end

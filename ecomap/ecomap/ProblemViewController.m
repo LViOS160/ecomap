@@ -53,7 +53,7 @@ typedef enum : NSUInteger {
     [EcomapFetcher loadProblemDetailsWithID:self.problem.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    self.problemDetails = problemDetails;
-                                   [self updateUI];
+                                   [self.containerViewController setProblemDetails:problemDetails];
                                    [self updateHeader];
                                }];
 }
@@ -61,6 +61,7 @@ typedef enum : NSUInteger {
 - (IBAction)segmentControlChanged:(UISegmentedControl *)sender
 {
     [self.containerViewController showViewAtIndex:sender.selectedSegmentIndex];
+    [self.containerViewController setProblemDetails:self.problemDetails];
 }
 
 - (IBAction)likeClick:(UIButton*)sender
@@ -79,10 +80,6 @@ typedef enum : NSUInteger {
                                 }
                             }];
     }
-}
-
-- (void)updateUI
-{
 }
 
 - (void)updateHeader

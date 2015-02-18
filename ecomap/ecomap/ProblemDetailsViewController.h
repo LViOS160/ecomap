@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EcomapProblemDetails.h"
 
-@interface ProblemDetailsViewController : UIViewController
+@interface ProblemDetailsViewController : UIViewController <EcomapProblemDetailsHolder>
 
 @property (nonatomic, strong) EcomapProblemDetails* problemDetails;
 

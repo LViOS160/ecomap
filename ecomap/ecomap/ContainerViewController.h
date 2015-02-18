@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EcomapProblemDetails.h"
 
-@interface ContainerViewController : UIViewController
+@interface ContainerViewController : UIViewController <EcomapProblemDetailsHolder>
 
 - (void)showViewAtIndex:(NSUInteger)index;
 
