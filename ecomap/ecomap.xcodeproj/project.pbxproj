@@ -30,6 +30,18 @@
 		5F17A78C1A8B596900C49FA1 /* ResourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7891A8B596900C49FA1 /* ResourceCell.m */; };
 		5F17A78D1A8B596900C49FA1 /* ResourceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A78B1A8B596900C49FA1 /* ResourceDetails.m */; };
 		5F17A7911A8B74FF00C49FA1 /* NetworkActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7901A8B74FF00C49FA1 /* NetworkActivityIndicator.m */; };
+		9096C98D1A91E8DA00A61CDB /* GeneralStatsTopLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096C98C1A91E8DA00A61CDB /* GeneralStatsTopLabelView.m */; };
+		9096C99A1A9214D900A61CDB /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9096C98F1A9214D900A61CDB /* LICENSE.txt */; };
+		9096C99B1A9214D900A61CDB /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9901A9214D900A61CDB /* OpenSans-Bold.ttf */; };
+		9096C99C1A9214D900A61CDB /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9911A9214D900A61CDB /* OpenSans-BoldItalic.ttf */; };
+		9096C99D1A9214D900A61CDB /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9921A9214D900A61CDB /* OpenSans-ExtraBold.ttf */; };
+		9096C99E1A9214D900A61CDB /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9931A9214D900A61CDB /* OpenSans-ExtraBoldItalic.ttf */; };
+		9096C99F1A9214D900A61CDB /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9941A9214D900A61CDB /* OpenSans-Italic.ttf */; };
+		9096C9A01A9214DA00A61CDB /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9951A9214D900A61CDB /* OpenSans-Light.ttf */; };
+		9096C9A11A9214DA00A61CDB /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9961A9214D900A61CDB /* OpenSans-LightItalic.ttf */; };
+		9096C9A21A9214DA00A61CDB /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9971A9214D900A61CDB /* OpenSans-Regular.ttf */; };
+		9096C9A31A9214DA00A61CDB /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9981A9214D900A61CDB /* OpenSans-Semibold.ttf */; };
+		9096C9A41A9214DA00A61CDB /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096C9991A9214D900A61CDB /* OpenSans-SemiboldItalic.ttf */; };
 		90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */; };
 		90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */; };
 		90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B821A84BD730009F641 /* XYPieChart.m */; };
