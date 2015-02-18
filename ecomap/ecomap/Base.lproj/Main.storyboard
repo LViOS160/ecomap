@@ -603,6 +603,51 @@
             </objects>
             <point key="canvasLocation" x="974" y="-1192"/>
         </scene>
+        <!--Problem Details View Controller-->
+        <scene sceneID="zwN-Ka-l4F">
+            <objects>
+                <viewController id="RfE-R3-ExD" customClass="ProblemDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bTI-c4-CnH"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mxn-h6-AKW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Acz-eY-Ors">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCS-y7-0oj">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="460" id="Cj3-Q8-WwT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w77-Kt-PfJ">
+                                <rect key="frame" x="0.0" y="468" width="320" height="100"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="top" secondItem="rCS-y7-0oj" secondAttribute="bottom" constant="8" symbolic="YES" id="9L5-8c-z70"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="top" secondItem="Acz-eY-Ors" secondAttribute="top" id="DBa-xu-SUg"/>
+                            <constraint firstAttribute="trailing" secondItem="w77-Kt-PfJ" secondAttribute="trailing" id="DKK-7D-wmx"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="leading" secondItem="rCS-y7-0oj" secondAttribute="leading" id="HSR-TS-SK6"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="trailing" secondItem="w77-Kt-PfJ" secondAttribute="trailing" id="pFw-ew-rmh"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leading" id="rIZ-OP-yIg"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="bottom" secondItem="Mxn-h6-AKW" secondAttribute="top" id="uib-x8-ivq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionText" destination="rCS-y7-0oj" id="vMb-Vk-0mf"/>
+                        <outlet property="scrollViewPhotoGallary" destination="w77-Kt-PfJ" id="edW-ox-UXQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3jt-3v-MTt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1385" y="-1384"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="rTh-jy-pBC">
             <objects>

@@ -84,6 +84,7 @@
 		CABBB5231A853D6F0089065B /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5201A853D6F0089065B /* GQTPointQuadTreeChild.m */; };
 		CABBB5261A8A844D0089065B /* EcomapPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5251A8A844D0089065B /* EcomapPhoto.m */; };
 		CABBB5291A8A84690089065B /* EcomapComments.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5281A8A84690089065B /* EcomapComments.m */; };
+		CAF471931A95273500F9B567 /* ProblemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */; };
 		E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C921A80F9A300121A7E /* EcomapFetcher.m */; };
 		E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C941A80F9A300121A7E /* EcomapProblem.m */; };
 		E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C961A80F9A300121A7E /* EcomapProblemDetails.m */; };
@@ -226,6 +227,8 @@
 		CABBB5251A8A844D0089065B /* EcomapPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapPhoto.m; sourceTree = "<group>"; };
 		CABBB5271A8A84690089065B /* EcomapComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapComments.h; sourceTree = "<group>"; };
 		CABBB5281A8A84690089065B /* EcomapComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapComments.m; sourceTree = "<group>"; };
+		CAF471911A95273500F9B567 /* ProblemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemDetailsViewController.h; sourceTree = "<group>"; };
+		CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemDetailsViewController.m; sourceTree = "<group>"; };
 		E582D0B71A8CCAD200AD957A /* GlobalLoggerLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalLoggerLevel.h; sourceTree = "<group>"; };
 		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
@@ -382,6 +385,8 @@
 				B353434F1A7F78A200DD2F03 /* MenuViewController.m */,
 				90AE1B7A1A84BD3E0009F641 /* ProblemsTopListTVC.h */,
 				90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */,
+				CAF471911A95273500F9B567 /* ProblemDetailsViewController.h */,
+				CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */,
 				CA4027A61A8F632800CA835F /* ProblemViewController.h */,
 				CA4027A71A8F632800CA835F /* ProblemViewController.m */,
 				90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */,
@@ -783,6 +788,7 @@
 				5F17A7911A8B74FF00C49FA1 /* NetworkActivityIndicator.m in Sources */,
 				B35343501A7F78A200DD2F03 /* MenuViewController.m in Sources */,
 				E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */,
+				CAF471931A95273500F9B567 /* ProblemDetailsViewController.m in Sources */,
 				5F17A78D1A8B596900C49FA1 /* ResourceDetails.m in Sources */,
 				E5F27C9C1A80F9A300121A7E /* EcomapURLFetcher.m in Sources */,
 				CABBB5261A8A844D0089065B /* EcomapPhoto.m in Sources */,
