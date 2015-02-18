@@ -12,27 +12,66 @@
 #import "EcomapURLFetcher.h"
 #import "EcomapPathDefine.h"
 #import "EcomapStatsParser.h"
+#import "GeneralStatsTopLabelView.h"
 
-@interface PieChartViewController ()
+#define NUMBER_OF_TOP_LABELS 4
 
-@property (weak, nonatomic) IBOutlet UILabel *numOfProblemsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numOfVotesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numOfCommentsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numOfPhotosLabel;
+@interface PieChartViewController () <UIScrollViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statsRangeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *topLabelSpinner;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *pieChartSpinner;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property(nonatomic, strong) NSMutableArray *slices;
-@property(nonatomic, strong) NSArray *sliceColors;
+@property (nonatomic, strong) NSMutableArray *slices;
+@property (nonatomic, strong) NSArray *sliceColors;
 
 @end
 
 @implementation PieChartViewController
 
--(void)setStatsForPieChart:(NSArray *)statsForPieChart
+#pragma mark - Properties
+
+- (void)setScrollView:(UIScrollView *)scrollView
+{
+    _scrollView = scrollView;
+    _scrollView.delegate = self;
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
+    _scrollView.scrollEnabled = NO;
+}
+
+- (void)setStatsForPieChart:(NSArray *)statsForPieChart
 {
     _statsForPieChart = statsForPieChart;
+    [self.pieChartSpinner stopAnimating];
     [self drawPieChart];
+}
+
+- (void)setGeneralStats:(NSArray *)generalStats
+{
+    _generalStats = generalStats;
+    [self.topLabelSpinner stopAnimating];
+}
+
+#pragma mark - Gesture Handlers
+
+- (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender
+{
+    self.pageControl.currentPage--;
+    [self switchPage];
+}
+
+- (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender
+{
+    self.pageControl.currentPage++;
+    [self switchPage];
+}
+
+- (IBAction)touchPageControl:(UIPageControl *)sender
+{
+    [self switchPage];
 }
 
 - (IBAction)changeRangeOfShowingStats:(UISegmentedControl *)sender
@@ -40,36 +79,19 @@
     [self fetchStats];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
-    [self fetchGeneralStats];
-    [self customSetup];
-}
+#pragma mark - Generating Data
 
-- (void)drawPieChart
+- (void)generateTopLabelViews
 {
-    self.slices = [[NSMutableArray alloc] init];
-    
-    for(int i = 0; i < [self.statsForPieChart count]; i++)
+    for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++)
     {
-        NSDictionary *problems = self.statsForPieChart[i];
-        NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
-        [self.slices addObject:number];
+        GeneralStatsTopLabelView *topLabelView = [[GeneralStatsTopLabelView alloc] init];
+        topLabelView.numberOfInstances = [EcomapStatsParser integerForNumberLabelForInstanceNumber:i inStatsArray:self.generalStats];
+        topLabelView.nameOfInstances = [EcomapStatsParser stringForNameLabelForInstanceNumber:i];
+        topLabelView.frame = CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
+        [self.scrollView addSubview:topLabelView];
     }
-    
-    [self.pieChartView setDelegate:self];
-    [self.pieChartView setDataSource:self];
-    [self.pieChartView setAnimationSpeed:1.0];
-    [self.pieChartView setShowPercentage:NO];
-    [self.pieChartView setPieCenter:CGPointMake(self.pieChartView.bounds.size.width /2 , self.pieChartView.bounds.size.height / 2)];
-    [self.pieChartView setUserInteractionEnabled:NO];
-    [self.pieChartView setLabelColor:[UIColor whiteColor]];
-    
-    self.sliceColors = [self generateSliceColors];
-    
-    [self.pieChartView reloadData];
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
 }
 
 - (UIColor *)getSliceColorForProblemType:(NSNumber *)problemTypeID
@@ -104,25 +126,67 @@
     return mutableSliceColors;
 }
 
+- (void)switchPage
+{
+    [self.scrollView scrollRectToVisible:CGRectMake(self.pageControl.currentPage * self.scrollView.bounds.size.width,
+                                                    0,
+                                                    self.scrollView.bounds.size.width,
+                                                    self.scrollView.bounds.size.height)
+                                animated:YES];
+}
+
+#pragma mark - Drawing Pie Chart
+
+- (void)drawPieChart
+{
+    self.slices = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [self.statsForPieChart count]; i++)
+    {
+        NSDictionary *problems = self.statsForPieChart[i];
+        NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
+        [self.slices addObject:number];
+    }
+    
+    [self.pieChartView setDelegate:self];
+    [self.pieChartView setDataSource:self];
+    [self.pieChartView setAnimationSpeed:1.0];
+    [self.pieChartView setShowPercentage:NO];
+    [self.pieChartView setPieCenter:CGPointMake(self.pieChartView.bounds.size.width /2 , self.pieChartView.bounds.size.height / 2)];
+    [self.pieChartView setUserInteractionEnabled:NO];
+    [self.pieChartView setLabelColor:[UIColor whiteColor]];
+    
+    self.sliceColors = [self generateSliceColors];
+    
+    [self.pieChartView reloadData];
+}
+
+#pragma mark - Fetching
+
 - (void)fetchStats
 {
-    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[self getPeriodForStats]];
+    [self.pieChartSpinner startAnimating];
+    
+    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[EcomapStatsParser getPeriodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex]];
     dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
     dispatch_async(fetchQ, ^{
         NSData *jsonResults = [NSData dataWithContentsOfURL:url];
         NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                   options:0
-                                                                     error:NULL];
-      dispatch_async(dispatch_get_main_queue(), ^{
+                                                                       options:0
+                                                                         error:NULL];
+        dispatch_async(dispatch_get_main_queue(), ^{
             self.statsForPieChart = propertyListResults;
-            //NSLog(@"%@", propertyListResults);
-      });
+        });
     });
-
+    
 }
 
 - (void)fetchGeneralStats
 {
+    self.generalStats = nil;
+    
+    [self.topLabelSpinner startAnimating];
+    
     NSURL *url = [EcomapURLFetcher URLforGeneralStats];
     dispatch_queue_t fetchGSQ = dispatch_queue_create("fetchGSQ", NULL);
     dispatch_async(fetchGSQ, ^{
@@ -132,57 +196,19 @@
                                                                          error:NULL];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.generalStats = propertyListResults;
-            [self updateUI];
-            NSLog(@"%@", propertyListResults);
+            if(self.generalStats) {
+                [self generateTopLabelViews];
+            }
         });
     });
 }
 
-- (void)updateUI
+#pragma mark - UIScroll View Delegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    self.numOfProblemsLabel.text = [NSString stringWithFormat:@"Problems: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PROBLEMS inGeneralStatsArray:self.generalStats]];
-    self.numOfVotesLabel.text = [NSString stringWithFormat:@"Votes: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_VOTES inGeneralStatsArray:self.generalStats]];
-    self.numOfPhotosLabel.text = [NSString stringWithFormat:@"Photos: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PHOTOS inGeneralStatsArray:self.generalStats]];
-    self.numOfCommentsLabel.text = [NSString stringWithFormat:@"Comments: %@", [EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_COMMENTS inGeneralStatsArray:self.generalStats]];
+    return nil;
 }
-
--(EcomapStatsTimePeriod)getPeriodForStats
-{
-    switch(self.statsRangeSegmentedControl.selectedSegmentIndex) {
-        case 0: return EcomapStatsForLastDay;
-        case 1: return EcomapStatsForLastWeek;
-        case 2: return EcomapStatsForLastMonth;
-        case 3: return EcomapStatsForLastYear;
-        case 4: return EcomapStatsForAllTheTime;
-        default: return EcomapStatsForAllTheTime;
-    }
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    
-}
-
-- (void)customSetup
-{
-    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if ( revealViewController )
-    {
-        [self.revealButtonItem setTarget: self.revealViewController];
-        [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
-    }
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - XYPieChart Data Source
 
@@ -219,5 +245,25 @@
     NSLog(@"did select slice at index %lu",(unsigned long)index);
 }
 
+#pragma mark - Initialization
+
+- (void)customSetup
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.revealButtonItem setTarget: self.revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self fetchStats];
+    [self fetchGeneralStats];
+    [self customSetup];
+}
 
 @end

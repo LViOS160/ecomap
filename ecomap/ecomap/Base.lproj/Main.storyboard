@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+            <string>OpenSans-Bold</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Vasyl Korsiuba View Controller For Tests View Controller-->
         <scene sceneID="LcV-lf-qA7">
@@ -627,17 +633,87 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZR-Dw-1Hi" userLabel="Segmented Control Item View">
-                                <rect key="frame" x="0.0" y="257" width="320" height="68"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEK-99-bfh" userLabel="General Stats View" customClass="UIPageControl">
+                                <rect key="frame" x="0.0" y="64" width="320" height="140"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Кількість доданих проблем за останній" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-Qg-V45">
-                                        <rect key="frame" x="-124" y="0.0" width="568" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="YpS-d2-1M6">
+                                        <rect key="frame" x="128" y="12" width="64" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="64" id="a1S-nQ-dhu"/>
+                                        </constraints>
+                                        <color key="pageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="currentPageIndicatorTintColor" red="0.0" green="0.0021728257680000002" blue="0.75132275130000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="touchPageControl:" destination="jVG-Fj-m9H" eventType="valueChanged" id="VTy-sR-e2F"/>
+                                        </connections>
+                                    </pageControl>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Xxg-ng-I8H">
+                                        <rect key="frame" x="142" y="73" width="37" height="37"/>
+                                        <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Статистика за весь час" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPW-Mx-piL">
+                                        <rect key="frame" x="54" y="3" width="213" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="4cK-1Z-ls4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="Wq9-3K-2vu">
-                                        <rect key="frame" x="8" y="32" width="304" height="29"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6i-I6-Dg6">
+                                        <rect key="frame" x="0.0" y="39" width="320" height="101"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Vby-RH-LBh" appends="YES" id="8fc-rR-OMy"/>
+                                            <outletCollection property="gestureRecognizers" destination="F6A-S6-Ppe" appends="YES" id="r4J-WB-2SG"/>
+                                        </connections>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Xxg-ng-I8H" secondAttribute="bottom" constant="30" id="3Zf-TD-Otr"/>
+                                    <constraint firstAttribute="trailing" secondItem="b6i-I6-Dg6" secondAttribute="trailing" id="5to-gx-ChW"/>
+                                    <constraint firstItem="Xxg-ng-I8H" firstAttribute="centerX" secondItem="YpS-d2-1M6" secondAttribute="centerX" id="DZo-9W-iGM"/>
+                                    <constraint firstItem="b6i-I6-Dg6" firstAttribute="top" secondItem="QPW-Mx-piL" secondAttribute="bottom" constant="16" id="F17-mQ-Vbc"/>
+                                    <constraint firstItem="QPW-Mx-piL" firstAttribute="top" secondItem="rEK-99-bfh" secondAttribute="top" constant="3" id="Kbd-is-W4W"/>
+                                    <constraint firstAttribute="bottom" secondItem="b6i-I6-Dg6" secondAttribute="bottom" id="NwM-OJ-H7a"/>
+                                    <constraint firstItem="Xxg-ng-I8H" firstAttribute="centerX" secondItem="b6i-I6-Dg6" secondAttribute="centerX" id="NzF-I3-Bov"/>
+                                    <constraint firstItem="YpS-d2-1M6" firstAttribute="centerX" secondItem="QPW-Mx-piL" secondAttribute="centerX" id="R0u-Mr-VtY"/>
+                                    <constraint firstItem="YpS-d2-1M6" firstAttribute="top" secondItem="rEK-99-bfh" secondAttribute="top" constant="12" id="czT-Ax-rgO"/>
+                                    <constraint firstItem="Xxg-ng-I8H" firstAttribute="top" secondItem="YpS-d2-1M6" secondAttribute="bottom" constant="24" id="h88-9Y-xdn"/>
+                                    <constraint firstItem="b6i-I6-Dg6" firstAttribute="leading" secondItem="rEK-99-bfh" secondAttribute="leading" id="laz-Jq-3C7"/>
+                                    <constraint firstItem="QPW-Mx-piL" firstAttribute="leading" secondItem="rEK-99-bfh" secondAttribute="leading" constant="54" id="uV3-ms-hJX"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DBB-NG-TJ2" userLabel="Pie Chart View" customClass="XYPieChart">
+                                <rect key="frame" x="0.0" y="284" width="320" height="284"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-7K-8cI">
+                                        <rect key="frame" x="142" y="123" width="37" height="37"/>
+                                        <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="RQU-7K-8cI" secondAttribute="centerX" constant="-0.5" id="3dQ-TA-k6I"/>
+                                    <constraint firstAttribute="centerY" secondItem="RQU-7K-8cI" secondAttribute="centerY" constant="0.5" id="VkT-gQ-8fX"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rZR-Dw-1Hi" userLabel="Segmented Control Item View">
+                                <rect key="frame" x="0.0" y="212" width="320" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кількість доданих проблем за останній" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-Qg-V45">
+                                        <rect key="frame" x="-124" y="0.0" width="568" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="bcR-Sl-zkA"/>
+                                            <constraint firstAttribute="width" constant="568" id="cgF-bF-MV3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="Wq9-3K-2vu">
+                                        <rect key="frame" x="8" y="28" width="304" height="29"/>
                                         <segments>
                                             <segment title="день"/>
                                             <segment title="тиждень"/>
@@ -651,64 +727,54 @@
                                     </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DBB-NG-TJ2" userLabel="Pie Chart View" customClass="XYPieChart">
-                                <rect key="frame" x="0.0" y="333" width="320" height="235"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rEK-99-bfh" userLabel="General Stats View">
-                                <rect key="frame" x="0.0" y="64" width="320" height="159"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Проблем" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fng-mC-7fw">
-                                        <rect key="frame" x="10" y="35" width="302" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Голосів" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpq-sh-9C5">
-                                        <rect key="frame" x="10" y="63" width="302" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Коментарів" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiY-J3-6qk">
-                                        <rect key="frame" x="10" y="91" width="302" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Фотографій" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKj-cK-jeJ">
-                                        <rect key="frame" x="10" y="119" width="302" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Статистика за весь час" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPW-Mx-piL">
-                                        <rect key="frame" x="70" y="7" width="184" height="20"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="2tp-Qg-V45" firstAttribute="centerX" secondItem="Wq9-3K-2vu" secondAttribute="centerX" id="Ajy-Xn-1Gk"/>
+                                    <constraint firstItem="Wq9-3K-2vu" firstAttribute="trailing" secondItem="rZR-Dw-1Hi" secondAttribute="trailingMargin" id="JsA-5w-x18"/>
+                                    <constraint firstItem="Wq9-3K-2vu" firstAttribute="leading" secondItem="rZR-Dw-1Hi" secondAttribute="leadingMargin" id="Saw-i7-pfw"/>
+                                    <constraint firstItem="Wq9-3K-2vu" firstAttribute="bottom" secondItem="rZR-Dw-1Hi" secondAttribute="bottomMargin" id="Whq-KA-G75"/>
+                                    <constraint firstItem="Wq9-3K-2vu" firstAttribute="top" secondItem="2tp-Qg-V45" secondAttribute="bottom" constant="8" symbolic="YES" id="YCi-qE-mtj"/>
+                                    <constraint firstItem="2tp-Qg-V45" firstAttribute="top" secondItem="rZR-Dw-1Hi" secondAttribute="top" id="e0w-y3-c11"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rEK-99-bfh" firstAttribute="trailing" secondItem="rZR-Dw-1Hi" secondAttribute="trailing" id="3Dp-JB-5MB"/>
+                            <constraint firstItem="DBB-NG-TJ2" firstAttribute="bottom" secondItem="XhD-rt-Q9u" secondAttribute="top" id="3Vb-32-cWe"/>
+                            <constraint firstItem="rZR-Dw-1Hi" firstAttribute="top" secondItem="rEK-99-bfh" secondAttribute="bottom" constant="8" symbolic="YES" id="FOv-11-gAi"/>
+                            <constraint firstItem="DBB-NG-TJ2" firstAttribute="top" secondItem="rZR-Dw-1Hi" secondAttribute="bottom" constant="8" symbolic="YES" id="Ma9-a6-Q6S"/>
+                            <constraint firstItem="rZR-Dw-1Hi" firstAttribute="leading" secondItem="KVK-JH-AXk" secondAttribute="leading" id="NLy-cG-69G"/>
+                            <constraint firstItem="rEK-99-bfh" firstAttribute="leading" secondItem="rZR-Dw-1Hi" secondAttribute="leading" id="Xh8-IH-9il"/>
+                            <constraint firstItem="DBB-NG-TJ2" firstAttribute="trailing" secondItem="rZR-Dw-1Hi" secondAttribute="trailing" id="bub-yv-geC"/>
+                            <constraint firstAttribute="trailing" secondItem="rZR-Dw-1Hi" secondAttribute="trailing" id="fdp-Ov-QQn"/>
+                            <constraint firstItem="rEK-99-bfh" firstAttribute="top" secondItem="98y-hi-jAn" secondAttribute="bottom" id="gZ0-9A-MOn"/>
+                            <constraint firstItem="DBB-NG-TJ2" firstAttribute="leading" secondItem="rZR-Dw-1Hi" secondAttribute="leading" id="q5P-6Q-yVa"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Статистика" id="fps-eh-5lf">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="MDJ-Pv-oAv"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="numOfCommentsLabel" destination="PiY-J3-6qk" id="c3U-TC-aeH"/>
-                        <outlet property="numOfPhotosLabel" destination="NKj-cK-jeJ" id="bnz-PP-3AO"/>
-                        <outlet property="numOfProblemsLabel" destination="Fng-mC-7fw" id="mTE-tY-6Oe"/>
-                        <outlet property="numOfVotesLabel" destination="zpq-sh-9C5" id="FOV-qX-Dqd"/>
+                        <outlet property="pageControl" destination="YpS-d2-1M6" id="aOa-5c-djh"/>
+                        <outlet property="pieChartSpinner" destination="RQU-7K-8cI" id="Nxm-G0-TbN"/>
                         <outlet property="pieChartView" destination="DBB-NG-TJ2" id="drS-8s-QFo"/>
                         <outlet property="revealButtonItem" destination="MDJ-Pv-oAv" id="gFS-5j-6us"/>
+                        <outlet property="scrollView" destination="b6i-I6-Dg6" id="3q6-1c-pgg"/>
                         <outlet property="statsRangeSegmentedControl" destination="Wq9-3K-2vu" id="5RX-mI-iP0"/>
+                        <outlet property="topLabelSpinner" destination="Xxg-ng-I8H" id="W19-qb-qCG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozZ-8K-k1t" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="Vby-RH-LBh">
+                    <connections>
+                        <action selector="swipeRight:" destination="jVG-Fj-m9H" id="VUr-fk-Rbq"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="F6A-S6-Ppe">
+                    <connections>
+                        <action selector="swipeLeft:" destination="jVG-Fj-m9H" id="u26-cN-X6C"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="567" y="128"/>
         </scene>
@@ -742,7 +808,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="0qm-vi-3sa">
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="0qm-vi-3sa">
                                     <rect key="frame" x="8" y="7" width="304" height="30"/>
                                     <segments>
                                         <segment title="ТОП популярних"/>
@@ -755,6 +821,12 @@
                                 </segmentedControl>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="0qm-vi-3sa" firstAttribute="bottom" secondItem="1OQ-Ft-EXy" secondAttribute="bottomMargin" id="2oO-hZ-NLh"/>
+                                <constraint firstItem="0qm-vi-3sa" firstAttribute="leading" secondItem="1OQ-Ft-EXy" secondAttribute="leadingMargin" id="6t4-MI-kP8"/>
+                                <constraint firstItem="0qm-vi-3sa" firstAttribute="top" secondItem="1OQ-Ft-EXy" secondAttribute="top" constant="7" id="kGG-sC-ASb"/>
+                                <constraint firstItem="0qm-vi-3sa" firstAttribute="trailing" secondItem="1OQ-Ft-EXy" secondAttribute="trailingMargin" id="yfv-b6-PfJ"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ecomap Problem Cell" textLabel="MuK-ev-Fhb" detailTextLabel="Tgd-sp-E80" style="IBUITableViewCellStyleValue2" id="oU9-Y8-nOy">
