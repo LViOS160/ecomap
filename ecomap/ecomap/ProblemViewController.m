@@ -10,6 +10,7 @@
 #import "EcomapFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "EcomapLoggedUser.h"
+#import "ContainerViewController.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -27,6 +28,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (weak, nonatomic) ContainerViewController *containerViewController;
 
 @end
 
@@ -39,6 +41,12 @@ typedef enum : NSUInteger {
     [self loadProblemDetails:nil];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"embedContainer"]) {
+        self.containerViewController = segue.destinationViewController;
+    }
+}
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
@@ -52,6 +60,7 @@ typedef enum : NSUInteger {
 
 - (IBAction)segmentControlChanged:(UISegmentedControl *)sender
 {
+    [self.containerViewController showViewAtIndex:sender.selectedSegmentIndex];
 }
 
 - (IBAction)likeClick:(UIButton*)sender

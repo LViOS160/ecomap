@@ -10,4 +10,6 @@
 
 @interface ContainerViewController : UIViewController
 
+- (void)showViewAtIndex:(NSUInteger)index;
+
 @end
