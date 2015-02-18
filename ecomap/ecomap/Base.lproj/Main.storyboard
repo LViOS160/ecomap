@@ -654,8 +654,8 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="a1S-nQ-dhu"/>
                                         </constraints>
-                                        <color key="pageIndicatorTintColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="currentPageIndicatorTintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="pageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="currentPageIndicatorTintColor" red="0.0" green="0.0021728257680000002" blue="0.75132275130000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="touchPageControl:" destination="jVG-Fj-m9H" eventType="valueChanged" id="VTy-sR-e2F"/>
                                         </connections>

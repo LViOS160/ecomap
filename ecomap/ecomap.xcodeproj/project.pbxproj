@@ -43,7 +43,6 @@
 		90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */; };
 		90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */; };
 		90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B821A84BD730009F641 /* XYPieChart.m */; };
-		90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */; };
 		90FF71B61A88D75600991A65 /* EcomapStatsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FF71B51A88D75600991A65 /* EcomapStatsParser.m */; };
 		B323B57A1A89F8FF00D02E2D /* AddProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B323B5791A89F8FF00D02E2D /* AddProblemViewController.m */; };
 		B3488A6C1A8A027A00BDAF84 /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3488A6B1A8A027A00BDAF84 /* AddProblemNavigationView.xib */; };
@@ -147,8 +146,6 @@
 		90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartViewController.m; sourceTree = "<group>"; };
 		90AE1B811A84BD730009F641 /* XYPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYPieChart.h; sourceTree = "<group>"; };
 		90AE1B821A84BD730009F641 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
-		90AE1B841A84BE5D0009F641 /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
-		90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
 		90FF71B41A88D75600991A65 /* EcomapStatsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsParser.h; sourceTree = "<group>"; };
 		90FF71B51A88D75600991A65 /* EcomapStatsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsParser.m; sourceTree = "<group>"; };
 		A7C20CEAB3C542AB9128991B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -574,8 +571,6 @@
 				51B485241A8415F800BA8AFF /* Value-Object Classes */,
 				E5F27C911A80F9A300121A7E /* EcomapFetcher.h */,
 				E5F27C921A80F9A300121A7E /* EcomapFetcher.m */,
-				90AE1B841A84BE5D0009F641 /* EcomapStatsFetcher.h */,
-				90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */,
 				90FF71B41A88D75600991A65 /* EcomapStatsParser.h */,
 				90FF71B51A88D75600991A65 /* EcomapStatsParser.m */,
 				E582D0B71A8CCAD200AD957A /* GlobalLoggerLevel.h */,
@@ -766,7 +761,6 @@
 				E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */,
 				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
 				CA4027A81A8F632800CA835F /* ProblemViewController.m in Sources */,
-				90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */,
 				CABBB5291A8A84690089065B /* EcomapComments.m in Sources */,
 				CABBB5151A853D400089065B /* GClusterManager.m in Sources */,
 				51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */,

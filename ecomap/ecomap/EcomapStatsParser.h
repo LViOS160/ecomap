@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EcomapURLFetcher.h"
 
 // Titles for top charts
 
@@ -26,5 +27,6 @@ typedef enum {
 + (NSString *)stringForNameLabelForInstanceNumber:(NSUInteger)number;
 + (NSArray *)getPaticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart from:(NSArray *)topChart;
 + (NSString *)getTitleForParticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart fromProblem:(NSDictionary *)problem;
++ (EcomapStatsTimePeriod)getPeriodForStatsByIndex:(NSInteger)index;
 
 @end

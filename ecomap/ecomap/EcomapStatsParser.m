@@ -80,6 +80,16 @@
     return @"";
 }
 
-
++ (EcomapStatsTimePeriod)getPeriodForStatsByIndex:(NSInteger)index
+{
+    switch(index) {
+        case 0: return EcomapStatsForLastDay;
+        case 1: return EcomapStatsForLastWeek;
+        case 2: return EcomapStatsForLastMonth;
+        case 3: return EcomapStatsForLastYear;
+        case 4: return EcomapStatsForAllTheTime;
+        default: return EcomapStatsForAllTheTime;
+    }
+}
 
 @end

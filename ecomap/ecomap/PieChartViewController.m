@@ -77,6 +77,8 @@
     [self fetchStats];
 }
 
+#pragma mark - Generating Data
+
 - (void)generateTopLabelViews
 {
     for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++)
@@ -88,40 +90,6 @@
         [self.scrollView addSubview:topLabelView];
     }
     _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
-}
-
-
-- (void)switchPage
-{
-    [self.scrollView scrollRectToVisible:CGRectMake(self.pageControl.currentPage * self.scrollView.bounds.size.width,
-                                                    0,
-                                                    self.scrollView.bounds.size.width,
-                                                    self.scrollView.bounds.size.height)
-                                animated:YES];
-}
-
-- (void)drawPieChart
-{
-    self.slices = [[NSMutableArray alloc] init];
-    
-    for(int i = 0; i < [self.statsForPieChart count]; i++)
-    {
-        NSDictionary *problems = self.statsForPieChart[i];
-        NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
-        [self.slices addObject:number];
-    }
-    
-    [self.pieChartView setDelegate:self];
-    [self.pieChartView setDataSource:self];
-    [self.pieChartView setAnimationSpeed:1.0];
-    [self.pieChartView setShowPercentage:NO];
-    [self.pieChartView setPieCenter:CGPointMake(self.pieChartView.bounds.size.width /2 , self.pieChartView.bounds.size.height / 2)];
-    [self.pieChartView setUserInteractionEnabled:NO];
-    [self.pieChartView setLabelColor:[UIColor whiteColor]];
-    
-    self.sliceColors = [self generateSliceColors];
-    
-    [self.pieChartView reloadData];
 }
 
 - (UIColor *)getSliceColorForProblemType:(NSNumber *)problemTypeID
@@ -156,23 +124,46 @@
     return mutableSliceColors;
 }
 
--(EcomapStatsTimePeriod)getPeriodForStats
+- (void)switchPage
 {
-    switch(self.statsRangeSegmentedControl.selectedSegmentIndex) {
-        case 0: return EcomapStatsForLastDay;
-        case 1: return EcomapStatsForLastWeek;
-        case 2: return EcomapStatsForLastMonth;
-        case 3: return EcomapStatsForLastYear;
-        case 4: return EcomapStatsForAllTheTime;
-        default: return EcomapStatsForAllTheTime;
+    [self.scrollView scrollRectToVisible:CGRectMake(self.pageControl.currentPage * self.scrollView.bounds.size.width,
+                                                    0,
+                                                    self.scrollView.bounds.size.width,
+                                                    self.scrollView.bounds.size.height)
+                                animated:YES];
+}
+
+#pragma mark - Drawing Pie Chart
+
+- (void)drawPieChart
+{
+    self.slices = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [self.statsForPieChart count]; i++)
+    {
+        NSDictionary *problems = self.statsForPieChart[i];
+        NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
+        [self.slices addObject:number];
     }
+    
+    [self.pieChartView setDelegate:self];
+    [self.pieChartView setDataSource:self];
+    [self.pieChartView setAnimationSpeed:1.0];
+    [self.pieChartView setShowPercentage:NO];
+    [self.pieChartView setPieCenter:CGPointMake(self.pieChartView.bounds.size.width /2 , self.pieChartView.bounds.size.height / 2)];
+    [self.pieChartView setUserInteractionEnabled:NO];
+    [self.pieChartView setLabelColor:[UIColor whiteColor]];
+    
+    self.sliceColors = [self generateSliceColors];
+    
+    [self.pieChartView reloadData];
 }
 
 #pragma mark - Fetching
 
 - (void)fetchStats
 {
-    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[self getPeriodForStats]];
+    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[EcomapStatsParser getPeriodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex]];
     dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
     dispatch_async(fetchQ, ^{
         NSData *jsonResults = [NSData dataWithContentsOfURL:url];
@@ -204,27 +195,6 @@
             [self generateTopLabelViews];
         });
     });
-}
-
-#pragma mark - Initialization
-
-- (void)customSetup
-{
-    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if ( revealViewController )
-    {
-        [self.revealButtonItem setTarget: self.revealViewController];
-        [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
-    }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
-    [self fetchGeneralStats];
-    [self customSetup];
 }
 
 #pragma mark - UIScroll View Delegate
@@ -269,5 +239,25 @@
     NSLog(@"did select slice at index %lu",(unsigned long)index);
 }
 
+#pragma mark - Initialization
+
+- (void)customSetup
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.revealButtonItem setTarget: self.revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
+    [self fetchGeneralStats];
+    [self customSetup];
+}
 
 @end
