@@ -1,0 +1,4 @@
+language: objective-c
+
+env:
+  - XCWORKSPACE="ecomap/ecomap.xcodeproj"
