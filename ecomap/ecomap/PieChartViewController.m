@@ -196,7 +196,9 @@
                                                                          error:NULL];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.generalStats = propertyListResults;
-            [self generateTopLabelViews];
+            if(self.generalStats) {
+                [self generateTopLabelViews];
+            }
         });
     });
 }
