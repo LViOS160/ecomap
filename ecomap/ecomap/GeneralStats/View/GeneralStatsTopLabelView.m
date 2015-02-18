@@ -46,11 +46,15 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    /*
+    
+    /* For debuging
+     
     UIBezierPath *path = [UIBezierPath bezierPathWithRect:rect];
     
     [[UIColor blackColor] setStroke];
-    [path stroke];*/
+    [path stroke];
+     
+     */
     
     [self drawLabel];
 }
@@ -67,6 +71,7 @@
     CGRect numberTextBounds;
     numberTextBounds.size = [numberText size];
     numberTextBounds.origin = CGPointMake((self.bounds.size.width - numberTextBounds.size.width) / 2, [self offsetFromTop]);
+    
     if(self.numberOfInstances) {
         [numberText drawInRect:numberTextBounds];
     }

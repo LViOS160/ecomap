@@ -29,4 +29,57 @@
     return nil;
 }
 
++ (NSUInteger)integerForNumberLabelForInstanceNumber:(NSUInteger)num inStatsArray:(NSArray *)generalStats
+{
+    NSUInteger number = 0;
+    
+    switch(num) {
+        case 0: number = [[self valueForKey:ECOMAP_GENERAL_STATS_PROBLEMS inGeneralStatsArray:generalStats] integerValue]; break;
+        case 1: number = [[self valueForKey:ECOMAP_GENERAL_STATS_VOTES inGeneralStatsArray:generalStats] integerValue]; break;
+        case 2: number = [[self valueForKey:ECOMAP_GENERAL_STATS_COMMENTS inGeneralStatsArray:generalStats] integerValue]; break;
+        case 3: number = [[self valueForKey:ECOMAP_GENERAL_STATS_PHOTOS inGeneralStatsArray:generalStats] integerValue]; break;
+    }
+    
+    return number;
+}
+
++ (NSString *)stringForNameLabelForInstanceNumber:(NSUInteger)number
+{
+    NSString *name = @"";
+    
+    switch(number) {
+        case 0: name = @"Проблем"; break;
+        case 1: name = @"Голосів"; break;
+        case 2: name = @"Коментарів"; break;
+        case 3: name = @"Фотографій"; break;
+    }
+    
+    return name;
+    
+}
+
++ (NSArray *)getPaticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart from:(NSArray *)topCharts
+{
+    NSArray *topChart = nil;
+    
+    if(kindOfChart <= [topCharts count]) {
+        topChart = topCharts[kindOfChart];
+    }
+    
+    return topChart;
+}
+
++ (NSString *)getTitleForParticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart fromProblem:(NSDictionary *)problem
+{
+    switch (kindOfChart) {
+        case EcomapMostCommentedProblemsTopList: return [NSString stringWithFormat:@"✒️%@", [problem valueForKey:ECOMAP_PROBLEM_VALUE]];
+        case EcomapMostSevereProblemsTopList: return [NSString stringWithFormat:@"⭐️%@", [problem valueForKey:ECOMAP_PROBLEM_SEVERITY]];
+        case EcomapMostVotedProblemsTopList: return [NSString stringWithFormat:@"❤️%@", [problem valueForKey:ECOMAP_PROBLEM_VOTES]];
+    }
+    
+    return @"";
+}
+
+
+
 @end

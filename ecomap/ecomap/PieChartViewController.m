@@ -14,18 +14,18 @@
 #import "EcomapStatsParser.h"
 #import "GeneralStatsTopLabelView.h"
 
-@interface PieChartViewController ()
+#define NUMBER_OF_TOP_LABELS 4
+
+@interface PieChartViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statsRangeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
-@property (strong, nonatomic) IBOutlet GeneralStatsTopLabelView *topLabelView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (strong, nonatomic) IBOutlet UIButton *prevButton;
-@property (strong, nonatomic) IBOutlet UIButton *nextButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *topLabelSpinner;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property(nonatomic, strong) NSMutableArray *slices;
-@property(nonatomic, strong) NSArray *sliceColors;
+@property (nonatomic, strong) NSMutableArray *slices;
+@property (nonatomic, strong) NSArray *sliceColors;
 
 @end
 
@@ -33,16 +33,18 @@
 
 #pragma mark - Properties
 
+- (void)setScrollView:(UIScrollView *)scrollView
+{
+    _scrollView = scrollView;
+    _scrollView.delegate = self;
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
+    _scrollView.scrollEnabled = NO;
+}
+
 - (void)setStatsForPieChart:(NSArray *)statsForPieChart
 {
     _statsForPieChart = statsForPieChart;
     [self drawPieChart];
-}
-
-- (GeneralStatsTopLabelView *)topLabelView
-{
-    if(!_topLabelView) _topLabelView = [[GeneralStatsTopLabelView alloc] init];
-    return _topLabelView;
 }
 
 - (void)setGeneralStats:(NSArray *)generalStats
@@ -53,14 +55,16 @@
 
 #pragma mark - Gesture handlers
 
-- (IBAction)swipeRightTopLabel:(UISwipeGestureRecognizer *)sender
+- (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender
 {
-    [self touchPrevButton:self.prevButton];
+    self.pageControl.currentPage--;
+    [self switchPage];
 }
 
-- (IBAction)swipeLeftTopLabel:(UISwipeGestureRecognizer *)sender
+- (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender
 {
-    [self touchNextButton:self.nextButton];
+    self.pageControl.currentPage++;
+    [self switchPage];
 }
 
 - (IBAction)touchPageControl:(UIPageControl *)sender
@@ -73,62 +77,27 @@
     [self fetchStats];
 }
 
-- (IBAction)touchPrevButton:(UIButton *)sender
+- (void)generateTopLabelViews
 {
-    self.nextButton.hidden = NO;
-    self.pageControl.currentPage--;
-    [self switchPage];
+    for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++)
+    {
+        GeneralStatsTopLabelView *topLabelView = [[GeneralStatsTopLabelView alloc] init];
+        topLabelView.numberOfInstances = [EcomapStatsParser integerForNumberLabelForInstanceNumber:i inStatsArray:self.generalStats];
+        topLabelView.nameOfInstances = [EcomapStatsParser stringForNameLabelForInstanceNumber:i];
+        topLabelView.frame = CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
+        [self.scrollView addSubview:topLabelView];
+    }
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
 }
 
-- (IBAction)touchNextButton:(UIButton *)sender
-{
-    self.prevButton.hidden = NO;
-    self.pageControl.currentPage++;
-    [self switchPage];
-}
 
 - (void)switchPage
 {
-    if(self.pageControl.currentPage <= 0) {
-        self.prevButton.hidden = YES;
-    } else if(self.pageControl.currentPage >= [self.pageControl numberOfPages] - 1) {
-        self.nextButton.hidden = YES;
-    } else {
-        self.prevButton.hidden = NO;
-        self.nextButton.hidden = NO;
-    }
-    
-    self.topLabelView.numberOfInstances = [self numberOfInstances];
-    self.topLabelView.nameOfInstances = [self nameOfIntances];
-}
-
-- (NSUInteger)numberOfInstances
-{
-    NSUInteger number = 0;
-    
-    switch(self.pageControl.currentPage) {
-        case 0: number = [[EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PROBLEMS inGeneralStatsArray:self.generalStats] integerValue]; break;
-        case 1: number = [[EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_VOTES inGeneralStatsArray:self.generalStats] integerValue]; break;
-        case 2: number = [[EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_COMMENTS inGeneralStatsArray:self.generalStats] integerValue]; break;
-        case 3: number = [[EcomapStatsParser valueForKey:ECOMAP_GENERAL_STATS_PHOTOS inGeneralStatsArray:self.generalStats] integerValue]; break;
-    }
-    
-    return number;
-}
-
-- (NSString *)nameOfIntances
-{
-    NSString *name = @"";
-    
-    switch(self.pageControl.currentPage) {
-        case 0: name = @"Проблем"; break;
-        case 1: name = @"Голосів"; break;
-        case 2: name = @"Коментарів"; break;
-        case 3: name = @"Фотографій"; break;
-    }
-    
-    return name;
-    
+    [self.scrollView scrollRectToVisible:CGRectMake(self.pageControl.currentPage * self.scrollView.bounds.size.width,
+                                                    0,
+                                                    self.scrollView.bounds.size.width,
+                                                    self.scrollView.bounds.size.height)
+                                animated:YES];
 }
 
 - (void)drawPieChart
@@ -199,17 +168,6 @@
     }
 }
 
-- (void)customSetup
-{
-    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if ( revealViewController )
-    {
-        [self.revealButtonItem setTarget: self.revealViewController];
-        [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
-    }
-}
-
 #pragma mark - Fetching
 
 - (void)fetchStats
@@ -231,6 +189,7 @@
 - (void)fetchGeneralStats
 {
     self.generalStats = nil;
+    
     [self.topLabelSpinner startAnimating];
     
     NSURL *url = [EcomapURLFetcher URLforGeneralStats];
@@ -242,37 +201,38 @@
                                                                          error:NULL];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.generalStats = propertyListResults;
-            [self switchPage];
+            [self generateTopLabelViews];
         });
     });
 }
 
-#pragma mark - ViewController Life Cycle
+#pragma mark - Initialization
+
+- (void)customSetup
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.revealButtonItem setTarget: self.revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view.
-        
-    // Setting top label
-    
-    self.prevButton.hidden = YES;
     
     [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
     [self fetchGeneralStats];
     [self customSetup];
 }
 
+#pragma mark - UIScroll View Delegate
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return nil;
 }
-*/
 
 #pragma mark - XYPieChart Data Source
 
