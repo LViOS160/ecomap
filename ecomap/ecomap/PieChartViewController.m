@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *topLabelSpinner;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *pieChartSpinner;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic, strong) NSMutableArray *slices;
@@ -44,6 +45,7 @@
 - (void)setStatsForPieChart:(NSArray *)statsForPieChart
 {
     _statsForPieChart = statsForPieChart;
+    [self.pieChartSpinner stopAnimating];
     [self drawPieChart];
 }
 
@@ -53,7 +55,7 @@
     [self.topLabelSpinner stopAnimating];
 }
 
-#pragma mark - Gesture handlers
+#pragma mark - Gesture Handlers
 
 - (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender
 {
@@ -163,6 +165,8 @@
 
 - (void)fetchStats
 {
+    [self.pieChartSpinner startAnimating];
+    
     NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[EcomapStatsParser getPeriodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex]];
     dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
     dispatch_async(fetchQ, ^{
@@ -255,7 +259,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self changeRangeOfShowingStats:self.statsRangeSegmentedControl];
+    [self fetchStats];
     [self fetchGeneralStats];
     [self customSetup];
 }

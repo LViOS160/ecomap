@@ -84,7 +84,7 @@
     });
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UITableView Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.

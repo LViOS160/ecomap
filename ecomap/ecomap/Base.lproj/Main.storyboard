@@ -700,7 +700,17 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DBB-NG-TJ2" userLabel="Pie Chart View" customClass="XYPieChart">
                                 <rect key="frame" x="0.0" y="284" width="320" height="284"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-7K-8cI">
+                                        <rect key="frame" x="142" y="123" width="37" height="37"/>
+                                        <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="RQU-7K-8cI" secondAttribute="centerX" constant="-0.5" id="3dQ-TA-k6I"/>
+                                    <constraint firstAttribute="centerY" secondItem="RQU-7K-8cI" secondAttribute="centerY" constant="0.5" id="VkT-gQ-8fX"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rZR-Dw-1Hi" userLabel="Segmented Control Item View">
                                 <rect key="frame" x="0.0" y="212" width="320" height="64"/>
@@ -759,6 +769,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="pageControl" destination="YpS-d2-1M6" id="aOa-5c-djh"/>
+                        <outlet property="pieChartSpinner" destination="RQU-7K-8cI" id="Nxm-G0-TbN"/>
                         <outlet property="pieChartView" destination="DBB-NG-TJ2" id="drS-8s-QFo"/>
                         <outlet property="revealButtonItem" destination="MDJ-Pv-oAv" id="gFS-5j-6us"/>
                         <outlet property="scrollView" destination="b6i-I6-Dg6" id="3q6-1c-pgg"/>
