@@ -276,7 +276,7 @@ typedef enum : NSUInteger {
     customButton.frame = buttonViewFrame;
     if (tag == 0) {
         //Set background color
-        customButton.backgroundColor = [UIColor clearColor];
+        //customButton.backgroundColor = [UIColor clearColor];
         //Set image
         [customButton setBackgroundImage:[UIImage imageNamed:@"addButtonImage.png"]
                                 forState:UIControlStateNormal];
@@ -287,12 +287,15 @@ typedef enum : NSUInteger {
         DDLogVerbose(@"'Add image' button created");
     } else {
         //Set background color
-        customButton.backgroundColor = [UIColor blackColor];
+        //customButton.backgroundColor = [UIColor blackColor];
         
         //Set image. First look in cache
         UIImage *thumnailImage = [[EMThumbnailImageStore sharedStore] imageForKey:link];
         
         if (!thumnailImage) {
+            //Set temp image
+            [customButton setBackgroundImage:[UIImage imageNamed:@"EmptyButton.png"]
+                                    forState:UIControlStateNormal];
             //Star loading spinner
             UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
             activityIndicator.center = CGPointMake(BUTTON_WIDTH / 2, BUTTON_HEIGHT / 2);
@@ -305,7 +308,12 @@ typedef enum : NSUInteger {
                                           if (!error) {
                                               [customButton setBackgroundImage:image
                                                                       forState:UIControlStateNormal];
-                                          } else { DDLogError(@"Error loadind image at URL: %@", [error localizedDescription]);
+                                          } else {
+                                              DDLogError(@"Error loadind image at URL: %@", [error localizedDescription]);
+                                              
+                                              //set image "no preview avaliable"
+                                              [customButton setBackgroundImage:[UIImage imageNamed:@"NoPreviewButton.png"]
+                                                                      forState:UIControlStateNormal];
                                             }
                                           
                                           //Stop loadind spinner
@@ -357,7 +365,7 @@ typedef enum : NSUInteger {
     }
     
     // Create and setup browser
-    IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:sender]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
+    IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:buttonSender]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
     browser.delegate = self;
     browser.displayActionButton = YES;
     browser.displayArrowButton = YES;

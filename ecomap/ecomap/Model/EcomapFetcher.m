@@ -35,6 +35,9 @@
                 completionHandler:^(NSData *JSON, NSError *error) {
                     NSMutableArray *problems = nil;
                     NSArray *problemsFromJSON = nil;
+                    if (error) {
+                        NSLog(@"%d", abs(error.code / 100));
+                    }
                     if (!error) {
                         //Extract received data
                         if (JSON != nil) {
@@ -52,7 +55,7 @@
                             }
                             
                         }
-                    }
+                    } else if ((error.code / 100 == 5) || (abs(error.code / 100) == 10)) [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                     //set up completionHandler
                     completionHandler(problems, error);
                 }];
@@ -385,6 +388,8 @@
                         if (!error) {
                             if (data) {
                                 image = [UIImage imageWithData:data];
+                                //Make thumnail image
+                                image = [self makeThumbnailFromImage:image];
                                 //Cache image
                                 [[EMThumbnailImageStore sharedStore] setImage:image forKey:link];
                             }
@@ -674,6 +679,21 @@
             error = [[NSError alloc] initWithDomain:@"Not Found" code:statusCode userInfo:@{@"error" : @"The server has not found anything matching the Request URL"}];
             break;
             
+        case 500:
+        case 501:
+        case 502:
+        case 503:
+        case 504:
+        case 505:
+        case 506:
+        case 507:
+        case 508:
+        case 509:
+        case 510:
+        case 511:
+            error = [[NSError alloc] initWithDomain:@"Server Error" code:statusCode userInfo:@{@"error" : @"Server Error"}];
+            break;
+            
         default:
             error = [[NSError alloc] initWithDomain:@"Unknown" code:statusCode userInfo:@{@"error" : @"Unknown error"}];
             break;
@@ -791,5 +811,72 @@
                       completionHandler(error);
                   }];
 }
+
+//Show error to the user in UIAlertView
++ (void)showAlertViewOfError:(NSError *)error
+{
+    NSString *alertTitle = nil;
+    NSString *errorMessage = nil;  //human-readable dwscription of the error
+    switch (error.code / 100) {
+        case 5:
+            alertTitle = @"Ecomap server error!";
+            errorMessage = @"Could not connet to ecomap server. \nThere are technical problems on the server. We are working to fix it. Please try again later.";
+            break;
+            
+        default:
+            alertTitle = @"Error";
+            errorMessage = [error localizedDescription];  //human-readable dwscription of the error
+            break;
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                    message:errorMessage
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+//Make small image with roundeded rect
+//This method will take a full-sized image, create a smaller representation of it in an offscreen graphics context object
++ (UIImage *)makeThumbnailFromImage:(UIImage *)image
+{
+    UIImage *thumbnail = nil;
+    CGSize origImageSize = image.size;
+    
+    //The rectangle of the thumbnail
+    CGRect newRect = CGRectMake(0, 0, 80, 80);
+    
+    //Figure out a scaling ratio to make sure we maintain the same aspect ratio
+    float ratio = MAX(newRect.size.width / origImageSize.width, newRect.size.height / origImageSize.height);
+    
+    //Create a transparent bitmap context with a scaling factor
+    //equal to that of the screen
+    UIGraphicsBeginImageContextWithOptions(newRect.size, NO, 0.0);
+    
+    //Create a path that is a rounded rectangle
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:newRect cornerRadius:5.0];
+    
+    //Make all subsequent drawing clip to this rounded rectangle
+    [path addClip];
+    
+    //Center the image in the thumbnail rectangle
+    CGRect projectRect;
+    projectRect.size.width = ratio * origImageSize.width;
+    projectRect.size.height = ratio * origImageSize.height;
+    projectRect.origin.x = (newRect.size.width - projectRect.size.width) / 2.0;
+    projectRect.origin.y = (newRect.size.height - projectRect.size.height) / 2.0;
+    
+    //Draw the image on it
+    [image drawInRect:projectRect];
+    
+    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+    thumbnail = smallImage;
+    
+    //clean up image context resources
+    UIGraphicsEndImageContext();
+    
+    return thumbnail;
+}
+
 
 @end
