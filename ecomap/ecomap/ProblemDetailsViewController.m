@@ -9,7 +9,6 @@
 #import "ProblemDetailsViewController.h"
 #import "EcomapPhoto.h"
 #import "IDMPhotoBrowser.h"
-#import "EcomapLoggedUser.h"
 #import "EMThumbnailImageStore.h"
 #import "EcomapFetcher.h"
 #import "EcomapURLFetcher.h"
@@ -46,7 +45,7 @@
                                          attributes:@{
                                                       NSFontAttributeName: [UIFont boldSystemFontOfSize:13]
                                                       }];
-    NSString *contentString = [self.problemDetails.content isEqual:[NSNull null]]? @"": self.problemDetails.content;
+    NSString *contentString = [self.problemDetails.content isKindOfClass:[NSString class]]? self.problemDetails.content : @"";
     NSAttributedString *content = [[NSAttributedString alloc]
                                    initWithString:[contentString stringByAppendingString:@"\n"]
                                    attributes:@{
@@ -58,7 +57,7 @@
                                           attributes:@{
                                                        NSFontAttributeName: [UIFont boldSystemFontOfSize:13]
                                                        }];
-    NSString *proposalString = [self.problemDetails.proposal isEqual:[NSNull null]]? @"": self.problemDetails.proposal;
+    NSString *proposalString = [self.problemDetails.proposal isKindOfClass:[NSString class]]? self.problemDetails.proposal : @"";
     NSAttributedString *proposal = [[NSAttributedString alloc]
                                     initWithString:[proposalString stringByAppendingString:@"\n"]
                                     attributes:@{
