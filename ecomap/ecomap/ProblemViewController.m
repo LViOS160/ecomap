@@ -32,7 +32,6 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPhotoGallary;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
-@property (nonatomic) NSInteger initialPageIndex;
 
 @end
 
@@ -225,7 +224,7 @@ typedef enum : NSUInteger {
 }
 
 #pragma mark - Scroll View Gallery setup
-#define HORIZONTAL_OFFSET 24.0f
+#define HORIZONTAL_OFFSET 12.0f
 #define VERTICAL_OFFSET 10.0f
 #define BUTTON_HEIGHT 80.0f
 #define BUTTON_WIDTH 80.0f
@@ -233,7 +232,7 @@ typedef enum : NSUInteger {
 - (void)updateScrollView
 {
     //Set ScrollView Initial offset
-    CGFloat contentOffSet = HORIZONTAL_OFFSET;
+    CGFloat contentOffSet = 0;
     
     NSArray *photosDitailsArray = self.problemDetails.photos;
     
@@ -261,7 +260,7 @@ typedef enum : NSUInteger {
     }
     
     //Set contentView
-    self.scrollViewPhotoGallary.contentSize = CGSizeMake(contentOffSet, self.scrollViewPhotoGallary.frame.size.height);
+    self.scrollViewPhotoGallary.contentSize = CGSizeMake((contentOffSet - HORIZONTAL_OFFSET), self.scrollViewPhotoGallary.frame.size.height);
 }
 
 -(void)addButtonToScrollViewWithImageOnLink:(NSString *)link offset:(CGFloat)offset tag:(NSUInteger)tag
@@ -339,7 +338,6 @@ typedef enum : NSUInteger {
 {
     UIButton *buttonSender = (UIButton*)sender;
     
-    self.initialPageIndex = buttonSender.tag - 1;
     DDLogVerbose(@"Button with photo number %d pressed", buttonSender.tag);
     
     NSArray *photosDitailsArray = self.problemDetails.photos;
@@ -372,9 +370,28 @@ typedef enum : NSUInteger {
     [self presentViewController:browser animated:YES completion:nil];
 }
 
--(void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
+//IDMPhotoBrowser delegate method
+//Calculate new offset for scrollViewPhotoGallary
+-(void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissAtPageIndex:(NSUInteger)index
 {
-    if (self.initialPageIndex != index) self.scrollViewPhotoGallary.contentOffset = CGPointMake((BUTTON_WIDTH + HORIZONTAL_OFFSET) * index , 0);
+        //Calculate max horisontal offset
+        float maxHorisontalOffset = self.scrollViewPhotoGallary.contentSize.width - self.scrollViewPhotoGallary.bounds.size.width;
+        CGPoint maxOffset = CGPointMake(maxHorisontalOffset, 0);
+        
+        //Calculate desire offset (to place last viewed image in the middale of the screen)
+        float button_X_CoordinateAtLeftPositionInScrollView = (BUTTON_WIDTH + HORIZONTAL_OFFSET) * (index + 1);
+        float scrollViewCenter_X_Coordinate = self.scrollViewPhotoGallary.bounds.size.width / 2;
+        float buttonCenter_X_Coordinate = BUTTON_WIDTH / 2;
+        CGPoint desireOffset = CGPointMake(button_X_CoordinateAtLeftPositionInScrollView - scrollViewCenter_X_Coordinate + buttonCenter_X_Coordinate, 0);
+        
+        //Check if we can use desire offset
+        //Chech right offset limits
+        CGPoint newOffset = desireOffset.x > maxOffset.x ? maxOffset : desireOffset;
+        //Check left offset limits
+        newOffset = newOffset.x < 0 ? CGPointZero : newOffset;
+        
+        //Set new offset animated
+        [self.scrollViewPhotoGallary setContentOffset:newOffset animated:YES];
 }
 
 @end
