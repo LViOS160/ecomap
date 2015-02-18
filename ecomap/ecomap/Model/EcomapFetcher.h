@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 @class EcomapProblemDetails;
 @class EcomapLoggedUser;
 @class EcomapProblem;
@@ -32,6 +33,9 @@
 
 //Logout
 + (void)logoutUser:(EcomapLoggedUser *)loggedUser OnCompletion:(void (^)(BOOL result, NSError *error))completionHandler;
+
+//Load small image (for thumnails)
++ (void)loadSmallImagesFromLink:(NSString *)link OnCompletion:(void (^)(UIImage *image, NSError *error))completionHandler;
 
 #pragma mark - POST API
 //Login

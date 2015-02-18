@@ -13,17 +13,18 @@
 #import "EcomapPhoto.h"
 #import "EcomapURLFetcher.h"
 #import "IDMPhotoBrowser.h"
+#import "EMThumbnailImageStore.h"
 
 //Setup DDLog
-#import "CocoaLumberjack.h"
-//#import "GlobalLoggerLevel.h"
-
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+//#import "CocoaLumberjack.h"
+#import "GlobalLoggerLevel.h"
+//static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @interface VasylKorsiubaViewControllerForTestsViewController () <IDMPhotoBrowserDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *ShowAllPhotosButton;
 @property (strong, nonatomic) EcomapProblemDetails *problemDetails;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic) NSInteger initialPageIndex;
 
 @end
 
@@ -39,7 +40,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                        [self updateScrollView];
                                    } else
                                    {
-                                       DDLogError(@"Error loading problem ditails for photo browser. %@", error);
+                                       DDLogError(@"Error loading problem ditails for photo browser. %@", [error localizedDescription]);
+                                       [self showAlertViewOfError:error];
                                    }
                                }];
 }
@@ -51,9 +53,36 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     DDLogInfo(@"This is just a message.");
     DDLogVerbose(@"This is a verbose message.");
     
-    [self updateScrollView];
+    //[self updateScrollView];
 }
 
+
+//Show error to the user in UIAlertView
+- (void)showAlertViewOfError:(NSError *)error
+{
+    NSString *alertTitle = nil;
+    NSString *errorMessage = nil;  //human-readable dwscription of the error
+    switch (error.code / 100) {
+        case 5:
+            alertTitle = @"Ecomap server error!";
+            errorMessage = @"There are technical problems on server. We are working to fix it. Please try again later."; 
+            break;
+            
+        default:
+            alertTitle = @"Error";
+            errorMessage = [error localizedDescription];  //human-readable dwscription of the error
+            break;
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                    message:errorMessage
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+
+#pragma mark - Scroll View Gallery
 #define HORIZONTAL_OFFSET 24.0f
 #define VERTICAL_OFFSET 10.0f
 #define BUTTON_HEIGHT 80.0f
@@ -68,16 +97,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     
     if (photosDitailsArray) {
         
-        if (![photosDitailsArray count]) DDLogVerbose(@"No photos for problem");
+        if (![photosDitailsArray count]) {
+            DDLogVerbose(@"No photos for problem");
+        }
         
-        //Count is tag for view. tag == 0 is for add button
+        //Count is tag for view. tag == 0 is for 'add image' button
         for (int count = 0; count <= [photosDitailsArray count]; count++)
         {
-            UIImage *image = (count == 0) ? [UIImage imageNamed:@"addButtonImage.png"] : [UIImage imageNamed:@"photo"];
+            NSString *link = nil;
+            if (count != 0) {
+                EcomapPhoto *photoDitails = photosDitailsArray[count - 1];
+                link = photoDitails.link;
+            }
+   
             //Create button
-            [self addButtonToScrollViewWithImage:image
-                                          offset:contentOffSet
-                                             tag:count];
+            [self addButtonToScrollViewWithImageOnLink:link
+                                                offset:contentOffSet
+                                                   tag:count];
             contentOffSet += BUTTON_WIDTH + HORIZONTAL_OFFSET;
         }
     }
@@ -86,7 +122,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.scrollView.contentSize = CGSizeMake(contentOffSet, self.scrollView.frame.size.height);
 }
 
--(void)addButtonToScrollViewWithImage:(UIImage *)image offset:(CGFloat)offset tag:(NSUInteger)tag
+-(void)addButtonToScrollViewWithImageOnLink:(NSString *)link offset:(CGFloat)offset tag:(NSUInteger)tag
 {
     //Set button frame
     CGRect buttonViewFrame = CGRectMake(offset, VERTICAL_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -96,22 +132,59 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     customButton.adjustsImageWhenHighlighted = NO;
     customButton.tag = tag;
     customButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    customButton.backgroundColor = (tag != 0) ? [UIColor blackColor] : [UIColor clearColor];
-    [customButton setBackgroundImage:image forState:UIControlStateNormal];
-    //add target-action
+    customButton.frame = buttonViewFrame;
     if (tag == 0) {
+        //Set background color
+        customButton.backgroundColor = [UIColor clearColor];
+        //Set image
+        [customButton setBackgroundImage:[UIImage imageNamed:@"addButtonImage.png"]
+                                forState:UIControlStateNormal];
+        //Add target-action
         [customButton addTarget:self
                          action:@selector(buttonToAddImagePressed:)
                forControlEvents:UIControlEventTouchUpInside];
         DDLogVerbose(@"'Add image' button created");
     } else {
+        //Set background color
+        customButton.backgroundColor = [UIColor blackColor];
+        
+        //Set image. First look in cache
+        UIImage *thumnailImage = [[EMThumbnailImageStore sharedStore] imageForKey:link];
+        
+        if (!thumnailImage) {
+            //Star loading spinner
+            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            activityIndicator.center = CGPointMake(BUTTON_WIDTH / 2, BUTTON_HEIGHT / 2);
+            [customButton addSubview:activityIndicator];
+            [activityIndicator startAnimating];
+            
+            //Set image in background
+            [EcomapFetcher loadSmallImagesFromLink:link
+                                      OnCompletion:^(UIImage *image, NSError *error) {
+                                          if (!error) {
+                                              [customButton setBackgroundImage:image
+                                                                      forState:UIControlStateNormal];
+                                          } else { DDLogError(@"Error loadind image at URL: %@", [error localizedDescription]);
+                                              [self showAlertViewOfError:error];
+                                          }
+                                          
+                                          //Stop loadind spinner
+                                          [activityIndicator stopAnimating];
+                                      }];
+
+        } else {
+            //Set image from cache
+            [customButton setBackgroundImage:thumnailImage
+                                    forState:UIControlStateNormal];
+        }
+                //Add target-action
         [customButton addTarget:self
                          action:@selector(buttonWithImageOnScreenPressed:)
                forControlEvents:UIControlEventTouchUpInside];
         DDLogVerbose(@"Button with photo number %d created", tag);
     }
+
     
-    customButton.frame = buttonViewFrame;
     
     [self.scrollView addSubview:customButton];
 }
@@ -125,6 +198,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 {
     UIButton *buttonSender = (UIButton*)sender;
     
+    self.initialPageIndex = buttonSender.tag - 1;
     DDLogVerbose(@"Button with photo number %d pressed", buttonSender.tag);
     
     NSArray *photosDitailsArray = self.problemDetails.photos;
@@ -134,19 +208,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     IDMPhoto *photo;
     
     //Fill array with IDMPhoto objects
-    if ([photosDitailsArray count]) {
-        for (EcomapPhoto *photoDitails in photosDitailsArray)
-        {
-            photo = [IDMPhoto photoWithURL:[EcomapURLFetcher URLforLargePhotoWithLink:photoDitails.link]];
-            if (photoDitails.caption ) {
-                photo.caption = photoDitails.caption;
-            }
-            [photos addObject:photo];
+    for (EcomapPhoto *photoDitails in photosDitailsArray)
+    {
+        photo = [IDMPhoto photoWithURL:[EcomapURLFetcher URLforLargePhotoWithLink:photoDitails.link]];
+        if (photoDitails.caption ) {
+            photo.caption = photoDitails.caption;
         }
-    } else {
-        DDLogWarn(@"No photos for problem");
+        [photos addObject:photo];
     }
-    
+   
     // Create and setup browser
     IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:sender]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
     browser.delegate = self;
@@ -161,6 +231,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self presentViewController:browser animated:YES completion:nil];
 }
 
+-(void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
+{
+    if (self.initialPageIndex != index) self.scrollView.contentOffset = CGPointMake((BUTTON_WIDTH + HORIZONTAL_OFFSET) * (index + 1) - (BUTTON_WIDTH + HORIZONTAL_OFFSET), 0);
+}
+
+
+#pragma mark - Login
 - (IBAction)login:(id)sender {
     [EcomapFetcher loginWithEmail:@"clic@ukr.net"
                       andPassword:@"eco"
@@ -211,39 +288,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (IBAction)showAllPhotos:(id)sender {
-    UIButton *buttonSender = (UIButton*)sender;
-    
-    NSArray *photosDitailsArray = self.problemDetails.photos;
-    // Create an array to store IDMPhoto objects
-    NSMutableArray *photos = [NSMutableArray new];
-    
-    IDMPhoto *photo;
-    
-    //Fill array with IDMPhoto objects
-    if ([photosDitailsArray count]) {
-        for (EcomapPhoto *photoDitails in photosDitailsArray)
-        {
-            photo = [IDMPhoto photoWithURL:[EcomapURLFetcher URLforLargePhotoWithLink:photoDitails.link]];
-            if (photoDitails.caption) {
-                photo.caption = photoDitails.caption;
-            }
-            [photos addObject:photo];
-        }
-    } else {
-        DDLogWarn(@"No photos for problem");
-    }
-    
-    // Create and setup browser
-    IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:sender]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
-    browser.delegate = self;
-    browser.displayActionButton = YES;
-    browser.displayArrowButton = YES;
-    browser.displayCounterLabel = YES;
-    browser.usePopAnimation = YES;
-    browser.scaleImage = buttonSender.currentImage;
-    
-    // Show
-    [self presentViewController:browser animated:YES completion:nil];
+    self.scrollView.contentOffset = CGPointMake((BUTTON_WIDTH + HORIZONTAL_OFFSET) * 2 - (BUTTON_WIDTH + HORIZONTAL_OFFSET), 0);
 }
 
 @end

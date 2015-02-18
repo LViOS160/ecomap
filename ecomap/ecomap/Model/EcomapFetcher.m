@@ -17,6 +17,10 @@
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
 #import "NetworkActivityIndicator.h"
+#import "EMThumbnailImageStore.h"
+
+//Setup DDLog
+#import "GlobalLoggerLevel.h"
 
 @import MobileCoreServices;
 
@@ -31,6 +35,9 @@
                 completionHandler:^(NSData *JSON, NSError *error) {
                     NSMutableArray *problems = nil;
                     NSArray *problemsFromJSON = nil;
+                    if (error) {
+                        NSLog(@"%d", abs(error.code / 100));
+                    }
                     if (!error) {
                         //Extract received data
                         if (JSON != nil) {
@@ -48,7 +55,7 @@
                             }
                             
                         }
-                    }
+                    } else if ((error.code / 100 == 5) || (abs(error.code / 100) == 10)) [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                     //set up completionHandler
                     completionHandler(problems, error);
                 }];
@@ -218,7 +225,7 @@
     
 }
 
-
+#pragma mark -
 
 + (NSData *)createBodyWithBoundary:(NSString *)boundary
                         parameters:(NSDictionary *)parameters
@@ -371,6 +378,27 @@
     
 }
 
+#pragma mark - Load image
++ (void)loadSmallImagesFromLink:(NSString *)link OnCompletion:(void (^)(UIImage *image, NSError *error))completionHandler
+{
+    [self downloadDataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforSmallPhotoWithLink:link]]
+                 sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                    completionHandler:^(NSData *data, NSError *error) {
+                        UIImage *image = nil;
+                        if (!error) {
+                            if (data) {
+                                image = [UIImage imageWithData:data];
+                                //Make thumnail image
+                                image = [self makeThumbnailFromImage:image];
+                                //Cache image
+                                [[EMThumbnailImageStore sharedStore] setImage:image forKey:link];
+                            }
+                        }
+                        //Return image
+                        completionHandler(image, error);
+                    }];
+}
+
 #pragma mark - Register
 
 // added by Gregory Chereda
@@ -437,12 +465,12 @@
                           loggedUser = [[EcomapLoggedUser alloc] initWithUserInfo:userInfo];
                           
                           if (loggedUser) {
-                              NSLog(@"LogIN to ecomap success! %@", loggedUser.description);
+                              DDLogVerbose(@"LogIN to ecomap success! %@", loggedUser.description);
                               
                               //Create cookie
                               NSHTTPCookie *cookie = [self createCookieForUser:[EcomapLoggedUser currentLoggedUser]];
                               if (cookie) {
-                                  NSLog(@"Cookies created success!");
+                                  DDLogVerbose(@"Cookies created success!");
                                   //Put cookie to NSHTTPCookieStorage
                                   [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
                                   [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:@[cookie]
@@ -471,7 +499,7 @@
                     //Read response Data (it is not JSON actualy, just plain text)
                     NSString *statusResponse =[[NSString alloc]initWithData:JSON encoding:NSUTF8StringEncoding];
                     result = [statusResponse isEqualToString:@"OK"] ? YES : NO;
-                    NSLog(@"Logout %@!", statusResponse);
+                    DDLogVerbose(@"Logout %@!", statusResponse);
                     
                     //Clear coockies
                     NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[EcomapURLFetcher URLforServer]];
@@ -493,7 +521,8 @@
 #pragma mark - Data tasks
 //Data task
 +(void)dataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
-{ [[NetworkActivityIndicator sharedManager]startActivity];
+{
+    [[NetworkActivityIndicator sharedManager] startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     //Perform download task on different thread
@@ -505,7 +534,7 @@
                                                     //Set data
                                                     if ([EcomapFetcher statusCodeFromResponse:response] == 200) {
                                                         //Log to console
-                                                        NSLog(@"Data task performed success from URL: %@", request.URL);
+                                                        DDLogVerbose(@"Data task performed success from URL: %@", request.URL);
                                                         JSON = data;
                                                     } else {
                                                         //Create error message
@@ -525,9 +554,44 @@
     
 }
 
+//Download data task
++(void)downloadDataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *data, NSError *error))completionHandler
+{
+    [[NetworkActivityIndicator sharedManager] startActivity];
+    //Create new session to download JSON file
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    //Perform download task on different thread
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+                                                    completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                                        NSData *data = nil;
+                                                        if (!error) {
+                                                            //Set data
+                                                            if ([EcomapFetcher statusCodeFromResponse:response] == 200) {
+                                                                //Log to console
+                                                                DDLogVerbose(@"Download data task performed success from URL: %@", request.URL);
+                                                                data = [NSData dataWithContentsOfURL:location];;
+                                                            } else {
+                                                                //Create error message
+                                                                error = [EcomapFetcher errorForStatusCode:[EcomapFetcher statusCodeFromResponse:response]];
+                                                            }
+                                                        }
+                                                        //Perform completionHandler task on main thread
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            completionHandler(data, error);
+                                                            [[NetworkActivityIndicator sharedManager]endActivity];
+                                                        });
+ 
+                                                    }];
+    
+    
+    [task resume];
+    
+}
+
 //Upload data task
 +(void)uploadDataTaskWithRequest:(NSURLRequest *)request fromData:(NSData *)data sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
-{    [[NetworkActivityIndicator sharedManager]startActivity];
+{
+    [[NetworkActivityIndicator sharedManager] startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     //Perform upload task on different thread
@@ -537,7 +601,7 @@
             //Set data
             if ([EcomapFetcher statusCodeFromResponse:response] == 200) {
                 //Log to console
-                NSLog(@"Upload task performed success to url: %@", request.URL);
+                DDLogVerbose(@"Upload task performed success to url: %@", request.URL);
                 JSON = data;
             } else {
                 //Create error message
@@ -566,7 +630,7 @@
             dataFromJSON = (NSArray *)parsedJSON;
         }
     } else {
-        NSLog(@"Error parsing JSON data: %@", error);
+        DDLogError(@"Error parsing JSON data: %@", [error localizedDescription]);
     }
     
     return dataFromJSON;
@@ -583,7 +647,7 @@
             dataFromJSON = (NSDictionary *)parsedJSON;
         }
     } else {
-        NSLog(@"Error parsing JSON data: %@", error);
+        DDLogError(@"Error parsing JSON data: %@", [error localizedDescription]);
     }
     
     return dataFromJSON;
@@ -615,8 +679,23 @@
             error = [[NSError alloc] initWithDomain:@"Not Found" code:statusCode userInfo:@{@"error" : @"The server has not found anything matching the Request URL"}];
             break;
             
+        case 500:
+        case 501:
+        case 502:
+        case 503:
+        case 504:
+        case 505:
+        case 506:
+        case 507:
+        case 508:
+        case 509:
+        case 510:
+        case 511:
+            error = [[NSError alloc] initWithDomain:@"Server Error" code:statusCode userInfo:@{@"error" : @"Server Error"}];
+            break;
+            
         default:
-            error = [[NSError alloc] initWithDomain:@"Unknown error" code:statusCode userInfo:@{@"error" : @"Unknown error"}];
+            error = [[NSError alloc] initWithDomain:@"Unknown" code:statusCode userInfo:@{@"error" : @"Unknown error"}];
             break;
     }
     return error;
@@ -732,5 +811,72 @@
                       completionHandler(error);
                   }];
 }
+
+//Show error to the user in UIAlertView
++ (void)showAlertViewOfError:(NSError *)error
+{
+    NSString *alertTitle = nil;
+    NSString *errorMessage = nil;  //human-readable dwscription of the error
+    switch (error.code / 100) {
+        case 5:
+            alertTitle = @"Ecomap server error!";
+            errorMessage = @"Could not connet to ecomap server. \nThere are technical problems on the server. We are working to fix it. Please try again later.";
+            break;
+            
+        default:
+            alertTitle = @"Error";
+            errorMessage = [error localizedDescription];  //human-readable dwscription of the error
+            break;
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                    message:errorMessage
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+//Make small image with roundeded rect
+//This method will take a full-sized image, create a smaller representation of it in an offscreen graphics context object
++ (UIImage *)makeThumbnailFromImage:(UIImage *)image
+{
+    UIImage *thumbnail = nil;
+    CGSize origImageSize = image.size;
+    
+    //The rectangle of the thumbnail
+    CGRect newRect = CGRectMake(0, 0, 80, 80);
+    
+    //Figure out a scaling ratio to make sure we maintain the same aspect ratio
+    float ratio = MAX(newRect.size.width / origImageSize.width, newRect.size.height / origImageSize.height);
+    
+    //Create a transparent bitmap context with a scaling factor
+    //equal to that of the screen
+    UIGraphicsBeginImageContextWithOptions(newRect.size, NO, 0.0);
+    
+    //Create a path that is a rounded rectangle
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:newRect cornerRadius:5.0];
+    
+    //Make all subsequent drawing clip to this rounded rectangle
+    [path addClip];
+    
+    //Center the image in the thumbnail rectangle
+    CGRect projectRect;
+    projectRect.size.width = ratio * origImageSize.width;
+    projectRect.size.height = ratio * origImageSize.height;
+    projectRect.origin.x = (newRect.size.width - projectRect.size.width) / 2.0;
+    projectRect.origin.y = (newRect.size.height - projectRect.size.height) / 2.0;
+    
+    //Draw the image on it
+    [image drawInRect:projectRect];
+    
+    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+    thumbnail = smallImage;
+    
+    //clean up image context resources
+    UIGraphicsEndImageContext();
+    
+    return thumbnail;
+}
+
 
 @end

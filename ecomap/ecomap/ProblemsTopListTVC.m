@@ -10,7 +10,7 @@
 #import "EcomapFetcher.h"
 #import "EcomapProblemDetails.h"
 #import "EcomapURLFetcher.h"
-#import "EcomapStatsFetcher.h"
+#import "EcomapStatsParser.h"
 #import "EcomapPathDefine.h"
 #import "EcomapRevealViewController.h"
 
@@ -27,11 +27,22 @@
 
 @implementation ProblemsTopListTVC
 
+#pragma mark - Properties
+
 - (NSArray *)propertyListResults
 {
     if(!_propertyListResults) _propertyListResults = [[NSArray alloc] init];
     return _propertyListResults;
 }
+
+- (void)setProblems:(NSArray *)problems
+{
+    _problems = problems;
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - Gesture Handlers
 
 - (IBAction)changeKindOfTopChart:(UISegmentedControl *)sender
 {
@@ -50,37 +61,13 @@
             break;
     }
     
-    NSArray *problems = [EcomapStatsFetcher getPaticularTopChart:self.kindOfTopChart
+    NSArray *problems = [EcomapStatsParser getPaticularTopChart:self.kindOfTopChart
                                                             from:self.propertyListResults];
     
     self.problems = problems;
 }
 
-#pragma mark - Initialization
-
-- (void)setProblems:(NSArray *)problems
-{
-    _problems = problems;
-    [self.tableView reloadData];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self fetchProblems];
-    [self changeKindOfTopChart:self.kindOfTopChartSegmentedControl];
-    [self customSetup];
-}
-
-- (void)customSetup
-{
-    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if ( revealViewController )
-    {
-        [self.revealButtonItem setTarget: self.revealViewController];
-        [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
-    }
-}
+#pragma mark - Fetching
 
 - (void)fetchProblems
 {
@@ -97,7 +84,7 @@
     });
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UITableView Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -115,7 +102,7 @@
     // Configure the cell...
     NSDictionary *problem = self.problems[indexPath.row];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
-    cell.textLabel.text = [EcomapStatsFetcher getTitleForParticularTopChart:self.kindOfTopChart fromProblem:problem];
+    cell.textLabel.text = [EcomapStatsParser getTitleForParticularTopChart:self.kindOfTopChart fromProblem:problem];
     return cell;
 }
 
@@ -125,6 +112,26 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+}
+
+#pragma mark - Initialization
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self fetchProblems];
+    [self changeKindOfTopChart:self.kindOfTopChartSegmentedControl];
+    [self customSetup];
+}
+
+- (void)customSetup
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.revealButtonItem setTarget: self.revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
 }
 
 @end

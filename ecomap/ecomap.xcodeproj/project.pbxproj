@@ -23,16 +23,29 @@
 		2D37BE0A1A822FEA009A6562 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BE091A822FEA009A6562 /* SystemConfiguration.framework */; };
 		4F921DED369B45159F5FE300 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C20CEAB3C542AB9128991B /* libPods.a */; };
 		51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */; };
+		51A9F1DF1A93880000666C23 /* EMThumbnailImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9F1DE1A93880000666C23 /* EMThumbnailImageStore.m */; };
 		51B485271A8417CB00BA8AFF /* EcomapLoggedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B485261A8417CB00BA8AFF /* EcomapLoggedUser.m */; };
 		5F17A7871A8B592600C49FA1 /* EcomapResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7841A8B592600C49FA1 /* EcomapResources.m */; };
 		5F17A7881A8B592600C49FA1 /* EcomapAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7861A8B592600C49FA1 /* EcomapAlias.m */; };
 		5F17A78C1A8B596900C49FA1 /* ResourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7891A8B596900C49FA1 /* ResourceCell.m */; };
 		5F17A78D1A8B596900C49FA1 /* ResourceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A78B1A8B596900C49FA1 /* ResourceDetails.m */; };
 		5F17A7911A8B74FF00C49FA1 /* NetworkActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7901A8B74FF00C49FA1 /* NetworkActivityIndicator.m */; };
+		90838F611A94B1260025ACCB /* GeneralStatsTopLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90838F601A94B1260025ACCB /* GeneralStatsTopLabelView.m */; };
+		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		9096C99A1A9214D900A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C99B1A9214D900A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C99C1A9214D900A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C99D1A9214D900A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C99E1A9214D900A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C99F1A9214D900A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C9A01A9214DA00A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C9A11A9214DA00A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C9A21A9214DA00A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C9A31A9214DA00A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		9096C9A41A9214DA00A61CDB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */; };
 		90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */; };
 		90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B821A84BD730009F641 /* XYPieChart.m */; };
-		90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */; };
 		90FF71B61A88D75600991A65 /* EcomapStatsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FF71B51A88D75600991A65 /* EcomapStatsParser.m */; };
 		B323B57A1A89F8FF00D02E2D /* AddProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B323B5791A89F8FF00D02E2D /* AddProblemViewController.m */; };
 		B3488A6C1A8A027A00BDAF84 /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3488A6B1A8A027A00BDAF84 /* AddProblemNavigationView.xib */; };
@@ -107,6 +120,8 @@
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		51A9F1CD1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VasylKorsiubaViewControllerForTestsViewController.h; sourceTree = "<group>"; };
 		51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VasylKorsiubaViewControllerForTestsViewController.m; sourceTree = "<group>"; };
+		51A9F1DD1A93880000666C23 /* EMThumbnailImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMThumbnailImageStore.h; path = Model/EMThumbnailImageStore.h; sourceTree = "<group>"; };
+		51A9F1DE1A93880000666C23 /* EMThumbnailImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EMThumbnailImageStore.m; path = Model/EMThumbnailImageStore.m; sourceTree = "<group>"; };
 		51B485251A8417CB00BA8AFF /* EcomapLoggedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapLoggedUser.h; path = Model/EcomapLoggedUser.h; sourceTree = "<group>"; };
 		51B485261A8417CB00BA8AFF /* EcomapLoggedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapLoggedUser.m; path = Model/EcomapLoggedUser.m; sourceTree = "<group>"; };
 		5F17A7831A8B592600C49FA1 /* EcomapResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapResources.h; sourceTree = "<group>"; };
@@ -119,14 +134,24 @@
 		5F17A78E1A8B597900C49FA1 /* ResourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceCell.h; sourceTree = "<group>"; };
 		5F17A78F1A8B74FE00C49FA1 /* NetworkActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkActivityIndicator.h; sourceTree = "<group>"; };
 		5F17A7901A8B74FF00C49FA1 /* NetworkActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkActivityIndicator.m; sourceTree = "<group>"; };
+		90838F5F1A94B1260025ACCB /* GeneralStatsTopLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeneralStatsTopLabelView.h; path = GeneralStats/View/GeneralStatsTopLabelView.h; sourceTree = "<group>"; };
+		90838F601A94B1260025ACCB /* GeneralStatsTopLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GeneralStatsTopLabelView.m; path = GeneralStats/View/GeneralStatsTopLabelView.m; sourceTree = "<group>"; };
+		90838F621A94B4180025ACCB /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		90838F631A94B4180025ACCB /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		90838F641A94B4180025ACCB /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		90838F651A94B4180025ACCB /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		90838F661A94B4180025ACCB /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		90838F671A94B4180025ACCB /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		90838F681A94B4180025ACCB /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		90838F691A94B4180025ACCB /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		90838F6A1A94B4180025ACCB /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		90838F6B1A94B4180025ACCB /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		90AE1B7A1A84BD3E0009F641 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemsTopListTVC.h; sourceTree = "<group>"; };
 		90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemsTopListTVC.m; sourceTree = "<group>"; };
 		90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartViewController.h; sourceTree = "<group>"; };
 		90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartViewController.m; sourceTree = "<group>"; };
 		90AE1B811A84BD730009F641 /* XYPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYPieChart.h; sourceTree = "<group>"; };
 		90AE1B821A84BD730009F641 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
-		90AE1B841A84BE5D0009F641 /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
-		90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
 		90FF71B41A88D75600991A65 /* EcomapStatsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsParser.h; sourceTree = "<group>"; };
 		90FF71B51A88D75600991A65 /* EcomapStatsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsParser.m; sourceTree = "<group>"; };
 		A7C20CEAB3C542AB9128991B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +276,8 @@
 				E5A978951A80FE2000D8283B /* EcomapPathDefine.h */,
 				E5F27C971A80F9A300121A7E /* EcomapURLFetcher.h */,
 				E5F27C981A80F9A300121A7E /* EcomapURLFetcher.m */,
+				51A9F1DD1A93880000666C23 /* EMThumbnailImageStore.h */,
+				51A9F1DE1A93880000666C23 /* EMThumbnailImageStore.m */,
 			);
 			name = "Fetcher Helper Classes";
 			sourceTree = "<group>";
@@ -274,6 +301,40 @@
 				5F17A7861A8B592600C49FA1 /* EcomapAlias.m */,
 			);
 			name = "Value-Object Classes";
+			sourceTree = "<group>";
+		};
+		9096C9891A91E5F200A61CDB /* GeneralStats */ = {
+			isa = PBXGroup;
+			children = (
+				9096C98A1A91E8AD00A61CDB /* View */,
+			);
+			name = GeneralStats;
+			sourceTree = "<group>";
+		};
+		9096C98A1A91E8AD00A61CDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				90838F5F1A94B1260025ACCB /* GeneralStatsTopLabelView.h */,
+				90838F601A94B1260025ACCB /* GeneralStatsTopLabelView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		9096C98E1A9214D900A61CDB /* Open_Sans */ = {
+			isa = PBXGroup;
+			children = (
+				90838F621A94B4180025ACCB /* OpenSans-Bold.ttf */,
+				90838F631A94B4180025ACCB /* OpenSans-BoldItalic.ttf */,
+				90838F641A94B4180025ACCB /* OpenSans-ExtraBold.ttf */,
+				90838F651A94B4180025ACCB /* OpenSans-ExtraBoldItalic.ttf */,
+				90838F661A94B4180025ACCB /* OpenSans-Italic.ttf */,
+				90838F671A94B4180025ACCB /* OpenSans-Light.ttf */,
+				90838F681A94B4180025ACCB /* OpenSans-LightItalic.ttf */,
+				90838F691A94B4180025ACCB /* OpenSans-Regular.ttf */,
+				90838F6A1A94B4180025ACCB /* OpenSans-Semibold.ttf */,
+				90838F6B1A94B4180025ACCB /* OpenSans-SemiboldItalic.ttf */,
+			);
+			path = Open_Sans;
 			sourceTree = "<group>";
 		};
 		90AE1B801A84BD730009F641 /* XYPieChart */ = {
@@ -335,6 +396,7 @@
 				5F17A78B1A8B596900C49FA1 /* ResourceDetails.m */,
 				B3A8D0901A85545D00017BAE /* AddProblem */,
 				90AE1B801A84BD730009F641 /* XYPieChart */,
+				9096C9891A91E5F200A61CDB /* GeneralStats */,
 				12B47F261A83A142008FAF8D /* RegisterViewController.h */,
 				12B47F271A83A142008FAF8D /* RegisterViewController.m */,
 				B388FF021A7F89D5009C421C /* Segues */,
@@ -347,6 +409,7 @@
 		B353431C1A7F73ED00DD2F03 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9096C98E1A9214D900A61CDB /* Open_Sans */,
 				B3A8D0831A853FFF00017BAE /* Defines.h */,
 				B35343201A7F73ED00DD2F03 /* AppDelegate.h */,
 				B3C56A4E1A8A169000877227 /* add.png */,
@@ -517,8 +580,6 @@
 				E5F27C921A80F9A300121A7E /* EcomapFetcher.m */,
 				5F17A78F1A8B74FE00C49FA1 /* NetworkActivityIndicator.h */,
 				5F17A7901A8B74FF00C49FA1 /* NetworkActivityIndicator.m */,
-				90AE1B841A84BE5D0009F641 /* EcomapStatsFetcher.h */,
-				90AE1B851A84BE5D0009F641 /* EcomapStatsFetcher.m */,
 				90FF71B41A88D75600991A65 /* EcomapStatsParser.h */,
 				90FF71B51A88D75600991A65 /* EcomapStatsParser.m */,
 				E582D0B71A8CCAD200AD957A /* GlobalLoggerLevel.h */,
@@ -611,13 +672,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */,
+				9096C99E1A9214D900A61CDB /* (null) in Resources */,
 				B3A8D0851A85414C00017BAE /* AddProblemNameView.xib in Resources */,
+				9096C9A01A9214DA00A61CDB /* (null) in Resources */,
 				B353432B1A7F73ED00DD2F03 /* Main.storyboard in Resources */,
 				B3C56A4F1A8A169000877227 /* add.png in Resources */,
 				B35343301A7F73ED00DD2F03 /* LaunchScreen.xib in Resources */,
+				9096C99A1A9214D900A61CDB /* (null) in Resources */,
 				B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */,
 				B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */,
+				9096C9A21A9214DA00A61CDB /* (null) in Resources */,
+				9096C99F1A9214D900A61CDB /* (null) in Resources */,
+				9096C9A31A9214DA00A61CDB /* (null) in Resources */,
+				9096C9A41A9214DA00A61CDB /* (null) in Resources */,
+				9096C99B1A9214D900A61CDB /* (null) in Resources */,
+				9096C99C1A9214D900A61CDB /* (null) in Resources */,
 				B353432D1A7F73ED00DD2F03 /* Images.xcassets in Resources */,
+				9096C9A11A9214DA00A61CDB /* (null) in Resources */,
+				9096C99D1A9214D900A61CDB /* (null) in Resources */,
 				B3A8D0891A8553E500017BAE /* AddProblemTypeView.xib in Resources */,
 				2D37BDF41A822F37009A6562 /* GoogleMaps.bundle in Resources */,
 				B3488A6C1A8A027A00BDAF84 /* AddProblemNavigationView.xib in Resources */,
@@ -672,8 +744,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9096C98D1A91E8DA00A61CDB /* (null) in Sources */,
 				B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */,
 				CABBB5121A853D400089065B /* GQuadItem.m in Sources */,
+				51A9F1DF1A93880000666C23 /* EMThumbnailImageStore.m in Sources */,
 				CABBB5221A853D6F0089065B /* GQTPointQuadTree.m in Sources */,
 				CABBB5131A853D400089065B /* GStaticCluster.m in Sources */,
 				12B47F281A83A142008FAF8D /* RegisterViewController.m in Sources */,
@@ -699,9 +773,9 @@
 				E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */,
 				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
 				CA4027A81A8F632800CA835F /* ProblemViewController.m in Sources */,
-				90AE1B861A84BE5D0009F641 /* EcomapStatsFetcher.m in Sources */,
 				CABBB5291A8A84690089065B /* EcomapComments.m in Sources */,
 				CABBB5151A853D400089065B /* GClusterManager.m in Sources */,
+				90838F611A94B1260025ACCB /* GeneralStatsTopLabelView.m in Sources */,
 				51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */,
 				90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */,
 				B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */,
