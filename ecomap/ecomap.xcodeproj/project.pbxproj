@@ -87,6 +87,7 @@
 		CAF471931A95273500F9B567 /* ProblemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */; };
 		CAF471961A95337600F9B567 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471951A95337600F9B567 /* EmptySegue.m */; };
 		CAF471991A95370000F9B567 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471981A95370000F9B567 /* ContainerViewController.m */; };
+		CAF4719C1A9543B700F9B567 /* ProblemActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */; };
 		E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C921A80F9A300121A7E /* EcomapFetcher.m */; };
 		E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C941A80F9A300121A7E /* EcomapProblem.m */; };
 		E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C961A80F9A300121A7E /* EcomapProblemDetails.m */; };
@@ -235,6 +236,8 @@
 		CAF471951A95337600F9B567 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
 		CAF471971A95370000F9B567 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
 		CAF471981A95370000F9B567 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		CAF4719A1A9543B700F9B567 /* ProblemActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemActivityViewController.h; sourceTree = "<group>"; };
+		CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemActivityViewController.m; sourceTree = "<group>"; };
 		E582D0B71A8CCAD200AD957A /* GlobalLoggerLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalLoggerLevel.h; sourceTree = "<group>"; };
 		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
@@ -395,6 +398,8 @@
 				90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */,
 				CAF471911A95273500F9B567 /* ProblemDetailsViewController.h */,
 				CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */,
+				CAF4719A1A9543B700F9B567 /* ProblemActivityViewController.h */,
+				CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */,
 				CA4027A61A8F632800CA835F /* ProblemViewController.h */,
 				CA4027A71A8F632800CA835F /* ProblemViewController.m */,
 				CAF471971A95370000F9B567 /* ContainerViewController.h */,
@@ -782,6 +787,7 @@
 				5F17A78C1A8B596900C49FA1 /* ResourceCell.m in Sources */,
 				5F17A7881A8B592600C49FA1 /* EcomapAlias.m in Sources */,
 				CAF471961A95337600F9B567 /* EmptySegue.m in Sources */,
+				CAF4719C1A9543B700F9B567 /* ProblemActivityViewController.m in Sources */,
 				CABBB5161A853D400089065B /* SphericalMercatorProjection.m in Sources */,
 				B388FF081A7F905B009C421C /* LoginViewController.m in Sources */,
 				E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */,

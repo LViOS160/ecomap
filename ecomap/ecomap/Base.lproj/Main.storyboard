@@ -637,10 +637,10 @@
             </objects>
             <point key="canvasLocation" x="2019" y="-1884"/>
         </scene>
-        <!--View Controller-->
+        <!--Problem Activity View Controller-->
         <scene sceneID="uX4-eU-5i3">
             <objects>
-                <viewController id="qFk-L5-YLf" sceneMemberID="viewController">
+                <viewController id="qFk-L5-YLf" customClass="ProblemActivityViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DhK-lf-wdx"/>
                         <viewControllerLayoutGuide type="bottom" id="Oth-MC-TvG"/>
@@ -648,8 +648,23 @@
                     <view key="view" contentMode="scaleToFill" id="GZq-dT-shh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mCu-G7-JHg">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mCu-G7-JHg" firstAttribute="top" secondItem="DhK-lf-wdx" secondAttribute="bottom" id="D9X-VS-fPa"/>
+                            <constraint firstAttribute="trailing" secondItem="mCu-G7-JHg" secondAttribute="trailing" id="O8r-MS-uur"/>
+                            <constraint firstItem="mCu-G7-JHg" firstAttribute="bottom" secondItem="Oth-MC-TvG" secondAttribute="top" id="SFW-dX-gj0"/>
+                            <constraint firstItem="mCu-G7-JHg" firstAttribute="leading" secondItem="GZq-dT-shh" secondAttribute="leading" id="cUR-uk-wJK"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityTable" destination="mCu-G7-JHg" id="jyX-LN-fxs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oqY-bO-hoD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
