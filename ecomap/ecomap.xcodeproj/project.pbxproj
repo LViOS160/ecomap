@@ -136,6 +136,16 @@
 		5F17A7901A8B74FF00C49FA1 /* NetworkActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkActivityIndicator.m; sourceTree = "<group>"; };
 		90838F5F1A94B1260025ACCB /* GeneralStatsTopLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeneralStatsTopLabelView.h; path = GeneralStats/View/GeneralStatsTopLabelView.h; sourceTree = "<group>"; };
 		90838F601A94B1260025ACCB /* GeneralStatsTopLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GeneralStatsTopLabelView.m; path = GeneralStats/View/GeneralStatsTopLabelView.m; sourceTree = "<group>"; };
+		90838F621A94B4180025ACCB /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		90838F631A94B4180025ACCB /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		90838F641A94B4180025ACCB /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		90838F651A94B4180025ACCB /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		90838F661A94B4180025ACCB /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		90838F671A94B4180025ACCB /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		90838F681A94B4180025ACCB /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		90838F691A94B4180025ACCB /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		90838F6A1A94B4180025ACCB /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		90838F6B1A94B4180025ACCB /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		90AE1B7A1A84BD3E0009F641 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemsTopListTVC.h; sourceTree = "<group>"; };
 		90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemsTopListTVC.m; sourceTree = "<group>"; };
 		90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartViewController.h; sourceTree = "<group>"; };
@@ -313,6 +323,16 @@
 		9096C98E1A9214D900A61CDB /* Open_Sans */ = {
 			isa = PBXGroup;
 			children = (
+				90838F621A94B4180025ACCB /* OpenSans-Bold.ttf */,
+				90838F631A94B4180025ACCB /* OpenSans-BoldItalic.ttf */,
+				90838F641A94B4180025ACCB /* OpenSans-ExtraBold.ttf */,
+				90838F651A94B4180025ACCB /* OpenSans-ExtraBoldItalic.ttf */,
+				90838F661A94B4180025ACCB /* OpenSans-Italic.ttf */,
+				90838F671A94B4180025ACCB /* OpenSans-Light.ttf */,
+				90838F681A94B4180025ACCB /* OpenSans-LightItalic.ttf */,
+				90838F691A94B4180025ACCB /* OpenSans-Regular.ttf */,
+				90838F6A1A94B4180025ACCB /* OpenSans-Semibold.ttf */,
+				90838F6B1A94B4180025ACCB /* OpenSans-SemiboldItalic.ttf */,
 			);
 			path = Open_Sans;
 			sourceTree = "<group>";
