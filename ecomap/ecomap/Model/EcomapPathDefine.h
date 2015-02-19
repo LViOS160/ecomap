@@ -25,6 +25,7 @@
 #define ECOMAP_GET_RESOURCES @"gettitles/"
 #define ECOMAP_GET_ALIAS @"resources/"
 #define ECOMAP_POST_VOTE @"vote/"
+#define ECOMAP_POST_COMMENT @"comment/"
 
 //Queries for statistics
 #define ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS @"getStats4"

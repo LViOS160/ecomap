@@ -11,6 +11,7 @@
 @class EcomapProblemDetails;
 @class EcomapLoggedUser;
 @class EcomapProblem;
+@class EcomapCommentsChild;
 
 @interface EcomapFetcher : NSObject
 
@@ -53,5 +54,9 @@
 
 //POST method for votes
 + (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler;
+
++(void)createComment:(NSString*)userId andName:(NSString*)name
+          andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
+        OnCompletion:(void (^)(EcomapCommentsChild *obj,NSError *error))completionHandler
 
 @end

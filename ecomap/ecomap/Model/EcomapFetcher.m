@@ -18,6 +18,7 @@
 #import "EcomapAlias.h"
 #import "NetworkActivityIndicator.h"
 #import "EMThumbnailImageStore.h"
+#import "EcomapCommentsChild.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -90,6 +91,50 @@
                     //set up completionHandler
                     completionHandler(problemTypes, error);
                 }];
+    
+}
+#pragma mark - Post comment
++(void)createComment:(NSString*)userId andName:(NSString*)name
+          andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
+        OnCompletion:(void (^)(EcomapCommentsChild *obj,NSError *error))completionHandler {
+    
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforComments:probId]];
+    [request setHTTPMethod:@"POST"];
+    
+    //Create JSON data for send to server
+    NSDictionary *commentData = @{@"data": @{@"urerId":userId,@"userName":name, @"userSurname":surname , @"Content":content} };
+    NSData *data = [NSJSONSerialization dataWithJSONObject:commentData options:0 error:nil];
+    
+    [self uploadDataTaskWithRequest:request fromData:data
+               sessionConfiguration:sessionConfiguration
+                  completionHandler:^(NSData *JSON, NSError *error) {
+                      NSDictionary *commentsInfo;
+                      // EcomapLoggedUser * check = [[EcomapLoggedUser alloc]init];
+                      EcomapCommentsChild * difComment = nil;
+                      
+                      if(!error)
+                          
+                      {    difComment = [[EcomapCommentsChild alloc]initWithInfo:commentsInfo];
+                          if([EcomapLoggedUser currentLoggedUser])
+                          {
+                              
+                              commentsInfo = [EcomapFetcher parseJSONtoDictionary:JSON];
+                              
+                              
+                          }
+                          else
+                              difComment = nil;
+                          
+                      }
+                      
+                      completionHandler(difComment,error);
+                      
+                      
+                      
+                  }];
     
 }
 
