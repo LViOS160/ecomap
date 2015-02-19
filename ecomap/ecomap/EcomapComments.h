@@ -17,6 +17,10 @@
 @property (nonatomic, readonly) NSUInteger usersID;
 @property (nonatomic, readonly) NSUInteger problemsID;
 
+@property (nonatomic, readonly) NSString *problemContent;
+@property (nonatomic, readonly) NSString *userName;
+@property (nonatomic, readonly) NSString *userSurname;
+
 //Designated initializer
 -(instancetype)initWithInfo:(NSDictionary *)problem;
 

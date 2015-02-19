@@ -58,7 +58,7 @@
     }
     
     EcomapComments *comment = [self.activities objectAtIndex:indexPath.row];
-    cell.textLabel.text = comment.content;
+    cell.textLabel.text = comment.problemContent;
     
     return cell;
 }

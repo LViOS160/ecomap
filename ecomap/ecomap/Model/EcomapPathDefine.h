@@ -88,6 +88,13 @@
 #define ECOMAP_COMMENT_USERS_ID @"Users_Id"
 #define ECOMAP_COMMENT_PROBLEMS_ID @"Problems_Id"
 
+//keys (paths) to value in a content dictionary of a THIRD dictionary
+#define ECOMAP_COMMENT_CONTENT_CONTENT @"Content"
+#define ECOMAP_COMMENT_CONTENT_USERNAME @"userName"
+#define ECOMAP_COMMENT_CONTENT_USERSURNAME @"userSurname"
+
+
+
 // keys (paths) to values in a USER dictionary
 #define ECOMAP_USER_ID @"id"
 #define ECOMAP_USER_NAME @"name"
