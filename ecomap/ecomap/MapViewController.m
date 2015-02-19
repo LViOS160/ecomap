@@ -16,6 +16,10 @@
 #import "GDefaultClusterRenderer.h"
 #import "EcomapClusterRenderer.h"
 #import "ProblemViewController.h"
+#import "EcomapProblemFilteringMask.h"
+#import "EcomapFilter.h"
+
+#define FILTER_ON YES
 
 @interface MapViewController () <CLLocationManagerDelegate>
 
@@ -33,9 +37,56 @@
     [super viewDidLoad];
     [self customSetup];
     [self mapSetup];
-
 }
 
+#pragma mark - Testing filter logic
+
+- (void)testFilterLogic
+{
+    EcomapProblemFilteringMask *defaultMask = [[EcomapProblemFilteringMask alloc] init];
+    EcomapProblemFilteringMask *mask = [[EcomapProblemFilteringMask alloc] init];
+    
+    NSLog(@"Start date: %@", defaultMask.fromDate);
+    NSLog(@"End date: %@", defaultMask.toDate);
+    NSLog(@"Problem types: %@", defaultMask.problemTypes);
+    defaultMask.showSolved ? NSLog(@"Show solved: YES") : NSLog(@"Show solved: NO");
+    defaultMask.showUnsolved ? NSLog(@"Show solved: YES") : NSLog(@"Show unsolved: NO");
+    
+    
+    mask.problemTypes = @[@1, @3, @7];
+    NSString *startDate = @"2015-01-01";
+    NSString *endDate = @"2015-02-08";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    mask.fromDate = [dateFormatter dateFromString:startDate];
+    mask.toDate = [dateFormatter dateFromString:endDate];
+    mask.showSolved = NO;
+    mask.showUnsolved = YES;
+    
+    NSLog(@"Testing mask start date: %@", mask.fromDate);
+    NSLog(@"Testing mask end date: %@", mask.toDate);
+    NSLog(@"Testing mask problem types: %@", mask.problemTypes);
+    mask.showSolved ? NSLog(@"Testing mask show solved: YES") : NSLog(@"Show solved: NO");
+    mask.showUnsolved ? NSLog(@"Testing mask show solved: YES") : NSLog(@"Show unsolved: NO");
+    
+    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+        NSLog(@"Before filtering");
+        for(EcomapProblem *problem in problems) {
+            if([problem isKindOfClass:[EcomapProblem class]]){
+                NSLog(@"Problem type ID: %lu", (unsigned long)problem.problemTypesID);
+            }
+        }
+        NSLog(@"Unfiltered count %lu", [problems count]);
+        NSLog(@"After filtering");
+        NSArray *filtered = [EcomapFilter filterProblemsArray:problems usingFilteringMask:mask];
+        for(EcomapProblem *problem in filtered) {
+            if([problem isKindOfClass:[EcomapProblem class]]){
+                NSLog(@"Problem type ID: %lu", (unsigned long)problem.problemTypesID);
+            }
+        }
+        NSLog(@"Filtered count %lu", [filtered count]);
+    }];
+}
 
 
 #pragma mark - GMAP
@@ -54,12 +105,39 @@
     [self.view insertSubview:self.mapView atIndex:0];
     [self startStandardUpdates];
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-        for(EcomapProblem *problem in problems) {
-            if([problem isKindOfClass:[EcomapProblem class]]){
-                Spot* spot = [self generateSpot:problem];
-                [self.clusterManager addItem:spot];
+
+#warning Testing filter
+        
+        if(FILTER_ON) {
+            EcomapProblemFilteringMask *mask = [[EcomapProblemFilteringMask alloc] init];
+            
+            mask.problemTypes = @[@1, @3, @7];
+            NSString *startDate = @"2015-01-01";
+            NSString *endDate = @"2015-02-08";
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            mask.fromDate = [dateFormatter dateFromString:startDate];
+            mask.toDate = [dateFormatter dateFromString:endDate];
+            mask.showSolved = NO;
+            mask.showUnsolved = YES;
+            
+            NSArray *filteredProblems = [EcomapFilter filterProblemsArray:problems usingFilteringMask:mask];
+            
+            for(EcomapProblem *problem in filteredProblems) {
+                if([problem isKindOfClass:[EcomapProblem class]]){
+                    Spot* spot = [self generateSpot:problem];
+                    [self.clusterManager addItem:spot];
+                }
+            }
+        } else {
+            for(EcomapProblem *problem in problems) {
+                if([problem isKindOfClass:[EcomapProblem class]]){
+                    Spot* spot = [self generateSpot:problem];
+                    [self.clusterManager addItem:spot];
+                }
             }
         }
+        
         [self.mapView setDelegate:self];
         [self.clusterManager cluster];
         
