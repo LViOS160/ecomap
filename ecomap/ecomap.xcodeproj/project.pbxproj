@@ -46,6 +46,17 @@
 		90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */; };
 		90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */; };
 		90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B821A84BD730009F641 /* XYPieChart.m */; };
+		90BD45FC1A95D46400D445DC /* EcomapProblemFilteringMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD45FB1A95D46400D445DC /* EcomapProblemFilteringMask.m */; };
+		90BD45FE1A95F00100D445DC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F621A94B4180025ACCB /* OpenSans-Bold.ttf */; };
+		90BD45FF1A95F00400D445DC /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F631A94B4180025ACCB /* OpenSans-BoldItalic.ttf */; };
+		90BD46001A95F00700D445DC /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F641A94B4180025ACCB /* OpenSans-ExtraBold.ttf */; };
+		90BD46011A95F00A00D445DC /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F651A94B4180025ACCB /* OpenSans-ExtraBoldItalic.ttf */; };
+		90BD46021A95F00C00D445DC /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F661A94B4180025ACCB /* OpenSans-Italic.ttf */; };
+		90BD46031A95F00F00D445DC /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F671A94B4180025ACCB /* OpenSans-Light.ttf */; };
+		90BD46041A95F01100D445DC /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F681A94B4180025ACCB /* OpenSans-LightItalic.ttf */; };
+		90BD46051A95F01400D445DC /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F691A94B4180025ACCB /* OpenSans-Regular.ttf */; };
+		90BD46061A95F01700D445DC /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F6A1A94B4180025ACCB /* OpenSans-Semibold.ttf */; };
+		90BD46071A95F01A00D445DC /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F6B1A94B4180025ACCB /* OpenSans-SemiboldItalic.ttf */; };
 		90FF71B61A88D75600991A65 /* EcomapStatsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FF71B51A88D75600991A65 /* EcomapStatsParser.m */; };
 		B323B57A1A89F8FF00D02E2D /* AddProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B323B5791A89F8FF00D02E2D /* AddProblemViewController.m */; };
 		B3488A6C1A8A027A00BDAF84 /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3488A6B1A8A027A00BDAF84 /* AddProblemNavigationView.xib */; };
@@ -156,6 +167,8 @@
 		90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartViewController.m; sourceTree = "<group>"; };
 		90AE1B811A84BD730009F641 /* XYPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYPieChart.h; sourceTree = "<group>"; };
 		90AE1B821A84BD730009F641 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
+		90BD45FA1A95D46400D445DC /* EcomapProblemFilteringMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapProblemFilteringMask.h; path = Model/EcomapProblemFilteringMask.h; sourceTree = "<group>"; };
+		90BD45FB1A95D46400D445DC /* EcomapProblemFilteringMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapProblemFilteringMask.m; path = Model/EcomapProblemFilteringMask.m; sourceTree = "<group>"; };
 		90FF71B41A88D75600991A65 /* EcomapStatsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsParser.h; sourceTree = "<group>"; };
 		90FF71B51A88D75600991A65 /* EcomapStatsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsParser.m; sourceTree = "<group>"; };
 		A7C20CEAB3C542AB9128991B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,6 +324,8 @@
 				5F17A7841A8B592600C49FA1 /* EcomapResources.m */,
 				5F17A7851A8B592600C49FA1 /* EcomapAlias.h */,
 				5F17A7861A8B592600C49FA1 /* EcomapAlias.m */,
+				90BD45FA1A95D46400D445DC /* EcomapProblemFilteringMask.h */,
+				90BD45FB1A95D46400D445DC /* EcomapProblemFilteringMask.m */,
 			);
 			name = "Value-Object Classes";
 			sourceTree = "<group>";
@@ -692,28 +707,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */,
+				90BD46011A95F00A00D445DC /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				9096C99E1A9214D900A61CDB /* (null) in Resources */,
+				90BD45FE1A95F00100D445DC /* OpenSans-Bold.ttf in Resources */,
 				B3A8D0851A85414C00017BAE /* AddProblemNameView.xib in Resources */,
 				9096C9A01A9214DA00A61CDB /* (null) in Resources */,
 				B353432B1A7F73ED00DD2F03 /* Main.storyboard in Resources */,
+				90BD46051A95F01400D445DC /* OpenSans-Regular.ttf in Resources */,
 				B3C56A4F1A8A169000877227 /* add.png in Resources */,
 				B35343301A7F73ED00DD2F03 /* LaunchScreen.xib in Resources */,
+				90BD46071A95F01A00D445DC /* OpenSans-SemiboldItalic.ttf in Resources */,
 				9096C99A1A9214D900A61CDB /* (null) in Resources */,
 				B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */,
 				B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */,
 				9096C9A21A9214DA00A61CDB /* (null) in Resources */,
+				90BD46021A95F00C00D445DC /* OpenSans-Italic.ttf in Resources */,
+				90BD46041A95F01100D445DC /* OpenSans-LightItalic.ttf in Resources */,
 				9096C99F1A9214D900A61CDB /* (null) in Resources */,
 				9096C9A31A9214DA00A61CDB /* (null) in Resources */,
 				9096C9A41A9214DA00A61CDB /* (null) in Resources */,
 				9096C99B1A9214D900A61CDB /* (null) in Resources */,
+				90BD46061A95F01700D445DC /* OpenSans-Semibold.ttf in Resources */,
 				9096C99C1A9214D900A61CDB /* (null) in Resources */,
 				B353432D1A7F73ED00DD2F03 /* Images.xcassets in Resources */,
+				90BD46031A95F00F00D445DC /* OpenSans-Light.ttf in Resources */,
 				9096C9A11A9214DA00A61CDB /* (null) in Resources */,
 				9096C99D1A9214D900A61CDB /* (null) in Resources */,
 				B3A8D0891A8553E500017BAE /* AddProblemTypeView.xib in Resources */,
 				2D37BDF41A822F37009A6562 /* GoogleMaps.bundle in Resources */,
 				B3488A6C1A8A027A00BDAF84 /* AddProblemNavigationView.xib in Resources */,
 				B3A8D08B1A85540C00017BAE /* AddProblemDescriptionView.xib in Resources */,
+				90BD45FF1A95F00400D445DC /* OpenSans-BoldItalic.ttf in Resources */,
+				90BD46001A95F00700D445DC /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,6 +834,7 @@
 				CAF471931A95273500F9B567 /* ProblemDetailsViewController.m in Sources */,
 				5F17A78D1A8B596900C49FA1 /* ResourceDetails.m in Sources */,
 				E5F27C9C1A80F9A300121A7E /* EcomapURLFetcher.m in Sources */,
+				90BD45FC1A95D46400D445DC /* EcomapProblemFilteringMask.m in Sources */,
 				CABBB5261A8A844D0089065B /* EcomapPhoto.m in Sources */,
 				B353431F1A7F73ED00DD2F03 /* main.m in Sources */,
 			);
