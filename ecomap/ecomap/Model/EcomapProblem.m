@@ -22,6 +22,32 @@
 
 @implementation EcomapProblem
 
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeInteger:_problemID forKey:@"problemID"];
+    [coder encodeObject:_title forKey:@"title"];
+    [coder encodeDouble:_latitude forKey:@"latitude"];
+    [coder encodeDouble:_longtitude forKey:@"longtitude"];
+    [coder encodeInteger:_problemTypesID forKey:@"problemTypesID"];
+    [coder encodeObject:_problemTypeTitle forKey:@"problemTypeTitle"];
+    [coder encodeBool:_isSolved forKey:@"isSolved"];
+    [coder encodeObject:_dateCreated forKey:@"dateCreated"];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self.problemID =[coder decodeIntegerForKey:@"problemID"];
+    self.title = [coder decodeObjectForKey:@"title"];
+    self.latitude = [coder decodeDoubleForKey:@"latitude"];
+    self.longtitude = [coder decodeDoubleForKey:@"longtitude"];
+    self.problemTypesID = [coder decodeIntegerForKey:@"problemTypesID"];
+    self.problemTypeTitle = [coder decodeObjectForKey:@"problemTypeTitle"];
+    self.isSolved = [coder decodeBoolForKey:@"isSolved"];
+    self.dateCreated = [coder decodeObjectForKey:@"dateCreated"];
+    return self;
+}
+
+
 #pragma mark - Designated initializer
 -(instancetype)initWithProblem:(NSDictionary *)problem
 {
@@ -60,5 +86,7 @@
     
     return nil;
 }
+
+
 
 @end

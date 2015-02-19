@@ -63,7 +63,7 @@
 {
     // Drawing number of instances
     
-    UIFont *numberFont = [UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]];
+    UIFont *numberFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     
     NSAttributedString *numberText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", self.numberOfInstances]
                                                                      attributes:@{ NSFontAttributeName : numberFont}];
@@ -78,7 +78,7 @@
     
     // Drawing name of instances
     
-    UIFont *nameFont = [UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]];
+    UIFont *nameFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     
     UIColor *fontColor = [UIColor lightGrayColor];
     

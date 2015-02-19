@@ -20,7 +20,7 @@
 {
     _details = details;
     UIFont *font = [UIFont systemFontOfSize:21];  // @"helvetica"
-    NSString *mydescriptionHTML = [NSString stringWithFormat:@"<html> \n"
+    NSString *bodyHTML = [NSString stringWithFormat:@"<html> \n"
                                    "<head> \n"
                                    "<style type=\"text/css\"> \n"
                                    "body {font-family: \"%@\"; font-size: %f;}\n"
@@ -31,7 +31,7 @@
     
 
 
-    NSString *haystack = mydescriptionHTML;
+    NSString *haystack = bodyHTML;
     NSString *prefix = @"<p><img class=\"ta-insert-video\" ta-insert-video=\""; // string prefix, not needle prefix!
     NSString *suffix = @"\" src=\"\" allowfullscreen=\"true\" width=\"300\" frameborder=\"0\" height=\"250\"/></p>"; // string suffix, not needle suffix!
     NSRange prefixRange = [haystack rangeOfString:prefix];
@@ -40,10 +40,8 @@
     NSString *url = [haystack substringWithRange:needleRange];
     NSString *bodyBegin = [haystack substringWithRange:NSMakeRange(0, prefixRange.location)];
     NSString *bodyEnd = [haystack substringWithRange:NSMakeRange(prefixRange.location+prefixRange.length+url.length+suffixRange.length, haystack.length - (prefixRange.location+prefixRange.length+url.length+suffixRange.length)) ];
-    mydescriptionHTML = [NSString stringWithFormat:@"%@ <iframe width='%f' height='315' src='%@' frameborder='0' allowfullscreen></iframe>%@", bodyBegin,     [[UIScreen mainScreen] bounds].size.width-20,url, bodyEnd];
-    
-    NSLog(@"My description = %@", mydescriptionHTML);
-    [self.myWebView loadHTMLString:mydescriptionHTML baseURL:nil];    //load html to WEBVIEW
+    bodyHTML = [NSString stringWithFormat:@"%@ <iframe width='%f' height='315' src='%@' frameborder='0' allowfullscreen></iframe>%@", bodyBegin,     [[UIScreen mainScreen] bounds].size.width-20,url, bodyEnd];
+    [self.myWebView loadHTMLString:bodyHTML baseURL:nil];    //load html to WEBVIEW
     [self.spiner setHidden:YES];
 
   
