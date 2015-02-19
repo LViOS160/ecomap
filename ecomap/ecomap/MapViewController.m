@@ -16,6 +16,10 @@
 #import "GDefaultClusterRenderer.h"
 #import "EcomapClusterRenderer.h"
 #import "ProblemViewController.h"
+#import "EcomapProblemFilteringMask.h"
+#import "EcomapFilter.h"
+
+#define FILTER_ON YES
 
 @interface MapViewController () <CLLocationManagerDelegate>
 
@@ -34,7 +38,6 @@
     [super viewDidLoad];
     [self customSetup];
     [self mapSetup];
-
 }
 
 - (NSSet*)loadLocalJSON

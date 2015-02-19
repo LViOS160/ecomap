@@ -72,7 +72,7 @@
     numberTextBounds.size = [numberText size];
     numberTextBounds.origin = CGPointMake((self.bounds.size.width - numberTextBounds.size.width) / 2, [self offsetFromTop]);
     
-    if(self.numberOfInstances) {
+    if(self.numberOfInstances) { // Not drawing whith empty properties
         [numberText drawInRect:numberTextBounds];
     }
     
@@ -90,7 +90,7 @@
     nameTextBounds.size = [nameText size];
     nameTextBounds.origin = CGPointMake((self.bounds.size.width - nameTextBounds.size.width) / 2, numberTextBounds.size.height + [self offsetBetweenNumberAndName]);
     
-    if(self.nameOfInstances) {
+    if(self.nameOfInstances) { // Not drawing whith empty properties
         [nameText drawInRect:nameTextBounds];
     }
 }
