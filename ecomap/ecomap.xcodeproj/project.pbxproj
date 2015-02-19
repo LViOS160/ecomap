@@ -384,8 +384,6 @@
 				CABBB4FB1A853D400089065B /* Clustering */,
 				E5F27C901A80F98D00121A7E /* Model */,
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
-				CAF471941A95337600F9B567 /* EmptySegue.h */,
-				CAF471951A95337600F9B567 /* EmptySegue.m */,
 				B388FF061A7F905B009C421C /* LoginViewController.h */,
 				B388FF071A7F905B009C421C /* LoginViewController.m */,
 				B35343261A7F73ED00DD2F03 /* MapViewController.h */,
@@ -496,6 +494,8 @@
 		B388FF021A7F89D5009C421C /* Segues */ = {
 			isa = PBXGroup;
 			children = (
+				CAF471941A95337600F9B567 /* EmptySegue.h */,
+				CAF471951A95337600F9B567 /* EmptySegue.m */,
 				B388FEFE1A7F8832009C421C /* MapSegue.h */,
 				B388FEFF1A7F8832009C421C /* MapSegue.m */,
 			);
