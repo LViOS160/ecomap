@@ -29,25 +29,23 @@
                                    "<body>%@</body> \n"
                                    "</html>", font.familyName, [UIFont systemFontSize], self.details];
     
-   // static NSString *youTubeVideoHTML = @"<iframe width='560' height='315' src='https://www.youtube.com/embed/q4iR7BJ1ESY' frameborder='0' allowfullscreen></iframe>";
-    NSLog(@"%@", mydescriptionHTML);
+
+
     NSString *haystack = mydescriptionHTML;
     NSString *prefix = @"<p><img class=\"ta-insert-video\" ta-insert-video=\""; // string prefix, not needle prefix!
     NSString *suffix = @"\" src=\"\" allowfullscreen=\"true\" width=\"300\" frameborder=\"0\" height=\"250\"/></p>"; // string suffix, not needle suffix!
     NSRange prefixRange = [haystack rangeOfString:prefix];
     NSRange suffixRange = [[haystack substringFromIndex:prefixRange.location+prefixRange.length] rangeOfString:suffix];
     NSRange needleRange = NSMakeRange(prefixRange.location+prefix.length, suffixRange.location);
-    NSString *needle = [haystack substringWithRange:needleRange];
-    NSLog(@"needle: %@", needle);
-    NSLog(@"%lu \n %lu", (unsigned long)prefixRange.length, (unsigned long)prefixRange.location);
-    NSString *needle2 = [haystack substringWithRange:NSMakeRange(0, prefixRange.location)];
-    NSLog(@"needle2: %@", needle2);
-    NSString *needle3 = [haystack substringWithRange:NSMakeRange(prefixRange.location+needle.length+suffixRange.length, haystack.length - (prefixRange.location+needle.length+suffixRange.length)) ];
-    NSLog(@"needle2: %@", needle3);
+    NSString *url = [haystack substringWithRange:needleRange];
+    NSString *bodyBegin = [haystack substringWithRange:NSMakeRange(0, prefixRange.location)];
+    NSString *bodyEnd = [haystack substringWithRange:NSMakeRange(prefixRange.location+prefixRange.length+url.length+suffixRange.length, haystack.length - (prefixRange.location+prefixRange.length+url.length+suffixRange.length)) ];
+    mydescriptionHTML = [NSString stringWithFormat:@"%@ <iframe width='%f' height='315' src='%@' frameborder='0' allowfullscreen></iframe>%@", bodyBegin,     [[UIScreen mainScreen] bounds].size.width-20,url, bodyEnd];
     
-    
+    NSLog(@"My description = %@", mydescriptionHTML);
     [self.myWebView loadHTMLString:mydescriptionHTML baseURL:nil];    //load html to WEBVIEW
     [self.spiner setHidden:YES];
+
   
    
     
