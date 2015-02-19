@@ -45,6 +45,11 @@
              UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
              [alertView show];
              loggedUser = user;
+             [self dismissViewControllerAnimated:NO completion:^{
+                 //UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+                 //[alertView show];
+             }];
+             //[self performSegueWithIdentifier:@"ShowMap" sender:nil];
          }
      }
         ];
@@ -59,9 +64,11 @@
 
 - (void)customSetup
 {
+    
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
     if ( revealViewController )
     {
+        
         [self.revealButtonItem setTarget: self.revealViewController];
         [self.revealButtonItem setAction: @selector( revealToggle: )];
         [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
