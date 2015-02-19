@@ -67,13 +67,13 @@ EcomapLoggedUser *currentLoggedUser = nil;
 -(void)parseUser:(NSDictionary *)userInfo
 {
     if (userInfo) {
-        self.userID = [[userInfo valueForKey:ECOMAP_USER_ID] integerValue];
-        self.name = [userInfo valueForKey:ECOMAP_USER_NAME];
-        self.surname = [userInfo valueForKey:ECOMAP_USER_SURNAME];
-        self.role = [userInfo valueForKey:ECOMAP_USER_ROLE];
-        self.iat = [[userInfo valueForKey:ECOMAP_USER_ITA] integerValue];
-        self.token = [userInfo valueForKey:ECOMAP_USER_TOKEN];
-        self.email = [userInfo valueForKey:ECOMAP_USER_EMAIL];
+        self.userID = ![[userInfo valueForKey:ECOMAP_USER_ID] isKindOfClass:[NSNull class]] ? [[userInfo valueForKey:ECOMAP_USER_ID] integerValue] : 0;
+        self.name = ![[userInfo valueForKey:ECOMAP_USER_NAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_NAME] : nil;
+        self.surname = ![[userInfo valueForKey:ECOMAP_USER_SURNAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_SURNAME] : nil;
+        self.role = ![[userInfo valueForKey:ECOMAP_USER_ROLE] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_ROLE] : nil;
+        self.iat = ![[userInfo valueForKey:ECOMAP_USER_ITA] isKindOfClass:[NSNull class]] ? [[userInfo valueForKey:ECOMAP_USER_ITA] integerValue] : 0;
+        self.token = ![[userInfo valueForKey:ECOMAP_USER_TOKEN] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_TOKEN] : 0;
+        self.email = ![[userInfo valueForKey:ECOMAP_USER_EMAIL] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_EMAIL] : nil;
     }
 }
 

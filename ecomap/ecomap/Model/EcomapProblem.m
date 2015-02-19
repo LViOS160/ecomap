@@ -28,11 +28,11 @@
     self = [super init];
     if (self) {
         if (!problem) return nil;
-        self.problemID = [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue];
-        self.title = [problem valueForKey:ECOMAP_PROBLEM_TITLE];
-        self.latitude = [[problem valueForKey:ECOMAP_PROBLEM_LATITUDE] doubleValue];
-        self.longtitude = [[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] doubleValue];
-        self.problemTypesID = [[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] integerValue];
+        self.problemID = ![[problem valueForKey:ECOMAP_PROBLEM_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue] : 0;
+        self.title = ![[problem valueForKey:ECOMAP_PROBLEM_TITLE] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_TITLE] : nil;
+        self.latitude = ![[problem valueForKey:ECOMAP_PROBLEM_LATITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LATITUDE] doubleValue] : 0;
+        self.longtitude = ![[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] doubleValue] : 0;
+        self.problemTypesID = ![[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] integerValue] : 0;
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:(self.problemTypesID - 1)];
         self.isSolved = [[problem valueForKey:ECOMAP_PROBLEM_STATUS] integerValue] == 0 ? NO : YES;
         self.dateCreated = [self dateCreatedOfProblem:problem];

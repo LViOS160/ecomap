@@ -27,7 +27,7 @@
     if (self) {
         if (!problem) return nil;
         self.photoID = ![[problem valueForKey:ECOMAP_PHOTO_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PHOTO_ID] integerValue] : 0;
-        self.link = [problem valueForKey:ECOMAP_PHOTO_LINK];
+        self.link = ![[problem valueForKey:ECOMAP_PHOTO_LINK] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PHOTO_LINK] : nil;
         self.isSolved = [[problem valueForKey:ECOMAP_PHOTO_STATUS] integerValue] == 0 ? NO : YES;
         self.caption = ![[problem valueForKey:ECOMAP_PHOTO_DESCRIPTION] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PHOTO_DESCRIPTION] : nil;
         self.problemsID = ![[problem valueForKey:ECOMAP_PHOTO_PROBLEMS_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PHOTO_PROBLEMS_ID] integerValue] : 0;
