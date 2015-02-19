@@ -54,13 +54,32 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     EcomapComments *comment = [self.activities objectAtIndex:indexPath.row];
     cell.textLabel.text = comment.problemContent;
     
+    NSString *userNameText = comment.userName;
+    NSString *detailText1 = [[NSString alloc]initWithString:[userNameText stringByAppendingString:@" "]];
+    NSString *userSurnameText = comment.userSurname;
+    NSString *detailedText2 = [[NSString alloc]initWithString:[detailText1 stringByAppendingString:userSurnameText]];
+    NSString *detailText3 = [[NSString alloc]initWithString:[detailedText2 stringByAppendingString:@" "]];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *stringFromDate = [formatter stringFromDate:comment.date];
+    NSString *detailText4 = [[NSString alloc] initWithString:[detailText3 stringByAppendingString:stringFromDate]];
+
+    cell.detailTextLabel.text = detailText4;
+    
+    cell.imageView.image = [self iconForCell:comment.activityTypes_Id];
     return cell;
+}
+
+- (UIImage *)iconForCell:(NSUInteger)problemTypeID
+{
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID + 10]];
 }
 
 @end
