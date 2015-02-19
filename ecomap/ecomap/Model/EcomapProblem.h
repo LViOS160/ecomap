@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface EcomapProblem : NSObject
+@interface EcomapProblem : NSObject <NSCoding>
 
 @property (nonatomic, readonly) NSUInteger problemID;
 @property (nonatomic, strong, readonly) NSString *title;
@@ -20,6 +20,8 @@
 @property (nonatomic, strong, readonly) NSDate *dateCreated;
 
 //Designated initializer
--(instancetype)initWithProblem:(NSDictionary *)problem;
+- (instancetype)initWithProblem:(NSDictionary *)problem;
+- (id)initWithCoder:(NSCoder *)aDecoder;
+- (void)encodeWithCoder:(NSCoder *)aCoder;
 
 @end
