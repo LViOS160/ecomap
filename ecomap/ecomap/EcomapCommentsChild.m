@@ -17,6 +17,11 @@
 @property (nonatomic, readwrite) NSUInteger activityTypes_Id;
 @property (nonatomic, readwrite) NSUInteger usersID;
 @property (nonatomic, readwrite) NSUInteger problemsID;
+
+@property (nonatomic, readwrite) NSString *problemContent;
+@property (nonatomic, readwrite) NSString *userName;
+@property (nonatomic, readwrite) NSString *userSurname;
+
 @end
 
 @implementation EcomapCommentsChild
@@ -26,12 +31,24 @@
     self = [super init];
     if (self) {
         if (!problem) return nil;
-        self.commentID = [[problem valueForKey:ECOMAP_COMMENT_ID] integerValue];
-        self.content = [problem valueForKey:ECOMAP_COMMENT_CONTENT];
+        self.commentID = [[problem valueForKey:ECOMAP_COMMENT_ID] isKindOfClass:[NSNumber class]] ? [[problem valueForKey:ECOMAP_COMMENT_ID] integerValue] : 0;
+        
+        self.content = [[problem valueForKey:ECOMAP_COMMENT_CONTENT] isKindOfClass:[NSString class]] ? [problem valueForKey:ECOMAP_COMMENT_CONTENT] : @"";
+        NSData *data = [self.content dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *commentDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        self.problemContent = [[commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_CONTENT] isKindOfClass:[NSString class]] ? [commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_CONTENT] : @"";
+        
+        self.userName = [[commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_USERNAME] isKindOfClass:[NSString class]]
+        ? [commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_USERNAME] : @"";
+        
+        self.userSurname = [[commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_USERSURNAME] isKindOfClass:[NSString class]] ? [commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_USERSURNAME] :@"";
+        
         self.date = [self dateOfComment:problem];
         self.activityTypes_Id = 5;
-        self.usersID = [[problem valueForKey:ECOMAP_COMMENT_USERS_ID] integerValue];
-        self.problemsID = 89;//[[problem valueForKey:ECOMAP_COMMENT_PROBLEMS_ID] integerValue];
+        self.usersID = [[problem valueForKey:ECOMAP_COMMENT_USERS_ID] isKindOfClass:[NSNumber class]] ? [[problem valueForKey:ECOMAP_COMMENT_USERS_ID] integerValue] : 0;
+        self.problemsID = [[problem valueForKey:ECOMAP_COMMENT_PROBLEMS_ID] isKindOfClass:[NSNumber class]] ?[[problem valueForKey:ECOMAP_COMMENT_PROBLEMS_ID] integerValue] : 0;
+      //  self.problemsID = 89;//[[problem valueForKey:ECOMAP_COMMENT_PROBLEMS_ID] integerValue];
     }
     return self;
 

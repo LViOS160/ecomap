@@ -11,24 +11,60 @@
 #import "EcomapFetcher.h"
 #import "ContainerViewController.h"
 #import "EcomapComments.h"
+#import "EcomapCommentsChild.h"
+#import "EcomapLoggedUser.h"
+#import "EcomapProblemDetails.h"
 
 @interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSArray * comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
+//@property (nonatomic,strong) EcomapCommentsChild *uploadComment;
 
 @end
 
 @implementation AddCommViewController
+/*@synthesize uploadComment = _uploadComment;
 
 
+-(EcomapCommentsChild *)uploadComment
+{
+    if(_uploadComment)
+        _uploadComment = [[EcomapCommentsChild alloc]init];
+    return _uploadComment;
+}
 
+-(void)setUploadComment:(EcomapCommentsChild *)uploadComment
+{
+    _uploadComment = uploadComment;
+    [self.myTableView reloadData];
+}
+*/
 - (void)viewDidLoad {
+    
+    [EcomapFetcher loginWithEmail:@"clic@ukr.net"
+                      andPassword:@"eco"
+                     OnCompletion:^(EcomapLoggedUser *user, NSError *error) {
+                         if (!error) {
+                             NSLog(@"User role: %@", user.role);
+                             
+                             //Read current logged user
+                             
+                             
+                             
+                         } else {
+                             NSLog(@"Error to login: %@", error);
+                         }
+                     }];
+
     [super viewDidLoad];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
+   
     
     // Do any additional setup after loading the view.
 }
+
+
 
 -(void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
@@ -49,10 +85,38 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)pressAddComment:(id)sender {
-    NSString * fromTextField = self.textField.text;
     
-   
-                                 
+     NSString * fromTextField = self.textField.text;
+  //  EcomapProblemDetails *idOfPr = [[EcomapProblemDetails alloc]init];
+   // EcomapComments *test = [self.comments lastObject];
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+  
+    
+  NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
+   // NSString * probID = [NSString stringWithFormat:@"%lu",(unsigned long)idOfPr.problemID];
+    NSLog(@"%@____",userID);
+      NSLog(@"%@",userIdent.name);
+     NSLog(@"%@",userIdent.surname);
+   //  NSLog(@"%@",probID);
+    [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
+        if(error)
+            NSLog(@"Trouble");
+
+    }];
+    
+    
+    
+    
+    /*
+    [EcomapFetcher createComment:@"1" andName:@"admin" andSurname:@"1" andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
+        if(error)
+            NSLog(@"Trouble");
+        //  EcomapCommentsChild *q = [[EcomapCommentsChild alloc]init];
+        //  q=obj;
+        
+    }];
+  */
+
     
 }
 
@@ -74,10 +138,11 @@
   CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
      if(cell == nil)
          cell = [[CommentCell alloc]initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"CommentCell"];
-     EcomapProblemDetails *commentZ = [self.comments objectAtIndex:indexPath.row];
+     EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
    //  NSInteger row=[indexPath row];
-     cell.commentContent.text= commentZ.content;
-     NSLog(@"%@",commentZ.content);
+     cell.commentContent.text= commentZ.problemContent;
+     NSString *personalInfo = [NSString stringWithFormat:@"%@%@",commentZ.userName,commentZ.userSurname];
+     cell.personInfo.text = personalInfo;
 
 
  

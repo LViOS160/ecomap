@@ -11,5 +11,6 @@
 @interface CommentCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *commentContent;
+@property (weak, nonatomic) IBOutlet UILabel *personInfo;
 
 @end

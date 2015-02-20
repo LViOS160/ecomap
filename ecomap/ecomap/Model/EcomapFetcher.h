@@ -57,6 +57,6 @@
 
 +(void)createComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
-        OnCompletion:(void (^)(EcomapCommentsChild *obj,NSError *error))completionHandler
+        OnCompletion:(void (^)(EcomapCommentsChild *obj,NSError *error))completionHandler;
 
 @end
