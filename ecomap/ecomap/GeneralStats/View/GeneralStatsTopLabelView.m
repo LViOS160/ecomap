@@ -49,10 +49,10 @@
     
     /* For debuging
      
-    UIBezierPath *path = [UIBezierPath bezierPathWithRect:rect];
-    
-    [[UIColor blackColor] setStroke];
-    [path stroke];
+     UIBezierPath *path = [UIBezierPath bezierPathWithRect:rect];
+     
+     [[UIColor blackColor] setStroke];
+     [path stroke];
      
      */
     
@@ -63,7 +63,13 @@
 {
     // Drawing number of instances
     
-    UIFont *numberFont = [UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]];
+    UIFont *numberFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody]; // default font
+    
+    if([UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]]) {
+        numberFont = [UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]];
+    } else {
+        numberFont = [UIFont fontWithName:@"Helvetica-Light" size:[self numberFontSize]];
+    }
     
     NSAttributedString *numberText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", self.numberOfInstances]
                                                                      attributes:@{ NSFontAttributeName : numberFont}];
@@ -72,13 +78,19 @@
     numberTextBounds.size = [numberText size];
     numberTextBounds.origin = CGPointMake((self.bounds.size.width - numberTextBounds.size.width) / 2, [self offsetFromTop]);
     
-    if(self.numberOfInstances) {
+    if(self.numberOfInstances) { // Not drawing whith empty properties
         [numberText drawInRect:numberTextBounds];
     }
     
     // Drawing name of instances
     
-    UIFont *nameFont = [UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]];
+    UIFont *nameFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody]; // default font;
+    
+    if([UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]]) {
+        nameFont = [UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]];
+    } else {
+        nameFont = [UIFont fontWithName:@"Helvetica" size:[self nameFontSize]];
+    }
     
     UIColor *fontColor = [UIColor lightGrayColor];
     
@@ -90,7 +102,7 @@
     nameTextBounds.size = [nameText size];
     nameTextBounds.origin = CGPointMake((self.bounds.size.width - nameTextBounds.size.width) / 2, numberTextBounds.size.height + [self offsetBetweenNumberAndName]);
     
-    if(self.nameOfInstances) {
+    if(self.nameOfInstances) { // Not drawing whith empty properties
         [nameText drawInRect:nameTextBounds];
     }
 }

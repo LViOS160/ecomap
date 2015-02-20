@@ -16,6 +16,10 @@
 #import "GDefaultClusterRenderer.h"
 #import "EcomapClusterRenderer.h"
 #import "ProblemViewController.h"
+#import "EcomapProblemFilteringMask.h"
+#import "EcomapFilter.h"
+
+#define FILTER_ON YES
 
 @interface MapViewController () <CLLocationManagerDelegate>
 
@@ -25,6 +29,7 @@
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
+@property (nonatomic, strong) NSSet *problems;
 @end
 
 @implementation MapViewController
@@ -33,10 +38,46 @@
     [super viewDidLoad];
     [self customSetup];
     [self mapSetup];
-
 }
 
+- (NSSet*)loadLocalJSON
+{
+    NSString *filePath = [self getPath];
+    id array = nil;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) { // if file is not exist, create it.
+        array = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    }
 
+    return array;
+}
+
+- (NSString*)getPath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"problems.json"];
+    NSLog(@"filePath %@", filePath);
+    return filePath;
+}
+
+- (void)saveLocalJSON:(NSSet*)problems {
+    
+    [NSKeyedArchiver archiveRootObject:problems toFile:[self getPath]];
+}
+
+- (void)renewMap:(NSSet*)problems {
+    self.clusterManager = [GClusterManager managerWithMapView:self.mapView
+                                                    algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
+                                                     renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
+    [self.mapView setDelegate:self];
+    for(EcomapProblem *problem in problems) {
+        if([problem isKindOfClass:[EcomapProblem class]]){
+            Spot* spot = [self generateSpot:problem];
+            [self.clusterManager addItem:spot];
+        }
+    }
+    [self.clusterManager cluster];
+    
+}
 
 #pragma mark - GMAP
 
@@ -53,20 +94,24 @@
     self.mapView.settings.compassButton = YES;
     [self.view insertSubview:self.mapView atIndex:0];
     [self startStandardUpdates];
+    [self loadLocalJSON];
+    self.problems = [self loadLocalJSON];
+    
+
+    if (_problems)
+        [self renewMap:self.problems];
+    
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-        for(EcomapProblem *problem in problems) {
-            if([problem isKindOfClass:[EcomapProblem class]]){
-                Spot* spot = [self generateSpot:problem];
-                [self.clusterManager addItem:spot];
+        if (!error) {
+            NSSet *set = [[NSSet alloc] initWithArray:problems];
+            if (![self.problems isEqualToSet:set]) {
+                [self renewMap:set];
+                [self saveLocalJSON:set];
             }
         }
-        [self.mapView setDelegate:self];
-        [self.clusterManager cluster];
         
     }];
-    self.clusterManager = [GClusterManager managerWithMapView:self.mapView
-                                                algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
-                                                 renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
+    
     
    
 }

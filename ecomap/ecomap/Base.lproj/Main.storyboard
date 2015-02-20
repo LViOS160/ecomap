@@ -250,7 +250,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="label" destination="eo4-6b-NZ9" id="EcO-7a-Dnz"/>
-                                    <segue destination="0tf-IB-01z" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="zWd-6u-N6F"/>
+                                    <segue destination="0tf-IB-01z" kind="custom" customClass="SWRevealModalSegue" id="t3h-ZM-VGq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -350,6 +350,7 @@
                         <outlet property="loginText" destination="9AG-QO-jre" id="Cro-ol-hvg"/>
                         <outlet property="passwordText" destination="FQQ-fR-3Pg" id="Opp-1w-LaK"/>
                         <outlet property="revealButtonItem" destination="XMy-A7-PDR" id="eM5-qU-x8q"/>
+                        <segue destination="bov-97-S05" kind="custom" identifier="ShowMap" customClass="MapSegue" id="t0N-p0-wGl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qoL-KS-shb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -509,7 +510,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LiH-Qu-8e4">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LiH-Qu-8e4">
                                 <rect key="frame" x="16" y="72" width="288" height="21"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="☆☆☆☆☆" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3u7-WT-ydj">
@@ -549,7 +550,7 @@
                                     <constraint firstItem="3u7-WT-ydj" firstAttribute="baseline" secondItem="xWe-iM-cMF" secondAttribute="firstBaseline" id="xox-Cu-7XQ"/>
                                 </constraints>
                             </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hMs-WN-LhN">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hMs-WN-LhN">
                                 <rect key="frame" x="16" y="101" width="288" height="29"/>
                                 <segments>
                                     <segment title="Детально"/>
@@ -560,7 +561,7 @@
                                     <action selector="segmentControlChanged:" destination="2UE-DX-Tsm" eventType="valueChanged" id="D43-UC-wRp"/>
                                 </connections>
                             </segmentedControl>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7o2-ar-w6j">
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7o2-ar-w6j">
                                 <rect key="frame" x="16" y="137" width="288" height="423"/>
                                 <connections>
                                     <segue destination="0kU-9v-Uyo" kind="embed" identifier="embedContainer" id="PDD-nP-tHW"/>
@@ -711,10 +712,10 @@
             </objects>
             <point key="canvasLocation" x="1426" y="-1053.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--LoginNavigationController-->
         <scene sceneID="rTh-jy-pBC">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0tf-IB-01z" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0tf-IB-01z" userLabel="LoginNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LJg-U4-VwW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1146,6 +1147,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="t0N-p0-wGl"/>
         <segue reference="WgQ-oX-LnI"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -46,6 +46,18 @@
 		90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */; };
 		90AE1B7F1A84BD3E0009F641 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */; };
 		90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE1B821A84BD730009F641 /* XYPieChart.m */; };
+		90BD45FC1A95D46400D445DC /* EcomapProblemFilteringMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD45FB1A95D46400D445DC /* EcomapProblemFilteringMask.m */; };
+		90BD45FE1A95F00100D445DC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F621A94B4180025ACCB /* OpenSans-Bold.ttf */; };
+		90BD45FF1A95F00400D445DC /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F631A94B4180025ACCB /* OpenSans-BoldItalic.ttf */; };
+		90BD46001A95F00700D445DC /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F641A94B4180025ACCB /* OpenSans-ExtraBold.ttf */; };
+		90BD46011A95F00A00D445DC /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F651A94B4180025ACCB /* OpenSans-ExtraBoldItalic.ttf */; };
+		90BD46021A95F00C00D445DC /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F661A94B4180025ACCB /* OpenSans-Italic.ttf */; };
+		90BD46031A95F00F00D445DC /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F671A94B4180025ACCB /* OpenSans-Light.ttf */; };
+		90BD46041A95F01100D445DC /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F681A94B4180025ACCB /* OpenSans-LightItalic.ttf */; };
+		90BD46051A95F01400D445DC /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F691A94B4180025ACCB /* OpenSans-Regular.ttf */; };
+		90BD46061A95F01700D445DC /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F6A1A94B4180025ACCB /* OpenSans-Semibold.ttf */; };
+		90BD46071A95F01A00D445DC /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90838F6B1A94B4180025ACCB /* OpenSans-SemiboldItalic.ttf */; };
+		90BD460A1A95F64C00D445DC /* EcomapFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD46091A95F64C00D445DC /* EcomapFilter.m */; };
 		90FF71B61A88D75600991A65 /* EcomapStatsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FF71B51A88D75600991A65 /* EcomapStatsParser.m */; };
 		B323B57A1A89F8FF00D02E2D /* AddProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B323B5791A89F8FF00D02E2D /* AddProblemViewController.m */; };
 		B3488A6C1A8A027A00BDAF84 /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3488A6B1A8A027A00BDAF84 /* AddProblemNavigationView.xib */; };
@@ -88,6 +100,7 @@
 		CAF471961A95337600F9B567 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471951A95337600F9B567 /* EmptySegue.m */; };
 		CAF471991A95370000F9B567 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471981A95370000F9B567 /* ContainerViewController.m */; };
 		CAF4719C1A9543B700F9B567 /* ProblemActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */; };
+		E53ADCD91A95F40A00CCA3C3 /* SWRevealModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = E53ADCD81A95F40A00CCA3C3 /* SWRevealModalSegue.m */; };
 		E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C921A80F9A300121A7E /* EcomapFetcher.m */; };
 		E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C941A80F9A300121A7E /* EcomapProblem.m */; };
 		E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C961A80F9A300121A7E /* EcomapProblemDetails.m */; };
@@ -156,6 +169,10 @@
 		90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartViewController.m; sourceTree = "<group>"; };
 		90AE1B811A84BD730009F641 /* XYPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYPieChart.h; sourceTree = "<group>"; };
 		90AE1B821A84BD730009F641 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
+		90BD45FA1A95D46400D445DC /* EcomapProblemFilteringMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapProblemFilteringMask.h; path = Model/EcomapProblemFilteringMask.h; sourceTree = "<group>"; };
+		90BD45FB1A95D46400D445DC /* EcomapProblemFilteringMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapProblemFilteringMask.m; path = Model/EcomapProblemFilteringMask.m; sourceTree = "<group>"; };
+		90BD46081A95F64C00D445DC /* EcomapFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFilter.h; path = Model/EcomapFilter.h; sourceTree = "<group>"; };
+		90BD46091A95F64C00D445DC /* EcomapFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapFilter.m; path = Model/EcomapFilter.m; sourceTree = "<group>"; };
 		90FF71B41A88D75600991A65 /* EcomapStatsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsParser.h; sourceTree = "<group>"; };
 		90FF71B51A88D75600991A65 /* EcomapStatsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsParser.m; sourceTree = "<group>"; };
 		A7C20CEAB3C542AB9128991B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +255,8 @@
 		CAF471981A95370000F9B567 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		CAF4719A1A9543B700F9B567 /* ProblemActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemActivityViewController.h; sourceTree = "<group>"; };
 		CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemActivityViewController.m; sourceTree = "<group>"; };
+		E53ADCD71A95F40A00CCA3C3 /* SWRevealModalSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealModalSegue.h; sourceTree = "<group>"; };
+		E53ADCD81A95F40A00CCA3C3 /* SWRevealModalSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealModalSegue.m; sourceTree = "<group>"; };
 		E582D0B71A8CCAD200AD957A /* GlobalLoggerLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalLoggerLevel.h; sourceTree = "<group>"; };
 		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
@@ -311,6 +330,8 @@
 				5F17A7841A8B592600C49FA1 /* EcomapResources.m */,
 				5F17A7851A8B592600C49FA1 /* EcomapAlias.h */,
 				5F17A7861A8B592600C49FA1 /* EcomapAlias.m */,
+				90BD45FA1A95D46400D445DC /* EcomapProblemFilteringMask.h */,
+				90BD45FB1A95D46400D445DC /* EcomapProblemFilteringMask.m */,
 			);
 			name = "Value-Object Classes";
 			sourceTree = "<group>";
@@ -498,6 +519,8 @@
 				CAF471951A95337600F9B567 /* EmptySegue.m */,
 				B388FEFE1A7F8832009C421C /* MapSegue.h */,
 				B388FEFF1A7F8832009C421C /* MapSegue.m */,
+				E53ADCD71A95F40A00CCA3C3 /* SWRevealModalSegue.h */,
+				E53ADCD81A95F40A00CCA3C3 /* SWRevealModalSegue.m */,
 			);
 			name = Segues;
 			sourceTree = "<group>";
@@ -603,6 +626,8 @@
 				90FF71B41A88D75600991A65 /* EcomapStatsParser.h */,
 				90FF71B51A88D75600991A65 /* EcomapStatsParser.m */,
 				E582D0B71A8CCAD200AD957A /* GlobalLoggerLevel.h */,
+				90BD46081A95F64C00D445DC /* EcomapFilter.h */,
+				90BD46091A95F64C00D445DC /* EcomapFilter.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -658,11 +683,11 @@
 				TargetAttributes = {
 					B35343181A7F73ED00DD2F03 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = FD442QNEZS;
+						DevelopmentTeam = 7VZHFC2543;
 					};
 					B35343341A7F73ED00DD2F03 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = FD442QNEZS;
+						DevelopmentTeam = 7VZHFC2543;
 						TestTargetID = B35343181A7F73ED00DD2F03;
 					};
 				};
@@ -692,28 +717,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */,
+				90BD46011A95F00A00D445DC /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				9096C99E1A9214D900A61CDB /* (null) in Resources */,
+				90BD45FE1A95F00100D445DC /* OpenSans-Bold.ttf in Resources */,
 				B3A8D0851A85414C00017BAE /* AddProblemNameView.xib in Resources */,
 				9096C9A01A9214DA00A61CDB /* (null) in Resources */,
 				B353432B1A7F73ED00DD2F03 /* Main.storyboard in Resources */,
+				90BD46051A95F01400D445DC /* OpenSans-Regular.ttf in Resources */,
 				B3C56A4F1A8A169000877227 /* add.png in Resources */,
 				B35343301A7F73ED00DD2F03 /* LaunchScreen.xib in Resources */,
+				90BD46071A95F01A00D445DC /* OpenSans-SemiboldItalic.ttf in Resources */,
 				9096C99A1A9214D900A61CDB /* (null) in Resources */,
 				B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */,
 				B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */,
 				9096C9A21A9214DA00A61CDB /* (null) in Resources */,
+				90BD46021A95F00C00D445DC /* OpenSans-Italic.ttf in Resources */,
+				90BD46041A95F01100D445DC /* OpenSans-LightItalic.ttf in Resources */,
 				9096C99F1A9214D900A61CDB /* (null) in Resources */,
 				9096C9A31A9214DA00A61CDB /* (null) in Resources */,
 				9096C9A41A9214DA00A61CDB /* (null) in Resources */,
 				9096C99B1A9214D900A61CDB /* (null) in Resources */,
+				90BD46061A95F01700D445DC /* OpenSans-Semibold.ttf in Resources */,
 				9096C99C1A9214D900A61CDB /* (null) in Resources */,
 				B353432D1A7F73ED00DD2F03 /* Images.xcassets in Resources */,
+				90BD46031A95F00F00D445DC /* OpenSans-Light.ttf in Resources */,
 				9096C9A11A9214DA00A61CDB /* (null) in Resources */,
 				9096C99D1A9214D900A61CDB /* (null) in Resources */,
 				B3A8D0891A8553E500017BAE /* AddProblemTypeView.xib in Resources */,
 				2D37BDF41A822F37009A6562 /* GoogleMaps.bundle in Resources */,
 				B3488A6C1A8A027A00BDAF84 /* AddProblemNavigationView.xib in Resources */,
 				B3A8D08B1A85540C00017BAE /* AddProblemDescriptionView.xib in Resources */,
+				90BD45FF1A95F00400D445DC /* OpenSans-BoldItalic.ttf in Resources */,
+				90BD46001A95F00700D445DC /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,6 +810,7 @@
 				CABBB5231A853D6F0089065B /* GQTPointQuadTreeChild.m in Sources */,
 				B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */,
 				B323B57A1A89F8FF00D02E2D /* AddProblemViewController.m in Sources */,
+				90BD460A1A95F64C00D445DC /* EcomapFilter.m in Sources */,
 				CABBB5181A853D400089065B /* GDefaultClusterRenderer.m in Sources */,
 				51B485271A8417CB00BA8AFF /* EcomapLoggedUser.m in Sources */,
 				90FF71B61A88D75600991A65 /* EcomapStatsParser.m in Sources */,
@@ -794,6 +830,7 @@
 				CABBB5191A853D400089065B /* Spot.m in Sources */,
 				B388FF001A7F8832009C421C /* MapSegue.m in Sources */,
 				E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */,
+				E53ADCD91A95F40A00CCA3C3 /* SWRevealModalSegue.m in Sources */,
 				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
 				CA4027A81A8F632800CA835F /* ProblemViewController.m in Sources */,
 				CABBB5291A8A84690089065B /* EcomapComments.m in Sources */,
@@ -809,6 +846,7 @@
 				CAF471931A95273500F9B567 /* ProblemDetailsViewController.m in Sources */,
 				5F17A78D1A8B596900C49FA1 /* ResourceDetails.m in Sources */,
 				E5F27C9C1A80F9A300121A7E /* EcomapURLFetcher.m in Sources */,
+				90BD45FC1A95D46400D445DC /* EcomapProblemFilteringMask.m in Sources */,
 				CABBB5261A8A844D0089065B /* EcomapPhoto.m in Sources */,
 				B353431F1A7F73ED00DD2F03 /* main.m in Sources */,
 			);

@@ -54,13 +54,23 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     EcomapComments *comment = [self.activities objectAtIndex:indexPath.row];
     cell.textLabel.text = comment.problemContent;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *detailedText = [NSString stringWithFormat:@"%@ %@ %@",comment.userName, comment.userSurname, [formatter stringFromDate:comment.date]];
+    cell.detailTextLabel.text = detailedText;
     
+    cell.imageView.image = [self iconForCell:comment.activityTypes_Id];
     return cell;
+}
+
+- (UIImage *)iconForCell:(NSUInteger)problemTypeID
+{
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID + 10]];
 }
 
 @end
