@@ -16,7 +16,7 @@
 #import "EcomapProblemDetails.h"
 
 @interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic,strong) NSArray * comments;
+@property (nonatomic,strong) NSArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 //@property (nonatomic,strong) EcomapCommentsChild *uploadComment;
 
@@ -99,6 +99,7 @@
      NSLog(@"%@",userIdent.surname);
    //  NSLog(@"%@",probID);
     [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
+        
         if(error)
             NSLog(@"Trouble");
 
