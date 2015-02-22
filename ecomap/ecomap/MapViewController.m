@@ -19,7 +19,7 @@
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapFilter.h"
 
-#define FILTER_ON YES
+#define FILTER_ON NO
 
 @interface MapViewController () <CLLocationManagerDelegate>
 
