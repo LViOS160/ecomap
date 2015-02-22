@@ -27,7 +27,8 @@
 //Load tittles of resources not blocking the main thread
 +(void)loadResourcesOnCompletion:(void (^)(NSArray *resources, NSError *error))completionHandler;
 // Load all alias content
-
++ (void)registerToken:(NSString *)token
+         OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
 
 // Load alias of resources (its a path to details of resources)
 +(void)loadAliasOnCompletion:(void (^)(NSArray *alias, NSError *error))completionHandler String:(NSString*)str;

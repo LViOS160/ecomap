@@ -11,12 +11,14 @@
 //API address1
 //#define ECOMAP_ADDRESS @"http://176.36.11.25/"
 //#define ECOMAP_ADDRESS @"http://localhost:8090/"
-#define ECOMAP_ADDRESS @"http://ecomap.org/"
+//#define ECOMAP_ADDRESS @"http://ecomap.org/"
+#define ECOMAP_ADDRESS @"http://192.168.2.1:8090/"
 
 #define ECOMAP_API @"api/"
 #define ECOMAP_GET_PROBLEMS_API @"problems/"
 #define ECOMAP_GET_PROBLEM_TYPES @"problems/"
 #define ECOMAP_POST_LOGIN_API @"login/"
+#define ECOMAP_POST_TOKEN_REGISTRATION @"registerToken/"
 #define ECOMAP_GET_LOGOUT_API @"logout/"
 #define ECOMAP_POST_REGISTER_API @"register/"
 #define ECOMAP_GET_LARGE_PHOTOS_ADDRESS @"photos/large/"

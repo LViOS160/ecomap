@@ -49,6 +49,12 @@
     return [self URLForAPIQuery:ECOMAP_POST_LOGIN_API];
 }
 
++ (NSURL *)URLforTokenRegistration
+{
+    return [self URLForAPIQuery:ECOMAP_POST_TOKEN_REGISTRATION];
+}
+
+
 + (NSURL *)URLforLogout
 {
     return [self URLForAPIQuery:ECOMAP_GET_LOGOUT_API];

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "CocoaLumberjack.h"
+#import "EcomapFetcher.h"
 
 @interface AppDelegate ()
 
@@ -37,13 +38,11 @@
     //Keep in mind that he Caches directory can be emptied by the operating system at any time. If you want to store your application's log files in a safer location, then I suggest storing them in the application's Documents directory.
     
     
-    UIUserNotificationSettings *settings =
-    [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert |
-     UIUserNotificationTypeBadge |
-     UIUserNotificationTypeSound
-                                      categories:nil];
-    
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+//    UIUserNotificationSettings *settings =
+//    [UIUserNotificationSettings
+//                                      categories:nil];
+//    
+//    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     
     
@@ -54,6 +53,25 @@
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
     NSLog(@"My token is: %@", deviceToken);
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *myString = [prefs stringForKey:@"isTokenSet"];
+    if (![myString isEqualToString:@"true"]) {
+        NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+        token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSLog(@"%@", token);
+        [EcomapFetcher registerToken:token OnCompletion:^(NSString *result, NSError *error) {
+            if (error) {
+                if ([result isEqualToString:@"ER_DUP_ENTRY"]) {
+                    NSLog(@"result - %@", result);
+                    [prefs setObject:@"true" forKey:@"isTokenSet"];
+                }
+            } else {
+
+                [prefs setObject:@"true" forKey:@"isTokenSet"];
+            }
+        }];
+    }
+    
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

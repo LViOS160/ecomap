@@ -363,6 +363,30 @@
     // return uuidStr;
 }
 
++ (void)registerToken:(NSString *)token
+         OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler {
+    //Set up session configuration
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    
+    //Set up request
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforTokenRegistration]];
+    [request setHTTPMethod:@"POST"];
+    
+    //Create JSON data to send to  server
+    NSDictionary *loginData = @{@"token" : token};
+    NSData *data = [NSJSONSerialization dataWithJSONObject:loginData options:0
+                                                     error:nil];
+    [self uploadDataTaskWithRequest:request
+                           fromData:data
+               sessionConfiguration:sessionConfiguration
+                  completionHandler:^(NSData *JSON, NSError *error) {
+                      NSDictionary *jsonString = [EcomapFetcher parseJSONtoDictionary:JSON];
+                      completionHandler([jsonString valueForKey:@"err"], error);
+                  }];
+
+}
+
 + (void)problemPost:(EcomapProblem*)problem
      problemDetails:(EcomapProblemDetails*)problemDetails
                user:(EcomapLoggedUser*)user
@@ -409,16 +433,18 @@
 
     NSURLSession *session = [NSURLSession sharedSession];  // use sharedSession or create your own
     
-    NSURLSessionTask *task = [session uploadTaskWithRequest:request fromData:httpBody completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            NSLog(@"error = %@", error);
-            return;
-        }
-        
-        NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"result = %@", result);
-        completionHandler(result, error);
-    }];
+    NSURLSessionTask *task = [session uploadTaskWithRequest:request
+                                                   fromData:httpBody
+                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    if (error) {
+                                                        NSLog(@"error = %@", error);
+                                                        return;
+                                                    }
+                                                    
+                                                    NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                    NSLog(@"result = %@", result);
+                                                    completionHandler(result, error);
+                                                }];
     [task resume];
     
 }
@@ -651,6 +677,7 @@
             } else {
                 //Create error message
                 error = [EcomapFetcher errorForStatusCode:[EcomapFetcher statusCodeFromResponse:response]];
+                JSON = data;
             }
         }
         //Perform completionHandler task on main thread
