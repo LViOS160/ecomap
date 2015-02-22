@@ -14,6 +14,7 @@
 #import "EcomapCommentsChild.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapProblemDetails.h"
+#import "Defines.h"
 
 @interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSArray* comments;
@@ -102,6 +103,8 @@
         
         if(error)
             NSLog(@"Trouble");
+        else
+            [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
 
     }];
     

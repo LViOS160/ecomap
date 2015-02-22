@@ -14,6 +14,7 @@
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
+#import "Defines.h"
 
 typedef enum : NSUInteger {
     DetailedViewType,
@@ -29,16 +30,26 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) ContainerViewController *containerViewController;
-
 @end
 
 @implementation ProblemViewController
 
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self problemsDetailsChanged];
+    [[NSNotificationCenter defaultCenter ]removeObserver:self];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self updateHeader];
     [self loadProblemDetails:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(problemsDetailsChanged)
+                                                 name:PROBLEMS_DETAILS_CHANGED
+                                               object:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -55,7 +66,14 @@ typedef enum : NSUInteger {
                                    self.problemDetails = problemDetails;
                                    [self.containerViewController setProblemDetails:problemDetails];
                                    [self updateHeader];
+                                   if(onFinish)
+                                       onFinish();
                                }];
+}
+
+-(void)problemsDetailsChanged
+{
+    [self loadProblemDetails:nil];
 }
 
 - (IBAction)segmentControlChanged:(UISegmentedControl *)sender
