@@ -13,10 +13,24 @@
 @end
 
 @interface MenuViewController ()
-
+@property (nonatomic) BOOL showLogin;
 @end
 
 @implementation MenuViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
+-(BOOL)showLogin
+{
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isUserLogged"] isEqualToString:@"NO"]) {
+        return YES;
+    }
+    return NO;
+}
 
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
 {
@@ -71,7 +85,7 @@
             break;
             
         case 4:
-            CellIdentifier = @"login";
+            CellIdentifier = self.showLogin ? @"login" : @"logout";
             break;
     }
     
@@ -79,6 +93,7 @@
     
     return cell;
 }
+
 
 /*
 // Override to support conditional editing of the table view.

@@ -8,16 +8,34 @@
 
 #import "SWRevealModalSegue.h"
 #import "SWRevealViewController.h"
+#import "MenuViewController.h"
+#import "UserActionViewController.h"
+#import "EcomapRevealViewController.h"
 
 @implementation SWRevealModalSegue
 
 - (void)perform
 {
-    SWRevealViewController *rvc = [self.sourceViewController revealViewController];
-    UIViewController *dvc = self.destinationViewController;
-    [rvc presentViewController:dvc animated:YES completion:^{
-        [rvc revealToggle:nil];
-    }];
+    //Get pointer to EcomapRevealViewController
+    EcomapRevealViewController *rvc = (EcomapRevealViewController*)[self.sourceViewController revealViewController];
+    
+    //Get pointer to destination VC
+    UINavigationController *dvc = self.destinationViewController;
+    
+    //Get pointer to UserActionViewController
+    UserActionViewController *userVC = (UserActionViewController *)[dvc topViewController];
+    
+    //Get pointer to mapViewController
+    UINavigationController *mapVC = rvc.mapViewController;
+    
+    userVC.dismissBlock = ^{
+        //Cloce menu
+        [rvc revealToggleAnimated:NO];
+        //Show map
+        [rvc setFrontViewController:mapVC];
+    };
+    
+    [rvc presentViewController:dvc animated:YES completion:nil];
 }
 
 @end

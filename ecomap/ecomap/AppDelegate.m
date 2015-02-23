@@ -22,6 +22,9 @@
     // Override point for customization after application launch.
     [GMSServices provideAPIKey:@"AIzaSyC8CqCUnyZX516O08J6JUCTV03ySVQAZoI"];
     
+    //Set logged user to NO
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isUserLogged"];
+    
     //Configurate lamberjack
     [DDLog addLogger:[DDASLLogger sharedInstance]]; //DDASLLogger (sends log statements to Apple System Logger, so they show up on Console.app)
     [DDLog addLogger:[DDTTYLogger sharedInstance]]; //DDTTYLogger (sends log statements to Xcode console - if available)

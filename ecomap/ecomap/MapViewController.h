@@ -12,6 +12,5 @@
 #import "GClusterManager.h"
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate> 
-
 @end
 
