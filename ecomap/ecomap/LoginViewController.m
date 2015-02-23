@@ -45,10 +45,8 @@
              UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
              [alertView show];
              loggedUser = user;
-             [self dismissViewControllerAnimated:NO completion:^{
-                 //UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
-                 //[alertView show];
-             }];
+             self.dismissBlock();
+             [self dismissViewControllerAnimated:NO completion:nil];
              //[self performSegueWithIdentifier:@"ShowMap" sender:nil];
          }
      }
@@ -60,6 +58,9 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)cancelButton:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)customSetup

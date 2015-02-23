@@ -9,6 +9,7 @@
 #import "PieChartViewController.h"
 #import "EcomapRevealViewController.h"
 #import "XYPieChart.h"
+#import "EcomapFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "EcomapPathDefine.h"
 #import "EcomapStatsParser.h"
@@ -46,6 +47,7 @@
 {
     _statsForPieChart = statsForPieChart;
     [self.pieChartSpinner stopAnimating];
+    self.pieChartView.pieRadius = [self pieChartRadius];
     [self drawPieChart];
 }
 
@@ -55,7 +57,7 @@
     [self.topLabelSpinner stopAnimating];
 }
 
-#pragma mark - Gesture Handlers
+#pragma mark - User Interaction Handlers
 
 - (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender
 {
@@ -79,10 +81,12 @@
     [self fetchStats];
 }
 
-#pragma mark - Generating Data
+#pragma mark - Utility Methods
 
 - (void)generateTopLabelViews
 {
+
+    
     for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++)
     {
         GeneralStatsTopLabelView *topLabelView = [[GeneralStatsTopLabelView alloc] init];
@@ -92,6 +96,70 @@
         [self.scrollView addSubview:topLabelView];
     }
     _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
+}
+
+- (void)resizeTopLabelViews
+{
+    int i = NUMBER_OF_TOP_LABELS - 1;
+    
+    for(UIView *subView in self.scrollView.subviews) {
+            if([subView isKindOfClass:[GeneralStatsTopLabelView class]]) {
+            [subView setFrame:CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height)];
+            i--;
+        }
+    }
+    
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
+
+}
+
+- (void)switchPage
+{
+    [self.scrollView scrollRectToVisible:CGRectMake(self.pageControl.currentPage * self.scrollView.bounds.size.width,
+                                                    0,
+                                                    self.scrollView.bounds.size.width,
+                                                    self.scrollView.bounds.size.height)
+                                animated:YES];
+}
+
+#pragma mark - Drawing Pie Chart
+
+#define DEFAULT_DIAMETER_OF_PIE_CHART_FRAME 375.00
+#define DEFAULT_RADIUS_OF_PIE_CHART 148.00
+
+- (CGFloat)radiusScaleFactor {
+    if(self.pieChartView.bounds.size.height < self.pieChartView.bounds.size.width) {
+        return self.pieChartView.bounds.size.height / DEFAULT_DIAMETER_OF_PIE_CHART_FRAME;
+    } else {
+        return self.pieChartView.bounds.size.width / DEFAULT_DIAMETER_OF_PIE_CHART_FRAME;
+    }
+}
+
+- (CGFloat)pieChartRadius {
+    return [self radiusScaleFactor] * DEFAULT_RADIUS_OF_PIE_CHART;
+}
+
+- (void)drawPieChart
+{
+    self.slices = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [self.statsForPieChart count]; i++) {
+        NSDictionary *problems = self.statsForPieChart[i];
+        NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
+        [self.slices addObject:number];
+    }
+    
+    [self.pieChartView setDelegate:self];
+    [self.pieChartView setDataSource:self];
+    [self.pieChartView setAnimationSpeed:1.0];
+    [self.pieChartView setShowPercentage:NO];
+    [self.pieChartView setPieCenter:CGPointMake(self.pieChartView.bounds.size.width /2 , self.pieChartView.bounds.size.height / 2)];
+    [self.pieChartView setUserInteractionEnabled:NO];
+    [self.pieChartView setLabelColor:[UIColor whiteColor]];
+    
+    self.sliceColors = [self generateSliceColors];
+    
+    [self.pieChartView reloadData];
 }
 
 - (UIColor *)getSliceColorForProblemType:(NSNumber *)problemTypeID
@@ -115,8 +183,7 @@
 {
     NSMutableArray *mutableSliceColors = [[NSMutableArray alloc] init];
     
-    for(int i = 0; i < [self.statsForPieChart count]; i++)
-    {
+    for(int i = 0; i < [self.statsForPieChart count]; i++) {
         NSDictionary *problems = self.statsForPieChart[i];
         NSNumber *problemID = [NSNumber numberWithInteger:[[problems valueForKey:@"id"] integerValue]];
         UIColor *sliceColor = [self getSliceColorForProblemType:problemID];
@@ -126,81 +193,33 @@
     return mutableSliceColors;
 }
 
-- (void)switchPage
-{
-    [self.scrollView scrollRectToVisible:CGRectMake(self.pageControl.currentPage * self.scrollView.bounds.size.width,
-                                                    0,
-                                                    self.scrollView.bounds.size.width,
-                                                    self.scrollView.bounds.size.height)
-                                animated:YES];
-}
-
-#pragma mark - Drawing Pie Chart
-
-- (void)drawPieChart
-{
-    self.slices = [[NSMutableArray alloc] init];
-    
-    for(int i = 0; i < [self.statsForPieChart count]; i++)
-    {
-        NSDictionary *problems = self.statsForPieChart[i];
-        NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
-        [self.slices addObject:number];
-    }
-    
-    [self.pieChartView setDelegate:self];
-    [self.pieChartView setDataSource:self];
-    [self.pieChartView setAnimationSpeed:1.0];
-    [self.pieChartView setShowPercentage:NO];
-    [self.pieChartView setPieCenter:CGPointMake(self.pieChartView.bounds.size.width /2 , self.pieChartView.bounds.size.height / 2)];
-    [self.pieChartView setUserInteractionEnabled:NO];
-    [self.pieChartView setLabelColor:[UIColor whiteColor]];
-    
-    self.sliceColors = [self generateSliceColors];
-    
-    [self.pieChartView reloadData];
-}
-
 #pragma mark - Fetching
 
 - (void)fetchStats
 {
     [self.pieChartSpinner startAnimating];
+    EcomapStatsTimePeriod timePeriod = [EcomapStatsParser getPeriodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex];
     
-    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[EcomapStatsParser getPeriodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex]];
-    dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
-    dispatch_async(fetchQ, ^{
-        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                       options:0
-                                                                         error:NULL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.statsForPieChart = propertyListResults;
-        });
-    });
-    
+    [EcomapFetcher loadStatsForPeriod:timePeriod onCompletion:^(NSArray *stats, NSError *error) {
+        if(!error) {
+            self.statsForPieChart = stats;
+            [self.pieChartSpinner stopAnimating];
+        }
+    }];
 }
 
 - (void)fetchGeneralStats
 {
     self.generalStats = nil;
-    
     [self.topLabelSpinner startAnimating];
     
-    NSURL *url = [EcomapURLFetcher URLforGeneralStats];
-    dispatch_queue_t fetchGSQ = dispatch_queue_create("fetchGSQ", NULL);
-    dispatch_async(fetchGSQ, ^{
-        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                       options:0
-                                                                         error:NULL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.generalStats = propertyListResults;
-            if(self.generalStats) {
-                [self generateTopLabelViews];
-            }
-        });
-    });
+    [EcomapFetcher loadGeneralStatsOnCompletion:^(NSArray *stats, NSError *error) {
+        if(!error) {
+            self.generalStats = stats;
+            [self.topLabelSpinner stopAnimating];
+            [self generateTopLabelViews];
+        }
+    }];
 }
 
 #pragma mark - UIScroll View Delegate
@@ -260,10 +279,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self fetchStats];
     [self fetchGeneralStats];
     [self customSetup];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self resizeTopLabelViews];
+    self.pieChartView.pieRadius = [self pieChartRadius];
+    [self drawPieChart];
+    [self switchPage];
 }
 
 @end

@@ -20,7 +20,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [GMSServices provideAPIKey:@"AIzaSyAABL6rjWqWX7MpG6JoU9IwJ3bLmFaiAF0"];
+    [GMSServices provideAPIKey:@"AIzaSyC8CqCUnyZX516O08J6JUCTV03ySVQAZoI"];
+    
+    //Set logged user to NO
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isUserLogged"];
     
     //Configurate lamberjack
     [DDLog addLogger:[DDASLLogger sharedInstance]]; //DDASLLogger (sends log statements to Apple System Logger, so they show up on Console.app)
