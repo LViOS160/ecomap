@@ -104,6 +104,8 @@
 		CAF471991A95370000F9B567 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471981A95370000F9B567 /* ContainerViewController.m */; };
 		CAF4719C1A9543B700F9B567 /* ProblemActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */; };
 		E53ADCD91A95F40A00CCA3C3 /* SWRevealModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = E53ADCD81A95F40A00CCA3C3 /* SWRevealModalSegue.m */; };
+		E5D94AF81A9B3E4E00AE2189 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D94AF71A9B3E4E00AE2189 /* ProfileViewController.m */; };
+		E5D94AFC1A9B3EE600AE2189 /* UserActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D94AFB1A9B3EE600AE2189 /* UserActionViewController.m */; };
 		E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C921A80F9A300121A7E /* EcomapFetcher.m */; };
 		E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C941A80F9A300121A7E /* EcomapProblem.m */; };
 		E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F27C961A80F9A300121A7E /* EcomapProblemDetails.m */; };
@@ -268,6 +270,10 @@
 		E53ADCD81A95F40A00CCA3C3 /* SWRevealModalSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealModalSegue.m; sourceTree = "<group>"; };
 		E582D0B71A8CCAD200AD957A /* GlobalLoggerLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalLoggerLevel.h; sourceTree = "<group>"; };
 		E5A978951A80FE2000D8283B /* EcomapPathDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = Model/EcomapPathDefine.h; sourceTree = "<group>"; };
+		E5D94AF61A9B3E4E00AE2189 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		E5D94AF71A9B3E4E00AE2189 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		E5D94AFA1A9B3EE600AE2189 /* UserActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserActionViewController.h; sourceTree = "<group>"; };
+		E5D94AFB1A9B3EE600AE2189 /* UserActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserActionViewController.m; sourceTree = "<group>"; };
 		E5F27C911A80F9A300121A7E /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetcher.h; path = Model/EcomapFetcher.h; sourceTree = "<group>"; };
 		E5F27C921A80F9A300121A7E /* EcomapFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapFetcher.m; path = Model/EcomapFetcher.m; sourceTree = "<group>"; };
 		E5F27C931A80F9A300121A7E /* EcomapProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapProblem.h; path = Model/EcomapProblem.h; sourceTree = "<group>"; };
@@ -416,8 +422,7 @@
 				CABBB4FB1A853D400089065B /* Clustering */,
 				E5F27C901A80F98D00121A7E /* Model */,
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
-				B388FF061A7F905B009C421C /* LoginViewController.h */,
-				B388FF071A7F905B009C421C /* LoginViewController.m */,
+				E5D94AF91A9B3E5F00AE2189 /* UserViewController */,
 				B35343261A7F73ED00DD2F03 /* MapViewController.h */,
 				B35343271A7F73ED00DD2F03 /* MapViewController.m */,
 				B323B5781A89F8FF00D02E2D /* AddProblemViewController.h */,
@@ -627,6 +632,19 @@
 				4928809254C217F84D5D52F8 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		E5D94AF91A9B3E5F00AE2189 /* UserViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E5D94AFA1A9B3EE600AE2189 /* UserActionViewController.h */,
+				E5D94AFB1A9B3EE600AE2189 /* UserActionViewController.m */,
+				B388FF061A7F905B009C421C /* LoginViewController.h */,
+				B388FF071A7F905B009C421C /* LoginViewController.m */,
+				E5D94AF61A9B3E4E00AE2189 /* ProfileViewController.h */,
+				E5D94AF71A9B3E4E00AE2189 /* ProfileViewController.m */,
+			);
+			name = UserViewController;
 			sourceTree = "<group>";
 		};
 		E5F27C901A80F98D00121A7E /* Model */ = {
@@ -849,6 +867,7 @@
 				CABBB5161A853D400089065B /* SphericalMercatorProjection.m in Sources */,
 				B388FF081A7F905B009C421C /* LoginViewController.m in Sources */,
 				E5F27C991A80F9A300121A7E /* EcomapFetcher.m in Sources */,
+				E5D94AFC1A9B3EE600AE2189 /* UserActionViewController.m in Sources */,
 				CABBB5191A853D400089065B /* Spot.m in Sources */,
 				B388FF001A7F8832009C421C /* MapSegue.m in Sources */,
 				E5F27C9A1A80F9A300121A7E /* EcomapProblem.m in Sources */,
@@ -865,6 +884,7 @@
 				5F17A7911A8B74FF00C49FA1 /* NetworkActivityIndicator.m in Sources */,
 				B35343501A7F78A200DD2F03 /* MenuViewController.m in Sources */,
 				E5F27C9B1A80F9A300121A7E /* EcomapProblemDetails.m in Sources */,
+				E5D94AF81A9B3E4E00AE2189 /* ProfileViewController.m in Sources */,
 				CAF471931A95273500F9B567 /* ProblemDetailsViewController.m in Sources */,
 				5F17A78D1A8B596900C49FA1 /* ResourceDetails.m in Sources */,
 				5F2E87E61A95DA69006F3EE8 /* AddCommViewController.m in Sources */,
