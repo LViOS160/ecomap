@@ -860,7 +860,7 @@
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=compact" ambiguous="YES">
-                                            <rect key="frame" x="0.0" y="118" width="190" height="100"/>
+                                            <rect key="frame" x="0.0" y="118" width="233" height="100"/>
                                             <mask key="constraints">
                                                 <exclude reference="YbF-xa-6kX"/>
                                                 <include reference="etc-sN-u6O"/>
@@ -895,7 +895,7 @@
                                     <constraint firstItem="QPW-Mx-piL" firstAttribute="top" secondItem="rEK-99-bfh" secondAttribute="top" constant="3" id="DHE-Gd-fo7"/>
                                     <constraint firstItem="YpS-d2-1M6" firstAttribute="centerY" secondItem="QPW-Mx-piL" secondAttribute="centerY" constant="17" id="Gx3-ck-arA"/>
                                     <constraint firstAttribute="width" constant="233" id="LQP-vi-Hhr">
-                                        <variation key="heightClass=compact" constant="190"/>
+                                        <variation key="heightClass=compact" constant="233"/>
                                     </constraint>
                                     <constraint firstAttribute="trailing" secondItem="b6i-I6-Dg6" secondAttribute="trailing" id="Osj-5L-avQ"/>
                                     <constraint firstAttribute="trailing" secondItem="b6i-I6-Dg6" secondAttribute="trailing" id="U3t-r5-HIh"/>

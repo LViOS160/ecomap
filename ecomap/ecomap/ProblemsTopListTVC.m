@@ -61,10 +61,10 @@
             break;
     }
     
-    NSArray *problems = [EcomapStatsParser getPaticularTopChart:self.kindOfTopChart
-                                                            from:self.charts];
-    self.problems = problems;
+    [self drawChart];
 }
+
+#pragma mark - Utility Methods
 
 - (void)drawChart
 {
@@ -80,20 +80,9 @@
     [EcomapFetcher loadTopChartsOnCompletion:^(NSArray *charts, NSError *error) {
         if(!error) {
             self.charts = charts;
+            [self drawChart];
         }
     }];
-    /*
-    NSURL *url = [EcomapURLFetcher URLforTopChartsOfProblems];
-    dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
-    dispatch_async(fetchQ, ^{
-        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-        self.propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                   options:0
-                                                                     error:NULL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self changeKindOfTopChart:self.kindOfTopChartSegmentedControl];
-        });
-    });*/
 }
 
 #pragma mark - UITableView Data Source
