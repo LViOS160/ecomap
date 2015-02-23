@@ -9,6 +9,7 @@
 #import "PieChartViewController.h"
 #import "EcomapRevealViewController.h"
 #import "XYPieChart.h"
+#import "EcomapFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "EcomapPathDefine.h"
 #import "EcomapStatsParser.h"
@@ -197,41 +198,28 @@
 - (void)fetchStats
 {
     [self.pieChartSpinner startAnimating];
+    EcomapStatsTimePeriod timePeriod = [EcomapStatsParser getPeriodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex];
     
-    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:[EcomapStatsParser getPeriodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex]];
-    dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
-    dispatch_async(fetchQ, ^{
-        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                       options:0
-                                                                         error:NULL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.statsForPieChart = propertyListResults;
-        });
-    });
-    
+    [EcomapFetcher loadStatsForPeriod:timePeriod onCompletion:^(NSArray *stats, NSError *error) {
+        if(!error) {
+            self.statsForPieChart = stats;
+            [self.pieChartSpinner stopAnimating];
+        }
+    }];
 }
 
 - (void)fetchGeneralStats
 {
     self.generalStats = nil;
-    
     [self.topLabelSpinner startAnimating];
     
-    NSURL *url = [EcomapURLFetcher URLforGeneralStats];
-    dispatch_queue_t fetchGSQ = dispatch_queue_create("fetchGSQ", NULL);
-    dispatch_async(fetchGSQ, ^{
-        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-        NSArray *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                       options:0
-                                                                         error:NULL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.generalStats = propertyListResults;
-            if(self.generalStats) {
-                [self generateTopLabelViews];
-            }
-        });
-    });
+    [EcomapFetcher loadGeneralStatsOnCompletion:^(NSArray *stats, NSError *error) {
+        if(!error) {
+            self.generalStats = stats;
+            [self.topLabelSpinner stopAnimating];
+            [self generateTopLabelViews];
+        }
+    }];
 }
 
 #pragma mark - UIScroll View Delegate
