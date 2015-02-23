@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "facebookLoginButton@1x.png"
+      "filename" : "EmailField.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "facebookLoginButton@2x.png"
+      "filename" : "EmailField@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "facebookLoginButton@3x.png"
+      "filename" : "EmailField@3x.png"
     }
   ],
   "info" : {

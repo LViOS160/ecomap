@@ -76,6 +76,10 @@
     }
     
 }
+- (IBAction)panGesture:(id)sender {
+    NSLog(@"Tap");
+    [self.view endEditing:YES];
+}
 
 /*
 #pragma mark - Navigation

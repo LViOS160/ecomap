@@ -25,6 +25,7 @@
 		51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */; };
 		51A9F1DF1A93880000666C23 /* EMThumbnailImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9F1DE1A93880000666C23 /* EMThumbnailImageStore.m */; };
 		51B485271A8417CB00BA8AFF /* EcomapLoggedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B485261A8417CB00BA8AFF /* EcomapLoggedUser.m */; };
+		51D1D95B1A9BD4A5006E5618 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51D1D95A1A9BD4A5006E5618 /* Images.xcassets */; };
 		5F17A7871A8B592600C49FA1 /* EcomapResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7841A8B592600C49FA1 /* EcomapResources.m */; };
 		5F17A7881A8B592600C49FA1 /* EcomapAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7861A8B592600C49FA1 /* EcomapAlias.m */; };
 		5F17A78C1A8B596900C49FA1 /* ResourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17A7891A8B596900C49FA1 /* ResourceCell.m */; };
@@ -69,7 +70,6 @@
 		B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B35343231A7F73ED00DD2F03 /* ecomap.xcdatamodeld */; };
 		B35343281A7F73ED00DD2F03 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35343271A7F73ED00DD2F03 /* MapViewController.m */; };
 		B353432B1A7F73ED00DD2F03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B35343291A7F73ED00DD2F03 /* Main.storyboard */; };
-		B353432D1A7F73ED00DD2F03 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B353432C1A7F73ED00DD2F03 /* Images.xcassets */; };
 		B35343301A7F73ED00DD2F03 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B353432E1A7F73ED00DD2F03 /* LaunchScreen.xib */; };
 		B353433C1A7F73ED00DD2F03 /* ecomapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B353433B1A7F73ED00DD2F03 /* ecomapTests.m */; };
 		B353434A1A7F758000DD2F03 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35343491A7F758000DD2F03 /* SWRevealViewController.m */; };
@@ -146,6 +146,7 @@
 		51A9F1DE1A93880000666C23 /* EMThumbnailImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EMThumbnailImageStore.m; path = Model/EMThumbnailImageStore.m; sourceTree = "<group>"; };
 		51B485251A8417CB00BA8AFF /* EcomapLoggedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapLoggedUser.h; path = Model/EcomapLoggedUser.h; sourceTree = "<group>"; };
 		51B485261A8417CB00BA8AFF /* EcomapLoggedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapLoggedUser.m; path = Model/EcomapLoggedUser.m; sourceTree = "<group>"; };
+		51D1D95A1A9BD4A5006E5618 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5F17A7831A8B592600C49FA1 /* EcomapResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapResources.h; sourceTree = "<group>"; };
 		5F17A7841A8B592600C49FA1 /* EcomapResources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapResources.m; sourceTree = "<group>"; };
 		5F17A7851A8B592600C49FA1 /* EcomapAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAlias.h; sourceTree = "<group>"; };
@@ -199,7 +200,6 @@
 		B35343261A7F73ED00DD2F03 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		B35343271A7F73ED00DD2F03 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		B353432A1A7F73ED00DD2F03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B353432C1A7F73ED00DD2F03 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B353432F1A7F73ED00DD2F03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B35343351A7F73ED00DD2F03 /* ecomapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ecomapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B353433A1A7F73ED00DD2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -473,7 +473,7 @@
 				B35343201A7F73ED00DD2F03 /* AppDelegate.h */,
 				B35343211A7F73ED00DD2F03 /* AppDelegate.m */,
 				B3C56A4E1A8A169000877227 /* add.png */,
-				B353432C1A7F73ED00DD2F03 /* Images.xcassets */,
+				51D1D95A1A9BD4A5006E5618 /* Images.xcassets */,
 				B353432E1A7F73ED00DD2F03 /* LaunchScreen.xib */,
 				B35343231A7F73ED00DD2F03 /* ecomap.xcdatamodeld */,
 				B353431D1A7F73ED00DD2F03 /* Info.plist */,
@@ -769,6 +769,7 @@
 				B3A8D0871A85439500017BAE /* AddProblemLocationView.xib in Resources */,
 				B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */,
 				9096C9A21A9214DA00A61CDB /* (null) in Resources */,
+				51D1D95B1A9BD4A5006E5618 /* Images.xcassets in Resources */,
 				90BD46021A95F00C00D445DC /* OpenSans-Italic.ttf in Resources */,
 				90BD46041A95F01100D445DC /* OpenSans-LightItalic.ttf in Resources */,
 				9096C99F1A9214D900A61CDB /* (null) in Resources */,
@@ -777,7 +778,6 @@
 				9096C99B1A9214D900A61CDB /* (null) in Resources */,
 				90BD46061A95F01700D445DC /* OpenSans-Semibold.ttf in Resources */,
 				9096C99C1A9214D900A61CDB /* (null) in Resources */,
-				B353432D1A7F73ED00DD2F03 /* Images.xcassets in Resources */,
 				90BD46031A95F00F00D445DC /* OpenSans-Light.ttf in Resources */,
 				9096C9A11A9214DA00A61CDB /* (null) in Resources */,
 				9096C99D1A9214D900A61CDB /* (null) in Resources */,
