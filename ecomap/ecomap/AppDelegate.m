@@ -38,14 +38,23 @@
     //Keep in mind that he Caches directory can be emptied by the operating system at any time. If you want to store your application's log files in a safer location, then I suggest storing them in the application's Documents directory.
     
     
+
 //    UIUserNotificationSettings *settings =
-//    [UIUserNotificationSettings
+//    [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert |
+//     UIUserNotificationTypeBadge |
+//     UIUserNotificationTypeSound
 //                                      categories:nil];
-//    
 //    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
-    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"myData.json"];
+    NSLog(@"filePath %@", filePath);
+//    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];
+  //  [fileHandle writeData:[@"YEY\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+    NSString *str = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    NSLog(@"My str from file = %@", str);
     return YES;
 }
 
@@ -81,7 +90,12 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
 {
-    NSLog(@"YEY!");
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"myData.json"];
+    NSLog(@"filePath %@", filePath);
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];
+    [fileHandle writeData:[@"YEY\n" dataUsingEncoding:NSUTF8StringEncoding] ];
 
     handler(UIBackgroundFetchResultNewData);
 }
