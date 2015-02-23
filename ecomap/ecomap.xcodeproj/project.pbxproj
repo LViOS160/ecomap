@@ -353,21 +353,13 @@
 			name = "Value-Object Classes";
 			sourceTree = "<group>";
 		};
-		9096C9891A91E5F200A61CDB /* GeneralStats */ = {
-			isa = PBXGroup;
-			children = (
-				9096C98A1A91E8AD00A61CDB /* View */,
-			);
-			name = GeneralStats;
-			sourceTree = "<group>";
-		};
-		9096C98A1A91E8AD00A61CDB /* View */ = {
+		9096C9891A91E5F200A61CDB /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				90838F5F1A94B1260025ACCB /* GeneralStatsTopLabelView.h */,
 				90838F601A94B1260025ACCB /* GeneralStatsTopLabelView.m */,
 			);
-			name = View;
+			name = Views;
 			sourceTree = "<group>";
 		};
 		9096C98E1A9214D900A61CDB /* Open_Sans */ = {
@@ -419,47 +411,19 @@
 		B353431B1A7F73ED00DD2F03 /* ecomap */ = {
 			isa = PBXGroup;
 			children = (
-				CABBB4FB1A853D400089065B /* Clustering */,
-				E5F27C901A80F98D00121A7E /* Model */,
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
-				E5D94AF91A9B3E5F00AE2189 /* UserViewController */,
-				B35343261A7F73ED00DD2F03 /* MapViewController.h */,
-				B35343271A7F73ED00DD2F03 /* MapViewController.m */,
-				B323B5781A89F8FF00D02E2D /* AddProblemViewController.h */,
-				B323B5791A89F8FF00D02E2D /* AddProblemViewController.m */,
-				B353434E1A7F78A200DD2F03 /* MenuViewController.h */,
-				B353434F1A7F78A200DD2F03 /* MenuViewController.m */,
-				90AE1B7A1A84BD3E0009F641 /* ProblemsTopListTVC.h */,
-				90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */,
-				CAF471911A95273500F9B567 /* ProblemDetailsViewController.h */,
-				CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */,
-				CAF4719A1A9543B700F9B567 /* ProblemActivityViewController.h */,
-				CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */,
-				CA4027A61A8F632800CA835F /* ProblemViewController.h */,
-				CA4027A71A8F632800CA835F /* ProblemViewController.m */,
-				CAF471971A95370000F9B567 /* ContainerViewController.h */,
-				CAF471981A95370000F9B567 /* ContainerViewController.m */,
-				90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */,
-				90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */,
 				51A9F1CD1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.h */,
 				51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */,
-				B388FF031A7F8AFF009C421C /* ResourcesViewController.h */,
-				B388FF041A7F8AFF009C421C /* ResourcesViewController.m */,
-				5F17A78E1A8B597900C49FA1 /* ResourceCell.h */,
-				5F17A7891A8B596900C49FA1 /* ResourceCell.m */,
-				5F17A78A1A8B596900C49FA1 /* ResourceDetails.h */,
-				5F17A78B1A8B596900C49FA1 /* ResourceDetails.m */,
-				5F2E87EA1A95DCA3006F3EE8 /* CommentCell.h */,
-				5F2E87EB1A95DCA3006F3EE8 /* CommentCell.m */,
-				5F2E87E41A95DA69006F3EE8 /* AddCommViewController.h */,
-				5F2E87E51A95DA69006F3EE8 /* AddCommViewController.m */,
-				B3A8D0901A85545D00017BAE /* AddProblem */,
-				90AE1B801A84BD730009F641 /* XYPieChart */,
-				9096C9891A91E5F200A61CDB /* GeneralStats */,
-				12B47F261A83A142008FAF8D /* RegisterViewController.h */,
-				12B47F271A83A142008FAF8D /* RegisterViewController.m */,
+				CABBB4FB1A853D400089065B /* Clustering */,
+				E5F27C901A80F98D00121A7E /* Model */,
+				B3AB4AEE1A9BDC9A0089F20C /* AddProblem */,
+				B3AB4AE91A9BDA800089F20C /* ProblemView */,
+				B3AB4AE71A9BDA540089F20C /* TopProblemsViewController */,
+				B3AB4AE61A9BDA440089F20C /* ResourcesView */,
+				E5D94AF91A9B3E5F00AE2189 /* UserViewController */,
+				B3AB4AE51A9BD97B0089F20C /* StatisticViewController */,
+				B3AB4AE41A9BD9580089F20C /* RootViewControllers */,
 				B388FF021A7F89D5009C421C /* Segues */,
-				B35343471A7F758000DD2F03 /* SWRevealViewController */,
 				B353431C1A7F73ED00DD2F03 /* Supporting Files */,
 			);
 			path = ecomap;
@@ -545,15 +509,120 @@
 			name = Segues;
 			sourceTree = "<group>";
 		};
-		B3A8D0901A85545D00017BAE /* AddProblem */ = {
+		B3AB4AE41A9BD9580089F20C /* RootViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B3FF8F9F1A84DE0B008FED3D /* Views */,
+				B35343471A7F758000DD2F03 /* SWRevealViewController */,
+				B353434E1A7F78A200DD2F03 /* MenuViewController.h */,
+				B353434F1A7F78A200DD2F03 /* MenuViewController.m */,
+				B35343261A7F73ED00DD2F03 /* MapViewController.h */,
+				B35343271A7F73ED00DD2F03 /* MapViewController.m */,
+			);
+			name = RootViewControllers;
+			sourceTree = "<group>";
+		};
+		B3AB4AE51A9BD97B0089F20C /* StatisticViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B3AB4AF11A9BDD370089F20C /* Model */,
+				9096C9891A91E5F200A61CDB /* Views */,
+				B3AB4AF21A9BDD4A0089F20C /* Controllers */,
+			);
+			name = StatisticViewController;
+			sourceTree = "<group>";
+		};
+		B3AB4AE61A9BDA440089F20C /* ResourcesView */ = {
+			isa = PBXGroup;
+			children = (
+				B3AB4AEC1A9BDC3A0089F20C /* Controllers */,
+				B3AB4AED1A9BDC530089F20C /* Views */,
+			);
+			name = ResourcesView;
+			sourceTree = "<group>";
+		};
+		B3AB4AE71A9BDA540089F20C /* TopProblemsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				90AE1B7A1A84BD3E0009F641 /* ProblemsTopListTVC.h */,
+				90AE1B7B1A84BD3E0009F641 /* ProblemsTopListTVC.m */,
+			);
+			name = TopProblemsViewController;
+			sourceTree = "<group>";
+		};
+		B3AB4AE91A9BDA800089F20C /* ProblemView */ = {
+			isa = PBXGroup;
+			children = (
+				B3AB4AEB1A9BDC190089F20C /* Controllers */,
+				B3AB4AEA1A9BDBFA0089F20C /* Views */,
+			);
+			name = ProblemView;
+			sourceTree = "<group>";
+		};
+		B3AB4AEA1A9BDBFA0089F20C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F2E87EA1A95DCA3006F3EE8 /* CommentCell.h */,
+				5F2E87EB1A95DCA3006F3EE8 /* CommentCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		B3AB4AEB1A9BDC190089F20C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5F2E87E41A95DA69006F3EE8 /* AddCommViewController.h */,
+				5F2E87E51A95DA69006F3EE8 /* AddCommViewController.m */,
+				CAF471911A95273500F9B567 /* ProblemDetailsViewController.h */,
+				CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */,
+				CA4027A61A8F632800CA835F /* ProblemViewController.h */,
+				CA4027A71A8F632800CA835F /* ProblemViewController.m */,
+				CAF4719A1A9543B700F9B567 /* ProblemActivityViewController.h */,
+				CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */,
+				CAF471971A95370000F9B567 /* ContainerViewController.h */,
+				CAF471981A95370000F9B567 /* ContainerViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B3AB4AEC1A9BDC3A0089F20C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B388FF031A7F8AFF009C421C /* ResourcesViewController.h */,
+				B388FF041A7F8AFF009C421C /* ResourcesViewController.m */,
+				5F17A78A1A8B596900C49FA1 /* ResourceDetails.h */,
+				5F17A78B1A8B596900C49FA1 /* ResourceDetails.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B3AB4AED1A9BDC530089F20C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F17A78E1A8B597900C49FA1 /* ResourceCell.h */,
+				5F17A7891A8B596900C49FA1 /* ResourceCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		B3AB4AEE1A9BDC9A0089F20C /* AddProblem */ = {
+			isa = PBXGroup;
+			children = (
+				B3AB4AF01A9BDCC40089F20C /* Views */,
+				B3AB4AEF1A9BDCA80089F20C /* Controllers */,
 			);
 			name = AddProblem;
 			sourceTree = "<group>";
 		};
-		B3FF8F9F1A84DE0B008FED3D /* Views */ = {
+		B3AB4AEF1A9BDCA80089F20C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B323B5781A89F8FF00D02E2D /* AddProblemViewController.h */,
+				B323B5791A89F8FF00D02E2D /* AddProblemViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B3AB4AF01A9BDCC40089F20C /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				B3488A6B1A8A027A00BDAF84 /* AddProblemNavigationView.xib */,
@@ -565,6 +634,23 @@
 				B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		B3AB4AF11A9BDD370089F20C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				90AE1B801A84BD730009F641 /* XYPieChart */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B3AB4AF21A9BDD4A0089F20C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				90AE1B7C1A84BD3E0009F641 /* PieChartViewController.h */,
+				90AE1B7D1A84BD3E0009F641 /* PieChartViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		CABBB4FB1A853D400089065B /* Clustering */ = {
@@ -643,6 +729,8 @@
 				B388FF071A7F905B009C421C /* LoginViewController.m */,
 				E5D94AF61A9B3E4E00AE2189 /* ProfileViewController.h */,
 				E5D94AF71A9B3E4E00AE2189 /* ProfileViewController.m */,
+				12B47F261A83A142008FAF8D /* RegisterViewController.h */,
+				12B47F271A83A142008FAF8D /* RegisterViewController.m */,
 			);
 			name = UserViewController;
 			sourceTree = "<group>";
