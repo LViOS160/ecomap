@@ -16,7 +16,7 @@
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
-@interface ProblemDetailsViewController () <IDMPhotoBrowserDelegate>
+@interface ProblemDetailsViewController () <IDMPhotoBrowserDelegate , UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPhotoGallary;
@@ -191,6 +191,28 @@
 - (void)buttonToAddImagePressed:(id)sender
 {
     DDLogVerbose(@"'Add image' button pressed");
+    UIImagePickerController *uiipc = [[UIImagePickerController alloc]init];
+    uiipc.delegate = self;
+    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
+#if (TARGET_IPHONE_SIMULATOR)
+    uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+#else
+    uiipc.sourceType = UIImagePickerControllerSourceTypeCamera | UIImagePickerControllerSourceTypePhotoLibrary;
+#endif.    
+    uiipc.allowsEditing =YES;
+    [self presentViewController:uiipc animated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    if(!image) image = info[UIImagePickerControllerOriginalImage];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)buttonWithImageOnScreenPressed:(id)sender
