@@ -637,6 +637,29 @@
             }];
 }
 
++ (void)loadTopChartsOnCompletion:(void (^)(NSArray *charts, NSError *error))completionHandler
+{
+    [self dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforTopChartsOfProblems]]
+         sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+            completionHandler:^(NSData *JSON, NSError *error) {
+                NSArray *charts = nil;
+                if(error) {
+                    NSLog(@"ERROR! Problems with fetching stats for period");
+                } else if((error.code / 100 == 5) || (abs(error.code / 100) == 10)) {
+                    [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
+                } else {
+                    // Extract recieved data
+                    if(JSON != nil) {
+                        charts = [NSJSONSerialization JSONObjectWithData:JSON
+                                                                options:0
+                                                                  error:NULL];
+                    }
+                }
+                // Set up completion handler
+                completionHandler(charts, error);
+}];
+}
+
 #pragma mark - Data tasks
 //Data task
 +(void)dataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler

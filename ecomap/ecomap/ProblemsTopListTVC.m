@@ -18,7 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *kindOfTopChartSegmentedControl;
 @property (nonatomic) EcomapKindfOfTheProblemsTopList kindOfTopChart;
-@property (strong, nonatomic) NSArray *propertyListResults;
+@property (strong, nonatomic) NSArray *charts;
 @property (strong, nonatomic) IBOutlet UITableView *topChartTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 
@@ -29,10 +29,10 @@
 
 #pragma mark - Properties
 
-- (NSArray *)propertyListResults
+- (NSArray *)charts
 {
-    if(!_propertyListResults) _propertyListResults = [[NSArray alloc] init];
-    return _propertyListResults;
+    if(!_charts) _charts = [[NSArray alloc] init];
+    return _charts;
 }
 
 - (void)setProblems:(NSArray *)problems
@@ -42,7 +42,7 @@
 }
 
 
-#pragma mark - Gesture Handlers
+#pragma mark - User Interaction Handlers
 
 - (IBAction)changeKindOfTopChart:(UISegmentedControl *)sender
 {
@@ -62,8 +62,14 @@
     }
     
     NSArray *problems = [EcomapStatsParser getPaticularTopChart:self.kindOfTopChart
-                                                            from:self.propertyListResults];
-    
+                                                            from:self.charts];
+    self.problems = problems;
+}
+
+- (void)drawChart
+{
+    NSArray *problems = [EcomapStatsParser getPaticularTopChart:self.kindOfTopChart
+                                                           from:self.charts];
     self.problems = problems;
 }
 
@@ -71,6 +77,12 @@
 
 - (void)fetchProblems
 {
+    [EcomapFetcher loadTopChartsOnCompletion:^(NSArray *charts, NSError *error) {
+        if(!error) {
+            self.charts = charts;
+        }
+    }];
+    /*
     NSURL *url = [EcomapURLFetcher URLforTopChartsOfProblems];
     dispatch_queue_t fetchQ = dispatch_queue_create("fetchQ", NULL);
     dispatch_async(fetchQ, ^{
@@ -81,7 +93,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self changeKindOfTopChart:self.kindOfTopChartSegmentedControl];
         });
-    });
+    });*/
 }
 
 #pragma mark - UITableView Data Source

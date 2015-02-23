@@ -35,11 +35,14 @@
 // Load alias of resources (its a path to details of resources)
 +(void)loadAliasOnCompletion:(void (^)(NSArray *alias, NSError *error))completionHandler String:(NSString*)str;
 
-// Load stats for particular time period to draw a pie chart
+// Load stats for particular time period to draw a pie chart in Stats View Controller
 + (void)loadStatsForPeriod:(EcomapStatsTimePeriod)period onCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler;
 
 // Load general statistics to draw top label in Stats View Controller
 + (void)loadGeneralStatsOnCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler;
+
+// Load top charts of problems to show them in Top Chart List View Controller
++ (void)loadTopChartsOnCompletion:(void (^)(NSArray *charts, NSError *error))completionHandler;
 
 //Logout
 + (void)logoutUser:(EcomapLoggedUser *)loggedUser OnCompletion:(void (^)(BOOL result, NSError *error))completionHandler;
