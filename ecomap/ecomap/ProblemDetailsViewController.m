@@ -191,17 +191,46 @@
 - (void)buttonToAddImagePressed:(id)sender
 {
     DDLogVerbose(@"'Add image' button pressed");
-    UIImagePickerController *uiipc = [[UIImagePickerController alloc]init];
-    uiipc.delegate = self;
-    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"Вихід" otherButtonTitles:@"Камера",@"Галерея", nil];
+    [alert show];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+        // в buttonIndex содержится номер кнопки
+        UIImagePickerController *uiipc = [[UIImagePickerController alloc]init];
+        uiipc.delegate = self;
+        uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
 #if (TARGET_IPHONE_SIMULATOR)
-    uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 #else
-    uiipc.sourceType = UIImagePickerControllerSourceTypeCamera | UIImagePickerControllerSourceTypePhotoLibrary;
-#endif.    
-    uiipc.allowsEditing =YES;
+        uiipc.sourceType = UIImagePickerControllerSourceTypeCamera | UIImagePickerControllerSourceTypePhotoLibrary;
+#endif
+        uiipc.allowsEditing =YES;
+
+        switch (buttonIndex) {
+            case 1:
+                uiipc.sourceType = UIImagePickerControllerSourceTypeCamera;
+                break;
+            case 2:
+                uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                break;
+        }
     [self presentViewController:uiipc animated:YES completion:NULL];
 }
+
+
+/*UIImagePickerController *uiipc = [[UIImagePickerController alloc]init];
+uiipc.delegate = self;
+uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
+#if (TARGET_IPHONE_SIMULATOR)
+uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+#else
+uiipc.sourceType = UIImagePickerControllerSourceTypeCamera | UIImagePickerControllerSourceTypePhotoLibrary;
+#endif
+uiipc.allowsEditing =YES;
+[self presentViewController:uiipc animated:YES completion:NULL];*/
+
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {

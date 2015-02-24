@@ -15,6 +15,7 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapProblemDetails.h"
 #import "Defines.h"
+#import "GlobalLoggerLevel.h"
 
 @interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSArray* comments;
@@ -46,14 +47,14 @@
                       andPassword:@"eco"
                      OnCompletion:^(EcomapLoggedUser *user, NSError *error) {
                          if (!error) {
-                             NSLog(@"User role: %@", user.role);
+                             DDLogVerbose(@"User role: %@", user.role);
                              
                              //Read current logged user
                              
                              
                              
                          } else {
-                             NSLog(@"Error to login: %@", error);
+                             DDLogVerbose(@"Error to login: %@", error);
                          }
                      }];
 
@@ -78,7 +79,7 @@
         }
     }
     self.comments = comments;
-    NSLog(@"%lu",(unsigned long)self.comments.count);
+    DDLogVerbose(@"%lu",(unsigned long)self.comments.count);
     [self.myTableView reloadData];
 }
 - (void)didReceiveMemoryWarning {
@@ -95,14 +96,14 @@
     
   NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
    // NSString * probID = [NSString stringWithFormat:@"%lu",(unsigned long)idOfPr.problemID];
-    NSLog(@"%@____",userID);
-      NSLog(@"%@",userIdent.name);
-     NSLog(@"%@",userIdent.surname);
-   //  NSLog(@"%@",probID);
+    DDLogVerbose(@"%@____",userID);
+      DDLogVerbose(@"%@",userIdent.name);
+     DDLogVerbose(@"%@",userIdent.surname);
+   //  DDLogVerbose(@"%@",probID);
     [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
         
         if(error)
-            NSLog(@"Trouble");
+            DDLogVerbose(@"Trouble");
         else
             [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
 
@@ -114,7 +115,7 @@
     /*
     [EcomapFetcher createComment:@"1" andName:@"admin" andSurname:@"1" andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
         if(error)
-            NSLog(@"Trouble");
+            DDLogVerbose(@"Trouble");
         //  EcomapCommentsChild *q = [[EcomapCommentsChild alloc]init];
         //  q=obj;
         
@@ -132,7 +133,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-   // NSLog(@"%d",self.comments.count);
+   // DDLogVerbose(@"%d",self.comments.count);
     return self.comments.count;
 }
 

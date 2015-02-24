@@ -28,6 +28,7 @@
 #define ECOMAP_GET_ALIAS @"resources/"
 #define ECOMAP_POST_VOTE @"vote/"
 #define ECOMAP_POST_COMMENT @"comment/"
+#define ECOMAP_POST_PHOTO @"photo/"
 
 //Queries for statistics
 #define ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS @"getStats4"

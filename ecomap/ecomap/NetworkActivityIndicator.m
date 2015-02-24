@@ -27,7 +27,7 @@
 }
 
 -(void)startActivity
-{    //NSLog(@"%ld",(long)self.tasks);
+{    //DDLogVerbose(@"%ld",(long)self.tasks);
     @synchronized(self)
     {
         if(self.application.isStatusBarHidden)
@@ -43,7 +43,7 @@
 }
 
 -(void)endActivity
-{  //NSLog(@"%ld",(long)self.tasks);
+{  //DDLogVerbose(@"%ld",(long)self.tasks);
     @synchronized(self)
     {
         if(self.application.isStatusBarHidden)

@@ -18,6 +18,8 @@
 #import "ProblemViewController.h"
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapFilter.h"
+#import "GlobalLoggerLevel.h"
+#import "SRWebSocket.h"
 
 #define FILTER_ON NO
 
@@ -55,7 +57,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"problems.json"];
-    NSLog(@"filePath %@", filePath);
+    DDLogVerbose(@"filePath %@", filePath);
     return filePath;
 }
 
@@ -65,6 +67,9 @@
 }
 
 - (void)renewMap:(NSSet*)problems {
+    [self startStandardUpdates];
+    [self.clusterManager removeItems];
+    [self.mapView clear];
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
                                                     algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                      renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
@@ -89,7 +94,6 @@
         
         NSArray *filteredProblems = [EcomapFilter filterProblemsArray:arrayOfProblems usingFilteringMask:mask];
         
-        [self.mapView setDelegate:self];
         for(EcomapProblem *problem in filteredProblems) {
             if([problem isKindOfClass:[EcomapProblem class]]){
                 Spot* spot = [self generateSpot:problem];
@@ -102,7 +106,7 @@
         
         // Working code
         
-        [self.mapView setDelegate:self];
+   
         for(EcomapProblem *problem in problems) {
             if([problem isKindOfClass:[EcomapProblem class]]){
                 Spot* spot = [self generateSpot:problem];
@@ -127,10 +131,9 @@
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.compassButton = YES;
+    [self.mapView setDelegate:self];
     [self.view insertSubview:self.mapView atIndex:0];
-    [self startStandardUpdates];
-    [self loadLocalJSON];
-    self.problems = [self loadLocalJSON];
+   self.problems = [self loadLocalJSON];
     
 
     if (_problems)
@@ -169,8 +172,8 @@
         self.locationManager = [[CLLocationManager alloc] init];
     
     self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
-    self.locationManager.distanceFilter = 500; // meters
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+    self.locationManager.distanceFilter = 3000; // meters
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager startUpdatingLocation];
     

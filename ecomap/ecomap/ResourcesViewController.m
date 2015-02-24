@@ -15,6 +15,7 @@
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
 #import "EcomapPathDefine.h"
+#import "GlobalLoggerLevel.h"
 @interface ResourcesViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
@@ -95,7 +96,7 @@
              
              NSMutableArray *titlesOfResources = [[NSMutableArray alloc]init];
              NSMutableArray *aliasesFromResources = [[NSMutableArray alloc]init];
-             EcomapResources *ecoResources = [[EcomapResources alloc]init];
+             EcomapResources *ecoResources = nil;
              for(id result in resources)
              {    ecoResources = result;
                  [titlesOfResources addObject:ecoResources.titleRes];              // fill the array of Titles of resources
@@ -112,7 +113,7 @@
          }
          else
          {
-             NSLog(@"ERROR");
+             DDLogVerbose(@"ERROR");
              
          }
      }
@@ -129,13 +130,13 @@
     [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
         if(!error)
         {
-            EcomapAlias *ecoal = [[EcomapAlias alloc]init];
+            EcomapAlias *ecoal = nil;
             ecoal=alias.firstObject;
             completionHandler(ecoal.content, nil);
             
         }
         else{
-            NSLog(@"Error");
+            DDLogVerbose(@"Error");
         }
         
         
@@ -164,7 +165,7 @@
      NSString *test = @"98";
      [EcomapFetcher createComment:@"1" andName:@"admin" andSurname:@"admin" andContent:@"abcdefg" andProblemId:test OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
      if(error)
-     NSLog(@"Trouble");
+     DDLogVerbose(@"Trouble");
      EcomapCommentsChild *q = [[EcomapCommentsChild alloc]init];
      q=obj;
      

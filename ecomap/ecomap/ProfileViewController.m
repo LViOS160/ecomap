@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 #import "EcomapFetcher.h"
 #import "EcomapLoggedUser.h"
+#import "GlobalLoggerLevel.h"
 
 @interface ProfileViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -51,7 +52,7 @@
 - (IBAction)LogoutButton:(id)sender {
     [EcomapFetcher logoutUser:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(BOOL result, NSError *error) {
         if (!error) {
-            if(result) NSLog(@"%d", result);
+            if(result) DDLogVerbose(@"%d", result);
         }
     }];
     self.dismissBlock();
