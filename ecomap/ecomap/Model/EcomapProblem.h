@@ -25,3 +25,9 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder;
 
 @end
+
+@protocol EcomapProblemHolder
+
+- (void)setProblem:(EcomapProblem*)problem;
+
+@end
