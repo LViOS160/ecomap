@@ -13,9 +13,8 @@
 #import "EcomapStatsParser.h"
 #import "EcomapPathDefine.h"
 #import "EcomapRevealViewController.h"
+#import "ProblemViewController.h"
 #import "CocoaLumberjack.h"
-
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @interface ProblemsTopListTVC ()
 
@@ -106,9 +105,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSDictionary *problem = self.problems[indexPath.row];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
     cell.textLabel.text = [EcomapStatsParser getTitleForParticularTopChart:self.kindOfTopChart fromProblem:problem];
-    DDLogVerbose(@"Problem: %@", problem);
-    cell.textLabel.tag = [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue];
-    DDLogVerbose(@"Problem ID: %d", cell.textLabel.tag);
     return cell;
 }
 
@@ -118,6 +114,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    
+    if ([segue.identifier isEqualToString:@"Show Problem"]) {
+        if([segue.destinationViewController isKindOfClass:[ProblemViewController class]]) {
+            ProblemViewController *problemVC = segue.destinationViewController;
+            NSDictionary *problem = self.problems[indexPath.row];
+            problemVC.problemID = [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue];
+        }
+    }
 }
 
 #pragma mark - Initialization
