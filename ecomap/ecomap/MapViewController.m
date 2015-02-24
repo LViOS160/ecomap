@@ -18,6 +18,7 @@
 #import "ProblemViewController.h"
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapFilter.h"
+#import "GlobalLoggerLevel.h"
 
 #define FILTER_ON NO
 
@@ -55,7 +56,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"problems.json"];
-    NSLog(@"filePath %@", filePath);
+    DDLogVerbose(@"filePath %@", filePath);
     return filePath;
 }
 

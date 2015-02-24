@@ -37,7 +37,7 @@
                     NSMutableArray *problems = nil;
                     NSArray *problemsFromJSON = nil;
                     if (error) {
-                        NSLog(@"%d", abs(error.code / 100));
+                        DDLogVerbose(@"%d", abs(error.code / 100));
                     }
                     if (!error) {
                         //Extract received data
@@ -148,7 +148,7 @@
     [self dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAlias:str]]
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
-                    NSLog(@"%@",str);
+                    DDLogVerbose(@"%@",str);
                     NSMutableArray *alias = nil;
                     NSArray *aliasFromJSON = nil;
                     
@@ -162,7 +162,7 @@
                         for(NSDictionary *aliases in aliasFromJSON)
                         {
                             EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:aliases];
-                            //  NSLog(@"%@",ecoAl.content);
+                            //  DDLogVerbose(@"%@",ecoAl.content);
                             [alias addObject:ecoAl];
                             
                         }
@@ -196,7 +196,7 @@
                             EcomapResources *ecoRes = [[EcomapResources alloc] initWithResource:resource];
                             [resources addObject:ecoRes];
                             
-                            // NSLog(@"%@",resources);
+                            // DDLogVerbose(@"%@",resources);
                             
                         }
                     }
@@ -304,10 +304,10 @@
         NSString *filename  = [path lastPathComponent];
         NSData   *data      = [NSData dataWithContentsOfFile:path];
         NSString *mimetype  = [EcomapFetcher mimeTypeForPath:path];
-        NSLog(@"%@", [NSString stringWithFormat:@"--%@\r\n", boundary]);
-        NSLog(@"%@", [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fieldName, filename]);
-        NSLog(@"%@", [NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimetype]);
-        NSLog(@"%@", [NSString stringWithFormat:@"--%@--\r\n", boundary]);
+        DDLogVerbose(@"%@", [NSString stringWithFormat:@"--%@\r\n", boundary]);
+        DDLogVerbose(@"%@", [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fieldName, filename]);
+        DDLogVerbose(@"%@", [NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimetype]);
+        DDLogVerbose(@"%@", [NSString stringWithFormat:@"--%@--\r\n", boundary]);
 
         
         [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -437,12 +437,12 @@
                                                    fromData:httpBody
                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                     if (error) {
-                                                        NSLog(@"error = %@", error);
+                                                        DDLogVerbose(@"error = %@", error);
                                                         return;
                                                     }
                                                     
                                                     NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                    NSLog(@"result = %@", result);
+                                                    DDLogVerbose(@"result = %@", result);
                                                     completionHandler(result, error);
                                                 }];
     [task resume];
@@ -497,7 +497,7 @@
 //                          loggedUser = [[EcomapLoggedUser alloc] initWithUserInfo:userInfo];
 //                          //Log success login
 //                          if (loggedUser) {
-                        NSLog(@"Register to ecomap success!");
+                        DDLogVerbose(@"Register to ecomap success!");
 //                          }
                       }
                       
@@ -598,7 +598,7 @@
             completionHandler:^(NSData *JSON, NSError *error) {
                 NSArray *stats = nil;
                 if(error) {
-                    NSLog(@"ERROR! Problems with fetching stats for period");
+                    DDLogVerbose(@"ERROR! Problems with fetching stats for period");
                 } else if((error.code / 100 == 5) || (abs(error.code / 100) == 10)) {
                     [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                 } else {
@@ -621,7 +621,7 @@
             completionHandler:^(NSData *JSON, NSError *error) {
                 NSArray *stats = nil;
                 if(error) {
-                    NSLog(@"ERROR! Problems with fetching stats for period");
+                    DDLogVerbose(@"ERROR! Problems with fetching stats for period");
                 } else if((error.code / 100 == 5) || (abs(error.code / 100) == 10)) {
                     [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                 } else {
@@ -644,7 +644,7 @@
             completionHandler:^(NSData *JSON, NSError *error) {
                 NSArray *charts = nil;
                 if(error) {
-                    NSLog(@"ERROR! Problems with fetching stats for period");
+                    DDLogVerbose(@"ERROR! Problems with fetching stats for period");
                 } else if((error.code / 100 == 5) || (abs(error.code / 100) == 10)) {
                     [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                 } else {

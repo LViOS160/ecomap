@@ -11,6 +11,9 @@
 #import "CocoaLumberjack.h"
 #import "EcomapFetcher.h"
 
+//Setup DDLog
+#import "GlobalLoggerLevel.h"
+
 @interface AppDelegate ()
 
 @end
@@ -52,29 +55,29 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"myData.json"];
-    NSLog(@"filePath %@", filePath);
+    DDLogVerbose(@"filePath %@", filePath);
 //    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];
   //  [fileHandle writeData:[@"YEY\n" dataUsingEncoding:NSUTF8StringEncoding]];
 
     NSString *str = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"My str from file = %@", str);
+    DDLogVerbose(@"My str from file = %@", str);
     return YES;
 }
 
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-    NSLog(@"My token is: %@", deviceToken);
+    DDLogVerbose(@"My token is: %@", deviceToken);
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *myString = [prefs stringForKey:@"isTokenSet"];
     if (![myString isEqualToString:@"true"]) {
         NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
         token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-        NSLog(@"%@", token);
+        DDLogVerbose(@"%@", token);
         [EcomapFetcher registerToken:token OnCompletion:^(NSString *result, NSError *error) {
             if (error) {
                 if ([result isEqualToString:@"ER_DUP_ENTRY"]) {
-                    NSLog(@"result - %@", result);
+                    DDLogVerbose(@"result - %@", result);
                     [prefs setObject:@"true" forKey:@"isTokenSet"];
                 }
             } else {
@@ -88,7 +91,7 @@
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-    NSLog(@"Failed to get token, error: %@", error);
+    DDLogVerbose(@"Failed to get token, error: %@", error);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
@@ -96,7 +99,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"myData.json"];
-    NSLog(@"filePath %@", filePath);
+    DDLogVerbose(@"filePath %@", filePath);
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];
     [fileHandle writeData:[@"YEY\n" dataUsingEncoding:NSUTF8StringEncoding] ];
 
@@ -169,7 +172,7 @@
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
         // Replace this with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogVerbose(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     
@@ -201,7 +204,7 @@
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            DDLogVerbose(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }

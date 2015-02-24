@@ -15,6 +15,7 @@
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
 #import "EcomapPathDefine.h"
+#import "GlobalLoggerLevel.h"
 @interface ResourcesViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
@@ -112,7 +113,7 @@
          }
          else
          {
-             NSLog(@"ERROR");
+             DDLogVerbose(@"ERROR");
              
          }
      }
@@ -135,7 +136,7 @@
             
         }
         else{
-            NSLog(@"Error");
+            DDLogVerbose(@"Error");
         }
         
         
@@ -164,7 +165,7 @@
      NSString *test = @"98";
      [EcomapFetcher createComment:@"1" andName:@"admin" andSurname:@"admin" andContent:@"abcdefg" andProblemId:test OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
      if(error)
-     NSLog(@"Trouble");
+     DDLogVerbose(@"Trouble");
      EcomapCommentsChild *q = [[EcomapCommentsChild alloc]init];
      q=obj;
      

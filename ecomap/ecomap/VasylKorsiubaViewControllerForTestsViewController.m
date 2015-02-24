@@ -243,21 +243,21 @@
                       andPassword:@"eco"
                      OnCompletion:^(EcomapLoggedUser *user, NSError *error) {
                          if (!error) {
-                             NSLog(@"User role: %@", user.role);
+                             DDLogVerbose(@"User role: %@", user.role);
                              
                              //Read current logged user
                              EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-                             NSLog(@"User ID: %d", loggedUser.userID);
+                             DDLogVerbose(@"User ID: %d", loggedUser.userID);
                              
                          } else {
-                             NSLog(@"Error to login: %@", error);
+                             DDLogVerbose(@"Error to login: %@", error);
                          }
                      }];
 }
 
 - (IBAction)currentUser:(id)sender {
     EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-    NSLog(@"Email: %@", loggedUser.email);
+    DDLogVerbose(@"Email: %@", loggedUser.email);
 }
 
 - (IBAction)logout:(id)sender {
@@ -268,9 +268,9 @@
 - (IBAction)loadAllProblems:(id)sender {
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
         if (!error) {
-            NSLog(@"Loaded success! %d problems", [problems count] + 1);
+            DDLogVerbose(@"Loaded success! %d problems", [problems count] + 1);
         } else {
-            NSLog(@"Error loading problems: %@", error);
+            DDLogVerbose(@"Error loading problems: %@", error);
         }
         
     }];
@@ -279,10 +279,10 @@
     [EcomapFetcher loadProblemDetailsWithID:1
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    if (!error) {
-                                       NSLog(@"Loaded success! Details for 1 problem");
-                                       NSLog(@"Titile %@", problemDetails.title);
+                                       DDLogVerbose(@"Loaded success! Details for 1 problem");
+                                       DDLogVerbose(@"Titile %@", problemDetails.title);
                                    } else {
-                                       NSLog(@"Error loading problem details: %@", error);
+                                       DDLogVerbose(@"Error loading problem details: %@", error);
                                    }
                                }];
 }

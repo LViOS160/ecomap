@@ -14,6 +14,7 @@
 #import "EcomapPathDefine.h"
 #import "EcomapStatsParser.h"
 #import "GeneralStatsTopLabelView.h"
+#import "GlobalLoggerLevel.h"
 
 #define NUMBER_OF_TOP_LABELS 4
 
@@ -249,19 +250,19 @@
 #pragma mark - XYPieChart Delegate
 - (void)pieChart:(XYPieChart *)pieChart willSelectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"will select slice at index %lu",(unsigned long)index);
+    DDLogVerbose(@"will select slice at index %lu",(unsigned long)index);
 }
 - (void)pieChart:(XYPieChart *)pieChart willDeselectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"will deselect slice at index %lu",(unsigned long)index);
+    DDLogVerbose(@"will deselect slice at index %lu",(unsigned long)index);
 }
 - (void)pieChart:(XYPieChart *)pieChart didDeselectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"did deselect slice at index %lu",(unsigned long)index);
+    DDLogVerbose(@"did deselect slice at index %lu",(unsigned long)index);
 }
 - (void)pieChart:(XYPieChart *)pieChart didSelectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"did select slice at index %lu",(unsigned long)index);
+    DDLogVerbose(@"did select slice at index %lu",(unsigned long)index);
 }
 
 #pragma mark - Initialization

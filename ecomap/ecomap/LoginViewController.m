@@ -10,6 +10,7 @@
 #import "EcomapRevealViewController.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapFetcher.h"
+#import "GlobalLoggerLevel.h"
 
 @interface LoginViewController ()
 
@@ -68,12 +69,12 @@
 }
 
 - (IBAction)touchUpinside:(UITapGestureRecognizer *)sender {
-    NSLog(@"Tap");
+    DDLogVerbose(@"Tap");
     [self.view endEditing:YES];
 }
 
 - (IBAction)panGesture:(id)sender {
-    NSLog(@"Tap");
+    DDLogVerbose(@"Tap");
     [self.view endEditing:YES];
 }
 
