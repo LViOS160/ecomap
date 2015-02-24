@@ -379,7 +379,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Pax-dr-mNF">
-                                <rect key="frame" x="0.0" y="44" width="600" height="512"/>
+                                <rect key="frame" x="0.0" y="52" width="600" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VmV-wm-BjT">
@@ -398,7 +398,7 @@
                                 </items>
                             </toolbar>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVW-tn-iOb">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="8" width="600" height="44"/>
                                 <items>
                                     <navigationItem title="Фото" id="SnU-YB-r7J">
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="zry-6l-wxk">
@@ -431,16 +431,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="mVW-tn-iOb" secondAttribute="trailing" id="9Nc-dV-fck"/>
-                            <constraint firstItem="mVW-tn-iOb" firstAttribute="leading" secondItem="Pax-dr-mNF" secondAttribute="leading" id="JNM-mr-xD0"/>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="bottom" secondItem="MBy-ao-5id" secondAttribute="top" id="OAd-iR-Qg7"/>
-                            <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="VmV-wm-BjT" secondAttribute="leading" id="Qdh-gi-AEd"/>
-                            <constraint firstItem="mVW-tn-iOb" firstAttribute="top" secondItem="Ycm-Qk-vLT" secondAttribute="top" id="Yfw-CY-yBB"/>
-                            <constraint firstItem="Pax-dr-mNF" firstAttribute="top" secondItem="mVW-tn-iOb" secondAttribute="bottom" id="ZIF-Gr-48J"/>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="leading" secondItem="Ycm-Qk-vLT" secondAttribute="leading" id="aRY-6i-uK6"/>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="top" secondItem="Pax-dr-mNF" secondAttribute="bottom" id="p3M-oq-w2Q"/>
-                            <constraint firstItem="Pax-dr-mNF" firstAttribute="trailing" secondItem="VmV-wm-BjT" secondAttribute="trailing" id="pjC-RF-eOk"/>
-                            <constraint firstItem="Pax-dr-mNF" firstAttribute="trailing" secondItem="mVW-tn-iOb" secondAttribute="trailing" id="zvP-DL-ZhM"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="bottom" secondItem="MBy-ao-5id" secondAttribute="top" id="4ar-c7-Er1"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="top" secondItem="Pax-dr-mNF" secondAttribute="bottom" id="AOy-CA-rxe"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="GTa-3i-IU1"/>
+                            <constraint firstItem="mVW-tn-iOb" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="Mp8-kG-wvq"/>
+                            <constraint firstItem="mVW-tn-iOb" firstAttribute="top" secondItem="BIa-TB-8PL" secondAttribute="bottom" constant="8" id="OQg-Ti-L3E"/>
+                            <constraint firstAttribute="trailing" secondItem="VmV-wm-BjT" secondAttribute="trailing" id="WW2-vo-2r6"/>
+                            <constraint firstItem="mVW-tn-iOb" firstAttribute="leading" secondItem="Ycm-Qk-vLT" secondAttribute="leading" id="Y59-Tg-Zqs"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="top" secondItem="mVW-tn-iOb" secondAttribute="bottom" id="a3J-UV-9EU"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="mVW-tn-iOb" secondAttribute="leading" id="c7d-Yb-pTz"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="VmV-wm-BjT" secondAttribute="leading" id="tEm-Ve-mie"/>
                         </constraints>
                     </view>
                     <connections>
@@ -449,7 +449,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTV-Iq-kwa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2808" y="-2069"/>
+            <point key="canvasLocation" x="4673" y="-2009"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3cv-8Z-yUW">
@@ -642,11 +642,12 @@
                     <connections>
                         <outlet property="descriptionText" destination="rCS-y7-0oj" id="vMb-Vk-0mf"/>
                         <outlet property="scrollViewPhotoGallary" destination="w77-Kt-PfJ" id="edW-ox-UXQ"/>
+                        <segue destination="hS7-mg-PRS" kind="custom" identifier="PhotoPicker" customClass="EmptySegue" id="5iM-z5-ahh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3jt-3v-MTt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3785.625" y="-1990.1408450704223"/>
+            <point key="canvasLocation" x="3887" y="-1986"/>
         </scene>
         <!--Problem Activity View Controller-->
         <scene sceneID="uX4-eU-5i3">
@@ -1669,7 +1670,7 @@
         <image name="reveal-icon" width="22" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FV4-dD-aqm"/>
+        <segue reference="WgQ-oX-LnI"/>
         <segue reference="Tb6-3i-OMj"/>
     </inferredMetricsTieBreakers>
 </document>

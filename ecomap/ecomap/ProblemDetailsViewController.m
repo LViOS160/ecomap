@@ -12,11 +12,12 @@
 #import "EMThumbnailImageStore.h"
 #import "EcomapFetcher.h"
 #import "EcomapURLFetcher.h"
+#import "PhotoViewController.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
-@interface ProblemDetailsViewController () <IDMPhotoBrowserDelegate , UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ProblemDetailsViewController () <IDMPhotoBrowserDelegate, PhotoViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPhotoGallary;
@@ -191,57 +192,30 @@
 - (void)buttonToAddImagePressed:(id)sender
 {
     DDLogVerbose(@"'Add image' button pressed");
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"Вихід" otherButtonTitles:@"Камера",@"Галерея", nil];
-    [alert show];
+//    PhotoViewController *photoController = [[PhotoViewController alloc] init];
+//    photoController.delegate = self;
+//    [self presentViewController:photoController animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
 }
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-        // в buttonIndex содержится номер кнопки
-        UIImagePickerController *uiipc = [[UIImagePickerController alloc]init];
-        uiipc.delegate = self;
-        uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-#if (TARGET_IPHONE_SIMULATOR)
-        uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-#else
-        uiipc.sourceType = UIImagePickerControllerSourceTypeCamera | UIImagePickerControllerSourceTypePhotoLibrary;
-#endif
-        uiipc.allowsEditing =YES;
-
-        switch (buttonIndex) {
-            case 1:
-                uiipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-                break;
-            case 2:
-                uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                break;
-        }
-    [self presentViewController:uiipc animated:YES completion:NULL];
+    if ([segue.identifier isEqual:@"PhotoPicker"]) {
+        PhotoViewController *vc = segue.destinationViewController;
+        vc.delegate = self;
+        [self presentViewController:vc animated:YES completion:nil];
+    }
 }
 
-
-/*UIImagePickerController *uiipc = [[UIImagePickerController alloc]init];
-uiipc.delegate = self;
-uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-#if (TARGET_IPHONE_SIMULATOR)
-uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-#else
-uiipc.sourceType = UIImagePickerControllerSourceTypeCamera | UIImagePickerControllerSourceTypePhotoLibrary;
-#endif
-uiipc.allowsEditing =YES;
-[self presentViewController:uiipc animated:YES completion:NULL];*/
-
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+- (void)photoViewControllerDidCancel:(PhotoViewController *)viewController
 {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)photoViewControllerDidFinish:(PhotoViewController *)viewController
+               withImageDescriptions:(NSArray *)imageDescriptions
 {
-    UIImage *image = info[UIImagePickerControllerEditedImage];
-    if(!image) image = info[UIImagePickerControllerOriginalImage];
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)buttonWithImageOnScreenPressed:(id)sender
