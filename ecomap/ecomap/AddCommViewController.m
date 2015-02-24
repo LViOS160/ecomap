@@ -15,30 +15,26 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapProblemDetails.h"
 
+
 @interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic,strong) NSArray* comments;
+@property (nonatomic,strong) NSMutableArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
+@property (nonatomic,strong) NSString *problemma;
+
+
+
 //@property (nonatomic,strong) EcomapCommentsChild *uploadComment;
 
 @end
 
 @implementation AddCommViewController
-/*@synthesize uploadComment = _uploadComment;
 
 
--(EcomapCommentsChild *)uploadComment
+
+-(void)setEcoComment:(EcomapProblemDetails *)ecoComment
 {
-    if(_uploadComment)
-        _uploadComment = [[EcomapCommentsChild alloc]init];
-    return _uploadComment;
+    
 }
-
--(void)setUploadComment:(EcomapCommentsChild *)uploadComment
-{
-    _uploadComment = uploadComment;
-    [self.myTableView reloadData];
-}
-*/
 - (void)viewDidLoad {
     
     [EcomapFetcher loginWithEmail:@"clic@ukr.net"
@@ -54,7 +50,7 @@
                          } else {
                              NSLog(@"Error to login: %@", error);
                          }
-                     }];
+                     }]; 
 
     [super viewDidLoad];
     self.myTableView.delegate = self;
@@ -69,56 +65,69 @@
 -(void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
     NSMutableArray *comments = [NSMutableArray array];
+    
     for(EcomapComments *oneComment in problemDetails.comments )
     {
         if(oneComment.activityTypes_Id ==5)
         {
             [comments addObject:oneComment];
+            NSLog(@"(%@, %@ %lu)",oneComment.userName,oneComment.userSurname,(unsigned long)oneComment.usersID);
+           
         }
+        self.problemma = [NSString stringWithFormat:@"%lu",(unsigned long)oneComment.problemsID];
     }
     self.comments = comments;
     NSLog(@"%lu",(unsigned long)self.comments.count);
     [self.myTableView reloadData];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)pressAddComment:(id)sender {
-    
-     NSString * fromTextField = self.textField.text;
-  //  EcomapProblemDetails *idOfPr = [[EcomapProblemDetails alloc]init];
-   // EcomapComments *test = [self.comments lastObject];
-    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+
+
+- (IBAction)pressAddComment:(id)sender  {
   
+    NSString * fromTextField = self.textField.text;
+  EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+ NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
     
-  NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
-   // NSString * probID = [NSString stringWithFormat:@"%lu",(unsigned long)idOfPr.problemID];
-    NSLog(@"%@____",userID);
-      NSLog(@"%@",userIdent.name);
-     NSLog(@"%@",userIdent.surname);
-   //  NSLog(@"%@",probID);
-    [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
-        
+    NSString *probId = self.problemma;
+    if(userIdent)
+    {
+    [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:probId OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
+   
         if(error)
             NSLog(@"Trouble");
 
     }];
     
+    NSDictionary *dict = @{@"Content":fromTextField, @"ActivityTypes_Id":@5,@"userName":userIdent.name,@"userSurname":userIdent.surname};
+   EcomapCommentsChild *comment = [[EcomapCommentsChild alloc] initWithInfo:dict];
+    comment.problemContent = fromTextField;
+    comment.userName = userIdent.name;
+    comment.userSurname = userIdent.surname;
+    NSUInteger counter = self.comments.count;
     
+    NSDate *today = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    comment.date = today;
+    [self.comments insertObject:comment atIndex:counter];
+     NSLog(@"%@",self.comments.lastObject);
+   [self.myTableView reloadData];
     
+   
+      }
+    else
+        NSLog(@"USER IS NOT REGISTERED");
+       
     
-    /*
-    [EcomapFetcher createComment:@"1" andName:@"admin" andSurname:@"1" andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
-        if(error)
-            NSLog(@"Trouble");
-        //  EcomapCommentsChild *q = [[EcomapCommentsChild alloc]init];
-        //  q=obj;
-        
-    }];
-  */
+    if ([self.textField isFirstResponder]) {
+        self.textField.text = @"";
+    }
 
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -137,15 +146,16 @@
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
      
   CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-     if(cell == nil)
-         cell = [[CommentCell alloc]initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"CommentCell"];
+     if(!cell)
+         cell = [[CommentCell alloc] init];
      EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
-   //  NSInteger row=[indexPath row];
-     cell.commentContent.text= commentZ.problemContent;
-     NSString *personalInfo = [NSString stringWithFormat:@"%@%@",commentZ.userName,commentZ.userSurname];
-     cell.personInfo.text = personalInfo;
-
-
+   //  NSInteger row=[indexPath row]
+    cell.commentContent.text= commentZ.problemContent;
+     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+     NSString *personalInfo = [NSString stringWithFormat:@"%@ %@ %@",commentZ.userName, commentZ.userSurname,[formatter stringFromDate:commentZ.date]];
+      cell.personInfo.text = personalInfo;
+     
  
  return cell;
  }

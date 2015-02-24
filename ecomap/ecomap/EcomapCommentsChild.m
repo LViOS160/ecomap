@@ -9,18 +9,7 @@
 #import "EcomapCommentsChild.h"
 #import "EcomapPathDefine.h"
 
-@interface EcomapComments ()
-
-@property (nonatomic, readwrite) NSUInteger commentID;
-@property (nonatomic, strong, readwrite) NSString *content;
-@property (nonatomic, strong, readwrite) NSDate *date;
-@property (nonatomic, readwrite) NSUInteger activityTypes_Id;
-@property (nonatomic, readwrite) NSUInteger usersID;
-@property (nonatomic, readwrite) NSUInteger problemsID;
-
-@property (nonatomic, readwrite) NSString *problemContent;
-@property (nonatomic, readwrite) NSString *userName;
-@property (nonatomic, readwrite) NSString *userSurname;
+@interface EcomapCommentsChild ()
 
 @end
 
@@ -36,8 +25,8 @@
         self.content = [[problem valueForKey:ECOMAP_COMMENT_CONTENT] isKindOfClass:[NSString class]] ? [problem valueForKey:ECOMAP_COMMENT_CONTENT] : @"";
         NSData *data = [self.content dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *commentDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        
-        self.problemContent = [[commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_CONTENT] isKindOfClass:[NSString class]] ? [commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_CONTENT] : @"";
+
+        self.problemContent = [[commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT] isKindOfClass:[NSString class]] ? [commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT] : @"";
         
         self.userName = [[commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_USERNAME] isKindOfClass:[NSString class]]
         ? [commentDictionary valueForKey:ECOMAP_COMMENT_CONTENT_USERNAME] : @"";
