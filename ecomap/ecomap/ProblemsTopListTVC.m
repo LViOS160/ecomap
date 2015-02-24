@@ -98,11 +98,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Ecomap Problem Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Top Problem Cell" forIndexPath:indexPath];
     
     // Configure the cell...
     NSDictionary *problem = self.problems[indexPath.row];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
+    NSLog(@"Cell title: %@ Width: %f", cell.textLabel.text, cell.textLabel.bounds.size.width);
     cell.textLabel.text = [EcomapStatsParser getTitleForParticularTopChart:self.kindOfTopChart fromProblem:problem];
     return cell;
 }

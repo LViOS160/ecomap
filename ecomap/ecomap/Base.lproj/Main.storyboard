@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -760,8 +760,7 @@
                                                 <include reference="etc-sN-u6O"/>
                                             </mask>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
-                                            <rect key="frame" x="0.0" y="40" width="400" height="100"/>
+                                        <variation key="heightClass=regular-widthClass=compact">
                                             <mask key="constraints">
                                                 <exclude reference="YbF-xa-6kX"/>
                                                 <include reference="tJ3-ab-dHk"/>
@@ -1089,7 +1088,7 @@
             </objects>
             <point key="canvasLocation" x="211.875" y="839.78873239436609"/>
         </scene>
-        <!--TOP CHART-->
+        <!--ТОП 10 проблем-->
         <scene sceneID="cW2-CD-igG">
             <objects>
                 <tableViewController id="NS2-ae-7zV" customClass="ProblemsTopListTVC" sceneMemberID="viewController">
@@ -1104,9 +1103,9 @@
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="0qm-vi-3sa">
                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                     <segments>
-                                        <segment title="ТОП популярних"/>
-                                        <segment title="ТОП важливих"/>
-                                        <segment title="ТОП обговорюваних"/>
+                                        <segment title="Популярні"/>
+                                        <segment title="Важливі"/>
+                                        <segment title="Обговорювані"/>
                                     </segments>
                                     <connections>
                                         <action selector="changeKindOfTopChart:" destination="NS2-ae-7zV" eventType="valueChanged" id="HWE-Nq-eAW"/>
@@ -1122,25 +1121,33 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ecomap Problem Cell" textLabel="MuK-ev-Fhb" detailTextLabel="Tgd-sp-E80" style="IBUITableViewCellStyleValue2" id="oU9-Y8-nOy">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Top Problem Cell" textLabel="jMO-sY-nDG" detailTextLabel="aN5-ev-QRW" style="IBUITableViewCellStyleValue1" id="oU9-Y8-nOy">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oU9-Y8-nOy" id="Owh-an-ocU">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="oU9-Y8-nOy" id="Owh-an-ocU">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MuK-ev-Fhb">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jMO-sY-nDG">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            </variation>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tgd-sp-E80">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aN5-ev-QRW">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            </variation>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="2UE-DX-Tsm" kind="show" identifier="Show Problem" id="Tb6-3i-OMj"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1148,7 +1155,7 @@
                             <outlet property="delegate" destination="NS2-ae-7zV" id="ONO-xd-dYU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="TOP CHART" id="QZs-aD-ccy">
+                    <navigationItem key="navigationItem" title="ТОП 10 проблем" id="QZs-aD-ccy">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="IVg-WA-W5j"/>
                     </navigationItem>
                     <connections>
@@ -1159,7 +1166,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Rc-v8-xmn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1063.125" y="839.78873239436609"/>
+            <point key="canvasLocation" x="1062" y="834.75"/>
         </scene>
         <!--Details-->
         <scene sceneID="o8p-3j-Qu7">
@@ -1574,5 +1581,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WgQ-oX-LnI"/>
+        <segue reference="Tb6-3i-OMj"/>
     </inferredMetricsTieBreakers>
 </document>
