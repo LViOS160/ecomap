@@ -19,8 +19,8 @@
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapFilter.h"
 #import "GlobalLoggerLevel.h"
-#import "SRWebSocket.h"
 
+#define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 #define FILTER_ON NO
 
 @interface MapViewController () <CLLocationManagerDelegate>
@@ -32,6 +32,8 @@
 @property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
 @property (nonatomic, strong) NSSet *problems;
+@property (nonatomic, strong) SRWebSocket *socket;
+
 @end
 
 @implementation MapViewController
@@ -40,6 +42,39 @@
     [super viewDidLoad];
     [self customSetup];
     [self mapSetup];
+    [self socketInit];
+}
+
+- (void)socketInit {
+    self.socket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:SOCKET_ADDRESS]];
+    self.socket.delegate = self;
+    [self.socket open];
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
+    
+    NSLog(@"Data recived %@", message);
+    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+        if (!error) {
+            NSSet *set = [[NSSet alloc] initWithArray:problems];
+            if (![self.problems isEqualToSet:set]) {
+                [self renewMap:set];
+                [self saveLocalJSON:set];
+            }
+        }
+        
+    }];
+
+}
+
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket {
+    NSLog(@"Connected");
+}
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
+    NSLog(@"Faild to connect");
+}
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
+    NSLog(@"Closed connection");
 }
 
 - (NSSet*)loadLocalJSON
