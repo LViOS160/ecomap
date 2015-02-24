@@ -13,6 +13,8 @@
 #import "EcomapStatsParser.h"
 #import "EcomapPathDefine.h"
 #import "EcomapRevealViewController.h"
+#import "ProblemViewController.h"
+#import "CocoaLumberjack.h"
 
 @interface ProblemsTopListTVC ()
 
@@ -21,7 +23,6 @@
 @property (strong, nonatomic) NSArray *charts;
 @property (strong, nonatomic) IBOutlet UITableView *topChartTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
-
 
 @end
 
@@ -98,7 +99,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Ecomap Problem Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Top Problem Cell" forIndexPath:indexPath];
     
     // Configure the cell...
     NSDictionary *problem = self.problems[indexPath.row];
@@ -113,6 +114,16 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    
+    if ([segue.identifier isEqualToString:@"Show Problem"]) {
+        if([segue.destinationViewController isKindOfClass:[ProblemViewController class]]) {
+            ProblemViewController *problemVC = segue.destinationViewController;
+            NSDictionary *problem = self.problems[indexPath.row];
+            problemVC.problemID = [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue];
+        }
+    }
 }
 
 #pragma mark - Initialization

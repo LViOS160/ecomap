@@ -61,7 +61,7 @@ typedef enum : NSUInteger {
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
-    [EcomapFetcher loadProblemDetailsWithID:self.problem.problemID
+    [EcomapFetcher loadProblemDetailsWithID:self.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    self.problemDetails = problemDetails;
                                    [self.containerViewController setProblemDetails:problemDetails];
@@ -102,7 +102,7 @@ typedef enum : NSUInteger {
 
 - (void)updateHeader
 {
-    self.title = self.problem.title;
+    self.title = self.problemDetails.title;
     self.severityLabel.text = [self severityString];
     self.statusLabel.attributedText = [self statusString];
     [self.likeButton setTitle:[self likeString] forState:UIControlStateNormal];
@@ -125,7 +125,7 @@ typedef enum : NSUInteger {
 - (NSAttributedString *)statusString
 {
     if (self.problemDetails) {
-        if(self.problem.isSolved) {
+        if(self.problemDetails.isSolved) {
             return [[NSAttributedString alloc] initWithString:@"вирішена"
                                                    attributes:@{
                                                                 NSForegroundColorAttributeName:[UIColor greenColor]

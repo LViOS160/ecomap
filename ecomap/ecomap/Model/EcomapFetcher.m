@@ -37,7 +37,7 @@
                     NSMutableArray *problems = nil;
                     NSArray *problemsFromJSON = nil;
                     if (error) {
-                        DDLogVerbose(@"%d", abs(error.code / 100));
+                        DDLogVerbose(@"%d", abs(error.code / 100i));
                     }
                     if (!error) {
                         //Extract received data
@@ -56,7 +56,7 @@
                             }
                             
                         }
-                    } else if ((error.code / 100 == 5) || (abs(error.code / 100) == 10)) [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
+                    } else if ((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                     //set up completionHandler
                     completionHandler(problems, error);
                 }];
@@ -113,30 +113,8 @@
     [self uploadDataTaskWithRequest:request fromData:data
                sessionConfiguration:sessionConfiguration
                   completionHandler:^(NSData *JSON, NSError *error) {
-                      NSDictionary *commentsInfo;
                       // EcomapLoggedUser * check = [[EcomapLoggedUser alloc]init];
-                      EcomapCommentsChild * difComment = nil;
-                      
-                      if(!error)
-                          
-                      {    difComment = [[EcomapCommentsChild alloc]initWithInfo:commentsInfo];
-                          if([EcomapLoggedUser currentLoggedUser])
-                          {
-                              
-                              commentsInfo = [EcomapFetcher parseJSONtoDictionary:JSON];
-                              
-                              
-                          }
-                          else
-                              difComment = nil;
-                          
-                      }
-                      
-                      completionHandler(difComment,error);
-                      
-                      
-                      
-                  }];
+ }];
     
 }
 
@@ -599,7 +577,7 @@
                 NSArray *stats = nil;
                 if(error) {
                     DDLogVerbose(@"ERROR! Problems with fetching stats for period");
-                } else if((error.code / 100 == 5) || (abs(error.code / 100) == 10)) {
+                } else if((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) {
                     [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                 } else {
                     // Extract recieved data
@@ -622,7 +600,7 @@
                 NSArray *stats = nil;
                 if(error) {
                     DDLogVerbose(@"ERROR! Problems with fetching stats for period");
-                } else if((error.code / 100 == 5) || (abs(error.code / 100) == 10)) {
+                } else if((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) {
                     [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                 } else {
                     // Extract recieved data
@@ -645,7 +623,7 @@
                 NSArray *charts = nil;
                 if(error) {
                     DDLogVerbose(@"ERROR! Problems with fetching stats for period");
-                } else if((error.code / 100 == 5) || (abs(error.code / 100) == 10)) {
+                } else if((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) {
                     [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
                 } else {
                     // Extract recieved data

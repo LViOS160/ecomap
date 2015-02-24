@@ -12,6 +12,6 @@
 
 @interface ProblemViewController : UIViewController
 
-@property (nonatomic, strong) EcomapProblem* problem;
+@property (nonatomic) NSUInteger problemID;
 
 @end

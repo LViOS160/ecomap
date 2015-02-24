@@ -96,7 +96,7 @@
              
              NSMutableArray *titlesOfResources = [[NSMutableArray alloc]init];
              NSMutableArray *aliasesFromResources = [[NSMutableArray alloc]init];
-             EcomapResources *ecoResources = [[EcomapResources alloc]init];
+             EcomapResources *ecoResources = nil;
              for(id result in resources)
              {    ecoResources = result;
                  [titlesOfResources addObject:ecoResources.titleRes];              // fill the array of Titles of resources
@@ -130,7 +130,7 @@
     [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
         if(!error)
         {
-            EcomapAlias *ecoal = [[EcomapAlias alloc]init];
+            EcomapAlias *ecoal = nil;
             ecoal=alias.firstObject;
             completionHandler(ecoal.content, nil);
             
