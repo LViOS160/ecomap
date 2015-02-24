@@ -181,7 +181,7 @@
         [customButton addTarget:self
                          action:@selector(buttonWithImageOnScreenPressed:)
                forControlEvents:UIControlEventTouchUpInside];
-        DDLogVerbose(@"Button with photo number %d created", tag);
+        DDLogVerbose(@"Button with photo number %lu created", tag);
     }
 
     
@@ -199,7 +199,7 @@
     UIButton *buttonSender = (UIButton*)sender;
     
     self.initialPageIndex = buttonSender.tag - 1;
-    DDLogVerbose(@"Button with photo number %d pressed", buttonSender.tag);
+    DDLogVerbose(@"Button with photo number %ld pressed", (long)buttonSender.tag);
     
     NSArray *photosDitailsArray = self.problemDetails.photos;
     // Create an array to store IDMPhoto objects
@@ -247,7 +247,7 @@
                              
                              //Read current logged user
                              EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-                             DDLogVerbose(@"User ID: %d", loggedUser.userID);
+                             DDLogVerbose(@"User ID: %lu", (unsigned long)loggedUser.userID);
                              
                          } else {
                              DDLogVerbose(@"Error to login: %@", error);
@@ -268,7 +268,7 @@
 - (IBAction)loadAllProblems:(id)sender {
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
         if (!error) {
-            DDLogVerbose(@"Loaded success! %d problems", [problems count] + 1);
+            DDLogVerbose(@"Loaded success! %lu problems", [problems count] + 1);
         } else {
             DDLogVerbose(@"Error loading problems: %@", error);
         }

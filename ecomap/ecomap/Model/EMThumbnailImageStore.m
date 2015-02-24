@@ -67,7 +67,7 @@
 //Notificatin trigger
 - (void)clearCache:(NSNotification *)note
 {
-    DDLogWarn(@"Flushing %u images out if the cache", [self.cache count]);
+    DDLogWarn(@"Flushing %lu images out if the cache", (unsigned long)[self.cache count]);
     [self.cache removeAllObjects];
 }
 @end
