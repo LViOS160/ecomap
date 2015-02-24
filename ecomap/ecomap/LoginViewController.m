@@ -25,8 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Set gesture recognizer
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpinside:)];
+    tap.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tap];
     // Do any additional setup after loading the view.
-    [self customSetup];
 }
 - (IBAction)loginButton:(UIButton *)sender {
     NSString *login = self.loginText.text;
@@ -63,19 +67,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)customSetup
-{
-    
-    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if ( revealViewController )
-    {
-        
-        [self.revealButtonItem setTarget: self.revealViewController];
-        [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
-    }
-    
+- (IBAction)touchUpinside:(UITapGestureRecognizer *)sender {
+    NSLog(@"Tap");
+    [self.view endEditing:YES];
 }
+
 - (IBAction)panGesture:(id)sender {
     NSLog(@"Tap");
     [self.view endEditing:YES];

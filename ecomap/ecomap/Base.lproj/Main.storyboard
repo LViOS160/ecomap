@@ -1286,11 +1286,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EVn-Lg-eDJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="lmN-eA-SbX">
-                    <connections>
-                        <action selector="panGesture:" destination="f9f-d4-qVJ" id="Jg6-je-adN"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1089" y="2325"/>
         </scene>
@@ -1313,7 +1308,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeD-hx-MaA">
-                                <rect key="frame" x="34" y="135" width="264" height="15"/>
+                                <rect key="frame" x="31" y="135" width="267" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1324,11 +1319,8 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="UsernameField" translatesAutoresizingMaskIntoConstraints="NO" id="lsW-Y5-saA">
-                                <rect key="frame" x="16" y="222" width="282" height="41"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="UsernameField" translatesAutoresizingMaskIntoConstraints="NO" id="kCe-2C-wSn">
-                                <rect key="frame" x="19" y="154" width="282" height="41"/>
+                                <rect key="frame" x="16" y="154" width="282" height="41"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Role" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHE-41-7pt">
                                 <rect key="frame" x="31" y="271" width="267" height="15"/>
@@ -1351,6 +1343,9 @@
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaH-d3-ael">
                                 <rect key="frame" x="16" y="439" width="282" height="52"/>
                                 <state key="normal" image="LogoutButton"/>
+                                <connections>
+                                    <action selector="LogoutButton:" destination="OmL-A7-RQ7" eventType="touchUpInside" id="IyG-ex-fp2"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Surname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jnp-Rk-hQF">
                                 <rect key="frame" x="78" y="232" width="206" height="21"/>
@@ -1376,17 +1371,30 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="UsernameField" translatesAutoresizingMaskIntoConstraints="NO" id="lsW-Y5-saA">
+                                <rect key="frame" x="16" y="222" width="282" height="41"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="egv-x1-Gqj">
-                        <barButtonItem key="leftBarButtonItem" title="Close" style="plain" id="F9C-FB-M9k"/>
+                        <barButtonItem key="leftBarButtonItem" title="Close" style="plain" id="F9C-FB-M9k">
+                            <connections>
+                                <action selector="closeButton:" destination="OmL-A7-RQ7" id="a3q-ST-cy8"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="edit" id="2iI-f7-msD">
                             <connections>
                                 <segue destination="FRl-h0-Cpi" kind="push" id="O7v-vl-g0N"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="emailLabel" destination="6dw-35-OpN" id="iDC-DT-U4G"/>
+                        <outlet property="nameLabel" destination="EV4-hX-TzL" id="hkI-AN-XO9"/>
+                        <outlet property="roleLabel" destination="glc-GU-xYI" id="kWY-JM-kBl"/>
+                        <outlet property="surmaneLabel" destination="Jnp-Rk-hQF" id="nyg-Pc-nQF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5DY-KU-iDY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

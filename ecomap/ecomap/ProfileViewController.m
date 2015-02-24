@@ -7,8 +7,15 @@
 //
 
 #import "ProfileViewController.h"
+#import "EcomapFetcher.h"
+#import "EcomapLoggedUser.h"
 
 @interface ProfileViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *surmaneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *roleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+
 
 @end
 
@@ -16,12 +23,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self prepareLabels];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)prepareLabels
+{
+    EcomapLoggedUser *user = [EcomapLoggedUser currentLoggedUser];
+    self.nameLabel.text = user.name ? user.name : @"";
+    self.surmaneLabel.text = user.surname ? user.surname : @"";
+    self.roleLabel.text = user.role ? user.role : @"";
+    self.emailLabel.text = user.email ? user.email : @"";
 }
 
 /*
@@ -33,5 +45,17 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)closeButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)LogoutButton:(id)sender {
+    [EcomapFetcher logoutUser:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(BOOL result, NSError *error) {
+        if (!error) {
+            if(result) NSLog(@"%d", result);
+        }
+    }];
+    self.dismissBlock();
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
