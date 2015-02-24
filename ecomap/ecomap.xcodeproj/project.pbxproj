@@ -86,6 +86,10 @@
 		B3A8D08D1A85541800017BAE /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */; };
 		B3A8D08F1A85545600017BAE /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */; };
 		B3C56A4F1A8A169000877227 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C56A4E1A8A169000877227 /* add.png */; };
+		B3E23AD21A9C8D910011AC56 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E23AD11A9C8D910011AC56 /* SRWebSocket.m */; };
+		B3E23AD51A9C8DD40011AC56 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E23AD41A9C8DD40011AC56 /* Security.framework */; };
+		B3E23AD71A9C8DE00011AC56 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E23AD61A9C8DE00011AC56 /* CFNetwork.framework */; };
+		B3E23AD91A9C8DEF0011AC56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E23AD81A9C8DEF0011AC56 /* Foundation.framework */; };
 		CA4027A81A8F632800CA835F /* ProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4027A71A8F632800CA835F /* ProblemViewController.m */; };
 		CABBB5121A853D400089065B /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB4FF1A853D400089065B /* GQuadItem.m */; };
 		CABBB5131A853D400089065B /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5011A853D400089065B /* GStaticCluster.m */; };
@@ -225,6 +229,12 @@
 		B3A8D08C1A85541800017BAE /* AddProblemSolutionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionView.xib; sourceTree = "<group>"; };
 		B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemPhotoView.xib; sourceTree = "<group>"; };
 		B3C56A4E1A8A169000877227 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = Images.xcassets/add.imageset/add.png; sourceTree = "<group>"; };
+		B3E23ACF1A9C8D910011AC56 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SocketRocket-Prefix.pch"; path = "../SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		B3E23AD01A9C8D910011AC56 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = ../SRWebSocket.h; sourceTree = "<group>"; };
+		B3E23AD11A9C8D910011AC56 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = ../SRWebSocket.m; sourceTree = "<group>"; };
+		B3E23AD41A9C8DD40011AC56 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B3E23AD61A9C8DE00011AC56 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		B3E23AD81A9C8DEF0011AC56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CA4027A61A8F632800CA835F /* ProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemViewController.h; sourceTree = "<group>"; };
 		CA4027A71A8F632800CA835F /* ProblemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemViewController.m; sourceTree = "<group>"; };
 		CABBB4FD1A853D400089065B /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
@@ -289,6 +299,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E23AD91A9C8DEF0011AC56 /* Foundation.framework in Frameworks */,
+				B3E23AD71A9C8DE00011AC56 /* CFNetwork.framework in Frameworks */,
+				B3E23AD51A9C8DD40011AC56 /* Security.framework in Frameworks */,
 				2D37BE0A1A822FEA009A6562 /* SystemConfiguration.framework in Frameworks */,
 				2D37BE081A822FDF009A6562 /* QuartzCore.framework in Frameworks */,
 				2D37BE061A822FD5009A6562 /* OpenGLES.framework in Frameworks */,
@@ -477,6 +490,9 @@
 		B388FF011A7F884A009C421C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3E23AD81A9C8DEF0011AC56 /* Foundation.framework */,
+				B3E23AD61A9C8DE00011AC56 /* CFNetwork.framework */,
+				B3E23AD41A9C8DD40011AC56 /* Security.framework */,
 				2D37BE091A822FEA009A6562 /* SystemConfiguration.framework */,
 				2D37BE071A822FDF009A6562 /* QuartzCore.framework */,
 				2D37BE051A822FD5009A6562 /* OpenGLES.framework */,
@@ -653,6 +669,16 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		B3E23AD31A9C8DA10011AC56 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				B3E23ACF1A9C8D910011AC56 /* SocketRocket-Prefix.pch */,
+				B3E23AD01A9C8D910011AC56 /* SRWebSocket.h */,
+				B3E23AD11A9C8D910011AC56 /* SRWebSocket.m */,
+			);
+			name = Socket;
+			sourceTree = "<group>";
+		};
 		CABBB4FB1A853D400089065B /* Clustering */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,6 +764,7 @@
 		E5F27C901A80F98D00121A7E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B3E23AD31A9C8DA10011AC56 /* Socket */,
 				51B485231A8415EE00BA8AFF /* Fetcher Helper Classes */,
 				51B485241A8415F800BA8AFF /* Value-Object Classes */,
 				E5F27C911A80F9A300121A7E /* EcomapFetcher.h */,
@@ -929,6 +956,7 @@
 				B35343251A7F73ED00DD2F03 /* ecomap.xcdatamodeld in Sources */,
 				CAF471991A95370000F9B567 /* ContainerViewController.m in Sources */,
 				CABBB5121A853D400089065B /* GQuadItem.m in Sources */,
+				B3E23AD21A9C8D910011AC56 /* SRWebSocket.m in Sources */,
 				51A9F1DF1A93880000666C23 /* EMThumbnailImageStore.m in Sources */,
 				CABBB5221A853D6F0089065B /* GQTPointQuadTree.m in Sources */,
 				CABBB5131A853D400089065B /* GStaticCluster.m in Sources */,

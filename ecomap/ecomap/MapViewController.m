@@ -18,6 +18,7 @@
 #import "ProblemViewController.h"
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapFilter.h"
+#import "SRWebSocket.h"
 
 #define FILTER_ON NO
 
