@@ -8,7 +8,7 @@
 #ifndef EcomapFetcher_Header_h
 #define EcomapFetcher_Header_h
 
-//API address1
+//API address1 
 #define ECOMAP_ADDRESS @"http://176.36.11.25/"
 //#define ECOMAP_ADDRESS @"http://localhost:8090/"
 //#define ECOMAP_ADDRESS @"http://ecomap.org/"

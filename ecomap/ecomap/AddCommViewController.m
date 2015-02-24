@@ -95,14 +95,11 @@
   EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
  NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
     
-  NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
-   // NSString * probID = [NSString stringWithFormat:@"%lu",(unsigned long)idOfPr.problemID];
-    DDLogVerbose(@"%@____",userID);
-      DDLogVerbose(@"%@",userIdent.name);
-     DDLogVerbose(@"%@",userIdent.surname);
-   //  DDLogVerbose(@"%@",probID);
-    [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
-        
+    NSString *probId = self.problemma;
+    if(userIdent)
+    {
+    [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:probId OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
+   
         if(error)
             DDLogVerbose(@"Trouble");
         else
@@ -131,15 +128,9 @@
         NSLog(@"USER IS NOT REGISTERED");
        
     
-    /*
-    [EcomapFetcher createComment:@"1" andName:@"admin" andSurname:@"1" andContent:fromTextField andProblemId:@"88" OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
-        if(error)
-            DDLogVerbose(@"Trouble");
-        //  EcomapCommentsChild *q = [[EcomapCommentsChild alloc]init];
-        //  q=obj;
-        
-    }];
-  */
+    if ([self.textField isFirstResponder]) {
+        self.textField.text = @"";
+    }
 
 }
 
