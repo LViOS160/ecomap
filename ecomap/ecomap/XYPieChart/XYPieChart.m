@@ -238,7 +238,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             label = [NSString stringWithFormat:@"%0.0f", layer.percentage*100];
         else
             label = (layer.text)?layer.text:[NSString stringWithFormat:@"%0.0f", layer.value];
-        CGSize size = [label sizeWithFont:self.labelFont];
+        // For iOS 7.0 and later
+        NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:[self.labelFont fontName] size:14.0]};
+        CGSize size = [label sizeWithAttributes:attributes];
+        // Deprecated method
+        // CGSize size = [label sizeWithFont:self.labelFont];
         
         if(M_PI*2*_labelRadius*layer.percentage < MAX(size.width,size.height))
         {
@@ -640,7 +644,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         [textLayer setShadowOpacity:1.0f];
         [textLayer setShadowRadius:2.0f];
     }
-    CGSize size = [@"0" sizeWithFont:self.labelFont];
+    // For iOS 7.0 and later
+    NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:[self.labelFont fontName] size:14.0]};
+    CGSize size = [@"0" sizeWithAttributes:attributes];
+    // Deprecated method
+    // CGSize size = [@"0" sizeWithFont:self.labelFont];
     [CATransaction setDisableActions:YES];
     [textLayer setFrame:CGRectMake(0, 0, size.width, size.height)];
     [textLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(0)), _pieCenter.y + (_labelRadius * sin(0)))];
@@ -659,8 +667,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         label = [NSString stringWithFormat:@"%0.0f", pieLayer.percentage*100];
     else
         label = (pieLayer.text)?pieLayer.text:[NSString stringWithFormat:@"%0.0f", value];
-    
-    CGSize size = [label sizeWithFont:self.labelFont];
+    // For iOS 7.0 and later
+    NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:[self.labelFont fontName] size:14.0]};
+    CGSize size = [label sizeWithAttributes:attributes];
+    // Deprecated method
+    // CGSize size = [label sizeWithFont:self.labelFont];
     
     [CATransaction setDisableActions:YES];
     if(M_PI*2*_labelRadius*pieLayer.percentage < MAX(size.width,size.height) || value <= 0)

@@ -369,6 +369,7 @@
 		9096C9891A91E5F200A61CDB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				90AE1B801A84BD730009F641 /* XYPieChart */,
 				90838F5F1A94B1260025ACCB /* GeneralStatsTopLabelView.h */,
 				90838F601A94B1260025ACCB /* GeneralStatsTopLabelView.m */,
 			);
@@ -540,7 +541,6 @@
 		B3AB4AE51A9BD97B0089F20C /* StatisticViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B3AB4AF11A9BDD370089F20C /* Model */,
 				9096C9891A91E5F200A61CDB /* Views */,
 				B3AB4AF21A9BDD4A0089F20C /* Controllers */,
 			);
@@ -650,14 +650,6 @@
 				B3A8D08E1A85545600017BAE /* AddProblemPhotoView.xib */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		B3AB4AF11A9BDD370089F20C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				90AE1B801A84BD730009F641 /* XYPieChart */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		B3AB4AF21A9BDD4A0089F20C /* Controllers */ = {
