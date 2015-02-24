@@ -19,6 +19,7 @@
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapFilter.h"
 #import "GlobalLoggerLevel.h"
+#import "SRWebSocket.h"
 
 #define FILTER_ON NO
 
