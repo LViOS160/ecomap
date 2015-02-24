@@ -13,6 +13,9 @@
 #import "EcomapStatsParser.h"
 #import "EcomapPathDefine.h"
 #import "EcomapRevealViewController.h"
+#import "CocoaLumberjack.h"
+
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @interface ProblemsTopListTVC ()
 
@@ -21,7 +24,6 @@
 @property (strong, nonatomic) NSArray *charts;
 @property (strong, nonatomic) IBOutlet UITableView *topChartTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
-
 
 @end
 
@@ -103,8 +105,10 @@
     // Configure the cell...
     NSDictionary *problem = self.problems[indexPath.row];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
-    NSLog(@"Cell title: %@ Width: %f", cell.textLabel.text, cell.textLabel.bounds.size.width);
     cell.textLabel.text = [EcomapStatsParser getTitleForParticularTopChart:self.kindOfTopChart fromProblem:problem];
+    DDLogVerbose(@"Problem: %@", problem);
+    cell.textLabel.tag = [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue];
+    DDLogVerbose(@"Problem ID: %d", cell.textLabel.tag);
     return cell;
 }
 

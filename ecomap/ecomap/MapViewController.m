@@ -229,7 +229,10 @@
     if ([segue.identifier isEqualToString:@"Show problem"]){
         if([segue.destinationViewController isKindOfClass:[ProblemViewController class]]){
             ProblemViewController *problemVC = (ProblemViewController *)segue.destinationViewController;
-            problemVC.problem = ((GMSMarker *)sender).userData;
+            if([((GMSMarker *)sender).userData isKindOfClass:[EcomapProblem class]]) {
+                EcomapProblem *problem = (EcomapProblem *)((GMSMarker *)sender).userData;
+                problemVC.problemID = problem.problemID;
+            }
         }
     }
 }
