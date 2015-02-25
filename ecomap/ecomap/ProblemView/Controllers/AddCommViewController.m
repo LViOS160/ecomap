@@ -52,12 +52,11 @@
                          } else {
                              DDLogVerbose(@"Error to login: %@", error);
                          }
-                     }]; 
-
+                     }];
     [super viewDidLoad];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
-   
+    
     
     // Do any additional setup after loading the view.
 }
@@ -74,7 +73,7 @@
         {
             [comments addObject:oneComment];
             NSLog(@"(%@, %@ %lu)",oneComment.userName,oneComment.userSurname,(unsigned long)oneComment.usersID);
-           
+            
         }
         self.problemma = [NSString stringWithFormat:@"%lu",(unsigned long)oneComment.problemsID];
     }
@@ -90,79 +89,95 @@
 
 
 - (IBAction)pressAddComment:(id)sender  {
-  
+    
     NSString * fromTextField = self.textField.text;
-  EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
- NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+    NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
     
     NSString *probId = self.problemma;
     if(userIdent)
     {
-    [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:probId OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
-   
-        if(error)
-            DDLogVerbose(@"Trouble");
+        if([fromTextField isEqual:@""])
+        { UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Брат!" message:@"Не залишай пусті коментарі" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            
+        }
         else
-            [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-
-    }];
-    
-    NSDictionary *dict = @{@"Content":fromTextField, @"ActivityTypes_Id":@5,@"userName":userIdent.name,@"userSurname":userIdent.surname};
-   EcomapCommentsChild *comment = [[EcomapCommentsChild alloc] initWithInfo:dict];
-    comment.problemContent = fromTextField;
-    comment.userName = userIdent.name;
-    comment.userSurname = userIdent.surname;
-    NSUInteger counter = self.comments.count;
-    
-    NSDate *today = [NSDate date];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    comment.date = today;
-    [self.comments insertObject:comment atIndex:counter];
-     NSLog(@"%@",self.comments.lastObject);
-   [self.myTableView reloadData];
-    
-   
-      }
+        {
+            [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:probId OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
+                
+                if(error)
+                    DDLogVerbose(@"Trouble");
+                else
+                    [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+                
+                
+            }];
+        }
+        
+        /*  NSDictionary *dict = @{@"Content":fromTextField, @"ActivityTypes_Id":@5,@"userName":userIdent.name,@"userSurname":userIdent.surname};
+         EcomapCommentsChild *comment = [[EcomapCommentsChild alloc] initWithInfo:dict];
+         comment.problemContent = fromTextField;
+         comment.userName = userIdent.name;
+         comment.userSurname = userIdent.surname;
+         NSUInteger counter = self.comments.count;
+         
+         NSDate *today = [NSDate date];
+         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+         comment.date = today;
+         [self.comments insertObject:comment atIndex:counter];
+         NSLog(@"%@",self.comments.lastObject);
+         [self.myTableView reloadData];*/
+        
+        
+    }
     else
-        NSLog(@"USER IS NOT REGISTERED");
-       
+    {
+        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Брат!" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertView show];
+        // int errorCode = error.code;
+        
+    }
+    
+    
+    
     
     if ([self.textField isFirstResponder]) {
         self.textField.text = @"";
     }
-
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-   // DDLogVerbose(@"%d",self.comments.count);
+    // DDLogVerbose(@"%d",self.comments.count);
     return self.comments.count;
 }
 
 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-     
-  CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-     if(!cell)
-         cell = [[CommentCell alloc] init];
-     EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
-   //  NSInteger row=[indexPath row]
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+    if(!cell)
+        cell = [[CommentCell alloc] init];
+    EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
+    //  NSInteger row=[indexPath row]
     cell.commentContent.text= commentZ.problemContent;
-     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-     NSString *personalInfo = [NSString stringWithFormat:@"%@ %@ %@",commentZ.userName, commentZ.userSurname,[formatter stringFromDate:commentZ.date]];
-      cell.personInfo.text = personalInfo;
-     
- 
- return cell;
- }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *personalInfo = [NSString stringWithFormat:@"%@ %@ %@",commentZ.userName, commentZ.userSurname,[formatter stringFromDate:commentZ.date]];
+    cell.personInfo.text = personalInfo;
+    
+    
+    return cell;
+}
 
 
 /*
