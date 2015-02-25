@@ -55,29 +55,28 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"myData.json"];
-    DDLogVerbose(@"filePath %@", filePath);
+//    DDLogVerbose(@"filePath %@", filePath);
 //    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];
   //  [fileHandle writeData:[@"YEY\n" dataUsingEncoding:NSUTF8StringEncoding]];
 
-    NSString *str = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    DDLogVerbose(@"My str from file = %@", str);
+
     return YES;
 }
 
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-    DDLogVerbose(@"My token is: %@", deviceToken);
+//    DDLogVerbose(@"My token is: %@", deviceToken);
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *myString = [prefs stringForKey:@"isTokenSet"];
     if (![myString isEqualToString:@"true"]) {
         NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
         token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-        DDLogVerbose(@"%@", token);
+//        DDLogVerbose(@"%@", token);
         [EcomapFetcher registerToken:token OnCompletion:^(NSString *result, NSError *error) {
             if (error) {
                 if ([result isEqualToString:@"ER_DUP_ENTRY"]) {
-                    DDLogVerbose(@"result - %@", result);
+//                    DDLogVerbose(@"result - %@", result);
                     [prefs setObject:@"true" forKey:@"isTokenSet"];
                 }
             } else {
@@ -91,17 +90,11 @@
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-    DDLogVerbose(@"Failed to get token, error: %@", error);
+//    DDLogVerbose(@"Failed to get token, error: %@", error);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"myData.json"];
-    DDLogVerbose(@"filePath %@", filePath);
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];
-    [fileHandle writeData:[@"YEY\n" dataUsingEncoding:NSUTF8StringEncoding] ];
 
     handler(UIBackgroundFetchResultNewData);
 }

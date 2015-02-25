@@ -107,6 +107,7 @@
 		B3738C5A1A9DDC4B0077F604 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C061A9DDC4B0077F604 /* LoginViewController.m */; };
 		B3738C5B1A9DDC4B0077F604 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C081A9DDC4B0077F604 /* ProfileViewController.m */; };
 		B3738C5C1A9DDC4B0077F604 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */; };
+		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -287,6 +288,8 @@
 		B3738C081A9DDC4B0077F604 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		B3738C091A9DDC4B0077F604 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -528,6 +531,8 @@
 		B3738B8E1A9DDC4B0077F604 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B3C981CB1A9E4DCB00BF034F /* Reachability.h */,
+				B3C981CC1A9E4DCB00BF034F /* Reachability.m */,
 				B3738B8F1A9DDC4B0077F604 /* EcomapFetcher.h */,
 				B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */,
 				B3738B911A9DDC4B0077F604 /* EcomapFilter.h */,
@@ -962,6 +967,7 @@
 				B3738C331A9DDC4B0077F604 /* EcomapResources.m in Sources */,
 				B3738C1B1A9DDC4B0077F604 /* SphericalMercatorProjection.m in Sources */,
 				B3738C371A9DDC4B0077F604 /* ProblemActivityViewController.m in Sources */,
+				B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */,
 				B3738C571A9DDC4B0077F604 /* EcomapRevealViewController.m in Sources */,
 				B3738C2E1A9DDC4B0077F604 /* EcomapLoggedUser.m in Sources */,
 				B3738C351A9DDC4B0077F604 /* ContainerViewController.m in Sources */,

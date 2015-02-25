@@ -19,6 +19,7 @@
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapFilter.h"
 #import "GlobalLoggerLevel.h"
+#import "Reachability.h"
 
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 #define FILTER_ON NO
@@ -33,6 +34,7 @@
 @property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
 @property (nonatomic, strong) NSSet *problems;
 @property (nonatomic, strong) SRWebSocket *socket;
+@property (nonatomic) Reachability *hostReachability;
 
 @end
 
@@ -43,6 +45,22 @@
     [self customSetup];
     [self mapSetup];
     [self socketInit];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    self.hostReachability = [Reachability reachabilityForInternetConnection];
+    [self.hostReachability startNotifier];
+}
+
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    Reachability* curReach = [note object];
+//    NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+    
+    if ([curReach currentReachabilityStatus] == ReachableViaWWAN ||
+        [curReach currentReachabilityStatus] == ReachableViaWiFi) {
+        [self loadProblems];
+        [self socketInit];
+        
+    }
 }
 
 - (void)socketInit {
@@ -72,9 +90,11 @@
 }
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
     NSLog(@"Faild to connect");
+    [self.socket close];
 }
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
     NSLog(@"Closed connection");
+    [self.socket close];
 }
 
 - (NSSet*)loadLocalJSON
@@ -92,7 +112,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"problems.json"];
-    DDLogVerbose(@"filePath %@", filePath);
+//    DDLogVerbose(@"filePath %@", filePath);
     return filePath;
 }
 
@@ -153,6 +173,21 @@
     
 }
 
+
+-(void)loadProblems {
+    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+        if (!error) {
+            NSSet *set = [[NSSet alloc] initWithArray:problems];
+            if (![self.problems isEqualToSet:set]) {
+                [self renewMap:set];
+                [self saveLocalJSON:set];
+            }
+        }
+        
+    }];
+    
+}
+
 #pragma mark - GMAP
 
 
@@ -174,17 +209,7 @@
     if (_problems)
         [self renewMap:self.problems];
     
-    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-        if (!error) {
-            NSSet *set = [[NSSet alloc] initWithArray:problems];
-            if (![self.problems isEqualToSet:set]) {
-                [self renewMap:set];
-                [self saveLocalJSON:set];
-            }
-        }
-        
-    }];
-    
+    [self loadProblems];
     
    
 }
