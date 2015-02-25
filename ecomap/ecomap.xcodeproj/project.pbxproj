@@ -22,7 +22,6 @@
 		2D37BE081A822FDF009A6562 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BE071A822FDF009A6562 /* QuartzCore.framework */; };
 		2D37BE0A1A822FEA009A6562 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D37BE091A822FEA009A6562 /* SystemConfiguration.framework */; };
 		4F921DED369B45159F5FE300 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C20CEAB3C542AB9128991B /* libPods.a */; };
-		51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */; };
 		51A9F1DF1A93880000666C23 /* EMThumbnailImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A9F1DE1A93880000666C23 /* EMThumbnailImageStore.m */; };
 		51B485271A8417CB00BA8AFF /* EcomapLoggedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B485261A8417CB00BA8AFF /* EcomapLoggedUser.m */; };
 		51D1D95B1A9BD4A5006E5618 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51D1D95A1A9BD4A5006E5618 /* Images.xcassets */; };
@@ -146,8 +145,6 @@
 		2D37BE071A822FDF009A6562 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2D37BE091A822FEA009A6562 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		51A9F1CD1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VasylKorsiubaViewControllerForTestsViewController.h; sourceTree = "<group>"; };
-		51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VasylKorsiubaViewControllerForTestsViewController.m; sourceTree = "<group>"; };
 		51A9F1DD1A93880000666C23 /* EMThumbnailImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMThumbnailImageStore.h; path = Model/EMThumbnailImageStore.h; sourceTree = "<group>"; };
 		51A9F1DE1A93880000666C23 /* EMThumbnailImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EMThumbnailImageStore.m; path = Model/EMThumbnailImageStore.m; sourceTree = "<group>"; };
 		51B485251A8417CB00BA8AFF /* EcomapLoggedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapLoggedUser.h; path = Model/EcomapLoggedUser.h; sourceTree = "<group>"; };
@@ -432,8 +429,6 @@
 			isa = PBXGroup;
 			children = (
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
-				51A9F1CD1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.h */,
-				51A9F1CE1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m */,
 				CABBB4FB1A853D400089065B /* Clustering */,
 				E5F27C901A80F98D00121A7E /* Model */,
 				B3AB4AEE1A9BDC9A0089F20C /* AddProblem */,
@@ -997,7 +992,6 @@
 				CAD721621A9D202B00DF2459 /* PhotoViewController.m in Sources */,
 				CABBB5151A853D400089065B /* GClusterManager.m in Sources */,
 				90838F611A94B1260025ACCB /* GeneralStatsTopLabelView.m in Sources */,
-				51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */,
 				90AE1B7E1A84BD3E0009F641 /* ProblemsTopListTVC.m in Sources */,
 				B388FF051A7F8AFF009C421C /* ResourcesViewController.m in Sources */,
 				90AE1B831A84BD730009F641 /* XYPieChart.m in Sources */,
