@@ -10,7 +10,9 @@
 #import <MapKit/MapKit.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import "GClusterManager.h"
+#import "SRWebSocket.h"
 
-@interface MapViewController : UIViewController <GMSMapViewDelegate> 
+@interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>
+
 @end
 

@@ -143,7 +143,7 @@ typedef enum : NSUInteger {
 
 - (NSString *)likeString
 {
-    return [NSString stringWithFormat:@"♡%lu", self.problemDetails.votes];
+    return [NSString stringWithFormat:@"♡%lu", (unsigned long)self.problemDetails.votes];
 }
 
 

@@ -1,10 +1,12 @@
 #import <CoreText/CoreText.h>
-#import "EcomapClusterRenderer.h"
+#import "GDefaultClusterRenderer.h"
+#import "GQuadItem.h"
 #import "GCluster.h"
-#import "EcomapProblem.h"
 #import "Spot.h"
+#import "MapViewController.h"
 
-@implementation EcomapClusterRenderer {
+
+@implementation GDefaultClusterRenderer {
     GMSMapView *_map;
     NSMutableArray *_markerCache;
 }
@@ -21,27 +23,29 @@
     for (GMSMarker *marker in _markerCache) {
         marker.map = nil;
     }
+    
     [_markerCache removeAllObjects];
     
     for (id <GCluster> cluster in clusters) {
-        GMSMarker *marker = nil;
+        GMSMarker *marker;
+        marker = [[GMSMarker alloc] init];
+        [_markerCache addObject:marker];
         
         NSUInteger count = cluster.items.count;
+        
         if (count > 1) {
-            marker = [[GMSMarker alloc] init];
             marker.icon = [self generateClusterIconWithCount:count];
-            marker.position = cluster.position;
         }
         else {
-            Spot *spot = (Spot *)cluster.items.anyObject;
-            if ([spot isKindOfClass:[Spot class]]) {
+            //marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
+            Spot *spot = (Spot*)cluster.items.anyObject;
+            if([spot isKindOfClass:[Spot class]] ){
                 marker = [self markerFromProblem:spot.problem];
             }
+                
         }
-        if (marker) {
-            [_markerCache addObject:marker];
-            marker.map = _map;
-        }
+        marker.position = cluster.position;
+        marker.map = _map;
     }
 }
 
@@ -53,7 +57,6 @@
     marker.snippet = problem.problemTypeTitle;
     marker.icon = [self iconForMarkerType:problem.problemTypesID];
     marker.appearAnimation = kGMSMarkerAnimationPop;
-    marker.userData = problem;
     marker.map = nil;
     return marker;
 }
@@ -92,7 +95,7 @@
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
             (__bridge id)myFont, (id)kCTFontAttributeName,
                     [UIColor whiteColor], (id)kCTForegroundColorAttributeName, nil];
-
+    
     // create a naked string
     NSString *string = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)count];
 

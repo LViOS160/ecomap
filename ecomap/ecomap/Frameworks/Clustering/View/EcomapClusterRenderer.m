@@ -1,12 +1,10 @@
 #import <CoreText/CoreText.h>
-#import "GDefaultClusterRenderer.h"
-#import "GQuadItem.h"
+#import "EcomapClusterRenderer.h"
 #import "GCluster.h"
+#import "EcomapProblem.h"
 #import "Spot.h"
-#import "MapViewController.h"
 
-
-@implementation GDefaultClusterRenderer {
+@implementation EcomapClusterRenderer {
     GMSMapView *_map;
     NSMutableArray *_markerCache;
 }
@@ -23,29 +21,27 @@
     for (GMSMarker *marker in _markerCache) {
         marker.map = nil;
     }
-    
     [_markerCache removeAllObjects];
     
     for (id <GCluster> cluster in clusters) {
-        GMSMarker *marker;
-        marker = [[GMSMarker alloc] init];
-        [_markerCache addObject:marker];
+        GMSMarker *marker = nil;
         
         NSUInteger count = cluster.items.count;
-        
         if (count > 1) {
+            marker = [[GMSMarker alloc] init];
             marker.icon = [self generateClusterIconWithCount:count];
+            marker.position = cluster.position;
         }
         else {
-            //marker.icon = [GMSMarker markerImageWithColor:[UIColor greenColor]];
-            Spot *spot = (Spot*)cluster.items.anyObject;
-            if([spot isKindOfClass:[Spot class]] ){
+            Spot *spot = (Spot *)cluster.items.anyObject;
+            if ([spot isKindOfClass:[Spot class]]) {
                 marker = [self markerFromProblem:spot.problem];
             }
-                
         }
-        marker.position = cluster.position;
-        marker.map = _map;
+        if (marker) {
+            [_markerCache addObject:marker];
+            marker.map = _map;
+        }
     }
 }
 
@@ -57,13 +53,14 @@
     marker.snippet = problem.problemTypeTitle;
     marker.icon = [self iconForMarkerType:problem.problemTypesID];
     marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.userData = problem;
     marker.map = nil;
     return marker;
 }
 
 - (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
 {
-    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID]];
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", (unsigned long)problemTypeID]];
 }
 
 - (UIImage*) generateClusterIconWithCount:(NSUInteger)count {
@@ -118,8 +115,7 @@
     CFRelease(frameSetter);
     
     //Get the position on the y axis
-    float midHeight = diameter;
-    midHeight -= suggestedSize.height;
+
     
     float midWidth = diameter / 2;
     midWidth -= suggestedSize.width / 2;
