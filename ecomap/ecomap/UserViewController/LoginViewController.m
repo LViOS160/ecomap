@@ -112,31 +112,48 @@
 
 #pragma mark - buttons
 - (IBAction)loginButton:(UIButton *)sender {
-    NSString *login = self.loginTextField.text;
+    NSString *email = self.loginTextField.text;
     NSString *password = self.passwordTextField.text;
     
-    __block EcomapLoggedUser *loggedUser  = nil;
+    //Check if fields are empty
+    if ([email isEqualToString:@""] || [password isEqualToString:@""]) {
+        [self showAlertViewWithTitile:@"Incomplete info"
+                           andMessage:@"\nPlease fill all fields"];
+        return;
+    }
     
-    [EcomapFetcher loginWithEmail:login andPassword:password OnCompletion:
+    //check if email is valid
+    if (![self validMail:email]) {
+        [self showAlertViewWithTitile:@"Bad e-mail"
+                           andMessage:@"\nPlease enter a valid e-mail"];
+        return;
+    }
+    
+    //Send e-mail and password on server
+    [EcomapFetcher loginWithEmail:email andPassword:password OnCompletion:
      ^(EcomapLoggedUser *user, NSError *error){
          if (error){
-            // int errorCode = error.code;
-             UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Incorrect password or email" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-             [alertView show];
+             if (error.code == 400) {
+                 [self showAlertViewWithTitile:@"Login error"
+                                    andMessage:@"\nIncorrect password or email"];
+             } else {
+                 [self showAlertViewOfError:error];
+             }
          }
          else{
-             [self showAlertViewWithTitile:[NSString stringWithFormat:@"Hi, %@!", user.name]
-                                andMessage:@"\nWelcome on Ecomap"];
-             //UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-             //[alertView show];
-             loggedUser = user;
-             self.dismissBlock();
-             [self dismissViewControllerAnimated:YES completion:nil];
-             //[self performSegueWithIdentifier:@"ShowMap" sender:nil];
+             if (user) {
+                 self.dismissBlock();
+                 [self dismissViewControllerAnimated:YES completion:nil];
+                 [self showAlertViewWithTitile:[NSString stringWithFormat:@"Hi, %@!", user.name]
+                                    andMessage:@"\nWelcome on Ecomap"];
+             } else {
+                 [self showAlertViewWithTitile:@"Server error"
+                                    andMessage:@"\nSomething went wrong. Please contact us!"];
+             }
+             
          }
      }
         ];
-    //loggedUser
     
 }
 
@@ -166,5 +183,22 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+}
+
+- (BOOL)validMail:(NSString *)email
+{
+    BOOL result = YES;
+    //Split mail first by "@", and than second part by ".". Perform check of evety part
+    for (int i = 0; i <= 1; i++) {
+        NSArray *mailSplit = i == 0 ? [email componentsSeparatedByString:@"@"] : [[[email componentsSeparatedByString:@"@"] lastObject] componentsSeparatedByString:@"."];
+        if ([mailSplit count] < 2) {
+            return NO;
+        } else if ([[mailSplit firstObject] length] < 1) {
+            return NO;
+        } else if ([[mailSplit lastObject] length] < 1) {
+            return NO;
+        }
+    }
+    return result;
 }
 @end

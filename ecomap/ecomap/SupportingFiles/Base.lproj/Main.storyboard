@@ -1201,7 +1201,7 @@
                                                             <outlet property="delegate" destination="f9f-d4-qVJ" id="3zM-XG-rhN"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CNL-Cg-M9H">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CNL-Cg-M9H">
                                                         <rect key="frame" x="50" y="55" width="232" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="232" id="JQL-ma-rKc"/>
@@ -1693,6 +1693,7 @@
         <image name="Good" width="20" height="20"/>
         <image name="LogInButton" width="282" height="52"/>
         <image name="LogOutButton" width="282" height="52"/>
+        <image name="NameSurname" width="69" height="52"/>
         <image name="PasswordField" width="282" height="41"/>
         <image name="RegisterButton" width="282" height="52"/>
         <image name="RoleField" width="282" height="41"/>
