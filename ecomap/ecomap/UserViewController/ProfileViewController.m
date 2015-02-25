@@ -59,4 +59,63 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+/*
+// Called when the UIKeyboardDidShowNotification is sent
+#define KEYBOARD_TO_TEXTFIELD_SPACE 8.0
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    //Increase scroll view contetn size by keyboard size
+    CGRect contetntViewRect = self.activeField.superview.superview.frame;
+    contetntViewRect.size.height += keyboardSize.height;
+    self.scrollView.contentSize = contetntViewRect.size;
+    
+    
+    //    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0);
+    //    self.scrollView.contentInset = contentInsets;
+    //    self.scrollView.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    CGRect visibleRect = self.view.frame;
+    visibleRect.size.height -= keyboardSize.height;
+    
+    CGFloat passwordFieldHieght = self.passwordText.frame.size.height;
+    CGPoint passwordFieldLeftBottomPoint = [self.view convertPoint:CGPointMake(self.passwordText.frame.origin.x, (self.passwordText.frame.origin.y + passwordFieldHieght))
+                                                          fromView:self.passwordText.superview];
+    //CGFloat activeFieldHieght = self.activeField.frame.size.height;
+    //CGPoint activeFieldLeftBottomPoint = [self.view convertPoint:CGPointMake(self.activeField.frame.origin.x, (self.activeField.frame.origin.y + activeFieldHieght))
+    //                                          fromView:self.activeField.superview];
+    //if (!CGRectContainsPoint(visibleRect, activeFieldLeftBottomPoint) ) {
+    if (!CGRectContainsPoint(visibleRect, passwordFieldLeftBottomPoint) ) {
+        
+        [self.scrollView setContentOffset:CGPointMake(0.0, self.scrollView.contentOffset.y + passwordFieldLeftBottomPoint.y - visibleRect.size.height + KEYBOARD_TO_TEXTFIELD_SPACE) animated:YES];
+        //[self.scrollView setContentOffset:CGPointMake(0.0, activeFieldOrigin.y - visibleRect.size.height + self.activeField.frame.size.height - self.navigationController.navigationBar.frame.size.height) animated:YES];
+        //[scrollView setContentOffset:CGPointMake(0.0, activeField.frame.origin.y-kbSize.height) animated:YES];
+        //[self.scrollView setContentOffset:CGPointMake(0.0, activeFieldOrigin.y - keyboardSize.height) animated:YES];
+    }
+    
+    
+    
+    
+    //[self.scrollView setContentOffset:CGPointMake(0.0, self.activeField.frame.origin.y+keyboardSize.height) animated:YES];
+    //
+    //    CGPoint buttonOrigin = self.signInButton.frame.origin;
+    //
+    //    CGFloat buttonHeight = self.signInButton.frame.size.height;
+    //
+    //    CGRect visibleRect = self.view.frame;
+    //
+    //    visibleRect.size.height -= keyboardSize.height;
+    //
+    //    if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
+    //
+    //        CGPoint scrollPoint = CGPointMake(0.0, buttonOrigin.y - visibleRect.size.height + buttonHeight);
+    //
+    //        [self.scrollView setContentOffset:scrollPoint animated:YES];
+    //        
+    //    }
+}
+ */
+
 @end

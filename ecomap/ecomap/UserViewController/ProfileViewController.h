@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserActionViewController.h"
+#import "LoginViewController.h"
 
-@interface ProfileViewController : UserActionViewController
+@interface ProfileViewController : UIViewController <UserAction>
+
+@property (nonatomic, copy) void (^dismissBlock)(void);
 
 @end

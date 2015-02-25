@@ -107,7 +107,6 @@
 		B3738C5A1A9DDC4B0077F604 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C061A9DDC4B0077F604 /* LoginViewController.m */; };
 		B3738C5B1A9DDC4B0077F604 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C081A9DDC4B0077F604 /* ProfileViewController.m */; };
 		B3738C5C1A9DDC4B0077F604 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */; };
-		B3738C5D1A9DDC4B0077F604 /* UserActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C0C1A9DDC4B0077F604 /* UserActionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -288,8 +287,6 @@
 		B3738C081A9DDC4B0077F604 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		B3738C091A9DDC4B0077F604 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
-		B3738C0B1A9DDC4B0077F604 /* UserActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserActionViewController.h; sourceTree = "<group>"; };
-		B3738C0C1A9DDC4B0077F604 /* UserActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserActionViewController.m; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -777,8 +774,6 @@
 				B3738C081A9DDC4B0077F604 /* ProfileViewController.m */,
 				B3738C091A9DDC4B0077F604 /* RegisterViewController.h */,
 				B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */,
-				B3738C0B1A9DDC4B0077F604 /* UserActionViewController.h */,
-				B3738C0C1A9DDC4B0077F604 /* UserActionViewController.m */,
 			);
 			path = UserViewController;
 			sourceTree = "<group>";
@@ -979,7 +974,6 @@
 				B3738C5B1A9DDC4B0077F604 /* ProfileViewController.m in Sources */,
 				B3738C191A9DDC4B0077F604 /* GQTPointQuadTree.m in Sources */,
 				B3738C411A9DDC4B0077F604 /* GeneralStatsTopLabelView.m in Sources */,
-				B3738C5D1A9DDC4B0077F604 /* UserActionViewController.m in Sources */,
 				B3738C221A9DDC4B0077F604 /* EcomapFilter.m in Sources */,
 				B3738C421A9DDC4B0077F604 /* AppDelegate.m in Sources */,
 				B3738C3F1A9DDC4B0077F604 /* MenuViewController.m in Sources */,
