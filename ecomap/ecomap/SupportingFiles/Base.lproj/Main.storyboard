@@ -755,10 +755,8 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ldd-rU-wCs" userLabel="Pie Chart Grid">
                                 <rect key="frame" x="0.0" y="221" width="600" height="379"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-Qg-V45">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Кількість доданих проблем за останній" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-Qg-V45">
                                         <rect key="frame" x="16" y="3" width="568" height="20"/>
-                                        <string key="text">Кількість доданих
-проблем за останній</string>
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -977,7 +975,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="NS2-ae-7zV" kind="relationship" relationship="rootViewController" id="xhE-Qu-sci"/>
+                        <segue destination="7Eh-0T-BGT" kind="relationship" relationship="rootViewController" id="LMT-24-jFv"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KnC-3O-RxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -985,84 +983,90 @@
             <point key="canvasLocation" x="211.875" y="839.78873239436609"/>
         </scene>
         <!--ТОП 10 проблем-->
-        <scene sceneID="cW2-CD-igG">
+        <scene sceneID="SqJ-Ye-nw8">
             <objects>
-                <tableViewController id="NS2-ae-7zV" customClass="ProblemsTopListTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yri-oc-utg">
+                <viewController id="7Eh-0T-BGT" customClass="ProblemsTopListTVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZMW-vk-PRT"/>
+                        <viewControllerLayoutGuide type="bottom" id="26Z-7V-hTi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ufp-qo-QvD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="1OQ-Ft-EXy">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="0qm-vi-3sa">
-                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
-                                    <segments>
-                                        <segment title="Популярні"/>
-                                        <segment title="Важливі"/>
-                                        <segment title="Обговорювані"/>
-                                    </segments>
-                                    <connections>
-                                        <action selector="changeKindOfTopChart:" destination="NS2-ae-7zV" eventType="valueChanged" id="HWE-Nq-eAW"/>
-                                    </connections>
-                                </segmentedControl>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="0qm-vi-3sa" firstAttribute="bottom" secondItem="1OQ-Ft-EXy" secondAttribute="bottomMargin" id="2oO-hZ-NLh"/>
-                                <constraint firstItem="0qm-vi-3sa" firstAttribute="leading" secondItem="1OQ-Ft-EXy" secondAttribute="leadingMargin" id="6t4-MI-kP8"/>
-                                <constraint firstItem="0qm-vi-3sa" firstAttribute="top" secondItem="1OQ-Ft-EXy" secondAttribute="top" constant="7" id="kGG-sC-ASb"/>
-                                <constraint firstItem="0qm-vi-3sa" firstAttribute="trailing" secondItem="1OQ-Ft-EXy" secondAttribute="trailingMargin" id="yfv-b6-PfJ"/>
-                            </constraints>
-                        </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Top Problem Cell" textLabel="jMO-sY-nDG" detailTextLabel="aN5-ev-QRW" style="IBUITableViewCellStyleValue1" id="oU9-Y8-nOy">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="oU9-Y8-nOy" id="Owh-an-ocU">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jMO-sY-nDG">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            </variation>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aN5-ev-QRW">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            </variation>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="0qm-vi-3sa">
+                                <rect key="frame" x="8" y="72" width="584" height="29"/>
+                                <segments>
+                                    <segment title="Популярні"/>
+                                    <segment title="Важливі"/>
+                                    <segment title="Обговорювані"/>
+                                </segments>
                                 <connections>
-                                    <segue destination="2UE-DX-Tsm" kind="show" identifier="Show Problem" id="Tb6-3i-OMj"/>
+                                    <action selector="changeKindOfTopChart:" destination="7Eh-0T-BGT" eventType="valueChanged" id="zbc-P4-bQZ"/>
                                 </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="NS2-ae-7zV" id="mPo-8L-ObH"/>
-                            <outlet property="delegate" destination="NS2-ae-7zV" id="ONO-xd-dYU"/>
-                        </connections>
-                    </tableView>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="68" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yri-oc-utg">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Top Problem Cell" textLabel="jMO-sY-nDG" detailTextLabel="aN5-ev-QRW" style="IBUITableViewCellStyleValue1" id="oU9-Y8-nOy">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="oU9-Y8-nOy" id="Owh-an-ocU">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jMO-sY-nDG">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aN5-ev-QRW">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="2UE-DX-Tsm" kind="show" identifier="Show Problem" id="Tb6-3i-OMj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="7Eh-0T-BGT" id="RSe-ci-FR2"/>
+                                    <outlet property="delegate" destination="7Eh-0T-BGT" id="oPK-qS-0nh"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0qm-vi-3sa" firstAttribute="leading" secondItem="Ufp-qo-QvD" secondAttribute="leading" constant="8" id="2yR-Jp-2gD"/>
+                            <constraint firstItem="yri-oc-utg" firstAttribute="top" secondItem="0qm-vi-3sa" secondAttribute="bottom" constant="8" id="4Is-40-iK8"/>
+                            <constraint firstAttribute="trailing" secondItem="yri-oc-utg" secondAttribute="trailing" id="9Eq-46-rD9"/>
+                            <constraint firstItem="yri-oc-utg" firstAttribute="leading" secondItem="Ufp-qo-QvD" secondAttribute="leading" id="jcK-hm-Lc5"/>
+                            <constraint firstItem="0qm-vi-3sa" firstAttribute="top" secondItem="ZMW-vk-PRT" secondAttribute="bottom" constant="8" id="oAg-YW-54o"/>
+                            <constraint firstAttribute="trailing" secondItem="0qm-vi-3sa" secondAttribute="trailing" constant="8" id="xzU-aQ-pBg"/>
+                            <constraint firstItem="26Z-7V-hTi" firstAttribute="top" secondItem="yri-oc-utg" secondAttribute="bottom" id="yy2-Nd-SPh"/>
+                        </constraints>
+                    </view>
                     <navigationItem key="navigationItem" title="ТОП 10 проблем" id="QZs-aD-ccy">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon" style="plain" id="IVg-WA-W5j"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="kindOfTopChartSegmentedControl" destination="0qm-vi-3sa" id="sK9-fq-dHN"/>
-                        <outlet property="revealButtonItem" destination="IVg-WA-W5j" id="OSF-pk-bOW"/>
-                        <outlet property="topChartTableView" destination="yri-oc-utg" id="UYa-Yv-BbH"/>
+                        <outlet property="kindOfTopChartSegmentedControl" destination="0qm-vi-3sa" id="HQT-Nk-tOw"/>
+                        <outlet property="revealButtonItem" destination="IVg-WA-W5j" id="DWh-Uu-r4g"/>
+                        <outlet property="tableView" destination="yri-oc-utg" id="PNL-ma-d3T"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Rc-v8-xmn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tzZ-8p-14M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1062" y="834.75"/>
+            <point key="canvasLocation" x="1063" y="839"/>
         </scene>
         <!--Details-->
         <scene sceneID="o8p-3j-Qu7">

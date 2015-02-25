@@ -21,8 +21,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *kindOfTopChartSegmentedControl;
 @property (nonatomic) EcomapKindfOfTheProblemsTopList kindOfTopChart;
 @property (strong, nonatomic) NSArray *charts;
-@property (strong, nonatomic) IBOutlet UITableView *topChartTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
