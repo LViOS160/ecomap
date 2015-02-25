@@ -95,7 +95,7 @@
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
             (__bridge id)myFont, (id)kCTFontAttributeName,
                     [UIColor whiteColor], (id)kCTForegroundColorAttributeName, nil];
-
+    
     // create a naked string
     NSString *string = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)count];
 

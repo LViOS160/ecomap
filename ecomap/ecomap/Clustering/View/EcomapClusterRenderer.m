@@ -60,7 +60,7 @@
 
 - (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
 {
-    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID]];
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", (unsigned long)problemTypeID]];
 }
 
 - (UIImage*) generateClusterIconWithCount:(NSUInteger)count {

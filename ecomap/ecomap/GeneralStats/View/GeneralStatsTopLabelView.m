@@ -71,7 +71,7 @@
         numberFont = [UIFont fontWithName:@"Helvetica-Light" size:[self numberFontSize]];
     }
     
-    NSAttributedString *numberText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", self.numberOfInstances]
+    NSAttributedString *numberText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", (unsigned long)self.numberOfInstances]
                                                                      attributes:@{ NSFontAttributeName : numberFont}];
     
     CGRect numberTextBounds;

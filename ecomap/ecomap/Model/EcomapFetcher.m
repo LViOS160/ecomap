@@ -113,26 +113,6 @@
     [self uploadDataTaskWithRequest:request fromData:data
                sessionConfiguration:sessionConfiguration
                   completionHandler:^(NSData *JSON, NSError *error) {
-                      NSDictionary *commentsInfo;
-                      
-                      EcomapCommentsChild * difComment = nil;
-                      
-                      if(!error)
-                          
-                      {    difComment = [[EcomapCommentsChild alloc]initWithInfo:commentsInfo];
-                          if([EcomapLoggedUser currentLoggedUser])
-                          {
-                              
-                              commentsInfo = [EcomapFetcher parseJSONtoDictionary:JSON];
-                              
-                              
-                          }
-                          else
-                              difComment = nil;
-                          
-                      }
-                      
-                      completionHandler(difComment,error);
 
                     
  }];
