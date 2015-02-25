@@ -63,7 +63,7 @@
 {
     // Drawing number of instances
     
-    UIFont *numberFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody]; // default font
+    UIFont *numberFont = nil; // default font
     
     if([UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]]) {
         numberFont = [UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]];
@@ -84,7 +84,7 @@
     
     // Drawing name of instances
     
-    UIFont *nameFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody]; // default font;
+    UIFont *nameFont = nil; // default font;
     
     if([UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]]) {
         nameFont = [UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]];

@@ -115,8 +115,7 @@
     CFRelease(frameSetter);
     
     //Get the position on the y axis
-    float midHeight = diameter;
-    midHeight -= suggestedSize.height;
+
     
     float midWidth = diameter / 2;
     midWidth -= suggestedSize.width / 2;
