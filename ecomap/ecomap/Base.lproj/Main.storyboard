@@ -139,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36M-AJ-aQi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1685.625" y="-583.09859154929575"/>
+            <point key="canvasLocation" x="-1486" y="-580"/>
         </scene>
         <!--Ecomap Reveal View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -366,6 +366,91 @@
             </objects>
             <point key="canvasLocation" x="211.875" y="-564.08450704225345"/>
         </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="0iQ-KP-Iim">
+            <objects>
+                <viewController id="hS7-mg-PRS" customClass="PhotoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BIa-TB-8PL"/>
+                        <viewControllerLayoutGuide type="bottom" id="MBy-ao-5id"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ycm-Qk-vLT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Pax-dr-mNF">
+                                <rect key="frame" x="0.0" y="52" width="600" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VmV-wm-BjT">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Gallery" id="6h2-AK-gnc">
+                                        <connections>
+                                            <action selector="galleryTap:" destination="hS7-mg-PRS" id="TgO-Yr-ZtY"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Camera" id="T62-Uf-Ozw">
+                                        <connections>
+                                            <action selector="cameraTap:" destination="hS7-mg-PRS" id="c6F-U5-Nfd"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVW-tn-iOb">
+                                <rect key="frame" x="0.0" y="8" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Фото" id="SnU-YB-r7J">
+                                        <barButtonItem key="leftBarButtonItem" style="plain" id="zry-6l-wxk">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nah-bw-nRo">
+                                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Відмінити">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelTap:" destination="hS7-mg-PRS" eventType="touchUpInside" id="a7M-Vc-hiP"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="xZ8-cG-Vzc">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DFW-mu-WEi">
+                                                <rect key="frame" x="514" y="7" width="100" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Обрати">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="chooseTap:" destination="hS7-mg-PRS" eventType="touchUpInside" id="6jl-aD-YUE"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="bottom" secondItem="MBy-ao-5id" secondAttribute="top" id="4ar-c7-Er1"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="top" secondItem="Pax-dr-mNF" secondAttribute="bottom" id="AOy-CA-rxe"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="GTa-3i-IU1"/>
+                            <constraint firstItem="mVW-tn-iOb" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="Mp8-kG-wvq"/>
+                            <constraint firstItem="mVW-tn-iOb" firstAttribute="top" secondItem="BIa-TB-8PL" secondAttribute="bottom" constant="8" id="OQg-Ti-L3E"/>
+                            <constraint firstAttribute="trailing" secondItem="VmV-wm-BjT" secondAttribute="trailing" id="WW2-vo-2r6"/>
+                            <constraint firstItem="mVW-tn-iOb" firstAttribute="leading" secondItem="Ycm-Qk-vLT" secondAttribute="leading" id="Y59-Tg-Zqs"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="top" secondItem="mVW-tn-iOb" secondAttribute="bottom" id="a3J-UV-9EU"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="mVW-tn-iOb" secondAttribute="leading" id="c7d-Yb-pTz"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="VmV-wm-BjT" secondAttribute="leading" id="tEm-Ve-mie"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Pax-dr-mNF" id="udZ-9X-TVs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mTV-Iq-kwa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4673" y="-2009"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="3cv-8Z-yUW">
             <objects>
@@ -557,11 +642,12 @@
                     <connections>
                         <outlet property="descriptionText" destination="rCS-y7-0oj" id="vMb-Vk-0mf"/>
                         <outlet property="scrollViewPhotoGallary" destination="w77-Kt-PfJ" id="edW-ox-UXQ"/>
+                        <segue destination="hS7-mg-PRS" kind="custom" identifier="PhotoPicker" customClass="EmptySegue" id="5iM-z5-ahh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3jt-3v-MTt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3785.625" y="-1990.1408450704223"/>
+            <point key="canvasLocation" x="3887" y="-1986"/>
         </scene>
         <!--Problem Activity View Controller-->
         <scene sceneID="uX4-eU-5i3">
