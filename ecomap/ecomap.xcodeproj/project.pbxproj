@@ -249,13 +249,13 @@
 		CABBB5071A853D400089065B /* GClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GClusterManager.m; sourceTree = "<group>"; };
 		CABBB5081A853D400089065B /* SphericalMercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalMercatorProjection.h; sourceTree = "<group>"; };
 		CABBB5091A853D400089065B /* SphericalMercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SphericalMercatorProjection.m; sourceTree = "<group>"; };
-		CABBB50B1A853D400089065B /* EcomapClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapClusterRenderer.h; sourceTree = "<group>"; };
-		CABBB50C1A853D400089065B /* EcomapClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapClusterRenderer.m; sourceTree = "<group>"; };
+		CABBB50B1A853D400089065B /* EcomapClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapClusterRenderer.h; path = Clustering/View/EcomapClusterRenderer.h; sourceTree = "<group>"; };
+		CABBB50C1A853D400089065B /* EcomapClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapClusterRenderer.m; path = Clustering/View/EcomapClusterRenderer.m; sourceTree = "<group>"; };
 		CABBB50D1A853D400089065B /* GClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterRenderer.h; sourceTree = "<group>"; };
 		CABBB50E1A853D400089065B /* GDefaultClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDefaultClusterRenderer.h; sourceTree = "<group>"; };
 		CABBB50F1A853D400089065B /* GDefaultClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDefaultClusterRenderer.m; sourceTree = "<group>"; };
-		CABBB5101A853D400089065B /* Spot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spot.h; sourceTree = "<group>"; };
-		CABBB5111A853D400089065B /* Spot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spot.m; sourceTree = "<group>"; };
+		CABBB5101A853D400089065B /* Spot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Spot.h; path = Clustering/View/Spot.h; sourceTree = "<group>"; };
+		CABBB5111A853D400089065B /* Spot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Spot.m; path = Clustering/View/Spot.m; sourceTree = "<group>"; };
 		CABBB51B1A853D6F0089065B /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
 		CABBB51C1A853D6F0089065B /* GQTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPoint.h; sourceTree = "<group>"; };
 		CABBB51D1A853D6F0089065B /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
@@ -429,7 +429,6 @@
 			isa = PBXGroup;
 			children = (
 				B35343291A7F73ED00DD2F03 /* Main.storyboard */,
-				CABBB4FB1A853D400089065B /* Clustering */,
 				E5F27C901A80F98D00121A7E /* Model */,
 				B3AB4AEE1A9BDC9A0089F20C /* AddProblem */,
 				B3AB4AE91A9BDA800089F20C /* ProblemView */,
@@ -492,6 +491,7 @@
 		B388FF011A7F884A009C421C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CABBB4FB1A853D400089065B /* Clustering */,
 				B3E23AD81A9C8DEF0011AC56 /* Foundation.framework */,
 				B3E23AD61A9C8DE00011AC56 /* CFNetwork.framework */,
 				B3E23AD41A9C8DD40011AC56 /* Security.framework */,
@@ -664,6 +664,17 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		B3DCC0401A9DD30E003085DD /* Clustering */ = {
+			isa = PBXGroup;
+			children = (
+				CABBB50B1A853D400089065B /* EcomapClusterRenderer.h */,
+				CABBB50C1A853D400089065B /* EcomapClusterRenderer.m */,
+				CABBB5101A853D400089065B /* Spot.h */,
+				CABBB5111A853D400089065B /* Spot.m */,
+			);
+			name = Clustering;
+			sourceTree = "<group>";
+		};
 		B3E23AD31A9C8DA10011AC56 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
@@ -687,7 +698,8 @@
 				CABBB5091A853D400089065B /* SphericalMercatorProjection.m */,
 				CABBB50A1A853D400089065B /* View */,
 			);
-			path = Clustering;
+			name = Clustering;
+			path = ecomap/Clustering;
 			sourceTree = "<group>";
 		};
 		CABBB4FC1A853D400089065B /* Algorithms */ = {
@@ -707,13 +719,9 @@
 		CABBB50A1A853D400089065B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CABBB50B1A853D400089065B /* EcomapClusterRenderer.h */,
-				CABBB50C1A853D400089065B /* EcomapClusterRenderer.m */,
 				CABBB50D1A853D400089065B /* GClusterRenderer.h */,
 				CABBB50E1A853D400089065B /* GDefaultClusterRenderer.h */,
 				CABBB50F1A853D400089065B /* GDefaultClusterRenderer.m */,
-				CABBB5101A853D400089065B /* Spot.h */,
-				CABBB5111A853D400089065B /* Spot.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -759,6 +767,7 @@
 		E5F27C901A80F98D00121A7E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B3DCC0401A9DD30E003085DD /* Clustering */,
 				B3E23AD31A9C8DA10011AC56 /* Socket */,
 				51B485231A8415EE00BA8AFF /* Fetcher Helper Classes */,
 				51B485241A8415F800BA8AFF /* Value-Object Classes */,

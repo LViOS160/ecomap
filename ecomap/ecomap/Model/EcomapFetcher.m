@@ -544,7 +544,7 @@
     [self dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforLogout]]
          sessionConfiguration:sessionConfiguration
             completionHandler:^(NSData *JSON, NSError *error) {
-                BOOL result;
+                BOOL result = NO;
                 if (!error) {
                     //Read response Data (it is not JSON actualy, just plain text)
                     NSString *statusResponse =[[NSString alloc]initWithData:JSON encoding:NSUTF8StringEncoding];
