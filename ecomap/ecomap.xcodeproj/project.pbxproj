@@ -103,6 +103,8 @@
 		CABBB5231A853D6F0089065B /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5201A853D6F0089065B /* GQTPointQuadTreeChild.m */; };
 		CABBB5261A8A844D0089065B /* EcomapPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5251A8A844D0089065B /* EcomapPhoto.m */; };
 		CABBB5291A8A84690089065B /* EcomapComments.m in Sources */ = {isa = PBXBuildFile; fileRef = CABBB5281A8A84690089065B /* EcomapComments.m */; };
+		CAD721621A9D202B00DF2459 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD721611A9D202B00DF2459 /* PhotoViewController.m */; };
+		CAD721651A9D2E1800DF2459 /* LocalImageDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD721641A9D2E1700DF2459 /* LocalImageDescription.m */; };
 		CAF471931A95273500F9B567 /* ProblemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */; };
 		CAF471961A95337600F9B567 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471951A95337600F9B567 /* EmptySegue.m */; };
 		CAF471991A95370000F9B567 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF471981A95370000F9B567 /* ContainerViewController.m */; };
@@ -268,6 +270,10 @@
 		CABBB5251A8A844D0089065B /* EcomapPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapPhoto.m; sourceTree = "<group>"; };
 		CABBB5271A8A84690089065B /* EcomapComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapComments.h; sourceTree = "<group>"; };
 		CABBB5281A8A84690089065B /* EcomapComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapComments.m; sourceTree = "<group>"; };
+		CAD721601A9D202B00DF2459 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
+		CAD721611A9D202B00DF2459 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+		CAD721631A9D2E1700DF2459 /* LocalImageDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalImageDescription.h; path = Model/LocalImageDescription.h; sourceTree = "<group>"; };
+		CAD721641A9D2E1700DF2459 /* LocalImageDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalImageDescription.m; path = Model/LocalImageDescription.m; sourceTree = "<group>"; };
 		CAF471911A95273500F9B567 /* ProblemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemDetailsViewController.h; sourceTree = "<group>"; };
 		CAF471921A95273500F9B567 /* ProblemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemDetailsViewController.m; sourceTree = "<group>"; };
 		CAF471941A95337600F9B567 /* EmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptySegue.h; sourceTree = "<group>"; };
@@ -596,6 +602,8 @@
 				CAF4719B1A9543B700F9B567 /* ProblemActivityViewController.m */,
 				CAF471971A95370000F9B567 /* ContainerViewController.h */,
 				CAF471981A95370000F9B567 /* ContainerViewController.m */,
+				CAD721601A9D202B00DF2459 /* PhotoViewController.h */,
+				CAD721611A9D202B00DF2459 /* PhotoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -768,6 +776,8 @@
 				E582D0B71A8CCAD200AD957A /* GlobalLoggerLevel.h */,
 				90BD46081A95F64C00D445DC /* EcomapFilter.h */,
 				90BD46091A95F64C00D445DC /* EcomapFilter.m */,
+				CAD721631A9D2E1700DF2459 /* LocalImageDescription.h */,
+				CAD721641A9D2E1700DF2459 /* LocalImageDescription.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -823,7 +833,7 @@
 				TargetAttributes = {
 					B35343181A7F73ED00DD2F03 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 7VZHFC2543;
+						DevelopmentTeam = FD442QNEZS;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -832,7 +842,7 @@
 					};
 					B35343341A7F73ED00DD2F03 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 7VZHFC2543;
+						DevelopmentTeam = FD442QNEZS;
 						TestTargetID = B35343181A7F73ED00DD2F03;
 					};
 				};
@@ -957,6 +967,7 @@
 				B35343221A7F73ED00DD2F03 /* AppDelegate.m in Sources */,
 				B323B57A1A89F8FF00D02E2D /* AddProblemViewController.m in Sources */,
 				90BD460A1A95F64C00D445DC /* EcomapFilter.m in Sources */,
+				CAD721651A9D2E1800DF2459 /* LocalImageDescription.m in Sources */,
 				CABBB5181A853D400089065B /* GDefaultClusterRenderer.m in Sources */,
 				51B485271A8417CB00BA8AFF /* EcomapLoggedUser.m in Sources */,
 				5F2E87EC1A95DCA3006F3EE8 /* CommentCell.m in Sources */,
@@ -983,6 +994,7 @@
 				B353434D1A7F778000DD2F03 /* EcomapRevealViewController.m in Sources */,
 				CA4027A81A8F632800CA835F /* ProblemViewController.m in Sources */,
 				CABBB5291A8A84690089065B /* EcomapComments.m in Sources */,
+				CAD721621A9D202B00DF2459 /* PhotoViewController.m in Sources */,
 				CABBB5151A853D400089065B /* GClusterManager.m in Sources */,
 				90838F611A94B1260025ACCB /* GeneralStatsTopLabelView.m in Sources */,
 				51A9F1CF1A8AB34400666C23 /* VasylKorsiubaViewControllerForTestsViewController.m in Sources */,
