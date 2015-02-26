@@ -69,15 +69,26 @@
     return topChart;
 }
 
-+ (NSString *)getTitleForParticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart fromProblem:(NSDictionary *)problem
++ (NSString *)scoreOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
 {
-    switch (kindOfChart) {
-        case EcomapMostCommentedProblemsTopList: return [NSString stringWithFormat:@"✒️%@", [problem valueForKey:ECOMAP_PROBLEM_VALUE]];
-        case EcomapMostSevereProblemsTopList: return [NSString stringWithFormat:@"⭐️%@", [problem valueForKey:ECOMAP_PROBLEM_SEVERITY]];
-        case EcomapMostVotedProblemsTopList: return [NSString stringWithFormat:@"❤️%@", [problem valueForKey:ECOMAP_PROBLEM_VOTES]];
+    switch(kindOfChart) {
+        case EcomapMostCommentedProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_VALUE]];
+        case EcomapMostSevereProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_SEVERITY]];
+        case EcomapMostVotedProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_VOTES]];
     }
     
     return @"";
+}
+
++ (UIImage *)scoreImageOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
+{
+    switch(kindOfChart) {
+        case EcomapMostCommentedProblemsTopList: return [UIImage imageNamed:@"12"];
+        case EcomapMostSevereProblemsTopList: return [UIImage imageNamed:@"16"];
+        case EcomapMostVotedProblemsTopList: return [UIImage imageNamed:@"13"];
+    }
+    
+    return [[UIImage alloc] init];
 }
 
 + (EcomapStatsTimePeriod)getPeriodForStatsByIndex:(NSInteger)index
