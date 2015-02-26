@@ -15,7 +15,7 @@
 {
     NSMutableArray *filteredProblems = [[NSMutableArray alloc] init];
 
-    for(EcomapProblem *problem in problems) {
+    for(id problem in problems) {
         if([problem isKindOfClass:[EcomapProblem class]]) {
             EcomapProblem *ecoProblem = (EcomapProblem *)problem;
             if([self checkProblem:ecoProblem usingFilteringMask:mask]) {
@@ -62,7 +62,7 @@
     NSTimeInterval intervalFromBeginOfTheRangeToDate = [date timeIntervalSinceDate:fromDate];
     NSTimeInterval intervalFromDateToEndOfTheRange = [toDate timeIntervalSinceDate:date];
     
-    if((intervalFromBeginOfTheRangeToDate > 0) && (intervalFromDateToEndOfTheRange) > 0) {
+    if((intervalFromBeginOfTheRangeToDate > 0) && intervalFromDateToEndOfTheRange > 0) {
         return YES;
     } else {
         return NO;
