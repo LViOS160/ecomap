@@ -13,5 +13,11 @@
 
 @end
 
+@interface SWUIUserTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *cellName;
+@property (weak, nonatomic) IBOutlet UILabel *userName;
+@end
+
+
 @interface MenuViewController : UITableViewController
 @end
