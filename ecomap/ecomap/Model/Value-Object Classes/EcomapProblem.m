@@ -60,7 +60,8 @@
         self.longtitude = ![[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] doubleValue] : 0;
         self.problemTypesID = ![[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] integerValue] : 0;
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:(self.problemTypesID - 1)];
-        self.isSolved = [[problem valueForKey:ECOMAP_PROBLEM_STATUS] integerValue] == 0 ? NO : YES;
+        int isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_STATUS] integerValue] : 0;
+        self.isSolved = isSolvedInt == 0 ? NO : YES;
         self.dateCreated = [self dateCreatedOfProblem:problem];
     }
     return self;
