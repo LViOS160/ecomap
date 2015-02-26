@@ -99,12 +99,29 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Top Problem Cell" forIndexPath:indexPath];
+    
+    static NSString *cellIdentifier = @"Top Problem Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    
+    if(!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    // Display data in the cell
+    
     NSDictionary *problem = self.problems[indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
-    cell.textLabel.text = [EcomapStatsParser getTitleForParticularTopChart:self.kindOfTopChart fromProblem:problem];
+    
+    UILabel *problemTitleLabel = (UILabel *)[cell viewWithTag:100];
+    problemTitleLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
+    
+    UILabel *problemScoreLabel = (UILabel *)[cell viewWithTag:101];
+    problemScoreLabel.text = [EcomapStatsParser scoreOfProblem:problem forChartType:self.kindOfTopChart];
+    
+    UIImageView *problemScoreImageView = (UIImageView *)[cell viewWithTag:102];
+    problemScoreImageView.image = [EcomapStatsParser scoreImageOfProblem:problem forChartType:self.kindOfTopChart];
+    
     return cell;
 }
 

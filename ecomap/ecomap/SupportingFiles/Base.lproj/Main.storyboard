@@ -11,6 +11,11 @@
             <string>OpenSans-Bold</string>
             <string>OpenSans-Bold</string>
         </mutableArray>
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+        </mutableArray>
     </customFonts>
     <scenes>
         <!--Ecomap Reveal View Controller-->
@@ -174,7 +179,7 @@
         <scene sceneID="kg4-HK-6pH">
             <objects>
                 <tableViewController id="xQj-XZ-y48" customClass="ResourcesViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NwL-lr-1cn">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="22" sectionFooterHeight="22" id="NwL-lr-1cn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -184,14 +189,21 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4HB-mz-aOg" id="xEj-Ju-Ipk">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3k-9p-oaB">
-                                            <rect key="frame" x="16" y="4" width="284" height="36"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3k-9p-oaB">
+                                            <rect key="frame" x="8" y="8" width="551" height="55"/>
+                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="D3k-9p-oaB" secondAttribute="trailing" constant="8" id="JNA-NI-0RL"/>
+                                        <constraint firstItem="D3k-9p-oaB" firstAttribute="top" secondItem="xEj-Ju-Ipk" secondAttribute="top" constant="8" id="JTU-mo-o1j"/>
+                                        <constraint firstItem="D3k-9p-oaB" firstAttribute="leading" secondItem="xEj-Ju-Ipk" secondAttribute="leading" constant="8" id="U16-Se-TV1"/>
+                                        <constraint firstAttribute="bottom" secondItem="D3k-9p-oaB" secondAttribute="bottom" constant="8" id="yhG-HI-gD9"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="TitleLabel" destination="D3k-9p-oaB" id="j4d-0q-vJC"/>
                                     <segue destination="Wcz-ba-I3S" kind="show" identifier="ShowDetails" id="fMf-L5-Cb9"/>
@@ -220,7 +232,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubG-LU-CKa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1063.125" y="-556.69014084507035"/>
+            <point key="canvasLocation" x="1063" y="-560"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iw2-vn-DLc">
@@ -597,6 +609,9 @@
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="34" y="3" width="166" height="18"/>
+                                        </variation>
                                         <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                             <rect key="frame" x="26" y="3" width="183" height="21"/>
                                         </variation>
@@ -759,6 +774,9 @@
                                         <rect key="frame" x="16" y="3" width="568" height="20"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="45" y="3" width="277" height="18"/>
+                                        </variation>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="Wq9-3K-2vu">
                                         <rect key="frame" x="8" y="27" width="584" height="29"/>
@@ -769,6 +787,9 @@
                                             <segment title="рік"/>
                                             <segment title="за весь час"/>
                                         </segments>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="38" y="25" width="291" height="29"/>
+                                        </variation>
                                         <connections>
                                             <action selector="changeRangeOfShowingStats:" destination="jVG-Fj-m9H" eventType="valueChanged" id="Vhi-gJ-nv5"/>
                                         </connections>
@@ -790,6 +811,9 @@
                                                         <exclude reference="JV4-gJ-jUf"/>
                                                         <exclude reference="hoY-I8-D6u"/>
                                                     </mask>
+                                                </variation>
+                                                <variation key="heightClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="166" y="119" width="37" height="37"/>
                                                 </variation>
                                                 <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                                     <rect key="frame" x="266" y="107" width="37" height="37"/>
@@ -816,6 +840,9 @@
                                                 <exclude reference="Cbv-uP-c41"/>
                                                 <exclude reference="ye4-I9-i0O"/>
                                             </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="61" width="367" height="275"/>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
                                             <mask key="constraints">
@@ -1005,34 +1032,49 @@
                                     <action selector="changeKindOfTopChart:" destination="7Eh-0T-BGT" eventType="valueChanged" id="zbc-P4-bQZ"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="68" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yri-oc-utg">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yri-oc-utg">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Top Problem Cell" textLabel="jMO-sY-nDG" detailTextLabel="aN5-ev-QRW" style="IBUITableViewCellStyleValue1" id="oU9-Y8-nOy">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Top Problem Cell" editingAccessoryType="disclosureIndicator" id="oU9-Y8-nOy">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="oU9-Y8-nOy" id="Owh-an-ocU">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jMO-sY-nDG">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Problem Title" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNR-CH-Ws8">
+                                                    <rect key="frame" x="80" y="24" width="452" height="24"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aN5-ev-QRW">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <imageView userInteractionEnabled="NO" alpha="0.29999999999999966" tag="102" contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hdv-6S-v4o">
+                                                    <rect key="frame" x="16" y="27" width="16" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="16" id="DkR-aE-n6y"/>
+                                                        <constraint firstAttribute="height" constant="18" id="dRQ-DC-ur5"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwP-tJ-tqP">
+                                                    <rect key="frame" x="34" y="27" width="39" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="G6a-3j-jAY"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="QNR-CH-Ws8" firstAttribute="leading" secondItem="Owh-an-ocU" secondAttribute="leading" constant="80" id="3wF-OM-moj"/>
+                                                <constraint firstItem="Hdv-6S-v4o" firstAttribute="leading" secondItem="Owh-an-ocU" secondAttribute="leading" constant="16" id="5zr-lB-36b"/>
+                                                <constraint firstItem="FwP-tJ-tqP" firstAttribute="leading" secondItem="Hdv-6S-v4o" secondAttribute="trailing" constant="2" id="6Sn-o5-HQf"/>
+                                                <constraint firstAttribute="centerY" secondItem="Hdv-6S-v4o" secondAttribute="centerY" id="E7d-8Q-SAx"/>
+                                                <constraint firstItem="Hdv-6S-v4o" firstAttribute="centerY" secondItem="FwP-tJ-tqP" secondAttribute="centerY" id="IHr-xC-Mfa"/>
+                                                <constraint firstAttribute="trailing" secondItem="QNR-CH-Ws8" secondAttribute="trailing" constant="35" id="Ny0-og-Qbj"/>
+                                                <constraint firstAttribute="centerY" secondItem="QNR-CH-Ws8" secondAttribute="centerY" id="ow7-s0-GPk"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <segue destination="2UE-DX-Tsm" kind="show" identifier="Show Problem" id="Tb6-3i-OMj"/>
                                         </connections>
@@ -1066,7 +1108,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tzZ-8p-14M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1063" y="839"/>
+            <point key="canvasLocation" x="1080" y="814"/>
         </scene>
         <!--Details-->
         <scene sceneID="o8p-3j-Qu7">
