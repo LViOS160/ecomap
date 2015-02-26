@@ -123,7 +123,7 @@
     }
     
     //check if email is valid
-    if (![self validMail:email]) {
+    if (![self isValidMail:email]) {
         [self showAlertViewWithTitile:@"Bad e-mail"
                            andMessage:@"\nPlease enter a valid e-mail"];
         return;
@@ -185,20 +185,15 @@
     [alert show];
 }
 
-- (BOOL)validMail:(NSString *)email
+-(BOOL) isValidMail:(NSString *)checkString
 {
-    BOOL result = YES;
-    //Split mail first by "@", and than second part by ".". Perform check of evety part
-    for (int i = 0; i <= 1; i++) {
-        NSArray *mailSplit = i == 0 ? [email componentsSeparatedByString:@"@"] : [[[email componentsSeparatedByString:@"@"] lastObject] componentsSeparatedByString:@"."];
-        if ([mailSplit count] < 2) {
-            return NO;
-        } else if ([[mailSplit firstObject] length] < 1) {
-            return NO;
-        } else if ([[mailSplit lastObject] length] < 1) {
-            return NO;
-        }
-    }
-    return result;
+    BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    //Uncomment on release
+    //NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *laxString = @".+@(\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
 }
 @end
