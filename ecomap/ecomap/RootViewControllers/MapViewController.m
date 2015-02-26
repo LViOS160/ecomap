@@ -45,9 +45,14 @@
     [self customSetup];
     [self mapSetup];
     [self socketInit];
+    [self reachabilitySetup];
+}
+
+-(void)reachabilitySetup {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     self.hostReachability = [Reachability reachabilityForInternetConnection];
     [self.hostReachability startNotifier];
+
 }
 
 - (void) reachabilityChanged:(NSNotification *)note
