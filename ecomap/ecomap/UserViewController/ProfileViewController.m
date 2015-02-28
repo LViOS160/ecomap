@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "EcomapFetcher.h"
+#import "EcomapUserFetcher.h"
 #import "EcomapLoggedUser.h"
 #import "GlobalLoggerLevel.h"
 
@@ -56,7 +57,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (IBAction)LogoutButton:(id)sender {
-    [EcomapFetcher logoutUser:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(BOOL result, NSError *error) {
+    [EcomapUserFetcher logoutUser:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(BOOL result, NSError *error) {
         if (!error) {
             if(result) DDLogVerbose(@"%d", result);
         }

@@ -15,6 +15,7 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapProblemDetails.h"
 #import "Defines.h"
+#import "EcomapUserFetcher.h"
 #import "GlobalLoggerLevel.h"
 
 
@@ -39,7 +40,7 @@
 }
 - (void)viewDidLoad {
     
-    [EcomapFetcher loginWithEmail:@"clic@ukr.net"
+    [EcomapUserFetcher loginWithEmail:@"clic@ukr.net"
                       andPassword:@"eco"
                      OnCompletion:^(EcomapLoggedUser *user, NSError *error) {
                          if (!error) {

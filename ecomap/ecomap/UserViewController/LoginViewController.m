@@ -10,6 +10,7 @@
 #import "EcomapRevealViewController.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapFetcher.h"
+#import "EcomapUserFetcher.h"
 #import "GlobalLoggerLevel.h"
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
@@ -137,7 +138,7 @@
     }
     
     //Send e-mail and password on server
-    [EcomapFetcher loginWithEmail:email andPassword:password OnCompletion:
+    [EcomapUserFetcher loginWithEmail:email andPassword:password OnCompletion:
      ^(EcomapLoggedUser *user, NSError *error){
          if (error){
              if (error.code == 400) {
@@ -165,7 +166,7 @@
 }
 - (IBAction)loginWithFacebookButton:(id)sender {
     DDLogVerbose(@"Facebook button pressed");
-    [EcomapFetcher loginWithFacebookOnCompletion:^(EcomapLoggedUser *loggedUserFB, NSError *error) {
+    [EcomapUserFetcher loginWithFacebookOnCompletion:^(EcomapLoggedUser *loggedUserFB, NSError *error) {
         if (!error) {
             if (loggedUserFB) {
                 self.dismissBlock();

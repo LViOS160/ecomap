@@ -11,6 +11,7 @@
 #import "IDMPhotoBrowser.h"
 #import "EMThumbnailImageStore.h"
 #import "EcomapFetcher.h"
+#import "EcomapThumbnailFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "PhotoViewController.h"
 
@@ -155,7 +156,7 @@
             [activityIndicator startAnimating];
             
             //Set image in background
-            [EcomapFetcher loadSmallImagesFromLink:link
+            [EcomapThumbnailFetcher loadSmallImagesFromLink:link
                                       OnCompletion:^(UIImage *image, NSError *error) {
                                           if (!error) {
                                               [customButton setBackgroundImage:image

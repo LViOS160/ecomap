@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		03B1BC005E13B3CDC884086F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC970330F7C53C912ED19D0D /* libPods.a */; };
 		518F30961AA1E36E0094DA14 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518F30951AA1E36E0094DA14 /* FacebookSDK.framework */; };
+		518F30A41AA269E50094DA14 /* DataTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A31AA269E50094DA14 /* DataTasks.m */; };
+		518F30A71AA26BF40094DA14 /* JSONparser.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A61AA26BF40094DA14 /* JSONparser.m */; };
+		518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */; };
+		518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		B30E2DBC1A9DDD340039DBBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBB1A9DDD340039DBBD /* Foundation.framework */; };
 		B30E2DBE1A9DDD3A0039DBBD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */; };
@@ -125,6 +129,14 @@
 		297826EF813E17D3E56E38B4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		518F30951AA1E36E0094DA14 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		518F30A21AA269E50094DA14 /* DataTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTasks.h; sourceTree = "<group>"; };
+		518F30A31AA269E50094DA14 /* DataTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTasks.m; sourceTree = "<group>"; };
+		518F30A51AA26BF40094DA14 /* JSONparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONparser.h; sourceTree = "<group>"; };
+		518F30A61AA26BF40094DA14 /* JSONparser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONparser.m; sourceTree = "<group>"; };
+		518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapUserFetcher.h; sourceTree = "<group>"; };
+		518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapUserFetcher.m; sourceTree = "<group>"; };
+		518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapThumbnailFetcher.h; sourceTree = "<group>"; };
+		518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapThumbnailFetcher.m; sourceTree = "<group>"; };
 		B30E2DBB1A9DDD340039DBBD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B30E2DBF1A9DDD410039DBBD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -537,8 +549,16 @@
 			children = (
 				B3C981CB1A9E4DCB00BF034F /* Reachability.h */,
 				B3C981CC1A9E4DCB00BF034F /* Reachability.m */,
+				518F30A21AA269E50094DA14 /* DataTasks.h */,
+				518F30A31AA269E50094DA14 /* DataTasks.m */,
+				518F30A51AA26BF40094DA14 /* JSONparser.h */,
+				518F30A61AA26BF40094DA14 /* JSONparser.m */,
 				B3738B8F1A9DDC4B0077F604 /* EcomapFetcher.h */,
 				B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */,
+				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
+				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
+				518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */,
+				518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */,
 				B3738B911A9DDC4B0077F604 /* EcomapFilter.h */,
 				B3738B921A9DDC4B0077F604 /* EcomapFilter.m */,
 				B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */,
@@ -969,6 +989,7 @@
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,
 				B3738C161A9DDC4B0077F604 /* GStaticCluster.m in Sources */,
 				B3738C331A9DDC4B0077F604 /* EcomapResources.m in Sources */,
+				518F30A41AA269E50094DA14 /* DataTasks.m in Sources */,
 				B3738C1B1A9DDC4B0077F604 /* SphericalMercatorProjection.m in Sources */,
 				B3738C371A9DDC4B0077F604 /* ProblemActivityViewController.m in Sources */,
 				B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */,
@@ -1013,11 +1034,14 @@
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
 				B3738C401A9DDC4B0077F604 /* PieChartViewController.m in Sources */,
+				518F30A71AA26BF40094DA14 /* JSONparser.m in Sources */,
 				B3738C361A9DDC4B0077F604 /* PhotoViewController.m in Sources */,
 				B3738C201A9DDC4B0077F604 /* XYPieChart.m in Sources */,
+				518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */,
 				B3738C1E1A9DDC4B0077F604 /* Spot.m in Sources */,
 				B3738C381A9DDC4B0077F604 /* ProblemDetailsViewController.m in Sources */,
 				B3738C3E1A9DDC4B0077F604 /* MapViewController.m in Sources */,
+				518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

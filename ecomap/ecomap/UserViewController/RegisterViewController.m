@@ -9,6 +9,7 @@
 
 #import "RegisterViewController.h"
 #import "EcomapFetcher.h"
+#import "EcomapUserFetcher.h"
 
 typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // types of showing alerts
 
@@ -96,7 +97,7 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
             if([self.confirmText.text isEqualToString:self.passwordText.text]){
                 if(self.passwordText.text.length > 4)
                 {
-                    [EcomapFetcher registerWithName:self.nameText.text
+                    [EcomapUserFetcher registerWithName:self.nameText.text
                                          andSurname:self.surnameText.text
                                            andEmail:self.emailText.text
                                         andPassword:self.passwordText.text OnCompletion:^(NSError *error) {
@@ -104,7 +105,7 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
                                             if(error) httpErrorCode = error.code;
                                             [self showhttpErrorAlert:httpErrorCode];
                                             if(httpErrorCode == 0){
-                                                [EcomapFetcher loginWithEmail:self.emailText.text andPassword:self.passwordText.text OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                                [EcomapUserFetcher loginWithEmail:self.emailText.text andPassword:self.passwordText.text OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
                                                     /*if(!error){
                                                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                                                         [alertView show];
