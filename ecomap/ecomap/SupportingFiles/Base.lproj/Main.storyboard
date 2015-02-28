@@ -1213,6 +1213,9 @@
                                                 <state key="normal" image="FacebookLogButton">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="loginWithFacebookButton:" destination="f9f-d4-qVJ" eventType="touchUpInside" id="YtS-XY-0aa"/>
+                                                </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator" translatesAutoresizingMaskIntoConstraints="NO" id="fBX-dD-DQA">
                                                 <rect key="frame" x="160" y="167" width="280" height="9"/>
@@ -1355,15 +1358,20 @@
                                     <constraint firstAttribute="trailing" secondItem="cp5-Qh-e0V" secondAttribute="trailing" id="qIf-D0-3Lj"/>
                                 </constraints>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bFb-e5-lYR">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ceB-AQ-0mj" firstAttribute="top" secondItem="Z30-OL-z65" secondAttribute="top" id="2Sa-5Q-Qnv"/>
+                            <constraint firstAttribute="centerY" secondItem="bFb-e5-lYR" secondAttribute="centerY" id="3vx-T1-EVF"/>
                             <constraint firstItem="ceB-AQ-0mj" firstAttribute="top" secondItem="Z30-OL-z65" secondAttribute="top" id="4XV-61-mIQ"/>
                             <constraint firstItem="cp5-Qh-e0V" firstAttribute="width" secondItem="Z30-OL-z65" secondAttribute="width" id="5sD-zg-S3M"/>
                             <constraint firstAttribute="trailing" secondItem="ceB-AQ-0mj" secondAttribute="trailing" id="9Jd-Vc-lsJ"/>
                             <constraint firstItem="ceB-AQ-0mj" firstAttribute="leading" secondItem="Z30-OL-z65" secondAttribute="leading" id="DqY-r9-7Oc"/>
                             <constraint firstItem="DE6-Tx-n4d" firstAttribute="top" secondItem="ceB-AQ-0mj" secondAttribute="bottom" id="FLQ-aR-Xzd"/>
+                            <constraint firstAttribute="centerX" secondItem="bFb-e5-lYR" secondAttribute="centerX" id="VMl-hp-ZRj"/>
                             <constraint firstItem="DE6-Tx-n4d" firstAttribute="top" secondItem="ceB-AQ-0mj" secondAttribute="bottom" id="dYJ-aL-xKM"/>
                             <constraint firstAttribute="trailing" secondItem="ceB-AQ-0mj" secondAttribute="trailing" id="g2E-ot-AKo"/>
                             <constraint firstItem="ceB-AQ-0mj" firstAttribute="leading" secondItem="Z30-OL-z65" secondAttribute="leading" id="qKI-d5-HOz"/>
@@ -1377,6 +1385,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="bFb-e5-lYR" id="de8-BL-Tz1"/>
                         <outlet property="loginTextField" destination="BvX-4d-c5g" id="Cuv-oF-ka7"/>
                         <outlet property="passwordTextField" destination="CNL-Cg-M9H" id="v5t-h3-Osf"/>
                         <outlet property="scrollView" destination="ceB-AQ-0mj" id="HMC-zW-bqm"/>
@@ -1398,12 +1407,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You are logged in." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZF-Ae-cTE">
-                                <rect key="frame" x="16" y="72" width="288" height="55"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeD-hx-MaA">
                                 <rect key="frame" x="31" y="135" width="267" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -1471,6 +1474,15 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D1E-Md-D8z">
+                                <rect key="frame" x="7" y="75" width="50" height="50"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You are logged in." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZF-Ae-cTE">
+                                <rect key="frame" x="16" y="72" width="288" height="55"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1488,6 +1500,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emailLabel" destination="6dw-35-OpN" id="iDC-DT-U4G"/>
+                        <outlet property="imgProfilePicture" destination="D1E-Md-D8z" id="94C-xj-2dh"/>
                         <outlet property="nameLabel" destination="EV4-hX-TzL" id="hkI-AN-XO9"/>
                         <outlet property="roleLabel" destination="glc-GU-xYI" id="kWY-JM-kBl"/>
                         <outlet property="surmaneLabel" destination="Jnp-Rk-hQF" id="nyg-Pc-nQF"/>

@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *surmaneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *roleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imgProfilePicture;
 
 
 @end
@@ -24,6 +25,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.imgProfilePicture.layer.masksToBounds = YES;
+    self.imgProfilePicture.layer.cornerRadius = 30.0;
+    self.imgProfilePicture.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.imgProfilePicture.layer.borderWidth = 1.0;
     [self prepareLabels];
     // Do any additional setup after loading the view.
 }

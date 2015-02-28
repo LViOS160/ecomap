@@ -11,6 +11,8 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapFetcher.h"
 #import "GlobalLoggerLevel.h"
+#import "AppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface LoginViewController ()
 
@@ -18,6 +20,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property(nonatomic, strong) UITextField *activeField;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) AppDelegate *appDelegate;
 
 @end
 
@@ -27,6 +31,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.activityIndicator.hidden = YES;
+    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+
     //Set gesture recognizer
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpinside:)];
     tap.numberOfTapsRequired = 1;
@@ -154,6 +161,31 @@
          }
      }
         ];
+    
+}
+- (IBAction)loginWithFacebookButton:(id)sender {
+    DDLogVerbose(@"Facebook button pressed");
+    [EcomapFetcher loginWithFacebookOnCompletion:^(EcomapLoggedUser *loggedUserFB, NSError *error) {
+        if (!error) {
+            if (loggedUserFB) {
+                self.dismissBlock();
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [self showAlertViewWithTitile:[NSString stringWithFormat:@"Hi, %@!", loggedUserFB.name]
+                                   andMessage:@"\nWelcome on Ecomap"];
+            } else {
+                [self showAlertViewWithTitile:@"Server error"
+                                   andMessage:@"\nSomething went wrong. Please contact us!"];
+            }
+            
+        } else if (error.code == 400) {
+            [self showAlertViewWithTitile:@"Error"
+                               andMessage:@"\nUser with such email already exists"];
+        } else {
+            [self showAlertViewOfError:error];
+        }
+
+        
+    }];
     
 }
 

@@ -10,6 +10,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "CocoaLumberjack.h"
 #import "EcomapFetcher.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -115,12 +116,23 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    //Hadle in case when the user leaves the app while the login dialog is visible either in Facebook app or in Safari. In such a case, it’s necessary to use the Facebook framework for doing some cleanup and removing any unfinished session processes.
+    [FBAppCall handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+
+#pragma mark - Facebook
+//This one is called after the login credentials entry and app authorization have finished in Facebook app or Safari.
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    //This manages the results of all the actions taken outside the app (successful login/authorization or cancelation), and properly directs the login flow back in our app again.
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 
 #pragma mark - Core Data stack
