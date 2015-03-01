@@ -59,7 +59,7 @@
 - (IBAction)LogoutButton:(id)sender {
     [EcomapUserFetcher logoutUser:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(BOOL result, NSError *error) {
         if (!error) {
-            if(result) DDLogVerbose(@"%d", result);
+            if(result) DDLogVerbose(@"Logout button result: %d", result);
         }
     }];
     self.dismissBlock();

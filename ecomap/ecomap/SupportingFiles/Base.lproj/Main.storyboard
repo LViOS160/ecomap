@@ -1241,7 +1241,7 @@
                                                             <constraint firstAttribute="height" constant="41" id="skl-KB-FXM"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пошта" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BvX-4d-c5g">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email-адреса" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BvX-4d-c5g">
                                                         <rect key="frame" x="50" y="6" width="232" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="RiD-wQ-w4j"/>
@@ -1458,8 +1458,8 @@
                                                             <constraint firstAttribute="height" constant="41" id="xGV-6c-F9m"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пошта" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7H-LP-LE7">
-                                                        <rect key="frame" x="21" y="250" width="38" height="15"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email-адреса" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7H-LP-LE7">
+                                                        <rect key="frame" x="21" y="250" width="77" height="15"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -1862,7 +1862,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                                     </textField>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пошта" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="46V-NT-9Zo">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email-адреса" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="46V-NT-9Zo">
                                                         <rect key="frame" x="59" y="128" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="194" id="ZRp-ZX-JNn"/>

@@ -18,6 +18,9 @@
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
+
+static BOOL calledFacebookCloseSession = NO;
+
 @implementation EcomapUserFetcher
 #pragma mark - Login
 + (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(EcomapLoggedUser *loggedUser, NSError *error))completionHandler
@@ -74,9 +77,6 @@
 #define FACEBOOK_INFO_PARAMETERS @{@"fields": @"first_name, last_name, email"}
 + (void)loginWithFacebookOnCompletion:(void (^)(EcomapLoggedUser *loggedUserFB, NSError *error))completionHandler
 {
-    [[NetworkActivityIndicator sharedManager] startActivity];
-    __block EcomapLoggedUser *loggedUserFB = nil;
-    __block NSError *errorFB = nil;
     //check current FB session state
     if ([FBSession activeSession].state != FBSessionStateOpen &&
         [FBSession activeSession].state != FBSessionStateOpenTokenExtended) {
@@ -85,7 +85,6 @@
                                            allowLoginUI:YES
                                       completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                                           
-                                          [[NetworkActivityIndicator sharedManager] endActivity];
                                           // Handle the session state.
                                           // Usually, the only interesting states are the opened session, the closed session and the failed login.
                                           if (!error) {
@@ -93,99 +92,132 @@
                                               if (status == FBSessionStateOpen) {
                                                   DDLogVerbose(@"Facebook session open success!");
                                                   
-                                                  // The session is open. Get the user information.
-                                                  [FBRequestConnection startWithGraphPath:@"me"
-                                                                               parameters:FACEBOOK_INFO_PARAMETERS
-                                                                               HTTPMethod:@"GET"
-                                                                        completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                                                            if (!error) {
-                                                                                NSString *name = [result objectForKey:@"first_name"];
-                                                                                NSString *surname = [result objectForKey:@"last_name"];
-                                                                                NSString *email = [result objectForKey:@"email"];
-                                                                                NSString *password = [result objectForKey:@"id"];
-                                                                                DDLogVerbose(@"User (%@ %@) info received from facebook!", name, surname);
-                                                                                
-                                                                                //Try to login. If not success, then try to register and login
-                                                                                [self loginWithEmail:email
-                                                                                         andPassword:password
-                                                                                        OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                                                                                            if (!error && loggedUser) {
-                                                                                                completionHandler (loggedUser, nil);
-                                                                                                return;
-                                                                                            } else {
-                                                                                                
-                                                                                                //Try to register
-                                                                                                [self registerWithName:name
-                                                                                                            andSurname:surname
-                                                                                                              andEmail:email
-                                                                                                           andPassword:password
-                                                                                                          OnCompletion:^(NSError *error) {
-                                                                                                              if (!error) {
-                                                                                                                  
-                                                                                                                  //Try to login
-                                                                                                                  [self loginWithEmail:email
-                                                                                                                           andPassword:password
-                                                                                                                          OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                                                                                                                              if (!error && loggedUser) {
-                                                                                                                                  completionHandler (loggedUser, nil);
-                                                                                                                                  return;
-                                                                                                                              } else {
-                                                                                                                                  // In case an error to login has occured
-                                                                                                                                  errorFB = error;
-                                                                                                                                  [self closeFacebookSession];
-                                                                                                                              }
-                                                                                                                          }];
-                                                                                                              } else {
-                                                                                                                  // In case an error to register has occured.
-                                                                                                                  errorFB = error;
-                                                                                                                  [self closeFacebookSession];
-                                                                                                              }
-                                                                                                              
-                                                                                                              //Return complition handler
-                                                                                                              completionHandler (loggedUserFB, errorFB);
-                                                                                                          }];
-                                                                                            }
-                                                                                            
-                                                                                            
-                                                                                        }];
-                                                                                
-                                                                                
-                                                                            } else {
-                                                                                //In case an error to get user info from facebook has occured
-                                                                                DDLogError(@"Error getting user info from facebook: %@", [error localizedDescription]);
-                                                                                errorFB = error;
-                                                                                [self closeFacebookSession];
-                                                                            }
-                                                                        }];
+                                                  // The session is open. Get the user information from Facebook.
+                                                  [self requestUserInfoFromFacebookOnCompletion:^(id result, NSError *error) {
+                                                      if (!error) {
+                                                          //Login to Ecomap server with info received from Faceboom
+                                                          [self loginToEcomapWithInfoReceicedFromFacebook:result
+                                                                                     OnCompletion:^(EcomapLoggedUser *loggedUserFB, NSError *error) {
+                                                                                         if (!error) {
+                                                                                             completionHandler(loggedUserFB, nil);
+                                                                                         } else {
+                                                                                             // In case an error to login to Ecomap with user info from Facebook
+                                                                                             [self closeFacebookSession];
+                                                                                             completionHandler (nil, error);
+                                                                                         }
+                                                                                     }];//end of "loginWithInfoReceicedFromFacebook" complition block
+                                                      } else {
+                                                          // In case an error to receive user info from Faceboom
+                                                          [self closeFacebookSession];
+                                                          completionHandler (nil, error);
+                                                      }
+                                                  }]; //end of "requestUserInfoFromFacebookOnCompletion" complition block
                                                   
                                                   
+                                              } else if (status == FBSessionStateClosed || status == FBSessionStateClosedLoginFailed){
+                                                  // A session was closed or the login was failed or canceled.
+                                                  if (!calledFacebookCloseSession) {
+                                                      //Stop network activity indicator
+                                                      [[NetworkActivityIndicator sharedManager]endActivity];
+                                                      
+                                                      DDLogError(@"Error login with facebook: a session was closed or the login was failed or canceled");
+                                                      completionHandler (nil, nil);
+                                                  }
+                                                  
                                               }
-                                              else if (status == FBSessionStateClosed || status == FBSessionStateClosedLoginFailed){
-                                                  // A session was closed or the login was failed or canceled. Update the UI accordingly.
-                                                  DDLogError(@"Error login with facebook: a session was closed or the login was failed or canceled");
-                                              }
+                                          } else{
+                                              // In case an error to connect to facebook (open session) has occured.
+                                              DDLogError(@"Error to open facebook session: %@", [error localizedDescription]);
+                                              completionHandler (nil, error);
                                           }
-                                          else{
-                                              // In case an error to connect to facebook has occured, then just log the error.
-                                              DDLogError(@"Error login with facebook: %@", [error localizedDescription]);
-                                              errorFB = error;
-                                          }
-                                          
-                                          //Return complition handler
-                                          //completionHandler(loggedUserFB, errorFB);
-                                      }];
+                                      }]; //end of "FB onopenActiveSession" complition block
     } else {
+        //The FB sessiom is in state "open" or "OpenTokenExtended"
         [self closeFacebookSession];
+        
+        //Stop network activity indicator
         [[NetworkActivityIndicator sharedManager] endActivity];
         
         //Return complition handler
-        completionHandler(loggedUserFB, errorFB);
+        completionHandler(nil, nil);
     }
     
 }
 
++ (void)requestUserInfoFromFacebookOnCompletion:(void (^)(id result, NSError *error))completionHandler
+{
+    [[NetworkActivityIndicator sharedManager] startActivity];
+    
+    [FBRequestConnection startWithGraphPath:@"me"
+                                 parameters:FACEBOOK_INFO_PARAMETERS
+                                 HTTPMethod:@"GET"
+                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                              //Stop network activity indicator
+                              [[NetworkActivityIndicator sharedManager]endActivity];
+                              
+                              if (!error) {
+                                  //Parse FB response
+                                  NSString *name = [result objectForKey:@"first_name"];
+                                  NSString *surname = [result objectForKey:@"last_name"];
+                                  DDLogVerbose(@"User (%@ %@) info received from facebook!", name, surname);
+                                  completionHandler(result, nil);
+                              } else {
+                                  //In case an error to get user info from facebook has occured
+                                  DDLogError(@"Error getting user info from facebook: %@", [error localizedDescription]);
+                                  completionHandler (nil, error);
+                              }
+                          }];  //end of FBRequestConnection complition block
+}
+
++ (void)loginToEcomapWithInfoReceicedFromFacebook:(id)result OnCompletion:(void (^)(EcomapLoggedUser *loggedUserFB, NSError *error))completionHandler
+{
+    //Parse FB response
+    NSString *name = [result objectForKey:@"first_name"];
+    NSString *surname = [result objectForKey:@"last_name"];
+    NSString *email = [result objectForKey:@"email"];
+    NSString *password = [result objectForKey:@"id"];
+    DDLogVerbose(@"Try to login Facebook user (%@ %@) on Ecomap server!", name, surname);
+    
+    //Try to login (first effort). If not success, then try to register and login again
+    [self loginWithEmail:email
+             andPassword:password
+            OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                if (!error && loggedUser) {
+                    completionHandler (loggedUser, nil);
+                } else {
+                    // In case an error to login (first effort) has occured
+                    //Try to register
+                    [self registerWithName:name
+                                andSurname:surname
+                                  andEmail:email
+                               andPassword:password
+                              OnCompletion:^(NSError *error) {
+                                  if (!error) {
+                                      //Try to login (second effort)
+                                      [self loginWithEmail:email
+                                               andPassword:password
+                                              OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                                  if (!error && loggedUser) {
+                                                      completionHandler (loggedUser, nil);
+                                                      //return;
+                                                  } else {
+                                                      // In case an error to login (second effort) has occured
+                                                      completionHandler (nil, error);
+                                                  }
+                                              }]; //end of login (second effort) complition block
+                                  } else {
+                                      // In case an error to register has occured.
+                                      completionHandler (nil, error);
+                                  }
+                              }];  //end of registartiom complition block
+                }
+            }]; //end of login (first effort) complition block
+}
+
 + (void)closeFacebookSession
 {
+    
+    calledFacebookCloseSession = YES;
     [[FBSession activeSession] close];
     DDLogVerbose(@"Facebook session closed");
 }
@@ -226,8 +258,7 @@
     //Close facebook session if there is one
     if ([FBSession activeSession].state == FBSessionStateOpen ||
         [FBSession activeSession].state == FBSessionStateOpenTokenExtended) {
-        [[FBSession activeSession] close];
-        DDLogVerbose(@"Facebook session closed");
+        [self closeFacebookSession];
     }
 }
 

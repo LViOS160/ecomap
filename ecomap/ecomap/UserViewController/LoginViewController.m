@@ -130,7 +130,7 @@
     //check if email is valid
     if (![self isValidMail:email]) {
         [self showAlertViewWithTitile:@"Помилка в пошті"
-                           andMessage:@"\nБудь-ласка введіть дійсну пошту"];
+                           andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
         return;
     }
     
@@ -142,7 +142,7 @@
          if (error){
              if (error.code == 400) {
                  [self showAlertViewWithTitile:@"Помилка авторизації"
-                                    andMessage:@"\nНеправильний пароль або пошта"];
+                                    andMessage:@"\nНеправильний пароль або email-адреса"];
              } else {
                  [self showAlertViewOfError:error];
              }
@@ -174,15 +174,16 @@
                 [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUserFB.name]
                                    andMessage:@"\nЛаскаво просимо на Ecomap"];
             } else {
-                [self showAlertViewWithTitile:@"Помилка на сервері"
-                                   andMessage:@"\nЄ проблеми на сервері. Ми працюємо над їх вирішенням!"];
+                [self showAlertViewWithTitile:@"Помилка входу через Facebook"
+                                   andMessage:@"Неможливо отримати дані для авторизації на Ecomap"];
             }
             
         } else if (error.code == 400) {
-            [self showAlertViewWithTitile:@"Помилка"
-                               andMessage:@"\nКористувач з такою поштою вже зареєстрований"];
+            [self showAlertViewWithTitile:@"Помилка входу через Facebook"
+                               andMessage:@"\nКористувач з такою email-адресою вже зареєстрований"];
         } else {
-            [self showAlertViewOfError:error];
+            [self showAlertViewWithTitile:@"Помилка входу через Facebook"
+                               andMessage:[error localizedDescription]];
         }
 
         
