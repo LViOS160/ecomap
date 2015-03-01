@@ -21,8 +21,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property(nonatomic, strong) UITextField *activeField;
+@property (weak, nonatomic) IBOutlet UIView *activityIndicatorPad;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) AppDelegate *appDelegate;
 
 @end
 
@@ -31,9 +31,6 @@
 #pragma mark - view life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.activityIndicator.hidden = YES;
-    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 
     //Set gesture recognizer
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpinside:)];
@@ -125,25 +122,27 @@
     
     //Check if fields are empty
     if ([email isEqualToString:@""] || [password isEqualToString:@""]) {
-        [self showAlertViewWithTitile:@"Incomplete info"
-                           andMessage:@"\nPlease fill all fields"];
+        [self showAlertViewWithTitile:@"Неповна інформація"
+                           andMessage:@"\nБудь-ласка заповніть усі поля"];
         return;
     }
     
     //check if email is valid
     if (![self isValidMail:email]) {
-        [self showAlertViewWithTitile:@"Bad e-mail"
-                           andMessage:@"\nPlease enter a valid e-mail"];
+        [self showAlertViewWithTitile:@"Помилка в пошті"
+                           andMessage:@"\nБудь-ласка введіть дійсну пошту"];
         return;
     }
     
+    [self spinerShouldShow:YES];
     //Send e-mail and password on server
     [EcomapUserFetcher loginWithEmail:email andPassword:password OnCompletion:
      ^(EcomapLoggedUser *user, NSError *error){
+         [self spinerShouldShow:NO];
          if (error){
              if (error.code == 400) {
-                 [self showAlertViewWithTitile:@"Login error"
-                                    andMessage:@"\nIncorrect password or email"];
+                 [self showAlertViewWithTitile:@"Помилка авторизації"
+                                    andMessage:@"\nНеправильний пароль або пошта"];
              } else {
                  [self showAlertViewOfError:error];
              }
@@ -152,35 +151,36 @@
              if (user) {
                  self.dismissBlock();
                  [self dismissViewControllerAnimated:YES completion:nil];
-                 [self showAlertViewWithTitile:[NSString stringWithFormat:@"Hi, %@!", user.name]
-                                    andMessage:@"\nWelcome on Ecomap"];
+                 [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", user.name]
+                                    andMessage:@"\nЛаскаво просимо на Ecomap"];
              } else {
-                 [self showAlertViewWithTitile:@"Server error"
-                                    andMessage:@"\nSomething went wrong. Please contact us!"];
+                 [self showAlertViewWithTitile:@"Помилка на сервері"
+                                    andMessage:@"\nЄ проблеми на сервері. Ми працюємо над їх вирішенням!"];
              }
              
          }
-     }
-        ];
+     }];
     
 }
 - (IBAction)loginWithFacebookButton:(id)sender {
     DDLogVerbose(@"Facebook button pressed");
+    [self spinerShouldShow:YES];
     [EcomapUserFetcher loginWithFacebookOnCompletion:^(EcomapLoggedUser *loggedUserFB, NSError *error) {
+        [self spinerShouldShow:NO];
         if (!error) {
             if (loggedUserFB) {
                 self.dismissBlock();
                 [self dismissViewControllerAnimated:YES completion:nil];
-                [self showAlertViewWithTitile:[NSString stringWithFormat:@"Hi, %@!", loggedUserFB.name]
-                                   andMessage:@"\nWelcome on Ecomap"];
+                [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUserFB.name]
+                                   andMessage:@"\nЛаскаво просимо на Ecomap"];
             } else {
-                [self showAlertViewWithTitile:@"Server error"
-                                   andMessage:@"\nSomething went wrong. Please contact us!"];
+                [self showAlertViewWithTitile:@"Помилка на сервері"
+                                   andMessage:@"\nЄ проблеми на сервері. Ми працюємо над їх вирішенням!"];
             }
             
         } else if (error.code == 400) {
-            [self showAlertViewWithTitile:@"Error"
-                               andMessage:@"\nUser with such email already exists"];
+            [self showAlertViewWithTitile:@"Помилка"
+                               andMessage:@"\nКористувач з такою поштою вже зареєстрований"];
         } else {
             [self showAlertViewOfError:error];
         }
@@ -196,7 +196,6 @@
 
 - (void)touchUpinside:(UITapGestureRecognizer *)sender {
     [self.activeField resignFirstResponder];
-    NSLog(@"Tap");
 }
 
 
@@ -204,7 +203,7 @@
 #pragma mark - helper methods
 - (void)showAlertViewOfError:(NSError *)error
 {
-    [self showAlertViewWithTitile:@"Error"
+    [self showAlertViewWithTitile:@"Помилка"
                        andMessage:[error localizedDescription]]; //human-readable dwscription of the error
 }
 
@@ -228,5 +227,26 @@
     NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
+}
+
+- (void)spinerShouldShow:(BOOL)isVisible
+{
+    if (isVisible) {
+        //Disable touches on screen
+        self.view.userInteractionEnabled = NO;
+        
+        //Show spiner
+        [self.activityIndicator startAnimating];
+        self.activityIndicatorPad.hidden = NO;
+        self.activityIndicator.hidden = NO;
+    } else {
+        //Enable touches on screen
+        self.view.userInteractionEnabled = YES;
+        
+        //Show spiner
+        self.activityIndicatorPad.hidden = YES;
+        self.activityIndicator.hidden = YES;
+        [self.activityIndicator startAnimating];
+    }
 }
 @end
