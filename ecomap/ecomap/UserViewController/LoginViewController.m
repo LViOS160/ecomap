@@ -7,81 +7,18 @@
 //
 
 #import "LoginViewController.h"
-#import "EcomapRevealViewController.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapFetcher.h"
 #import "EcomapUserFetcher.h"
+//Setup DDLog
 #import "GlobalLoggerLevel.h"
-#import "AppDelegate.h"
-#import <FacebookSDK/FacebookSDK.h>
-
-@interface LoginViewController () <UITextFieldDelegate>
-
-@property (strong, nonatomic) IBOutlet UITextField *loginTextField;
-@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property(nonatomic, strong) UITextField *activeField;
-@property (weak, nonatomic) IBOutlet UIView *activityIndicatorPad;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *checkmarks;
-
-@end
-
-typedef enum {
-    checkmarkTypeEmail = 1,
-    checkmarkTypePassword =2
-} checkmarkType;
-#define CHECKMARK_GOOD_IMAGE [UIImage imageNamed:@"Good"]
-#define CHECKMARK_BAD_IMAGE [UIImage imageNamed:@"Bad"]
 
 @implementation LoginViewController
 
-#pragma mark - view life cycle
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    //Set gesture recognizer
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpinside:)];
-    tap.numberOfTapsRequired = 1;
-    [self.view addGestureRecognizer:tap];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    //setup keyboard notifications
-    [self registerForKeyboardNotifications];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.activeField resignFirstResponder];
-    [self deregisterForKeyboardNotifications];
-}
-
-#pragma mark - keyborad managment
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-- (void)deregisterForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
-}
-
-// Called when the UIKeyboardDidShowNotification is sent
-#define KEYBOARD_TO_TEXTFIELD_SPACE 8.0
+#pragma mark - keyboard managment
+//@override
+//Called when the UIKeyboardDidShowNotification is sent
+//To manage keyboard appearance (situation when keyboard cover active textField)
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
@@ -105,31 +42,14 @@ typedef enum {
     }
 }
 
+
+
 #pragma mark - text field delegate
-// Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    //Reset scroll view contetn size by storyboard contentView size
-    self.scrollView.contentSize = self.activeField.superview.superview.frame.size;
-}
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    self.activeField = textField;
-    //Set target action fot textField
-    [self.activeField addTarget:self
-                         action:@selector(editingChanged:)
-               forControlEvents:UIControlEventEditingChanged];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    self.activeField = nil;
-}
-
+//@override
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField == self.loginTextField) {
+    if (textField == self.emailTextField) {
         [self.passwordTextField becomeFirstResponder];
     } else if (textField == self.passwordTextField)
     {
@@ -139,10 +59,11 @@ typedef enum {
     return YES;
 }
 
-//Check current text field to set checkmark
+//@override
+//Check active text field (every time character is enetered) to set checkmark
 -(void)editingChanged:(UITextField *)textField
 {
-    if (textField == self.loginTextField) {
+    if (textField == self.emailTextField) {
         if ([self isValidMail:textField.text]) {
             [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_GOOD_IMAGE];
         } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
@@ -155,7 +76,7 @@ typedef enum {
 
 #pragma mark - buttons
 - (IBAction)loginButton:(UIButton *)sender {
-    NSString *email = self.loginTextField.text;
+    NSString *email = self.emailTextField.text;
     NSString *password = self.passwordTextField.text;
     
     //Check if fields are empty
@@ -235,73 +156,5 @@ typedef enum {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)touchUpinside:(UITapGestureRecognizer *)sender {
-    [self.activeField resignFirstResponder];
-}
 
-
-
-#pragma mark - helper methods
-- (void)showAlertViewOfError:(NSError *)error
-{
-    [self showAlertViewWithTitile:@"Помилка"
-                       andMessage:[error localizedDescription]]; //human-readable dwscription of the error
-}
-
-- (void)showAlertViewWithTitile:(NSString *)title andMessage:(NSString *)message
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-}
-
--(BOOL) isValidMail:(NSString *)checkString
-{
-    BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
-    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
-    //Uncomment on release
-    //NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
-    NSString *laxString = @".+@.+[A-Za-z]{2}[A-Za-z]*";
-    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:checkString];
-}
-
-- (void)spinerShouldShow:(BOOL)isVisible
-{
-    if (isVisible) {
-        //Disable touches on screen
-        self.view.userInteractionEnabled = NO;
-        
-        //Show spiner
-        [self.activityIndicator startAnimating];
-        self.activityIndicatorPad.hidden = NO;
-        self.activityIndicator.hidden = NO;
-    } else {
-        //Enable touches on screen
-        self.view.userInteractionEnabled = YES;
-        
-        //Show spiner
-        self.activityIndicatorPad.hidden = YES;
-        self.activityIndicator.hidden = YES;
-        [self.activityIndicator startAnimating];
-    }
-}
-
-- (void)shouldShow:(BOOL)show checkmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image
-{
-    for (UIImageView *imageView in self.checkmarks) {
-        for (NSNumber *number in checkmarkTypes) {
-            if (imageView.tag == [number integerValue]) {
-                imageView.alpha = 1.0;
-                imageView.image = image;
-                imageView.hidden = !show;
-            }
-        }
-        
-    }
-}
 @end

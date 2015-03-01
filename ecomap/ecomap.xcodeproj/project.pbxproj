@@ -13,6 +13,8 @@
 		518F30A71AA26BF40094DA14 /* JSONparser.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A61AA26BF40094DA14 /* JSONparser.m */; };
 		518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */; };
 		518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */; };
+		518F30B01AA3C2C10094DA14 /* UserActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30AF1AA3C2C10094DA14 /* UserActivityViewController.m */; };
+		518F30B31AA3CF630094DA14 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30B21AA3CF630094DA14 /* ChangePasswordViewController.m */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		B30E2DBC1A9DDD340039DBBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBB1A9DDD340039DBBD /* Foundation.framework */; };
 		B30E2DBE1A9DDD3A0039DBBD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */; };
@@ -137,6 +139,10 @@
 		518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapUserFetcher.m; sourceTree = "<group>"; };
 		518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapThumbnailFetcher.h; sourceTree = "<group>"; };
 		518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapThumbnailFetcher.m; sourceTree = "<group>"; };
+		518F30AE1AA3C2C10094DA14 /* UserActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserActivityViewController.h; sourceTree = "<group>"; };
+		518F30AF1AA3C2C10094DA14 /* UserActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserActivityViewController.m; sourceTree = "<group>"; };
+		518F30B11AA3CF630094DA14 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		518F30B21AA3CF630094DA14 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		B30E2DBB1A9DDD340039DBBD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B30E2DBF1A9DDD410039DBBD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -797,12 +803,16 @@
 		B3738C041A9DDC4B0077F604 /* UserViewController */ = {
 			isa = PBXGroup;
 			children = (
+				518F30AE1AA3C2C10094DA14 /* UserActivityViewController.h */,
+				518F30AF1AA3C2C10094DA14 /* UserActivityViewController.m */,
 				B3738C051A9DDC4B0077F604 /* LoginViewController.h */,
 				B3738C061A9DDC4B0077F604 /* LoginViewController.m */,
-				B3738C071A9DDC4B0077F604 /* ProfileViewController.h */,
-				B3738C081A9DDC4B0077F604 /* ProfileViewController.m */,
 				B3738C091A9DDC4B0077F604 /* RegisterViewController.h */,
 				B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */,
+				B3738C071A9DDC4B0077F604 /* ProfileViewController.h */,
+				B3738C081A9DDC4B0077F604 /* ProfileViewController.m */,
+				518F30B11AA3CF630094DA14 /* ChangePasswordViewController.h */,
+				518F30B21AA3CF630094DA14 /* ChangePasswordViewController.m */,
 			);
 			path = UserViewController;
 			sourceTree = "<group>";
@@ -1017,6 +1027,7 @@
 				B3738C151A9DDC4B0077F604 /* GQuadItem.m in Sources */,
 				B3738C451A9DDC4B0077F604 /* ecomap.xcdatamodeld in Sources */,
 				B3738C5A1A9DDC4B0077F604 /* LoginViewController.m in Sources */,
+				518F30B01AA3C2C10094DA14 /* UserActivityViewController.m in Sources */,
 				B3738C1C1A9DDC4B0077F604 /* EcomapClusterRenderer.m in Sources */,
 				B3738C271A9DDC4B0077F604 /* NetworkActivityIndicator.m in Sources */,
 				B3738C3D1A9DDC4B0077F604 /* ResourceCell.m in Sources */,
@@ -1041,6 +1052,7 @@
 				B3738C1E1A9DDC4B0077F604 /* Spot.m in Sources */,
 				B3738C381A9DDC4B0077F604 /* ProblemDetailsViewController.m in Sources */,
 				B3738C3E1A9DDC4B0077F604 /* MapViewController.m in Sources */,
+				518F30B31AA3CF630094DA14 /* ChangePasswordViewController.m in Sources */,
 				518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

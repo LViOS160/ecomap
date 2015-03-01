@@ -13,14 +13,19 @@
 
 typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // types of showing alerts
 
-
 @interface RegisterViewController ()
 
-@property (strong, nonatomic) IBOutlet UITextField *emailText;
-@property (strong, nonatomic) IBOutlet UITextField *surnameText;
-@property (strong, nonatomic) IBOutlet UITextField *nameText;
-@property (strong, nonatomic) IBOutlet UITextField *passwordText;
-@property (strong, nonatomic) IBOutlet UITextField *confirmText;
+@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *surnameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *emailTextField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (strong, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
+@property(nonatomic, strong) UITextField *activeField;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *activityIndicatorPad;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *checkmarks;
 
 @end
 
@@ -89,44 +94,44 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
     }
 }
 
-- (IBAction)registerButton:(UIButton *)sender {
-    //__block
-    if (self.confirmText.text.length !=0 && self.passwordText.text.length!=0 && self.emailText.text.length!=0 && self.surnameText.text.length!=0 && self.nameText.text.length!=0){
-        if([self validateEmail:self.emailText.text])
-        {
-            if([self.confirmText.text isEqualToString:self.passwordText.text]){
-                if(self.passwordText.text.length > 4)
-                {
-                    [EcomapUserFetcher registerWithName:self.nameText.text
-                                         andSurname:self.surnameText.text
-                                           andEmail:self.emailText.text
-                                        andPassword:self.passwordText.text OnCompletion:^(NSError *error) {
-                                            NSInteger httpErrorCode = 0;
-                                            if(error) httpErrorCode = error.code;
-                                            [self showhttpErrorAlert:httpErrorCode];
-                                            if(httpErrorCode == 0){
-                                                [EcomapUserFetcher loginWithEmail:self.emailText.text andPassword:self.passwordText.text OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                                                    /*if(!error){
-                                                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                                                        [alertView show];
-                                                    }*/
-                                                }
-                                                 ];
-                                            }
-
-                                            
-                                        }
-                     ];
-                }
-                else [self showTheUIRoutineAlert:smallLength];
-            }
-            else [self showTheUIRoutineAlert:differentPasswords];
-        }
-        else [self showTheUIRoutineAlert:notEmail];
-    }
-    else [self showTheUIRoutineAlert:oneIsEmpty];
-   
-}
+//- (IBAction)registerButton:(UIButton *)sender {
+//    //__block
+//    if (self.confirmText.text.length !=0 && self.passwordText.text.length!=0 && self.emailText.text.length!=0 && self.surnameText.text.length!=0 && self.nameText.text.length!=0){
+//        if([self validateEmail:self.emailText.text])
+//        {
+//            if([self.confirmText.text isEqualToString:self.passwordText.text]){
+//                if(self.passwordText.text.length > 4)
+//                {
+//                    [EcomapUserFetcher registerWithName:self.nameText.text
+//                                         andSurname:self.surnameText.text
+//                                           andEmail:self.emailText.text
+//                                        andPassword:self.passwordText.text OnCompletion:^(NSError *error) {
+//                                            NSInteger httpErrorCode = 0;
+//                                            if(error) httpErrorCode = error.code;
+//                                            [self showhttpErrorAlert:httpErrorCode];
+//                                            if(httpErrorCode == 0){
+//                                                [EcomapUserFetcher loginWithEmail:self.emailText.text andPassword:self.passwordText.text OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+//                                                    /*if(!error){
+//                                                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//                                                        [alertView show];
+//                                                    }*/
+//                                                }
+//                                                 ];
+//                                            }
+//
+//                                            
+//                                        }
+//                     ];
+//                }
+//                else [self showTheUIRoutineAlert:smallLength];
+//            }
+//            else [self showTheUIRoutineAlert:differentPasswords];
+//        }
+//        else [self showTheUIRoutineAlert:notEmail];
+//    }
+//    else [self showTheUIRoutineAlert:oneIsEmpty];
+//   
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

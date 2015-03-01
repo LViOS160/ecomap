@@ -1291,6 +1291,17 @@
                                                             <constraint firstAttribute="width" constant="282" id="Czi-QO-F8p"/>
                                                         </constraints>
                                                     </imageView>
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="IlK-tB-NSV">
+                                                        <rect key="frame" x="254" y="60" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="2ed-2c-aO9"/>
+                                                            <constraint firstAttribute="height" constant="20" id="SdV-uo-hsx"/>
+                                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="20" id="bIp-At-gAg"/>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="hBq-zL-Gmd"/>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="hTi-0W-nfO"/>
+                                                            <constraint firstAttribute="width" constant="20" id="o5H-QR-dPs"/>
+                                                        </constraints>
+                                                    </imageView>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email-адреса" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BvX-4d-c5g">
                                                         <rect key="frame" x="50" y="6" width="196" height="30"/>
                                                         <constraints>
@@ -1315,7 +1326,7 @@
                                                             <outlet property="delegate" destination="f9f-d4-qVJ" id="hBa-FD-ctK"/>
                                                         </connections>
                                                     </textField>
-                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="G8Y-Tq-SbE">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="G8Y-Tq-SbE">
                                                         <rect key="frame" x="254" y="11" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="20" id="GJj-Qf-mwH"/>
@@ -1324,17 +1335,6 @@
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="jbK-GS-rB9"/>
                                                             <constraint firstAttribute="height" constant="20" id="kZN-3u-CIZ"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="lC8-2x-gxP"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="IlK-tB-NSV">
-                                                        <rect key="frame" x="254" y="60" width="20" height="20"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="2ed-2c-aO9"/>
-                                                            <constraint firstAttribute="height" constant="20" id="SdV-uo-hsx"/>
-                                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="20" id="bIp-At-gAg"/>
-                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="hBq-zL-Gmd"/>
-                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="hTi-0W-nfO"/>
-                                                            <constraint firstAttribute="width" constant="20" id="o5H-QR-dPs"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
@@ -1441,7 +1441,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="fOE-m3-Ia6" id="RJk-LQ-BSo"/>
                         <outlet property="activityIndicatorPad" destination="QCM-qC-NOK" id="Plu-bT-xgm"/>
-                        <outlet property="loginTextField" destination="BvX-4d-c5g" id="Cuv-oF-ka7"/>
+                        <outlet property="emailTextField" destination="BvX-4d-c5g" id="Y0G-rp-VFs"/>
                         <outlet property="passwordTextField" destination="CNL-Cg-M9H" id="v5t-h3-Osf"/>
                         <outlet property="scrollView" destination="ceB-AQ-0mj" id="HMC-zW-bqm"/>
                         <outletCollection property="checkmarks" destination="G8Y-Tq-SbE" id="e89-N2-vUb"/>
@@ -1677,7 +1677,7 @@
         <!--Зміна паролю-->
         <scene sceneID="Adp-W5-m6W">
             <objects>
-                <viewController id="FRl-h0-Cpi" sceneMemberID="viewController">
+                <viewController id="FRl-h0-Cpi" customClass="ChangePasswordViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CBb-wc-CWe"/>
                         <viewControllerLayoutGuide type="bottom" id="3tW-R2-QDB"/>
@@ -1967,35 +1967,35 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="send" secureTextEntry="YES"/>
                                                     </textField>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Good" translatesAutoresizingMaskIntoConstraints="NO" id="6Ef-Fn-0V9">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="6Ef-Fn-0V9">
                                                         <rect key="frame" x="261" y="35" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="BsC-vd-KeY"/>
                                                             <constraint firstAttribute="height" constant="20" id="nb8-6k-c6y"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Good" translatesAutoresizingMaskIntoConstraints="NO" id="eHe-va-x5r">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="eHe-va-x5r">
                                                         <rect key="frame" x="261" y="133" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="IRD-vW-ejQ"/>
                                                             <constraint firstAttribute="width" constant="20" id="SS0-RJ-C7J"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Good" translatesAutoresizingMaskIntoConstraints="NO" id="6bw-LM-Xq1">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="6bw-LM-Xq1">
                                                         <rect key="frame" x="261" y="182" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="4Hv-Aa-ffK"/>
                                                             <constraint firstAttribute="height" constant="20" id="H9A-ly-etn"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="1eA-vs-AcX">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="1eA-vs-AcX">
                                                         <rect key="frame" x="261" y="231" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="3fs-oL-yta"/>
                                                             <constraint firstAttribute="height" constant="20" id="fC8-tp-ESF"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Good" translatesAutoresizingMaskIntoConstraints="NO" id="apm-8g-7ON">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="apm-8g-7ON">
                                                         <rect key="frame" x="261" y="84" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="8L1-1x-cUw"/>
