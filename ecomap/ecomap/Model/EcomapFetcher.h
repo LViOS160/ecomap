@@ -57,4 +57,9 @@
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
         OnCompletion:(void (^)(EcomapCommentsChild *obj,NSError *error))completionHandler;
 
++ (void)addPhotos:(NSArray*)photos
+        toProblem:(NSUInteger)problemId
+             user:(EcomapLoggedUser*)user
+     OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
+
 @end

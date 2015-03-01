@@ -14,6 +14,8 @@
 #import "EcomapThumbnailFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "PhotoViewController.h"
+#import "EcomapLoggedUser.h"
+#import "Defines.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -217,6 +219,15 @@
                withImageDescriptions:(NSArray *)imageDescriptions
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [EcomapFetcher addPhotos:imageDescriptions
+                   toProblem:self.problemDetails.problemID
+                        user:[EcomapLoggedUser currentLoggedUser]
+                OnCompletion:^(NSString *result, NSError *error) {
+                    if(error)
+                        DDLogVerbose(@"%@", error);
+                    else
+                        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+                }];
 }
 
 - (void)buttonWithImageOnScreenPressed:(id)sender

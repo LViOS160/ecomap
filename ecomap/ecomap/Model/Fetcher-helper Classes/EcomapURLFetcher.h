@@ -68,4 +68,7 @@ typedef enum {
 +(NSURL*)URLforAlias:(NSString*)query;
 // Return URL for comments
 +(NSURL*)URLforComments:(NSString*)query;
+
++ (NSURL *)URLforPostPhoto;
+
 @end

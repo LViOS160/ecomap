@@ -114,6 +114,11 @@
     return [self URLForAPIQuery:ECOMAP_POST_PROBLEM];
 }
 
++ (NSURL *)URLforPostPhoto
+{
+    return [self URLForAPIQuery:ECOMAP_POST_PHOTO];
+}
+
 + (NSURL *)URLforPostVotes
 {
     return [self URLForAPIQuery:ECOMAP_POST_VOTE];
