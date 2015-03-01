@@ -21,6 +21,7 @@
 
 @implementation PhotoViewController
 
+static const NSInteger _textFieldsStartTag = 100;
 
 - (void)viewDidLoad
 {
@@ -50,46 +51,6 @@
     [self deregisterForKeyboardNotifications];
 }
 
-#pragma mark - keyborad managment
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-- (void)deregisterForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
-}
-
-// Called when the UIKeyboardDidShowNotification is sent
-#define KEYBOARD_TO_TEXTFIELD_SPACE 8.0
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    //Increase scroll view contetn size by keyboard size
-    CGRect contetntViewRect = self.activeField.superview.superview.frame;
-    contetntViewRect.size.height += keyboardSize.height;
-}
-  
-
-#pragma mark - text field delegate
-// Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-}
-
-
 - (IBAction)galleryTap:(id)sender
 {
     UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
@@ -114,11 +75,13 @@
 
 - (IBAction)chooseTap:(id)sender
 {
+    [self touchUpinside:nil];
     [self.delegate photoViewControllerDidFinish:self withImageDescriptions:self.imageDescriptions];
 }
 
 - (IBAction)cancelTap:(id)sender
 {
+    [self touchUpinside:nil];
     [self.delegate photoViewControllerDidCancel:self];
 }
 
@@ -179,33 +142,40 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
+    UITextField *descriptionText = nil;
+    if ([cell.accessoryView isKindOfClass:[UITextField class]]) {
+        descriptionText = (UITextField*)cell.accessoryView;
+    } else {
+        descriptionText = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width * 0.8, cell.contentView.frame.size.height)];
+        descriptionText.adjustsFontSizeToFitWidth = NO;
+        descriptionText.backgroundColor = [UIColor clearColor];
+        descriptionText.autocorrectionType = UITextAutocorrectionTypeNo;
+        descriptionText.autocapitalizationType = UITextAutocapitalizationTypeWords;
+        descriptionText.textAlignment = NSTextAlignmentRight;
+        descriptionText.keyboardType = UIKeyboardAppearanceDefault;
+        descriptionText.returnKeyType = UIReturnKeyDone;
+        descriptionText.clearButtonMode = UITextFieldViewModeNever;
+        descriptionText.delegate = self;
+        cell.accessoryView = descriptionText;
+    }
+
     LocalImageDescription *descr = self.imageDescriptions[indexPath.row];
-    cell.textLabel.text = descr.imageDescription;
     cell.imageView.image = descr.image;
-    
-    UITextField *myTextField = [[UITextField alloc]initWithFrame:CGRectMake(0, 10, 125, 25)];
-    myTextField.adjustsFontSizeToFitWidth = NO;
-    myTextField.backgroundColor = [UIColor clearColor];
-    myTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    myTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    myTextField.textAlignment = UITextAlignmentRight;
-    myTextField.keyboardType = UIKeyboardAppearanceDefault;
-    myTextField.returnKeyType = UIReturnKeyDone;
-    myTextField.clearButtonMode = UITextFieldViewModeNever;
-    myTextField.delegate = self;
-    cell.accessoryView = myTextField;
-    myTextField.placeholder = @"Add description";
+    cell.accessoryType = UITableViewCellAccessoryNone;
+
+    descriptionText.text = descr.imageDescription;
+    descriptionText.placeholder = @"Add description";
+    descriptionText.tag = _textFieldsStartTag + indexPath.row;
     
     return cell;
 }
 
+#pragma mark - UITextViewDelegate
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    
-    return true;
+    return YES;
 }
-
-#pragma mark - UITextViewDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -214,13 +184,48 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    NSUInteger index = textField.tag - _textFieldsStartTag;
+    if (index < self.imageDescriptions.count) {
+        LocalImageDescription *descr = self.imageDescriptions[index];
+        descr.imageDescription = textField.text;
+    }
     self.activeField = nil;
 }
 
-- (void)touchUpinside:(UITapGestureRecognizer *)sender {
+- (void)touchUpinside:(UITapGestureRecognizer *)sender
+{
     [self.activeField resignFirstResponder];
-    NSLog(@"Tap");
 }
 
+#pragma mark - keyborad managment
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+- (void)deregisterForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGRect contetntViewRect = self.activeField.superview.superview.frame;
+    contetntViewRect.size.height += keyboardSize.height;
+}
 
 @end
