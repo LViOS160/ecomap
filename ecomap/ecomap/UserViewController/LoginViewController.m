@@ -15,7 +15,7 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface LoginViewController ()
+@interface LoginViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *loginTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -23,8 +23,16 @@
 @property(nonatomic, strong) UITextField *activeField;
 @property (weak, nonatomic) IBOutlet UIView *activityIndicatorPad;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *checkmarks;
 
 @end
+
+typedef enum {
+    checkmarkTypeEmail = 1,
+    checkmarkTypePassword =2
+} checkmarkType;
+#define CHECKMARK_GOOD_IMAGE [UIImage imageNamed:@"Good"]
+#define CHECKMARK_BAD_IMAGE [UIImage imageNamed:@"Bad"]
 
 @implementation LoginViewController
 
@@ -77,7 +85,7 @@
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     //Increase scroll view contetn size by keyboard size
     CGRect contetntViewRect = self.activeField.superview.superview.frame;
     contetntViewRect.size.height += keyboardSize.height;
@@ -108,11 +116,41 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.activeField = textField;
+    //Set target action fot textField
+    [self.activeField addTarget:self
+                         action:@selector(editingChanged:)
+               forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     self.activeField = nil;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.loginTextField) {
+        [self.passwordTextField becomeFirstResponder];
+    } else if (textField == self.passwordTextField)
+    {
+        [textField resignFirstResponder];
+        [self loginButton:nil];
+    }
+    return YES;
+}
+
+//Check current text field to set checkmark
+-(void)editingChanged:(UITextField *)textField
+{
+    if (textField == self.loginTextField) {
+        if ([self isValidMail:textField.text]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
+    } else {
+        if (![textField.text isEqualToString:@""]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
+    }
 }
 
 #pragma mark - buttons
@@ -129,7 +167,7 @@
     
     //check if email is valid
     if (![self isValidMail:email]) {
-        [self showAlertViewWithTitile:@"Помилка в пошті"
+        [self showAlertViewWithTitile:@"Помилка в email-адресі"
                            andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
         return;
     }
@@ -141,6 +179,8 @@
          [self spinerShouldShow:NO];
          if (error){
              if (error.code == 400) {
+                 //Change checkmarks image
+                 [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail], [NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
                  [self showAlertViewWithTitile:@"Помилка авторизації"
                                     andMessage:@"\nНеправильний пароль або email-адреса"];
              } else {
@@ -248,6 +288,20 @@
         self.activityIndicatorPad.hidden = YES;
         self.activityIndicator.hidden = YES;
         [self.activityIndicator startAnimating];
+    }
+}
+
+- (void)shouldShow:(BOOL)show checkmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image
+{
+    for (UIImageView *imageView in self.checkmarks) {
+        for (NSNumber *number in checkmarkTypes) {
+            if (imageView.tag == [number integerValue]) {
+                imageView.alpha = 1.0;
+                imageView.image = image;
+                imageView.hidden = !show;
+            }
+        }
+        
     }
 }
 @end
