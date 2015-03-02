@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -1048,7 +1048,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="oU9-Y8-nOy" id="Owh-an-ocU">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Problem Title" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNR-CH-Ws8">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Problem Title" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNR-CH-Ws8">
                                                     <rect key="frame" x="80" y="24" width="452" height="24"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1061,7 +1061,7 @@
                                                         <constraint firstAttribute="height" constant="18" id="dRQ-DC-ur5"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" misplaced="YES" text="0000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwP-tJ-tqP">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwP-tJ-tqP">
                                                     <rect key="frame" x="34" y="27" width="39" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="G6a-3j-jAY"/>
@@ -1302,7 +1302,7 @@
                                                             <constraint firstAttribute="width" constant="20" id="o5H-QR-dPs"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email-адреса" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BvX-4d-c5g">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email-адреса" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BvX-4d-c5g">
                                                         <rect key="frame" x="50" y="6" width="196" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="ACN-eS-2Bf"/>
@@ -1314,7 +1314,7 @@
                                                             <outlet property="delegate" destination="f9f-d4-qVJ" id="3zM-XG-rhN"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CNL-Cg-M9H">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CNL-Cg-M9H">
                                                         <rect key="frame" x="50" y="55" width="196" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="7dK-gd-TUG"/>
@@ -1726,7 +1726,7 @@
                                                             <constraint firstAttribute="height" constant="41" id="VGN-AH-IUm"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Старий пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3om-3o-SAB">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Старий пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3om-3o-SAB">
                                                         <rect key="frame" x="59" y="30" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="194" id="Eqo-Mx-YPJ"/>
@@ -1745,7 +1745,7 @@
                                                             <constraint firstAttribute="height" constant="41" id="vr5-cN-EJ5"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Підтвердіть новий пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P9X-3g-b4K">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Підтвердіть новий пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P9X-3g-b4K">
                                                         <rect key="frame" x="59" y="128" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Exe-SO-adh"/>
@@ -1757,14 +1757,14 @@
                                                             <outlet property="delegate" destination="FRl-h0-Cpi" id="c1o-nc-OX3"/>
                                                         </connections>
                                                     </textField>
-                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="8vI-u3-7SB">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="8vI-u3-7SB">
                                                         <rect key="frame" x="261" y="35" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="Bp0-98-KYS"/>
                                                             <constraint firstAttribute="width" constant="20" id="oJr-OC-v7b"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="Bxc-lk-v3Y">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="Bxc-lk-v3Y">
                                                         <rect key="frame" x="261" y="84" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="8my-He-FzG"/>
@@ -1786,7 +1786,7 @@
                                                             <constraint firstAttribute="height" constant="20" id="kep-M2-Z84"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Новий пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="emG-sH-AjN">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Новий пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="emG-sH-AjN">
                                                         <rect key="frame" x="59" y="79" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Imx-1Y-OLw"/>
@@ -1955,7 +1955,7 @@
                                                             <constraint firstAttribute="width" constant="282" id="kU8-S5-EBc"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QEY-MB-NV0">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QEY-MB-NV0">
                                                         <rect key="frame" x="59" y="177" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="0im-OP-XEB"/>
@@ -1967,7 +1967,7 @@
                                                             <outlet property="delegate" destination="ex4-la-Hg8" id="UgX-P2-J8A"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email-адреса" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="46V-NT-9Zo">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email-адреса" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="46V-NT-9Zo">
                                                         <rect key="frame" x="59" y="128" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="194" id="ZRp-ZX-JNn"/>
@@ -1986,7 +1986,7 @@
                                                             <constraint firstAttribute="height" constant="41" id="LKs-vN-6yV"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ім'я" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ASV-Hd-1eg">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ім'я" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ASV-Hd-1eg">
                                                         <rect key="frame" x="59" y="30" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="194" id="4GT-1E-789"/>
@@ -2005,7 +2005,7 @@
                                                             <constraint firstAttribute="width" constant="282" id="oJr-80-SBa"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Прізвище" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EQh-DG-JZg">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Прізвище" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EQh-DG-JZg">
                                                         <rect key="frame" x="59" y="79" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="194" id="FUA-tX-tCc"/>
@@ -2024,7 +2024,7 @@
                                                             <constraint firstAttribute="height" constant="41" id="uUe-wG-1jG"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Підтвердіть пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lhz-Ed-eSh">
+                                                    <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Підтвердіть пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lhz-Ed-eSh">
                                                         <rect key="frame" x="59" y="226" width="194" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="P4A-sA-Kjv"/>
@@ -2051,7 +2051,7 @@
                                                             <constraint firstAttribute="width" constant="20" id="SS0-RJ-C7J"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="6bw-LM-Xq1">
+                                                    <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="6bw-LM-Xq1">
                                                         <rect key="frame" x="261" y="182" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="4Hv-Aa-ffK"/>

@@ -813,16 +813,16 @@
 		B3738C041A9DDC4B0077F604 /* UserViewController */ = {
 			isa = PBXGroup;
 			children = (
-				518F30B41AA4D82D0094DA14 /* ChangePasswordViewController.h */,
-				518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */,
+				518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */,
+				518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */,
 				518F30B61AA4D82D0094DA14 /* LoginViewController.h */,
 				518F30B71AA4D82D0094DA14 /* LoginViewController.m */,
 				518F30B81AA4D82D0094DA14 /* ProfileViewController.h */,
 				518F30B91AA4D82D0094DA14 /* ProfileViewController.m */,
 				518F30BA1AA4D82D0094DA14 /* RegisterViewController.h */,
 				518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */,
-				518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */,
-				518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */,
+				518F30B41AA4D82D0094DA14 /* ChangePasswordViewController.h */,
+				518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */,
 			);
 			path = UserViewController;
 			sourceTree = "<group>";
