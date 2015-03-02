@@ -8,8 +8,10 @@
 
 
 #import "RegisterViewController.h"
-#import "EcomapFetcher.h"
+//#import "EcomapFetcher.h"
 #import "EcomapUserFetcher.h"
+//Setup DDLog
+#import "GlobalLoggerLevel.h"
 
 typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // types of showing alerts
 
@@ -21,16 +23,20 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
 {
     if (textField == self.nameTextField) {
         [self.surnameTextField becomeFirstResponder];
+        [self ifHiddenByKeyboarScrollUPTextField:self.activeField];
     } else if (textField == self.surnameTextField) {
         [self.emailTextField becomeFirstResponder];
+        [self ifHiddenByKeyboarScrollUPTextField:self.activeField];
     } else if (textField == self.emailTextField) {
         [self.passwordTextField becomeFirstResponder];
+        [self ifHiddenByKeyboarScrollUPTextField:self.activeField];
     } else if (textField == self.passwordTextField) {
         [self.confirmPasswordTextField becomeFirstResponder];
+        [self ifHiddenByKeyboarScrollUPTextField:self.activeField];
     } else if (textField == self.confirmPasswordTextField)
     {
         [textField resignFirstResponder];
-        //[self registerButton:nil];
+        [self registerButton:nil];
     }
     return YES;
 }
@@ -60,6 +66,71 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
 
 #pragma mark - buttons
 
+
+- (IBAction)registerButton:(UIButton *)sender {
+    DDLogVerbose(@"Register on ecomap button pressed");
+    NSString *name = self.emailTextField.text;
+    NSString *surname = self.surnameTextField.text;
+    NSString *email = self.emailTextField.text;
+    NSString *password = self.passwordTextField.text;
+    
+    //Check if fields are empty
+    if ([self isAnyTextFieldEmpty]) {
+        [self showAlertViewWithTitile:@"Неповна інформація"
+                           andMessage:@"\nБудь-ласка заповніть усі поля"];
+        return;
+    } else if (![self isValidMail:email]) { //check if email is valid
+        [self showAlertViewWithTitile:@"Помилка"
+                           andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
+        return;
+    } else if (![self isPasswordsEqual]) //check if passwords are equal
+    {
+        [self showAlertViewWithTitile:@"Помилка"
+                           andMessage:@"\nВведені паролі неспівпадають"];
+        return;
+    }
+    
+    [self spinerShouldShow:YES];
+    
+    /*
+    //Try to login (first effort). If not success, then try to register and login again
+    [self loginWithEmail:email
+             andPassword:password
+            OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                if (!error && loggedUser) {
+                    completionHandler (loggedUser, nil);
+                } else {
+                    // In case an error to login (first effort) has occured
+                    //Try to register
+                    [self registerWithName:name
+                                andSurname:surname
+                                  andEmail:email
+                               andPassword:password
+                              OnCompletion:^(NSError *error) {
+                                  if (!error) {
+                                      //Try to login (second effort)
+                                      [self loginWithEmail:email
+                                               andPassword:password
+                                              OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                                  if (!error && loggedUser) {
+                                                      completionHandler (loggedUser, nil);
+                                                      //return;
+                                                  } else {
+                                                      // In case an error to login (second effort) has occured
+                                                      completionHandler (nil, error);
+                                                  }
+                                              }]; //end of login (second effort) complition block
+                                  } else {
+                                      // In case an error to register has occured.
+                                      completionHandler (nil, error);
+                                  }
+                              }];  //end of registartiom complition block
+                }
+            }]; //end of login (first effort) complition block
+     */
+}
+
+
 // show the allerts in different cases
 -(void)showTheUIRoutineAlert:(Alerts) alert{
     UIAlertView* alertView;
@@ -88,6 +159,7 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
     }
     
 }
+
 
 -(void)showhttpErrorAlert:(NSUInteger) error{
     UIAlertView* alertView;

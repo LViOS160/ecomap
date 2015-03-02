@@ -8,44 +8,21 @@
 
 #import "LoginViewController.h"
 #import "EcomapLoggedUser.h"
-#import "EcomapFetcher.h"
+//#import "EcomapFetcher.h"
 #import "EcomapUserFetcher.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
 @implementation LoginViewController
 
-#pragma mark - keyboard managment
+#pragma mark - accessors
 //@override (to make allaway visible email and password textField)
-//Called when the UIKeyboardDidShowNotification is sent
-//To manage keyboard appearance (situation when keyboard cover active textField)
-- (void)keyboardWasShown:(NSNotification*)aNotification
+-(UITextField *)textFieldToScrollUPWhenKeyboadAppears
 {
-    NSDictionary* info = [aNotification userInfo];
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    //Increase scroll view contetn size by keyboard size
-    CGRect contetntViewRect = self.activeField.superview.superview.frame;
-    contetntViewRect.size.height += keyboardSize.height;
-    self.scrollView.contentSize = contetntViewRect.size;
-    
-    // If password text field is hidden by keyboard, scroll it so it's visible
-    CGRect visibleRect = self.view.frame;
-    visibleRect.size.height -= keyboardSize.height;
-    
-    CGFloat passwordFieldHieght = self.passwordTextField.frame.size.height;
-    CGPoint passwordFieldLeftBottomPoint = [self.view convertPoint:CGPointMake(self.passwordTextField.frame.origin.x, (self.passwordTextField.frame.origin.y + passwordFieldHieght))
-                                                          fromView:self.passwordTextField.superview];
-    
-    if (!CGRectContainsPoint(visibleRect, passwordFieldLeftBottomPoint) ) {
-        
-        [self.scrollView setContentOffset:CGPointMake(0.0, self.scrollView.contentOffset.y + passwordFieldLeftBottomPoint.y - visibleRect.size.height + KEYBOARD_TO_TEXTFIELD_SPACE) animated:YES];
-    }
+    return self.passwordTextField;
 }
 
-
-
 #pragma mark - text field delegate
-
 //@override
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -81,14 +58,11 @@
     
     //Check if fields are empty
     if ([self isAnyTextFieldEmpty]) {
-        [self showAlertViewWithTitile:@"Неповна інформація"
+        [self showAlertViewWithTitile:@"Помилка"
                            andMessage:@"\nБудь-ласка заповніть усі поля"];
         return;
-    }
-    
-    //check if email is valid
-    if (![self isValidMail:email]) {
-        [self showAlertViewWithTitile:@"Помилка в email-адресі"
+    } else if (![self isValidMail:email]) { //check if email is valid
+        [self showAlertViewWithTitile:@"Помилка"
                            andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
         return;
     }

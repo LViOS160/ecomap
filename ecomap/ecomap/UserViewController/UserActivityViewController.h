@@ -37,6 +37,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *oldPasswordTextField;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property(nonatomic, strong) UITextField *activeField;
+@property(nonatomic, strong) UITextField *textFieldToScrollUPWhenKeyboadAppears;
 @property (weak, nonatomic) IBOutlet UIView *activityIndicatorPad;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *checkmarks;
@@ -45,8 +46,8 @@ typedef enum {
 //Protected
 //For subclasses
 #pragma mark - keyborad managment
-//To manage keyboard appearance (situation when keyboard cover active textField)
-- (void)keyboardWasShown:(NSNotification*)aNotification;
+//To manage the situation when keyboard cover a textField
+- (void)ifHiddenByKeyboarScrollUPTextField:(UITextField *)textFied;
 
 #pragma mark - text field delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField; //Abstract

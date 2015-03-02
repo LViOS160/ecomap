@@ -887,7 +887,7 @@
 				TargetAttributes = {
 					B35343181A7F73ED00DD2F03 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = FD442QNEZS;
+						DevelopmentTeam = 7VZHFC2543;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -896,7 +896,7 @@
 					};
 					B35343341A7F73ED00DD2F03 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = FD442QNEZS;
+						DevelopmentTeam = 7VZHFC2543;
 						TestTargetID = B35343181A7F73ED00DD2F03;
 					};
 				};

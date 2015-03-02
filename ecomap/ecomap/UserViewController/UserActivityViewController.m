@@ -8,6 +8,10 @@
 
 #import "UserActivityViewController.h"
 
+@interface UserActivityViewController ()
+@property (nonatomic) CGFloat keyboardHeight;
+@end
+
 @implementation UserActivityViewController
 
 #pragma mark - view life cycle
@@ -34,6 +38,12 @@
     [self.activeField resignFirstResponder];
     [self deregisterForKeyboardNotifications];
 }
+#pragma mark - accessors
+-(UITextField *)textFieldToScrollUPWhenKeyboadAppears
+{
+    _textFieldToScrollUPWhenKeyboadAppears = self.activeField;
+    return _textFieldToScrollUPWhenKeyboadAppears;
+}
 
 #pragma mark - keyborad managment
 - (void)registerForKeyboardNotifications
@@ -55,33 +65,39 @@
 }
 
 // Called when the UIKeyboardDidShowNotification is sent
-//To manage keyboard appearance (situation when keyboard cover active textField)
+// To manage keyboard appearance (situation when keyboard cover active textField)
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    self.keyboardHeight = keyboardSize.height;
     //Increase scroll view contetn size by keyboard size
     CGRect contetntViewRect = self.activeField.superview.superview.frame;
     contetntViewRect.size.height += keyboardSize.height;
     self.scrollView.contentSize = contetntViewRect.size;
     
-    // If password text field is hidden by keyboard, scroll it so it's visible
-    CGRect visibleRect = self.view.frame;
-    visibleRect.size.height -= keyboardSize.height;
-    
-    CGFloat passwordFieldHieght = self.passwordTextField.frame.size.height;
-    CGPoint passwordFieldLeftBottomPoint = [self.view convertPoint:CGPointMake(self.passwordTextField.frame.origin.x, (self.passwordTextField.frame.origin.y + passwordFieldHieght))
-                                                          fromView:self.passwordTextField.superview];
-    
-    if (!CGRectContainsPoint(visibleRect, passwordFieldLeftBottomPoint) ) {
-        
-        [self.scrollView setContentOffset:CGPointMake(0.0, self.scrollView.contentOffset.y + passwordFieldLeftBottomPoint.y - visibleRect.size.height + KEYBOARD_TO_TEXTFIELD_SPACE) animated:YES];
-    }
+    // If current "textFieldToScrollUPWhenKeyboadAppears" is hidden by keyboard, scroll it so it's visible
+    [self ifHiddenByKeyboarScrollUPTextField:self.textFieldToScrollUPWhenKeyboadAppears];
+}
 
+- (void)ifHiddenByKeyboarScrollUPTextField:(UITextField *)textFied
+{
+    CGRect visibleRect = self.view.frame;
+    visibleRect.size.height -= self.keyboardHeight;
+    
+    CGFloat textFieldHieght = textFied.frame.size.height;
+    CGPoint textFieldLeftBottomPoint = [self.view convertPoint:CGPointMake(textFied.frame.origin.x, (textFied.frame.origin.y + textFieldHieght))
+                                                        fromView:textFied.superview];
+    
+    if (!CGRectContainsPoint(visibleRect, textFieldLeftBottomPoint) ) {
+        
+        [self.scrollView setContentOffset:CGPointMake(0.0, self.scrollView.contentOffset.y + textFieldLeftBottomPoint.y - visibleRect.size.height + KEYBOARD_TO_TEXTFIELD_SPACE) animated:YES];
+    }
+    
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+- (void)keyboardWillBeHidden:(NSNotification  *)aNotification
 {
     //Reset scroll view contetn size by storyboard contentView size
     self.scrollView.contentSize = self.activeField.superview.superview.frame.size;
@@ -140,7 +156,7 @@
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
     //Uncomment on release
     //NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
-    NSString *laxString = @".+@.+[A-Za-z]{2}[A-Za-z]*";
+    NSString *laxString = @".+@+.+[A-Za-z]{2,4}";
     NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
