@@ -456,73 +456,52 @@
 
 #pragma mark - Statistics Fetching
 
-+ (void)loadStatsForPeriod:(EcomapStatsTimePeriod)period onCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler
++ (void)loadDataFromURL:(NSURL *)url onCompletion:(void (^)(NSArray *, NSError *))completionHandler
 {
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforStatsForParticularPeriod:period]]
-         sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
-            completionHandler:^(NSData *JSON, NSError *error) {
-                NSArray *stats = nil;
-                if(error) {
-                    DDLogVerbose(@"ERROR! Problems with fetching stats for period");
-                } else if((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) {
-                    [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
-                } else {
-                    // Extract recieved data
-                    if(JSON != nil) {
-                        stats = [NSJSONSerialization JSONObjectWithData:JSON
-                                                                options:0
-                                                                  error:NULL];
-                    }
-                }
-                // Set up completion handler
-                completionHandler(stats, error);
-            }];
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:url]
+              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                 completionHandler:^(NSData *JSON, NSError *error) {
+                     NSArray *stats = nil;
+                     if(error) {
+                         DDLogVerbose(@"ERROR! Problems with fetching stats for period");
+                     } else if((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) {
+                         [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
+                     } else {
+                         // Extract recieved data
+                         if(JSON != nil) {
+                             stats = [NSJSONSerialization JSONObjectWithData:JSON
+                                                                     options:0
+                                                                       error:NULL];
+                         }
+                     }
+                     // Set up completion handler
+                     completionHandler(stats, error);
+                 }];
+
 }
 
-+ (void)loadGeneralStatsOnCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler
++ (void)loadStatsForPeriod:(EcomapStatsTimePeriod)period onCompletion:(void (^)(NSArray *, NSError *))completionHandler
 {
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforGeneralStats]]
-         sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
-            completionHandler:^(NSData *JSON, NSError *error) {
-                NSArray *stats = nil;
-                if(error) {
-                    DDLogVerbose(@"ERROR! Problems with fetching stats for period");
-                } else if((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) {
-                    [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
-                } else {
-                    // Extract recieved data
-                    if(JSON != nil) {
-                        stats = [NSJSONSerialization JSONObjectWithData:JSON
-                                                                options:0
-                                                                  error:NULL];
-                    }
-                }
-                // Set up completion handler
-                completionHandler(stats, error);
-            }];
+    NSURL *url = [EcomapURLFetcher URLforStatsForParticularPeriod:period];
+    [EcomapFetcher loadDataFromURL:url onCompletion:^(NSArray *stats, NSError *error) {
+        completionHandler(stats, error);
+    }];
 }
 
-+ (void)loadTopChartsOnCompletion:(void (^)(NSArray *charts, NSError *error))completionHandler
++ (void)loadGeneralStatsOnCompletion:(void (^)(NSArray *, NSError *))completionHandler
 {
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforTopChartsOfProblems]]
-         sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
-            completionHandler:^(NSData *JSON, NSError *error) {
-                NSArray *charts = nil;
-                if(error) {
-                    DDLogVerbose(@"ERROR! Problems with fetching stats for period");
-                } else if((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) {
-                    [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
-                } else {
-                    // Extract recieved data
-                    if(JSON != nil) {
-                        charts = [NSJSONSerialization JSONObjectWithData:JSON
-                                                                options:0
-                                                                  error:NULL];
-                    }
-                }
-                // Set up completion handler
-                completionHandler(charts, error);
-}];
+    NSURL *url = [EcomapURLFetcher URLforGeneralStats];
+    [EcomapFetcher loadDataFromURL:url onCompletion:^(NSArray *stats, NSError *error) {
+        completionHandler(stats, error);
+    }];
+}
+
++ (void)loadTopChartsOnCompletion:(void (^)(NSArray *, NSError *))completionHandler
+{
+    NSURL *url = [EcomapURLFetcher URLforTopChartsOfProblems];
+    [EcomapFetcher loadDataFromURL:url onCompletion:^(NSArray *stats, NSError *error) {
+        completionHandler(stats, error);
+    }];
 }
 
 + (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler
