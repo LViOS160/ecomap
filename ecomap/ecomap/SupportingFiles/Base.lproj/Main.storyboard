@@ -1934,6 +1934,9 @@
                                                     <constraint firstAttribute="height" constant="52" id="k0z-pR-k9a"/>
                                                 </constraints>
                                                 <state key="normal" image="RegisterButton"/>
+                                                <connections>
+                                                    <action selector="registerButton:" destination="ex4-la-Hg8" eventType="touchUpInside" id="NHF-4h-aqm"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Vw-Ti-VgM" userLabel="ContainerView">
                                                 <rect key="frame" x="150" y="0.0" width="300" height="281"/>
