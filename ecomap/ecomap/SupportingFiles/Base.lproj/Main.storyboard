@@ -1737,7 +1737,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES"/>
                                                         <connections>
-                                                            <outlet property="delegate" destination="FRl-h0-Cpi" id="EVf-qF-BV7"/>
+                                                            <outlet property="delegate" destination="FRl-h0-Cpi" id="Ia0-jm-lgv"/>
                                                         </connections>
                                                     </textField>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PasswordField" translatesAutoresizingMaskIntoConstraints="NO" id="pF6-bH-brL">
@@ -1756,7 +1756,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="send" secureTextEntry="YES"/>
                                                         <connections>
-                                                            <outlet property="delegate" destination="FRl-h0-Cpi" id="c1o-nc-OX3"/>
+                                                            <outlet property="delegate" destination="FRl-h0-Cpi" id="35m-D7-Vpj"/>
                                                         </connections>
                                                     </textField>
                                                     <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bad" translatesAutoresizingMaskIntoConstraints="NO" id="8vI-u3-7SB">
@@ -1797,7 +1797,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES"/>
                                                         <connections>
-                                                            <outlet property="delegate" destination="FRl-h0-Cpi" id="1DL-Mc-5eh"/>
+                                                            <outlet property="delegate" destination="FRl-h0-Cpi" id="mMg-E5-s1l"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>
@@ -1832,6 +1832,9 @@
                                                     <constraint firstAttribute="width" constant="282" id="8Aw-Sw-ccb"/>
                                                 </constraints>
                                                 <state key="normal" image="RegisterButton"/>
+                                                <connections>
+                                                    <action selector="changePassworButton:" destination="FRl-h0-Cpi" eventType="touchUpInside" id="qdh-zt-qlv"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1883,6 +1886,7 @@
                         <outlet property="confirmPasswordTextField" destination="P9X-3g-b4K" id="qjY-vZ-HTF"/>
                         <outlet property="oldPasswordTextField" destination="3om-3o-SAB" id="vIF-EA-N3x"/>
                         <outlet property="passwordTextField" destination="emG-sH-AjN" id="S1q-Ug-Ft7"/>
+                        <outlet property="scrollView" destination="W0K-TC-fYJ" id="Q3H-2W-ykA"/>
                         <outletCollection property="checkmarks" destination="8vI-u3-7SB" id="lcy-IY-Dt4"/>
                         <outletCollection property="checkmarks" destination="Bxc-lk-v3Y" id="CyF-gD-Vaa"/>
                         <outletCollection property="checkmarks" destination="fTA-zU-qvF" id="paz-1J-zsm"/>

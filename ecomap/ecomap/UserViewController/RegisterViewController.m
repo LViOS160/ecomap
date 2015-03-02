@@ -14,7 +14,6 @@
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
-typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // types of showing alerts
 
 @implementation RegisterViewController
 
