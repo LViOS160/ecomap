@@ -67,11 +67,7 @@
 
 + (NSString *)serverDomain
 {
-    NSString *domain = ECOMAP_ADDRESS;
-    if ([domain isEqualToString:@"http://localhost:8090/"]) {
-        domain = [domain stringByReplacingOccurrencesOfString:@":8090" withString:@""];
-    }
-    domain = [domain stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+    NSString *domain = [ECOMAP_ADDRESS stringByReplacingOccurrencesOfString:@"http://" withString:@""];
     
     return [domain stringByReplacingOccurrencesOfString:@"/" withString:@""];
 }

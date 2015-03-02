@@ -17,7 +17,8 @@ typedef enum {
     checkmarkTypeSurname = 2,
     checkmarkTypeEmail = 3,
     checkmarkTypePassword = 4,
-    checkmarkTypeNewPassword = 5 //Common for NewPasswordField and confirmPasswordField
+    checkmarkTypeConfirmPassword = 5,
+    checkmarkTypeOldPassword = 6
     
 } checkmarkType;
 
@@ -50,14 +51,15 @@ typedef enum {
 
 #pragma mark - text field delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField; //Abstract
+//Check active text field (every time character is enetered) to set checkmark
+-(void)editingChanged:(UITextField *)textField; //Abstract
 
 #pragma mark - helper methods
 - (void)showAlertViewOfError:(NSError *)error;
 - (void)showAlertViewWithTitile:(NSString *)title andMessage:(NSString *)message;
 - (BOOL)isValidMail:(NSString *)checkString;
-- (BOOL)isPasswordsEqual;
-- (BOOL)isAnyTextFieldEmpty;
+-(BOOL)isAnyTextFieldEmpty;
 - (void)spinerShouldShow:(BOOL)isVisible;
-- (void)showCheckmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image;
+- (void)shouldShow:(BOOL)show checkmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image;
 
 @end

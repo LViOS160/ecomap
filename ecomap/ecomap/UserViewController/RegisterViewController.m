@@ -41,6 +41,28 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
     return YES;
 }
 
+//@override
+//Check active text field (every time character is enetered) to set checkmark
+-(void)editingChanged:(UITextField *)textField
+{
+    if (textField == self.emailTextField) {
+        if ([self isValidMail:textField.text]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
+    } else if (textField == self.passwordTextField || textField == self.confirmPasswordTextField){
+        if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text] && ![self.passwordTextField.text isEqualToString:@""]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypePassword], [NSNumber numberWithInt:checkmarkTypeConfirmPassword]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypePassword], [NSNumber numberWithInt:checkmarkTypeConfirmPassword]] withImage:CHECKMARK_BAD_IMAGE];
+    } else if (textField == self.nameTextField) {
+        if (![textField.text isEqualToString:@""]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeName]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeName]] withImage:CHECKMARK_BAD_IMAGE];
+    } else if (textField == self.surnameTextField) {
+        if (![textField.text isEqualToString:@""]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeSurname]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeSurname]] withImage:CHECKMARK_BAD_IMAGE];
+    }
+}
 
 #pragma mark - buttons
 
