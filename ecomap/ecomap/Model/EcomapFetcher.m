@@ -40,12 +40,9 @@
                 completionHandler:^(NSData *JSON, NSError *error) {
                     NSMutableArray *problems = nil;
                     NSArray *problemsFromJSON = nil;
-                    if (error) {
-                        DDLogVerbose(@"%d", abs(error.code / 100i));
-                    }
                     if (!error) {
                         //Extract received data
-                        if (JSON != nil) {
+                        if (JSON) {
                             //Parse JSON
                             problemsFromJSON = [JSONparser parseJSONtoArray:JSON];
                             
@@ -60,7 +57,11 @@
                             }
                             
                         }
-                    } else if ((error.code / 100 == 5) || (abs(error.code / 100i) == 10)) [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
+                    } else {
+                        DDLogVerbose(@"Error loading all problems JSON from ecomap server: %@", [error localizedDescription]);
+                        if ((error.code / 100 == 5) || (abs(error.code / 100) == 10)) [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
+                    }
+        
                     //set up completionHandler
                     completionHandler(problems, error);
                 }];
@@ -227,7 +228,7 @@
                     
                     if (!error) {
                         //Extract received data
-                        if (JSON != nil) {
+                        if (JSON) {
                             //Check if we have a problem with such problemID.
                             //If there is no one, server give us back Dictionary with "error" key
                             //Parse JSON
