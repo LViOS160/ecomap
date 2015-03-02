@@ -43,6 +43,7 @@
                     if (!error) {
                         //Extract received data
                         if (JSON) {
+                            DDLogVerbose(@"All problems loaded success from ecomap server");
                             //Parse JSON
                             problemsFromJSON = [JSONparser parseJSONtoArray:JSON];
                             
@@ -234,6 +235,7 @@
                             //Parse JSON
                             NSDictionary *answerFromServer = [JSONparser parseJSONtoDictionary:JSON];
                             if (answerFromServer) {
+                                DDLogError(@"There is no problem (id = %d) on server", problemID);
                                 //Return error. Form error to be passed to completionHandler
                                 NSError *error = [[NSError alloc] initWithDomain:NSMachErrorDomain
                                                                             code:404
@@ -242,12 +244,12 @@
                                 return;
                             }
                             
-                            
                             //Extract problemDetails from JSON
                             //Parse JSON
                             NSArray *jsonArray = [JSONparser parseJSONtoArray:JSON];
                             problem = [[jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
                             problemDetails = [[EcomapProblemDetails alloc] initWithProblem:problem];
+                            DDLogVerbose(@"Problem (id = %d) loaded success from ecomap server", problemDetails.problemID);
                             
                             photos = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_PHOTOS];
                             problemPhotos = [NSMutableArray array];

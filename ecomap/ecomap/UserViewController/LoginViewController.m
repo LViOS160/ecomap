@@ -8,8 +8,8 @@
 
 #import "LoginViewController.h"
 #import "EcomapLoggedUser.h"
-//#import "EcomapFetcher.h"
 #import "EcomapUserFetcher.h"
+#import "RegisterViewController.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
@@ -36,6 +36,15 @@
     return YES;
 }
 
+#pragma mark - Segue
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"register"]) {
+        RegisterViewController *registerVC = segue.destinationViewController;
+        registerVC.dismissBlock = self.dismissBlock;
+    }
+}
+
 #pragma mark - buttons
 - (IBAction)loginButton:(UIButton *)sender {
     DDLogVerbose(@"Login on ecomap button pressed");
@@ -44,7 +53,7 @@
     
     //Check if fields are empty
     if ([self isAnyTextFieldEmpty]) {
-        [self showAlertViewWithTitile:@"Помилка"
+        [self showAlertViewWithTitile:@"Неповна інформація"
                            andMessage:@"\nБудь-ласка заповніть усі поля"];
         return;
     } else if (![self isValidMail:email]) { //check if email is valid
@@ -76,7 +85,7 @@
                                     andMessage:@"\nЛаскаво просимо на Ecomap"];
              } else {
                  [self showAlertViewWithTitile:@"Помилка на сервері"
-                                    andMessage:@"\nЄ проблеми на сервері. Ми працюємо над їх вирішенням!"];
+                                    andMessage:@"Є проблеми на сервері. Ми працюємо над їх вирішенням!"];
              }
              
          }
@@ -101,7 +110,7 @@
             
         } else if (error.code == 400) {
             [self showAlertViewWithTitile:@"Помилка входу через Facebook"
-                               andMessage:@"\nКористувач з такою email-адресою вже зареєстрований"];
+                               andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
         } else {
             [self showAlertViewWithTitile:@"Помилка входу через Facebook"
                                andMessage:[error localizedDescription]];

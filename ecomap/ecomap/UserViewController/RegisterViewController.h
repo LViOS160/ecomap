@@ -9,5 +9,5 @@
 #import "UserActivityViewController.h"
 
 @interface RegisterViewController : UserActivityViewController
-
+@property (nonatomic, copy) void (^dismissBlock)(void);
 @end

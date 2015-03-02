@@ -10,7 +10,8 @@
 #import "SWRevealViewController.h"
 #import "MenuViewController.h"
 #import "EcomapRevealViewController.h"
-#import "LoginViewController.h"
+#import "UserActivityViewController.h"
+
 
 @implementation SWRevealModalSegue
 

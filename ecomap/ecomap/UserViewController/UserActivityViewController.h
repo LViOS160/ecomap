@@ -11,6 +11,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol UserAction <NSObject>
+//What shoul be done after user action (login, logout) ends success
+@property (nonatomic, copy) void (^dismissBlock)(void);
+
+@end
+
 //checkmarkType number is equal to ckeckmarkImageView tag
 typedef enum {
     checkmarkTypeName = 1,

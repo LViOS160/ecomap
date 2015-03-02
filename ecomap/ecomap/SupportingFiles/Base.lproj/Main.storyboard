@@ -1252,7 +1252,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="ex4-la-Hg8" kind="show" id="wp2-p3-Gh8"/>
+                                                            <segue destination="ex4-la-Hg8" kind="show" identifier="register" id="wp2-p3-Gh8"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1681,6 +1681,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="QnI-QP-SH7" id="EhZ-8m-AAc"/>
+                        <outlet property="activityIndicatorPad" destination="iko-eh-EJq" id="Xz8-7w-0rT"/>
                         <outlet property="emailLabel" destination="6dw-35-OpN" id="iDC-DT-U4G"/>
                         <outlet property="nameLabel" destination="EV4-hX-TzL" id="hkI-AN-XO9"/>
                         <outlet property="roleLabel" destination="glc-GU-xYI" id="kWY-JM-kBl"/>
@@ -1876,6 +1878,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Зміна паролю" id="7zG-fa-HBv"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="tLW-2b-owc" id="tED-wd-FWf"/>
+                        <outlet property="activityIndicatorPad" destination="7NV-8U-ZB3" id="9uM-tu-QsZ"/>
                         <outlet property="confirmPasswordTextField" destination="P9X-3g-b4K" id="qjY-vZ-HTF"/>
                         <outlet property="oldPasswordTextField" destination="3om-3o-SAB" id="vIF-EA-N3x"/>
                         <outlet property="passwordTextField" destination="emG-sH-AjN" id="S1q-Ug-Ft7"/>

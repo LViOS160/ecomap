@@ -8,7 +8,8 @@
 
 
 #import "RegisterViewController.h"
-//#import "EcomapFetcher.h"
+#import "LoginViewController.h"
+#import "EcomapLoggedUser.h"
 #import "EcomapUserFetcher.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -47,7 +48,7 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
 
 - (IBAction)registerButton:(UIButton *)sender {
     DDLogVerbose(@"Register on ecomap button pressed");
-    NSString *name = self.emailTextField.text;
+    NSString *name = self.nameTextField.text;
     NSString *surname = self.surnameTextField.text;
     NSString *email = self.emailTextField.text;
     NSString *password = self.passwordTextField.text;
@@ -69,136 +70,44 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
     }
     
     [self spinerShouldShow:YES];
-    
-    /*
-    //Try to login (first effort). If not success, then try to register and login again
-    [self loginWithEmail:email
-             andPassword:password
-            OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                if (!error && loggedUser) {
-                    completionHandler (loggedUser, nil);
-                } else {
-                    // In case an error to login (first effort) has occured
-                    //Try to register
-                    [self registerWithName:name
-                                andSurname:surname
-                                  andEmail:email
-                               andPassword:password
-                              OnCompletion:^(NSError *error) {
-                                  if (!error) {
-                                      //Try to login (second effort)
-                                      [self loginWithEmail:email
-                                               andPassword:password
-                                              OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                                                  if (!error && loggedUser) {
-                                                      completionHandler (loggedUser, nil);
-                                                      //return;
-                                                  } else {
-                                                      // In case an error to login (second effort) has occured
-                                                      completionHandler (nil, error);
-                                                  }
-                                              }]; //end of login (second effort) complition block
+    //Try to register
+    [EcomapUserFetcher registerWithName: name
+                            andSurname: surname
+                              andEmail: email
+                           andPassword: password
+                          OnCompletion:^(NSError *error) {
+                  if (!error) {
+                      //Try to login
+                      [EcomapUserFetcher loginWithEmail: email
+                               andPassword: password
+                              OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                  [self spinerShouldShow:NO];
+                                  if (!error && loggedUser) {
+                                      self.dismissBlock();
+                                      [self dismissViewControllerAnimated:YES completion:nil];
+                                      [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUser.name]
+                                                         andMessage:@"\nЛаскаво просимо на Ecomap"];
+                                      
                                   } else {
-                                      // In case an error to register has occured.
-                                      completionHandler (nil, error);
+                                      // In case an error to login has occured
+                                      [self showAlertViewWithTitile:@"Помилка"
+                                                         andMessage:[error localizedDescription]];
                                   }
-                              }];  //end of registartiom complition block
-                }
-            }]; //end of login (first effort) complition block
-     */
+                        }]; //end of login complition block
+                  } else {
+                      // In case an error to register has occured.
+                      [self spinerShouldShow:NO];
+                      if (error.code == 400) {
+                          //Change checkmarks image
+                          [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
+                          [self showAlertViewWithTitile:@"Помилка"
+                                             andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
+                      } else {
+                          [self showAlertViewWithTitile:@"Помилка"
+                                             andMessage:[error localizedDescription]];
+                      }
+                  }
+        }];  //end of registartiom complition block
 }
-
-
-// show the allerts in different cases
--(void)showTheUIRoutineAlert:(Alerts) alert{
-    UIAlertView* alertView;
-    
-    switch(alert){
-            
-        case oneIsEmpty:
-            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Please fill all fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-        case differentPasswords:
-            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Wrong confirmation" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-            
-            
-        case smallLength:
-            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Password length is not secure" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-        case notEmail:
-            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Email is not valid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-            
-    }
-    
-}
-
-
--(void)showhttpErrorAlert:(NSUInteger) error{
-    UIAlertView* alertView;
-    switch (error){
-        case 0:
-            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@" Registration is succesfull." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-        case 400:
-            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@" This email has already existed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-        case 401:
-            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Please, try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-        default:
-            alertView = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Unknown error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-    }
-}
-
-//- (IBAction)registerButton:(UIButton *)sender {
-//    //__block
-//    if (self.confirmText.text.length !=0 && self.passwordText.text.length!=0 && self.emailText.text.length!=0 && self.surnameText.text.length!=0 && self.nameText.text.length!=0){
-//        if([self validateEmail:self.emailText.text])
-//        {
-//            if([self.confirmText.text isEqualToString:self.passwordText.text]){
-//                if(self.passwordText.text.length > 4)
-//                {
-//                    [EcomapUserFetcher registerWithName:self.nameText.text
-//                                         andSurname:self.surnameText.text
-//                                           andEmail:self.emailText.text
-//                                        andPassword:self.passwordText.text OnCompletion:^(NSError *error) {
-//                                            NSInteger httpErrorCode = 0;
-//                                            if(error) httpErrorCode = error.code;
-//                                            [self showhttpErrorAlert:httpErrorCode];
-//                                            if(httpErrorCode == 0){
-//                                                [EcomapUserFetcher loginWithEmail:self.emailText.text andPassword:self.passwordText.text OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-//                                                    /*if(!error){
-//                                                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Login" message:@"Succesfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//                                                        [alertView show];
-//                                                    }*/
-//                                                }
-//                                                 ];
-//                                            }
-//
-//                                            
-//                                        }
-//                     ];
-//                }
-//                else [self showTheUIRoutineAlert:smallLength];
-//            }
-//            else [self showTheUIRoutineAlert:differentPasswords];
-//        }
-//        else [self showTheUIRoutineAlert:notEmail];
-//    }
-//    else [self showTheUIRoutineAlert:oneIsEmpty];
-//   
-//}
-
 
 @end
