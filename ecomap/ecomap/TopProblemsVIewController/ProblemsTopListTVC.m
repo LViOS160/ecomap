@@ -163,11 +163,11 @@
     
     EcomapEditableProblem *eProblem = [[EcomapEditableProblem alloc] init];
     
-    eProblem.content = @"It's a problem with content";
-    eProblem.solved = YES;
-    eProblem.proposal = @"We should be creative about proposals";
-    eProblem.severity = 5;
-    eProblem.title = @"Not 2, but title of problem";
+    eProblem.content = @"Content";
+    eProblem.solved = NO;
+    eProblem.proposal = @"Proposal";
+    eProblem.severity = 3;
+    eProblem.title = @"Title";
     
     [EcomapAdminFetcher changeProblem:238 withNewProblem:eProblem onCompletion:^(NSData *result, NSError *error) {
         if(error) {
