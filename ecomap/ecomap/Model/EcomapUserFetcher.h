@@ -19,6 +19,8 @@
 //Use [EcomapLoggedUser currentLoggedUser] to get an instance of current logged user anytime
 + (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(EcomapLoggedUser *loggedUser, NSError *error))completionHandler;
 
++ (void)changePassword:(NSString*)oldPassword toNewPassword:(NSString*)newPassword OnCompletion:(void (^)(NSError *error))completionHandler;
+
 + (void)loginWithFacebookOnCompletion:(void (^)(EcomapLoggedUser *loggedUserFB, NSError *error))completionHandler;
 
 //Registration.

@@ -222,6 +222,48 @@ static BOOL calledFacebookCloseSession = NO;
     DDLogVerbose(@"Facebook session closed");
 }
 
+#pragma mark - Change password
++ (void)changePassword:(NSString*)oldPassword toNewPassword:(NSString*)newPassword OnCompletion:(void (^)(NSError *error))completionHandler
+{
+    if (![EcomapLoggedUser currentLoggedUser]) {
+        //There is no logged user. Form Error
+        NSError *error = [[NSError alloc] initWithDomain:NSMachErrorDomain
+                                                    code:600
+                                                userInfo:@{@"error" : @"There is no logged user"}];
+        completionHandler(error);
+        return;
+    }
+    //{"userId":"1", "old_password": "admin", "new_password":"admin", "new_password_second":"admin"}
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    
+    //Set up request
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforChangePassword]];
+    [request setHTTPMethod:@"POST"];
+    
+    //Create JSON data to send to  server
+    NSDictionary *loginData = @{@"userId": [NSNumber numberWithInteger:[[EcomapLoggedUser currentLoggedUser] userID]],
+                                @"old_password":oldPassword,
+                                @"new_password" : newPassword,
+                                @"new_password_second" : newPassword};
+    NSData *data = [NSJSONSerialization dataWithJSONObject:loginData
+                                                   options:0
+                                                     error:nil];
+    [DataTasks uploadDataTaskWithRequest:request
+                                fromData:data
+                    sessionConfiguration:sessionConfiguration
+                       completionHandler:^(NSData *JSON, NSError *error) {
+                           if (!error) {
+                               DDLogVerbose(@"Password changed success!");
+                           } else {
+                               DDLogError(@"Error to change password: %@", [error localizedDescription]);
+                           }
+                           
+                           //set up completionHandler
+                           completionHandler(error);
+                       }];
+}
+
 #pragma mark - Logout
 + (void)logoutUser:(EcomapLoggedUser *)loggedUser OnCompletion:(void (^)(BOOL result, NSError *error))completionHandler
 {
@@ -289,8 +331,6 @@ static BOOL calledFacebookCloseSession = NO;
                            //set up completionHandler
                            completionHandler(error);
                        }];
-    
-    
 }
 
 #pragma mark - Cookies

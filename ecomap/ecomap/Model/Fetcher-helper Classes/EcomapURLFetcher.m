@@ -93,6 +93,12 @@
     return [self URLForAPIQuery:ECOMAP_POST_REGISTER_API];
 }
 
++(NSURL *)URLforChangePassword
+{
+    return [self URLForAPIQuery:ECOMAP_POST_CHANGEPASSWORD_API];
+}
+
+#pragma mark -
 + (NSURL *)URLforStatsForParticularPeriod:(EcomapStatsTimePeriod)period
 {
     switch(period) {

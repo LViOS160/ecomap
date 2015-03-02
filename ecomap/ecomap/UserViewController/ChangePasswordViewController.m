@@ -52,50 +52,25 @@
     
     [self spinerShouldShow:YES];
     //Try to change password
-    [self spinerShouldShow:NO];
-    [self.navigationController popViewControllerAnimated:YES];
-    [self showAlertViewWithTitile:@""
-                       andMessage:@"Ваш пароль змінено"];
+    [EcomapUserFetcher changePassword:oldPasswod
+                        toNewPassword:password
+                         OnCompletion:^(NSError *error) {
+                             [self spinerShouldShow:NO];
+                             if (!error) {
+                                 [self.navigationController popViewControllerAnimated:YES];
+                                 [self showAlertViewWithTitile:@""
+                                                    andMessage:@"Ваш пароль змінено"];
+                             } else if (error.code == 400) {
+                                 //Change checkmarks image
+                                 [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
+                                 [self showAlertViewWithTitile:@"Помилка"
+                                                    andMessage:@"\nВи ввели невірний пароль"];
+                             } else {
+                                 [self showAlertViewWithTitile:@"Помилка"
+                                                    andMessage:[error localizedDescription]];
+                             }
     
-    /*
-    [EcomapUserFetcher registerWithName: name
-                             andSurname: surname
-                               andEmail: email
-                            andPassword: password
-                           OnCompletion:^(NSError *error) {
-                               if (!error) {
-                                   //Try to login
-                                   [EcomapUserFetcher loginWithEmail: email
-                                                         andPassword: password
-                                                        OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                                                            [self spinerShouldShow:NO];
-                                                            if (!error && loggedUser) {
-                                                                self.dismissBlock();
-                                                                [self dismissViewControllerAnimated:YES completion:nil];
-                                                                [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUser.name]
-                                                                                   andMessage:@"\nЛаскаво просимо на Ecomap"];
-                                                                
-                                                            } else {
-                                                                // In case an error to login has occured
-                                                                [self showAlertViewWithTitile:@"Помилка"
-                                                                                   andMessage:[error localizedDescription]];
-                                                            }
-                                                        }]; //end of login complition block
-                               } else {
-                                   // In case an error to register has occured.
-                                   [self spinerShouldShow:NO];
-                                   if (error.code == 400) {
-                                       //Change checkmarks image
-                                       [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
-                                       [self showAlertViewWithTitile:@"Помилка"
-                                                          andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
-                                   } else {
-                                       [self showAlertViewWithTitile:@"Помилка"
-                                                          andMessage:[error localizedDescription]];
-                                   }
-                               }
-                           }];  //end of registartiom complition block
-     */
+                             }];
 }
 
 @end

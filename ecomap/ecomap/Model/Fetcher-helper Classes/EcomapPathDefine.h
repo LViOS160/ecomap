@@ -21,6 +21,7 @@
 #define ECOMAP_POST_TOKEN_REGISTRATION @"registerToken/"
 #define ECOMAP_GET_LOGOUT_API @"logout/"
 #define ECOMAP_POST_REGISTER_API @"register/"
+#define ECOMAP_POST_CHANGEPASSWORD_API @"changePassword/"
 #define ECOMAP_GET_LARGE_PHOTOS_ADDRESS @"photos/large/"
 #define ECOMAP_GET_SMALL_PHOTOS_ADDRESS @"photos/small/"
 #define ECOMAP_POST_PROBLEM @"problempost"
