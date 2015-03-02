@@ -19,10 +19,14 @@
 #import "GlobalLoggerLevel.h"
 
 
+
 @interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSMutableArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
+
+//@property (strong, nonatomic) NSMutableDictionary *offscreenCells;
+
 
 
 
@@ -31,6 +35,7 @@
 @end
 
 @implementation AddCommViewController
+
 
 
 
@@ -57,10 +62,13 @@
     [super viewDidLoad];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
-    
-    
+    self.myTableView.estimatedRowHeight = 54.0;
+    self.myTableView.rowHeight = UITableViewAutomaticDimension;
+
+   
     // Do any additional setup after loading the view.
 }
+
 
 
 
@@ -99,7 +107,7 @@
     if(userIdent)
     {
         if([fromTextField isEqual:@""])
-        { UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Брат!" message:@"Не залишай пусті коментарі" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        { UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Увага" message:@"Не залишай пусті коментарі" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
             
         }
@@ -135,7 +143,7 @@
     }
     else
     {
-        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Брат!" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alertView show];
         // int errorCode = error.code;
         
@@ -171,15 +179,48 @@
     EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
     //  NSInteger row=[indexPath row]
     cell.commentContent.text= commentZ.problemContent;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *personalInfo = [NSString stringWithFormat:@"%@ %@ %@",commentZ.userName, commentZ.userSurname,[formatter stringFromDate:commentZ.date]];
+    //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateStyle = NSDateFormatterMediumStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    formatter.doesRelativeDateFormatting = YES;
+    NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
+    [formatter setLocale:ukraineLocale];
+    //[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+   // NSString *personalInfo = [NSString stringWithFormat:@"%@ %@ %@",commentZ.userName, commentZ.userSurname,[formatter stringFromDate:commentZ.date]];
+    NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentZ.userName, commentZ.userSurname];
+    NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentZ.date]];
+    
     cell.personInfo.text = personalInfo;
+    cell.dateInfo.text = dateInfo;
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
     
     
     return cell;
 }
 
+/*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *reuseIdentifier = @"CommentCell";
+    CommentCell *cell = [self.offscreenCells objectForKey:reuseIdentifier];
+    if(!cell)
+    {
+        cell = [[CommentCell alloc]init];
+        [self.offscreenCells setObject:cell forKey:reuseIdentifier];
+    }
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    cell.bounds = CGRectMake(0, 0, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    height+=1;
+    return height;
+}
+
+*/
 
 /*
  // Override to support conditional editing of the table view.
