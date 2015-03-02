@@ -17,6 +17,7 @@
 #import "Defines.h"
 #import "EcomapUserFetcher.h"
 #import "GlobalLoggerLevel.h"
+#import "EcomapUserFetcher.h"
 
 
 
@@ -44,22 +45,22 @@
     
 }
 - (void)viewDidLoad {
+    [EcomapUserFetcher loginWithEmail:@"ecomap@mail.ru"
+                          andPassword:@"11111" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                              if (!error) {
+                                  DDLogVerbose(@"User role: %@", loggedUser.role);
+                                  
+                                  //Read current logged user
+                                  
+                                  
+                                  
+                              } else {
+                                  DDLogVerbose(@"Error to login: %@", error);
+                              }
+
+                          }];
     
-    [EcomapUserFetcher loginWithEmail:@"clic@ukr.net"
-                      andPassword:@"eco"
-                     OnCompletion:^(EcomapLoggedUser *user, NSError *error) {
-                         if (!error) {
-                             DDLogVerbose(@"User role: %@", user.role);
-                             
-                             //Read current logged user
-                             
-                             
-                             
-                         } else {
-                             DDLogVerbose(@"Error to login: %@", error);
-                         }
-                     }];
-    [super viewDidLoad];
+        [super viewDidLoad];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
     self.myTableView.estimatedRowHeight = 54.0;
