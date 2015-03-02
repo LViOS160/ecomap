@@ -13,35 +13,52 @@
 
 typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // types of showing alerts
 
-@interface RegisterViewController ()
-
-@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *surnameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *emailTextField;
-@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (strong, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
-@property(nonatomic, strong) UITextField *activeField;
-
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIView *activityIndicatorPad;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *checkmarks;
-
-@end
-
 @implementation RegisterViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+#pragma mark - text field delegate
+//@override
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.nameTextField) {
+        [self.surnameTextField becomeFirstResponder];
+    } else if (textField == self.surnameTextField) {
+        [self.emailTextField becomeFirstResponder];
+    } else if (textField == self.emailTextField) {
+        [self.passwordTextField becomeFirstResponder];
+    } else if (textField == self.passwordTextField) {
+        [self.confirmPasswordTextField becomeFirstResponder];
+    } else if (textField == self.confirmPasswordTextField)
+    {
+        [textField resignFirstResponder];
+        //[self registerButton:nil];
+    }
+    return YES;
 }
 
-- (BOOL) validateEmail: (NSString *) candidate {
-    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    
-    return [emailTest evaluateWithObject:candidate];
+//@override
+//Check active text field (every time character is enetered) to set checkmark
+-(void)editingChanged:(UITextField *)textField
+{
+    if (textField == self.emailTextField) {
+        if ([self isValidMail:textField.text]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
+    } else if (textField == self.passwordTextField || textField == self.confirmPasswordTextField){
+        if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text] && ![self.passwordTextField.text isEqualToString:@""]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypePassword], [NSNumber numberWithInt:checkmarkTypeConfirmPassword]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypePassword], [NSNumber numberWithInt:checkmarkTypeConfirmPassword]] withImage:CHECKMARK_BAD_IMAGE];
+    } else if (textField == self.nameTextField) {
+        if (![textField.text isEqualToString:@""]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeName]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeName]] withImage:CHECKMARK_BAD_IMAGE];
+    } else if (textField == self.surnameTextField) {
+        if (![textField.text isEqualToString:@""]) {
+            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeSurname]] withImage:CHECKMARK_GOOD_IMAGE];
+        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeSurname]] withImage:CHECKMARK_BAD_IMAGE];
+    }
 }
+
+#pragma mark - buttons
 
 // show the allerts in different cases
 -(void)showTheUIRoutineAlert:(Alerts) alert{
@@ -133,19 +150,5 @@ typedef enum {oneIsEmpty, differentPasswords, smallLength, notEmail} Alerts; // 
 //   
 //}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

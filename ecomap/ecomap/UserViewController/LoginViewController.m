@@ -16,7 +16,7 @@
 @implementation LoginViewController
 
 #pragma mark - keyboard managment
-//@override
+//@override (to make allaway visible email and password textField)
 //Called when the UIKeyboardDidShowNotification is sent
 //To manage keyboard appearance (situation when keyboard cover active textField)
 - (void)keyboardWasShown:(NSNotification*)aNotification
@@ -80,7 +80,7 @@
     NSString *password = self.passwordTextField.text;
     
     //Check if fields are empty
-    if ([email isEqualToString:@""] || [password isEqualToString:@""]) {
+    if ([self isAnyTextFieldEmpty]) {
         [self showAlertViewWithTitile:@"Неповна інформація"
                            andMessage:@"\nБудь-ласка заповніть усі поля"];
         return;

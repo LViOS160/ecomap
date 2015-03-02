@@ -58,6 +58,26 @@
 //To manage keyboard appearance (situation when keyboard cover active textField)
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    //Increase scroll view contetn size by keyboard size
+    CGRect contetntViewRect = self.activeField.superview.superview.frame;
+    contetntViewRect.size.height += keyboardSize.height;
+    self.scrollView.contentSize = contetntViewRect.size;
+    
+    // If password text field is hidden by keyboard, scroll it so it's visible
+    CGRect visibleRect = self.view.frame;
+    visibleRect.size.height -= keyboardSize.height;
+    
+    CGFloat passwordFieldHieght = self.passwordTextField.frame.size.height;
+    CGPoint passwordFieldLeftBottomPoint = [self.view convertPoint:CGPointMake(self.passwordTextField.frame.origin.x, (self.passwordTextField.frame.origin.y + passwordFieldHieght))
+                                                          fromView:self.passwordTextField.superview];
+    
+    if (!CGRectContainsPoint(visibleRect, passwordFieldLeftBottomPoint) ) {
+        
+        [self.scrollView setContentOffset:CGPointMake(0.0, self.scrollView.contentOffset.y + passwordFieldLeftBottomPoint.y - visibleRect.size.height + KEYBOARD_TO_TEXTFIELD_SPACE) animated:YES];
+    }
+
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
@@ -114,7 +134,7 @@
     [alert show];
 }
 
--(BOOL) isValidMail:(NSString *)checkString
+-(BOOL)isValidMail:(NSString *)checkString
 {
     BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
@@ -124,6 +144,19 @@
     NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
+}
+
+-(BOOL)isAnyTextFieldEmpty
+{
+    BOOL empty = NO;
+    for (UITextField *textField in self.textFields) {
+        if ([textField.text isEqualToString:@""]) {
+            empty = YES;
+            break;
+        }
+    }
+    
+    return empty;
 }
 
 - (void)spinerShouldShow:(BOOL)isVisible
