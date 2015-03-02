@@ -15,11 +15,11 @@
 {
     self = [super init];
     
-    _fromDate = [NSDate dateWithTimeIntervalSince1970:0];
-    _toDate = [NSDate date];
-    _problemTypes = [EcomapProblemFilteringMask validProblemTypeIDs];
-    _showSolved = YES;
-    _showUnsolved = YES;
+    self.fromDate = [NSDate dateWithTimeIntervalSince1970:0];
+    self.toDate = [NSDate date];
+    self.problemTypes = [EcomapProblemFilteringMask validProblemTypeIDs];
+    self.showSolved = YES;
+    self.showUnsolved = YES;
 
     return self;
 }

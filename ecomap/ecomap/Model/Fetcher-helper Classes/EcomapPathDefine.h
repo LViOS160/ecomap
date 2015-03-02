@@ -9,9 +9,9 @@
 #define EcomapFetcher_Header_h
 
 //API address1 
-//#define ECOMAP_ADDRESS @"http://176.36.11.25/"
+#define ECOMAP_ADDRESS @"http://176.36.11.25/"
 //#define ECOMAP_ADDRESS @"http://localhost:8090/"
-#define ECOMAP_ADDRESS @"http://ecomap.org/"
+//#define ECOMAP_ADDRESS @"http://ecomap.org/"
 //#define ECOMAP_ADDRESS @"http://192.168.2.1:8090/"
 
 #define ECOMAP_API @"api/"
@@ -38,6 +38,10 @@
 #define ECOMAP_GET_STATS_FOR_LAST_MOTH @"getStats2/M"
 #define ECOMAP_GET_STATS_FOR_LAST_WEEK @"getStats2/W"
 #define ECOMAP_GET_STATS_FOR_LAST_DAY @"getStats2/D"
+
+// Queries for admin's API
+
+#define ECOMAP_PUT_EDIT_PROBLEM @"editProblem/"
 
 //Problems types descripton
 #define ECOMAP_PROBLEM_TYPES_ARRAY @[@"проблеми лісів", @"сміттєзвалища", @"незаконна забудова", @"проблеми водойм", @"загрози біорізноманіттю", @"браконьєрство", @"інші проблеми"]
@@ -95,8 +99,6 @@
 #define ECOMAP_COMMENT_CONTENT_CONTENT @"Content"
 #define ECOMAP_COMMENT_CONTENT_USERNAME @"userName"
 #define ECOMAP_COMMENT_CONTENT_USERSURNAME @"userSurname"
-
-
 
 // keys (paths) to values in a USER dictionary
 #define ECOMAP_USER_ID @"id"

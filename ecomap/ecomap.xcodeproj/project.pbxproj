@@ -16,6 +16,8 @@
 		518F30B01AA3C2C10094DA14 /* UserActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30AF1AA3C2C10094DA14 /* UserActivityViewController.m */; };
 		518F30B31AA3CF630094DA14 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30B21AA3CF630094DA14 /* ChangePasswordViewController.m */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */; };
+		90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */; };
 		B30E2DBC1A9DDD340039DBBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBB1A9DDD340039DBBD /* Foundation.framework */; };
 		B30E2DBE1A9DDD3A0039DBBD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */; };
 		B30E2DC01A9DDD410039DBBD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBF1A9DDD410039DBBD /* Security.framework */; };
@@ -143,6 +145,10 @@
 		518F30AF1AA3C2C10094DA14 /* UserActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserActivityViewController.m; sourceTree = "<group>"; };
 		518F30B11AA3CF630094DA14 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		518F30B21AA3CF630094DA14 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAdminFetcher.h; sourceTree = "<group>"; };
+		90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapAdminFetcher.m; sourceTree = "<group>"; };
+		90C868A11AA4746B0001E448 /* EcomapEditableProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapEditableProblem.h; sourceTree = "<group>"; };
+		90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapEditableProblem.m; sourceTree = "<group>"; };
 		B30E2DBB1A9DDD340039DBBD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B30E2DBF1A9DDD410039DBBD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -563,6 +569,8 @@
 				B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */,
 				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
 				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
+				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
+				90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */,
 				518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */,
 				518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */,
 				B3738B911A9DDC4B0077F604 /* EcomapFilter.h */,
@@ -623,6 +631,8 @@
 				B3738BB31A9DDC4B0077F604 /* EcomapProblem.m */,
 				B3738BB41A9DDC4B0077F604 /* EcomapProblemDetails.h */,
 				B3738BB51A9DDC4B0077F604 /* EcomapProblemDetails.m */,
+				90C868A11AA4746B0001E448 /* EcomapEditableProblem.h */,
+				90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */,
 				B3738BB61A9DDC4B0077F604 /* EcomapProblemFilteringMask.h */,
 				B3738BB71A9DDC4B0077F604 /* EcomapProblemFilteringMask.m */,
 				B3738BB81A9DDC4B0077F604 /* EcomapResources.h */,
@@ -991,6 +1001,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */,
 				B3738C231A9DDC4B0077F604 /* EcomapStatsParser.m in Sources */,
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,
 				B3738C2C1A9DDC4B0077F604 /* EcomapComments.m in Sources */,
@@ -1034,6 +1045,7 @@
 				B3738C181A9DDC4B0077F604 /* GClusterManager.m in Sources */,
 				B3738C1D1A9DDC4B0077F604 /* GDefaultClusterRenderer.m in Sources */,
 				B3738C5C1A9DDC4B0077F604 /* RegisterViewController.m in Sources */,
+				90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */,
 				9096C98D1A91E8DA00A61CDB /* (null) in Sources */,
 				B3738C311A9DDC4B0077F604 /* EcomapProblemDetails.m in Sources */,
 				B3738C211A9DDC4B0077F604 /* EcomapFetcher.m in Sources */,

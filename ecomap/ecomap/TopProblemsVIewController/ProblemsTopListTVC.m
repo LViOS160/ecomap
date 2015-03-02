@@ -14,7 +14,15 @@
 #import "EcomapPathDefine.h"
 #import "EcomapRevealViewController.h"
 #import "ProblemViewController.h"
-#import "CocoaLumberjack.h"
+
+//Setup DDLog
+#import "GlobalLoggerLevel.h"
+
+// Testing
+
+#import "EcomapAdminFetcher.h"
+#import "EcomapLoggedUser.h"
+#import "EcomapEditableProblem.h"
 
 @interface ProblemsTopListTVC ()
 
@@ -150,6 +158,24 @@
     [self fetchProblems];
     [self changeKindOfTopChart:self.kindOfTopChartSegmentedControl];
     [self customSetup];
+    
+#warning Admin's API Testing
+    
+    EcomapEditableProblem *eProblem = [[EcomapEditableProblem alloc] init];
+    
+    eProblem.content = @"It's a problem with content";
+    eProblem.solved = YES;
+    eProblem.proposal = @"We should be creative about proposals";
+    eProblem.severity = 5;
+    eProblem.title = @"Not 2, but title of problem";
+    
+    [EcomapAdminFetcher changeProblem:238 withNewProblem:eProblem onCompletion:^(NSData *result, NSError *error) {
+        if(error) {
+            DDLogError(@"ERROR: %@", error);
+        } else {
+            DDLogVerbose(@"Result: %@", [NSJSONSerialization JSONObjectWithData:result options:kNilOptions error:NULL]);
+        }
+    }];
 }
 
 - (void)customSetup

@@ -143,6 +143,12 @@
     return [NSURL URLWithString:query];
 }
 
+#pragma mark - Admin API URLs
 
++ (NSURL *)URLforEditingProblem:(NSUInteger)problemID
+{
+    NSString *query = [ECOMAP_PUT_EDIT_PROBLEM stringByAppendingString:[NSString stringWithFormat:@"%lu", problemID]];
+    return [self URLForAPIQuery:query];
+}
 
 @end
