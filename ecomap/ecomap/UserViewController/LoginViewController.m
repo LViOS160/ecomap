@@ -61,6 +61,7 @@
 
 #pragma mark - buttons
 - (IBAction)loginButton:(UIButton *)sender {
+    DDLogVerbose(@"Login on ecomap button pressed");
     NSString *email = self.emailTextField.text;
     NSString *password = self.passwordTextField.text;
     
