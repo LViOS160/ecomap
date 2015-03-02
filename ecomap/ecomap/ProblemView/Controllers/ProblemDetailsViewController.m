@@ -167,7 +167,7 @@
                                               DDLogError(@"Error loadind image at URL: %@", [error localizedDescription]);
                                               
                                               //set image "no preview avaliable"
-                                              [customButton setBackgroundImage:[UIImage imageNamed:@"NoPreviewButton.png"]
+                                              [customButton setBackgroundImage:[UIImage imageNamed:@"NoPreviewButtonUKR.png"]
                                                                       forState:UIControlStateNormal];
                                           }
                                           
