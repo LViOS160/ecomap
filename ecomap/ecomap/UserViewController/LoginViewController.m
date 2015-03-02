@@ -59,21 +59,6 @@
     return YES;
 }
 
-//@override
-//Check active text field (every time character is enetered) to set checkmark
--(void)editingChanged:(UITextField *)textField
-{
-    if (textField == self.emailTextField) {
-        if ([self isValidMail:textField.text]) {
-            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_GOOD_IMAGE];
-        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
-    } else {
-        if (![textField.text isEqualToString:@""]) {
-            [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_GOOD_IMAGE];
-        } else [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
-    }
-}
-
 #pragma mark - buttons
 - (IBAction)loginButton:(UIButton *)sender {
     NSString *email = self.emailTextField.text;
@@ -101,7 +86,7 @@
          if (error){
              if (error.code == 400) {
                  //Change checkmarks image
-                 [self shouldShow:YES checkmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail], [NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
+                 [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail], [NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
                  [self showAlertViewWithTitile:@"Помилка авторизації"
                                     andMessage:@"\nНеправильний пароль або email-адреса"];
              } else {

@@ -113,8 +113,17 @@
 }
 
 //Check active text field (every time character is enetered) to set checkmark
--(void)editingChanged:(UITextField *)textField //Abstract
+-(void)editingChanged:(UITextField *)textField
 {
+    //consider "taxtField.tag" value is equal to appropriative checkmarkType value
+    
+    if ((textField.tag == checkmarkTypeEmail && [self isValidMail:textField.text]) ||  //validation for email
+        (textField.tag == checkmarkTypeNewPassword && [self isPasswordsEqual]) || //validation for passwords (newPassword and confirdPasswor)
+        ([self isTypeOfSimpleTextOfTextField:textField] && ![textField.text isEqualToString:@""])) { //validation for name, surname, oldPassword
+        [self showCheckmarks:@[[NSNumber numberWithInt:textField.tag]] withImage:CHECKMARK_GOOD_IMAGE];
+    } else {
+        [self showCheckmarks:@[[NSNumber numberWithInt:textField.tag]] withImage:CHECKMARK_BAD_IMAGE];
+    }
 }
 
 #pragma mark - helper methods
@@ -144,6 +153,23 @@
     NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
+}
+
+- (BOOL)isPasswordsEqual {
+    BOOL equal = NO;
+    if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text] && ![self.passwordTextField.text isEqualToString:@""]) {
+        equal = YES;
+    }
+    return equal;
+}
+
+//Consider name, surname and password field are "simple text" text fields (because the only validation for them is not to be empty field)
+- (BOOL)isTypeOfSimpleTextOfTextField:(UITextField *)textField{
+    BOOL simple = NO;
+    if (textField.tag == checkmarkTypeName || textField.tag == checkmarkTypeSurname || textField.tag == checkmarkTypePassword) {
+        simple = YES;
+    }
+    return simple;
 }
 
 -(BOOL)isAnyTextFieldEmpty
@@ -180,14 +206,13 @@
     }
 }
 
-- (void)shouldShow:(BOOL)show checkmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image
+- (void)showCheckmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image
 {
     for (UIImageView *imageView in self.checkmarks) {
         for (NSNumber *number in checkmarkTypes) {
             if (imageView.tag == [number integerValue]) {
                 imageView.alpha = 1.0;
                 imageView.image = image;
-                imageView.hidden = !show;
             }
         }
         
