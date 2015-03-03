@@ -10,6 +10,28 @@
 #import <UIKit/UIKit.h>
 #import "EcomapURLFetcher.h"
 
+#import "EcomapPathDefine.h"
+#import "EcomapURLFetcher.h"
+#import "JSONparser.h"
+#import "NetworkActivityIndicator.h"
+
+//Value-Object classes
+#import "EcomapProblem.h"
+#import "EcomapProblemDetails.h"
+#import "EcomapLoggedUser.h"
+#import "EcomapPhoto.h"
+#import "EcomapComments.h"
+#import "EcomapResources.h"
+#import "EcomapAlias.h"
+#import "EcomapCommentsChild.h"
+#import "LocalImageDescription.h"
+
+//Setup DDLog
+#import "GlobalLoggerLevel.h"
+#import "DataTasks.h"
+
+@import MobileCoreServices;
+
 @class EcomapLoggedUser;
 @class EcomapProblemDetails;
 @class EcomapProblem;
@@ -44,11 +66,6 @@
 // Load top charts of problems to show them in Top Chart List View Controller
 + (void)loadTopChartsOnCompletion:(void (^)(NSArray *charts, NSError *error))completionHandler;
 
-#pragma mark - POST API
-+ (void)problemPost:(EcomapProblem*)problem
-     problemDetails:(EcomapProblemDetails*)problemDetails
-               user:(EcomapLoggedUser*)user
-       OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
 
 //POST method for votes
 + (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler;
