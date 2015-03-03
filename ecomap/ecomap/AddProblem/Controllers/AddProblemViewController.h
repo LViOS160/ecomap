@@ -9,6 +9,6 @@
 #import "MapViewController.h"
 #import "Defines.h"
 
-@interface AddProblemViewController : MapViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
+@interface AddProblemViewController : MapViewController
 
 @end
