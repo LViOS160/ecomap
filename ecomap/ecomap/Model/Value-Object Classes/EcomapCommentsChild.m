@@ -10,6 +10,16 @@
 #import "EcomapPathDefine.h"
 
 @interface EcomapCommentsChild ()
+@property (nonatomic, readwrite) NSUInteger commentID;
+@property (nonatomic, strong, readwrite) NSString *content;
+@property (nonatomic, strong, readwrite) NSDate *date;
+@property (nonatomic, readwrite) NSUInteger activityTypes_Id;
+@property (nonatomic, readwrite) NSUInteger usersID;
+@property (nonatomic, readwrite) NSUInteger problemsID;
+
+@property (nonatomic, readwrite) NSString *problemContent;
+@property (nonatomic, readwrite) NSString *userName;
+@property (nonatomic, readwrite) NSString *userSurname;
 
 @end
 
