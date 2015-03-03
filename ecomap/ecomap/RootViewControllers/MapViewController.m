@@ -59,7 +59,6 @@
         [curReach currentReachabilityStatus] == ReachableViaWiFi) {
         [self loadProblems];
         [self socketInit];
-        
     }
 }
 
@@ -80,9 +79,7 @@
                 [self saveLocalJSON:set];
             }
         }
-        
     }];
-
 }
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket {
@@ -104,8 +101,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) { // if file is not exist, create it.
         array = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     }
-
-    return array;
+   return array;
 }
 
 - (NSString*)getPath {
@@ -148,8 +144,7 @@
         mask.showUnsolved = YES;
         
         NSArray *filteredProblems = [EcomapFilter filterProblemsArray:arrayOfProblems usingFilteringMask:mask];
-        
-        for(EcomapProblem *problem in filteredProblems) {
+       for(EcomapProblem *problem in filteredProblems) {
             if([problem isKindOfClass:[EcomapProblem class]]){
                 Spot* spot = [self generateSpot:problem];
                 [self.clusterManager addItem:spot];
@@ -158,11 +153,7 @@
         [self.clusterManager cluster];
         
     } else {
-        
-        // Working code
-        
-   
-        for(EcomapProblem *problem in problems) {
+       for(EcomapProblem *problem in problems) {
             if([problem isKindOfClass:[EcomapProblem class]]){
                 Spot* spot = [self generateSpot:problem];
                 [self.clusterManager addItem:spot];
@@ -170,8 +161,7 @@
         }
         [self.clusterManager cluster];
     }
-    
-}
+ }
 
 
 -(void)loadProblems {
@@ -183,13 +173,10 @@
                 [self saveLocalJSON:set];
             }
         }
-        
     }];
-    
 }
 
 #pragma mark - GMAP
-
 
 - (void)mapSetup {
   
@@ -203,15 +190,10 @@
     self.mapView.settings.compassButton = YES;
     [self.mapView setDelegate:self];
     [self.view insertSubview:self.mapView atIndex:0];
-   self.problems = [self loadLocalJSON];
-    
-
+    self.problems = [self loadLocalJSON];
     if (_problems)
         [self renewMap:self.problems];
-    
     [self loadProblems];
-    
-   
 }
 
 - (void)customSetup
@@ -300,33 +282,5 @@
     }
 }
 
-#pragma mark - Utility methods
-
-+ (NSSet *)markersFromProblems:(NSArray *)problems
-{
-    NSMutableSet *markers = [[NSMutableSet alloc] initWithCapacity:problems.count];
-    for(EcomapProblem *problem in problems) {
-        if([problem isKindOfClass:[EcomapProblem class]])
-            [markers addObject:[MapViewController markerFromProblem:problem]];
-    }
-    return markers;
-}
-
-+ (GMSMarker*)markerFromProblem:(EcomapProblem *)problem
-{
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
-    marker.title = problem.title;
-    marker.snippet = problem.problemTypeTitle;
-    marker.icon = [MapViewController iconForMarkerType:problem.problemTypesID];
-    marker.appearAnimation = kGMSMarkerAnimationPop;
-    marker.map = nil;
-    return marker;
-}
-
-+ (UIImage *)iconForMarkerType:(NSUInteger)problemTypeID
-{
-    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", (unsigned long)problemTypeID]];
-}
 
 @end
