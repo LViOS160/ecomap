@@ -92,7 +92,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = info[UIImagePickerControllerEditedImage];
     if(!image) image = info[UIImagePickerControllerOriginalImage];
-    LocalImageDescription *descr = [[LocalImageDescription alloc] initWithImage:image];
+    EcomapLocalPhoto *descr = [[EcomapLocalPhoto alloc] initWithImage:image];
     [self.imageDescriptions addObject:descr];
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self.tableView reloadData];
@@ -159,7 +159,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         cell.accessoryView = descriptionText;
     }
 
-    LocalImageDescription *descr = self.imageDescriptions[indexPath.row];
+    EcomapLocalPhoto *descr = self.imageDescriptions[indexPath.row];
     cell.imageView.image = descr.image;
     cell.accessoryType = UITableViewCellAccessoryNone;
 
@@ -186,7 +186,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger index = textField.tag - _textFieldsStartTag;
     if (index < self.imageDescriptions.count) {
-        LocalImageDescription *descr = self.imageDescriptions[index];
+        EcomapLocalPhoto *descr = self.imageDescriptions[index];
         descr.imageDescription = textField.text;
     }
     self.activeField = nil;

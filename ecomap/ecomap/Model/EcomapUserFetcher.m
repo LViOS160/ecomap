@@ -8,7 +8,7 @@
 
 #import "EcomapUserFetcher.h"
 #import "DataTasks.h"
-#import "JSONparser.h"
+#import "JSONParser.h"
 #import "NetworkActivityIndicator.h"
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -46,7 +46,7 @@ static BOOL calledFacebookCloseSession = NO;
                            NSDictionary *userInfo = nil;
                            if (!error) {
                                //Parse JSON
-                               userInfo = [JSONparser parseJSONtoDictionary:JSON];
+                               userInfo = [JSONParser parseJSONtoDictionary:JSON];
                                //Create EcomapLoggedUser object
                                loggedUser = [[EcomapLoggedUser alloc] initWithUserInfo:userInfo];
                                

@@ -8,6 +8,6 @@
 
 #import "EcomapComments.h"
 
-@interface EcomapCommentsChild : EcomapComments
+@interface EcomapCommentaries : EcomapComments
 
 @end

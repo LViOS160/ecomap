@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import "JSONparser.h"
+#import "JSONParser.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
-@implementation JSONparser
+@implementation JSONParser
 #pragma mark - Parse JSON
 //Parse JSON data to Array
 + (NSArray *)parseJSONtoArray:(NSData *)JSON

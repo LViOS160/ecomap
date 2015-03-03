@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JSONparser : NSObject
+@interface JSONParser : NSObject
 + (NSArray *)parseJSONtoArray:(NSData *)JSON;
 
 //Parse JSON data to Dictionary

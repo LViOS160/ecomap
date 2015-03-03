@@ -10,7 +10,7 @@
 #import "DataTasks.h"
 #import "EcomapPathDefine.h"
 #import "EcomapURLFetcher.h"
-#import "JSONparser.h"
+#import "JSONParser.h"
 #import "NetworkActivityIndicator.h"
 
 //Value-Object classes
@@ -21,8 +21,8 @@
 #import "EcomapComments.h"
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
-#import "EcomapCommentsChild.h"
-#import "LocalImageDescription.h"
+#import "EcomapCommentaries.h"
+#import "EcomapLocalPhoto.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -45,7 +45,7 @@
                         if (JSON) {
                             DDLogVerbose(@"All problems loaded success from ecomap server");
                             //Parse JSON
-                            problemsFromJSON = [JSONparser parseJSONtoArray:JSON];
+                            problemsFromJSON = [JSONParser parseJSONtoArray:JSON];
                             
                             //Fill problems array
                             if (problemsFromJSON) {
@@ -81,7 +81,7 @@
                         //Extract received data
                         if (JSON != nil) {
                             //Parse JSON
-                            problemsFromJSON = [JSONparser parseJSONtoArray:JSON];
+                            problemsFromJSON = [JSONParser parseJSONtoArray:JSON];
                             
                             //Fill problems array
                             if (problemsFromJSON) {
@@ -104,7 +104,7 @@
 #pragma mark - Post comment
 +(void)createComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
-        OnCompletion:(void (^)(EcomapCommentsChild *obj,NSError *error))completionHandler {
+        OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler {
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
@@ -121,15 +121,15 @@
                   completionHandler:^(NSData *JSON, NSError *error) {
                       NSDictionary *commentsInfo;
                       // EcomapLoggedUser * check = [[EcomapLoggedUser alloc]init];
-                      EcomapCommentsChild * difComment = nil;
+                      EcomapCommentaries * difComment = nil;
                       
                       if(!error)
                           
-                      {    difComment = [[EcomapCommentsChild alloc]initWithInfo:commentsInfo];
+                      {    difComment = [[EcomapCommentaries alloc]initWithInfo:commentsInfo];
                           if([EcomapLoggedUser currentLoggedUser])
                           {
                               
-                              commentsInfo = [JSONparser parseJSONtoDictionary:JSON];
+                              commentsInfo = [JSONParser parseJSONtoDictionary:JSON];
                               
                               
                           }
@@ -235,7 +235,7 @@
                             //Check if we have a problem with such problemID.
                             //If there is no one, server give us back Dictionary with "error" key
                             //Parse JSON
-                            NSDictionary *answerFromServer = [JSONparser parseJSONtoDictionary:JSON];
+                            NSDictionary *answerFromServer = [JSONParser parseJSONtoDictionary:JSON];
                             if (answerFromServer) {
                                 DDLogError(@"There is no problem (id = %d) on server", problemID);
                                 //Return error. Form error to be passed to completionHandler
@@ -248,7 +248,7 @@
                             
                             //Extract problemDetails from JSON
                             //Parse JSON
-                            NSArray *jsonArray = [JSONparser parseJSONtoArray:JSON];
+                            NSArray *jsonArray = [JSONParser parseJSONtoArray:JSON];
                             problem = [[jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
                             problemDetails = [[EcomapProblemDetails alloc] initWithProblem:problem];
                             DDLogVerbose(@"Problem (id = %d) loaded success from ecomap server", problemDetails.problemID);
@@ -390,7 +390,7 @@
                            fromData:data
                sessionConfiguration:sessionConfiguration
                   completionHandler:^(NSData *JSON, NSError *error) {
-                      NSDictionary *jsonString = [JSONparser parseJSONtoDictionary:JSON];
+                      NSDictionary *jsonString = [JSONParser parseJSONtoDictionary:JSON];
                       completionHandler([jsonString valueForKey:@"err"], error);
                   }];
 
@@ -508,7 +508,7 @@
                   completionHandler:^(NSData *JSON, NSError *error) {
                       NSDictionary *voteResponse = nil;
                       if (!error) {
-                          voteResponse = [JSONparser parseJSONtoDictionary:JSON];
+                          voteResponse = [JSONParser parseJSONtoDictionary:JSON];
                           if (!voteResponse[@"json"]) {
                               error = [NSError errorWithDomain:@"EcomapVote" code:2 userInfo:nil];
                           } else {
@@ -596,7 +596,7 @@
         [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", parameterValue] dataUsingEncoding:NSUTF8StringEncoding]];
     }];
     
-    [photos enumerateObjectsUsingBlock:^(LocalImageDescription *descr, NSUInteger idx, BOOL *stop) {
+    [photos enumerateObjectsUsingBlock:^(EcomapLocalPhoto *descr, NSUInteger idx, BOOL *stop) {
         [httpBody appendData:boundaryData];
         [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"description\";\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
         [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", descr.imageDescription] dataUsingEncoding:NSUTF8StringEncoding]];

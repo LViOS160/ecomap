@@ -10,7 +10,7 @@
 		03B1BC005E13B3CDC884086F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC970330F7C53C912ED19D0D /* libPods.a */; };
 		518F30961AA1E36E0094DA14 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518F30951AA1E36E0094DA14 /* FacebookSDK.framework */; };
 		518F30A41AA269E50094DA14 /* DataTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A31AA269E50094DA14 /* DataTasks.m */; };
-		518F30A71AA26BF40094DA14 /* JSONparser.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A61AA26BF40094DA14 /* JSONparser.m */; };
+		518F30A71AA26BF40094DA14 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A61AA26BF40094DA14 /* JSONParser.m */; };
 		518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */; };
 		518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */; };
 		518F30BE1AA4D82D0094DA14 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */; };
@@ -65,14 +65,14 @@
 		B3738C231A9DDC4B0077F604 /* EcomapStatsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */; };
 		B3738C241A9DDC4B0077F604 /* EcomapURLFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B981A9DDC4B0077F604 /* EcomapURLFetcher.m */; };
 		B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B9A1A9DDC4B0077F604 /* EMThumbnailImageStore.m */; };
-		B3738C261A9DDC4B0077F604 /* LocalImageDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B9D1A9DDC4B0077F604 /* LocalImageDescription.m */; };
+		B3738C261A9DDC4B0077F604 /* EcomapLocalPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B9D1A9DDC4B0077F604 /* EcomapLocalPhoto.m */; };
 		B3738C271A9DDC4B0077F604 /* NetworkActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B9F1A9DDC4B0077F604 /* NetworkActivityIndicator.m */; };
 		B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BA21A9DDC4B0077F604 /* EmptySegue.m */; };
 		B3738C291A9DDC4B0077F604 /* MapSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BA41A9DDC4B0077F604 /* MapSegue.m */; };
 		B3738C2A1A9DDC4B0077F604 /* SWRevealModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BA61A9DDC4B0077F604 /* SWRevealModalSegue.m */; };
 		B3738C2B1A9DDC4B0077F604 /* EcomapAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BA91A9DDC4B0077F604 /* EcomapAlias.m */; };
 		B3738C2C1A9DDC4B0077F604 /* EcomapComments.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BAB1A9DDC4B0077F604 /* EcomapComments.m */; };
-		B3738C2D1A9DDC4B0077F604 /* EcomapCommentsChild.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BAD1A9DDC4B0077F604 /* EcomapCommentsChild.m */; };
+		B3738C2D1A9DDC4B0077F604 /* EcomapCommentaries.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BAD1A9DDC4B0077F604 /* EcomapCommentaries.m */; };
 		B3738C2E1A9DDC4B0077F604 /* EcomapLoggedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BAF1A9DDC4B0077F604 /* EcomapLoggedUser.m */; };
 		B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BB11A9DDC4B0077F604 /* EcomapPhoto.m */; };
 		B3738C301A9DDC4B0077F604 /* EcomapProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BB31A9DDC4B0077F604 /* EcomapProblem.m */; };
@@ -98,7 +98,6 @@
 		B3738C441A9DDC4B0077F604 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3738BE51A9DDC4B0077F604 /* Main.storyboard */; };
 		B3738C451A9DDC4B0077F604 /* ecomap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3738BE71A9DDC4B0077F604 /* ecomap.xcdatamodeld */; };
 		B3738C461A9DDC4B0077F604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3738BE91A9DDC4B0077F604 /* Images.xcassets */; };
-		B3738C471A9DDC4B0077F604 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3738BEA1A9DDC4B0077F604 /* Info.plist */; };
 		B3738C481A9DDC4B0077F604 /* kyiv.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B3738BEB1A9DDC4B0077F604 /* kyiv.gpx */; };
 		B3738C491A9DDC4B0077F604 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BEC1A9DDC4B0077F604 /* main.m */; };
 		B3738C4A1A9DDC4B0077F604 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B3738BEE1A9DDC4B0077F604 /* LICENSE.txt */; };
@@ -136,8 +135,8 @@
 		518F30951AA1E36E0094DA14 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		518F30A21AA269E50094DA14 /* DataTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTasks.h; sourceTree = "<group>"; };
 		518F30A31AA269E50094DA14 /* DataTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTasks.m; sourceTree = "<group>"; };
-		518F30A51AA26BF40094DA14 /* JSONparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONparser.h; sourceTree = "<group>"; };
-		518F30A61AA26BF40094DA14 /* JSONparser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONparser.m; sourceTree = "<group>"; };
+		518F30A51AA26BF40094DA14 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
+		518F30A61AA26BF40094DA14 /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
 		518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapUserFetcher.h; sourceTree = "<group>"; };
 		518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapUserFetcher.m; sourceTree = "<group>"; };
 		518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapThumbnailFetcher.h; sourceTree = "<group>"; };
@@ -173,8 +172,8 @@
 		B30E2DD31A9DDDA20039DBBD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B30E2DD51A9DDDA90039DBBD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B30E2DD71A9DDDB20039DBBD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = ecomap/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
-		B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = ecomap/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		B33437F31A9DE683007ACD82 /* AddProblemDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemDescriptionView.xib; sourceTree = "<group>"; };
 		B33437F41A9DE683007ACD82 /* AddProblemLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemLocationView.xib; sourceTree = "<group>"; };
 		B33437F51A9DE683007ACD82 /* AddProblemNameView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNameView.xib; sourceTree = "<group>"; };
@@ -232,11 +231,11 @@
 		B3738B981A9DDC4B0077F604 /* EcomapURLFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapURLFetcher.m; sourceTree = "<group>"; };
 		B3738B991A9DDC4B0077F604 /* EMThumbnailImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMThumbnailImageStore.h; sourceTree = "<group>"; };
 		B3738B9A1A9DDC4B0077F604 /* EMThumbnailImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMThumbnailImageStore.m; sourceTree = "<group>"; };
-		B3738B9B1A9DDC4B0077F604 /* GlobalLoggerLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalLoggerLevel.h; sourceTree = "<group>"; };
-		B3738B9C1A9DDC4B0077F604 /* LocalImageDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalImageDescription.h; sourceTree = "<group>"; };
-		B3738B9D1A9DDC4B0077F604 /* LocalImageDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalImageDescription.m; sourceTree = "<group>"; };
-		B3738B9E1A9DDC4B0077F604 /* NetworkActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkActivityIndicator.h; sourceTree = "<group>"; };
-		B3738B9F1A9DDC4B0077F604 /* NetworkActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkActivityIndicator.m; sourceTree = "<group>"; };
+		B3738B9B1A9DDC4B0077F604 /* GlobalLoggerLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalLoggerLevel.h; path = ../Model/GlobalLoggerLevel.h; sourceTree = "<group>"; };
+		B3738B9C1A9DDC4B0077F604 /* EcomapLocalPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapLocalPhoto.h; path = ../EcomapLocalPhoto.h; sourceTree = "<group>"; };
+		B3738B9D1A9DDC4B0077F604 /* EcomapLocalPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapLocalPhoto.m; path = ../EcomapLocalPhoto.m; sourceTree = "<group>"; };
+		B3738B9E1A9DDC4B0077F604 /* NetworkActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkActivityIndicator.h; path = Model/NetworkActivityIndicator.h; sourceTree = "<group>"; };
+		B3738B9F1A9DDC4B0077F604 /* NetworkActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkActivityIndicator.m; path = Model/NetworkActivityIndicator.m; sourceTree = "<group>"; };
 		B3738BA11A9DDC4B0077F604 /* EmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptySegue.h; sourceTree = "<group>"; };
 		B3738BA21A9DDC4B0077F604 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
 		B3738BA31A9DDC4B0077F604 /* MapSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapSegue.h; sourceTree = "<group>"; };
@@ -247,8 +246,8 @@
 		B3738BA91A9DDC4B0077F604 /* EcomapAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapAlias.m; sourceTree = "<group>"; };
 		B3738BAA1A9DDC4B0077F604 /* EcomapComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapComments.h; sourceTree = "<group>"; };
 		B3738BAB1A9DDC4B0077F604 /* EcomapComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapComments.m; sourceTree = "<group>"; };
-		B3738BAC1A9DDC4B0077F604 /* EcomapCommentsChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapCommentsChild.h; sourceTree = "<group>"; };
-		B3738BAD1A9DDC4B0077F604 /* EcomapCommentsChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapCommentsChild.m; sourceTree = "<group>"; };
+		B3738BAC1A9DDC4B0077F604 /* EcomapCommentaries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapCommentaries.h; sourceTree = "<group>"; };
+		B3738BAD1A9DDC4B0077F604 /* EcomapCommentaries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapCommentaries.m; sourceTree = "<group>"; };
 		B3738BAE1A9DDC4B0077F604 /* EcomapLoggedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapLoggedUser.h; sourceTree = "<group>"; };
 		B3738BAF1A9DDC4B0077F604 /* EcomapLoggedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapLoggedUser.m; sourceTree = "<group>"; };
 		B3738BB01A9DDC4B0077F604 /* EcomapPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapPhoto.h; sourceTree = "<group>"; };
@@ -257,16 +256,16 @@
 		B3738BB31A9DDC4B0077F604 /* EcomapProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapProblem.m; sourceTree = "<group>"; };
 		B3738BB41A9DDC4B0077F604 /* EcomapProblemDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapProblemDetails.h; sourceTree = "<group>"; };
 		B3738BB51A9DDC4B0077F604 /* EcomapProblemDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapProblemDetails.m; sourceTree = "<group>"; };
-		B3738BB61A9DDC4B0077F604 /* EcomapProblemFilteringMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapProblemFilteringMask.h; sourceTree = "<group>"; };
-		B3738BB71A9DDC4B0077F604 /* EcomapProblemFilteringMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapProblemFilteringMask.m; sourceTree = "<group>"; };
+		B3738BB61A9DDC4B0077F604 /* EcomapProblemFilteringMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapProblemFilteringMask.h; path = "Value-Object Classes/EcomapProblemFilteringMask.h"; sourceTree = "<group>"; };
+		B3738BB71A9DDC4B0077F604 /* EcomapProblemFilteringMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapProblemFilteringMask.m; path = "Value-Object Classes/EcomapProblemFilteringMask.m"; sourceTree = "<group>"; };
 		B3738BB81A9DDC4B0077F604 /* EcomapResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapResources.h; sourceTree = "<group>"; };
 		B3738BB91A9DDC4B0077F604 /* EcomapResources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapResources.m; sourceTree = "<group>"; };
 		B3738BBC1A9DDC4B0077F604 /* AddCommViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCommViewController.h; sourceTree = "<group>"; };
 		B3738BBD1A9DDC4B0077F604 /* AddCommViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommViewController.m; sourceTree = "<group>"; };
 		B3738BBE1A9DDC4B0077F604 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
 		B3738BBF1A9DDC4B0077F604 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
-		B3738BC01A9DDC4B0077F604 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
-		B3738BC11A9DDC4B0077F604 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+		B3738BC01A9DDC4B0077F604 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoViewController.h; path = ProblemView/Controllers/PhotoViewController.h; sourceTree = "<group>"; };
+		B3738BC11A9DDC4B0077F604 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoViewController.m; path = ProblemView/Controllers/PhotoViewController.m; sourceTree = "<group>"; };
 		B3738BC21A9DDC4B0077F604 /* ProblemActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemActivityViewController.h; sourceTree = "<group>"; };
 		B3738BC31A9DDC4B0077F604 /* ProblemActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemActivityViewController.m; sourceTree = "<group>"; };
 		B3738BC41A9DDC4B0077F604 /* ProblemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemDetailsViewController.h; sourceTree = "<group>"; };
@@ -289,8 +288,8 @@
 		B3738BDC1A9DDC4B0077F604 /* PieChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartViewController.m; sourceTree = "<group>"; };
 		B3738BDE1A9DDC4B0077F604 /* GeneralStatsTopLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralStatsTopLabelView.h; sourceTree = "<group>"; };
 		B3738BDF1A9DDC4B0077F604 /* GeneralStatsTopLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralStatsTopLabelView.m; sourceTree = "<group>"; };
-		B3738BE11A9DDC4B0077F604 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		B3738BE21A9DDC4B0077F604 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B3738BE11A9DDC4B0077F604 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ecomap/SupportingFiles/AppDelegate.h; sourceTree = "<group>"; };
+		B3738BE21A9DDC4B0077F604 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ecomap/SupportingFiles/AppDelegate.m; sourceTree = "<group>"; };
 		B3738BE41A9DDC4B0077F604 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B3738BE61A9DDC4B0077F604 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B3738BE81A9DDC4B0077F604 /* ecomap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ecomap.xcdatamodel; sourceTree = "<group>"; };
@@ -315,8 +314,8 @@
 		B3738BFE1A9DDC4B0077F604 /* EcomapRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapRevealViewController.m; sourceTree = "<group>"; };
 		B3738BFF1A9DDC4B0077F604 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemsTopListTVC.h; sourceTree = "<group>"; };
-		B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemsTopListTVC.m; sourceTree = "<group>"; };
+		B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProblemsTopListTVC.h; path = ../../TopProblemsVIewController/ProblemsTopListTVC.h; sourceTree = "<group>"; };
+		B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProblemsTopListTVC.m; path = ../../TopProblemsVIewController/ProblemsTopListTVC.m; sourceTree = "<group>"; };
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -362,8 +361,6 @@
 			isa = PBXGroup;
 			children = (
 				518F30951AA1E36E0094DA14 /* FacebookSDK.framework */,
-				B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */,
-				B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */,
 				B30E2DD71A9DDDB20039DBBD /* MapKit.framework */,
 				B30E2DD51A9DDDA90039DBBD /* AVFoundation.framework */,
 				B30E2DD31A9DDDA20039DBBD /* CoreData.framework */,
@@ -387,11 +384,17 @@
 		B35343101A7F73ED00DD2F03 = {
 			isa = PBXGroup;
 			children = (
-				B3738B591A9DDC4B0077F604 /* ecomap */,
+				B3738BE11A9DDC4B0077F604 /* AppDelegate.h */,
+				B3738BE21A9DDC4B0077F604 /* AppDelegate.m */,
+				B3738BE31A9DDC4B0077F604 /* LaunchScreen.xib */,
+				B3738BE51A9DDC4B0077F604 /* Main.storyboard */,
+				B3738B591A9DDC4B0077F604 /* Classes */,
+				B3738BE01A9DDC4B0077F604 /* SupportingFiles */,
+				B3738B671A9DDC4B0077F604 /* AdditionalFrameworks */,
+				974CFB529DD12C6EEAD3199D /* Frameworks */,
+				D8180E66A3DCC2B8361FF89A /* Pods */,
 				B35343381A7F73ED00DD2F03 /* ecomapTests */,
 				B353431A1A7F73ED00DD2F03 /* Products */,
-				D8180E66A3DCC2B8361FF89A /* Pods */,
-				974CFB529DD12C6EEAD3199D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -421,21 +424,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B3738B591A9DDC4B0077F604 /* ecomap */ = {
+		B3738B591A9DDC4B0077F604 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B3738B5A1A9DDC4B0077F604 /* AddProblem */,
-				B3738B671A9DDC4B0077F604 /* Frameworks */,
 				B3738B8E1A9DDC4B0077F604 /* Model */,
-				B3738BBA1A9DDC4B0077F604 /* ProblemView */,
-				B3738BCB1A9DDC4B0077F604 /* ResourcesView */,
-				B3738BD41A9DDC4B0077F604 /* RootViewControllers */,
-				B3738BD91A9DDC4B0077F604 /* StatisticViewController */,
-				B3738BE01A9DDC4B0077F604 /* SupportingFiles */,
-				B3738BFC1A9DDC4B0077F604 /* SWRevealViewController */,
-				B3738C011A9DDC4B0077F604 /* TopProblemsVIewController */,
-				B3738C041A9DDC4B0077F604 /* UserViewController */,
+				CA7B3C881AA6548B005AF277 /* ViewControllers */,
 			);
+			name = Classes;
 			path = ecomap;
 			sourceTree = "<group>";
 		};
@@ -472,14 +467,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B3738B671A9DDC4B0077F604 /* Frameworks */ = {
+		B3738B671A9DDC4B0077F604 /* AdditionalFrameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */,
+				B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */,
 				B3738B681A9DDC4B0077F604 /* Clustering */,
 				B3738B871A9DDC4B0077F604 /* Socket */,
 				B3738B8B1A9DDC4B0077F604 /* XYPieChart */,
 			);
-			path = Frameworks;
+			name = AdditionalFrameworks;
+			path = ecomap/Frameworks;
 			sourceTree = "<group>";
 		};
 		B3738B681A9DDC4B0077F604 /* Clustering */ = {
@@ -562,34 +560,10 @@
 		B3738B8E1A9DDC4B0077F604 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B3C981CB1A9E4DCB00BF034F /* Reachability.h */,
-				B3C981CC1A9E4DCB00BF034F /* Reachability.m */,
-				518F30A21AA269E50094DA14 /* DataTasks.h */,
-				518F30A31AA269E50094DA14 /* DataTasks.m */,
-				518F30A51AA26BF40094DA14 /* JSONparser.h */,
-				518F30A61AA26BF40094DA14 /* JSONparser.m */,
-				B3738B8F1A9DDC4B0077F604 /* EcomapFetcher.h */,
-				B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */,
-				B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */,
-				B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */,
-				90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */,
-				90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */,
-				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
-				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
-				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
-				90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */,
-				518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */,
-				518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */,
-				B3738B911A9DDC4B0077F604 /* EcomapFilter.h */,
-				B3738B921A9DDC4B0077F604 /* EcomapFilter.m */,
-				B3738B951A9DDC4B0077F604 /* Fetcher-helper Classes */,
-				B3738B9B1A9DDC4B0077F604 /* GlobalLoggerLevel.h */,
-				B3738B9C1A9DDC4B0077F604 /* LocalImageDescription.h */,
-				B3738B9D1A9DDC4B0077F604 /* LocalImageDescription.m */,
-				B3738B9E1A9DDC4B0077F604 /* NetworkActivityIndicator.h */,
-				B3738B9F1A9DDC4B0077F604 /* NetworkActivityIndicator.m */,
-				B3738BA01A9DDC4B0077F604 /* Segues */,
 				B3738BA71A9DDC4B0077F604 /* Value-Object Classes */,
+				CA7B3C841AA652EE005AF277 /* Network */,
+				CA7B3C861AA65438005AF277 /* Parsers */,
+				CA7B3C871AA6545A005AF277 /* Filters */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -616,60 +590,60 @@
 				B3738BA51A9DDC4B0077F604 /* SWRevealModalSegue.h */,
 				B3738BA61A9DDC4B0077F604 /* SWRevealModalSegue.m */,
 			);
-			path = Segues;
+			name = Segues;
+			path = Model/Segues;
 			sourceTree = "<group>";
 		};
 		B3738BA71A9DDC4B0077F604 /* Value-Object Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B3738BA81A9DDC4B0077F604 /* EcomapAlias.h */,
-				B3738BA91A9DDC4B0077F604 /* EcomapAlias.m */,
-				B3738BAA1A9DDC4B0077F604 /* EcomapComments.h */,
-				B3738BAB1A9DDC4B0077F604 /* EcomapComments.m */,
-				B3738BAC1A9DDC4B0077F604 /* EcomapCommentsChild.h */,
-				B3738BAD1A9DDC4B0077F604 /* EcomapCommentsChild.m */,
-				B3738BAE1A9DDC4B0077F604 /* EcomapLoggedUser.h */,
-				B3738BAF1A9DDC4B0077F604 /* EcomapLoggedUser.m */,
-				B3738BB01A9DDC4B0077F604 /* EcomapPhoto.h */,
-				B3738BB11A9DDC4B0077F604 /* EcomapPhoto.m */,
 				B3738BB21A9DDC4B0077F604 /* EcomapProblem.h */,
 				B3738BB31A9DDC4B0077F604 /* EcomapProblem.m */,
-				B3738BB41A9DDC4B0077F604 /* EcomapProblemDetails.h */,
-				B3738BB51A9DDC4B0077F604 /* EcomapProblemDetails.m */,
 				90C868A11AA4746B0001E448 /* EcomapEditableProblem.h */,
 				90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */,
-				B3738BB61A9DDC4B0077F604 /* EcomapProblemFilteringMask.h */,
-				B3738BB71A9DDC4B0077F604 /* EcomapProblemFilteringMask.m */,
+				B3738BB41A9DDC4B0077F604 /* EcomapProblemDetails.h */,
+				B3738BB51A9DDC4B0077F604 /* EcomapProblemDetails.m */,
+				B3738BAA1A9DDC4B0077F604 /* EcomapComments.h */,
+				B3738BAB1A9DDC4B0077F604 /* EcomapComments.m */,
+				B3738BAC1A9DDC4B0077F604 /* EcomapCommentaries.h */,
+				B3738BAD1A9DDC4B0077F604 /* EcomapCommentaries.m */,
+				B3738BB01A9DDC4B0077F604 /* EcomapPhoto.h */,
+				B3738BB11A9DDC4B0077F604 /* EcomapPhoto.m */,
+				B3738B9C1A9DDC4B0077F604 /* EcomapLocalPhoto.h */,
+				B3738B9D1A9DDC4B0077F604 /* EcomapLocalPhoto.m */,
+				B3738BAE1A9DDC4B0077F604 /* EcomapLoggedUser.h */,
+				B3738BAF1A9DDC4B0077F604 /* EcomapLoggedUser.m */,
+				B3738BA81A9DDC4B0077F604 /* EcomapAlias.h */,
+				B3738BA91A9DDC4B0077F604 /* EcomapAlias.m */,
 				B3738BB81A9DDC4B0077F604 /* EcomapResources.h */,
 				B3738BB91A9DDC4B0077F604 /* EcomapResources.m */,
 			);
 			path = "Value-Object Classes";
 			sourceTree = "<group>";
 		};
-		B3738BBA1A9DDC4B0077F604 /* ProblemView */ = {
+		B3738BBA1A9DDC4B0077F604 /* ShowProblem */ = {
 			isa = PBXGroup;
 			children = (
 				B3738BBB1A9DDC4B0077F604 /* Controllers */,
 				B3738BC81A9DDC4B0077F604 /* Views */,
 			);
+			name = ShowProblem;
 			path = ProblemView;
 			sourceTree = "<group>";
 		};
 		B3738BBB1A9DDC4B0077F604 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B3738BBC1A9DDC4B0077F604 /* AddCommViewController.h */,
-				B3738BBD1A9DDC4B0077F604 /* AddCommViewController.m */,
-				B3738BBE1A9DDC4B0077F604 /* ContainerViewController.h */,
-				B3738BBF1A9DDC4B0077F604 /* ContainerViewController.m */,
-				B3738BC01A9DDC4B0077F604 /* PhotoViewController.h */,
-				B3738BC11A9DDC4B0077F604 /* PhotoViewController.m */,
-				B3738BC21A9DDC4B0077F604 /* ProblemActivityViewController.h */,
-				B3738BC31A9DDC4B0077F604 /* ProblemActivityViewController.m */,
-				B3738BC41A9DDC4B0077F604 /* ProblemDetailsViewController.h */,
-				B3738BC51A9DDC4B0077F604 /* ProblemDetailsViewController.m */,
 				B3738BC61A9DDC4B0077F604 /* ProblemViewController.h */,
 				B3738BC71A9DDC4B0077F604 /* ProblemViewController.m */,
+				B3738BBE1A9DDC4B0077F604 /* ContainerViewController.h */,
+				B3738BBF1A9DDC4B0077F604 /* ContainerViewController.m */,
+				B3738BC41A9DDC4B0077F604 /* ProblemDetailsViewController.h */,
+				B3738BC51A9DDC4B0077F604 /* ProblemDetailsViewController.m */,
+				B3738BC21A9DDC4B0077F604 /* ProblemActivityViewController.h */,
+				B3738BC31A9DDC4B0077F604 /* ProblemActivityViewController.m */,
+				B3738BBC1A9DDC4B0077F604 /* AddCommViewController.h */,
+				B3738BBD1A9DDC4B0077F604 /* AddCommViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -683,12 +657,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B3738BCB1A9DDC4B0077F604 /* ResourcesView */ = {
+		B3738BCB1A9DDC4B0077F604 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				B3738BCC1A9DDC4B0077F604 /* Controllers */,
 				B3738BD11A9DDC4B0077F604 /* Views */,
 			);
+			name = Resources;
 			path = ResourcesView;
 			sourceTree = "<group>";
 		};
@@ -712,7 +687,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B3738BD41A9DDC4B0077F604 /* RootViewControllers */ = {
+		B3738BD41A9DDC4B0077F604 /* Root */ = {
 			isa = PBXGroup;
 			children = (
 				B3738BD51A9DDC4B0077F604 /* MapViewController.h */,
@@ -720,15 +695,17 @@
 				B3738BD71A9DDC4B0077F604 /* MenuViewController.h */,
 				B3738BD81A9DDC4B0077F604 /* MenuViewController.m */,
 			);
+			name = Root;
 			path = RootViewControllers;
 			sourceTree = "<group>";
 		};
-		B3738BD91A9DDC4B0077F604 /* StatisticViewController */ = {
+		B3738BD91A9DDC4B0077F604 /* Statistic */ = {
 			isa = PBXGroup;
 			children = (
 				B3738BDA1A9DDC4B0077F604 /* Controller */,
 				B3738BDD1A9DDC4B0077F604 /* View */,
 			);
+			name = Statistic;
 			path = StatisticViewController;
 			sourceTree = "<group>";
 		};
@@ -737,6 +714,8 @@
 			children = (
 				B3738BDB1A9DDC4B0077F604 /* PieChartViewController.h */,
 				B3738BDC1A9DDC4B0077F604 /* PieChartViewController.m */,
+				B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */,
+				B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -753,22 +732,19 @@
 		B3738BE01A9DDC4B0077F604 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				B3738BE11A9DDC4B0077F604 /* AppDelegate.h */,
-				B3738BE21A9DDC4B0077F604 /* AppDelegate.m */,
-				B3738BE31A9DDC4B0077F604 /* LaunchScreen.xib */,
-				B3738BE51A9DDC4B0077F604 /* Main.storyboard */,
-				B3738BE71A9DDC4B0077F604 /* ecomap.xcdatamodeld */,
 				B3738BE91A9DDC4B0077F604 /* Images.xcassets */,
+				B3738B9B1A9DDC4B0077F604 /* GlobalLoggerLevel.h */,
+				B3738BE71A9DDC4B0077F604 /* ecomap.xcdatamodeld */,
 				B3738BEA1A9DDC4B0077F604 /* Info.plist */,
 				B3738BEB1A9DDC4B0077F604 /* kyiv.gpx */,
 				B3738BEC1A9DDC4B0077F604 /* main.m */,
-				B3738BED1A9DDC4B0077F604 /* Open_Sans */,
 				B3738BF91A9DDC4B0077F604 /* Resources */,
 			);
-			path = SupportingFiles;
+			name = SupportingFiles;
+			path = ecomap/SupportingFiles;
 			sourceTree = "<group>";
 		};
-		B3738BED1A9DDC4B0077F604 /* Open_Sans */ = {
+		B3738BED1A9DDC4B0077F604 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
 				B3738BEE1A9DDC4B0077F604 /* LICENSE.txt */,
@@ -783,19 +759,21 @@
 				B3738BF71A9DDC4B0077F604 /* OpenSans-Semibold.ttf */,
 				B3738BF81A9DDC4B0077F604 /* OpenSans-SemiboldItalic.ttf */,
 			);
-			path = Open_Sans;
+			name = Fonts;
+			path = ../Open_Sans;
 			sourceTree = "<group>";
 		};
 		B3738BF91A9DDC4B0077F604 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B3738BED1A9DDC4B0077F604 /* Fonts */,
 				B3738BFA1A9DDC4B0077F604 /* reveal-icon.png */,
 				B3738BFB1A9DDC4B0077F604 /* reveal-icon@2x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		B3738BFC1A9DDC4B0077F604 /* SWRevealViewController */ = {
+		B3738BFC1A9DDC4B0077F604 /* SWReveal */ = {
 			isa = PBXGroup;
 			children = (
 				B3738BFD1A9DDC4B0077F604 /* EcomapRevealViewController.h */,
@@ -803,19 +781,11 @@
 				B3738BFF1A9DDC4B0077F604 /* SWRevealViewController.h */,
 				B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */,
 			);
+			name = SWReveal;
 			path = SWRevealViewController;
 			sourceTree = "<group>";
 		};
-		B3738C011A9DDC4B0077F604 /* TopProblemsVIewController */ = {
-			isa = PBXGroup;
-			children = (
-				B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */,
-				B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */,
-			);
-			path = TopProblemsVIewController;
-			sourceTree = "<group>";
-		};
-		B3738C041A9DDC4B0077F604 /* UserViewController */ = {
+		B3738C041A9DDC4B0077F604 /* Account */ = {
 			isa = PBXGroup;
 			children = (
 				518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */,
@@ -829,7 +799,103 @@
 				518F30B41AA4D82D0094DA14 /* ChangePasswordViewController.h */,
 				518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */,
 			);
+			name = Account;
 			path = UserViewController;
+			sourceTree = "<group>";
+		};
+		CA7B3C841AA652EE005AF277 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B3C981CB1A9E4DCB00BF034F /* Reachability.h */,
+				B3C981CC1A9E4DCB00BF034F /* Reachability.m */,
+				518F30A21AA269E50094DA14 /* DataTasks.h */,
+				518F30A31AA269E50094DA14 /* DataTasks.m */,
+				CA7B3C851AA65364005AF277 /* Fetchers */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		CA7B3C851AA65364005AF277 /* Fetchers */ = {
+			isa = PBXGroup;
+			children = (
+				B3738B8F1A9DDC4B0077F604 /* EcomapFetcher.h */,
+				B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */,
+				90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */,
+				90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */,
+				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
+				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
+				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
+				90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */,
+				518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */,
+				518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */,
+				B3738B951A9DDC4B0077F604 /* Fetcher-helper Classes */,
+			);
+			name = Fetchers;
+			sourceTree = "<group>";
+		};
+		CA7B3C861AA65438005AF277 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				518F30A51AA26BF40094DA14 /* JSONParser.h */,
+				518F30A61AA26BF40094DA14 /* JSONParser.m */,
+				B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */,
+				B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */,
+			);
+			name = Parsers;
+			sourceTree = "<group>";
+		};
+		CA7B3C871AA6545A005AF277 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				B3738B911A9DDC4B0077F604 /* EcomapFilter.h */,
+				B3738B921A9DDC4B0077F604 /* EcomapFilter.m */,
+				B3738BB61A9DDC4B0077F604 /* EcomapProblemFilteringMask.h */,
+				B3738BB71A9DDC4B0077F604 /* EcomapProblemFilteringMask.m */,
+			);
+			name = Filters;
+			sourceTree = "<group>";
+		};
+		CA7B3C881AA6548B005AF277 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B3738BD41A9DDC4B0077F604 /* Root */,
+				B3738C041A9DDC4B0077F604 /* Account */,
+				B3738BBA1A9DDC4B0077F604 /* ShowProblem */,
+				B3738B5A1A9DDC4B0077F604 /* AddProblem */,
+				B3738BD91A9DDC4B0077F604 /* Statistic */,
+				B3738BCB1A9DDC4B0077F604 /* Resources */,
+				B3738BFC1A9DDC4B0077F604 /* SWReveal */,
+				CA7B3C891AA654AD005AF277 /* Shared */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CA7B3C891AA654AD005AF277 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				CA7B3C8A1AA658ED005AF277 /* Controllers */,
+				CA7B3C8B1AA658FC005AF277 /* Views */,
+				B3738BA01A9DDC4B0077F604 /* Segues */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		CA7B3C8A1AA658ED005AF277 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B3738BC01A9DDC4B0077F604 /* PhotoViewController.h */,
+				B3738BC11A9DDC4B0077F604 /* PhotoViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		CA7B3C8B1AA658FC005AF277 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B3738B9E1A9DDC4B0077F604 /* NetworkActivityIndicator.h */,
+				B3738B9F1A9DDC4B0077F604 /* NetworkActivityIndicator.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		D8180E66A3DCC2B8361FF89A /* Pods */ = {
@@ -933,7 +999,6 @@
 				B33438011A9DE726007ACD82 /* AddProblemSolutionView.xib in Resources */,
 				B33437ED1A9DE178007ACD82 /* GoogleMaps.bundle in Resources */,
 				B3738C4C1A9DDC4B0077F604 /* OpenSans-BoldItalic.ttf in Resources */,
-				B3738C471A9DDC4B0077F604 /* Info.plist in Resources */,
 				B3738C461A9DDC4B0077F604 /* Images.xcassets in Resources */,
 				B3738C531A9DDC4B0077F604 /* OpenSans-Semibold.ttf in Resources */,
 				B3738C4A1A9DDC4B0077F604 /* LICENSE.txt in Resources */,
@@ -1011,7 +1076,7 @@
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,
 				B3738C2C1A9DDC4B0077F604 /* EcomapComments.m in Sources */,
 				B3738C3A1A9DDC4B0077F604 /* CommentCell.m in Sources */,
-				B3738C2D1A9DDC4B0077F604 /* EcomapCommentsChild.m in Sources */,
+				B3738C2D1A9DDC4B0077F604 /* EcomapCommentaries.m in Sources */,
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,
 				B3738C161A9DDC4B0077F604 /* GStaticCluster.m in Sources */,
 				90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */,
@@ -1058,12 +1123,12 @@
 				B3738C1A1A9DDC4B0077F604 /* GQTPointQuadTreeChild.m in Sources */,
 				B3738C2B1A9DDC4B0077F604 /* EcomapAlias.m in Sources */,
 				B3738C491A9DDC4B0077F604 /* main.m in Sources */,
-				B3738C261A9DDC4B0077F604 /* LocalImageDescription.m in Sources */,
+				B3738C261A9DDC4B0077F604 /* EcomapLocalPhoto.m in Sources */,
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
 				B3738C401A9DDC4B0077F604 /* PieChartViewController.m in Sources */,
 				518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */,
-				518F30A71AA26BF40094DA14 /* JSONparser.m in Sources */,
+				518F30A71AA26BF40094DA14 /* JSONParser.m in Sources */,
 				B3738C361A9DDC4B0077F604 /* PhotoViewController.m in Sources */,
 				B3738C201A9DDC4B0077F604 /* XYPieChart.m in Sources */,
 				518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */,
@@ -1100,6 +1165,7 @@
 				B3738BE41A9DDC4B0077F604 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			path = ecomap/SupportingFiles;
 			sourceTree = "<group>";
 		};
 		B3738BE51A9DDC4B0077F604 /* Main.storyboard */ = {
@@ -1108,6 +1174,7 @@
 				B3738BE61A9DDC4B0077F604 /* Base */,
 			);
 			name = Main.storyboard;
+			path = ecomap/SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

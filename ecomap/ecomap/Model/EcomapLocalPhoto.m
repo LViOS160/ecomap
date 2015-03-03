@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import "LocalImageDescription.h"
+#import "EcomapLocalPhoto.h"
 
-@interface LocalImageDescription()
+@interface EcomapLocalPhoto()
 
 @property (nonatomic, strong, readwrite) UIImage *image;
 
 @end
 
-@implementation LocalImageDescription
+@implementation EcomapLocalPhoto
 
 - (instancetype)initWithImage:(UIImage*)image
 {
