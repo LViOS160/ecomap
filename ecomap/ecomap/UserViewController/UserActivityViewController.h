@@ -1,0 +1,69 @@
+//
+//  UserActivityViewController.h
+//  ecomap
+//
+//  Created by Vasya on 3/1/15.
+//  Copyright (c) 2015 SoftServe. All rights reserved.
+//
+
+//This is base class for such user acivities classes: LoginViewController, RegisterViewControlle, ChangePasswordViewController.
+//It hold shared properties and methods
+
+#import <UIKit/UIKit.h>
+
+@protocol UserAction <NSObject>
+//What shoul be done after user action (login, logout) ends success
+@property (nonatomic, copy) void (^dismissBlock)(void);
+
+@end
+
+//checkmarkType number is equal to ckeckmarkImageView tag
+typedef enum {
+    checkmarkTypeName = 1,
+    checkmarkTypeSurname = 2,
+    checkmarkTypeEmail = 3,
+    checkmarkTypePassword = 4,
+    checkmarkTypeNewPassword = 5 //Common for NewPasswordField and confirmPasswordField
+    
+} checkmarkType;
+
+#define CHECKMARK_GOOD_IMAGE [UIImage imageNamed:@"Good"]
+#define CHECKMARK_BAD_IMAGE [UIImage imageNamed:@"Bad"]
+#define KEYBOARD_TO_TEXTFIELD_SPACE 8.0
+
+@interface UserActivityViewController : UIViewController <UITextFieldDelegate>
+
+
+@property (strong, nonatomic) IBOutlet UITextField *emailTextField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *surnameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *oldPasswordTextField;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property(nonatomic, strong) UITextField *activeField;
+@property(nonatomic, strong) UITextField *textFieldToScrollUPWhenKeyboadAppears;
+@property (weak, nonatomic) IBOutlet UIView *activityIndicatorPad;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *checkmarks;
+@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
+
+//Protected
+//For subclasses
+#pragma mark - keyborad managment
+//To manage the situation when keyboard cover a textField
+- (void)ifHiddenByKeyboarScrollUPTextField:(UITextField *)textFied;
+
+#pragma mark - text field delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField; //Abstract
+
+#pragma mark - helper methods
+- (void)showAlertViewOfError:(NSError *)error;
+- (void)showAlertViewWithTitile:(NSString *)title andMessage:(NSString *)message;
+- (BOOL)isValidMail:(NSString *)checkString;
+- (BOOL)isPasswordsEqual;
+- (BOOL)isAnyTextFieldEmpty;
+- (void)spinerShouldShow:(BOOL)isVisible;
+- (void)showCheckmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image;
+
+@end

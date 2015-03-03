@@ -7,8 +7,11 @@
 //
 
 #import "AddProblemViewController.h"
+#import <Foundation/Foundation.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface AddProblemViewController () {
+@interface AddProblemViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+{
     CGFloat padding;
     CGFloat paddingWithNavigationView;
     CGFloat screenWidth;
@@ -48,6 +51,33 @@
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
+}
+
+
+#pragma mark - Buttons Actions
+
+- (IBAction)makePhoto:(id)sender
+{
+    #if !(TARGET_IPHONE_SIMULATOR)
+        UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
+        uiipc.delegate = self;
+        uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
+        uiipc.sourceType = UIImagePickerControllerSourceTypeCamera;
+        uiipc.allowsEditing = NO;
+        [self presentViewController:uiipc animated:YES completion:NULL];
+    #endif
+
+}
+
+- (IBAction)gallery:(id)sender
+{
+    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
+    uiipc.delegate = self;
+    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
+    uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    uiipc.allowsEditing = NO;
+    [self presentViewController:uiipc animated:YES completion:NULL];
+
 }
 
 #pragma mark - PickerView

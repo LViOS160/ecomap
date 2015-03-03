@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "UserActivityViewController.h"
 
-@interface RegisterViewController : UIViewController
-
+@interface RegisterViewController : UserActivityViewController
+@property (nonatomic, copy) void (^dismissBlock)(void);
 @end

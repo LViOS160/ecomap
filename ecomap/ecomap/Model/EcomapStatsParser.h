@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "EcomapURLFetcher.h"
 
 // Titles for top charts
@@ -16,9 +17,9 @@
 #define ECOMAP_MOST_COMMENTED_PROBLEMS_CHART_TITLE @"ТОП 10 обговорюваних проблем"
 
 typedef enum {
-    EcomapMostVotedProblemsTopList = 0,    // most voted
-    EcomapMostSevereProblemsTopList = 1,     // most severe
-    EcomapMostCommentedProblemsTopList = 2  // most commented
+    EcomapMostVotedProblemsTopList = 0,     // most voted
+    EcomapMostSevereProblemsTopList,        // most severe
+    EcomapMostCommentedProblemsTopList      // most commented
 } EcomapKindfOfTheProblemsTopList;
 
 @interface EcomapStatsParser : NSObject
@@ -26,7 +27,8 @@ typedef enum {
 + (NSUInteger)integerForNumberLabelForInstanceNumber:(NSUInteger)num inStatsArray:(NSArray *)generalStats;
 + (NSString *)stringForNameLabelForInstanceNumber:(NSUInteger)number;
 + (NSArray *)getPaticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart from:(NSArray *)topChart;
-+ (NSString *)getTitleForParticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart fromProblem:(NSDictionary *)problem;
++ (NSString *)scoreOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart;
++ (UIImage *)scoreImageOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart;
 + (EcomapStatsTimePeriod)getPeriodForStatsByIndex:(NSInteger)index;
 
 @end

@@ -21,6 +21,7 @@
 #define ECOMAP_POST_TOKEN_REGISTRATION @"registerToken/"
 #define ECOMAP_GET_LOGOUT_API @"logout/"
 #define ECOMAP_POST_REGISTER_API @"register/"
+#define ECOMAP_POST_CHANGEPASSWORD_API @"changePassword/"
 #define ECOMAP_GET_LARGE_PHOTOS_ADDRESS @"photos/large/"
 #define ECOMAP_GET_SMALL_PHOTOS_ADDRESS @"photos/small/"
 #define ECOMAP_POST_PROBLEM @"problempost"
@@ -38,6 +39,10 @@
 #define ECOMAP_GET_STATS_FOR_LAST_MOTH @"getStats2/M"
 #define ECOMAP_GET_STATS_FOR_LAST_WEEK @"getStats2/W"
 #define ECOMAP_GET_STATS_FOR_LAST_DAY @"getStats2/D"
+
+// Queries for admin's API
+
+#define ECOMAP_PUT_EDIT_PROBLEM @"editProblem/"
 
 //Problems types descripton
 #define ECOMAP_PROBLEM_TYPES_ARRAY @[@"проблеми лісів", @"сміттєзвалища", @"незаконна забудова", @"проблеми водойм", @"загрози біорізноманіттю", @"браконьєрство", @"інші проблеми"]
@@ -95,8 +100,6 @@
 #define ECOMAP_COMMENT_CONTENT_CONTENT @"Content"
 #define ECOMAP_COMMENT_CONTENT_USERNAME @"userName"
 #define ECOMAP_COMMENT_CONTENT_USERSURNAME @"userSurname"
-
-
 
 // keys (paths) to values in a USER dictionary
 #define ECOMAP_USER_ID @"id"

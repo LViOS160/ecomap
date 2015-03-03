@@ -57,6 +57,9 @@ typedef enum {
 //Return API URL to Register
 +(NSURL *)URLforRegister;
 
+//Return API URL to Register
++(NSURL *)URLforChangePassword;
+
 //Return URL to small photo on server
 + (NSURL *)URLforSmallPhotoWithLink:(NSString *)link;
 
@@ -68,4 +71,9 @@ typedef enum {
 +(NSURL*)URLforAlias:(NSString*)query;
 // Return URL for comments
 +(NSURL*)URLforComments:(NSString*)query;
+
++ (NSURL *)URLforPostPhoto;
+
++ (NSURL *)URLforEditingProblem:(NSUInteger)problemID;
+
 @end

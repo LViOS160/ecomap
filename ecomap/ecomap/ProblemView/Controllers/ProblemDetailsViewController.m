@@ -11,8 +11,11 @@
 #import "IDMPhotoBrowser.h"
 #import "EMThumbnailImageStore.h"
 #import "EcomapFetcher.h"
+#import "EcomapThumbnailFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "PhotoViewController.h"
+#import "EcomapLoggedUser.h"
+#import "Defines.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -155,7 +158,7 @@
             [activityIndicator startAnimating];
             
             //Set image in background
-            [EcomapFetcher loadSmallImagesFromLink:link
+            [EcomapThumbnailFetcher loadSmallImagesFromLink:link
                                       OnCompletion:^(UIImage *image, NSError *error) {
                                           if (!error) {
                                               [customButton setBackgroundImage:image
@@ -164,7 +167,7 @@
                                               DDLogError(@"Error loadind image at URL: %@", [error localizedDescription]);
                                               
                                               //set image "no preview avaliable"
-                                              [customButton setBackgroundImage:[UIImage imageNamed:@"NoPreviewButton.png"]
+                                              [customButton setBackgroundImage:[UIImage imageNamed:@"NoPreviewButtonUKR.png"]
                                                                       forState:UIControlStateNormal];
                                           }
                                           
@@ -216,6 +219,15 @@
                withImageDescriptions:(NSArray *)imageDescriptions
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [EcomapFetcher addPhotos:imageDescriptions
+                   toProblem:self.problemDetails.problemID
+                        user:[EcomapLoggedUser currentLoggedUser]
+                OnCompletion:^(NSString *result, NSError *error) {
+                    if(error)
+                        DDLogVerbose(@"%@", error);
+                    else
+                        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+                }];
 }
 
 - (void)buttonWithImageOnScreenPressed:(id)sender

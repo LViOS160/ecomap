@@ -14,7 +14,15 @@
 #import "EcomapPathDefine.h"
 #import "EcomapRevealViewController.h"
 #import "ProblemViewController.h"
-#import "CocoaLumberjack.h"
+
+//Setup DDLog
+#import "GlobalLoggerLevel.h"
+
+// Testing
+
+#import "EcomapAdminFetcher.h"
+#import "EcomapLoggedUser.h"
+#import "EcomapEditableProblem.h"
 
 @interface ProblemsTopListTVC ()
 
@@ -99,12 +107,29 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Top Problem Cell" forIndexPath:indexPath];
+    
+    static NSString *cellIdentifier = @"Top Problem Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    
+    if(!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    // Display data in the cell
+    
     NSDictionary *problem = self.problems[indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
-    cell.textLabel.text = [EcomapStatsParser getTitleForParticularTopChart:self.kindOfTopChart fromProblem:problem];
+    
+    UILabel *problemTitleLabel = (UILabel *)[cell viewWithTag:100];
+    problemTitleLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
+    
+    UILabel *problemScoreLabel = (UILabel *)[cell viewWithTag:101];
+    problemScoreLabel.text = [EcomapStatsParser scoreOfProblem:problem forChartType:self.kindOfTopChart];
+    
+    UIImageView *problemScoreImageView = (UIImageView *)[cell viewWithTag:102];
+    problemScoreImageView.image = [EcomapStatsParser scoreImageOfProblem:problem forChartType:self.kindOfTopChart];
+    
     return cell;
 }
 
@@ -133,6 +158,24 @@
     [self fetchProblems];
     [self changeKindOfTopChart:self.kindOfTopChartSegmentedControl];
     [self customSetup];
+    
+#warning Admin's API Testing
+    
+    EcomapEditableProblem *eProblem = [[EcomapEditableProblem alloc] init];
+    
+    eProblem.content = @"Content";
+    eProblem.solved = NO;
+    eProblem.proposal = @"Proposal";
+    eProblem.severity = 3;
+    eProblem.title = @"Title";
+    
+    [EcomapAdminFetcher changeProblem:238 withNewProblem:eProblem onCompletion:^(NSData *result, NSError *error) {
+        if(error) {
+            DDLogError(@"ERROR: %@", error);
+        } else {
+            DDLogVerbose(@"Result: %@", [NSJSONSerialization JSONObjectWithData:result options:kNilOptions error:NULL]);
+        }
+    }];
 }
 
 - (void)customSetup

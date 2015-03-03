@@ -93,6 +93,12 @@
     return [self URLForAPIQuery:ECOMAP_POST_REGISTER_API];
 }
 
++(NSURL *)URLforChangePassword
+{
+    return [self URLForAPIQuery:ECOMAP_POST_CHANGEPASSWORD_API];
+}
+
+#pragma mark -
 + (NSURL *)URLforStatsForParticularPeriod:(EcomapStatsTimePeriod)period
 {
     switch(period) {
@@ -112,6 +118,11 @@
 + (NSURL *)URLforProblemPost
 {
     return [self URLForAPIQuery:ECOMAP_POST_PROBLEM];
+}
+
++ (NSURL *)URLforPostPhoto
+{
+    return [self URLForAPIQuery:ECOMAP_POST_PHOTO];
 }
 
 + (NSURL *)URLforPostVotes
@@ -138,6 +149,12 @@
     return [NSURL URLWithString:query];
 }
 
+#pragma mark - Admin API URLs
 
++ (NSURL *)URLforEditingProblem:(NSUInteger)problemID
+{
+    NSString *query = [ECOMAP_PUT_EDIT_PROBLEM stringByAppendingString:[NSString stringWithFormat:@"%lu", problemID]];
+    return [self URLForAPIQuery:query];
+}
 
 @end

@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *commentContent;
 @property (weak, nonatomic) IBOutlet UILabel *personInfo;
+@property (weak, nonatomic) IBOutlet UILabel *dateInfo;
 
 @end

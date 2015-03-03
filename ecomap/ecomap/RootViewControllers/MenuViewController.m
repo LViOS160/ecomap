@@ -7,12 +7,17 @@
 //
 
 #import "MenuViewController.h"
+#import "EcomapLoggedUser.h"
 
 @implementation SWUITableViewCell
 
 @end
+@implementation SWUIUserTableViewCell
+
+@end
 
 @interface MenuViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (nonatomic) BOOL showLogin;
 @end
 
@@ -89,7 +94,11 @@
             break;
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: CellIdentifier forIndexPath: indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if ([CellIdentifier isEqualToString:@"logout"]) {
+        EcomapLoggedUser *user = [EcomapLoggedUser currentLoggedUser];
+        ((SWUIUserTableViewCell *)cell).userName.text = [NSString stringWithFormat:@"(%@ %@)", user.name, user.surname];
+    }
     
     return cell;
 }

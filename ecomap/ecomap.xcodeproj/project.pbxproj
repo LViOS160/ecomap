@@ -8,7 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		03B1BC005E13B3CDC884086F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC970330F7C53C912ED19D0D /* libPods.a */; };
+		518F30961AA1E36E0094DA14 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518F30951AA1E36E0094DA14 /* FacebookSDK.framework */; };
+		518F30A41AA269E50094DA14 /* DataTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A31AA269E50094DA14 /* DataTasks.m */; };
+		518F30A71AA26BF40094DA14 /* JSONparser.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A61AA26BF40094DA14 /* JSONparser.m */; };
+		518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */; };
+		518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */; };
+		518F30BE1AA4D82D0094DA14 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */; };
+		518F30BF1AA4D82D0094DA14 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30B71AA4D82D0094DA14 /* LoginViewController.m */; };
+		518F30C01AA4D82D0094DA14 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30B91AA4D82D0094DA14 /* ProfileViewController.m */; };
+		518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */; };
+		518F30C21AA4D82D0094DA14 /* UserActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */; };
+		90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */; };
 		B30E2DBC1A9DDD340039DBBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBB1A9DDD340039DBBD /* Foundation.framework */; };
 		B30E2DBE1A9DDD3A0039DBBD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */; };
 		B30E2DC01A9DDD410039DBBD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBF1A9DDD410039DBBD /* Security.framework */; };
@@ -104,9 +116,6 @@
 		B3738C571A9DDC4B0077F604 /* EcomapRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BFE1A9DDC4B0077F604 /* EcomapRevealViewController.m */; };
 		B3738C581A9DDC4B0077F604 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */; };
 		B3738C591A9DDC4B0077F604 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */; };
-		B3738C5A1A9DDC4B0077F604 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C061A9DDC4B0077F604 /* LoginViewController.m */; };
-		B3738C5B1A9DDC4B0077F604 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C081A9DDC4B0077F604 /* ProfileViewController.m */; };
-		B3738C5C1A9DDC4B0077F604 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */; };
 		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +132,29 @@
 /* Begin PBXFileReference section */
 		297826EF813E17D3E56E38B4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		518F30951AA1E36E0094DA14 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		518F30A21AA269E50094DA14 /* DataTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTasks.h; sourceTree = "<group>"; };
+		518F30A31AA269E50094DA14 /* DataTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTasks.m; sourceTree = "<group>"; };
+		518F30A51AA26BF40094DA14 /* JSONparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONparser.h; sourceTree = "<group>"; };
+		518F30A61AA26BF40094DA14 /* JSONparser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONparser.m; sourceTree = "<group>"; };
+		518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapUserFetcher.h; sourceTree = "<group>"; };
+		518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapUserFetcher.m; sourceTree = "<group>"; };
+		518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapThumbnailFetcher.h; sourceTree = "<group>"; };
+		518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapThumbnailFetcher.m; sourceTree = "<group>"; };
+		518F30B41AA4D82D0094DA14 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		518F30B61AA4D82D0094DA14 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		518F30B71AA4D82D0094DA14 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		518F30B81AA4D82D0094DA14 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		518F30B91AA4D82D0094DA14 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		518F30BA1AA4D82D0094DA14 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserActivityViewController.h; sourceTree = "<group>"; };
+		518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserActivityViewController.m; sourceTree = "<group>"; };
+		90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAdminFetcher.h; sourceTree = "<group>"; };
+		90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapAdminFetcher.m; sourceTree = "<group>"; };
+		90C868A11AA4746B0001E448 /* EcomapEditableProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapEditableProblem.h; sourceTree = "<group>"; };
+		90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapEditableProblem.m; sourceTree = "<group>"; };
 		B30E2DBB1A9DDD340039DBBD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B30E2DBF1A9DDD410039DBBD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -282,12 +314,6 @@
 		B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemsTopListTVC.h; sourceTree = "<group>"; };
 		B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemsTopListTVC.m; sourceTree = "<group>"; };
-		B3738C051A9DDC4B0077F604 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		B3738C061A9DDC4B0077F604 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		B3738C071A9DDC4B0077F604 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
-		B3738C081A9DDC4B0077F604 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
-		B3738C091A9DDC4B0077F604 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
-		B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -303,6 +329,7 @@
 				B30E2DD61A9DDDA90039DBBD /* AVFoundation.framework in Frameworks */,
 				B30E2DD41A9DDDA20039DBBD /* CoreData.framework in Frameworks */,
 				B30E2DD21A9DDD950039DBBD /* CoreLocation.framework in Frameworks */,
+				518F30961AA1E36E0094DA14 /* FacebookSDK.framework in Frameworks */,
 				B30E2DD01A9DDD8F0039DBBD /* GLKit.framework in Frameworks */,
 				B30E2DCE1A9DDD890039DBBD /* ImageIO.framework in Frameworks */,
 				B30E2DCC1A9DDD820039DBBD /* libc++.dylib in Frameworks */,
@@ -331,6 +358,7 @@
 		974CFB529DD12C6EEAD3199D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				518F30951AA1E36E0094DA14 /* FacebookSDK.framework */,
 				B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */,
 				B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */,
 				B30E2DD71A9DDDB20039DBBD /* MapKit.framework */,
@@ -533,8 +561,18 @@
 			children = (
 				B3C981CB1A9E4DCB00BF034F /* Reachability.h */,
 				B3C981CC1A9E4DCB00BF034F /* Reachability.m */,
+				518F30A21AA269E50094DA14 /* DataTasks.h */,
+				518F30A31AA269E50094DA14 /* DataTasks.m */,
+				518F30A51AA26BF40094DA14 /* JSONparser.h */,
+				518F30A61AA26BF40094DA14 /* JSONparser.m */,
 				B3738B8F1A9DDC4B0077F604 /* EcomapFetcher.h */,
 				B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */,
+				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
+				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
+				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
+				90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */,
+				518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */,
+				518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */,
 				B3738B911A9DDC4B0077F604 /* EcomapFilter.h */,
 				B3738B921A9DDC4B0077F604 /* EcomapFilter.m */,
 				B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */,
@@ -593,6 +631,8 @@
 				B3738BB31A9DDC4B0077F604 /* EcomapProblem.m */,
 				B3738BB41A9DDC4B0077F604 /* EcomapProblemDetails.h */,
 				B3738BB51A9DDC4B0077F604 /* EcomapProblemDetails.m */,
+				90C868A11AA4746B0001E448 /* EcomapEditableProblem.h */,
+				90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */,
 				B3738BB61A9DDC4B0077F604 /* EcomapProblemFilteringMask.h */,
 				B3738BB71A9DDC4B0077F604 /* EcomapProblemFilteringMask.m */,
 				B3738BB81A9DDC4B0077F604 /* EcomapResources.h */,
@@ -773,12 +813,16 @@
 		B3738C041A9DDC4B0077F604 /* UserViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B3738C051A9DDC4B0077F604 /* LoginViewController.h */,
-				B3738C061A9DDC4B0077F604 /* LoginViewController.m */,
-				B3738C071A9DDC4B0077F604 /* ProfileViewController.h */,
-				B3738C081A9DDC4B0077F604 /* ProfileViewController.m */,
-				B3738C091A9DDC4B0077F604 /* RegisterViewController.h */,
-				B3738C0A1A9DDC4B0077F604 /* RegisterViewController.m */,
+				518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */,
+				518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */,
+				518F30B61AA4D82D0094DA14 /* LoginViewController.h */,
+				518F30B71AA4D82D0094DA14 /* LoginViewController.m */,
+				518F30B81AA4D82D0094DA14 /* ProfileViewController.h */,
+				518F30B91AA4D82D0094DA14 /* ProfileViewController.m */,
+				518F30BA1AA4D82D0094DA14 /* RegisterViewController.h */,
+				518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */,
+				518F30B41AA4D82D0094DA14 /* ChangePasswordViewController.h */,
+				518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */,
 			);
 			path = UserViewController;
 			sourceTree = "<group>";
@@ -957,6 +1001,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */,
 				B3738C231A9DDC4B0077F604 /* EcomapStatsParser.m in Sources */,
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,
 				B3738C2C1A9DDC4B0077F604 /* EcomapComments.m in Sources */,
@@ -965,6 +1010,7 @@
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,
 				B3738C161A9DDC4B0077F604 /* GStaticCluster.m in Sources */,
 				B3738C331A9DDC4B0077F604 /* EcomapResources.m in Sources */,
+				518F30A41AA269E50094DA14 /* DataTasks.m in Sources */,
 				B3738C1B1A9DDC4B0077F604 /* SphericalMercatorProjection.m in Sources */,
 				B3738C371A9DDC4B0077F604 /* ProblemActivityViewController.m in Sources */,
 				B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */,
@@ -977,7 +1023,6 @@
 				B3738C391A9DDC4B0077F604 /* ProblemViewController.m in Sources */,
 				B3738C0D1A9DDC4B0077F604 /* AddProblemViewController.m in Sources */,
 				B3738C2A1A9DDC4B0077F604 /* SWRevealModalSegue.m in Sources */,
-				B3738C5B1A9DDC4B0077F604 /* ProfileViewController.m in Sources */,
 				B3738C191A9DDC4B0077F604 /* GQTPointQuadTree.m in Sources */,
 				B3738C411A9DDC4B0077F604 /* GeneralStatsTopLabelView.m in Sources */,
 				B3738C221A9DDC4B0077F604 /* EcomapFilter.m in Sources */,
@@ -986,21 +1031,23 @@
 				B3738C321A9DDC4B0077F604 /* EcomapProblemFilteringMask.m in Sources */,
 				B3738C241A9DDC4B0077F604 /* EcomapURLFetcher.m in Sources */,
 				B3738C341A9DDC4B0077F604 /* AddCommViewController.m in Sources */,
+				518F30BF1AA4D82D0094DA14 /* LoginViewController.m in Sources */,
 				B3738C291A9DDC4B0077F604 /* MapSegue.m in Sources */,
 				B3738C171A9DDC4B0077F604 /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				B3738C3B1A9DDC4B0077F604 /* ResourceDetails.m in Sources */,
 				B3738C151A9DDC4B0077F604 /* GQuadItem.m in Sources */,
 				B3738C451A9DDC4B0077F604 /* ecomap.xcdatamodeld in Sources */,
-				B3738C5A1A9DDC4B0077F604 /* LoginViewController.m in Sources */,
+				518F30BE1AA4D82D0094DA14 /* ChangePasswordViewController.m in Sources */,
 				B3738C1C1A9DDC4B0077F604 /* EcomapClusterRenderer.m in Sources */,
 				B3738C271A9DDC4B0077F604 /* NetworkActivityIndicator.m in Sources */,
 				B3738C3D1A9DDC4B0077F604 /* ResourceCell.m in Sources */,
 				B3738C181A9DDC4B0077F604 /* GClusterManager.m in Sources */,
 				B3738C1D1A9DDC4B0077F604 /* GDefaultClusterRenderer.m in Sources */,
-				B3738C5C1A9DDC4B0077F604 /* RegisterViewController.m in Sources */,
+				90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */,
 				9096C98D1A91E8DA00A61CDB /* (null) in Sources */,
 				B3738C311A9DDC4B0077F604 /* EcomapProblemDetails.m in Sources */,
 				B3738C211A9DDC4B0077F604 /* EcomapFetcher.m in Sources */,
+				518F30C01AA4D82D0094DA14 /* ProfileViewController.m in Sources */,
 				B3738C581A9DDC4B0077F604 /* SWRevealViewController.m in Sources */,
 				B3738C1A1A9DDC4B0077F604 /* GQTPointQuadTreeChild.m in Sources */,
 				B3738C2B1A9DDC4B0077F604 /* EcomapAlias.m in Sources */,
@@ -1009,11 +1056,16 @@
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
 				B3738C401A9DDC4B0077F604 /* PieChartViewController.m in Sources */,
+				518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */,
+				518F30A71AA26BF40094DA14 /* JSONparser.m in Sources */,
 				B3738C361A9DDC4B0077F604 /* PhotoViewController.m in Sources */,
 				B3738C201A9DDC4B0077F604 /* XYPieChart.m in Sources */,
+				518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */,
+				518F30C21AA4D82D0094DA14 /* UserActivityViewController.m in Sources */,
 				B3738C1E1A9DDC4B0077F604 /* Spot.m in Sources */,
 				B3738C381A9DDC4B0077F604 /* ProblemDetailsViewController.m in Sources */,
 				B3738C3E1A9DDC4B0077F604 /* MapViewController.m in Sources */,
+				518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1143,7 +1195,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ecomap/Frameworks",
 				);
-				INFOPLIST_FILE = ecomap/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ecomap/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1168,7 +1220,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ecomap/Frameworks",
 				);
-				INFOPLIST_FILE = ecomap/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ecomap/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

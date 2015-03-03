@@ -80,7 +80,7 @@ EcomapLoggedUser *currentLoggedUser = nil;
 //Override
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"Logged user: %@", self.name];
+    return [NSString stringWithFormat:@"Logged user: %@ %@ (id = %d)", self.name, self.surname, self.userID];
 }
 
 #pragma mark - Observer
