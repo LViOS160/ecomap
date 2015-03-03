@@ -43,7 +43,7 @@
 // Queries for admin's API
 
 #define ECOMAP_PUT_EDIT_PROBLEM @"editProblem/"
-
+#define ECOMAP_DELETING_COMMENT @"activity/"
 //Problems types descripton
 #define ECOMAP_PROBLEM_TYPES_ARRAY @[@"проблеми лісів", @"сміттєзвалища", @"незаконна забудова", @"проблеми водойм", @"загрози біорізноманіттю", @"браконьєрство", @"інші проблеми"]
 

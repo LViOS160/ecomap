@@ -18,6 +18,7 @@
 #import "EcomapUserFetcher.h"
 #import "GlobalLoggerLevel.h"
 #import "EcomapUserFetcher.h"
+#import "EcomapAdminFetcher.h"
 
 
 
@@ -25,13 +26,6 @@
 @property (nonatomic,strong) NSMutableArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
-
-//@property (strong, nonatomic) NSMutableDictionary *offscreenCells;
-
-
-
-
-//@property (nonatomic,strong) EcomapCommentsChild *uploadComment;
 
 @end
 
@@ -45,22 +39,12 @@
     
 }
 - (void)viewDidLoad {
-    [EcomapUserFetcher loginWithEmail:@"ecomap@mail.ru"
-                          andPassword:@"11111" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                              if (!error) {
-                                  DDLogVerbose(@"User role: %@", loggedUser.role);
-                                  
-                                  //Read current logged user
-                                  
-                                  
-                                  
-                              } else {
-                                  DDLogVerbose(@"Error to login: %@", error);
-                              }
-
-                          }];
     
-        [super viewDidLoad];
+   /* [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+        
+    }];*/
+    [super viewDidLoad];
+    self.myTableView.allowsMultipleSelectionDuringEditing = NO;
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
     self.myTableView.estimatedRowHeight = 54.0;
@@ -103,7 +87,6 @@
     NSString * fromTextField = self.textField.text;
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
-    
     NSString *probId = self.problemma;
     if(userIdent)
     {
@@ -114,6 +97,8 @@
         }
         else
         {
+           
+            
             [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:probId OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
                 
                 if(error)
@@ -121,27 +106,13 @@
                 else
                     [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
                 
-                
             }];
-        }
-        
-        /*  NSDictionary *dict = @{@"Content":fromTextField, @"ActivityTypes_Id":@5,@"userName":userIdent.name,@"userSurname":userIdent.surname};
-         EcomapCommentsChild *comment = [[EcomapCommentsChild alloc] initWithInfo:dict];
-         comment.problemContent = fromTextField;
-         comment.userName = userIdent.name;
-         comment.userSurname = userIdent.surname;
-         NSUInteger counter = self.comments.count;
-         
-         NSDate *today = [NSDate date];
-         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-         comment.date = today;
-         [self.comments insertObject:comment atIndex:counter];
-         NSLog(@"%@",self.comments.lastObject);
-         [self.myTableView reloadData];*/
-        
+            
+            
+                 }
         
     }
+                 
     else
     {
         UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -180,19 +151,15 @@
     EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
     //  NSInteger row=[indexPath row]
     cell.commentContent.text= commentZ.problemContent;
-    //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+   
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateStyle = NSDateFormatterMediumStyle;
     formatter.timeStyle = NSDateFormatterShortStyle;
     formatter.doesRelativeDateFormatting = YES;
     NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
     [formatter setLocale:ukraineLocale];
-    //[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-   // NSString *personalInfo = [NSString stringWithFormat:@"%@ %@ %@",commentZ.userName, commentZ.userSurname,[formatter stringFromDate:commentZ.date]];
     NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentZ.userName, commentZ.userSurname];
     NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentZ.date]];
-    
     cell.personInfo.text = personalInfo;
     cell.dateInfo.text = dateInfo;
     [cell setNeedsUpdateConstraints];
@@ -201,6 +168,37 @@
     
     return cell;
 }
+
+
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+    if([userIdent.role isEqualToString:@"administrator"])
+
+    return YES;
+    else
+        return NO;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+          if(editingStyle == UITableViewCellEditingStyleDelete)
+    {
+         EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
+        NSUInteger number = commentZ.commentID;
+        [ EcomapAdminFetcher deleteComment:number onCompletion:^(NSError *error) {
+            if(!error)
+            [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+        }];
+        
+    }
+    
+    
+    
+        
+}
+
+
 
 /*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -223,13 +221,8 @@
 
 */
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+
+
 
 /*
  // Override to support editing the table view.

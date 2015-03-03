@@ -11,25 +11,9 @@
 
 @implementation EcomapStatsParser
 
-+ (id)valueForKey:(NSString *)key inGeneralStatsArray:(NSArray *)generalStats
-{
-    for(id stats in generalStats) {
-        if([stats isKindOfClass:[NSArray class]]) {
-            if([[(NSArray *)stats firstObject] isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *stat = (NSDictionary *)[(NSArray *)stats firstObject];
-                if([stat valueForKey:key]) {
-                    return [stat valueForKey:key];
-                } else {
-                    continue;
-                }
-            }
-        }
-    }
-    
-    return nil;
-}
+#pragma mark - Parsing Stats For General Stats Top Label
 
-+ (NSUInteger)integerForNumberLabelForInstanceNumber:(NSUInteger)num inStatsArray:(NSArray *)generalStats
++ (NSUInteger)integerForNumberLabelForInstanceNumber:(NSUInteger)num inGeneralStatsArray:(NSArray *)generalStats
 {
     NSUInteger number = 0;
     
@@ -55,10 +39,32 @@
     }
     
     return name;
-    
 }
 
-+ (NSArray *)getPaticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart from:(NSArray *)topCharts
+// Looking value for key deep inside General Stats Array which contains NSArrays with NSDictionary
++ (id)valueForKey:(NSString *)key inGeneralStatsArray:(NSArray *)generalStats
+{
+    for(NSArray *arrStats in generalStats) {
+        // Pop dictionary from array.
+        NSDictionary *dictStats = [arrStats firstObject];
+        
+        // Look for key inside dictionary.
+        if([dictStats valueForKey:key]) {
+            // If we found key return value for it.
+            return [dictStats valueForKey:key];
+        } else {
+            // If didn't continue looking.
+            continue;
+        }
+    }
+    
+    return nil;
+}
+
+#pragma mark - Parsing Stats For "Top Of The Problems" Charts
+
+// Get the paticular "Top Of The Problems" chart from Top Charts Array, depending on its type.
++ (NSArray *)paticularTopChart:(EcomapKindfOfTheProblemsTopList)kindOfChart from:(NSArray *)topCharts
 {
     NSArray *topChart = nil;
     
@@ -69,17 +75,7 @@
     return topChart;
 }
 
-+ (NSString *)scoreOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
-{
-    switch(kindOfChart) {
-        case EcomapMostCommentedProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_VALUE]];
-        case EcomapMostSevereProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_SEVERITY]];
-        case EcomapMostVotedProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_VOTES]];
-    }
-    
-    return @"";
-}
-
+// Get an image to draw in "Top Of The Problems" chart depending on its type.
 + (UIImage *)scoreImageOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
 {
     switch(kindOfChart) {
@@ -87,20 +83,33 @@
         case EcomapMostSevereProblemsTopList: return [UIImage imageNamed:@"16"];
         case EcomapMostVotedProblemsTopList: return [UIImage imageNamed:@"13"];
     }
-    
-    return [[UIImage alloc] init];
 }
 
-+ (EcomapStatsTimePeriod)getPeriodForStatsByIndex:(NSInteger)index
+// Get the string with score to draw in "Top Of The Problems" chart depending on its type.
++ (NSString *)scoreOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
 {
-    switch(index) {
-        case 0: return EcomapStatsForLastDay;
-        case 1: return EcomapStatsForLastWeek;
-        case 2: return EcomapStatsForLastMonth;
-        case 3: return EcomapStatsForLastYear;
-        case 4: return EcomapStatsForAllTheTime;
-        default: return EcomapStatsForAllTheTime;
+    switch(kindOfChart) {
+        case EcomapMostCommentedProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_VALUE]];
+        case EcomapMostSevereProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_SEVERITY]];
+        case EcomapMostVotedProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_VOTES]];
     }
+}
+
+#pragma mark - Parsing Stats For Pie Chart
+
++ (UIColor *)colorForProblemType:(NSUInteger)typeID
+{
+    switch (typeID) {
+        case 1: return [UIColor colorWithRed:9/255.0 green:91/255.0 blue:15/255.0 alpha:1];
+        case 2: return [UIColor colorWithRed:35/255.0 green:31/255.0 blue:32/255.0 alpha:1];
+        case 3: return [UIColor colorWithRed:152/255.0 green:68/255.0 blue:43/255.0 alpha:1];
+        case 4: return [UIColor colorWithRed:27/255.0 green:154/255.0 blue:214/255.0 alpha:1];
+        case 5: return [UIColor colorWithRed:113/255.0 green:191/255.0 blue:68/255.0 alpha:1];
+        case 6: return [UIColor colorWithRed:255/255.0 green:171/255.0 blue:9/255.0 alpha:1];
+        case 7: return [UIColor colorWithRed:80/255.0 green:9/255.0 blue:91/255.0 alpha:1];
+    }
+    
+    return [UIColor clearColor];
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "PieChartViewController.h"
 #import "EcomapRevealViewController.h"
 #import "XYPieChart.h"
-#import "EcomapFetcher.h"
+#import "EcomapStatsFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "EcomapPathDefine.h"
 #import "EcomapStatsParser.h"
@@ -22,11 +22,12 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statsRangeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
-@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *topLabelSpinner;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *pieChartSpinner;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *topLabelSpinner;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *pieChartSpinner;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+// Data for drawing the Pie Chart
 @property (nonatomic, strong) NSMutableArray *slices;
 @property (nonatomic, strong) NSArray *sliceColors;
 
@@ -34,13 +35,47 @@
 
 @implementation PieChartViewController
 
+#pragma mark - Initialization
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Download data from Ecomap server to draw General Stats Top Labels
+    [self fetchGeneralStats];
+    
+    // Download data from Ecomap server to draw the Pie Chart
+    [self fetchStatsForPieChart];
+
+    // Set up reveal button
+    [self customSetup];
+}
+
+- (void)customSetup
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    if(revealViewController) {
+        [self.revealButtonItem setTarget:self.revealViewController];
+        [self.revealButtonItem setAction:@selector(revealToggle:)];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
+}
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self resizeTopLabelViews];
+    self.pieChartView.pieRadius = [self pieChartRadius];
+    [self drawPieChart];
+    [self switchPage];
+}
+
+
 #pragma mark - Properties
 
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
     _scrollView.delegate = self;
-    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
+    _scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, self.scrollView.bounds.size.height);
     _scrollView.scrollEnabled = NO;
 }
 
@@ -79,24 +114,22 @@
 
 - (IBAction)changeRangeOfShowingStats:(UISegmentedControl *)sender
 {
-    [self fetchStats];
+    [self fetchStatsForPieChart];
 }
 
 #pragma mark - Utility Methods
 
 - (void)generateTopLabelViews
 {
-
-    
-    for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++)
-    {
+    for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++) {
         GeneralStatsTopLabelView *topLabelView = [[GeneralStatsTopLabelView alloc] init];
-        topLabelView.numberOfInstances = [EcomapStatsParser integerForNumberLabelForInstanceNumber:i inStatsArray:self.generalStats];
+        topLabelView.numberOfInstances = [EcomapStatsParser integerForNumberLabelForInstanceNumber:i inGeneralStatsArray:self.generalStats];
         topLabelView.nameOfInstances = [EcomapStatsParser stringForNameLabelForInstanceNumber:i];
         topLabelView.frame = CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
         [self.scrollView addSubview:topLabelView];
     }
-    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, self.scrollView.bounds.size.height);
 }
 
 - (void)resizeTopLabelViews
@@ -110,7 +143,7 @@
         }
     }
     
-    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, _scrollView.bounds.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, self.scrollView.bounds.size.height);
 
 }
 
@@ -121,6 +154,19 @@
                                                     self.scrollView.bounds.size.width,
                                                     self.scrollView.bounds.size.height)
                                 animated:YES];
+}
+
+// Convert NSInteger to EcomapStatsTimePeriod
+- (EcomapStatsTimePeriod)periodForStatsByIndex:(NSInteger)index
+{
+    switch(index) {
+        case 0: return EcomapStatsForLastDay;
+        case 1: return EcomapStatsForLastWeek;
+        case 2: return EcomapStatsForLastMonth;
+        case 3: return EcomapStatsForLastYear;
+        case 4: return EcomapStatsForAllTheTime;
+        default: return EcomapStatsForAllTheTime;
+    }
 }
 
 #pragma mark - Drawing Pie Chart
@@ -142,6 +188,7 @@
 
 - (void)drawPieChart
 {
+    // Set data to draw the Pie Chart
     self.slices = [[NSMutableArray alloc] init];
     
     for(int i = 0; i < [self.statsForPieChart count]; i++) {
@@ -158,36 +205,18 @@
     [self.pieChartView setUserInteractionEnabled:NO];
     [self.pieChartView setLabelColor:[UIColor whiteColor]];
     
-    self.sliceColors = [self generateSliceColors];
+    self.sliceColors = [self sliceColors];
     
     [self.pieChartView reloadData];
 }
 
-- (UIColor *)getSliceColorForProblemType:(NSNumber *)problemTypeID
-{
-    NSInteger iProblemTypeID = [problemTypeID integerValue];
-    
-    switch (iProblemTypeID) {
-        case 1: return [UIColor colorWithRed:9/255.0 green:91/255.0 blue:15/255.0 alpha:1];
-        case 2: return [UIColor colorWithRed:35/255.0 green:31/255.0 blue:32/255.0 alpha:1];
-        case 3: return [UIColor colorWithRed:152/255.0 green:68/255.0 blue:43/255.0 alpha:1];
-        case 4: return [UIColor colorWithRed:27/255.0 green:154/255.0 blue:214/255.0 alpha:1];
-        case 5: return [UIColor colorWithRed:113/255.0 green:191/255.0 blue:68/255.0 alpha:1];
-        case 6: return [UIColor colorWithRed:255/255.0 green:171/255.0 blue:9/255.0 alpha:1];
-        case 7: return [UIColor colorWithRed:80/255.0 green:9/255.0 blue:91/255.0 alpha:1];
-    }
-    
-    return [UIColor clearColor];
-}
-
-- (NSArray *)generateSliceColors
+- (NSArray *)sliceColors
 {
     NSMutableArray *mutableSliceColors = [[NSMutableArray alloc] init];
     
-    for(int i = 0; i < [self.statsForPieChart count]; i++) {
-        NSDictionary *problems = self.statsForPieChart[i];
-        NSNumber *problemID = [NSNumber numberWithInteger:[[problems valueForKey:@"id"] integerValue]];
-        UIColor *sliceColor = [self getSliceColorForProblemType:problemID];
+    for(NSDictionary *problem in self.statsForPieChart) {
+        NSUInteger problemID = [[problem valueForKey:@"id"] integerValue];
+        UIColor *sliceColor = [EcomapStatsParser colorForProblemType:problemID];
         [mutableSliceColors addObject:sliceColor];
     }
     
@@ -196,15 +225,18 @@
 
 #pragma mark - Fetching
 
-- (void)fetchStats
+- (void)fetchStatsForPieChart
 {
     [self.pieChartSpinner startAnimating];
-    EcomapStatsTimePeriod timePeriod = [EcomapStatsParser getPeriodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex];
     
-    [EcomapFetcher loadStatsForPeriod:timePeriod onCompletion:^(NSArray *stats, NSError *error) {
+    EcomapStatsTimePeriod timePeriod = [self periodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex];
+    
+    [EcomapStatsFetcher loadStatsForPeriod:timePeriod onCompletion:^(NSArray *stats, NSError *error) {
         if(!error) {
             self.statsForPieChart = stats;
             [self.pieChartSpinner stopAnimating];
+        } else {
+            DDLogError(@"Error: %@", error);
         }
     }];
 }
@@ -214,17 +246,20 @@
     self.generalStats = nil;
     [self.topLabelSpinner startAnimating];
     
-    [EcomapFetcher loadGeneralStatsOnCompletion:^(NSArray *stats, NSError *error) {
+    [EcomapStatsFetcher loadGeneralStatsOnCompletion:^(NSArray *stats, NSError *error) {
         if(!error) {
             self.generalStats = stats;
             [self.topLabelSpinner stopAnimating];
             [self generateTopLabelViews];
+        } else {
+            DDLogError(@"Error: %@", error);
         }
     }];
 }
 
 #pragma mark - UIScroll View Delegate
 
+// Disable zooming in scroll view
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return nil;
@@ -234,7 +269,7 @@
 
 - (NSUInteger)numberOfSlicesInPieChart:(XYPieChart *)pieChart
 {
-    return self.slices.count;
+    return [self.slices count];
 }
 
 - (CGFloat)pieChart:(XYPieChart *)pieChart valueForSliceAtIndex:(NSUInteger)index
@@ -252,45 +287,20 @@
 {
     DDLogVerbose(@"will select slice at index %lu",(unsigned long)index);
 }
+
 - (void)pieChart:(XYPieChart *)pieChart willDeselectSliceAtIndex:(NSUInteger)index
 {
     DDLogVerbose(@"will deselect slice at index %lu",(unsigned long)index);
 }
+
 - (void)pieChart:(XYPieChart *)pieChart didDeselectSliceAtIndex:(NSUInteger)index
 {
     DDLogVerbose(@"did deselect slice at index %lu",(unsigned long)index);
 }
+
 - (void)pieChart:(XYPieChart *)pieChart didSelectSliceAtIndex:(NSUInteger)index
 {
     DDLogVerbose(@"did select slice at index %lu",(unsigned long)index);
-}
-
-#pragma mark - Initialization
-
-- (void)customSetup
-{
-    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if ( revealViewController )
-    {
-        [self.revealButtonItem setTarget: self.revealViewController];
-        [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
-    }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self fetchStats];
-    [self fetchGeneralStats];
-    [self customSetup];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [self resizeTopLabelViews];
-    self.pieChartView.pieRadius = [self pieChartRadius];
-    [self drawPieChart];
-    [self switchPage];
 }
 
 @end

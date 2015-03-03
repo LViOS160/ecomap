@@ -61,6 +61,27 @@
     }
 }
 
+
++ (void)deleteComment:(NSUInteger)commentID onCompletion:(void (^)(NSError *))completionHandler
+{
+    
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforDeletingComment:commentID]];
+    NSLog(@"__%@__",request);
+    [request setHTTPMethod:@"DELETE"];
+    
+    [DataTasks dataTaskWithRequest:request sessionConfiguration:sessionConfiguration completionHandler:^(NSData *JSON, NSError *error) {
+        if(error)
+           DDLogVerbose(@"ERROR: %@", error);
+        completionHandler(error);
+    }];
+    
+    
+}
+
+// Utility method. Convert BOOL to NSNumber.
 + (NSNumber *)BOOLtoInteger:(BOOL)flag
 {
     return flag ? @1 : @0;

@@ -47,6 +47,8 @@
 //Load problem details not blocking the main thread
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler;
 
+// Load alias of resources (its a path to details of resources)
++(void)loadAliasOnCompletion:(void (^)(NSArray *alias, NSError *error))completionHandler String:(NSString*)str;
 
 //Load tittles of resources not blocking the main thread
 +(void)loadResourcesOnCompletion:(void (^)(NSArray *resources, NSError *error))completionHandler;
