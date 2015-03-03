@@ -156,5 +156,9 @@
     NSString *query = [ECOMAP_PUT_EDIT_PROBLEM stringByAppendingString:[NSString stringWithFormat:@"%lu", problemID]];
     return [self URLForAPIQuery:query];
 }
-
++(NSURL*)URLforDeletingComment:(NSUInteger)commentID
+{
+    NSString *query = [ECOMAP_DELETING_COMMENT stringByAppendingString:[NSString stringWithFormat:@"%lu",commentID]];
+    return [self URLForAPIQuery:query];
+}
 @end

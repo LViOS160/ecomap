@@ -24,6 +24,7 @@
 @end
 
 @implementation EcomapCommentsChild
+@synthesize  commentID,content,date,activityTypes_Id,usersID,problemsID,problemContent,userName,userSurname;
 
 -(instancetype)initWithInfo:(NSDictionary *)problem
 {
@@ -57,13 +58,13 @@
 
 - (NSDate *)dateOfComment:(NSDictionary *)problem
 {
-    NSDate *date = nil;
+    NSDate *dates = nil;
     NSString *dateString = [problem valueForKey:ECOMAP_COMMENT_DATE];
     if (dateString) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.'000Z'"];
         date = [dateFormatter dateFromString:dateString];
-        if (date) return date;
+        if (dates) return dates;
     }
     
     return nil;
