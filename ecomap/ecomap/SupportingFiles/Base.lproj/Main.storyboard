@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -371,7 +371,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vm5-Cq-zWt">
-                                <rect key="frame" x="533" y="463" width="58" height="60"/>
+                                <rect key="frame" x="533" y="464" width="60" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="OIo-bU-euo"/>
+                                    <constraint firstAttribute="width" constant="60" id="P3o-W7-dKB"/>
+                                </constraints>
                                 <state key="normal" image="add">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -383,7 +387,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="Vm5-Cq-zWt" secondAttribute="bottom" constant="77" id="FFa-3E-dEE"/>
-                            <constraint firstAttribute="trailing" secondItem="Vm5-Cq-zWt" secondAttribute="trailing" constant="9" id="S9y-3g-6fY"/>
+                            <constraint firstAttribute="trailing" secondItem="Vm5-Cq-zWt" secondAttribute="trailing" constant="7" id="S9y-3g-6fY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Ecomap" id="k5h-KU-feq">
@@ -397,7 +401,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ab6-h2-osB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1063.125" y="-1259.1549295774646"/>
+            <point key="canvasLocation" x="1063" y="-1260"/>
         </scene>
         <!--Problem View Controller-->
         <scene sceneID="M7f-N6-O3h">
@@ -2352,12 +2356,12 @@
         <image name="SeparatorURK" width="280" height="8"/>
         <image name="UsernameField" width="282" height="41"/>
         <image name="activityIndicatorPad" width="60" height="60"/>
-        <image name="add" width="58" height="60"/>
+        <image name="add" width="102" height="102"/>
         <image name="logo" width="125" height="180"/>
         <image name="reveal-icon" width="22" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WgQ-oX-LnI"/>
-        <segue reference="Tb6-3i-OMj"/>
+        <segue reference="p0L-Um-XQx"/>
     </inferredMetricsTieBreakers>
 </document>
