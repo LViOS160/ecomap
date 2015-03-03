@@ -25,24 +25,14 @@
 //Load problem details not blocking the main thread
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler;
 
+// Load alias of resources (its a path to details of resources)
++(void)loadAliasOnCompletion:(void (^)(NSArray *alias, NSError *error))completionHandler String:(NSString*)str;
 
 //Load tittles of resources not blocking the main thread
 +(void)loadResourcesOnCompletion:(void (^)(NSArray *resources, NSError *error))completionHandler;
 // Load all alias content
 + (void)registerToken:(NSString *)token
          OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
-
-// Load alias of resources (its a path to details of resources)
-+(void)loadAliasOnCompletion:(void (^)(NSArray *alias, NSError *error))completionHandler String:(NSString*)str;
-
-// Load stats for particular time period to draw a pie chart in Stats View Controller
-+ (void)loadStatsForPeriod:(EcomapStatsTimePeriod)period onCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler;
-
-// Load general statistics to draw top label in Stats View Controller
-+ (void)loadGeneralStatsOnCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler;
-
-// Load top charts of problems to show them in Top Chart List View Controller
-+ (void)loadTopChartsOnCompletion:(void (^)(NSArray *charts, NSError *error))completionHandler;
 
 #pragma mark - POST API
 + (void)problemPost:(EcomapProblem*)problem
