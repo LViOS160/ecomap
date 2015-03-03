@@ -24,9 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *problemTypesPickerVIew;
 @property (weak, nonatomic) IBOutlet UIButton *addProblemButton;
 
-@property (strong, nonatomic) UIBarButtonItem *closeButton;
+@property (nonatomic, strong) UIBarButtonItem *closeButton;
 @property (nonatomic, strong) NSArray *problemTypes;
-@property (nonatomic) BOOL isNextButtonTaped;
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
@@ -101,7 +100,6 @@
 
 - (IBAction)nextButtonTap:(UIButton *)sender {
     _prevButton.hidden = NO;
-    _isNextButtonTaped = YES;
     _pageControl.currentPage = _pageControl.currentPage + 1;
     
     [self slideViewToLeft:_curView];
@@ -112,7 +110,6 @@
 
 - (IBAction)prevButtonTap:(UIButton *)sender {
     _nextButton.hidden = NO;
-    _isNextButtonTaped = NO;
     _pageControl.currentPage = _pageControl.currentPage - 1;
     [self slideViewToRight:_curView];
     self.curView = _prevView;
@@ -124,9 +121,7 @@
 - (void)closeButtonTap:(id *)sender {
     _addProblemButton.enabled = YES;
     [self slideViewToRight:_curView];
-  //  _curView = nil;
     [self slideViewToRight:_addProblemNavigationView];
-//    _addProblemNavigationView = nil;
     self.navigationItem.rightBarButtonItem = nil;
     _pageControl.currentPage = 0;
 }
