@@ -19,6 +19,7 @@
 		518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */; };
 		518F30C21AA4D82D0094DA14 /* UserActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
+		90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */; };
 		90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */; };
 		90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */; };
 		B30E2DBC1A9DDD340039DBBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBB1A9DDD340039DBBD /* Foundation.framework */; };
@@ -151,6 +152,8 @@
 		518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserActivityViewController.h; sourceTree = "<group>"; };
 		518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserActivityViewController.m; sourceTree = "<group>"; };
+		90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
+		90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
 		90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAdminFetcher.h; sourceTree = "<group>"; };
 		90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapAdminFetcher.m; sourceTree = "<group>"; };
 		90C868A11AA4746B0001E448 /* EcomapEditableProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapEditableProblem.h; sourceTree = "<group>"; };
@@ -567,6 +570,10 @@
 				518F30A61AA26BF40094DA14 /* JSONparser.m */,
 				B3738B8F1A9DDC4B0077F604 /* EcomapFetcher.h */,
 				B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */,
+				B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */,
+				B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */,
+				90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */,
+				90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */,
 				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
 				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
 				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
@@ -575,8 +582,6 @@
 				518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */,
 				B3738B911A9DDC4B0077F604 /* EcomapFilter.h */,
 				B3738B921A9DDC4B0077F604 /* EcomapFilter.m */,
-				B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */,
-				B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */,
 				B3738B951A9DDC4B0077F604 /* Fetcher-helper Classes */,
 				B3738B9B1A9DDC4B0077F604 /* GlobalLoggerLevel.h */,
 				B3738B9C1A9DDC4B0077F604 /* LocalImageDescription.h */,
@@ -1009,6 +1014,7 @@
 				B3738C2D1A9DDC4B0077F604 /* EcomapCommentsChild.m in Sources */,
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,
 				B3738C161A9DDC4B0077F604 /* GStaticCluster.m in Sources */,
+				90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */,
 				B3738C331A9DDC4B0077F604 /* EcomapResources.m in Sources */,
 				518F30A41AA269E50094DA14 /* DataTasks.m in Sources */,
 				B3738C1B1A9DDC4B0077F604 /* SphericalMercatorProjection.m in Sources */,

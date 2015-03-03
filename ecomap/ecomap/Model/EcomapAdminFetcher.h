@@ -11,7 +11,15 @@
 
 @interface EcomapAdminFetcher : EcomapFetcher
 
-#pragma mark - PUT requests
+#pragma mark - GET Requests
+
+// Put here your methods with GET requests
+
+#pragma mark - POST Requests
+
+// Put here your methods with POST requests
+
+#pragma mark - PUT Requests
 
 + (void)changeProblem:(NSUInteger)problemID withNewProblem:(EcomapEditableProblem *)problemData onCompletion:(void(^)(NSData *result, NSError *error))completionHandler;
 

@@ -11,8 +11,8 @@
 
 @interface PieChartViewController : UIViewController <XYPieChartDelegate, XYPieChartDataSource>
 
-@property (strong, nonatomic) NSArray *statsForPieChart; // of stats NSDictionary
-@property (strong, nonatomic) NSArray *generalStats; // of stats NSDictionary
-@property (strong, nonatomic) IBOutlet XYPieChart *pieChartView;
+@property (strong, nonatomic) NSArray *statsForPieChart;
+@property (strong, nonatomic) NSArray *generalStats;
+@property (weak, nonatomic) IBOutlet XYPieChart *pieChartView;
 
 @end
