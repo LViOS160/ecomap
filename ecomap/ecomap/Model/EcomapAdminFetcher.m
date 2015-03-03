@@ -62,7 +62,7 @@
 }
 
 
-+(void)deleteComment:(NSUInteger)commentID onCompletion:(void (^)(NSError *))completionHandler
++ (void)deleteComment:(NSUInteger)commentID onCompletion:(void (^)(NSError *))completionHandler
 {
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -80,6 +80,8 @@
     
     
 }
+
+// Utility method. Convert BOOL to NSNumber.
 + (NSNumber *)BOOLtoInteger:(BOOL)flag
 {
     return flag ? @1 : @0;
