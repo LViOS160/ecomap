@@ -7,6 +7,13 @@
 //
 
 #import "MapViewController.h"
+#import "AddProblemDescriptionViewController.h"
+#import "AddProblemLocationViewController.h"
+#import "AddProblemNameViewController.h"
+#import "AddProblemPhotoViewController.h"
+#import "AddProblemSolutionViewController.h"
+#import "AddProblemTypeViewController.h"
+
 #import "Defines.h"
 
 @interface AddProblemViewController : MapViewController

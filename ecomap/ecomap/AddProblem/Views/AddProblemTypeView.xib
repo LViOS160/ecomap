@@ -4,9 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddProblemViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddProblemTypeViewController">
             <connections>
-                <outlet property="problemTypesPickerVIew" destination="N0B-Cx-qeI" id="yNJ-SQ-pcm"/>
+                <outlet property="pickerView" destination="N0B-Cx-qeI" id="HFC-AA-YHM"/>
+                <outlet property="view" destination="iN0-l3-epB" id="NqV-Ru-Vyk"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
