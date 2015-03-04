@@ -20,21 +20,17 @@
 //AddProblemProperties
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *prevButton;
+
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (weak, nonatomic) IBOutlet UIPickerView *problemTypesPickerVIew;
+
 @property (weak, nonatomic) IBOutlet UIButton *addProblemButton;
 
 @property (nonatomic, strong) UIBarButtonItem *closeButton;
-@property (nonatomic, strong) NSArray *problemTypes;
+
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
-@property (nonatomic, strong) UIView* addProblemLocationView;
-@property (nonatomic, strong) UIView* addProblemNameView;
-@property (nonatomic, strong) UIView* addProblemTypeView;
-@property (nonatomic, strong) UIView* addProblemDescriptionView;
-@property (nonatomic, strong) UIView* addProblemSolutionView;
-@property (nonatomic, strong) UIView* addProblemPhotoView;
+
 @property (nonatomic, strong) UIView* curView;
 @property (nonatomic, strong) UIView* prevView;
 @property (nonatomic, strong) UIView* nextView;
@@ -42,6 +38,12 @@
 
 
 
+@property AddProblemDescriptionViewController *addProblemDescription;
+@property AddProblemLocationViewController *addProblemLocation;
+@property AddProblemNameViewController *addProblemName;
+@property AddProblemPhotoViewController *addProblemPhoto;
+@property AddProblemSolutionViewController *addProblemSolution;
+@property AddProblemTypeViewController *addProblemType;
 @end
 
 @implementation AddProblemViewController
@@ -54,103 +56,62 @@
 }
 
 
-#pragma mark - Buttons Actions
-
-- (IBAction)makePhoto:(id)sender
-{
-#if !(TARGET_IPHONE_SIMULATOR)
-    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
-    uiipc.delegate = self;
-    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-    uiipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-    uiipc.allowsEditing = NO;
-    [self presentViewController:uiipc animated:YES completion:NULL];
-#endif
-    
-}
-
-- (IBAction)gallery:(id)sender
-{
-    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
-    uiipc.delegate = self;
-    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-    uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    uiipc.allowsEditing = NO;
-    [self presentViewController:uiipc animated:YES completion:NULL];
-    
-}
-
-#pragma mark - PickerView
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return _problemTypes[row];
-}
-
-// returns the number of 'columns' to display.
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-// returns the # of rows in each component..
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 7;
-}
 
 #pragma mark - PageControlViewButtons
 
 - (IBAction)nextButtonTap:(UIButton *)sender {
-    _prevButton.hidden = NO;
-    _pageControl.currentPage = _pageControl.currentPage + 1;
+    self.prevButton.hidden = NO;
+    self.pageControl.currentPage = self.pageControl.currentPage + 1;
     
-    [self slideViewToLeft:_curView];
-    self.curView = _nextView;
-    [self slideViewFromRight:_curView];
+    [self slideViewToLeft:self.curView];
+    self.curView = self.nextView;
+    [self slideViewFromRight:self.curView];
     [self switchPage];
 }
 
 - (IBAction)prevButtonTap:(UIButton *)sender {
-    _nextButton.hidden = NO;
-    _pageControl.currentPage = _pageControl.currentPage - 1;
-    [self slideViewToRight:_curView];
-    self.curView = _prevView;
-    [self slideViewFromLeft:_curView];
+    self.nextButton.hidden = NO;
+    self.pageControl.currentPage = self.pageControl.currentPage - 1;
+    [self slideViewToRight:self.curView];
+    self.curView = self.prevView;
+    [self slideViewFromLeft:self.curView];
     [self switchPage];
     
 }
 
 - (void)closeButtonTap:(id *)sender {
-    _addProblemButton.enabled = YES;
-    [self slideViewToRight:_curView];
-    [self slideViewToRight:_addProblemNavigationView];
+    self.addProblemButton.enabled = YES;
+    [self slideViewToRight:self.curView];
+    [self slideViewToRight:self.addProblemNavigationView];
     self.navigationItem.rightBarButtonItem = nil;
-    _pageControl.currentPage = 0;
+    self.pageControl.currentPage = 0;
 }
 
 - (void)switchPage{
-    switch (_pageControl.currentPage) {
+    switch (self.pageControl.currentPage) {
         case 0:
-            _prevButton.hidden = YES;
-            _nextView = _addProblemNameView;
+            self.prevButton.hidden = YES;
+            self.nextView = self.addProblemName.view;
             break;
         case 1:
-            _nextView = _addProblemTypeView;
-            _prevView = _addProblemLocationView;
+            self.nextView = self.addProblemType.view;
+            self.prevView = self.addProblemLocation.view;
             break;
         case 2:
-            _nextView = _addProblemDescriptionView;
-            _prevView = _addProblemNameView;
+            self.nextView = self.addProblemDescription.view;
+            self.prevView = self.addProblemName.view;
             break;
         case 3:
-            _nextView = _addProblemSolutionView;
-            _prevView = _addProblemTypeView;
+            self.nextView = self.addProblemSolution.view;
+            self.prevView = self.addProblemType.view;
             break;
         case 4:
-            _prevView = _addProblemDescriptionView;
-            _nextView = _addProblemPhotoView;
+            self.prevView = self.addProblemDescription.view;
+            self.nextView = self.addProblemPhoto.view;
             break;
         case 5:
-            _prevView = _addProblemSolutionView;
-            _nextButton.hidden = YES;
+            self.prevView = self.addProblemSolution.view;
+            self.nextButton.hidden = YES;
             break;
         default:
             break;
@@ -181,7 +142,7 @@
 
 - (void)slideView:(UIView*)view from:(BOOL)from right:(BOOL)right {
     CGFloat pad;
-    if (view == _addProblemNavigationView)
+    if (view == self.addProblemNavigationView)
         pad = padding;
     else
         pad = paddingWithNavigationView;
@@ -217,8 +178,8 @@
 
 - (void)orientationChanged:(id *)sender {
     [self setPaddings];
-    [self layoutView:_curView];
-    [self layoutView:_addProblemNavigationView];
+    [self layoutView:self.curView];
+    [self layoutView:self.addProblemNavigationView];
 }
 
 - (void)showAddProblemView {
@@ -230,27 +191,32 @@
     [self.closeButton setTarget:self];
     self.navigationItem.rightBarButtonItem = self.closeButton;
     [self setPaddings];
-    [self.view addSubview:_addProblemNavigationView];
-    [self slideViewFromRight:_addProblemNavigationView];
-    self.curView = _addProblemLocationView;
-    [self slideViewFromRight:_curView];
-    _prevView = nil;
-    _nextView = _addProblemNameView;
-    _prevButton.hidden = YES;
+    [self.view addSubview:self.addProblemNavigationView];
+    [self slideViewFromRight:self.addProblemNavigationView];
+    NSLog(@"%@", self.addProblemLocation);
+    NSLog(@"%@", self.addProblemLocation.view);
+//    [self addChildViewController:self.addProblemLocation];
+    
+    self.curView = self.addProblemLocation.view;
+    
+    [self slideViewFromRight:self.curView];
+    self.prevView = nil;
+    self.nextView = self.addProblemName.view;
+    self.prevButton.hidden = YES;
     
 }
 
 - (IBAction)addProblemButtonTap:(id)sender {
     [self loadNibs];
-    [self showAddProblemView];
-    _nextButton.hidden = NO;
+
+    self.nextButton.hidden = NO;
     UIButton *button = sender;
     button.enabled = NO;
 }
 
 - (void)setCurView:(UIView *)curView {
     _curView = curView;
-    [self.view addSubview:_curView];
+    [self.view addSubview:self.curView];
 }
 
 #pragma mark - ViewLayouts
@@ -265,7 +231,7 @@
 - (void)layoutView:(UIView *)view {
     CGFloat pad;
     CGFloat height = [self getViewHeight:view];
-    if (view == _addProblemNavigationView)
+    if (view == self.addProblemNavigationView)
         pad = padding;
     else
         pad = paddingWithNavigationView;
@@ -278,34 +244,33 @@
 #pragma mark - AddProblemNibs
 
 - (void)loadNibs {
-    _addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigationView" owner:self options:nil][0];
-    _addProblemLocationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemLocationView" owner:self options:nil][0];
-    _addProblemNameView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNameView" owner:self options:nil][0];
-    _addProblemTypeView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemTypeView" owner:self options:nil][0];
-    _addProblemDescriptionView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemDescriptionView" owner:self options:nil][0];
-    _addProblemSolutionView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemSolutionView" owner:self options:nil][0];
-    _addProblemPhotoView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemPhotoView" owner:self options:nil][0];
-    [_problemTypesPickerVIew selectRow:4 inComponent:0 animated:NO];
-    _problemTypes = [NSArray arrayWithObjects:@"Проблеми лісів", @"Сміттєзвалища", @"Незаконна забудова",
-                     @"Проблеми водойм", @"Загрози біорізноманіттю", @"Браконьєрство", @"Інші проблеми", nil];
-    
+    self.addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigationView" owner:self options:nil][0];
+    self.addProblemLocation = [[AddProblemLocationViewController alloc] initWithNibName:@"AddProblemLocationView" bundle:nil];
+    self.addProblemName = [[AddProblemNameViewController alloc] initWithNibName:@"AddProblemNameView" bundle:nil];
+    self.addProblemDescription = [[AddProblemDescriptionViewController alloc] initWithNibName:@"AddProblemDescriptionView" bundle:nil];
+    self.addProblemType = [[AddProblemTypeViewController alloc] initWithNibName:@"AddProblemTypeView" bundle:nil];
+    self.addProblemSolution = [[AddProblemSolutionViewController alloc] initWithNibName:@"AddProblemSolutionView" bundle:nil];
+    self.addProblemPhoto = [[AddProblemPhotoViewController alloc] initWithNibName:@"AddProblemPhotoView" bundle:nil];
+
+    [self showAddProblemView];
 }
 
 - (CGFloat)getViewHeight:(UIView *)view {
+
     CGFloat height = 0.0;
-    if (view == _addProblemNavigationView)
+    if (view == self.addProblemNavigationView)
         height = ADDPROBLEMNAVIGATIONVIEWHEIGHT;
-    else if (view == _addProblemLocationView)
+    else if (view == self.addProblemLocation.view)
         height = ADDPROBLEMLOCATIONHEIGHT;
-    else if (view == _addProblemNameView)
+    else if (view == self.addProblemName.view)
         height = ADDPROBLEMNAMEHEIGHT;
-    else if (view == _addProblemTypeView)
+    else if (view == self.addProblemType.view)
         height = ADDPROBLEMTYPEHEIGHT;
-    else if (view == _addProblemDescriptionView)
+    else if (view == self.addProblemDescription.view)
         height = ADDPROBLEMDESCRIPTIONHEIGHT;
-    else if (view == _addProblemSolutionView)
+    else if (view == self.addProblemSolution.view)
         height = ADDPROBLEMSOLUTIONHEIGHT;
-    else if (view == _addProblemPhotoView)
+    else if (view == self.addProblemPhoto.view)
         height = ADDPROBLEMPHOTOHEIGHT;
     return height;
 }

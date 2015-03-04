@@ -117,6 +117,12 @@
 		B3738C581A9DDC4B0077F604 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */; };
 		B3738C591A9DDC4B0077F604 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */; };
 		B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */; };
+		B3ACA3E51AA7524A003BD9EF /* AddProblemDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3DA1AA7524A003BD9EF /* AddProblemDescriptionViewController.m */; };
+		B3ACA3E61AA7524A003BD9EF /* AddProblemLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3DC1AA7524A003BD9EF /* AddProblemLocationViewController.m */; };
+		B3ACA3E71AA7524A003BD9EF /* AddProblemNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3DE1AA7524A003BD9EF /* AddProblemNameViewController.m */; };
+		B3ACA3E81AA7524A003BD9EF /* AddProblemPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E01AA7524A003BD9EF /* AddProblemPhotoViewController.m */; };
+		B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */; };
+		B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */; };
 		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
 /* End PBXBuildFile section */
 
@@ -319,6 +325,18 @@
 		B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProblemsTopListTVC.m; path = ../../TopProblemsVIewController/ProblemsTopListTVC.m; sourceTree = "<group>"; };
 		B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EcomapFetcher+PostProblem.m"; sourceTree = "<group>"; };
 		B3ACA3C51AA70701003BD9EF /* EcomapFetcher+PostProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EcomapFetcher+PostProblem.h"; sourceTree = "<group>"; };
+		B3ACA3D91AA7524A003BD9EF /* AddProblemDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemDescriptionViewController.h; sourceTree = "<group>"; };
+		B3ACA3DA1AA7524A003BD9EF /* AddProblemDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemDescriptionViewController.m; sourceTree = "<group>"; };
+		B3ACA3DB1AA7524A003BD9EF /* AddProblemLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemLocationViewController.h; sourceTree = "<group>"; };
+		B3ACA3DC1AA7524A003BD9EF /* AddProblemLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemLocationViewController.m; sourceTree = "<group>"; };
+		B3ACA3DD1AA7524A003BD9EF /* AddProblemNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemNameViewController.h; sourceTree = "<group>"; };
+		B3ACA3DE1AA7524A003BD9EF /* AddProblemNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemNameViewController.m; sourceTree = "<group>"; };
+		B3ACA3DF1AA7524A003BD9EF /* AddProblemPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemPhotoViewController.h; sourceTree = "<group>"; };
+		B3ACA3E01AA7524A003BD9EF /* AddProblemPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemPhotoViewController.m; sourceTree = "<group>"; };
+		B3ACA3E11AA7524A003BD9EF /* AddProblemSolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemSolutionViewController.h; sourceTree = "<group>"; };
+		B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemSolutionViewController.m; sourceTree = "<group>"; };
+		B3ACA3E31AA7524A003BD9EF /* AddProblemTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemTypeViewController.h; sourceTree = "<group>"; };
+		B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemTypeViewController.m; sourceTree = "<group>"; };
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -450,6 +468,18 @@
 		B3738B5B1A9DDC4B0077F604 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B3ACA3D91AA7524A003BD9EF /* AddProblemDescriptionViewController.h */,
+				B3ACA3DA1AA7524A003BD9EF /* AddProblemDescriptionViewController.m */,
+				B3ACA3DB1AA7524A003BD9EF /* AddProblemLocationViewController.h */,
+				B3ACA3DC1AA7524A003BD9EF /* AddProblemLocationViewController.m */,
+				B3ACA3DD1AA7524A003BD9EF /* AddProblemNameViewController.h */,
+				B3ACA3DE1AA7524A003BD9EF /* AddProblemNameViewController.m */,
+				B3ACA3DF1AA7524A003BD9EF /* AddProblemPhotoViewController.h */,
+				B3ACA3E01AA7524A003BD9EF /* AddProblemPhotoViewController.m */,
+				B3ACA3E11AA7524A003BD9EF /* AddProblemSolutionViewController.h */,
+				B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */,
+				B3ACA3E31AA7524A003BD9EF /* AddProblemTypeViewController.h */,
+				B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */,
 				B3738B5C1A9DDC4B0077F604 /* AddProblemViewController.h */,
 				B3738B5D1A9DDC4B0077F604 /* AddProblemViewController.m */,
 				B3738B5E1A9DDC4B0077F604 /* Defines.h */,
@@ -1105,6 +1135,7 @@
 				B3738C421A9DDC4B0077F604 /* AppDelegate.m in Sources */,
 				B3738C3F1A9DDC4B0077F604 /* MenuViewController.m in Sources */,
 				B3738C321A9DDC4B0077F604 /* EcomapProblemFilteringMask.m in Sources */,
+				B3ACA3E71AA7524A003BD9EF /* AddProblemNameViewController.m in Sources */,
 				B3738C241A9DDC4B0077F604 /* EcomapURLFetcher.m in Sources */,
 				B3738C341A9DDC4B0077F604 /* AddCommViewController.m in Sources */,
 				518F30BF1AA4D82D0094DA14 /* LoginViewController.m in Sources */,
@@ -1127,14 +1158,19 @@
 				B3738C581A9DDC4B0077F604 /* SWRevealViewController.m in Sources */,
 				B3738C1A1A9DDC4B0077F604 /* GQTPointQuadTreeChild.m in Sources */,
 				B3738C2B1A9DDC4B0077F604 /* EcomapAlias.m in Sources */,
+				B3ACA3E81AA7524A003BD9EF /* AddProblemPhotoViewController.m in Sources */,
 				B3738C491A9DDC4B0077F604 /* main.m in Sources */,
 				B3738C261A9DDC4B0077F604 /* EcomapLocalPhoto.m in Sources */,
+				B3ACA3E51AA7524A003BD9EF /* AddProblemDescriptionViewController.m in Sources */,
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
+				B3ACA3E61AA7524A003BD9EF /* AddProblemLocationViewController.m in Sources */,
 				B3738C401A9DDC4B0077F604 /* PieChartViewController.m in Sources */,
 				B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */,
 				518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */,
 				518F30A71AA26BF40094DA14 /* JSONParser.m in Sources */,
+				B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */,
+				B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */,
 				B3738C361A9DDC4B0077F604 /* PhotoViewController.m in Sources */,
 				B3738C201A9DDC4B0077F604 /* XYPieChart.m in Sources */,
 				518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */,
