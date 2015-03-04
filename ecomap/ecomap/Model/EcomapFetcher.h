@@ -23,8 +23,8 @@
 #import "EcomapComments.h"
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
-#import "EcomapCommentsChild.h"
-#import "LocalImageDescription.h"
+#import "EcomapCommentaries.h"
+//#import "LocalImageDescription.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"

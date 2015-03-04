@@ -346,7 +346,7 @@
                                 fromData:data
                     sessionConfiguration:sessionConfiguration
                        completionHandler:^(NSData *JSON, NSError *error) {
-                           NSDictionary *jsonString = [JSONparser parseJSONtoDictionary:JSON];
+                           NSDictionary *jsonString = [JSONParser parseJSONtoDictionary:JSON];
                            completionHandler([jsonString valueForKey:@"err"], error);
                        }];
     
