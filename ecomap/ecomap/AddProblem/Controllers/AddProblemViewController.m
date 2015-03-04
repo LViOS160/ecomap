@@ -20,8 +20,9 @@
 //AddProblemProperties
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *prevButton;
+
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-//@property (weak, nonatomic) IBOutlet UIPickerView *problemTypesPickerVIew;
+
 @property (weak, nonatomic) IBOutlet UIButton *addProblemButton;
 
 @property (nonatomic, strong) UIBarButtonItem *closeButton;
@@ -29,12 +30,7 @@
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
-@property (nonatomic, strong) UIView* addProblemLocationView;
-//@property (nonatomic, strong) UIView* addProblemNameView;
-//@property (nonatomic, strong) UIView* addProblemTypeView;
-//@property (nonatomic, strong) UIView* addProblemDescriptionView;
-//@property (nonatomic, strong) UIView* addProblemSolutionView;
-//@property (nonatomic, strong) UIView* addProblemPhotoView;
+
 @property (nonatomic, strong) UIView* curView;
 @property (nonatomic, strong) UIView* prevView;
 @property (nonatomic, strong) UIView* nextView;
@@ -57,33 +53,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
-}
-
-
-#pragma mark - Buttons Actions
-
-- (IBAction)makePhoto:(id)sender
-{
-#if !(TARGET_IPHONE_SIMULATOR)
-    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
-    uiipc.delegate = self;
-    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-    uiipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-    uiipc.allowsEditing = NO;
-    [self presentViewController:uiipc animated:YES completion:NULL];
-#endif
-    
-}
-
-- (IBAction)gallery:(id)sender
-{
-    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
-    uiipc.delegate = self;
-    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-    uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    uiipc.allowsEditing = NO;
-    [self presentViewController:uiipc animated:YES completion:NULL];
-    
 }
 
 
@@ -277,9 +246,6 @@
 - (void)loadNibs {
     self.addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigationView" owner:self options:nil][0];
     self.addProblemLocation = [[AddProblemLocationViewController alloc] initWithNibName:@"AddProblemLocationView" bundle:nil];
-//    self.addProblemLocationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemLocationView" owner:self options:nil][0];
-    
-    
     self.addProblemName = [[AddProblemNameViewController alloc] initWithNibName:@"AddProblemNameView" bundle:nil];
     self.addProblemDescription = [[AddProblemDescriptionViewController alloc] initWithNibName:@"AddProblemDescriptionView" bundle:nil];
     self.addProblemType = [[AddProblemTypeViewController alloc] initWithNibName:@"AddProblemTypeView" bundle:nil];
