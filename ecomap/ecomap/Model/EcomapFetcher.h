@@ -56,9 +56,6 @@
 + (void)registerToken:(NSString *)token
          OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
 
-// Load alias of resources (its a path to details of resources)
-+(void)loadAliasOnCompletion:(void (^)(NSArray *alias, NSError *error))completionHandler String:(NSString*)str;
-
 // Load stats for particular time period to draw a pie chart in Stats View Controller
 + (void)loadStatsForPeriod:(EcomapStatsTimePeriod)period onCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler;
 

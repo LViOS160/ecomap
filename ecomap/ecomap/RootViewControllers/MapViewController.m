@@ -91,7 +91,7 @@
     NSLog(@"Connected");
 }
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
-    NSLog(@"Faild to connect");
+    NSLog(@"Faild to connect %@", error);
     [self.socket close];
 }
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
@@ -196,7 +196,7 @@
     [self.mapView setDelegate:self];
     [self.view insertSubview:self.mapView atIndex:0];
     self.problems = [self loadLocalJSON];
-    if (_problems)
+    if (self.problems)
         [self renewMap:self.problems];
     [self loadProblems];
 }
@@ -255,7 +255,7 @@
 }
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
-    assert(mapView == _mapView);
+    assert(mapView == self.mapView);
     
     // Don't re-compute clusters if the map has just been panned/tilted/rotated.
     GMSCameraPosition *position = [mapView camera];
