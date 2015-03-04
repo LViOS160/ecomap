@@ -7,7 +7,7 @@
 //
 
 #import "EcomapFetcher.h"
-
+#import "EcomapLocalPhoto.h"
 
 @implementation EcomapFetcher
 
@@ -352,99 +352,100 @@
     
 }
 
-//+ (void)addPhotos:(NSArray*)photos
-//        toProblem:(NSUInteger)problemId
-//             user:(EcomapLoggedUser*)user
-//     OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler
-//{
-//    if (!user || photos.count == 0) {
-//        completionHandler(nil, [NSError errorWithDomain:@"Fetcher"
-//                                                   code:2
-//                                               userInfo:@{
-//                                                          NSLocalizedDescriptionKey: @"Error"
-//                                                          }]);
-//        return;
-//    }
-//    NSDictionary *params = @{
-//                             @"userId" : @(user.userID),
-//                             @"userName" : user.name,
-//                             @"userSurname" : user.surname,
-//                             @"solveProblemMark": @"off",
-//                             };
-//    
-//    NSString *boundary = [EcomapFetcher generateBoundaryString];
-//    
-//    // configure the request
-//    NSURL *url = [[EcomapURLFetcher URLforPostPhoto] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@", @(problemId)]];
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-//    [request setHTTPMethod:@"POST"];
-//    
-//    // set content type
-//    
-//    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-//    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-//    
-//    // create body
-//    
-//    NSData *httpBody = [EcomapFetcher createPhotoBodyWithBoundary:boundary
-//                                                       parameters:params
-//                                                           photos:photos];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];  // use sharedSession or create your own
-//    
-//    NSURLSessionTask *task = [session uploadTaskWithRequest:request
-//                                                   fromData:httpBody
-//                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//                                              if (error) {
-//                                                  DDLogVerbose(@"error = %@", error);
-//                                                  completionHandler(nil, error);
-//                                                  return;
-//                                              }
-//                                              
-//                                              NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//                                              DDLogVerbose(@"result = %@", result);
-//                                              completionHandler(result, error);
-//                                          }];
-//    [task resume];
-//}
-//
-//+ (NSData*)createPhotoBodyWithBoundary:(NSString*)boundary
-//                            parameters:(NSDictionary*)parameters
-//                                photos:(NSArray*)photos
-//{
-//    NSMutableData *httpBody = [NSMutableData data];
-//    NSData *boundaryData = [[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding];
-//    // add params (all params are strings)
-//    
-//    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *parameterKey, NSString *parameterValue, BOOL *stop) {
-//        [httpBody appendData:boundaryData];
-//        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", parameterKey] dataUsingEncoding:NSUTF8StringEncoding]];
-//        [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", parameterValue] dataUsingEncoding:NSUTF8StringEncoding]];
-//    }];
-//    
-//    [photos enumerateObjectsUsingBlock:^(LocalImageDescription *descr, NSUInteger idx, BOOL *stop) {
-//        [httpBody appendData:boundaryData];
-//        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"description\";\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-//        [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", descr.imageDescription] dataUsingEncoding:NSUTF8StringEncoding]];
-//
-//        NSString *filename  = [NSString stringWithFormat:@"%lu.jpg", (unsigned long)idx];
-//        NSData   *data      = UIImageJPEGRepresentation(descr.image, 0.8);
-//        NSString *mimetype  = [EcomapFetcher mimeTypeForPath:filename];
-//        
-//        [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-//        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file[%lu]\"; filename=\"%@\"\r\n",
-//                               (unsigned long)idx,
-//                               filename] dataUsingEncoding:NSUTF8StringEncoding]];
-//        [httpBody appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimetype] dataUsingEncoding:NSUTF8StringEncoding]];
-//        [httpBody appendData:data];
-//        [httpBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-//    }];
-//    
-//    [httpBody appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-//    
-//    return httpBody;
-//    
-//}
++ (void)addPhotos:(NSArray*)photos
+        toProblem:(NSUInteger)problemId
+             user:(EcomapLoggedUser*)user
+     OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler
+{
+    if (!user || photos.count == 0) {
+        completionHandler(nil, [NSError errorWithDomain:@"Fetcher"
+                                                   code:2
+                                               userInfo:@{
+                                                          NSLocalizedDescriptionKey: @"Error"
+                                                          }]);
+        return;
+    }
+    NSDictionary *params = @{
+                             @"userId" : @(user.userID),
+                             @"userName" : user.name,
+                             @"userSurname" : user.surname,
+                             @"solveProblemMark": @"off",
+                             };
+    
+    NSString *boundary = [EcomapFetcher generateBoundaryString];
+    
+    // configure the request
+    NSURL *url = [[EcomapURLFetcher URLforPostPhoto] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@", @(problemId)]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    
+    // set content type
+    
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    // create body
+    
+    NSData *httpBody = [EcomapFetcher createPhotoBodyWithBoundary:boundary
+                                                       parameters:params
+                                                           photos:photos];
+    
+    NSURLSession *session = [NSURLSession sharedSession];  // use sharedSession or create your own
+    
+    NSURLSessionTask *task = [session uploadTaskWithRequest:request
+                                                   fromData:httpBody
+                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              if (error) {
+                                                  DDLogVerbose(@"error = %@", error);
+                                                  completionHandler(nil, error);
+                                                  return;
+                                              }
+                                              
+                                              NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                              DDLogVerbose(@"result = %@", result);
+                                              completionHandler(result, error);
+                                          }];
+    [task resume];
+}
+
++ (NSData*)createPhotoBodyWithBoundary:(NSString*)boundary
+                            parameters:(NSDictionary*)parameters
+                                photos:(NSArray*)photos
+{
+    NSMutableData *httpBody = [NSMutableData data];
+    NSData *boundaryData = [[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding];
+    // add params (all params are strings)
+    
+    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *parameterKey, NSString *parameterValue, BOOL *stop) {
+        [httpBody appendData:boundaryData];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", parameterKey] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", parameterValue] dataUsingEncoding:NSUTF8StringEncoding]];
+    }];
+    
+    [photos enumerateObjectsUsingBlock:^(EcomapLocalPhoto *descr, NSUInteger idx, BOOL *stop) {
+        [httpBody appendData:boundaryData];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"description\";\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", descr.imageDescription] dataUsingEncoding:NSUTF8StringEncoding]];
+
+        NSString *filename  = [NSString stringWithFormat:@"%lu.jpg", (unsigned long)idx];
+        NSData   *data      = UIImageJPEGRepresentation(descr.image, 0.8);
+        NSLog(@"Image size: %@", @(data.length));
+        NSString *mimetype  = [EcomapFetcher mimeTypeForPath:filename];
+        
+        [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file[%lu]\"; filename=\"%@\"\r\n",
+                               (unsigned long)idx,
+                               filename] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimetype] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:data];
+        [httpBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    }];
+    
+    [httpBody appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    return httpBody;
+    
+}
 
 #pragma mark - Alert View
 //Show error to the user in UIAlertView
@@ -469,6 +470,29 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+}
+
+#pragma mark - Utility Methods
+
++ (NSString *)mimeTypeForPath:(NSString *)path
+{
+    // get a mime type for an extension using MobileCoreServices.framework
+    
+    CFStringRef extension = (__bridge CFStringRef)[path pathExtension];
+    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, extension, NULL);
+    assert(UTI != NULL);
+    
+    NSString *mimetype = CFBridgingRelease(UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType));
+    assert(mimetype != NULL);
+    
+    CFRelease(UTI);
+    
+    return mimetype;
+}
+
++ (NSString *)generateBoundaryString
+{
+    return [NSString stringWithFormat:@"Boundary-%@", [[NSUUID UUID] UUIDString]];
 }
 
 @end

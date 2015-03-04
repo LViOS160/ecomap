@@ -62,49 +62,6 @@
     return httpBody;
 }
 
-
-+ (NSString *)mimeTypeForPath:(NSString *)path
-{
-    // get a mime type for an extension using MobileCoreServices.framework
-    
-    CFStringRef extension = (__bridge CFStringRef)[path pathExtension];
-    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, extension, NULL);
-    assert(UTI != NULL);
-    
-    NSString *mimetype = CFBridgingRelease(UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType));
-    assert(mimetype != NULL);
-    
-    CFRelease(UTI);
-    
-    return mimetype;
-}
-
-+ (NSString *)generateBoundaryString
-{
-    return [NSString stringWithFormat:@"Boundary-%@", [[NSUUID UUID] UUIDString]];
-    
-    // if supporting iOS versions prior to 6.0, you do something like:
-    //
-    // // generate boundary string
-    // //
-    // adapted from http://developer.apple.com/library/ios/#samplecode/SimpleURLConnections
-    //
-    // CFUUIDRef  uuid;
-    // NSString  *uuidStr;
-    //
-    // uuid = CFUUIDCreate(NULL);
-    // assert(uuid != NULL);
-    //
-    // uuidStr = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
-    // assert(uuidStr != NULL);
-    //
-    // CFRelease(uuid);
-    //
-    // return uuidStr;
-}
-
-
-
 + (void)problemPost:(EcomapProblem*)problem
      problemDetails:(EcomapProblemDetails*)problemDetails
                user:(EcomapLoggedUser*)user

@@ -55,17 +55,6 @@
 // Load all alias content
 + (void)registerToken:(NSString *)token
          OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
-
-// Load stats for particular time period to draw a pie chart in Stats View Controller
-+ (void)loadStatsForPeriod:(EcomapStatsTimePeriod)period onCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler;
-
-// Load general statistics to draw top label in Stats View Controller
-+ (void)loadGeneralStatsOnCompletion:(void (^)(NSArray *stats, NSError *error))completionHandler;
-
-// Load top charts of problems to show them in Top Chart List View Controller
-+ (void)loadTopChartsOnCompletion:(void (^)(NSArray *charts, NSError *error))completionHandler;
-
-
 //POST method for votes
 + (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler;
 
@@ -77,5 +66,10 @@
         toProblem:(NSUInteger)problemId
              user:(EcomapLoggedUser*)user
      OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
+
+#pragma mark - Utility Methods
+
++ (NSString *)mimeTypeForPath:(NSString *)path;
++ (NSString *)generateBoundaryString;
 
 @end
