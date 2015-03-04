@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddProblemNameViewController : UIViewController
+@interface AddProblemNameViewController : UIViewController <UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *problemName;
 
 @end

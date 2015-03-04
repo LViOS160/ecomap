@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddProblemDescriptionViewController : UIViewController
+@interface AddProblemDescriptionViewController : UIViewController <UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end

@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) GMSMapView *mapView;
+
 @property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
 @property (nonatomic, strong) NSSet *problems;
@@ -273,6 +273,8 @@
         [self performSegueWithIdentifier:@"Show problem" sender:marker];
     }
 }
+
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
