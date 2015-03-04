@@ -116,6 +116,7 @@
 		B3738C571A9DDC4B0077F604 /* EcomapRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BFE1A9DDC4B0077F604 /* EcomapRevealViewController.m */; };
 		B3738C581A9DDC4B0077F604 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */; };
 		B3738C591A9DDC4B0077F604 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */; };
+		B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */; };
 		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
 /* End PBXBuildFile section */
 
@@ -226,7 +227,7 @@
 		B3738B921A9DDC4B0077F604 /* EcomapFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapFilter.m; sourceTree = "<group>"; };
 		B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsParser.h; sourceTree = "<group>"; };
 		B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsParser.m; sourceTree = "<group>"; };
-		B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapPathDefine.h; sourceTree = "<group>"; };
+		B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = "ecomap/Model/Fetcher-helper Classes/EcomapPathDefine.h"; sourceTree = "<group>"; };
 		B3738B971A9DDC4B0077F604 /* EcomapURLFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapURLFetcher.h; sourceTree = "<group>"; };
 		B3738B981A9DDC4B0077F604 /* EcomapURLFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapURLFetcher.m; sourceTree = "<group>"; };
 		B3738B991A9DDC4B0077F604 /* EMThumbnailImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMThumbnailImageStore.h; sourceTree = "<group>"; };
@@ -316,6 +317,8 @@
 		B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProblemsTopListTVC.h; path = ../../TopProblemsVIewController/ProblemsTopListTVC.h; sourceTree = "<group>"; };
 		B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProblemsTopListTVC.m; path = ../../TopProblemsVIewController/ProblemsTopListTVC.m; sourceTree = "<group>"; };
+		B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EcomapFetcher+PostProblem.m"; sourceTree = "<group>"; };
+		B3ACA3C51AA70701003BD9EF /* EcomapFetcher+PostProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EcomapFetcher+PostProblem.h"; sourceTree = "<group>"; };
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -388,6 +391,7 @@
 				B3738BE21A9DDC4B0077F604 /* AppDelegate.m */,
 				B3738BE31A9DDC4B0077F604 /* LaunchScreen.xib */,
 				B3738BE51A9DDC4B0077F604 /* Main.storyboard */,
+				B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */,
 				B3738B591A9DDC4B0077F604 /* Classes */,
 				B3738BE01A9DDC4B0077F604 /* SupportingFiles */,
 				B3738B671A9DDC4B0077F604 /* AdditionalFrameworks */,
@@ -571,7 +575,6 @@
 		B3738B951A9DDC4B0077F604 /* Fetcher-helper Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */,
 				B3738B971A9DDC4B0077F604 /* EcomapURLFetcher.h */,
 				B3738B981A9DDC4B0077F604 /* EcomapURLFetcher.m */,
 				B3738B991A9DDC4B0077F604 /* EMThumbnailImageStore.h */,
@@ -820,6 +823,8 @@
 			children = (
 				B3738B8F1A9DDC4B0077F604 /* EcomapFetcher.h */,
 				B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */,
+				B3ACA3C51AA70701003BD9EF /* EcomapFetcher+PostProblem.h */,
+				B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */,
 				90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */,
 				90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */,
 				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
@@ -1127,6 +1132,7 @@
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
 				B3738C401A9DDC4B0077F604 /* PieChartViewController.m in Sources */,
+				B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */,
 				518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */,
 				518F30A71AA26BF40094DA14 /* JSONParser.m in Sources */,
 				B3738C361A9DDC4B0077F604 /* PhotoViewController.m in Sources */,

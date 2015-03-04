@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "add.png"
+      "filename" : "RegisterButtonURK.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "add@2x.png"
+      "filename" : "RegisterButtonURK@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "add@3x.png"
+      "filename" : "RegisterButtonURK@3x.png"
     }
   ],
   "info" : {
