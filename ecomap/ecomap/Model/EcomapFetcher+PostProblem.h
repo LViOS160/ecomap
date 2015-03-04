@@ -16,5 +16,9 @@
                user:(EcomapLoggedUser*)user
        OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
 
++ (void)addPhotos:(NSArray*)photos
+        toProblem:(NSUInteger)problemId
+             user:(EcomapLoggedUser*)user
+     OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
 
 @end

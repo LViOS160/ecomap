@@ -62,14 +62,4 @@
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
         OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
-+ (void)addPhotos:(NSArray*)photos
-        toProblem:(NSUInteger)problemId
-             user:(EcomapLoggedUser*)user
-     OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
-
-#pragma mark - Utility Methods
-
-+ (NSString *)mimeTypeForPath:(NSString *)path;
-+ (NSString *)generateBoundaryString;
-
 @end
