@@ -35,6 +35,8 @@ typedef enum : NSUInteger {
 // For admin purposes
 @property (nonatomic, strong) EcomapLoggedUser *user;
 @property (nonatomic, strong) EcomapEditableProblem *editableProblem;
+@property (nonatomic, weak) IBOutlet UIButton *saveChangesButton;
+@property (nonatomic, weak) IBOutlet UIButton *deleteProblemButton;
 
 @end
 
@@ -49,6 +51,11 @@ typedef enum : NSUInteger {
     // Set up gesture recognizers
     UITapGestureRecognizer *tapStatusLabelGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapStatusLabelWithGestureRecognizer:)];
     [self.statusLabel addGestureRecognizer:tapStatusLabelGestureRecognizer];
+    
+    if(!self.user && ![self.user.role isEqualToString:@"administrator"]) {
+        self.saveChangesButton.hidden = YES;
+        self.deleteProblemButton.hidden = YES;
+    }
     
 }
 
