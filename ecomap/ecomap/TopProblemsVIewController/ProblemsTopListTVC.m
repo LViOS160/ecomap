@@ -25,6 +25,7 @@
 @property (nonatomic) EcomapKindfOfTheProblemsTopList kindOfTopChart;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *tableViewSpinner;
 
 @end
 
@@ -35,6 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Hide table view before we get data to display it
+    self.tableView.hidden = YES;
     // Download data from Ecomap server to populate "Top Of The Problems" chart
     [self fetchChartsOfTheTopProblems];
     
@@ -61,7 +64,7 @@
 
 - (void)setCurrentChart:(NSArray *)problems
 {
-    // Evety time when table data source is changed, redraw the table.
+    // Evety time when table data is changed, redraw the table.
     _currentChart = problems;
     [self.tableView reloadData];
 }
@@ -92,18 +95,20 @@
 
 - (void)changeChart
 {
-    NSArray *chart = [EcomapStatsParser paticularTopChart:self.kindOfTopChart
-                                                           from:self.charts];
-    self.currentChart = chart;
+    self.currentChart = [EcomapStatsParser paticularTopChart:self.kindOfTopChart
+                                                        from:self.charts];
 }
 
 #pragma mark - Fetching
 
 - (void)fetchChartsOfTheTopProblems
 {
+    [self.tableViewSpinner startAnimating];
     [EcomapStatsFetcher loadTopChartsOnCompletion:^(NSArray *charts, NSError *error) {
         if(!error) {
             self.charts = charts;
+            [self.tableViewSpinner stopAnimating];
+            self.tableView.hidden = NO;
             [self changeChart];
         }
     }];

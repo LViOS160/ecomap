@@ -62,9 +62,16 @@
 }
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    // Update frames of General Stats Top Label Views
     [self resizeTopLabelViews];
+    
+    // Recalculate Pie Chart radius
     self.pieChartView.pieRadius = [self pieChartRadius];
+    
+    // Redraw Pie Chart
     [self drawPieChart];
+    
+    // Scroll to current General Stats Top Label View
     [self switchPage];
 }
 
@@ -74,8 +81,13 @@
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
+    
     _scrollView.delegate = self;
+    
+    // Calculating and setting content size of scroll view
     _scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, self.scrollView.bounds.size.height);
+    
+    // Disable scrolling, we are going to use scroll view only as to swipe arround General Stats Top Label Views
     _scrollView.scrollEnabled = NO;
 }
 
@@ -83,7 +95,8 @@
 {
     _statsForPieChart = statsForPieChart;
     [self.pieChartSpinner stopAnimating];
-    self.pieChartView.pieRadius = [self pieChartRadius];
+    
+    // Redraw Pie Chart every time its data changed
     [self drawPieChart];
 }
 
@@ -125,6 +138,8 @@
         GeneralStatsTopLabelView *topLabelView = [[GeneralStatsTopLabelView alloc] init];
         topLabelView.numberOfInstances = [EcomapStatsParser integerForNumberLabelForInstanceNumber:i inGeneralStatsArray:self.generalStats];
         topLabelView.nameOfInstances = [EcomapStatsParser stringForNameLabelForInstanceNumber:i];
+        
+        // Calculating the frame of each General Stats Top Label View and add it to scroll view
         topLabelView.frame = CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
         [self.scrollView addSubview:topLabelView];
     }
@@ -134,12 +149,14 @@
 
 - (void)resizeTopLabelViews
 {
-    int i = NUMBER_OF_TOP_LABELS - 1;
+    int i = 0;
     
-    for(UIView *subView in self.scrollView.subviews) {
-            if([subView isKindOfClass:[GeneralStatsTopLabelView class]]) {
+    for(id subView in self.scrollView.subviews) {
+        if([subView isKindOfClass:[GeneralStatsTopLabelView class]]) {
+            
+            // Updating frames for each General Stats Top Label View
             [subView setFrame:CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height)];
-            i--;
+            i++;
         }
     }
     
@@ -147,6 +164,7 @@
 
 }
 
+// Scrolling around General Stats Top Label Views
 - (void)switchPage
 {
     [self.scrollView scrollRectToVisible:CGRectMake(self.pageControl.currentPage * self.scrollView.bounds.size.width,
@@ -210,6 +228,7 @@
     [self.pieChartView reloadData];
 }
 
+// Getting colors for Pie Chart's slices
 - (NSArray *)sliceColors
 {
     NSMutableArray *mutableSliceColors = [[NSMutableArray alloc] init];
