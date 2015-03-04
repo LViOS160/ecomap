@@ -226,7 +226,7 @@
 		B3738B921A9DDC4B0077F604 /* EcomapFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapFilter.m; sourceTree = "<group>"; };
 		B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsParser.h; sourceTree = "<group>"; };
 		B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsParser.m; sourceTree = "<group>"; };
-		B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapPathDefine.h; sourceTree = "<group>"; };
+		B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = "ecomap/Model/Fetcher-helper Classes/EcomapPathDefine.h"; sourceTree = "<group>"; };
 		B3738B971A9DDC4B0077F604 /* EcomapURLFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapURLFetcher.h; sourceTree = "<group>"; };
 		B3738B981A9DDC4B0077F604 /* EcomapURLFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapURLFetcher.m; sourceTree = "<group>"; };
 		B3738B991A9DDC4B0077F604 /* EMThumbnailImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMThumbnailImageStore.h; sourceTree = "<group>"; };
@@ -388,6 +388,7 @@
 				B3738BE21A9DDC4B0077F604 /* AppDelegate.m */,
 				B3738BE31A9DDC4B0077F604 /* LaunchScreen.xib */,
 				B3738BE51A9DDC4B0077F604 /* Main.storyboard */,
+				B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */,
 				B3738B591A9DDC4B0077F604 /* Classes */,
 				B3738BE01A9DDC4B0077F604 /* SupportingFiles */,
 				B3738B671A9DDC4B0077F604 /* AdditionalFrameworks */,
@@ -571,7 +572,6 @@
 		B3738B951A9DDC4B0077F604 /* Fetcher-helper Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */,
 				B3738B971A9DDC4B0077F604 /* EcomapURLFetcher.h */,
 				B3738B981A9DDC4B0077F604 /* EcomapURLFetcher.m */,
 				B3738B991A9DDC4B0077F604 /* EMThumbnailImageStore.h */,

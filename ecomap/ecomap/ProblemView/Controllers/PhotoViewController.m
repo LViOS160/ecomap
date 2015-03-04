@@ -92,7 +92,33 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = info[UIImagePickerControllerEditedImage];
     if(!image) image = info[UIImagePickerControllerOriginalImage];
-    EcomapLocalPhoto *descr = [[EcomapLocalPhoto alloc] initWithImage:image];
+    
+    float actualHeight = image.size.height;
+    float actualWidth = image.size.width;
+    float imgRatio = actualWidth/actualHeight;
+    float maxRatio = 640.0/480.0;
+    
+    if(imgRatio!=maxRatio){
+        if(imgRatio < maxRatio){
+            imgRatio = 480.0 / actualHeight;
+            actualWidth = imgRatio * actualWidth;
+            actualHeight = 480.0;
+        }
+        else{
+            imgRatio = 640.0 / actualWidth;
+            actualHeight = imgRatio * actualHeight;
+            actualWidth = 640.0;
+        }
+    }
+    CGRect rect = CGRectMake(0.0, 0.0, actualWidth, actualHeight);
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    
+    EcomapLocalPhoto *descr = [[EcomapLocalPhoto alloc] initWithImage:img];
     [self.imageDescriptions addObject:descr];
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self.tableView reloadData];
