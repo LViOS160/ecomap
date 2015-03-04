@@ -29,7 +29,7 @@
 
 //AddProblemViews
 @property (nonatomic, strong) UIView* addProblemNavigationView;
-//@property (nonatomic, strong) UIView* addProblemLocationView;
+@property (nonatomic, strong) UIView* addProblemLocationView;
 //@property (nonatomic, strong) UIView* addProblemNameView;
 //@property (nonatomic, strong) UIView* addProblemTypeView;
 //@property (nonatomic, strong) UIView* addProblemDescriptionView;
@@ -224,7 +224,12 @@
     [self setPaddings];
     [self.view addSubview:self.addProblemNavigationView];
     [self slideViewFromRight:self.addProblemNavigationView];
+    NSLog(@"%@", self.addProblemLocation);
+    NSLog(@"%@", self.addProblemLocation.view);
+//    [self addChildViewController:self.addProblemLocation];
+    
     self.curView = self.addProblemLocation.view;
+    
     [self slideViewFromRight:self.curView];
     self.prevView = nil;
     self.nextView = self.addProblemName.view;
@@ -234,14 +239,14 @@
 
 - (IBAction)addProblemButtonTap:(id)sender {
     [self loadNibs];
-    [self showAddProblemView];
+
     self.nextButton.hidden = NO;
     UIButton *button = sender;
     button.enabled = NO;
 }
 
 - (void)setCurView:(UIView *)curView {
-    self.curView = curView;
+    _curView = curView;
     [self.view addSubview:self.curView];
 }
 
@@ -272,21 +277,16 @@
 - (void)loadNibs {
     self.addProblemNavigationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNavigationView" owner:self options:nil][0];
     self.addProblemLocation = [[AddProblemLocationViewController alloc] initWithNibName:@"AddProblemLocationView" bundle:nil];
-//    _addProblemLocationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemLocationView" owner:self options:nil][0];
-//    _addProblemNameView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemNameView" owner:self options:nil][0];
-    self.addProblemName = [[AddProblemNameViewController alloc] initWithNibName:@"AddProblemNameView" bundle:nil];
+//    self.addProblemLocationView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemLocationView" owner:self options:nil][0];
     
-//    _addProblemTypeView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemTypeView" owner:self options:nil][0];
-   // _addProblemDescriptionView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemDescriptionView" owner:self options:nil][0];
+    
+    self.addProblemName = [[AddProblemNameViewController alloc] initWithNibName:@"AddProblemNameView" bundle:nil];
     self.addProblemDescription = [[AddProblemDescriptionViewController alloc] initWithNibName:@"AddProblemDescriptionView" bundle:nil];
     self.addProblemType = [[AddProblemTypeViewController alloc] initWithNibName:@"AddProblemTypeView" bundle:nil];
-//    _addProblemSolutionView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemSolutionView" owner:self options:nil][0];
-//    _addProblemPhotoView = [[NSBundle mainBundle] loadNibNamed:@"AddProblemPhotoView" owner:self options:nil][0];
     self.addProblemSolution = [[AddProblemSolutionViewController alloc] initWithNibName:@"AddProblemSolutionView" bundle:nil];
     self.addProblemPhoto = [[AddProblemPhotoViewController alloc] initWithNibName:@"AddProblemPhotoView" bundle:nil];
 
- 
-    
+    [self showAddProblemView];
 }
 
 - (CGFloat)getViewHeight:(UIView *)view {
