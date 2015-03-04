@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import "EcomapCommentsChild.h"
+#import "EcomapCommentaries.h"
 #import "EcomapPathDefine.h"
 
-@interface EcomapCommentsChild ()
+@interface EcomapCommentaries ()
 @property (nonatomic, readwrite) NSUInteger commentID;
 @property (nonatomic, strong, readwrite) NSString *content;
 @property (nonatomic, strong, readwrite) NSDate *date;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation EcomapCommentsChild
+@implementation EcomapCommentaries
 @synthesize  commentID,content,date,activityTypes_Id,usersID,problemsID,problemContent,userName,userSurname;
 
 -(instancetype)initWithInfo:(NSDictionary *)problem

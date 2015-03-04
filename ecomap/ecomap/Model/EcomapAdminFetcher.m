@@ -10,7 +10,7 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapURLFetcher.h"
 #import "DataTasks.h"
-#import "JSONparser.h"
+#import "JSONParser.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"

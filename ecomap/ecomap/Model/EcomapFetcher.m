@@ -24,7 +24,7 @@
                         if (JSON) {
                             DDLogVerbose(@"All problems loaded success from ecomap server");
                             //Parse JSON
-                            problemsFromJSON = [JSONparser parseJSONtoArray:JSON];
+                            problemsFromJSON = [JSONParser parseJSONtoArray:JSON];
                             
                             //Fill problems array
                             if (problemsFromJSON) {
@@ -60,7 +60,7 @@
                         //Extract received data
                         if (JSON != nil) {
                             //Parse JSON
-                            problemsFromJSON = [JSONparser parseJSONtoArray:JSON];
+                            problemsFromJSON = [JSONParser parseJSONtoArray:JSON];
                             
                             //Fill problems array
                             if (problemsFromJSON) {
@@ -83,7 +83,7 @@
 #pragma mark - Post comment
 +(void)createComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
-        OnCompletion:(void (^)(EcomapCommentsChild *obj,NSError *error))completionHandler {
+        OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler {
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
@@ -100,15 +100,15 @@
                   completionHandler:^(NSData *JSON, NSError *error) {
                       NSDictionary *commentsInfo;
                       // EcomapLoggedUser * check = [[EcomapLoggedUser alloc]init];
-                      EcomapCommentsChild * difComment = nil;
+                      EcomapCommentaries * difComment = nil;
                       
                       if(!error)
                           
-                      {    difComment = [[EcomapCommentsChild alloc]initWithInfo:commentsInfo];
+                      {    difComment = [[EcomapCommentaries alloc]initWithInfo:commentsInfo];
                           if([EcomapLoggedUser currentLoggedUser])
                           {
                               
-                              commentsInfo = [JSONparser parseJSONtoDictionary:JSON];
+                              commentsInfo = [JSONParser parseJSONtoDictionary:JSON];
                               
                               
                           }
@@ -214,7 +214,7 @@
                             //Check if we have a problem with such problemID.
                             //If there is no one, server give us back Dictionary with "error" key
                             //Parse JSON
-                            NSDictionary *answerFromServer = [JSONparser parseJSONtoDictionary:JSON];
+                            NSDictionary *answerFromServer = [JSONParser parseJSONtoDictionary:JSON];
                             if (answerFromServer) {
                                 DDLogError(@"There is no problem (id = %d) on server", problemID);
                                 //Return error. Form error to be passed to completionHandler
@@ -227,7 +227,7 @@
                             
                             //Extract problemDetails from JSON
                             //Parse JSON
-                            NSArray *jsonArray = [JSONparser parseJSONtoArray:JSON];
+                            NSArray *jsonArray = [JSONParser parseJSONtoArray:JSON];
                             problem = [[jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
                             problemDetails = [[EcomapProblemDetails alloc] initWithProblem:problem];
                             DDLogVerbose(@"Problem (id = %d) loaded success from ecomap server", problemDetails.problemID);
@@ -310,7 +310,7 @@
                   completionHandler:^(NSData *JSON, NSError *error) {
                       NSDictionary *voteResponse = nil;
                       if (!error) {
-                          voteResponse = [JSONparser parseJSONtoDictionary:JSON];
+                          voteResponse = [JSONParser parseJSONtoDictionary:JSON];
                           if (!voteResponse[@"json"]) {
                               error = [NSError errorWithDomain:@"EcomapVote" code:2 userInfo:nil];
                           } else {

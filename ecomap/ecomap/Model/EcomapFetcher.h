@@ -35,7 +35,7 @@
 @class EcomapLoggedUser;
 @class EcomapProblemDetails;
 @class EcomapProblem;
-@class EcomapCommentsChild;
+@class EcomapCommentaries;
 
 @interface EcomapFetcher : NSObject
 
@@ -71,7 +71,7 @@
 
 +(void)createComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
-        OnCompletion:(void (^)(EcomapCommentsChild *obj,NSError *error))completionHandler;
+        OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
 + (void)addPhotos:(NSArray*)photos
         toProblem:(NSUInteger)problemId

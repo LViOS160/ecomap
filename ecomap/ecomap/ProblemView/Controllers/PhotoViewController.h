@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LocalImageDescription.h"
+#import "EcomapLocalPhoto.h"
 
 @class PhotoViewController;
 

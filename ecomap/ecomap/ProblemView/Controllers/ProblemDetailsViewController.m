@@ -194,11 +194,12 @@
 
 - (void)buttonToAddImagePressed:(id)sender
 {
-    DDLogVerbose(@"'Add image' button pressed");
-//    PhotoViewController *photoController = [[PhotoViewController alloc] init];
-//    photoController.delegate = self;
-//    [self presentViewController:photoController animated:YES completion:nil];
-    [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
+    if([EcomapLoggedUser currentLoggedUser]) {
+        [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
+    } else {
+        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertView show];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

@@ -11,7 +11,7 @@
 #import "EcomapFetcher.h"
 #import "ContainerViewController.h"
 #import "EcomapComments.h"
-#import "EcomapCommentsChild.h"
+#import "EcomapCommentaries.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapProblemDetails.h"
 #import "Defines.h"
@@ -99,7 +99,7 @@
         {
            
             
-            [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:probId OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
+            [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:probId OnCompletion:^(EcomapCommentaries *obj, NSError *error) {
                 
                 if(error)
                     DDLogVerbose(@"Trouble");

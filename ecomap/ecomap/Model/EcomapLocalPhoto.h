@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface LocalImageDescription : NSObject
+@interface EcomapLocalPhoto : NSObject
 
 - (instancetype)initWithImage:(UIImage*)image;
 - (instancetype)initWithImage:(UIImage*)image description:(NSString*)description;
