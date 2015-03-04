@@ -12,6 +12,7 @@
 #import "EcomapLoggedUser.h"
 #import "ContainerViewController.h"
 #import "EcomapEditableProblem.h"
+#import "EcomapProblemDetails.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -178,7 +179,10 @@ typedef enum : NSUInteger {
 
 - (NSString *)likeString
 {
-    return [NSString stringWithFormat:@"♡%lu", (unsigned long)self.problemDetails.votes];
+    if ([self.problemDetails canVote:[EcomapLoggedUser currentLoggedUser]])
+         return [NSString stringWithFormat:@"♡%lu", (unsigned long)self.problemDetails.votes];
+    else
+        return [NSString stringWithFormat:@"♥︎%lu", (unsigned long)self.problemDetails.votes];
 }
 
 

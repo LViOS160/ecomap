@@ -7,6 +7,7 @@
 //
 
 #import "EcomapProblem.h"
+#import "EcomapLoggedUser.h"
 
 @interface EcomapProblemDetails : EcomapProblem
 
@@ -17,6 +18,8 @@
 @property (nonatomic, readonly) NSUInteger votes;
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSArray *comments;
+
+- (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
 
 @end
 

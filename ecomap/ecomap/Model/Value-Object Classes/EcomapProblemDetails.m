@@ -8,6 +8,8 @@
 
 #import "EcomapProblemDetails.h"
 #import "EcomapPathDefine.h"
+#import "EcomapLoggedUser.h"
+#import "EcomapComments.h"
 
 @interface EcomapProblemDetails ()
 @property (nonatomic, strong, readwrite) NSString *content;
@@ -16,6 +18,7 @@
 @property (nonatomic, readwrite) NSUInteger moderation;
 @property (nonatomic, readwrite) NSUInteger votes;
 
+- (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
 @end
 
 @implementation EcomapProblemDetails
@@ -41,6 +44,22 @@
         self.moderation = ![[problem valueForKey:ECOMAP_PROBLEM_MODERATION] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_MODERATION] integerValue] : 0;
         self.votes = ![[problem valueForKey:ECOMAP_PROBLEM_VOTES] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_VOTES] integerValue] : 0;
     }
+}
+
+- (BOOL)canVote:(EcomapLoggedUser *)loggedUser
+{
+    BOOL canVote = YES;
+    if(loggedUser) {
+        for(EcomapComments *comment in self.comments) {
+            if (comment.activityTypes_Id == 3) { // vote activity type
+                canVote &= comment.usersID != loggedUser.userID;
+            }
+        }
+    } else {
+        if([[[NSUserDefaults standardUserDefaults] arrayForKey:@"votedPosts"] containsObject:@(self.problemID)])
+            canVote = NO;
+    }
+    return canVote;
 }
 
 @end
