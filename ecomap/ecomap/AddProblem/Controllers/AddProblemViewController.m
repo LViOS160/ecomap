@@ -58,15 +58,15 @@
 
 - (IBAction)makePhoto:(id)sender
 {
-    #if !(TARGET_IPHONE_SIMULATOR)
-        UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
-        uiipc.delegate = self;
-        uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-        uiipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-        uiipc.allowsEditing = NO;
-        [self presentViewController:uiipc animated:YES completion:NULL];
-    #endif
-
+#if !(TARGET_IPHONE_SIMULATOR)
+    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
+    uiipc.delegate = self;
+    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
+    uiipc.sourceType = UIImagePickerControllerSourceTypeCamera;
+    uiipc.allowsEditing = NO;
+    [self presentViewController:uiipc animated:YES completion:NULL];
+#endif
+    
 }
 
 - (IBAction)gallery:(id)sender
@@ -77,7 +77,7 @@
     uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     uiipc.allowsEditing = NO;
     [self presentViewController:uiipc animated:YES completion:NULL];
-
+    
 }
 
 #pragma mark - PickerView
@@ -211,7 +211,7 @@
                          [view setFrame:rectTwo];
                      }
                      completion:^(BOOL ok){
-                        if (!from)[view removeFromSuperview];
+                         if (!from)[view removeFromSuperview];
                      }];
 }
 
@@ -231,7 +231,7 @@
     self.navigationItem.rightBarButtonItem = self.closeButton;
     [self setPaddings];
     [self.view addSubview:_addProblemNavigationView];
-    [self slideViewFromRight:_addProblemNavigationView];    
+    [self slideViewFromRight:_addProblemNavigationView];
     self.curView = _addProblemLocationView;
     [self slideViewFromRight:_curView];
     _prevView = nil;

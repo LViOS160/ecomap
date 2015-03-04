@@ -24,14 +24,14 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeInteger:_problemID forKey:@"problemID"];
-    [coder encodeObject:_title forKey:@"title"];
-    [coder encodeDouble:_latitude forKey:@"latitude"];
-    [coder encodeDouble:_longtitude forKey:@"longtitude"];
-    [coder encodeInteger:_problemTypesID forKey:@"problemTypesID"];
-    [coder encodeObject:_problemTypeTitle forKey:@"problemTypeTitle"];
-    [coder encodeBool:_isSolved forKey:@"isSolved"];
-    [coder encodeObject:_dateCreated forKey:@"dateCreated"];
+    [coder encodeInteger:self.problemID forKey:@"problemID"];
+    [coder encodeObject:self.title forKey:@"title"];
+    [coder encodeDouble:self.latitude forKey:@"latitude"];
+    [coder encodeDouble:self.longtitude forKey:@"longtitude"];
+    [coder encodeInteger:self.problemTypesID forKey:@"problemTypesID"];
+    [coder encodeObject:self.problemTypeTitle forKey:@"problemTypeTitle"];
+    [coder encodeBool:self.isSolved forKey:@"isSolved"];
+    [coder encodeObject:self.dateCreated forKey:@"dateCreated"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
