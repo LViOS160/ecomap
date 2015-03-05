@@ -10,7 +10,7 @@
 #import "EcomapPhoto.h"
 #import "IDMPhotoBrowser.h"
 #import "EMThumbnailImageStore.h"
-#import "EcomapFetcher.h"
+#import "EcomapFetcher+PostProblem.h"
 #import "EcomapThumbnailFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "PhotoViewController.h"
