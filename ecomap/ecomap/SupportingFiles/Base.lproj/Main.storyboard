@@ -1020,10 +1020,10 @@
             </objects>
             <point key="canvasLocation" x="211.875" y="839.78873239436609"/>
         </scene>
-        <!--ТОП 10 проблем-->
+        <!--Top Of The Problems-->
         <scene sceneID="SqJ-Ye-nw8">
             <objects>
-                <viewController id="7Eh-0T-BGT" customClass="ProblemsTopListTVC" sceneMemberID="viewController">
+                <viewController id="7Eh-0T-BGT" userLabel="Top Of The Problems" customClass="ProblemsTopListTVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZMW-vk-PRT"/>
                         <viewControllerLayoutGuide type="bottom" id="26Z-7V-hTi"/>
@@ -1043,6 +1043,14 @@
                                     <action selector="changeKindOfTopChart:" destination="7Eh-0T-BGT" eventType="valueChanged" id="zbc-P4-bQZ"/>
                                 </connections>
                             </segmentedControl>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="AlC-ze-8ZY">
+                                <rect key="frame" x="282" y="282" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="3lc-P2-nXP"/>
+                                    <constraint firstAttribute="width" constant="37" id="Lv7-1H-jDs"/>
+                                </constraints>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yri-oc-utg">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1102,10 +1110,12 @@
                             <constraint firstItem="0qm-vi-3sa" firstAttribute="leading" secondItem="Ufp-qo-QvD" secondAttribute="leading" constant="8" id="2yR-Jp-2gD"/>
                             <constraint firstItem="yri-oc-utg" firstAttribute="top" secondItem="0qm-vi-3sa" secondAttribute="bottom" constant="8" id="4Is-40-iK8"/>
                             <constraint firstAttribute="trailing" secondItem="yri-oc-utg" secondAttribute="trailing" id="9Eq-46-rD9"/>
+                            <constraint firstAttribute="centerX" secondItem="AlC-ze-8ZY" secondAttribute="centerX" id="TA5-ih-m37"/>
                             <constraint firstItem="yri-oc-utg" firstAttribute="leading" secondItem="Ufp-qo-QvD" secondAttribute="leading" id="jcK-hm-Lc5"/>
                             <constraint firstItem="0qm-vi-3sa" firstAttribute="top" secondItem="ZMW-vk-PRT" secondAttribute="bottom" constant="8" id="oAg-YW-54o"/>
                             <constraint firstAttribute="trailing" secondItem="0qm-vi-3sa" secondAttribute="trailing" constant="8" id="xzU-aQ-pBg"/>
                             <constraint firstItem="26Z-7V-hTi" firstAttribute="top" secondItem="yri-oc-utg" secondAttribute="bottom" id="yy2-Nd-SPh"/>
+                            <constraint firstAttribute="centerY" secondItem="AlC-ze-8ZY" secondAttribute="centerY" id="zt4-EM-pfw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ТОП 10 проблем" id="QZs-aD-ccy">
@@ -1114,6 +1124,7 @@
                     <connections>
                         <outlet property="kindOfTopChartSegmentedControl" destination="0qm-vi-3sa" id="HQT-Nk-tOw"/>
                         <outlet property="revealButtonItem" destination="IVg-WA-W5j" id="DWh-Uu-r4g"/>
+                        <outlet property="tableSpinner" destination="AlC-ze-8ZY" id="FKm-zF-bWd"/>
                         <outlet property="tableView" destination="yri-oc-utg" id="PNL-ma-d3T"/>
                     </connections>
                 </viewController>
@@ -2362,6 +2373,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WgQ-oX-LnI"/>
-        <segue reference="p0L-Um-XQx"/>
+        <segue reference="Tb6-3i-OMj"/>
     </inferredMetricsTieBreakers>
 </document>
