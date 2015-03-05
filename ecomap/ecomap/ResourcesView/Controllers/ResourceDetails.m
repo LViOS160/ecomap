@@ -19,7 +19,7 @@
 -(void)setDetails:(NSString *)details
 {
     _details = details;
-    UIFont *font = [UIFont systemFontOfSize:21];  // @"helvetica"
+    UIFont *font = [UIFont systemFontOfSize:21];  //     FOR FONT @"helvetica"
     NSString *bodyHTML = [NSString stringWithFormat:@"<html> \n"
                                    "<head> \n"
                                    "<style type=\"text/css\"> \n"
@@ -63,21 +63,12 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
- 
-   // _descriptionProb = [[UIWebView alloc]initWithFrame:self.view.bounds];
-   // [self.view addSubview:_descriptionProb];
-   //_descriptionProb.description=self.details[0];
-   // [_descriptionProb loadHTMLString:self.details baseURL:nil];
-   //  NSURL *url=[NSURL URLWithString:_details];
-   // NSURLRequest *request = [NSURLRequest requestWithURL:url];
-   // [_descriptionProb loadRequest:request];
-    
     [self.spiner startAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
 }
 
 /*
