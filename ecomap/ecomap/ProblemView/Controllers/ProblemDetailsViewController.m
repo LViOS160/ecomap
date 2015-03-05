@@ -16,6 +16,7 @@
 #import "PhotoViewController.h"
 #import "EcomapLoggedUser.h"
 #import "Defines.h"
+#import "LoginActionSheetViewController.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -192,13 +193,17 @@
     [self.scrollViewPhotoGallary addSubview:customButton];
 }
 
-- (void)buttonToAddImagePressed:(id)sender
+- (void)buttonToAddImagePressed:(UIButton *)sender
 {
+    DDLogVerbose(@"Add image buton pressed");
     if([EcomapLoggedUser currentLoggedUser]) {
         [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
     } else {
-        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alertView show];
+        //aadd alert here
+        LoginActionSheetViewController *actionSheet = [[LoginActionSheetViewController alloc] init];
+        [actionSheet showLogitActionSheetFromViewController:self
+                                                                        sender:self
+                                                      actionAfterSuccseccLogin:nil];
     }
 }
 

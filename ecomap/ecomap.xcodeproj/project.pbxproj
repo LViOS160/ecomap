@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		03B1BC005E13B3CDC884086F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC970330F7C53C912ED19D0D /* libPods.a */; };
+		2DB8150B1AA854DA0011AFA1 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DB8150A1AA854DA0011AFA1 /* InfoWindow.xib */; };
+		2DB8150E1AA856490011AFA1 /* CustomInfoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */; };
 		518F30961AA1E36E0094DA14 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518F30951AA1E36E0094DA14 /* FacebookSDK.framework */; };
 		518F30A41AA269E50094DA14 /* DataTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A31AA269E50094DA14 /* DataTasks.m */; };
 		518F30A71AA26BF40094DA14 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A61AA26BF40094DA14 /* JSONParser.m */; };
@@ -124,6 +126,7 @@
 		B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */; };
 		B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */; };
 		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
+		E5B2F0591AA867CE00FE9792 /* LoginActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B2F0581AA867CE00FE9792 /* LoginActionSheetViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +141,9 @@
 
 /* Begin PBXFileReference section */
 		297826EF813E17D3E56E38B4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		2DB8150A1AA854DA0011AFA1 /* InfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindow.xib; sourceTree = "<group>"; };
+		2DB8150C1AA856490011AFA1 /* CustomInfoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomInfoWindow.h; sourceTree = "<group>"; };
+		2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomInfoWindow.m; sourceTree = "<group>"; };
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		518F30951AA1E36E0094DA14 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		518F30A21AA269E50094DA14 /* DataTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTasks.h; sourceTree = "<group>"; };
@@ -340,6 +346,8 @@
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5B2F0571AA867CE00FE9792 /* LoginActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginActionSheetViewController.h; sourceTree = "<group>"; };
+		E5B2F0581AA867CE00FE9792 /* LoginActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginActionSheetViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -727,6 +735,9 @@
 				B3738BD61A9DDC4B0077F604 /* MapViewController.m */,
 				B3738BD71A9DDC4B0077F604 /* MenuViewController.h */,
 				B3738BD81A9DDC4B0077F604 /* MenuViewController.m */,
+				2DB8150A1AA854DA0011AFA1 /* InfoWindow.xib */,
+				2DB8150C1AA856490011AFA1 /* CustomInfoWindow.h */,
+				2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */,
 			);
 			name = Root;
 			path = RootViewControllers;
@@ -831,6 +842,8 @@
 				518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */,
 				518F30B41AA4D82D0094DA14 /* ChangePasswordViewController.h */,
 				518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */,
+				E5B2F0571AA867CE00FE9792 /* LoginActionSheetViewController.h */,
+				E5B2F0581AA867CE00FE9792 /* LoginActionSheetViewController.m */,
 			);
 			name = Account;
 			path = UserViewController;
@@ -1040,6 +1053,7 @@
 				B33438001A9DE683007ACD82 /* AddProblemTypeView.xib in Resources */,
 				B33437FD1A9DE683007ACD82 /* AddProblemNavigationView.xib in Resources */,
 				B33437FE1A9DE683007ACD82 /* AddProblemPhotoView.xib in Resources */,
+				2DB8150B1AA854DA0011AFA1 /* InfoWindow.xib in Resources */,
 				B3738C4F1A9DDC4B0077F604 /* OpenSans-Italic.ttf in Resources */,
 				B3738C511A9DDC4B0077F604 /* OpenSans-LightItalic.ttf in Resources */,
 				B3738C4E1A9DDC4B0077F604 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -1126,6 +1140,7 @@
 				B3738C591A9DDC4B0077F604 /* ProblemsTopListTVC.m in Sources */,
 				B3738C3C1A9DDC4B0077F604 /* ResourcesViewController.m in Sources */,
 				B3738C301A9DDC4B0077F604 /* EcomapProblem.m in Sources */,
+				2DB8150E1AA856490011AFA1 /* CustomInfoWindow.m in Sources */,
 				B3738C391A9DDC4B0077F604 /* ProblemViewController.m in Sources */,
 				B3738C0D1A9DDC4B0077F604 /* AddProblemViewController.m in Sources */,
 				B3738C2A1A9DDC4B0077F604 /* SWRevealModalSegue.m in Sources */,
@@ -1133,6 +1148,7 @@
 				B3738C411A9DDC4B0077F604 /* GeneralStatsTopLabelView.m in Sources */,
 				B3738C221A9DDC4B0077F604 /* EcomapFilter.m in Sources */,
 				B3738C421A9DDC4B0077F604 /* AppDelegate.m in Sources */,
+				E5B2F0591AA867CE00FE9792 /* LoginActionSheetViewController.m in Sources */,
 				B3738C3F1A9DDC4B0077F604 /* MenuViewController.m in Sources */,
 				B3738C321A9DDC4B0077F604 /* EcomapProblemFilteringMask.m in Sources */,
 				B3ACA3E71AA7524A003BD9EF /* AddProblemNameViewController.m in Sources */,
@@ -1319,7 +1335,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1344,7 +1360,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
