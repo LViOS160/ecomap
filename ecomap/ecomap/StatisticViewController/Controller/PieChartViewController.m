@@ -134,12 +134,12 @@
 
 - (void)resizeTopLabelViews
 {
-    int i = NUMBER_OF_TOP_LABELS - 1;
+    int i = 0;
     
     for(UIView *subView in self.scrollView.subviews) {
             if([subView isKindOfClass:[GeneralStatsTopLabelView class]]) {
             [subView setFrame:CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height)];
-            i--;
+            i++;
         }
     }
     
