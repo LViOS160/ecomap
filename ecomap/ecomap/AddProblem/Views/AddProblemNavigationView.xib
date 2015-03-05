@@ -22,26 +22,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcc-sw-6hT">
-                                <rect key="frame" x="280" y="0.0" width="32" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="Lm9-Ok-bhB"/>
-                                    <constraint firstAttribute="height" constant="37" id="UgL-xt-vK9"/>
-                                </constraints>
-                                <state key="normal" title="Next">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextButtonTap:" destination="-1" eventType="touchUpInside" id="MyP-TH-8H8"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tY4-Dd-TgO">
-                                <rect key="frame" x="8" y="0.0" width="31" height="37"/>
+                                <rect key="frame" x="17" y="0.0" width="45" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="GNk-ld-scU"/>
-                                    <constraint firstAttribute="width" constant="31" id="izg-fS-nvR"/>
+                                    <constraint firstAttribute="width" constant="45" id="izg-fS-nvR"/>
                                 </constraints>
-                                <state key="normal" title="Prev">
+                                <state key="normal" title="Назад">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -55,11 +42,24 @@
                                     <constraint firstAttribute="height" constant="37" id="mvS-vN-xeq"/>
                                 </constraints>
                             </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcc-sw-6hT">
+                                <rect key="frame" x="253" y="0.0" width="54" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="Lm9-Ok-bhB"/>
+                                    <constraint firstAttribute="height" constant="37" id="UgL-xt-vK9"/>
+                                </constraints>
+                                <state key="normal" title="Вперед">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonTap:" destination="-1" eventType="touchUpInside" id="MyP-TH-8H8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="jjd-ea-Cr9" firstAttribute="leading" secondItem="tY4-Dd-TgO" secondAttribute="trailing" constant="55" id="709-dr-FPK"/>
+                            <constraint firstItem="jjd-ea-Cr9" firstAttribute="leading" secondItem="tY4-Dd-TgO" secondAttribute="trailing" constant="32" id="709-dr-FPK"/>
                             <constraint firstAttribute="centerX" secondItem="jjd-ea-Cr9" secondAttribute="centerX" id="Q8J-o6-nVi"/>
-                            <constraint firstItem="rcc-sw-6hT" firstAttribute="leading" secondItem="jjd-ea-Cr9" secondAttribute="trailing" constant="53" id="Zqd-Pk-gWL"/>
+                            <constraint firstItem="rcc-sw-6hT" firstAttribute="leading" secondItem="jjd-ea-Cr9" secondAttribute="trailing" constant="26" id="Zqd-Pk-gWL"/>
                             <constraint firstAttribute="centerY" secondItem="tY4-Dd-TgO" secondAttribute="centerY" id="dlG-QL-QfJ"/>
                             <constraint firstAttribute="centerY" secondItem="jjd-ea-Cr9" secondAttribute="centerY" id="iF9-mG-Coq"/>
                             <constraint firstAttribute="centerY" secondItem="rcc-sw-6hT" secondAttribute="centerY" id="lZV-nI-bEn"/>

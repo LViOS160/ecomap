@@ -23,9 +23,9 @@
                              @"latitude" : @(problem.latitude),
                              @"longtitude" : @(problem.longtitude),
                              @"ProblemTypes_Id" : @(problem.problemTypesID),
-                             @"userId" : @(user.userID),
-                             @"userName" : user.name,
-                             @"userSurname" : user.surname
+                             @"userId" : @(user ? user.userID : 0),
+                             @"userName" : user ? user.name : @"",
+                             @"userSurname" : user ? user.surname : @""
                              };
     // Determine the path for the image
     NSMutableArray *localPhotos = [NSMutableArray arrayWithCapacity:problemDetails.photos.count];
@@ -58,6 +58,7 @@
     NSURLSessionTask *task = [session uploadTaskWithRequest:request
                                                    fromData:httpBody
                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              NSLog(@"Postet");
                                               if (error) {
                                                   DDLogVerbose(@"error = %@", error);
                                                   return;
