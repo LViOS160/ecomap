@@ -16,6 +16,7 @@
 #import "PhotoViewController.h"
 #import "EcomapLoggedUser.h"
 #import "Defines.h"
+#import "LoginActionSheetViewController.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -199,6 +200,10 @@
         [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
     } else {
         //aadd alert here
+        LoginActionSheetViewController *actionSheet = [[LoginActionSheetViewController alloc] init];
+        [actionSheet showLogitActionSheetFromViewController:self
+                                                                        sender:self
+                                                      actionAfterSuccseccLogin:nil];
     }
 }
 
