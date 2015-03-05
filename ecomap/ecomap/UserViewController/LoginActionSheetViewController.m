@@ -7,6 +7,9 @@
 //
 
 #import "LoginActionSheetViewController.h"
+#import "LoginViewController.h"
+//Setup DDLog
+#import "GlobalLoggerLevel.h"
 
 @interface LoginActionSheetViewController ()
 
@@ -25,60 +28,16 @@
                                                 object:nil];
 }
 
-- (void)showActionSheetToLogin
+- (void)showLogitActionSheetFromViewController:(UIViewController *)viewController sender:(id)sender actionAfterSuccseccLogin:(void (^)(void))dismissBlock
 {
-    //        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    //        [alertView show];
-    //        UIAlertView *alertView = [[UIAlertView alloc]
-    //                                  initWithTitle:@"DefaultStyle"
-    //                                  message:@"the default alert view style"
-    //                                  delegate:self
-    //                                  cancelButtonTitle:@"Cancel"
-    //                                  otherButtonTitles:@"OK", nil];
-    //
-    //        [alertView show];
-    //Version 1: AlertView
-    /*
-     UIAlertController *alertController = [UIAlertController
-     alertControllerWithTitle:@"DefaultStyle"
-     message:@"the default alert view style"
-     preferredStyle:UIAlertControllerStyleAlert];
-     UIAlertAction *resetAction = [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"Reset", @"Reset action")
-     style:UIAlertActionStyleDestructive
-     handler:^(UIAlertAction *action)
-     {
-     NSLog(@"Reset action");
-     }];
-     
-     UIAlertAction *cancelAction = [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action")
-     style:UIAlertActionStyleCancel
-     handler:^(UIAlertAction *action)
-     {
-     NSLog(@"Cancel action");
-     }];
-     
-     UIAlertAction *okAction = [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"OK", @"OK action")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-     {
-     NSLog(@"OK action");
-     }];
-     
-     [alertController addAction:resetAction];
-     [alertController addAction:cancelAction];
-     [alertController addAction:okAction];
-     [self presentViewController:alertController animated:YES completion:nil];
-     */
+    UIView *senderView = nil;
+    if ([sender isKindOfClass:[UIView class]]) {
+        senderView = sender;
+    }
     
-    
-    //Version 2: action sheet
     //Create UIAlertController with ActionSheet style
     UIAlertController *alertController = [UIAlertController
                                           alertControllerWithTitle:NSLocalizedString(@"Ця дія потребує авторизації", @"Login alert title")
-                                          //message:NSLocalizedString(@"Ця дія потребує авторизації", @"Login alert message")
                                           message:nil
                                           preferredStyle:UIAlertControllerStyleActionSheet];
     //Create UIAlertAction's
@@ -87,7 +46,7 @@
                                    style:UIAlertActionStyleCancel
                                    handler:^(UIAlertAction *action)
                                    {
-                                       NSLog(@"Cancel action");
+                                       DDLogVerbose(@"Cancel action");
                                    }];
     
     UIAlertAction *loginAction = [UIAlertAction
@@ -95,7 +54,11 @@
                                   style:UIAlertActionStyleDefault
                                   handler:^(UIAlertAction *action)
                                   {
-                                      NSLog(@"Login action");
+                                      DDLogVerbose(@"Login action");
+                                      //[viewController prepareForSegue:<#(UIStoryboardSegue *)#> sender:<#(id)#>]
+                                      [viewController performSegueWithIdentifier:@"login" sender:self];
+                                      //Present viewController modaly
+                                      //[viewController presentViewController:lvc animated:YES completion:nil];
                                   }];
     
     UIAlertAction *loginWithFacebookAction = [UIAlertAction
@@ -103,7 +66,7 @@
                                               style:UIAlertActionStyleDefault
                                               handler:^(UIAlertAction *action)
                                               {
-                                                  NSLog(@"loginWithFacebook action");
+                                                  DDLogVerbose(@"loginWithFacebook action");
                                               }];
     
     //add actions to alertController
@@ -112,14 +75,14 @@
     [alertController addAction:loginWithFacebookAction];
     
     //Present ActionSheet
-    [self presentViewController:alertController animated:YES completion:nil];
+    [viewController presentViewController:alertController animated:YES completion:nil];
     
     //For iPad popover presentation
     UIPopoverPresentationController *popover = alertController.popoverPresentationController;
     if (popover)
     {
-        popover.sourceView = sender;
-        popover.sourceRect = sender.bounds;
+        popover.sourceView = senderView;
+        popover.sourceRect = senderView.bounds;
         popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
     }
 
@@ -128,12 +91,14 @@
 //Notification aaction
 - (void)didEnterBackground:(NSNotification *)notification
 {
+    DDLogVerbose(@"Dissmised action sheet when entered background");
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 //RemoveObserver
 -(void)dealloc
 {
+    DDLogVerbose(@"Dealoc actin sheet VC");
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationDidEnterBackgroundNotification
                                                   object:nil];
