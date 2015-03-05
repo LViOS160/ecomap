@@ -34,8 +34,6 @@ typedef enum {
 
 + (UIImage *)scoreImageOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart;
 
-+ (EcomapStatsTimePeriod)periodForStatsByIndex:(NSInteger)index;
-
 + (UIColor *)colorForProblemType:(NSUInteger)problemTypeID;
 
 @end

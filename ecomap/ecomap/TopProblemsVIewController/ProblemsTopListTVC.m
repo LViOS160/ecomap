@@ -25,6 +25,7 @@
 @property (nonatomic) EcomapKindfOfTheProblemsTopList kindOfTopChart;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *tableSpinner;
 
 @end
 
@@ -34,6 +35,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // We're starting with hidden table, because we don't have data to populate it
+    self.tableView.hidden = YES;
     
     // Download data from Ecomap server to populate "Top Of The Problems" chart
     [self fetchChartsOfTheTopProblems];
@@ -101,9 +105,15 @@
 
 - (void)fetchChartsOfTheTopProblems
 {
+    [self.tableSpinner startAnimating];
     [EcomapStatsFetcher loadTopChartsOnCompletion:^(NSArray *charts, NSError *error) {
         if(!error) {
             self.charts = charts;
+            [self.tableSpinner stopAnimating];
+            
+            // Show the table
+            self.tableView.hidden = NO;
+            
             [self changeChart];
         }
     }];

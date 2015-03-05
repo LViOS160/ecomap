@@ -216,7 +216,7 @@
                             //Parse JSON
                             NSDictionary *answerFromServer = [JSONParser parseJSONtoDictionary:JSON];
                             if (answerFromServer) {
-                                DDLogError(@"There is no problem (id = %d) on server", problemID);
+                                DDLogError(@"There is no problem (id = %lu) on server", (unsigned long)problemID);
                                 //Return error. Form error to be passed to completionHandler
                                 NSError *error = [[NSError alloc] initWithDomain:NSMachErrorDomain
                                                                             code:404
@@ -230,7 +230,7 @@
                             NSArray *jsonArray = [JSONParser parseJSONtoArray:JSON];
                             problem = [[jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
                             problemDetails = [[EcomapProblemDetails alloc] initWithProblem:problem];
-                            DDLogVerbose(@"Problem (id = %d) loaded success from ecomap server", problemDetails.problemID);
+                            DDLogVerbose(@"Problem (id = %lu) loaded success from ecomap server", (unsigned long)problemDetails.problemID);
                             
                             photos = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_PHOTOS];
                             problemPhotos = [NSMutableArray array];
