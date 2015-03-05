@@ -68,7 +68,6 @@
     [self switchPage];
 }
 
-
 #pragma mark - Properties
 
 - (void)setScrollView:(UIScrollView *)scrollView
