@@ -160,17 +160,6 @@
         }];
         
     }
-    /* EcomapComments *numofPro = [[EcomapComments alloc]init];
-     // NSString *test = [NSString stringWithFormat:@"%lu",(unsigned long)numofPro.problemsID];
-     NSString *test = @"98";
-     [EcomapFetcher createComment:@"1" andName:@"admin" andSurname:@"admin" andContent:@"abcdefg" andProblemId:test OnCompletion:^(EcomapCommentsChild *obj, NSError *error) {
-     if(error)
-     DDLogVerbose(@"Trouble");
-     EcomapCommentsChild *q = [[EcomapCommentsChild alloc]init];
-     q=obj;
-     
-     }]; */
-
     
     
 }

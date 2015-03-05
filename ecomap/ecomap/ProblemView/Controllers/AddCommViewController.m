@@ -22,10 +22,11 @@
 
 
 
-@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
 @property (nonatomic,strong) NSMutableArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
+@property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 
 @end
 
@@ -33,35 +34,41 @@
 
 
 
-
--(void)setEcoComment:(EcomapProblemDetails *)ecoComment
+- (void)didReceiveMemoryWarning
 {
-    
+[super didReceiveMemoryWarning];
 }
+
+
 - (void)viewDidLoad {
     
    /* [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
         
     }];*/
     [super viewDidLoad];
-    self.myTableView.allowsMultipleSelectionDuringEditing = NO;
-    self.myTableView.delegate = self;
-    self.myTableView.dataSource = self;
-    self.myTableView.estimatedRowHeight = 54.0;
-    self.myTableView.rowHeight = UITableViewAutomaticDimension;
-
+    [self updateUI];
    
     // Do any additional setup after loading the view.
 }
 
+-(void)updateUI
+{   self.myTableView.allowsMultipleSelectionDuringEditing = NO;
+    self.myTableView.delegate = self;
+    self.myTableView.dataSource = self;
+    self.myTableView.estimatedRowHeight = 54.0;
+    self.myTableView.rowHeight = UITableViewAutomaticDimension;
+    self.textField.delegate = self;
+    self.textField.text = @"Add comment";
+    self.textField.textColor = [UIColor lightGrayColor];
+   
+}
 
 
 
 -(void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
     NSMutableArray *comments = [NSMutableArray array];
-    
-    for(EcomapComments *oneComment in problemDetails.comments )
+     for(EcomapComments *oneComment in problemDetails.comments )
     {
         if(oneComment.activityTypes_Id ==5)
         {
@@ -71,74 +78,109 @@
         }
         self.problemma = [NSString stringWithFormat:@"%lu",(unsigned long)oneComment.problemsID];
     }
-    self.comments = comments;
-    DDLogVerbose(@"%lu",(unsigned long)self.comments.count);
-    [self.myTableView reloadData];
+        self.comments = comments;
+        DDLogVerbose(@"%lu",(unsigned long)self.comments.count);
+        [self.myTableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 
 - (IBAction)pressAddComment:(id)sender  {
     
-    NSString * fromTextField = self.textField.text;
-    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
-    NSString *probId = self.problemma;
+        NSString * fromTextField = self.textField.text;
+        EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+        NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
+    
     if(userIdent)
     {
         if([fromTextField isEqual:@""])
-        { UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Увага" message:@"Не залишай пусті коментарі" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
+                { UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Увага"
+                                                                       message:@"Не залишай пусті коментарі"
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles: nil];
+               [alertView show];
+                    
             
-        }
-        else
-        {
-           
+               }
             
-            [EcomapFetcher createComment:userID andName:userIdent.name andSurname:userIdent.surname andContent:fromTextField andProblemId:probId OnCompletion:^(EcomapCommentaries *obj, NSError *error) {
-                
-                if(error)
-                    DDLogVerbose(@"Trouble");
-                else
-                    [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-                
-            }];
-            
-            
-                 }
         
+        else
+             {
+                [EcomapFetcher createComment:userID
+                                     andName:userIdent.name
+                                  andSurname:userIdent.surname
+                                  andContent:fromTextField
+                                andProblemId:self.problemma OnCompletion:^(EcomapCommentaries *obj, NSError *error)
+                                {
+                
+                                    if(error)
+                                        DDLogVerbose(@"Trouble");
+                                    else
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+                
+                               }];
+             
+         }
+    
     }
                  
     else
     {
-        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка"
+                                                             message:@"Незареєстровані користувачі на це не здатні.Зареєструйся !"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
         [alertView show];
-        // int errorCode = error.code;
         
     }
     
-    
-    
-    
+ 
     if ([self.textField isFirstResponder]) {
         self.textField.text = @"";
     }
     
 }
 
+#pragma  -mark Placeholder
+
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if([self.textField.text isEqualToString:@"Add comment"])
+    {
+        self.textField.text = @"";
+        self.textField.textColor = [UIColor blackColor];
+    }
+    [self.textField becomeFirstResponder];
+    
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    if([self.textField.text isEqualToString:@""])
+    {
+        self.textField.text = @"Add comment";
+        self.textField.textColor = [UIColor lightGrayColor];
+    }
+  
+    [self.textField resignFirstResponder];
+ 
+
+}
+
+
+#pragma mark - Table View
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    // DDLogVerbose(@"%d",self.comments.count);
+
     return self.comments.count;
 }
 
@@ -148,18 +190,18 @@
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
     if(!cell)
         cell = [[CommentCell alloc] init];
-    EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
-    //  NSInteger row=[indexPath row]
-    cell.commentContent.text= commentZ.problemContent;
+    EcomapComments *commentaires = [self.comments objectAtIndex:indexPath.row];
+    cell.commentContent.text= commentaires.problemContent;
    
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    formatter.dateStyle = NSDateFormatterMediumStyle;
-    formatter.timeStyle = NSDateFormatterShortStyle;
-    formatter.doesRelativeDateFormatting = YES;
+    NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
+    formatter.dateStyle = NSDateFormatterMediumStyle;      //
+    formatter.timeStyle = NSDateFormatterShortStyle;       //
+    formatter.doesRelativeDateFormatting = YES;            //
     NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
-    [formatter setLocale:ukraineLocale];
-    NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentZ.userName, commentZ.userSurname];
-    NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentZ.date]];
+    [formatter setLocale:ukraineLocale];                   //
+    
+    NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentaires.userName, commentaires.userSurname];
+    NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentaires.date]];
     cell.personInfo.text = personalInfo;
     cell.dateInfo.text = dateInfo;
     [cell setNeedsUpdateConstraints];
@@ -170,22 +212,23 @@
 }
 
 
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     if([userIdent.role isEqualToString:@"administrator"])
-
-    return YES;
+        return YES;
     else
         return NO;
 }
+
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
           if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-         EcomapComments *commentZ = [self.comments objectAtIndex:indexPath.row];
-        NSUInteger number = commentZ.commentID;
+         EcomapComments *commentaries = [self.comments objectAtIndex:indexPath.row];
+        NSUInteger number = commentaries.commentID;
         [ EcomapAdminFetcher deleteComment:number onCompletion:^(NSError *error) {
             if(!error)
             [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
@@ -194,8 +237,6 @@
     }
     
     
-    
-        
 }
 
 
