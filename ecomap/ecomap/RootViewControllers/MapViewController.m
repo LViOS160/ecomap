@@ -20,6 +20,7 @@
 #import "EcomapFilter.h"
 #import "GlobalLoggerLevel.h"
 #import "Reachability.h"
+#import "CustomInfoWindow.h"
 
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 #define FILTER_ON NO
@@ -289,5 +290,16 @@
     }
 }
 
+- (UIView *) mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker
+{
+    CustomInfoWindow *infoWindow = [[[NSBundle mainBundle] loadNibNamed:@"InfoWindow" owner:self options:nil]objectAtIndex:0];
+    EcomapProblem *problem = marker.userData;
+    if ([problem isKindOfClass:[EcomapProblem class]])
+    {
+        infoWindow.title.text = problem.title;
+        infoWindow.snippet.text = problem.problemTypeTitle;
+    }
+    return infoWindow;
+}
 
 @end
