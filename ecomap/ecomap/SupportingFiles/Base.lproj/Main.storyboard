@@ -396,6 +396,7 @@
                     <connections>
                         <outlet property="addProblemButton" destination="Vm5-Cq-zWt" id="X38-fM-VaU"/>
                         <outlet property="revealButtonItem" destination="XHY-cf-hKr" id="N9D-Zi-8J0"/>
+                        <outlet property="topSpaceToButton" destination="FFa-3E-dEE" id="AjH-kX-exm"/>
                         <segue destination="2UE-DX-Tsm" kind="show" identifier="Show problem" id="p0L-Um-XQx"/>
                     </connections>
                 </viewController>

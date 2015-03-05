@@ -22,8 +22,8 @@
                              @"proposal" : problemDetails.proposal,
                              @"latitude" : @(problem.latitude),
                              @"longtitude" : @(problem.longtitude),
-                             @"ProblemTypes_Id" : @(problem.problemTypesID),
-                             @"userId" : @(user ? user.userID : 0),
+                             @"type" : @(problem.problemTypesID),
+                             @"userId" : user ? @(user.userID) : @"",
                              @"userName" : user ? user.name : @"",
                              @"userSurname" : user ? user.surname : @""
                              };
@@ -145,6 +145,8 @@
         [httpBody appendData:[EcomapFetcher stringToData:@"%@\r\n", parameterValue]];
     }];
     
+    NSLog(@"%@", [[NSString alloc] initWithData:httpBody encoding:NSUTF8StringEncoding]);
+    
     [photos enumerateObjectsUsingBlock:^(EcomapLocalPhoto *descr, NSUInteger idx, BOOL *stop) {
         [httpBody appendData:boundaryData];
         [httpBody appendData:[EcomapFetcher stringToData:@"Content-Disposition: form-data; name=\"description\";\r\n\r\n"]];
@@ -165,7 +167,7 @@
     }];
     
     [httpBody appendData:[EcomapFetcher stringToData:@"--%@--\r\n", boundary]];
-    
+    NSLog(@"%@", [[NSString alloc] initWithData:httpBody encoding:NSUTF8StringEncoding]);
     return httpBody;
 }
 
