@@ -10,8 +10,6 @@
 #import "LoginViewController.h"
 #import "UserActivityViewController.h"
 
-@interface ProfileViewController : UserActivityViewController <UserAction>
-
-@property (nonatomic, copy) void (^dismissBlock)(void);
+@interface ProfileViewController : UserActivityViewController
 
 @end

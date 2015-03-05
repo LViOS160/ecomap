@@ -62,6 +62,9 @@
         return;
     }
     
+    //Change checkmarks image
+    [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail], [NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_GOOD_IMAGE];
+    
     [self spinerShouldShow:YES];
     //Send e-mail and password on server
     [EcomapUserFetcher loginWithEmail:email andPassword:password OnCompletion:
