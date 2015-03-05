@@ -40,11 +40,11 @@ typedef enum {
 @interface UserActivityViewController : UIViewController <UITextFieldDelegate, UserAction>
 
 //IBOutlets
-@property (strong, nonatomic) IBOutlet UITextField *emailTextField;  //on storyboard set tag equal to appropriate ckeckmarkImageView
-@property (strong, nonatomic) IBOutlet UITextField *passwordTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
-@property (strong, nonatomic) IBOutlet UITextField *nameTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
-@property (strong, nonatomic) IBOutlet UITextField *surnameTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
-@property (strong, nonatomic) IBOutlet UITextField *confirmPasswordTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;  //on storyboard set tag equal to appropriate ckeckmarkImageView
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
+@property (weak, nonatomic) IBOutlet UITextField *surnameTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
+@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
 @property (weak, nonatomic) IBOutlet UITextField *oldPasswordTextField; //on storyboard set tag equal to appropriate ckeckmarkImageView
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *activityIndicatorPad;
