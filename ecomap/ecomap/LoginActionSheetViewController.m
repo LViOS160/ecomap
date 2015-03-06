@@ -17,18 +17,7 @@
 
 @implementation LoginActionSheetViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    //Add observer to listen when app enter background
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didEnterBackground:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                                object:nil];
-}
-
-- (void)showLogitActionSheetFromViewController:(UIViewController *)viewController sender:(id)sender actionAfterSuccseccLogin:(void (^)(void))dismissBlock
++ (void)showLogitActionSheetFromViewController:(UIViewController *)viewController sender:(id)sender actionAfterSuccseccLogin:(void (^)(void))dismissBlock
 {
     UIView *senderView = nil;
     if ([sender isKindOfClass:[UIView class]]) {
@@ -54,11 +43,25 @@
                                   style:UIAlertActionStyleDefault
                                   handler:^(UIAlertAction *action)
                                   {
-                                      DDLogVerbose(@"Login action");
-                                      //[viewController prepareForSegue:<#(UIStoryboardSegue *)#> sender:<#(id)#>]
-                                      [viewController performSegueWithIdentifier:@"login" sender:self];
-                                      //Present viewController modaly
-                                      //[viewController presentViewController:lvc animated:YES completion:nil];
+                                      DDLogVerbose(@"Login button on action sheet pressed");
+                                      
+                                      //Load LoginViewController from storyboard
+                                      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                      UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];
+                                      
+                                      //Get pointer to LoginViewController
+                                      LoginViewController *loginVC = (LoginViewController *)[navController topViewController];
+                                      
+                                      //setup LoginViewController
+                                      loginVC.showGreetingAfterLogin = NO;
+                                      loginVC.dismissBlock = ^(BOOL isUserActionViewControllerOnScreen){
+                                          if (!isUserActionViewControllerOnScreen) {
+                                              dismissBlock();
+                                          }
+                                      };
+                                      
+                                      //Present modaly LoginViewController
+                                      [viewController presentViewController:navController animated:YES completion:nil];
                                   }];
     
     UIAlertAction *loginWithFacebookAction = [UIAlertAction
@@ -87,21 +90,4 @@
     }
 
 }
-
-//Notification aaction
-- (void)didEnterBackground:(NSNotification *)notification
-{
-    DDLogVerbose(@"Dissmised action sheet when entered background");
-    [self dismissViewControllerAnimated:NO completion:nil];
-}
-
-//RemoveObserver
--(void)dealloc
-{
-    DDLogVerbose(@"Dealoc actin sheet VC");
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidEnterBackgroundNotification
-                                                  object:nil];
-}
-
 @end

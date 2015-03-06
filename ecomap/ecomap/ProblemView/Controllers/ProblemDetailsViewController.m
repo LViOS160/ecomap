@@ -199,11 +199,12 @@
     if([EcomapLoggedUser currentLoggedUser]) {
         [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
     } else {
-        //aadd alert here
-        LoginActionSheetViewController *actionSheet = [[LoginActionSheetViewController alloc] init];
-        [actionSheet showLogitActionSheetFromViewController:self
+        //show action sheet to login
+        [LoginActionSheetViewController showLogitActionSheetFromViewController:self
                                                                         sender:self
-                                                      actionAfterSuccseccLogin:nil];
+                                                      actionAfterSuccseccLogin:^{
+                                                          [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
+                                                      }];
     }
 }
 

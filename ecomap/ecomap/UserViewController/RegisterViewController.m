@@ -82,7 +82,7 @@
                               OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
                                   [self spinerShouldShow:NO];
                                   if (!error && loggedUser) {
-                                      self.dismissBlock();
+                                      self.dismissBlock(YES);
                                       [self dismissViewControllerAnimated:YES completion:nil];
                                       [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUser.name]
                                                          andMessage:@"\nЛаскаво просимо на Ecomap"];
