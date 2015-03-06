@@ -71,7 +71,6 @@ typedef enum : NSUInteger {
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self problemsDetailsChanged];
     [[NSNotificationCenter defaultCenter ]removeObserver:self];
 }
 
