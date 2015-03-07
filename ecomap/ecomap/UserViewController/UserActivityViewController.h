@@ -18,8 +18,10 @@
 #import <UIKit/UIKit.h>
 
 @protocol UserAction <NSObject>
-//What should be done after user action (login, logout, register, etc) ends success
-@property (nonatomic, copy) void (^dismissBlock)(void);
+//This block defines what actions should be done after user action (login, logout, register, etc) ends success.
+//"isUserActionViewControllerOnScreen" can be used to perform some action before or after UserActionViewControll is dismissed
+@property (nonatomic, copy) void (^dismissBlock)(BOOL isUserActionViewControllerOnScreen);
+@property (nonatomic) BOOL showGreetingAfterLogin;
 
 @end
 
@@ -53,9 +55,15 @@ typedef enum {
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;  //add all textFields here
 
 //Other priperties
+@property (nonatomic) BOOL showGreetingAfterLogin;
 @property(nonatomic, strong) UITextField *activeField; //currnet active textField.
 @property(nonatomic, strong) UITextField *textFieldToScrollUPWhenKeyboadAppears; //set only to achieve another behavior
-@property (nonatomic, copy) void (^dismissBlock)(void);
+@property (nonatomic, copy) void (^dismissBlock)(BOOL isUserActionViewControllerOnScreen);
+
+//Handle errors
+@property (nonatomic, copy) void(^errorToLogin)(NSError *);
+@property (nonatomic, copy) void(^errorToLoginWithFacebook)(NSError *);
+@property (nonatomic, copy) void(^errorToRegister)(NSError *);
 
 //Protected
 //For subclasses

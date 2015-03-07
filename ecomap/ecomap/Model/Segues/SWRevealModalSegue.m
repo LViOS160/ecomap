@@ -32,13 +32,17 @@
         //Get pointer to mapViewController
         UINavigationController *mapVC = rvc.mapViewController;
         
-        userVC.dismissBlock = ^{
-            //Cloce menu
-            [rvc revealToggleAnimated:NO];
-            //Show map
-            [rvc setFrontViewController:mapVC];
-        };
+        userVC.showGreetingAfterLogin = YES;
+        userVC.dismissBlock = ^(BOOL isUserActionViewControllerOnScreen){
+            if (isUserActionViewControllerOnScreen) {
+                //Show map
+                [rvc setFrontViewController:mapVC];
+                
+                //Cloce menu
+                [rvc revealToggleAnimated:NO];
+            }
 
+        };
     }
     
     //Present viewController modaly

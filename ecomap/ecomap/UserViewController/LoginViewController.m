@@ -82,10 +82,18 @@
          }
          else{
              if (user) {
-                 self.dismissBlock();
-                 [self dismissViewControllerAnimated:YES completion:nil];
-                 [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", user.name]
-                                    andMessage:@"\nЛаскаво просимо на Ecomap"];
+                 //perform dismissBlock before ViewController get off thе screen
+                 self.dismissBlock(YES);
+                 [self dismissViewControllerAnimated:YES completion:^{
+                     //perform dismissBlock after ViewController get off thе screen
+                     self.dismissBlock(NO);
+                 }];
+                 //show greeting for logged user
+                 if (self.showGreetingAfterLogin) {
+                     [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", user.name]
+                                        andMessage:@"\nЛаскаво просимо на Ecomap"];
+                 }
+;
              } else {
                  [self showAlertViewWithTitile:@"Помилка на сервері"
                                     andMessage:@"Є проблеми на сервері. Ми працюємо над їх вирішенням!"];
@@ -102,22 +110,33 @@
         [self spinerShouldShow:NO];
         if (!error) {
             if (loggedUserFB) {
-                self.dismissBlock();
-                [self dismissViewControllerAnimated:YES completion:nil];
-                [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUserFB.name]
-                                   andMessage:@"\nЛаскаво просимо на Ecomap"];
+                //perform dismissBlock before ViewController get off thе screen
+                self.dismissBlock(YES);
+                [self dismissViewControllerAnimated:YES completion:^{
+                    //perform dismissBlock after ViewController get off thе screen
+                    self.dismissBlock(NO);
+                }];
+                //show greeting for logged user
+                if (self.showGreetingAfterLogin) {
+                    [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUserFB.name]
+                                       andMessage:@"\nЛаскаво просимо на Ecomap"];
+                }
+
             } else {
                 [self showAlertViewWithTitile:@"Помилка входу через Facebook"
                                    andMessage:@"Неможливо отримати дані для авторизації на Ecomap"];
             }
             
-        } else if (error.code == 400) {
+        } else self.errorToLoginWithFacebook(error);
+        /*
+        else if (error.code == 400) {
             [self showAlertViewWithTitile:@"Помилка входу через Facebook"
                                andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
         } else {
             [self showAlertViewWithTitile:@"Помилка входу через Facebook"
                                andMessage:[error localizedDescription]];
         }
+         */
 
         
     }];

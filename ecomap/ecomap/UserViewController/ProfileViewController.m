@@ -51,7 +51,7 @@
     [EcomapUserFetcher logoutUser:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(BOOL result, NSError *error) {
         [self spinerShouldShow:NO];
         if (!error) {
-            self.dismissBlock();
+            self.dismissBlock(YES);
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
             // In case an error to logout has occured

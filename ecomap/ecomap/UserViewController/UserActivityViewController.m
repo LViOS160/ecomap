@@ -41,8 +41,21 @@
 #pragma mark - accessors
 -(UITextField *)textFieldToScrollUPWhenKeyboadAppears
 {
-    _textFieldToScrollUPWhenKeyboadAppears = self.activeField;
-    return _textFieldToScrollUPWhenKeyboadAppears;
+    return self.activeField;
+}
+
+-(void (^)(NSError *))errorToLoginWithFacebook
+{
+   return ^(NSError *error){
+       if (error.code == 400) {
+           [self showAlertViewWithTitile:@"Помилка входу через Facebook"
+                              andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
+       } else {
+           [self showAlertViewWithTitile:@"Помилка входу через Facebook"
+                              andMessage:[error localizedDescription]];
+       }
+
+    };
 }
 
 #pragma mark - keyborad managment
