@@ -1,28 +1,41 @@
 //
-//  LoginActionSheetViewController.m
+//  InfoActions.m
 //  ecomap
 //
-//  Created by Vasilii Kotsiuba on 3/5/15.
+//  Created by Vasya on 3/7/15.
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import "LoginActionSheetViewController.h"
+#import "InfoActions.h"
+#import "EcomapUserFetcher.h"
+#import "UIViewController+Utils.h"
 #import "LoginViewController.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
-@interface LoginActionSheetViewController ()
+@implementation InfoActions
 
-@end
-
-@implementation LoginActionSheetViewController
-
-+ (void)showLogitActionSheetFromViewController:(UIViewController *)viewController sender:(id)sender actionAfterSuccseccLogin:(void (^)(void))dismissBlock
++ (void)showAlertViewWithTitile:(NSString *)title andMessage:(NSString *)message
 {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+#pragma mark - Login action sheet
++ (void)showLogitActionSheetFromSender:(id)sender actionAfterSuccseccLogin:(void (^)(void))dismissBlock
+{
+    
     UIView *senderView = nil;
     if ([sender isKindOfClass:[UIView class]]) {
         senderView = sender;
     }
+    
+    //Get current ViewControlller
+    UIViewController *currentVC = [UIViewController currentViewController];
     
     //Create UIAlertController with ActionSheet style
     UIAlertController *alertController = [UIAlertController
@@ -36,6 +49,7 @@
                                    handler:^(UIAlertAction *action)
                                    {
                                        DDLogVerbose(@"Cancel action");
+                                       [self showPopupWithMesssage:@"Canceled"];
                                    }];
     
     UIAlertAction *loginAction = [UIAlertAction
@@ -61,7 +75,7 @@
                                       };
                                       
                                       //Present modaly LoginViewController
-                                      [viewController presentViewController:navController animated:YES completion:nil];
+                                      [currentVC presentViewController:navController animated:YES completion:nil];
                                   }];
     
     UIAlertAction *loginWithFacebookAction = [UIAlertAction
@@ -70,6 +84,9 @@
                                               handler:^(UIAlertAction *action)
                                               {
                                                   DDLogVerbose(@"loginWithFacebook action");
+                                                  [EcomapUserFetcher loginWithFacebookOnCompletion:^(EcomapLoggedUser *loggedUserFB, NSError *error) {
+                                                  }];
+                                                  dismissBlock();
                                               }];
     
     //add actions to alertController
@@ -78,7 +95,7 @@
     [alertController addAction:loginWithFacebookAction];
     
     //Present ActionSheet
-    [viewController presentViewController:alertController animated:YES completion:nil];
+    [currentVC presentViewController:alertController animated:YES completion:nil];
     
     //For iPad popover presentation
     UIPopoverPresentationController *popover = alertController.popoverPresentationController;
@@ -88,6 +105,76 @@
         popover.sourceRect = senderView.bounds;
         popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
     }
-
 }
+
+#pragma mark - Popup
+#define POPUP_DELAY  1.5
++ (void)showPopupWithMesssage:(NSString *)message
+{
+    if ([message isEqualToString:@""]) {
+        DDLogError(@"Can't show popup with no text");
+        return;
+    }
+    
+    //Create popup label
+    UILabel *popupLabel = [self createLabelWithText:message];
+    
+    //Get keyWindos
+    UIWindow *appKeyWindow = [[UIApplication sharedApplication] keyWindow];
+    
+    //Position in center
+    popupLabel.center = [appKeyWindow center];
+    
+    //show popup
+    [appKeyWindow addSubview:popupLabel];
+    DDLogVerbose(@"Popup showed");
+    
+    //Appear animation
+    popupLabel.transform = CGAffineTransformMakeScale(1.3, 1.3);
+    popupLabel.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        popupLabel.alpha = 1;
+        popupLabel.transform = CGAffineTransformMakeScale(1, 1);
+    }];
+    
+    //Dismiss popup after delay
+    [self performSelector:@selector(dismissPopup:) withObject:popupLabel afterDelay:POPUP_DELAY];
+}
+
++ (void)dismissPopup:(UIView *)sender {
+    // Fade out the message and destroy popup
+    [UIView animateWithDuration:0.3
+                     animations:^  {
+                         sender.transform = CGAffineTransformMakeScale(1.3, 1.3);
+                         sender.alpha = 0; }
+                     completion:^ (BOOL finished) {
+                         DDLogVerbose(@"Popup dismissed");
+                         [sender removeFromSuperview];
+                     }];
+}
+
++ createLabelWithText:(NSString *)message
+{
+    UILabel *popupLabel = [[UILabel alloc] init];
+    //Set text
+    popupLabel.text = message;
+    
+    popupLabel.textAlignment = NSTextAlignmentCenter;
+    popupLabel.numberOfLines = 2;
+    
+    //Set frame
+    CGFloat textWidth = popupLabel.intrinsicContentSize.width;
+    popupLabel.frame = CGRectMake(0, 0, textWidth + 20, 50);
+    
+    //Set color
+    popupLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];
+    popupLabel.textColor = [UIColor whiteColor];
+    
+    //Make rounded rect
+    popupLabel.layer.cornerRadius = 5.0;
+    popupLabel.clipsToBounds=YES;
+    
+    return popupLabel;
+}
+
 @end

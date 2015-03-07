@@ -127,13 +127,16 @@
                                    andMessage:@"Неможливо отримати дані для авторизації на Ecomap"];
             }
             
-        } else if (error.code == 400) {
+        } else self.errorToLoginWithFacebook(error);
+        /*
+        else if (error.code == 400) {
             [self showAlertViewWithTitile:@"Помилка входу через Facebook"
                                andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
         } else {
             [self showAlertViewWithTitile:@"Помилка входу через Facebook"
                                andMessage:[error localizedDescription]];
         }
+         */
 
         
     }];

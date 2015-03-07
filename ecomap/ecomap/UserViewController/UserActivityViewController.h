@@ -60,6 +60,11 @@ typedef enum {
 @property(nonatomic, strong) UITextField *textFieldToScrollUPWhenKeyboadAppears; //set only to achieve another behavior
 @property (nonatomic, copy) void (^dismissBlock)(BOOL isUserActionViewControllerOnScreen);
 
+//Handle errors
+@property (nonatomic, copy) void(^errorToLogin)(NSError *);
+@property (nonatomic, copy) void(^errorToLoginWithFacebook)(NSError *);
+@property (nonatomic, copy) void(^errorToRegister)(NSError *);
+
 //Protected
 //For subclasses
 #pragma mark - keyborad managment
