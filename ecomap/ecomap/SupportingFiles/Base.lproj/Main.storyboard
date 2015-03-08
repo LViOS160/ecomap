@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -276,12 +276,12 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VmV-wm-BjT">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Gallery" id="6h2-AK-gnc">
+                                    <barButtonItem image="galleryButton" width="60" id="6h2-AK-gnc">
                                         <connections>
                                             <action selector="galleryTap:" destination="hS7-mg-PRS" id="TgO-Yr-ZtY"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Camera" id="T62-Uf-Ozw">
+                                    <barButtonItem image="cameraButton" width="60" id="T62-Uf-Ozw">
                                         <connections>
                                             <action selector="cameraTap:" destination="hS7-mg-PRS" id="c6F-U5-Nfd"/>
                                         </connections>
@@ -322,16 +322,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="bottom" secondItem="MBy-ao-5id" secondAttribute="top" id="4ar-c7-Er1"/>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="top" secondItem="Pax-dr-mNF" secondAttribute="bottom" id="AOy-CA-rxe"/>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="GTa-3i-IU1"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="bottom" secondItem="MBy-ao-5id" secondAttribute="top" id="0az-WO-q72"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="top" secondItem="Pax-dr-mNF" secondAttribute="bottom" id="1Mr-wM-GMi"/>
                             <constraint firstItem="mVW-tn-iOb" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="Mp8-kG-wvq"/>
                             <constraint firstItem="mVW-tn-iOb" firstAttribute="top" secondItem="BIa-TB-8PL" secondAttribute="bottom" constant="8" id="OQg-Ti-L3E"/>
-                            <constraint firstAttribute="trailing" secondItem="VmV-wm-BjT" secondAttribute="trailing" id="WW2-vo-2r6"/>
                             <constraint firstItem="mVW-tn-iOb" firstAttribute="leading" secondItem="Ycm-Qk-vLT" secondAttribute="leading" id="Y59-Tg-Zqs"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="Yin-BV-0Ac"/>
+                            <constraint firstAttribute="trailing" secondItem="VmV-wm-BjT" secondAttribute="trailing" id="Yyj-fJ-XZf"/>
                             <constraint firstItem="Pax-dr-mNF" firstAttribute="top" secondItem="mVW-tn-iOb" secondAttribute="bottom" id="a3J-UV-9EU"/>
                             <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="mVW-tn-iOb" secondAttribute="leading" id="c7d-Yb-pTz"/>
-                            <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="VmV-wm-BjT" secondAttribute="leading" id="tEm-Ve-mie"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="leading" secondItem="Pax-dr-mNF" secondAttribute="leading" id="cJf-Y5-o0t"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2716,11 +2716,13 @@
         <image name="UsernameField" width="282" height="41"/>
         <image name="activityIndicatorPad" width="60" height="60"/>
         <image name="add" width="102" height="102"/>
+        <image name="cameraButton" width="30" height="30"/>
+        <image name="galleryButton" width="30" height="30"/>
         <image name="logo" width="125" height="180"/>
         <image name="reveal-icon" width="22" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="p0L-Um-XQx"/>
         <segue reference="WgQ-oX-LnI"/>
+        <segue reference="Tb6-3i-OMj"/>
     </inferredMetricsTieBreakers>
 </document>
