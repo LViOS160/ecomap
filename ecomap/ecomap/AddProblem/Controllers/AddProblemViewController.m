@@ -257,6 +257,7 @@
     if (!self.userIsInTheMiddleOfAddingProblem) {
         [self loadNibs];
         [self showAddProblemView];
+        self.addProblemPhoto.rootController = self;
         self.nextButton.hidden = NO;
         UIButton *button = sender;
         button.hidden = YES;

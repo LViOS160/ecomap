@@ -10,4 +10,6 @@
 
 @interface AddProblemPhotoViewController : UIViewController
 
+@property (nonatomic, assign) UIViewController *rootController;
+
 @end
