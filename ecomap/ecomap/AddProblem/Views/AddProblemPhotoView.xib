@@ -26,10 +26,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXp-JQ-wNP">
+                                <rect key="frame" x="120" y="37" width="80" height="80"/>
+                                <state key="normal" backgroundImage="addButtonImage">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addPhotoTap:" destination="-1" eventType="touchUpInside" id="Z32-ef-6h0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Fsg-Ye-Gxy" firstAttribute="top" secondItem="NKS-c5-KrV" secondAttribute="top" constant="8" id="KAk-RV-SRH"/>
                             <constraint firstAttribute="centerX" secondItem="Fsg-Ye-Gxy" secondAttribute="centerX" id="XZX-Wc-TzY"/>
+                            <constraint firstItem="yXp-JQ-wNP" firstAttribute="centerX" secondItem="Fsg-Ye-Gxy" secondAttribute="centerX" id="e2z-Ad-TN0"/>
+                            <constraint firstItem="yXp-JQ-wNP" firstAttribute="top" secondItem="Fsg-Ye-Gxy" secondAttribute="bottom" constant="8" symbolic="YES" id="oNA-ZV-ibs"/>
                         </constraints>
                     </view>
                     <blurEffect style="light"/>
@@ -45,6 +56,9 @@
             <point key="canvasLocation" x="257" y="48"/>
         </view>
     </objects>
+    <resources>
+        <image name="addButtonImage" width="80" height="80"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

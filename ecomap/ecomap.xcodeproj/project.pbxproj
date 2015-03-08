@@ -128,6 +128,7 @@
 		B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */; };
 		B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */; };
 		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
+		CA3C8C021AACA943008EAB32 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA3C8C011AACA943008EAB32 /* PhotoViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -350,6 +351,7 @@
 		B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemTypeViewController.m; sourceTree = "<group>"; };
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CA3C8C011AACA943008EAB32 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -947,6 +949,7 @@
 			children = (
 				B3738B9E1A9DDC4B0077F604 /* NetworkActivityIndicator.h */,
 				B3738B9F1A9DDC4B0077F604 /* NetworkActivityIndicator.m */,
+				CA3C8C011AACA943008EAB32 /* PhotoViewController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1058,6 +1061,7 @@
 				B33438001A9DE683007ACD82 /* AddProblemTypeView.xib in Resources */,
 				B33437FD1A9DE683007ACD82 /* AddProblemNavigationView.xib in Resources */,
 				B33437FE1A9DE683007ACD82 /* AddProblemPhotoView.xib in Resources */,
+				CA3C8C021AACA943008EAB32 /* PhotoViewController.xib in Resources */,
 				2DB8150B1AA854DA0011AFA1 /* InfoWindow.xib in Resources */,
 				B3738C4F1A9DDC4B0077F604 /* OpenSans-Italic.ttf in Resources */,
 				B3738C511A9DDC4B0077F604 /* OpenSans-LightItalic.ttf in Resources */,
