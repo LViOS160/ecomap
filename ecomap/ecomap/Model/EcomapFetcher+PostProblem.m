@@ -150,7 +150,11 @@
     [photos enumerateObjectsUsingBlock:^(EcomapLocalPhoto *descr, NSUInteger idx, BOOL *stop) {
         [httpBody appendData:boundaryData];
         [httpBody appendData:[EcomapFetcher stringToData:@"Content-Disposition: form-data; name=\"description\";\r\n\r\n"]];
-        [httpBody appendData:[EcomapFetcher stringToData:@"%@\r\n", descr.imageDescription]];
+        if ([descr.imageDescription isKindOfClass:[NSString class]]) {
+            [httpBody appendData:[EcomapFetcher stringToData:@"%@\r\n", descr.imageDescription]];
+        } else {
+            [httpBody appendData:[EcomapFetcher stringToData:@"\r\n"]];
+        }
         
         NSString *filename  = [NSString stringWithFormat:@"%lu.jpg", (unsigned long)idx];
         NSData   *data      = UIImageJPEGRepresentation(descr.image, 0.8);
