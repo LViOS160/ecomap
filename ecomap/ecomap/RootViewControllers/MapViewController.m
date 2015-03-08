@@ -292,7 +292,7 @@
 
 - (UIView *) mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker
 {
-    CustomInfoWindow *infoWindow = [[[NSBundle mainBundle] loadNibNamed:@"InfoWindow" owner:self options:nil]objectAtIndex:0];
+    CustomInfoWindow *infoWindow = [[[NSBundle mainBundle] loadNibNamed:@"InfoWindow" owner:self options:nil] objectAtIndex:0];
     EcomapProblem *problem = marker.userData;
     if ([problem isKindOfClass:[EcomapProblem class]])
     {

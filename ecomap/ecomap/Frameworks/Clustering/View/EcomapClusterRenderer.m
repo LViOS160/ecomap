@@ -75,7 +75,7 @@
 
     // set stroking color and draw circle
     [[UIColor colorWithRed:1 green:1 blue:1 alpha:0.8] setStroke];
-    [[UIColor blueColor] setFill];
+    [[UIColor colorWithRed:27/255.0 green:122/255.0 blue:254/255.0 alpha:1.0] setFill];
 
     CGContextSetLineWidth(ctx, inset);
 
