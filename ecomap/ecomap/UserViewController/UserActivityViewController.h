@@ -9,13 +9,12 @@
 //This is base class for such user acivities classes: LoginViewController, RegisterViewControlle, ChangePasswordViewController, etc.
 //It hold shared properties and methods.
 //It is responsible for:
-// - managing text fields editing (scroll up textField if it is hidden by keyboard). By defaults it checks active if "activeField" is hidden by keyboard. Set property "textFieldToScrollUPWhenKeyboadAppears" to change defaults behavior.
-// - starting activityIndicator. Use "spinerShouldShow:" method (blocks user Interaction when spiner is active)
-// - managing checkmarks behavior.
-// - showing alert view
+// - managing text fields editing (scroll up textField if it is hidden by keyboard). By defaults it checks active if "activeField" is hidden by keyboard. Set property "textFieldToScrollUPWhenKeyboadAppears" to change defaults behavior;
+// - managing checkmarks behavior;
 // - making e-mail validation, passwords comparison. Checks if any textField is empty.
 
 #import <UIKit/UIKit.h>
+@class EcomapLoggedUser;
 
 @protocol UserAction <NSObject>
 //This block defines what actions should be done after user action (login, logout, register, etc) ends success.
@@ -37,6 +36,7 @@ typedef enum {
 #define CHECKMARK_GOOD_IMAGE [UIImage imageNamed:@"Good"]
 #define CHECKMARK_BAD_IMAGE [UIImage imageNamed:@"Bad"]
 #define KEYBOARD_TO_TEXTFIELD_SPACE 8.0
+#define ERROR_MESSAGE_TO_REGISTER NSLocalizedString(@"Користувач з такою email-адресою вже зареєстрований", @"Alert message: User with such email already exists")
 
 @interface UserActivityViewController : UIViewController <UITextFieldDelegate, UserAction>
 
@@ -66,9 +66,8 @@ typedef enum {
 -(BOOL)textFieldShouldReturn:(UITextField *)textField; //Abstract
 
 #pragma mark - helper methods
-- (BOOL)isValidMail:(NSString *)checkString;
-- (BOOL)isPasswordsEqual; //compare NewPasswordField and confirmPasswordField
-- (BOOL)isAnyTextFieldEmpty;
+- (BOOL)canSendRequest; //validate all text fields
 - (void)showCheckmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image; //changes checkmarks images
+- (void)showGreetingForUser:(EcomapLoggedUser *)user;
 
 @end

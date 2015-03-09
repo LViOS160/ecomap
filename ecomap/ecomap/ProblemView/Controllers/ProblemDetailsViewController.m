@@ -48,7 +48,7 @@
 {
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc]init];
     NSAttributedString *contentHeader = [[NSAttributedString alloc]
-                                         initWithString:@"Опис проблеми:\n"
+                                         initWithString:NSLocalizedString(@"Опис проблеми:\n", @"Problem description")
                                          attributes:@{
                                                       NSFontAttributeName: [UIFont boldSystemFontOfSize:13]
                                                       }];
@@ -60,7 +60,7 @@
                                                 }];
     
     NSAttributedString *proposalHeader = [[NSAttributedString alloc]
-                                          initWithString:@"Пропозиції щодо вирішення:\n"
+                                          initWithString:NSLocalizedString(@"Пропозиції щодо вирішення:\n", @"Proposal to solve")
                                           attributes:@{
                                                        NSFontAttributeName: [UIFont boldSystemFontOfSize:13]
                                                        }];
@@ -200,7 +200,7 @@
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
                            actionAfterSuccseccLogin:^{
-                               [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
+                               [self buttonToAddImagePressed:sender];
                            }];
     }
 }
@@ -228,7 +228,7 @@
                         user:[EcomapLoggedUser currentLoggedUser]
                 OnCompletion:^(NSString *result, NSError *error) {
                     if(error)
-                        DDLogVerbose(@"%@", error);
+                        DDLogError(@"%@", [error localizedDescription]);
                     else
                         [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
                 }];

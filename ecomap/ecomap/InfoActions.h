@@ -12,7 +12,7 @@
 
 //Show Alert
 + (void)showAlertWithTitile:(NSString *)title andMessage:(NSString *)message;
-+ (void)showAlertOfError:(NSError *)error;
++ (void)showAlertOfError:(id)error; //NSError or NSString
 
 //Show action sheet with login oprions
 //Sender can be nill. It is required for iPad to present popover in right position (since action sheet is presented in popover on iPad)

@@ -64,7 +64,7 @@
                                                                              message:message
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Cancel action on alert")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Cancel button title on alert")
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     [alertController addAction:cancelAction];
@@ -76,11 +76,19 @@
     [currentVC presentViewController:alertController animated:YES completion:nil];
 }
  
-+ (void)showAlertOfError:(NSError *)error
++ (void)showAlertOfError:(id)error
 {
-     [self showAlertWithTitile:@"Помилка"
-                        andMessage:[error localizedDescription]]; //human-readable dwscription of the error
+    NSString *errorMessage = nil;
+    if ([error isKindOfClass:[NSError class]]) {
+        errorMessage = [error localizedDescription]; //human-readable dwscription of the error
+    } else if ([error isKindOfClass:[NSString class]]) {
+        errorMessage = (NSString *)error;
+    } else errorMessage = @"";
+        
+    [self showAlertWithTitile:NSLocalizedString(@"Помилка", @"Error title")
+                        andMessage:errorMessage];
 }
+
 
 #pragma mark - Login action sheet
 + (void)showLogitActionSheetFromSender:(id)sender actionAfterSuccseccLogin:(void (^)(void))dismissBlock
@@ -96,21 +104,20 @@
     
     //Create UIAlertController with ActionSheet style
     UIAlertController *alertController = [UIAlertController
-                                          alertControllerWithTitle:NSLocalizedString(@"Ця дія потребує авторизації", @"Login alert title")
+                                          alertControllerWithTitle:NSLocalizedString(@"Ця дія потребує авторизації", @"Login actionSheet title: This action requires authorization")
                                           message:nil
                                           preferredStyle:UIAlertControllerStyleActionSheet];
     //Create UIAlertAction's
     UIAlertAction *cancelAction = [UIAlertAction
-                                   actionWithTitle:NSLocalizedString(@"Відмінити", @"Cancel action on login alert")
+                                   actionWithTitle:NSLocalizedString(@"Відмінити", @"Cancel button title on login actionSheet")
                                    style:UIAlertActionStyleCancel
                                    handler:^(UIAlertAction *action)
                                    {
-                                       DDLogVerbose(@"Cancel action");
-                                       [self showPopupWithMesssage:@"Canceled"];
+                                       DDLogVerbose(@"Cancel action");;
                                    }];
     
     UIAlertAction *loginAction = [UIAlertAction
-                                  actionWithTitle:NSLocalizedString(@"Вхід", @"Login action on login alert")
+                                  actionWithTitle:NSLocalizedString(@"Вхід", @"Login button title on login actionSheet")
                                   style:UIAlertActionStyleDefault
                                   handler:^(UIAlertAction *action)
                                   {
@@ -136,7 +143,7 @@
                                   }]; //end of UIAlertAction handler block
     
     UIAlertAction *loginWithFacebookAction = [UIAlertAction
-                                              actionWithTitle:NSLocalizedString(@"Війти з Facebook", @"Loin with Facebook action on login alert")
+                                              actionWithTitle:NSLocalizedString(@"Війти з Facebook", @"Loin with Facebook button title on login actionSheet")
                                               style:UIAlertActionStyleDefault
                                               handler:^(UIAlertAction *action)
                                               {
@@ -231,7 +238,15 @@
     
     //Set frame
     CGFloat textWidth = popupLabel.intrinsicContentSize.width;
-    popupLabel.frame = CGRectMake(0, 0, textWidth + 20, 50);
+    CGRect labelFrame = CGRectMake(0, 0, textWidth + 20, 50);
+    
+    //To make popup not to be wider tan 170 points
+    if (textWidth > 170) {
+        labelFrame = [popupLabel textRectForBounds:CGRectMake(0, 0, 170, 50)
+                            limitedToNumberOfLines:2];
+    }
+    
+    popupLabel.frame = labelFrame;
     
     //Set color
     popupLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];

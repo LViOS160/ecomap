@@ -13,6 +13,7 @@
 #import "ContainerViewController.h"
 #import "EcomapEditableProblem.h"
 #import "EcomapProblemDetails.h"
+#import "InfoActions.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -127,9 +128,11 @@ typedef enum : NSUInteger {
                                 if (!error) {
                                     [self loadProblemDetails:^{
                                         sender.enabled = YES;
+                                        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Голос додано", @"Vote added")];
                                     }];
                                 } else {
                                     sender.enabled = YES;
+                                    [InfoActions showPopupWithMesssage:NSLocalizedString(@"Ви вже голосували за дану проблему", @"You have already voted for this problem")];
                                 }
                             }];
     }
@@ -161,18 +164,18 @@ typedef enum : NSUInteger {
 {
     if (self.editableProblem) {
         if(self.editableProblem.isSolved) {
-            return [[NSAttributedString alloc] initWithString:@"вирішена"
+            return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"вирішена", @"solved")
                                                    attributes:@{
                                                                 NSForegroundColorAttributeName:[UIColor greenColor]
                                                                     }];
         } else {
-            return [[NSAttributedString alloc] initWithString:@"не вирішена"
+            return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"не вирішена", @"not solved")
                                                    attributes:@{
                                                                 NSForegroundColorAttributeName:[UIColor redColor]
                                                                 }];
         }
     } else {
-        return [[NSAttributedString alloc] initWithString:@"Завантаження..."];
+        return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Завантаження...", @"loading...")];
     }
 }
 

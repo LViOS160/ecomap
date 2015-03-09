@@ -12,6 +12,7 @@
 #import "EcomapFetcher+PostProblem.h"
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
+#import "InfoActions.h"
 
 @interface AddProblemViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
@@ -254,36 +255,46 @@
 }
 
 - (IBAction)addProblemButtonTap:(UIButton *)sender {
-    if (!self.userIsInTheMiddleOfAddingProblem) {
-        [self loadNibs];
-        [self showAddProblemView];
-        self.addProblemPhoto.rootController = self;
-        self.nextButton.hidden = NO;
-        UIButton *button = sender;
-        button.hidden = YES;
-        CGRect buttonFrame = button.frame;
-        buttonFrame.origin.y += 50;
-        NSLog(@"%@", button.constraints);
-        
-        self.topSpaceToButton.constant = 10;
-        [button setNeedsUpdateConstraints];
-        
-        [button setFrame:buttonFrame];
-        self.userIsInTheMiddleOfAddingProblem = true;
-        self.mapView.userInteractionEnabled = YES;
+    if([EcomapLoggedUser currentLoggedUser]) {
+        if (!self.userIsInTheMiddleOfAddingProblem) {
+            [self loadNibs];
+            [self showAddProblemView];
+            self.addProblemPhoto.rootController = self;
+            self.nextButton.hidden = NO;
+            UIButton *button = sender;
+            button.hidden = YES;
+            CGRect buttonFrame = button.frame;
+            buttonFrame.origin.y += 50;
+            NSLog(@"%@", button.constraints);
+            
+            self.topSpaceToButton.constant = 10;
+            [button setNeedsUpdateConstraints];
+            
+            [button setFrame:buttonFrame];
+            self.userIsInTheMiddleOfAddingProblem = true;
+            self.mapView.userInteractionEnabled = YES;
+            
+            
+        } else {
+            
+            self.topSpaceToButton.constant = 77;
+            [self.addProblemButton setNeedsUpdateConstraints];
+            
+            [self postProblem];                     // not implemented
+            self.userIsInTheMiddleOfAddingProblem = false;
+            [self closeButtonTap:nil];
+            [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+        }
 
-        
     } else {
-        
-        self.topSpaceToButton.constant = 77;
-        [self.addProblemButton setNeedsUpdateConstraints];
-        
-        [self postProblem];                     // not implemented
-        self.userIsInTheMiddleOfAddingProblem = false;
-        [self closeButtonTap:nil];
-        [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+        //show action sheet to login
+        [InfoActions showLogitActionSheetFromSender:sender
+                           actionAfterSuccseccLogin:^{
+                               [self addProblemButtonTap:sender];
+                           }];
     }
-}
+
+    }
 
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {

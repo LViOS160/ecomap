@@ -39,17 +39,8 @@
     NSString *oldPasswod = self.oldPasswordTextField.text;
     NSString *password = self.passwordTextField.text;
     
-    //Check if fields are empty
-    if ([self isAnyTextFieldEmpty]) {
-        [InfoActions showAlertWithTitile:@"Неповна інформація"
-                              andMessage:@"\nБудь-ласка заповніть усі поля"];
-        return;
-    } else if (![self isPasswordsEqual]) //check if passwords are equal
-    {
-        [InfoActions showAlertWithTitile:@"Помилка"
-                              andMessage:@"\nВведені паролі не співпадають"];
-        return;
-    }
+    //Check if all information is ready to be send to Ecomap server
+    if (![self canSendRequest]) return;
     
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     //Try to change password
@@ -59,19 +50,16 @@
                              [InfoActions stopActivityIndicator];
                              if (!error) {
                                  [self.navigationController popViewControllerAnimated:YES];
-                                 [InfoActions showAlertWithTitile:@""
-                                                       andMessage:@"Ваш пароль змінено"];
+                                 [InfoActions showPopupWithMesssage:NSLocalizedString(@"Ваш пароль змінено", @"Password changed") ];
                              } else if (error.code == 400) {
                                  //Change checkmarks image
                                  [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
-                                 [InfoActions showAlertWithTitile:@"Помилка"
-                                                       andMessage:@"\nВи ввели невірний пароль"];
+                                 [InfoActions showAlertOfError:NSLocalizedString(@"\nВи ввели невірний пароль", @"Your password is incorrect")];
                              } else {
-                                 [InfoActions showAlertWithTitile:@"Помилка"
-                                                       andMessage:[error localizedDescription]];
+                                 [InfoActions showAlertOfError:error];
                              }
     
-                             }];
+                             }]; //end of change password block
 }
 
 @end

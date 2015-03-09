@@ -19,6 +19,7 @@
 #import "GlobalLoggerLevel.h"
 #import "EcomapUserFetcher.h"
 #import "EcomapAdminFetcher.h"
+#import "InfoActions.h"
 
 
 
@@ -92,52 +93,38 @@
         EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
         NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
     
-    if(userIdent)
-    {
-        if([fromTextField isEqual:@""])
-                { UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Увага"
-                                                                       message:@"Не залишай пусті коментарі"
-                                                                      delegate:nil
-                                                             cancelButtonTitle:@"OK"
-                                                             otherButtonTitles: nil];
-               [alertView show];
-                    
+    if(userIdent) {
+        if([fromTextField isEqual:@""]) {
+            [InfoActions showAlertOfError:NSLocalizedString(@"Будь-ласка, введіть коментар", @"Please, enter your comment")];
             
-               }
+        } else {
             
-        
-        else
+            [EcomapFetcher createComment:userID
+                                 andName:userIdent.name
+                              andSurname:userIdent.surname
+                              andContent:fromTextField
+                            andProblemId:self.problemma OnCompletion:^(EcomapCommentaries *obj, NSError *error)
              {
-                [EcomapFetcher createComment:userID
-                                     andName:userIdent.name
-                                  andSurname:userIdent.surname
-                                  andContent:fromTextField
-                                andProblemId:self.problemma OnCompletion:^(EcomapCommentaries *obj, NSError *error)
-                                {
-                
-                                    if(error)
-                                        DDLogVerbose(@"Trouble");
-                                    else
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-                
-                               }];
-             
-         }
-    
-    }
                  
-    else
-    {
-        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка"
-                                                             message:@"Незареєстровані користувачі на це не здатні.Зареєструйся !"
-                                                            delegate:nil
-                                                   cancelButtonTitle:@"OK"
-                                                   otherButtonTitles: nil];
-        [alertView show];
-        
+                 if(error)
+                     DDLogError(@"Error adding comment:%@", [error localizedDescription]);
+                 else
+                     [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+                 [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
+                 
+             }];
+            
+        }
+
+    } else {
+        //show action sheet to login
+        [InfoActions showLogitActionSheetFromSender:sender
+                           actionAfterSuccseccLogin:^{
+                               [self pressAddComment:sender];
+                           }];
+        return;
     }
-    
- 
+
     if ([self.textField isFirstResponder]) {
         self.textField.text = @"";
     }
