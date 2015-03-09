@@ -22,6 +22,7 @@
 		518F30C21AA4D82D0094DA14 /* UserActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */; };
 		518F30CB1AAA5C180094DA14 /* UIViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30CA1AAA5C180094DA14 /* UIViewController+Utils.m */; };
 		518F30DB1AAB19540094DA14 /* InfoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30DA1AAB19540094DA14 /* InfoActions.m */; };
+		518F30EA1AAB34F20094DA14 /* LoginWithFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30E91AAB34F20094DA14 /* LoginWithFacebook.m */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */; };
 		90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */; };
@@ -169,6 +170,8 @@
 		518F30CA1AAA5C180094DA14 /* UIViewController+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utils.m"; sourceTree = "<group>"; };
 		518F30D91AAB19540094DA14 /* InfoActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoActions.h; sourceTree = "<group>"; };
 		518F30DA1AAB19540094DA14 /* InfoActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoActions.m; sourceTree = "<group>"; };
+		518F30E81AAB34F20094DA14 /* LoginWithFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWithFacebook.h; sourceTree = "<group>"; };
+		518F30E91AAB34F20094DA14 /* LoginWithFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWithFacebook.m; sourceTree = "<group>"; };
 		90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
 		90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
 		90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAdminFetcher.h; sourceTree = "<group>"; };
@@ -837,6 +840,8 @@
 			children = (
 				518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */,
 				518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */,
+				518F30E81AAB34F20094DA14 /* LoginWithFacebook.h */,
+				518F30E91AAB34F20094DA14 /* LoginWithFacebook.m */,
 				518F30B61AA4D82D0094DA14 /* LoginViewController.h */,
 				518F30B71AA4D82D0094DA14 /* LoginViewController.m */,
 				518F30B81AA4D82D0094DA14 /* ProfileViewController.h */,
@@ -1170,6 +1175,7 @@
 				B3738C3D1A9DDC4B0077F604 /* ResourceCell.m in Sources */,
 				B3738C181A9DDC4B0077F604 /* GClusterManager.m in Sources */,
 				518F30CB1AAA5C180094DA14 /* UIViewController+Utils.m in Sources */,
+				518F30EA1AAB34F20094DA14 /* LoginWithFacebook.m in Sources */,
 				B3738C1D1A9DDC4B0077F604 /* GDefaultClusterRenderer.m in Sources */,
 				90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */,
 				9096C98D1A91E8DA00A61CDB /* (null) in Sources */,

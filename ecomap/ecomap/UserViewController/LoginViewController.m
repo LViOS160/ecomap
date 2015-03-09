@@ -10,6 +10,8 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapUserFetcher.h"
 #import "RegisterViewController.h"
+#import "LoginWithFacebook.h"
+#import "InfoActions.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
@@ -53,31 +55,31 @@
     
     //Check if fields are empty
     if ([self isAnyTextFieldEmpty]) {
-        [self showAlertViewWithTitile:@"Неповна інформація"
+        [InfoActions showAlertWithTitile:@"Неповна інформація"
                            andMessage:@"\nБудь-ласка заповніть усі поля"];
         return;
     } else if (![self isValidMail:email]) { //check if email is valid
-        [self showAlertViewWithTitile:@"Помилка"
-                           andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
+        [InfoActions showAlertWithTitile:@"Помилка"
+                              andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
         return;
     }
     
     //Change checkmarks image
     [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail], [NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_GOOD_IMAGE];
     
-    [self spinerShouldShow:YES];
+    [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     //Send e-mail and password on server
     [EcomapUserFetcher loginWithEmail:email andPassword:password OnCompletion:
      ^(EcomapLoggedUser *user, NSError *error){
-         [self spinerShouldShow:NO];
+         [InfoActions stopActivityIndicator];
          if (error){
              if (error.code == 400) {
                  //Change checkmarks image
                  [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail], [NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
-                 [self showAlertViewWithTitile:@"Помилка авторизації"
+                 [InfoActions showAlertWithTitile:@"Помилка авторизації"
                                     andMessage:@"\nНеправильний пароль або email-адреса"];
              } else {
-                 [self showAlertViewOfError:error];
+                 [InfoActions showAlertOfError:error];
              }
          }
          else{
@@ -89,13 +91,12 @@
                      self.dismissBlock(NO);
                  }];
                  //show greeting for logged user
-                 if (self.showGreetingAfterLogin) {
-                     [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", user.name]
+                 [InfoActions showAlertWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", user.name]
                                         andMessage:@"\nЛаскаво просимо на Ecomap"];
-                 }
-;
+                 
+
              } else {
-                 [self showAlertViewWithTitile:@"Помилка на сервері"
+                 [InfoActions showAlertWithTitile:@"Помилка на сервері"
                                     andMessage:@"Є проблеми на сервері. Ми працюємо над їх вирішенням!"];
              }
              
@@ -105,42 +106,17 @@
 }
 - (IBAction)loginWithFacebookButton:(id)sender {
     DDLogVerbose(@"Facebook button pressed");
-    [self spinerShouldShow:YES];
-    [EcomapUserFetcher loginWithFacebookOnCompletion:^(EcomapLoggedUser *loggedUserFB, NSError *error) {
-        [self spinerShouldShow:NO];
-        if (!error) {
-            if (loggedUserFB) {
-                //perform dismissBlock before ViewController get off thе screen
-                self.dismissBlock(YES);
-                [self dismissViewControllerAnimated:YES completion:^{
-                    //perform dismissBlock after ViewController get off thе screen
-                    self.dismissBlock(NO);
-                }];
-                //show greeting for logged user
-                if (self.showGreetingAfterLogin) {
-                    [self showAlertViewWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUserFB.name]
-                                       andMessage:@"\nЛаскаво просимо на Ecomap"];
-                }
-
-            } else {
-                [self showAlertViewWithTitile:@"Помилка входу через Facebook"
-                                   andMessage:@"Неможливо отримати дані для авторизації на Ecomap"];
-            }
+    [LoginWithFacebook loginWithFacebook:^(BOOL result) {
+        if (result) {
+            //perform dismissBlock before ViewController get off thе screen
+            self.dismissBlock(YES);
             
-        } else self.errorToLoginWithFacebook(error);
-        /*
-        else if (error.code == 400) {
-            [self showAlertViewWithTitile:@"Помилка входу через Facebook"
-                               andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
-        } else {
-            [self showAlertViewWithTitile:@"Помилка входу через Facebook"
-                               andMessage:[error localizedDescription]];
+            [self dismissViewControllerAnimated:YES completion:^{
+                //perform dismissBlock after ViewController get off thе screen
+                self.dismissBlock(NO);
+            }];
         }
-         */
-
-        
     }];
-    
 }
 
 - (IBAction)cancelButton:(UIBarButtonItem *)sender {

@@ -10,19 +10,76 @@
 #import "EcomapUserFetcher.h"
 #import "UIViewController+Utils.h"
 #import "LoginViewController.h"
+#import "LoginWithFacebook.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
+@interface InfoActions ()
+@property (nonatomic, strong) UIView *activityIndicatorView;
+@property (nonatomic, strong) UILabel *popupLabel;
+@end
+
 @implementation InfoActions
 
-+ (void)showAlertViewWithTitile:(NSString *)title andMessage:(NSString *)message
+#pragma mark - Singleton
++ (instancetype)sharedActions
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
+    
+    static InfoActions *sharedActions = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        sharedActions = [[InfoActions alloc] init];
+        
+        if (sharedActions) {
+            //Register observer to receive notifications
+            
+            //Add observer to listen when device chages orientation
+            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+            [nc addObserver:sharedActions
+                   selector:@selector(orientationChanged:)
+                       name:UIDeviceOrientationDidChangeNotification
+                     object:nil];
+        }
+        
+    });
+    
+    return sharedActions;
+    
+}
+
+//Center all action views here
+- (void)orientationChanged:(NSNotification *)note
+{
+    CGPoint center = [[UIApplication sharedApplication] keyWindow].center;
+    self.activityIndicatorView.center = center;
+    self.popupLabel.center = center;
+}
+
+#pragma mark - Alets
+
++ (void)showAlertWithTitile:(NSString *)title andMessage:(NSString *)message
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Cancel action on alert")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    [alertController addAction:cancelAction];
+    
+    //Get current ViewControlller
+    UIViewController *currentVC = [UIViewController currentViewController];
+    
+    //Present Alert
+    [currentVC presentViewController:alertController animated:YES completion:nil];
+}
+ 
++ (void)showAlertOfError:(NSError *)error
+{
+     [self showAlertWithTitile:@"Помилка"
+                        andMessage:[error localizedDescription]]; //human-readable dwscription of the error
 }
 
 #pragma mark - Login action sheet
@@ -67,7 +124,6 @@
                                       LoginViewController *loginVC = (LoginViewController *)[navController topViewController];
                                       
                                       //setup LoginViewController
-                                      loginVC.showGreetingAfterLogin = NO;
                                       loginVC.dismissBlock = ^(BOOL isUserActionViewControllerOnScreen){
                                           if (!isUserActionViewControllerOnScreen) {
                                               dismissBlock();
@@ -76,7 +132,8 @@
                                       
                                       //Present modaly LoginViewController
                                       [currentVC presentViewController:navController animated:YES completion:nil];
-                                  }];
+                                      
+                                  }]; //end of UIAlertAction handler block
     
     UIAlertAction *loginWithFacebookAction = [UIAlertAction
                                               actionWithTitle:NSLocalizedString(@"Війти з Facebook", @"Loin with Facebook action on login alert")
@@ -84,10 +141,15 @@
                                               handler:^(UIAlertAction *action)
                                               {
                                                   DDLogVerbose(@"loginWithFacebook action");
-                                                  [EcomapUserFetcher loginWithFacebookOnCompletion:^(EcomapLoggedUser *loggedUserFB, NSError *error) {
-                                                  }];
-                                                  dismissBlock();
-                                              }];
+                                                  [LoginWithFacebook loginWithFacebook:^(BOOL result) {
+                                                      if (result) {
+                                                          //perform dismissBlock
+                                                          dismissBlock();
+                                                      }
+
+                                                  }]; //end of LoginWithFacebook block
+                                                  
+                                              }]; //end of UIAlertAction handler block
     
     //add actions to alertController
     [alertController addAction:cancelAction];
@@ -116,38 +178,43 @@
         return;
     }
     
+    InfoActions *sharedActions = [self sharedActions];
+    
     //Create popup label
-    UILabel *popupLabel = [self createLabelWithText:message];
+    sharedActions.popupLabel = [self createLabelWithText:message];
     
     //Get keyWindos
     UIWindow *appKeyWindow = [[UIApplication sharedApplication] keyWindow];
     
     //Position in center
-    popupLabel.center = [appKeyWindow center];
+    sharedActions.popupLabel.center = [appKeyWindow center];
     
     //show popup
-    [appKeyWindow addSubview:popupLabel];
+    [appKeyWindow addSubview:sharedActions.popupLabel];
     DDLogVerbose(@"Popup showed");
     
     //Appear animation
-    popupLabel.transform = CGAffineTransformMakeScale(1.3, 1.3);
-    popupLabel.alpha = 0;
+    sharedActions.popupLabel.transform = CGAffineTransformMakeScale(1.3, 1.3);
+    sharedActions.popupLabel.alpha = 0;
     [UIView animateWithDuration:0.3 animations:^{
-        popupLabel.alpha = 1;
-        popupLabel.transform = CGAffineTransformMakeScale(1, 1);
+        sharedActions.popupLabel.alpha = 1;
+        sharedActions.popupLabel.transform = CGAffineTransformMakeScale(1, 1);
     }];
     
     //Dismiss popup after delay
-    [self performSelector:@selector(dismissPopup:) withObject:popupLabel afterDelay:POPUP_DELAY];
+    [self performSelector:@selector(dismissPopup:) withObject:nil afterDelay:POPUP_DELAY];
 }
 
 + (void)dismissPopup:(UIView *)sender {
+    
+    InfoActions *sharedActions = [self sharedActions];
     // Fade out the message and destroy popup
     [UIView animateWithDuration:0.3
                      animations:^  {
-                         sender.transform = CGAffineTransformMakeScale(1.3, 1.3);
-                         sender.alpha = 0; }
+                         sharedActions.popupLabel.transform = CGAffineTransformMakeScale(1.3, 1.3);
+                         sharedActions.popupLabel.alpha = 0; }
                      completion:^ (BOOL finished) {
+                         sharedActions.popupLabel = nil;
                          DDLogVerbose(@"Popup dismissed");
                          [sender removeFromSuperview];
                      }];
@@ -175,6 +242,64 @@
     popupLabel.clipsToBounds=YES;
     
     return popupLabel;
+}
+
+#pragma mark - Activity Indicator
++ (void)startActivityIndicatorWithUserInteractionEnabled:(BOOL)enabled
+{
+    
+    InfoActions *sharedActions = [self sharedActions];
+    
+    if (sharedActions.activityIndicatorView) {
+        DDLogError(@"Can't create 2-nd activity indicator");
+        return;
+    }
+    
+    //Get keyWindos
+    UIWindow *appKeyWindow = [[UIApplication sharedApplication] keyWindow];
+    
+    if (!enabled) {
+        //Disable user events handling
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    }
+    
+    //Create activity indicator transparent black pad
+    sharedActions.activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+    sharedActions.activityIndicatorView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];
+    sharedActions.activityIndicatorView.layer.cornerRadius = 5.0;
+    sharedActions.activityIndicatorView.clipsToBounds=YES;
+    //Position in center
+    sharedActions.activityIndicatorView.center = appKeyWindow.center;
+    //add to view hierarchy
+    [appKeyWindow addSubview:sharedActions.activityIndicatorView];
+    
+    //Create activity indicator
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [activityIndicator startAnimating];
+    activityIndicator.center = CGPointMake(sharedActions.activityIndicatorView.bounds.size.width / 2, sharedActions.activityIndicatorView.bounds.size.height / 2);
+    //add to view activityIndicatorPad
+    [sharedActions.activityIndicatorView addSubview:activityIndicator];
+    
+    DDLogVerbose(@"Activity indicator started");
+    
+    //Show dismiss button after delay (so user can cancel activity indicator in case of some error)
+    //[self performSelector:@selector(showDismissButton:) withObject:nil afterDelay:20];
+    
+}
+
++ (void)stopActivityIndicator
+{
+    InfoActions *sharedActions = [self sharedActions];
+    
+    if (sharedActions.activityIndicatorView) {
+        [sharedActions.activityIndicatorView removeFromSuperview];
+        
+        //Enable user events handling
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        sharedActions.activityIndicatorView = nil;
+        
+        DDLogVerbose(@"Activity indicator stoped");
+    }
 }
 
 @end

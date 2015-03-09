@@ -10,6 +10,7 @@
 #import "EcomapFetcher.h"
 #import "EcomapUserFetcher.h"
 #import "EcomapLoggedUser.h"
+#import "InfoActions.h"
 #import "GlobalLoggerLevel.h"
 
 @interface ProfileViewController ()
@@ -17,8 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *surmaneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *roleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *imgProfilePicture;
-
 
 @end
 
@@ -29,7 +28,6 @@
     [super viewDidLoad];
     
     [self prepareLabels];
-    // Do any additional setup after loading the view.
 }
 
 - (void)prepareLabels
@@ -47,15 +45,15 @@
 }
 - (IBAction)LogoutButton:(id)sender {
     DDLogVerbose(@"Logout button pressed");
-    [self spinerShouldShow:YES];
+    [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     [EcomapUserFetcher logoutUser:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(BOOL result, NSError *error) {
-        [self spinerShouldShow:NO];
+        [InfoActions stopActivityIndicator];
         if (!error) {
             self.dismissBlock(YES);
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
             // In case an error to logout has occured
-            [self showAlertViewWithTitile:@"Помилка"
+            [InfoActions showAlertWithTitile:@"Помилка"
                                andMessage:[error localizedDescription]];
         }
     }];
