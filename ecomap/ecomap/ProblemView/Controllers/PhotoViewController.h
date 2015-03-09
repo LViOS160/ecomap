@@ -22,5 +22,6 @@
 @interface PhotoViewController : UIViewController
 
 @property (nonatomic, weak) id<PhotoViewControllerDelegate> delegate;
+@property (nonatomic, assign) NSUInteger maxPhotos;
 
 @end
