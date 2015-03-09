@@ -32,7 +32,6 @@
         //Get pointer to mapViewController
         UINavigationController *mapVC = rvc.mapViewController;
         
-        userVC.showGreetingAfterLogin = YES;
         userVC.dismissBlock = ^(BOOL isUserActionViewControllerOnScreen){
             if (isUserActionViewControllerOnScreen) {
                 //Show map

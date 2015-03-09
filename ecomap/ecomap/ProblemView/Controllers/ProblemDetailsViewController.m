@@ -140,7 +140,6 @@
         [customButton addTarget:self
                          action:@selector(buttonToAddImagePressed:)
                forControlEvents:UIControlEventTouchUpInside];
-        DDLogVerbose(@"'Add image' button created");
     } else {
         //Set background color
         //customButton.backgroundColor = [UIColor blackColor];
@@ -185,7 +184,6 @@
         [customButton addTarget:self
                          action:@selector(buttonWithImageOnScreenPressed:)
                forControlEvents:UIControlEventTouchUpInside];
-        DDLogVerbose(@"Button with photo number %lu created", (unsigned long)tag);
     }
     
     

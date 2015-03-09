@@ -9,13 +9,20 @@
 #import <UIKit/UIKit.h>
 
 @interface InfoActions : NSObject
-+ (void)showAlertViewWithTitile:(NSString *)title andMessage:(NSString *)message;
+
+//Show Alert
++ (void)showAlertWithTitile:(NSString *)title andMessage:(NSString *)message;
++ (void)showAlertOfError:(NSError *)error;
 
 //Show action sheet with login oprions
 //Sender can be nill. It is required for iPad to present popover in right position (since action sheet is presented in popover on iPad)
 //dismissBlock can be nill. Set it if you need some action to be done after success login.
 + (void)showLogitActionSheetFromSender:(id)sender actionAfterSuccseccLogin:(void (^)(void))dismissBlock;
 
-//Show popup for 1.5 sec. User
+//Show popup for 1.5 sec
 + (void)showPopupWithMesssage:(NSString *)message;
+
+//Activity indicator
++ (void)startActivityIndicatorWithUserInteractionEnabled:(BOOL)enabled;
++ (void)stopActivityIndicator;
 @end

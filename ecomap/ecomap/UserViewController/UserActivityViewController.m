@@ -44,20 +44,6 @@
     return self.activeField;
 }
 
--(void (^)(NSError *))errorToLoginWithFacebook
-{
-   return ^(NSError *error){
-       if (error.code == 400) {
-           [self showAlertViewWithTitile:@"Помилка входу через Facebook"
-                              andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
-       } else {
-           [self showAlertViewWithTitile:@"Помилка входу через Facebook"
-                              andMessage:[error localizedDescription]];
-       }
-
-    };
-}
-
 #pragma mark - keyborad managment
 - (void)registerForKeyboardNotifications
 {
@@ -156,22 +142,6 @@
 }
 
 #pragma mark - helper methods
-- (void)showAlertViewOfError:(NSError *)error
-{
-    [self showAlertViewWithTitile:@"Помилка"
-                       andMessage:[error localizedDescription]]; //human-readable dwscription of the error
-}
-
-- (void)showAlertViewWithTitile:(NSString *)title andMessage:(NSString *)message
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-}
-
 -(BOOL)isValidMail:(NSString *)checkString
 {
     BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/

@@ -9,6 +9,7 @@
 #import "ChangePasswordViewController.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapUserFetcher.h"
+#import "InfoActions.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
@@ -40,34 +41,34 @@
     
     //Check if fields are empty
     if ([self isAnyTextFieldEmpty]) {
-        [self showAlertViewWithTitile:@"Неповна інформація"
-                           andMessage:@"\nБудь-ласка заповніть усі поля"];
+        [InfoActions showAlertWithTitile:@"Неповна інформація"
+                              andMessage:@"\nБудь-ласка заповніть усі поля"];
         return;
     } else if (![self isPasswordsEqual]) //check if passwords are equal
     {
-        [self showAlertViewWithTitile:@"Помилка"
-                           andMessage:@"\nВведені паролі не співпадають"];
+        [InfoActions showAlertWithTitile:@"Помилка"
+                              andMessage:@"\nВведені паролі не співпадають"];
         return;
     }
     
-    [self spinerShouldShow:YES];
+    [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     //Try to change password
     [EcomapUserFetcher changePassword:oldPasswod
                         toNewPassword:password
                          OnCompletion:^(NSError *error) {
-                             [self spinerShouldShow:NO];
+                             [InfoActions stopActivityIndicator];
                              if (!error) {
                                  [self.navigationController popViewControllerAnimated:YES];
-                                 [self showAlertViewWithTitile:@""
-                                                    andMessage:@"Ваш пароль змінено"];
+                                 [InfoActions showAlertWithTitile:@""
+                                                       andMessage:@"Ваш пароль змінено"];
                              } else if (error.code == 400) {
                                  //Change checkmarks image
                                  [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
-                                 [self showAlertViewWithTitile:@"Помилка"
-                                                    andMessage:@"\nВи ввели невірний пароль"];
+                                 [InfoActions showAlertWithTitile:@"Помилка"
+                                                       andMessage:@"\nВи ввели невірний пароль"];
                              } else {
-                                 [self showAlertViewWithTitile:@"Помилка"
-                                                    andMessage:[error localizedDescription]];
+                                 [InfoActions showAlertWithTitile:@"Помилка"
+                                                       andMessage:[error localizedDescription]];
                              }
     
                              }];
