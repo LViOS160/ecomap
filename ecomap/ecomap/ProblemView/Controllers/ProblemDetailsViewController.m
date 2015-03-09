@@ -223,12 +223,14 @@
                withImageDescriptions:(NSArray *)imageDescriptions
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [InfoActions startActivityIndicatorWithUserInteractionEnabled:YES];
     [EcomapFetcher addPhotos:imageDescriptions
                    toProblem:self.problemDetails.problemID
                         user:[EcomapLoggedUser currentLoggedUser]
                 OnCompletion:^(NSString *result, NSError *error) {
+                    [InfoActions stopActivityIndicator];
                     if(error)
-                        DDLogVerbose(@"%@", error);
+                        [InfoActions showAlertOfError:error];
                     else
                         [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
                 }];
