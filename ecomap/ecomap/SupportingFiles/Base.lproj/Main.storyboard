@@ -2635,7 +2635,7 @@
         <image name="reveal-icon" width="22" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="p0L-Um-XQx"/>
         <segue reference="WgQ-oX-LnI"/>
-        <segue reference="Tb6-3i-OMj"/>
     </inferredMetricsTieBreakers>
 </document>

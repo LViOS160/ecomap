@@ -53,8 +53,7 @@
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
             // In case an error to logout has occured
-            [InfoActions showAlertWithTitile:@"Помилка"
-                               andMessage:[error localizedDescription]];
+            [InfoActions showAlertOfError:error];
         }
     }];
 }

@@ -70,7 +70,7 @@
 
 - (UIImage *)iconForCell:(NSUInteger)problemTypeID
 {
-    return [UIImage imageNamed:[NSString stringWithFormat:@"%lu.png", problemTypeID + 10]];
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%du.png", problemTypeID + 10]];
 }
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "UserActivityViewController.h"
+#import "EcomapLoggedUser.h"
+#import "InfoActions.h"
 
 @interface UserActivityViewController ()
 @property (nonatomic) CGFloat keyboardHeight;
@@ -142,7 +144,29 @@
 }
 
 #pragma mark - helper methods
--(BOOL)isValidMail:(NSString *)checkString
+- (BOOL)canSendRequest
+{
+    //BOOL result = YES;
+    //Check if fields are empty
+    if ([self isAnyTextFieldEmpty]) {
+        [InfoActions showAlertWithTitile:@"Неповна інформація"
+                              andMessage:@"\nБудь-ласка заповніть усі поля"];
+        return NO;
+    } else if (self.emailTextField && ![self isValidMail:self.emailTextField.text]) { //check if email is valid
+        [InfoActions showAlertWithTitile:@"Помилка"
+                              andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
+        return NO;
+    } else if (self.confirmPasswordTextField && ![self isPasswordsEqual]) //check if passwords are equal
+    {
+        [InfoActions showAlertWithTitile:@"Помилка"
+                              andMessage:@"\nВведені паролі не співпадають"];
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (BOOL)isValidMail:(NSString *)checkString
 {
     BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
@@ -154,6 +178,7 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
+//compare NewPasswordField and confirmPasswordField
 - (BOOL)isPasswordsEqual {
     BOOL equal = NO;
     if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text] && ![self.passwordTextField.text isEqualToString:@""]) {
@@ -195,6 +220,10 @@
         }
         
     }
+}
+
+- (void)showGreetingForUser:(EcomapLoggedUser *)user{
+    [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо, %@!", @"Welcome, {User Name}"), user.name]];
 }
 
 @end

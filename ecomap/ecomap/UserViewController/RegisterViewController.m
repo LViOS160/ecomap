@@ -53,21 +53,8 @@
     NSString *email = self.emailTextField.text;
     NSString *password = self.passwordTextField.text;
     
-    //Check if fields are empty
-    if ([self isAnyTextFieldEmpty]) {
-        [InfoActions showAlertWithTitile:@"Неповна інформація"
-                           andMessage:@"\nБудь-ласка заповніть усі поля"];
-        return;
-    } else if (![self isValidMail:email]) { //check if email is valid
-        [InfoActions showAlertWithTitile:@"Помилка"
-                           andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
-        return;
-    } else if (![self isPasswordsEqual]) //check if passwords are equal
-    {
-        [InfoActions showAlertWithTitile:@"Помилка"
-                           andMessage:@"\nВведені паролі не співпадають"];
-        return;
-    }
+    //Check if all information is ready to be send to Ecomap server
+    if (![self canSendRequest]) return;
     
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     //Try to register
@@ -76,38 +63,52 @@
                               andEmail: email
                            andPassword: password
                           OnCompletion:^(NSError *error) {
-                  if (!error) {
+                              
+                      //Hadle response
+                      [self handleResponseToRegisterWithError:error];
+                      if (!error) {
+                          
                       //Try to login
                       [EcomapUserFetcher loginWithEmail: email
-                               andPassword: password
-                              OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                            andPassword: password
+                                           OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                               
                                   [InfoActions stopActivityIndicator];
                                   if (!error && loggedUser) {
+                                      //perform dismissBlock before ViewController get off thе screen
                                       self.dismissBlock(YES);
-                                      [self dismissViewControllerAnimated:YES completion:nil];
-                                      [InfoActions showAlertWithTitile:[NSString stringWithFormat:@"Вітаємо, %@!", loggedUser.name]
-                                                            andMessage:@"\nЛаскаво просимо на Ecomap"];
+                                      [self dismissViewControllerAnimated:YES completion:^{
+                                          //perform dismissBlock after ViewController get off thе screen
+                                          self.dismissBlock(NO);
+                                      }];
+
+                                      //show greeting for logged user
+                                      [self showGreetingForUser:loggedUser];
                                       
                                   } else {
                                       // In case an error to login has occured
-                                      [InfoActions showAlertWithTitile:@"Помилка"
-                                                            andMessage:[error localizedDescription]];
+                                      [InfoActions showAlertOfError:error];
                                   }
                         }]; //end of login complition block
-                  } else {
-                      // In case an error to register has occured.
-                      [InfoActions stopActivityIndicator];
-                      if (error.code == 400) {
-                          //Change checkmarks image
-                          [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
-                          [InfoActions showAlertWithTitile:@"Помилка"
-                                                andMessage:@"Користувач з такою email-адресою вже зареєстрований"];
-                      } else {
-                          [InfoActions showAlertWithTitile:@"Помилка"
-                                                andMessage:[error localizedDescription]];
-                      }
-                  }
-        }];  //end of registartiom complition block
+                  } else [InfoActions stopActivityIndicator];
+    }];  //end of registartiom complition block
 }
+
+#pragma mark - Helper methods
+- (void)handleResponseToRegisterWithError:(NSError *)error
+{
+    NSString *registerErrorTitle = NSLocalizedString(@"Помилка реєстрації", @"Alert title: Error to Register");
+    
+    if (error.code == 400 ) {
+        [InfoActions showAlertWithTitile:registerErrorTitle
+                              andMessage:ERROR_MESSAGE_TO_REGISTER];
+        //Change checkmarks image
+        [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail]] withImage:CHECKMARK_BAD_IMAGE];
+    } else if (error) {
+        [InfoActions showAlertWithTitile:registerErrorTitle
+                              andMessage:[error localizedDescription]];
+    }
+}
+
 
 @end
