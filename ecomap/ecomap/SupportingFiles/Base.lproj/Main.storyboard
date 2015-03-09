@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -1416,26 +1416,6 @@
                                     <constraint firstAttribute="trailing" secondItem="cp5-Qh-e0V" secondAttribute="trailing" id="qIf-D0-3Lj"/>
                                 </constraints>
                             </scrollView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCM-qC-NOK">
-                                <rect key="frame" x="270" y="270" width="60" height="60"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.59999999999999964" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activityIndicatorPad" translatesAutoresizingMaskIntoConstraints="NO" id="VJR-Zv-OKN">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                    </imageView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fOE-m3-Ia6">
-                                        <rect key="frame" x="12" y="12" width="37" height="37"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="VJR-Zv-OKN" firstAttribute="leading" secondItem="QCM-qC-NOK" secondAttribute="leading" id="1ko-wR-wBb"/>
-                                    <constraint firstItem="VJR-Zv-OKN" firstAttribute="top" secondItem="QCM-qC-NOK" secondAttribute="top" id="Im8-Tg-cFQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="VJR-Zv-OKN" secondAttribute="trailing" id="c95-On-eEk"/>
-                                    <constraint firstAttribute="height" constant="60" id="pLr-oN-zP7"/>
-                                    <constraint firstAttribute="bottom" secondItem="VJR-Zv-OKN" secondAttribute="bottom" id="uDD-oz-OBL"/>
-                                    <constraint firstAttribute="width" constant="60" id="uDd-dW-Zyv"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1447,8 +1427,6 @@
                             <constraint firstItem="DE6-Tx-n4d" firstAttribute="top" secondItem="ceB-AQ-0mj" secondAttribute="bottom" id="FLQ-aR-Xzd"/>
                             <constraint firstItem="DE6-Tx-n4d" firstAttribute="top" secondItem="ceB-AQ-0mj" secondAttribute="bottom" id="dYJ-aL-xKM"/>
                             <constraint firstAttribute="trailing" secondItem="ceB-AQ-0mj" secondAttribute="trailing" id="g2E-ot-AKo"/>
-                            <constraint firstAttribute="centerY" secondItem="QCM-qC-NOK" secondAttribute="centerY" id="gJr-nR-RPV"/>
-                            <constraint firstAttribute="centerX" secondItem="QCM-qC-NOK" secondAttribute="centerX" id="n1y-Ti-8Pm"/>
                             <constraint firstItem="ceB-AQ-0mj" firstAttribute="leading" secondItem="Z30-OL-z65" secondAttribute="leading" id="qKI-d5-HOz"/>
                         </constraints>
                     </view>
@@ -1460,8 +1438,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="fOE-m3-Ia6" id="RJk-LQ-BSo"/>
-                        <outlet property="activityIndicatorPad" destination="QCM-qC-NOK" id="Plu-bT-xgm"/>
                         <outlet property="emailTextField" destination="BvX-4d-c5g" id="Y0G-rp-VFs"/>
                         <outlet property="passwordTextField" destination="CNL-Cg-M9H" id="v5t-h3-Osf"/>
                         <outlet property="scrollView" destination="ceB-AQ-0mj" id="HMC-zW-bqm"/>
@@ -1669,26 +1645,6 @@
                                     <constraint firstItem="wrh-1E-QZR" firstAttribute="leading" secondItem="jbs-hk-fmV" secondAttribute="leading" id="WXk-ze-D9b"/>
                                 </constraints>
                             </scrollView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iko-eh-EJq">
-                                <rect key="frame" x="270" y="270" width="60" height="60"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.59999999999999964" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activityIndicatorPad" translatesAutoresizingMaskIntoConstraints="NO" id="Kat-Xk-HFS">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                    </imageView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QnI-QP-SH7">
-                                        <rect key="frame" x="12" y="12" width="37" height="37"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="Kat-Xk-HFS" firstAttribute="leading" secondItem="iko-eh-EJq" secondAttribute="leading" id="BuJ-Il-u2k"/>
-                                    <constraint firstAttribute="trailing" secondItem="Kat-Xk-HFS" secondAttribute="trailing" id="Dc9-tx-Y8q"/>
-                                    <constraint firstItem="Kat-Xk-HFS" firstAttribute="top" secondItem="iko-eh-EJq" secondAttribute="top" id="Kzw-XP-Xhc"/>
-                                    <constraint firstAttribute="height" constant="60" id="NTw-5t-1tL"/>
-                                    <constraint firstAttribute="bottom" secondItem="Kat-Xk-HFS" secondAttribute="bottom" id="hz2-5k-Qy8"/>
-                                    <constraint firstAttribute="width" constant="60" id="nwF-eg-M4H"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1696,8 +1652,6 @@
                             <constraint firstItem="jbs-hk-fmV" firstAttribute="top" secondItem="UGb-pd-s53" secondAttribute="top" id="8Bo-81-oEa"/>
                             <constraint firstAttribute="bottom" secondItem="jbs-hk-fmV" secondAttribute="bottom" id="F58-yr-JS2"/>
                             <constraint firstItem="wrh-1E-QZR" firstAttribute="width" secondItem="UGb-pd-s53" secondAttribute="width" id="GQe-3J-qgt"/>
-                            <constraint firstAttribute="centerX" secondItem="iko-eh-EJq" secondAttribute="centerX" id="bUt-XH-RDj"/>
-                            <constraint firstAttribute="centerY" secondItem="iko-eh-EJq" secondAttribute="centerY" id="gFc-v7-jVT"/>
                             <constraint firstAttribute="trailing" secondItem="jbs-hk-fmV" secondAttribute="trailing" id="ndZ-vP-srV"/>
                         </constraints>
                     </view>
@@ -1709,8 +1663,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="QnI-QP-SH7" id="EhZ-8m-AAc"/>
-                        <outlet property="activityIndicatorPad" destination="iko-eh-EJq" id="Xz8-7w-0rT"/>
                         <outlet property="emailLabel" destination="6dw-35-OpN" id="iDC-DT-U4G"/>
                         <outlet property="nameLabel" destination="EV4-hX-TzL" id="hkI-AN-XO9"/>
                         <outlet property="roleLabel" destination="glc-GU-xYI" id="kWY-JM-kBl"/>
@@ -1882,42 +1834,18 @@
                                     <constraint firstAttribute="bottom" secondItem="BfT-gu-huy" secondAttribute="bottom" id="u0l-ye-cMi"/>
                                 </constraints>
                             </scrollView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7NV-8U-ZB3">
-                                <rect key="frame" x="270" y="270" width="60" height="60"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.59999999999999964" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activityIndicatorPad" translatesAutoresizingMaskIntoConstraints="NO" id="B9U-wa-Acf">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                    </imageView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="tLW-2b-owc">
-                                        <rect key="frame" x="12" y="12" width="37" height="37"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="B9U-wa-Acf" secondAttribute="bottom" id="DZt-1Q-ZVE"/>
-                                    <constraint firstItem="B9U-wa-Acf" firstAttribute="leading" secondItem="7NV-8U-ZB3" secondAttribute="leading" id="OlH-4O-jKW"/>
-                                    <constraint firstAttribute="trailing" secondItem="B9U-wa-Acf" secondAttribute="trailing" id="QG3-Ri-0Q4"/>
-                                    <constraint firstItem="B9U-wa-Acf" firstAttribute="top" secondItem="7NV-8U-ZB3" secondAttribute="top" id="afB-O0-ayC"/>
-                                    <constraint firstAttribute="width" constant="60" id="hIx-hb-eKx"/>
-                                    <constraint firstAttribute="height" constant="60" id="nCc-hi-469"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="W0K-TC-fYJ" secondAttribute="trailing" id="5ex-vq-6c4"/>
                             <constraint firstItem="W0K-TC-fYJ" firstAttribute="top" secondItem="gAe-N4-Ymh" secondAttribute="top" id="DYF-w6-bUb"/>
                             <constraint firstItem="BfT-gu-huy" firstAttribute="width" secondItem="gAe-N4-Ymh" secondAttribute="width" id="Lhh-af-OuT"/>
-                            <constraint firstAttribute="centerY" secondItem="7NV-8U-ZB3" secondAttribute="centerY" id="M7Q-Wg-J24"/>
                             <constraint firstAttribute="bottom" secondItem="W0K-TC-fYJ" secondAttribute="bottom" id="OO6-s9-Dbp"/>
-                            <constraint firstAttribute="centerX" secondItem="7NV-8U-ZB3" secondAttribute="centerX" id="vh6-i5-ufy"/>
                             <constraint firstItem="W0K-TC-fYJ" firstAttribute="leading" secondItem="gAe-N4-Ymh" secondAttribute="leading" id="zf9-QU-WwB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Зміна паролю" id="7zG-fa-HBv"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="tLW-2b-owc" id="tED-wd-FWf"/>
-                        <outlet property="activityIndicatorPad" destination="7NV-8U-ZB3" id="9uM-tu-QsZ"/>
                         <outlet property="confirmPasswordTextField" destination="P9X-3g-b4K" id="qjY-vZ-HTF"/>
                         <outlet property="oldPasswordTextField" destination="3om-3o-SAB" id="vIF-EA-N3x"/>
                         <outlet property="passwordTextField" destination="emG-sH-AjN" id="S1q-Ug-Ft7"/>
@@ -2176,32 +2104,10 @@
                                     <constraint firstItem="yID-eW-dBz" firstAttribute="leading" secondItem="o7I-iL-C8H" secondAttribute="leading" id="otN-tn-2Rj"/>
                                 </constraints>
                             </scrollView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-M6-4Uv">
-                                <rect key="frame" x="270" y="270" width="60" height="60"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.59999999999999964" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activityIndicatorPad" translatesAutoresizingMaskIntoConstraints="NO" id="LCx-pr-hgk">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                    </imageView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="d8p-sx-uAX">
-                                        <rect key="frame" x="12" y="12" width="37" height="37"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="B0a-cE-FNN"/>
-                                    <constraint firstItem="LCx-pr-hgk" firstAttribute="leading" secondItem="cQQ-M6-4Uv" secondAttribute="leading" id="YzB-to-HTA"/>
-                                    <constraint firstItem="LCx-pr-hgk" firstAttribute="top" secondItem="cQQ-M6-4Uv" secondAttribute="top" id="fJC-iA-Dex"/>
-                                    <constraint firstAttribute="trailing" secondItem="LCx-pr-hgk" secondAttribute="trailing" id="js3-ig-V8K"/>
-                                    <constraint firstAttribute="width" constant="60" id="mNW-5E-yZx"/>
-                                    <constraint firstAttribute="bottom" secondItem="LCx-pr-hgk" secondAttribute="bottom" id="qLX-Ud-33D"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="cQQ-M6-4Uv" secondAttribute="centerY" id="2rv-ej-ShU"/>
                             <constraint firstItem="o7I-iL-C8H" firstAttribute="leading" secondItem="qyg-02-9dx" secondAttribute="leading" id="6pM-ZR-lJL"/>
-                            <constraint firstAttribute="centerX" secondItem="cQQ-M6-4Uv" secondAttribute="centerX" id="AG6-SB-9Rg"/>
                             <constraint firstAttribute="trailing" secondItem="o7I-iL-C8H" secondAttribute="trailing" id="DkZ-Cb-glr"/>
                             <constraint firstItem="o7I-iL-C8H" firstAttribute="top" secondItem="qyg-02-9dx" secondAttribute="top" id="KbJ-Bu-064"/>
                             <constraint firstItem="Ld9-H9-G0z" firstAttribute="top" secondItem="o7I-iL-C8H" secondAttribute="bottom" id="R7C-ZD-NLG"/>
@@ -2210,8 +2116,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Реєстрація" id="wHQ-2Q-NZX"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="d8p-sx-uAX" id="IPs-hv-tlD"/>
-                        <outlet property="activityIndicatorPad" destination="cQQ-M6-4Uv" id="6oX-h9-K31"/>
                         <outlet property="confirmPasswordTextField" destination="lhz-Ed-eSh" id="fmI-8C-Idi"/>
                         <outlet property="emailTextField" destination="46V-NT-9Zo" id="9Ry-xO-kFA"/>
                         <outlet property="nameTextField" destination="ASV-Hd-1eg" id="lgn-15-iew"/>
@@ -2714,7 +2618,6 @@
         <image name="Slice 2" width="20" height="49"/>
         <image name="Slice 3" width="5" height="49"/>
         <image name="UsernameField" width="282" height="41"/>
-        <image name="activityIndicatorPad" width="60" height="60"/>
         <image name="add" width="102" height="102"/>
         <image name="cameraButton" width="30" height="30"/>
         <image name="galleryButton" width="30" height="30"/>

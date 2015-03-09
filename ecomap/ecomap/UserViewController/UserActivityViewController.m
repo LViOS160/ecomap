@@ -184,27 +184,6 @@
     return empty;
 }
 
-- (void)spinerShouldShow:(BOOL)isVisible
-{
-    if (isVisible) {
-        //Disable touches on screen
-        self.view.userInteractionEnabled = NO;
-        
-        //Show spiner
-        [self.activityIndicator startAnimating];
-        self.activityIndicatorPad.hidden = NO;
-        self.activityIndicator.hidden = NO;
-    } else {
-        //Enable touches on screen
-        self.view.userInteractionEnabled = YES;
-        
-        //Show spiner
-        self.activityIndicatorPad.hidden = YES;
-        self.activityIndicator.hidden = YES;
-        [self.activityIndicator startAnimating];
-    }
-}
-
 - (void)showCheckmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image
 {
     for (UIImageView *imageView in self.checkmarks) {
