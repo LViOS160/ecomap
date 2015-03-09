@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -270,7 +270,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Pax-dr-mNF">
-                                <rect key="frame" x="0.0" y="52" width="600" height="504"/>
+                                <rect key="frame" x="0.0" y="81" width="600" height="475"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VmV-wm-BjT">
@@ -319,22 +319,32 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ви можете додати не більше 5-ти фото" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBn-tG-ZhV">
+                                <rect key="frame" x="0.0" y="52" width="600" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="bottom" secondItem="MBy-ao-5id" secondAttribute="top" id="0az-WO-q72"/>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="top" secondItem="Pax-dr-mNF" secondAttribute="bottom" id="1Mr-wM-GMi"/>
-                            <constraint firstItem="mVW-tn-iOb" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="Mp8-kG-wvq"/>
-                            <constraint firstItem="mVW-tn-iOb" firstAttribute="top" secondItem="BIa-TB-8PL" secondAttribute="bottom" constant="8" id="OQg-Ti-L3E"/>
-                            <constraint firstItem="mVW-tn-iOb" firstAttribute="leading" secondItem="Ycm-Qk-vLT" secondAttribute="leading" id="Y59-Tg-Zqs"/>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="Yin-BV-0Ac"/>
-                            <constraint firstAttribute="trailing" secondItem="VmV-wm-BjT" secondAttribute="trailing" id="Yyj-fJ-XZf"/>
-                            <constraint firstItem="Pax-dr-mNF" firstAttribute="top" secondItem="mVW-tn-iOb" secondAttribute="bottom" id="a3J-UV-9EU"/>
-                            <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="mVW-tn-iOb" secondAttribute="leading" id="c7d-Yb-pTz"/>
-                            <constraint firstItem="VmV-wm-BjT" firstAttribute="leading" secondItem="Pax-dr-mNF" secondAttribute="leading" id="cJf-Y5-o0t"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="top" secondItem="Pax-dr-mNF" secondAttribute="bottom" id="6yg-w2-0Mk"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="trailing" secondItem="cBn-tG-ZhV" secondAttribute="trailing" id="A9V-l0-I7e"/>
+                            <constraint firstItem="cBn-tG-ZhV" firstAttribute="leading" secondItem="Pax-dr-mNF" secondAttribute="leading" id="EuM-lY-dIi"/>
+                            <constraint firstItem="cBn-tG-ZhV" firstAttribute="trailing" secondItem="mVW-tn-iOb" secondAttribute="trailing" id="GYz-GN-n43"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="leading" secondItem="Ycm-Qk-vLT" secondAttribute="leading" id="KY5-yP-zCd"/>
+                            <constraint firstItem="cBn-tG-ZhV" firstAttribute="top" secondItem="mVW-tn-iOb" secondAttribute="bottom" id="Ng2-h7-MxR"/>
+                            <constraint firstItem="cBn-tG-ZhV" firstAttribute="leading" secondItem="mVW-tn-iOb" secondAttribute="leading" id="PQ5-NK-YRa"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="top" secondItem="cBn-tG-ZhV" secondAttribute="bottom" constant="8" symbolic="YES" id="WJ1-LG-TsC"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="bottom" secondItem="MBy-ao-5id" secondAttribute="top" id="aV2-eL-Qst"/>
+                            <constraint firstItem="mVW-tn-iOb" firstAttribute="top" secondItem="BIa-TB-8PL" secondAttribute="bottom" constant="8" id="cEd-DJ-hf5"/>
+                            <constraint firstItem="Pax-dr-mNF" firstAttribute="leading" secondItem="VmV-wm-BjT" secondAttribute="leading" id="eSu-cK-kGI"/>
+                            <constraint firstItem="VmV-wm-BjT" firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="iJJ-0I-a0f"/>
+                            <constraint firstAttribute="trailing" secondItem="Pax-dr-mNF" secondAttribute="trailing" id="nNd-Tp-7AM"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="maxPhotoLabel" destination="cBn-tG-ZhV" id="GYj-Gl-Pz1"/>
                         <outlet property="tableView" destination="Pax-dr-mNF" id="udZ-9X-TVs"/>
                     </connections>
                 </viewController>

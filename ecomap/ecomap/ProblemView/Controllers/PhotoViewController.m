@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *imageDescriptions;
 @property (nonatomic, strong) UITextView *messageBox;
 @property(nonatomic, strong) UITextField *activeField;
+@property (weak, nonatomic) IBOutlet UILabel *maxPhotoLabel;
 
 @end
 
@@ -36,6 +37,18 @@ static const NSUInteger _defaultMaxPhotos = 5;
     tap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tap];
     self.maxPhotos = _defaultMaxPhotos;
+}
+
+- (void)setMaxPhotos:(NSUInteger)maxPhotos
+{
+    _maxPhotos = maxPhotos;
+    [self updateUI];
+}
+
+- (void)updateUI
+{
+    self.maxPhotoLabel.text = [NSString stringWithFormat:@"Ви можете додати ще %lu фото",
+                               (unsigned long)(self.maxPhotos - self.imageDescriptions.count)];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -132,6 +145,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [self.imageDescriptions addObject:descr];
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self.tableView reloadData];
+    [self updateUI];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -153,6 +167,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.imageDescriptions removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
+        [self updateUI];
     }
 }
 
