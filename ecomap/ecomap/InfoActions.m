@@ -17,6 +17,7 @@
 @interface InfoActions ()
 @property (nonatomic, strong) UIView *activityIndicatorView;
 @property (nonatomic, strong) UILabel *popupLabel;
+@property (nonatomic) BOOL userInteraction;
 @end
 
 @implementation InfoActions
@@ -273,6 +274,7 @@
     //Get keyWindos
     UIWindow *appKeyWindow = [[UIApplication sharedApplication] keyWindow];
     
+    sharedActions.userInteraction = enabled;
     if (!enabled) {
         //Disable user events handling
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -310,7 +312,10 @@
         [sharedActions.activityIndicatorView removeFromSuperview];
         
         //Enable user events handling
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        if (!sharedActions.userInteraction) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        }
+        
         sharedActions.activityIndicatorView = nil;
         
         DDLogVerbose(@"Activity indicator stoped");
