@@ -34,10 +34,22 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 @implementation ProblemFilterTVC
 
+#pragma mark - View Controller Life Cycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    UITableViewCell *pickerViewCellToCheck = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    self.pickerCellRowHeight = pickerViewCellToCheck.frame.size.height;
+}
+
+#pragma mark - Properties
+
+- (EcomapProblemFilteringMask *)filteringMask:(EcomapProblemFilteringMask *)filteringMask
+{
+    if(!_filteringMask) _filteringMask = [[EcomapProblemFilteringMask alloc] init];
+    return _filteringMask;
 }
 
 #pragma mark - Helper Methods
@@ -47,57 +59,11 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     return self.datePickerIndexPath != nil;
 }
 
-- (UITableViewCell *)createDateCell:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
-    
-    return cell;
-}
-
-- (UITableViewCell *)createProblemTypeCell:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProblemTypeCellID];
-    
-    return cell;
-}
-
-- (UITableViewCell *)createProblemStatusCell:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProblemStatusCellID];
-    
-    return cell;
-}
-
-- (UITableViewCell *)createPickerCell:(NSDate *)date
-{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
-    
-    UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:kDatePickerTag];
-    
-    [targetedDatePicker setDate:date animated:NO];
-    
-    return cell;
-}
-
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return numberOfSections;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    CGFloat rowHeight = self.tableView.rowHeight;
-    
-    if ([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row)){
-        
-        rowHeight = self.pickerCellRowHeight;
-        
-    }
-    
-    return rowHeight;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -117,17 +83,29 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     return numberOfRows;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    CGFloat rowHeight = 44;
     
-    switch(indexPath.section) {
-        case 0: cell = [self createDateCell:indexPath];
-        case 1: cell = [self createProblemTypeCell:indexPath];
-        case 2: cell = [self createProblemStatusCell:indexPath];
+    if ([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row)) {
+        rowHeight = self.pickerCellRowHeight;
     }
     
-    return cell;
+    return rowHeight;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Row %ld, Section %ld", (long)indexPath.row, (long)indexPath.section);
+    
+    switch (indexPath.section) {
+        case 0: return [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
+        case 1: return [self.tableView dequeueReusableCellWithIdentifier:kProblemTypeCellID];
+        case 2: return [self.tableView dequeueReusableCellWithIdentifier:kProblemStatusCellID];
+    }
+    
+    return [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
 }
 
 
