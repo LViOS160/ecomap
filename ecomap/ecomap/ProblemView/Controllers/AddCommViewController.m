@@ -43,9 +43,9 @@
 
 - (void)viewDidLoad {
     
-    [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+   // [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
         
-    }];
+   // }];
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
     [self updateUI];
@@ -95,10 +95,7 @@
         NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
     
     if(userIdent) {
-        if([fromTextField isEqual:@""]) {
-            [InfoActions showAlertOfError:NSLocalizedString(@"Будь-ласка, введіть коментар", @"Please, enter your comment")];
-            
-        } else {
+        
             
             [EcomapFetcher createComment:userID
                                  andName:userIdent.name
@@ -117,7 +114,7 @@
             
         }
 
-    } else {
+     else {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
                            actionAfterSuccseccLogin:^{
