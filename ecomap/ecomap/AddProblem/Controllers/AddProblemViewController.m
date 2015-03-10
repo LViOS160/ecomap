@@ -72,13 +72,13 @@
         case 0:
             if (!self.marker) {
                 fieldFilled = NO;
-                alertText = @"Необхiдно обрати мiсцезнаходження проблеми";
+                alertText = NSLocalizedString(@"Необхiдно обрати мiсцезнаходження проблеми", ) ;
             }
             break;
         case 1:
             if ([self.addProblemName.problemName.text isEqualToString:@""]) {
                 fieldFilled = NO;
-                alertText = @"Необхiдно ввести назву проблеми";
+                alertText = NSLocalizedString(@"Необхiдно ввести назву проблеми", @"You have to enter the name of the problem");
             }
             break;
         default:
@@ -324,11 +324,12 @@
     
 }
 
+#define PROBLEM_LOCATION_STRING NSLocalizedString(@"Мiсцезнаходження проблеми", @"Problem location")
 - (void)locateMeDidTap {
     if(![CLLocationManager locationServicesEnabled]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ до геопозицiї" message:@"Для доступу до вашої геопозиції необхидно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Вiдмiнити" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *openAction = [UIAlertAction actionWithTitle:@"Вiдкрити налаштування" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Доступ до геопозицiї", @"Location Services access") message:NSLocalizedString(@"Для доступу до вашої геопозиції необхидно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції", @"Please allow the application access to your location service to locate your current pisition") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Вiдмiнити", @"Cancel") style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *openAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Вiдкрити налаштування", @"Open settings") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             [[UIApplication sharedApplication] openURL:url];
         }];
@@ -346,7 +347,7 @@
             if ([self.curView isKindOfClass:[AddProblemLocationViewController class]]) {
                 if (!self.marker) {
                     self.marker = [[GMSMarker alloc] init];
-                    self.marker.title = @"Мiсцезнаходження проблеми";
+                    self.marker.title = PROBLEM_LOCATION_STRING;
                     self.marker.map = self.mapView;
                 }
                 [self.marker setPosition:coordinate];
@@ -366,7 +367,7 @@
         if ([self.curView isKindOfClass:[AddProblemLocationViewController class]]) {
             if (!self.marker) {
                 self.marker = [[GMSMarker alloc] init];
-                self.marker.title = @"Мiсцезнаходження проблеми";
+                self.marker.title = PROBLEM_LOCATION_STRING;
                 self.marker.map = self.mapView;
             }
             [self.marker setPosition:coordinate];

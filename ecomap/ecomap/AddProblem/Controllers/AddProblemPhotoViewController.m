@@ -40,8 +40,8 @@ static const NSUInteger _maxPhotos = 5;
             viewController.maxPhotos = _maxPhotos - self.photos.count;
             [self.rootController presentViewController:viewController animated:YES completion:nil];
         } else {
-           [InfoActions showAlertWithTitile:@"Увага!"
-                                 andMessage:[NSString stringWithFormat:@"Ви можете додати максимум %lu фото", _maxPhotos]];
+           [InfoActions showAlertWithTitile:NSLocalizedString(@"Увага!", @"Attention!")
+                                 andMessage:[NSString stringWithFormat:NSLocalizedString(@"Ви можете додати максимум %lu фото", @"You can add maximum {number} photos"), _maxPhotos]];
         }
     }
 }

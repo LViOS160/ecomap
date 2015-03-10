@@ -45,7 +45,7 @@
 #define ECOMAP_PUT_EDIT_PROBLEM @"editProblem/"
 #define ECOMAP_DELETING_COMMENT @"activity/"
 //Problems types descripton
-#define ECOMAP_PROBLEM_TYPES_ARRAY @[@"проблеми лісів", @"сміттєзвалища", @"незаконна забудова", @"проблеми водойм", @"загрози біорізноманіттю", @"браконьєрство", @"інші проблеми"]
+#define ECOMAP_PROBLEM_TYPES_ARRAY @[NSLocalizedString(@"Проблеми лісів", @"Forest problems"), NSLocalizedString(@"Сміттєзвалища", @"Landfills"), NSLocalizedString(@"Незаконна забудова", @"Illegal construction"), NSLocalizedString(@"Проблеми водойм", @"Ponds problems"), NSLocalizedString(@"Загрози біорізноманіттю",@"Threats to biodiversity"), NSLocalizedString(@"Браконьєрство", @"Poaching"), NSLocalizedString(@"Інші проблеми", @"Other problems")]
 
 //Paths to Ecomap problem details array
 #define ECOMAP_PROBLEM_DETAILS_DESCRIPTION 0
