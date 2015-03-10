@@ -2,10 +2,12 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddProblemPhotoViewController">
             <connections>
+                <outlet property="scrollView" destination="bmo-tO-jWs" id="ZbJ-7A-zgJ"/>
                 <outlet property="view" destination="iN0-l3-epB" id="nkF-zT-VVc"/>
             </connections>
         </placeholder>
@@ -26,39 +28,32 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXp-JQ-wNP">
-                                <rect key="frame" x="120" y="37" width="80" height="80"/>
-                                <state key="normal" backgroundImage="addButtonImage">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addPhotoTap:" destination="-1" eventType="touchUpInside" id="Z32-ef-6h0"/>
-                                </connections>
-                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmo-tO-jWs">
+                                <rect key="frame" x="8" y="37" width="304" height="97"/>
+                            </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Fsg-Ye-Gxy" firstAttribute="top" secondItem="NKS-c5-KrV" secondAttribute="top" constant="8" id="KAk-RV-SRH"/>
-                            <constraint firstAttribute="centerX" secondItem="Fsg-Ye-Gxy" secondAttribute="centerX" id="XZX-Wc-TzY"/>
-                            <constraint firstItem="yXp-JQ-wNP" firstAttribute="centerX" secondItem="Fsg-Ye-Gxy" secondAttribute="centerX" id="e2z-Ad-TN0"/>
-                            <constraint firstItem="yXp-JQ-wNP" firstAttribute="top" secondItem="Fsg-Ye-Gxy" secondAttribute="bottom" constant="8" symbolic="YES" id="oNA-ZV-ibs"/>
+                            <constraint firstItem="bmo-tO-jWs" firstAttribute="trailing" secondItem="NKS-c5-KrV" secondAttribute="trailingMargin" id="Dun-oL-gn5"/>
+                            <constraint firstItem="bmo-tO-jWs" firstAttribute="bottom" secondItem="NKS-c5-KrV" secondAttribute="bottomMargin" id="Gnv-IT-ldJ"/>
+                            <constraint firstItem="Fsg-Ye-Gxy" firstAttribute="top" secondItem="NKS-c5-KrV" secondAttribute="topMargin" id="Mcs-VH-Nki"/>
+                            <constraint firstItem="bmo-tO-jWs" firstAttribute="leading" secondItem="NKS-c5-KrV" secondAttribute="leadingMargin" id="deT-wV-kjc"/>
+                            <constraint firstItem="bmo-tO-jWs" firstAttribute="centerX" secondItem="Fsg-Ye-Gxy" secondAttribute="centerX" id="rzt-yR-IaG"/>
+                            <constraint firstItem="bmo-tO-jWs" firstAttribute="top" secondItem="Fsg-Ye-Gxy" secondAttribute="bottom" constant="8" symbolic="YES" id="yRH-Bd-oMP"/>
                         </constraints>
                     </view>
                     <blurEffect style="light"/>
                 </visualEffectView>
             </subviews>
             <constraints>
-                <constraint firstItem="l4q-V6-JfP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="E7G-zH-GZ5"/>
-                <constraint firstAttribute="trailing" secondItem="l4q-V6-JfP" secondAttribute="trailing" id="PXu-7B-GiO"/>
-                <constraint firstAttribute="bottom" secondItem="l4q-V6-JfP" secondAttribute="bottom" id="Uln-9k-Mb5"/>
-                <constraint firstItem="l4q-V6-JfP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="etw-Kc-zu5"/>
+                <constraint firstAttribute="bottom" secondItem="l4q-V6-JfP" secondAttribute="bottom" id="29R-uw-Efe"/>
+                <constraint firstItem="l4q-V6-JfP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="C3m-52-ebY"/>
+                <constraint firstItem="l4q-V6-JfP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="H5m-q6-i9f"/>
+                <constraint firstAttribute="trailing" secondItem="l4q-V6-JfP" secondAttribute="trailing" id="hag-Br-L2D"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="257" y="48"/>
         </view>
     </objects>
-    <resources>
-        <image name="addButtonImage" width="80" height="80"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
