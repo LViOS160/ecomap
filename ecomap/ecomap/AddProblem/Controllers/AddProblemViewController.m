@@ -14,43 +14,42 @@
 #import "EcomapProblemDetails.h"
 #import "InfoActions.h"
 #import "EcomapLocalPhoto.h"
-@interface AddProblemViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface AddProblemViewController ()
 {
     CGFloat padding;
     CGFloat paddingWithNavigationView;
     CGFloat screenWidth;
 }
 
-//AddProblemProperties
+// Outlets
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *prevButton;
-
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-
 @property (weak, nonatomic) IBOutlet UIButton *addProblemButton;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceToButton;
 @property (nonatomic) UIBarButtonItem *closeButton;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceToButton;
-
-//AddProblemViews
-@property (nonatomic) UIView* addProblemNavigationView;
-
-
+// NavigationViews
 
 @property (nonatomic) UIViewController* curView;
 @property (nonatomic) UIViewController* prevView;
 @property (nonatomic) UIViewController* nextView;
-
 @property (nonatomic) BOOL userIsInTheMiddleOfAddingProblem;
 
+// Views
+
+@property (nonatomic) UIView* addProblemNavigationView;
 @property (nonatomic) AddProblemDescriptionViewController *addProblemDescription;
 @property (nonatomic) AddProblemLocationViewController *addProblemLocation;
 @property (nonatomic) AddProblemNameViewController *addProblemName;
 @property (nonatomic) AddProblemPhotoViewController *addProblemPhoto;
 @property (nonatomic) AddProblemSolutionViewController *addProblemSolution;
 @property (nonatomic) AddProblemTypeViewController *addProblemType;
+
+// MapMarker
+
 @property (nonatomic) GMSMarker *marker;
+
 @end
 
 @implementation AddProblemViewController
@@ -63,6 +62,8 @@
                                                object:nil];
 }
 
+
+// If field filled allow switch to next page
 
 - (BOOL)checkWetherCurrentFieldFilled {
     BOOL fieldFilled = YES;
@@ -90,7 +91,47 @@
     return fieldFilled;
 }
 
-#pragma mark - PageControlViewButtons
+#pragma mark - Buttons
+
+- (IBAction)addProblemButtonTap:(UIButton *)sender {
+    if([EcomapLoggedUser currentLoggedUser]) {
+        if (!self.userIsInTheMiddleOfAddingProblem) {
+            [self loadNibs];
+            [self showAddProblemView];
+            self.addProblemPhoto.rootController = self;
+            self.nextButton.hidden = NO;
+            UIButton *button = sender;
+            button.hidden = YES;
+            CGRect buttonFrame = button.frame;
+            buttonFrame.origin.y += 50;
+            
+            self.topSpaceToButton.constant = 10;
+            
+            [button setNeedsUpdateConstraints];
+            [button setFrame:buttonFrame];
+            self.userIsInTheMiddleOfAddingProblem = true;
+            self.mapView.userInteractionEnabled = YES;
+            
+        } else {
+            
+            self.topSpaceToButton.constant = 77;
+            [self.addProblemButton setNeedsUpdateConstraints];
+            
+            [self postProblem];                     // not implemented
+            self.userIsInTheMiddleOfAddingProblem = false;
+            [self closeButtonTap:nil];
+            [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+        }
+        
+    } else {
+        //show action sheet to login
+        [InfoActions showLogitActionSheetFromSender:sender
+                           actionAfterSuccseccLogin:^{
+                               [self addProblemButtonTap:sender];
+                           }];
+    }
+    
+}
 
 - (IBAction)nextButtonTap:(UIButton *)sender {
     if (![self checkWetherCurrentFieldFilled]) {
@@ -234,17 +275,19 @@
     [self layoutView:self.addProblemNavigationView];
 }
 
+#pragma mark - SwipesGesures
+
 - (void)rightSwipe {
-    NSLog(@"YEY");
     if (self.pageControl.currentPage > 0)
         [self prevButtonTap:nil];
     
 }
 - (void)leftSwipe {
-    NSLog(@"Left");
     if (self.pageControl.currentPage < 5)
         [self nextButtonTap:nil];
 }
+
+
 
 - (void)showAddProblemView {
 
@@ -314,45 +357,7 @@
 
 }
 
-- (IBAction)addProblemButtonTap:(UIButton *)sender {
-    if([EcomapLoggedUser currentLoggedUser]) {
-        if (!self.userIsInTheMiddleOfAddingProblem) {
-            [self loadNibs];
-            [self showAddProblemView];
-            self.addProblemPhoto.rootController = self;
-            self.nextButton.hidden = NO;
-            UIButton *button = sender;
-            button.hidden = YES;
-            CGRect buttonFrame = button.frame;
-            buttonFrame.origin.y += 50;
-            
-            self.topSpaceToButton.constant = 10;
-            
-            [button setNeedsUpdateConstraints];
-            [button setFrame:buttonFrame];
-            self.userIsInTheMiddleOfAddingProblem = true;
-            self.mapView.userInteractionEnabled = YES;
-            
-        } else {
-            
-            self.topSpaceToButton.constant = 77;
-            [self.addProblemButton setNeedsUpdateConstraints];
-            
-            [self postProblem];                     // not implemented
-            self.userIsInTheMiddleOfAddingProblem = false;
-            [self closeButtonTap:nil];
-            [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
-        }
-
-    } else {
-        //show action sheet to login
-        [InfoActions showLogitActionSheetFromSender:sender
-                           actionAfterSuccseccLogin:^{
-                               [self addProblemButtonTap:sender];
-                           }];
-    }
-
-}
+#pragma mark - ProblemPost
 
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
@@ -372,7 +377,7 @@
 
 
 - (void)postProblem {
-    NSArray *photos = self.addProblemPhoto.photos;
+    
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : self.addProblemName.problemName.text,
                              ECOMAP_PROBLEM_CONTENT    : self.addProblemDescription.textView.text ? self.addProblemDescription.textView.text : @"",
                              ECOMAP_PROBLEM_PROPOSAL : self.addProblemSolution.textView.text ? self.addProblemSolution.textView.text : @"",
@@ -384,17 +389,8 @@
     
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
-//
-//    NSMutableArray *photosArray = [[NSMutableArray alloc] initWithCapacity:photos.count-1];
-//    NSMutableArray *descriptionsArray = [[NSMutableArray alloc] initWithCapacity:photos.count-1];
-//    for (EcomapLocalPhoto *photo in photos ){
-//        [photosArray addObject:photo.image];
-//        [descriptionsArray addObject:photo.imageDescription];
-//    }
-//    details.comments = descriptionsArray;
-    details.photos = photos;
+    details.photos = self.addProblemPhoto.photos;;
     [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
-//        NSLog(@"YEY");
         [self loadProblems];
     }];
 }
