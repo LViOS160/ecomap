@@ -43,6 +43,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 {
     [super viewDidLoad];
     
+    
     [self createDateFormatter];
     
     NSLog(@"View load successfully");
@@ -72,7 +73,6 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     return self.datePickerIndexPath != nil;
 }
 
-
 // Helper method using to capitalize only the first letter in the string.
 - (NSString *)uppercaseFirstLetter:(NSString *)string
 {
@@ -86,6 +86,26 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     return isCheckmarkSet ? [UIImage imageNamed:@"Good"] : nil;
 }
 
+- (NSDate *)dateFromIndexPath:(NSIndexPath *)indexPath
+{
+    NSIndexPath *parentCellIndexPath = indexPath;
+    
+    if([self datePickerIsShown]) {
+        parentCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    }
+    
+    return (parentCellIndexPath.row == 0) ? self.filteringMask.fromDate : self.filteringMask.toDate;
+}
+
+- (void)setDate:(NSDate *)date forIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == 0) {
+        self.filteringMask.fromDate = date;
+    } else {
+        self.filteringMask.toDate = date;
+    }
+}
+
 - (UITableViewCell *)createDateCellForIndexPath:(NSIndexPath *)indexPath
 {
     // Create cell from template
@@ -93,9 +113,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     // Configure cell data
     cell.textLabel.text = (indexPath.row == 0) ? @"Показати з:" : @"Показати до:";
-    cell.detailTextLabel.text = (indexPath.row == 0) ? [self.dateFormatter stringFromDate:self.filteringMask.fromDate]
-                                                     : [self.dateFormatter stringFromDate:self.filteringMask.toDate];
-    
+    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[self dateFromIndexPath:indexPath]];
     return cell;
 }
 
@@ -128,6 +146,12 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
     titleLabel.text = (indexPath.row == 0) ? @"Нова" : @"Вирішена";
     
+    // Check either filtering mask contains type of the problem of the current row
+    // Depending on answer show image.
+    UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
+    checkmarkImage.image = (indexPath.row == 0) ? [self checkmarkImage:self.filteringMask.showSolved]
+                                                : [self checkmarkImage:self.filteringMask.showUnsolved];
+    
     return cell;
 }
 
@@ -139,18 +163,14 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     // Configure cell data
     UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:kDatePickerTag];
     
-    if(indexPath.row == 0) {
-        [targetedDatePicker setDate:self.filteringMask.fromDate animated:NO];
-    } else {
-        [targetedDatePicker setDate:self.filteringMask.toDate animated:NO];
-    }
+    [targetedDatePicker setDate:[self dateFromIndexPath:indexPath] animated:YES];
     
     return cell;
 }
 
 - (void)hideExistingPicker {
     
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.datePickerIndexPath.row inSection:0]]
+    [self.tableView deleteRowsAtIndexPaths:@[self.datePickerIndexPath]
                           withRowAnimation:UITableViewRowAnimationFade];
     
     self.datePickerIndexPath = nil;
@@ -164,7 +184,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     if(([self datePickerIsShown]) && (self.datePickerIndexPath.row < selectedIndexPath.row)) {
         newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row - 1 inSection:0];
     } else {
-        newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row  inSection:0];
+        newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row inSection:0];
     }
     
     return newIndexPath;
@@ -182,6 +202,8 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 - (void)handleTappingDateSection:(NSIndexPath *)indexPath
 {
+    [self.tableView beginUpdates];
+    
     if([self datePickerIsShown] && (self.datePickerIndexPath.row - 1 == indexPath.row)) {
         [self hideExistingPicker];
     } else {
@@ -190,12 +212,16 @@ static NSString *kDatePickerCellID = @"datePickerCell";
         if([self datePickerIsShown]) [self hideExistingPicker];
         
         [self showNewPickerAtIndex:newPickerIndexPath];
+        
         self.datePickerIndexPath = [NSIndexPath indexPathForRow:newPickerIndexPath.row + 1 inSection:0];
     }
+    
+    [self.tableView endUpdates];
 }
 
 - (void)handleTappingTypeSection:(NSIndexPath *)indexPath
 {
+    
     if(indexPath.section == 1) {
         [self.filteringMask markProblemType:indexPath.row + 1];
     }
@@ -205,7 +231,30 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 - (void)handleTappingStatusSection:(NSIndexPath *)indexPath
 {
+    if(indexPath.row == 0) {
+        self.filteringMask.showSolved = !self.filteringMask.showSolved;
+    } else {
+        self.filteringMask.showUnsolved = !self.filteringMask.showUnsolved;
+    }
     
+    [self.tableView reloadData];
+}
+
+- (IBAction)dateChanged:(UIDatePicker *)sender
+{
+    
+    NSIndexPath *parentCellIndexPath = nil;
+    
+    if([self datePickerIsShown]) {
+        parentCellIndexPath = [NSIndexPath indexPathForRow:self.datePickerIndexPath.row - 1 inSection:0];
+    } else {
+        return;
+    }
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:parentCellIndexPath];
+    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:sender.date];
+    
+    [self setDate:sender.date forIndexPath:parentCellIndexPath];
 }
 
 #pragma mark - Table View Data Source
@@ -265,17 +314,13 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView beginUpdates];
-    
     switch (indexPath.section) {
-        case 0: [self handleTappingDateSection:indexPath];
-        case 1: [self handleTappingTypeSection:indexPath];
-        case 2: [self handleTappingStatusSection:indexPath];
+        case 0: [self handleTappingDateSection:indexPath]; break;
+        case 1: [self handleTappingTypeSection:indexPath]; break;
+        case 2: [self handleTappingStatusSection:indexPath]; break;
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    [self.tableView endUpdates];
 }
 
 @end
