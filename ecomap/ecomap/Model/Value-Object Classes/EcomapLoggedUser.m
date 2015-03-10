@@ -9,8 +9,6 @@
 #import "EcomapLoggedUser.h"
 #import "EcomapPathDefine.h"
 
-EcomapLoggedUser *currentLoggedUser = nil;
-
 @interface EcomapLoggedUser ()
 @property (nonatomic, readwrite) NSUInteger userID;
 @property (nonatomic, strong, readwrite) NSString *name;
@@ -20,81 +18,101 @@ EcomapLoggedUser *currentLoggedUser = nil;
 @property (nonatomic, strong, readwrite) NSString *token;
 @property (nonatomic, strong, readwrite) NSString *email;
 
+@property (nonatomic, strong) EcomapLoggedUser *curretLoggedUser;
 @end
 
 @implementation EcomapLoggedUser
 
-#pragma mark - Return current clas instanse
-+(EcomapLoggedUser *)currentLoggedUser
-{ 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [[defaults objectForKey:@"isUserLogged"] isEqualToString:@"YES"] ? currentLoggedUser : nil;
+#pragma mark - Singleton
++ (instancetype)sharedAccount
+{
+    
+    static EcomapLoggedUser *sharedAccount = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        sharedAccount = [[EcomapLoggedUser alloc] initPrivate];
+        
+        if (sharedAccount) {
+            //Add observer to listen when to performe logout
+            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+            [nc addObserver:sharedAccount
+                   selector:@selector(logout)
+                       name:@"LogoutFromEcomapNotification"
+                     object:nil];
+            
+        }
+        
+    });
+    
+    return sharedAccount;
+    
 }
 
-#pragma mark - User initializer
--(instancetype)initWithUserInfo:(NSDictionary *)userInfo
+-(instancetype)initPrivate
 {
-    self = [super init];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (self) {
-        // Add Observer
-        [defaults addObserver:self
-                   forKeyPath:@"isUserLogged"
-                      options:NSKeyValueObservingOptionNew
-                      context:NULL];
-        if (userInfo){
-            [self parseUser:userInfo];
-            [defaults setObject:@"YES" forKey:@"isUserLogged"];
-            currentLoggedUser = self;
-            
-        } else {
-            [defaults setObject:@"NO" forKey:@"isUserLogged"];
-            currentLoggedUser = nil;
-            return nil;
-        }
-    }
-    
-    return self;
+    return [super init];
 }
 
 //Disable init method
 -(instancetype)init
 {
-    @throw [NSException exceptionWithName:@"Error" reason:@"Can't create instanse of this class. To login to server use EcomapFetcher class" userInfo:nil];
+    @throw [NSException exceptionWithName:@"Error" reason:@"Can't create instanse of this class. To login to server use EcomapUserFetcher class" userInfo:nil];
     return nil;
 }
 
--(void)parseUser:(NSDictionary *)userInfo
+#pragma mark - Login
++ (EcomapLoggedUser *)loginUserWithInfo:(NSDictionary *)userInfo
 {
+    if (userInfo){
+        [self parseUser:userInfo];
+        EcomapLoggedUser *sharedAccount = [EcomapLoggedUser sharedAccount];
+        sharedAccount.curretLoggedUser = sharedAccount;
+    } else return nil;
+    
+    return [EcomapLoggedUser sharedAccount];
+}
+
++ (void)parseUser:(NSDictionary *)userInfo
+{
+    //Get singleton
+    EcomapLoggedUser *sharedAccount = [self sharedAccount];
+    
+    //Parse userInfo
     if (userInfo) {
-        self.userID = ![[userInfo valueForKey:ECOMAP_USER_ID] isKindOfClass:[NSNull class]] ? [[userInfo valueForKey:ECOMAP_USER_ID] integerValue] : 0;
-        self.name = ![[userInfo valueForKey:ECOMAP_USER_NAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_NAME] : nil;
-        self.surname = ![[userInfo valueForKey:ECOMAP_USER_SURNAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_SURNAME] : @"";
-        self.role = ![[userInfo valueForKey:ECOMAP_USER_ROLE] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_ROLE] : nil;
-        self.iat = ![[userInfo valueForKey:ECOMAP_USER_ITA] isKindOfClass:[NSNull class]] ? [[userInfo valueForKey:ECOMAP_USER_ITA] integerValue] : 0;
-        self.token = ![[userInfo valueForKey:ECOMAP_USER_TOKEN] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_TOKEN] : 0;
-        self.email = ![[userInfo valueForKey:ECOMAP_USER_EMAIL] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_EMAIL] : nil;
+        sharedAccount.userID = ![[userInfo valueForKey:ECOMAP_USER_ID] isKindOfClass:[NSNull class]] ? [[userInfo valueForKey:ECOMAP_USER_ID] integerValue] : 0;
+        sharedAccount.name = ![[userInfo valueForKey:ECOMAP_USER_NAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_NAME] : nil;
+        sharedAccount.surname = ![[userInfo valueForKey:ECOMAP_USER_SURNAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_SURNAME] : @"";
+        sharedAccount.role = ![[userInfo valueForKey:ECOMAP_USER_ROLE] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_ROLE] : nil;
+        sharedAccount.iat = ![[userInfo valueForKey:ECOMAP_USER_ITA] isKindOfClass:[NSNull class]] ? [[userInfo valueForKey:ECOMAP_USER_ITA] integerValue] : 0;
+        sharedAccount.token = ![[userInfo valueForKey:ECOMAP_USER_TOKEN] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_TOKEN] : 0;
+        sharedAccount.email = ![[userInfo valueForKey:ECOMAP_USER_EMAIL] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_EMAIL] : nil;
     }
 }
 
+//Return current logged user
++(EcomapLoggedUser *)currentLoggedUser
+{
+    if (![[EcomapLoggedUser sharedAccount] curretLoggedUser]) {
+        return nil;
+    }
+    
+    return [[EcomapLoggedUser sharedAccount] curretLoggedUser];
+}
+
+#pragma mark - Logout
+- (void)logout
+{
+    if ([[EcomapLoggedUser sharedAccount] curretLoggedUser]) {
+        [[EcomapLoggedUser sharedAccount] setCurretLoggedUser:nil];
+    }
+}
+
+#pragma mark - NSObject override
 //Override
--(NSString *)description
+- (NSString *)description
 {
     return [NSString stringWithFormat:@"Logged user: %@ %@ (id = %lu)", self.name, self.surname, (unsigned long)self.userID];
-}
-
-#pragma mark - Observer
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"isUserLogged"]) {
-        if ([[object valueForKey:@"isUserLogged"] isEqualToString:@"NO"]) {
-            currentLoggedUser = nil;
-        }
-    }
-}
-
-//RemoveObserver
-- (void)dealloc {
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"isUserLogged"];
 }
 
 @end
