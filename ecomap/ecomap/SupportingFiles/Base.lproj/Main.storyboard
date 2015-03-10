@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -631,6 +631,9 @@
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="34" y="3" width="166" height="18"/>
+                                        </variation>
                                         <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                             <rect key="frame" x="26" y="3" width="183" height="21"/>
                                         </variation>
@@ -639,6 +642,9 @@
                                         <rect key="frame" x="273" y="12" width="55" height="37"/>
                                         <color key="pageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="currentPageIndicatorTintColor" red="0.0" green="0.0021728257680000002" blue="0.75132275130000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="90" y="12" width="55" height="37"/>
+                                        </variation>
                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="173" y="13" width="55" height="37"/>
                                         </variation>
@@ -702,6 +708,9 @@
                                         <rect key="frame" x="144" y="3" width="312" height="21"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="38" y="3" width="291" height="18"/>
+                                        </variation>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="Wq9-3K-2vu">
                                         <rect key="frame" x="144" y="27" width="312" height="29"/>
@@ -712,6 +721,9 @@
                                             <segment title="рік"/>
                                             <segment title="за весь час"/>
                                         </segments>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="38" y="24" width="291" height="29"/>
+                                        </variation>
                                         <connections>
                                             <action selector="changeRangeOfShowingStats:" destination="jVG-Fj-m9H" eventType="valueChanged" id="Vhi-gJ-nv5"/>
                                         </connections>
@@ -726,6 +738,9 @@
                                                     <constraint firstAttribute="width" constant="37" id="h9C-id-aOn"/>
                                                 </constraints>
                                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <variation key="heightClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="166" y="120" width="37" height="37"/>
+                                                </variation>
                                                 <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                                     <rect key="frame" x="266" y="107" width="37" height="37"/>
                                                 </variation>
@@ -736,6 +751,9 @@
                                             <constraint firstAttribute="centerY" secondItem="RQU-7K-8cI" secondAttribute="centerY" id="BRF-nR-CdQ"/>
                                             <constraint firstAttribute="centerX" secondItem="RQU-7K-8cI" secondAttribute="centerX" id="nui-7a-gXH"/>
                                         </constraints>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="60" width="367" height="276"/>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -2185,9 +2203,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vay-VA-L6N" firstAttribute="leading" secondItem="gkE-F0-7Vy" secondAttribute="leadingMargin" constant="-16" id="02R-fQ-iUS"/>
-                            <constraint firstItem="eOu-yg-kuz" firstAttribute="top" secondItem="KbB-6e-LFw" secondAttribute="bottom" constant="17" id="2Aa-UI-oUd">
-                                <variation key="heightClass=regular-widthClass=compact" constant="8"/>
-                            </constraint>
                             <constraint firstItem="icq-xc-ded" firstAttribute="leading" secondItem="mv9-t4-j95" secondAttribute="trailing" id="4ME-8h-S9p"/>
                             <constraint firstItem="oct-51-iem" firstAttribute="top" secondItem="Jzc-KH-nLz" secondAttribute="bottom" constant="14" id="5n5-h4-qBt"/>
                             <constraint firstItem="oct-51-iem" firstAttribute="top" secondItem="Jzc-KH-nLz" secondAttribute="bottom" constant="14" id="7Gy-pW-Iop"/>
@@ -2330,7 +2345,6 @@
                                 <include reference="oYt-sC-vaj"/>
                                 <include reference="v0P-PS-dHH"/>
                                 <exclude reference="vmB-G7-EAx"/>
-                                <exclude reference="2Aa-UI-oUd"/>
                                 <include reference="KjV-1t-ePM"/>
                                 <include reference="Lyc-XB-4UA"/>
                                 <exclude reference="RRI-PG-Q7i"/>
@@ -2382,7 +2396,6 @@
                                 <exclude reference="eLX-YG-Gdz"/>
                                 <exclude reference="mF3-SB-9IA"/>
                                 <exclude reference="vmB-G7-EAx"/>
-                                <exclude reference="2Aa-UI-oUd"/>
                                 <include reference="LA4-tk-F3J"/>
                                 <include reference="Qpt-NK-KRY"/>
                                 <exclude reference="RRI-PG-Q7i"/>
@@ -2413,7 +2426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XnL-km-NzL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3789" y="-301.5"/>
+            <point key="canvasLocation" x="3789" y="-302"/>
         </scene>
     </scenes>
     <resources>

@@ -43,9 +43,9 @@
 
 - (void)viewDidLoad {
     
-   // [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+    [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
         
-   // }];
+    }];
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
     [self updateUI];
@@ -62,6 +62,8 @@
     self.textField.delegate = self;
     self.textField.text = @"Add comment";
     self.textField.textColor = [UIColor lightGrayColor];
+    //[self.myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.myTableView.tableFooterView =[[UIView alloc] initWithFrame:CGRectZero];
    
 }
 
@@ -172,7 +174,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    if(!self.comments.count)
+        NSLog(@"EMPTY");
     return self.comments.count;
 }
 
@@ -184,7 +187,6 @@
         cell = [[CommentCell alloc] init];
     EcomapComments *commentaires = [self.comments objectAtIndex:indexPath.row];
     cell.commentContent.text= commentaires.problemContent;
-   
     NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
     formatter.dateStyle = NSDateFormatterMediumStyle;      //
     formatter.timeStyle = NSDateFormatterShortStyle;       //
