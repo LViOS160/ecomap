@@ -63,9 +63,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 - (void)createDateFormatter
 {
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    
     [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 }
 
@@ -79,8 +77,13 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 - (NSString *)uppercaseFirstLetter:(NSString *)string
 {
     NSString *firstLetter = [string substringToIndex:1];
-    
     return [[firstLetter uppercaseString] stringByAppendingString:[string substringFromIndex:1]];
+}
+
+// Choose image for displaying checkmark
+- (UIImage *)checkmarkImage:(BOOL)isCheckmarkSet
+{
+    return isCheckmarkSet ? [UIImage imageNamed:@"Good"] : nil;
 }
 
 - (UITableViewCell *)createDateCellForIndexPath:(NSIndexPath *)indexPath
@@ -100,11 +103,19 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 {
     // Create cell from template
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProblemTypeCellID];
+    
+    // Configure cell image.
+    UIImageView *problemTypeImageView = (UIImageView *)[cell viewWithTag:kProblemTypeImageTag];
+    problemTypeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"problem-type-%ld", indexPath.row + 1]];
 
+    // Configure cell label depending on problem type.
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
     titleLabel.text = [self uppercaseFirstLetter:(NSString *)[ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:indexPath.row]];
     
+    // Check either filtering mask contains type of the problem of the current row
+    // Depending on answer show image.
     UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
+    checkmarkImage.image = [self checkmarkImage:[self.filteringMask.problemTypes containsObject:@(indexPath.row + 1)]];
     
     return cell;
 }
@@ -127,7 +138,12 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     // Configure cell data
     UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:kDatePickerTag];
-    [targetedDatePicker setDate:date animated:NO];
+    
+    if(indexPath.row == 0) {
+        [targetedDatePicker setDate:self.filteringMask.fromDate animated:NO];
+    } else {
+        [targetedDatePicker setDate:self.filteringMask.toDate animated:NO];
+    }
     
     return cell;
 }
@@ -171,7 +187,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     } else {
         NSIndexPath *newPickerIndexPath = [self calculateIndexPathForNewPicker:indexPath];
         
-        if ([self datePickerIsShown]) [self hideExistingPicker];
+        if([self datePickerIsShown]) [self hideExistingPicker];
         
         [self showNewPickerAtIndex:newPickerIndexPath];
         self.datePickerIndexPath = [NSIndexPath indexPathForRow:newPickerIndexPath.row + 1 inSection:0];
@@ -180,7 +196,11 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 - (void)handleTappingTypeSection:(NSIndexPath *)indexPath
 {
+    if(indexPath.section == 1) {
+        [self.filteringMask markProblemType:indexPath.row + 1];
+    }
     
+    [self.tableView reloadData];
 }
 
 - (void)handleTappingStatusSection:(NSIndexPath *)indexPath
@@ -217,7 +237,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     CGFloat rowHeight = standardRowHeight;
     
-    if ([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row)) {
+    if ([self datePickerIsShown] && ([self.datePickerIndexPath isEqual:indexPath])) {
         rowHeight = datePickerRowHeight;
     }
     
@@ -226,10 +246,14 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Row %ld, Section %ld", (long)indexPath.row, (long)indexPath.section);
-    
+    // Table cells prototypes are different for each section.
     switch (indexPath.section) {
-        case 0: return [self createDateCellForIndexPath:indexPath];
+        case 0:
+            if([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row)) {
+                return [self createPickerCell:[NSDate date] forIndexPath:indexPath];
+            } else {
+                return [self createDateCellForIndexPath:indexPath];
+            }
         case 1: return [self createProblemTypeCellForIndexPath:indexPath];
         case 2: return [self createProblemStatusCellForIndexPath:indexPath];
     }

@@ -17,7 +17,7 @@
     
     self.fromDate = [NSDate dateWithTimeIntervalSince1970:0];
     self.toDate = [NSDate date];
-    self.problemTypes = [EcomapProblemFilteringMask validProblemTypeIDs];
+    self.problemTypes = [[EcomapProblemFilteringMask validProblemTypeIDs] mutableCopy];
     self.showSolved = YES;
     self.showUnsolved = YES;
 
@@ -27,6 +27,16 @@
 + (NSArray *)validProblemTypeIDs
 {
     return @[@1, @2, @3, @4, @5, @6, @7];
+}
+
+// Very simple method :)
+- (void)markProblemType:(NSInteger)problemTypeID
+{
+    if([self.problemTypes containsObject:@(problemTypeID)]) {
+        [self.problemTypes removeObject:@(problemTypeID)];
+    } else {
+        [self.problemTypes addObject:@(problemTypeID)];
+    }
 }
 
 @end
