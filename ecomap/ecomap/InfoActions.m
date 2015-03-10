@@ -34,7 +34,7 @@
         sharedActions = [[InfoActions alloc] init];
         
         if (sharedActions) {
-            //Register observer to receive notifications
+            sharedActions.popupLabels = [[NSMutableArray alloc] init];
             
             //Add observer to listen when device chages orientation
             NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -55,7 +55,7 @@
 {
     CGPoint center = [[UIApplication sharedApplication] keyWindow].center;
     self.activityIndicatorView.center = center;
-    self.popupLabel.center = center;
+    [self calculatePopupPosition];
 }
 
 #pragma mark - Alets
@@ -179,7 +179,10 @@
 }
 
 #pragma mark - Popup
-#define POPUP_DELAY  1.5
+#define POPUP_DELAY 1.5
+#define POPUP_HEIGHT 50
+#define POPUP_WIDTH 170
+#define POPUP_VERTICAL_OFFSET 10
 + (void)showPopupWithMesssage:(NSString *)message
 {
     if ([message isEqualToString:@""]) {
@@ -190,50 +193,82 @@
     InfoActions *sharedActions = [self sharedActions];
     
     //Create popup label
-    sharedActions.popupLabel = [self createLabelWithText:message];
+    UILabel *popupLabel = [self createLabelWithText:message];
+    [sharedActions.popupLabels addObject:popupLabel];
     
     //Get keyWindos
     UIWindow *appKeyWindow = [[UIApplication sharedApplication] keyWindow];
     
-    [sharedActions.popupLabels addObject:[self createLabelWithText:message]];
-    
-//    for (UILabel *popupLabel in sharedActions.popupLabels){
-//        popupLabel.center = appKeyWindow.center
-//    }
-    
-    //Position in center
-    sharedActions.popupLabel.center = [appKeyWindow center];
+    //Set popup position on screen
+    [sharedActions calculatePopupPosition];
     
     //show popup
-    [appKeyWindow addSubview:sharedActions.popupLabel];
-    DDLogVerbose(@"Popup showed");
-    
-    //Appear animation
-    sharedActions.popupLabel.transform = CGAffineTransformMakeScale(1.3, 1.3);
-    sharedActions.popupLabel.alpha = 0;
-    [UIView animateWithDuration:0.3 animations:^{
-        sharedActions.popupLabel.alpha = 1;
-        sharedActions.popupLabel.transform = CGAffineTransformMakeScale(1, 1);
-    }];
+    for (UILabel *popupLabel in sharedActions.popupLabels){
+        [appKeyWindow addSubview:popupLabel];
+        
+        if ([[sharedActions popupLabels] lastObject] == popupLabel) {
+            popupLabel.transform = CGAffineTransformMakeScale(1.3, 1.3);
+            popupLabel.alpha = 0;
+            [UIView animateWithDuration:0.3 animations:^{
+                popupLabel.alpha = 1;
+                popupLabel.transform = CGAffineTransformMakeScale(1, 1);
+            }];
+        }
+        
+        
+    }
     
     //Dismiss popup after delay
-    [self performSelector:@selector(dismissPopup:) withObject:sharedActions.popupLabel afterDelay:POPUP_DELAY];
+    [self performSelector:@selector(dismissPopup:) withObject:popupLabel afterDelay:POPUP_DELAY];
 }
 
 + (void)dismissPopup:(UIView *)sender {
     
     InfoActions *sharedActions = [self sharedActions];
-    __block UILabel *label = (UILabel *)sender;
+    UILabel *label = (UILabel *)sender;
     // Fade out the message and destroy popup
     [UIView animateWithDuration:0.3
                      animations:^  {
                          label.transform = CGAffineTransformMakeScale(1.3, 1.3);
                          label.alpha = 0; }
                      completion:^ (BOOL finished) {
-                         label = nil;
+                         [[sharedActions popupLabels] removeObject:label];
                          DDLogVerbose(@"Popup dismissed");
                          [sender removeFromSuperview];
                      }];
+}
+
+- (void)calculatePopupPosition
+{
+    //InfoActions *sharedActions = [self sharedActions];
+    
+    //Get keyWindos
+    UIWindow *appKeyWindow = [[UIApplication sharedApplication] keyWindow];
+    
+    UILabel *firstPopup = [self.popupLabels firstObject];
+    CGPoint appWindowCenter = appKeyWindow.center;
+    
+    //calculate initial vertical offset
+    appWindowCenter.y = appKeyWindow.center.y - (POPUP_HEIGHT/2 + POPUP_VERTICAL_OFFSET) * ([[self popupLabels] count] - 1);
+    
+    //animate offset
+    if ([[self popupLabels] count] > 1) {
+        [UIView animateWithDuration:0.3 animations:^{
+            firstPopup.center = appWindowCenter;
+        }];
+    } else firstPopup.center = appWindowCenter;
+    
+    
+    
+    //set vertical offset for other popups
+    for (int i = 1; i < [[self popupLabels] count]; i++) {
+        UILabel *nextPopup = (UILabel *)[[self popupLabels] objectAtIndex:i];
+        appWindowCenter.y += POPUP_HEIGHT + POPUP_VERTICAL_OFFSET;
+
+        nextPopup.center = appWindowCenter;
+
+    }
+
 }
 
 + createLabelWithText:(NSString *)message
@@ -247,11 +282,11 @@
     
     //Set frame
     CGFloat textWidth = popupLabel.intrinsicContentSize.width;
-    CGRect labelFrame = CGRectMake(0, 0, textWidth + 20, 50);
+    CGRect labelFrame = CGRectMake(0, 0, textWidth + 20, POPUP_HEIGHT);
     
     //To make popup not to be wider tan 170 points
-    if (textWidth > 170) {
-        labelFrame = [popupLabel textRectForBounds:CGRectMake(0, 0, 170, 50)
+    if (textWidth > POPUP_WIDTH) {
+        labelFrame = [popupLabel textRectForBounds:CGRectMake(0, 0, POPUP_WIDTH, POPUP_HEIGHT)
                             limitedToNumberOfLines:2];
     }
     
