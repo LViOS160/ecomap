@@ -43,10 +43,11 @@
 
 - (void)viewDidLoad {
     
-   /* [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+    [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
         
-    }];*/
+    }];
     [super viewDidLoad];
+    self.addCommentButton.enabled = NO;
     [self updateUI];
    
     // Do any additional setup after loading the view.
@@ -127,6 +128,7 @@
 
     if ([self.textField isFirstResponder]) {
         self.textField.text = @"";
+        [self textViewDidEndEditing:self.textField];
     }
     
 }
@@ -139,6 +141,7 @@
     {
         self.textField.text = @"";
         self.textField.textColor = [UIColor blackColor];
+       // self.addCommentButton.enabled = YES;
     }
     [self.textField becomeFirstResponder];
     
@@ -150,11 +153,16 @@
     {
         self.textField.text = @"Add comment";
         self.textField.textColor = [UIColor lightGrayColor];
+        self.addCommentButton.enabled = NO;
     }
-  
+    
     [self.textField resignFirstResponder];
  
 
+}
+-(void)textViewDidChange:(UITextView *)textView
+{
+    self.addCommentButton.enabled = YES;
 }
 
 
