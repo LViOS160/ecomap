@@ -52,17 +52,15 @@ typedef enum : NSUInteger {
     UITapGestureRecognizer *tapStatusLabelGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapStatusLabelWithGestureRecognizer:)];
     [self.statusLabel addGestureRecognizer:tapStatusLabelGestureRecognizer];
     
+    self.user = [EcomapLoggedUser currentLoggedUser];
+    
+    [self updateHeader];
+    [self loadProblemDetails:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    // Get the current user
-    self.user = [EcomapLoggedUser currentLoggedUser];
-    
-    [self updateHeader];
-    [self loadProblemDetails:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(problemsDetailsChanged)
                                                  name:PROBLEMS_DETAILS_CHANGED
