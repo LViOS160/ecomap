@@ -9,6 +9,7 @@
 #import "PhotoViewController.h"
 #import <Foundation/Foundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "InfoActions.h"
 
 @interface PhotoViewController () <UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>
 
@@ -16,12 +17,14 @@
 @property (nonatomic, strong) NSMutableArray *imageDescriptions;
 @property (nonatomic, strong) UITextView *messageBox;
 @property(nonatomic, strong) UITextField *activeField;
+@property (weak, nonatomic) IBOutlet UILabel *maxPhotoLabel;
 
 @end
 
 @implementation PhotoViewController
 
 static const NSInteger _textFieldsStartTag = 100;
+static const NSUInteger _defaultMaxPhotos = 5;
 
 - (void)viewDidLoad
 {
@@ -33,7 +36,19 @@ static const NSInteger _textFieldsStartTag = 100;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpinside:)];
     tap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tap];
+    self.maxPhotos = _defaultMaxPhotos;
+}
 
+- (void)setMaxPhotos:(NSUInteger)maxPhotos
+{
+    _maxPhotos = maxPhotos;
+    [self updateUI];
+}
+
+- (void)updateUI
+{
+    self.maxPhotoLabel.text = [NSString stringWithFormat:@"Ви можете додати ще %lu фото",
+                               (unsigned long)(self.maxPhotos - self.imageDescriptions.count)];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -53,24 +68,32 @@ static const NSInteger _textFieldsStartTag = 100;
 
 - (IBAction)galleryTap:(id)sender
 {
-    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
-    uiipc.delegate = self;
-    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-    uiipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    uiipc.allowsEditing = NO;
-    [self presentViewController:uiipc animated:YES completion:NULL];
+    [self showImagePickerWithType:UIImagePickerControllerSourceTypePhotoLibrary];
 }
 
 - (IBAction)cameraTap:(id)sender
 {
 #if !(TARGET_IPHONE_SIMULATOR)
-    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
-    uiipc.delegate = self;
-    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
-    uiipc.sourceType = UIImagePickerControllerSourceTypeCamera;
-    uiipc.allowsEditing = NO;
-    [self presentViewController:uiipc animated:YES completion:NULL];
+    [self showImagePickerWithType:UIImagePickerControllerSourceTypeCamera];
 #endif
+}
+
+- (BOOL)showImagePickerWithType:(UIImagePickerControllerSourceType)sourceType
+{
+    BOOL canAddPhotos = self.imageDescriptions.count < self.maxPhotos;
+    if (canAddPhotos) {
+        UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
+        uiipc.delegate = self;
+        uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
+        uiipc.sourceType = sourceType;
+        uiipc.allowsEditing = NO;
+        [self presentViewController:uiipc animated:YES completion:NULL];
+    } else {
+        [InfoActions showAlertWithTitile:@"Увага!"
+                              andMessage:[NSString stringWithFormat:@"Ви можете додати не більше %lu фото",
+                                          (unsigned long)self.maxPhotos]];
+    }
+    return canAddPhotos;
 }
 
 - (IBAction)chooseTap:(id)sender
@@ -122,6 +145,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [self.imageDescriptions addObject:descr];
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self.tableView reloadData];
+    [self updateUI];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -143,6 +167,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.imageDescriptions removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
+        [self updateUI];
     }
 }
 
@@ -190,7 +215,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     cell.accessoryType = UITableViewCellAccessoryNone;
 
     descriptionText.text = descr.imageDescription;
-    descriptionText.placeholder = @"Add description";
+    descriptionText.placeholder = @"Додати опис";
     descriptionText.tag = _textFieldsStartTag + indexPath.row;
     
     return cell;

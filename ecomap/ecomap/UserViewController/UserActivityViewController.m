@@ -7,6 +7,8 @@
 //
 
 #import "UserActivityViewController.h"
+#import "EcomapLoggedUser.h"
+#import "InfoActions.h"
 
 @interface UserActivityViewController ()
 @property (nonatomic) CGFloat keyboardHeight;
@@ -41,8 +43,7 @@
 #pragma mark - accessors
 -(UITextField *)textFieldToScrollUPWhenKeyboadAppears
 {
-    _textFieldToScrollUPWhenKeyboadAppears = self.activeField;
-    return _textFieldToScrollUPWhenKeyboadAppears;
+    return self.activeField;
 }
 
 #pragma mark - keyborad managment
@@ -143,23 +144,29 @@
 }
 
 #pragma mark - helper methods
-- (void)showAlertViewOfError:(NSError *)error
+- (BOOL)canSendRequest
 {
-    [self showAlertViewWithTitile:@"Помилка"
-                       andMessage:[error localizedDescription]]; //human-readable dwscription of the error
+    //BOOL result = YES;
+    //Check if fields are empty
+    if ([self isAnyTextFieldEmpty]) {
+        [InfoActions showAlertWithTitile:@"Неповна інформація"
+                              andMessage:@"\nБудь-ласка заповніть усі поля"];
+        return NO;
+    } else if (self.emailTextField && ![self isValidMail:self.emailTextField.text]) { //check if email is valid
+        [InfoActions showAlertWithTitile:@"Помилка"
+                              andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
+        return NO;
+    } else if (self.confirmPasswordTextField && ![self isPasswordsEqual]) //check if passwords are equal
+    {
+        [InfoActions showAlertWithTitile:@"Помилка"
+                              andMessage:@"\nВведені паролі не співпадають"];
+        return NO;
+    }
+    
+    return YES;
 }
 
-- (void)showAlertViewWithTitile:(NSString *)title andMessage:(NSString *)message
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-}
-
--(BOOL)isValidMail:(NSString *)checkString
+- (BOOL)isValidMail:(NSString *)checkString
 {
     BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
@@ -171,6 +178,7 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
+//compare NewPasswordField and confirmPasswordField
 - (BOOL)isPasswordsEqual {
     BOOL equal = NO;
     if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text] && ![self.passwordTextField.text isEqualToString:@""]) {
@@ -201,27 +209,6 @@
     return empty;
 }
 
-- (void)spinerShouldShow:(BOOL)isVisible
-{
-    if (isVisible) {
-        //Disable touches on screen
-        self.view.userInteractionEnabled = NO;
-        
-        //Show spiner
-        [self.activityIndicator startAnimating];
-        self.activityIndicatorPad.hidden = NO;
-        self.activityIndicator.hidden = NO;
-    } else {
-        //Enable touches on screen
-        self.view.userInteractionEnabled = YES;
-        
-        //Show spiner
-        self.activityIndicatorPad.hidden = YES;
-        self.activityIndicator.hidden = YES;
-        [self.activityIndicator startAnimating];
-    }
-}
-
 - (void)showCheckmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image
 {
     for (UIImageView *imageView in self.checkmarks) {
@@ -233,6 +220,10 @@
         }
         
     }
+}
+
+- (void)showGreetingForUser:(EcomapLoggedUser *)user{
+    [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо, %@!", @"Welcome, {User Name}"), user.name]];
 }
 
 @end

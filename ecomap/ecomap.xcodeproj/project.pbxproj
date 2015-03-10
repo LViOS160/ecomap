@@ -20,6 +20,9 @@
 		518F30C01AA4D82D0094DA14 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30B91AA4D82D0094DA14 /* ProfileViewController.m */; };
 		518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */; };
 		518F30C21AA4D82D0094DA14 /* UserActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */; };
+		518F30CB1AAA5C180094DA14 /* UIViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30CA1AAA5C180094DA14 /* UIViewController+Utils.m */; };
+		518F30DB1AAB19540094DA14 /* InfoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30DA1AAB19540094DA14 /* InfoActions.m */; };
+		518F30EA1AAB34F20094DA14 /* LoginWithFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30E91AAB34F20094DA14 /* LoginWithFacebook.m */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */; };
 		90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */; };
@@ -126,6 +129,7 @@
 		B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */; };
 		B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */; };
 		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
+		CA3C8C021AACA943008EAB32 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA3C8C011AACA943008EAB32 /* PhotoViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,6 +167,12 @@
 		518F30BB1AA4D82D0094DA14 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserActivityViewController.h; sourceTree = "<group>"; };
 		518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserActivityViewController.m; sourceTree = "<group>"; };
+		518F30C91AAA5C180094DA14 /* UIViewController+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utils.h"; sourceTree = "<group>"; };
+		518F30CA1AAA5C180094DA14 /* UIViewController+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utils.m"; sourceTree = "<group>"; };
+		518F30D91AAB19540094DA14 /* InfoActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoActions.h; sourceTree = "<group>"; };
+		518F30DA1AAB19540094DA14 /* InfoActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoActions.m; sourceTree = "<group>"; };
+		518F30E81AAB34F20094DA14 /* LoginWithFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWithFacebook.h; sourceTree = "<group>"; };
+		518F30E91AAB34F20094DA14 /* LoginWithFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWithFacebook.m; sourceTree = "<group>"; };
 		90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
 		90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
 		90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAdminFetcher.h; sourceTree = "<group>"; };
@@ -344,6 +354,7 @@
 		B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemTypeViewController.m; sourceTree = "<group>"; };
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CA3C8C011AACA943008EAB32 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -831,6 +842,8 @@
 			children = (
 				518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */,
 				518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */,
+				518F30E81AAB34F20094DA14 /* LoginWithFacebook.h */,
+				518F30E91AAB34F20094DA14 /* LoginWithFacebook.m */,
 				518F30B61AA4D82D0094DA14 /* LoginViewController.h */,
 				518F30B71AA4D82D0094DA14 /* LoginViewController.m */,
 				518F30B81AA4D82D0094DA14 /* ProfileViewController.h */,
@@ -926,8 +939,12 @@
 		CA7B3C8A1AA658ED005AF277 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				518F30D91AAB19540094DA14 /* InfoActions.h */,
+				518F30DA1AAB19540094DA14 /* InfoActions.m */,
 				B3738BC01A9DDC4B0077F604 /* PhotoViewController.h */,
 				B3738BC11A9DDC4B0077F604 /* PhotoViewController.m */,
+				518F30C91AAA5C180094DA14 /* UIViewController+Utils.h */,
+				518F30CA1AAA5C180094DA14 /* UIViewController+Utils.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -937,6 +954,7 @@
 			children = (
 				B3738B9E1A9DDC4B0077F604 /* NetworkActivityIndicator.h */,
 				B3738B9F1A9DDC4B0077F604 /* NetworkActivityIndicator.m */,
+				CA3C8C011AACA943008EAB32 /* PhotoViewController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1048,6 +1066,7 @@
 				B33438001A9DE683007ACD82 /* AddProblemTypeView.xib in Resources */,
 				B33437FD1A9DE683007ACD82 /* AddProblemNavigationView.xib in Resources */,
 				B33437FE1A9DE683007ACD82 /* AddProblemPhotoView.xib in Resources */,
+				CA3C8C021AACA943008EAB32 /* PhotoViewController.xib in Resources */,
 				2DB8150B1AA854DA0011AFA1 /* InfoWindow.xib in Resources */,
 				B3738C4F1A9DDC4B0077F604 /* OpenSans-Italic.ttf in Resources */,
 				B3738C511A9DDC4B0077F604 /* OpenSans-LightItalic.ttf in Resources */,
@@ -1159,6 +1178,8 @@
 				B3738C271A9DDC4B0077F604 /* NetworkActivityIndicator.m in Sources */,
 				B3738C3D1A9DDC4B0077F604 /* ResourceCell.m in Sources */,
 				B3738C181A9DDC4B0077F604 /* GClusterManager.m in Sources */,
+				518F30CB1AAA5C180094DA14 /* UIViewController+Utils.m in Sources */,
+				518F30EA1AAB34F20094DA14 /* LoginWithFacebook.m in Sources */,
 				B3738C1D1A9DDC4B0077F604 /* GDefaultClusterRenderer.m in Sources */,
 				90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */,
 				9096C98D1A91E8DA00A61CDB /* (null) in Sources */,
@@ -1175,6 +1196,7 @@
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
 				B3ACA3E61AA7524A003BD9EF /* AddProblemLocationViewController.m in Sources */,
+				518F30DB1AAB19540094DA14 /* InfoActions.m in Sources */,
 				B3738C401A9DDC4B0077F604 /* PieChartViewController.m in Sources */,
 				B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */,
 				518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */,
@@ -1329,7 +1351,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1354,7 +1376,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

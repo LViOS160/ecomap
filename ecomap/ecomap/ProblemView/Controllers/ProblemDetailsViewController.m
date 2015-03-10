@@ -16,6 +16,7 @@
 #import "PhotoViewController.h"
 #import "EcomapLoggedUser.h"
 #import "Defines.h"
+#import "InfoActions.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -47,7 +48,7 @@
 {
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc]init];
     NSAttributedString *contentHeader = [[NSAttributedString alloc]
-                                         initWithString:@"Опис проблеми:\n"
+                                         initWithString:NSLocalizedString(@"Опис проблеми:\n", @"Problem description")
                                          attributes:@{
                                                       NSFontAttributeName: [UIFont boldSystemFontOfSize:13]
                                                       }];
@@ -59,7 +60,7 @@
                                                 }];
     
     NSAttributedString *proposalHeader = [[NSAttributedString alloc]
-                                          initWithString:@"Пропозиції щодо вирішення:\n"
+                                          initWithString:NSLocalizedString(@"Пропозиції щодо вирішення:\n", @"Proposal to solve")
                                           attributes:@{
                                                        NSFontAttributeName: [UIFont boldSystemFontOfSize:13]
                                                        }];
@@ -139,7 +140,6 @@
         [customButton addTarget:self
                          action:@selector(buttonToAddImagePressed:)
                forControlEvents:UIControlEventTouchUpInside];
-        DDLogVerbose(@"'Add image' button created");
     } else {
         //Set background color
         //customButton.backgroundColor = [UIColor blackColor];
@@ -184,7 +184,6 @@
         [customButton addTarget:self
                          action:@selector(buttonWithImageOnScreenPressed:)
                forControlEvents:UIControlEventTouchUpInside];
-        DDLogVerbose(@"Button with photo number %lu created", (unsigned long)tag);
     }
     
     
@@ -192,101 +191,18 @@
     [self.scrollViewPhotoGallary addSubview:customButton];
 }
 
-- (void)buttonToAddImagePressed:(id)sender
+- (void)buttonToAddImagePressed:(UIButton *)sender
 {
     DDLogVerbose(@"Add image buton pressed");
     if([EcomapLoggedUser currentLoggedUser]) {
         [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
     } else {
-//        UIAlertView*  alertView = [[UIAlertView alloc] initWithTitle:@"Помилка" message:@"Незареєстровані користувачі на це не здатні.Зареєструйся!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//        [alertView show];
-//        UIAlertView *alertView = [[UIAlertView alloc]
-//                                  initWithTitle:@"DefaultStyle"
-//                                  message:@"the default alert view style"
-//                                  delegate:self
-//                                  cancelButtonTitle:@"Cancel"
-//                                  otherButtonTitles:@"OK", nil];
-//        
-//        [alertView show];
-        //Version 1: AlertView
-        /*
-        UIAlertController *alertController = [UIAlertController
-                                              alertControllerWithTitle:@"DefaultStyle"
-                                              message:@"the default alert view style"
-                                              preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *resetAction = [UIAlertAction
-                                      actionWithTitle:NSLocalizedString(@"Reset", @"Reset action")
-                                      style:UIAlertActionStyleDestructive
-                                      handler:^(UIAlertAction *action)
-                                      {
-                                          NSLog(@"Reset action");
-                                      }];
-        
-        UIAlertAction *cancelAction = [UIAlertAction
-                                       actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action")
-                                       style:UIAlertActionStyleCancel
-                                       handler:^(UIAlertAction *action)
-                                       {
-                                           NSLog(@"Cancel action");
-                                       }];
-        
-        UIAlertAction *okAction = [UIAlertAction
-                                   actionWithTitle:NSLocalizedString(@"OK", @"OK action")
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction *action)
-                                   {
-                                       NSLog(@"OK action");
-                                   }];
-        
-        [alertController addAction:resetAction];
-        [alertController addAction:cancelAction];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-         */
-        
-        
-        //Version 2: action sheet
-        //Create UIAlertController with ActionSheet style
-        UIAlertController *alertController = [UIAlertController
-                                              alertControllerWithTitle:NSLocalizedString(@"Ця дія потребує авторизації", @"Login alert title")
-                                              //message:NSLocalizedString(@"Ця дія потребує авторизації", @"Login alert message")
-                                              message:nil
-                                              preferredStyle:UIAlertControllerStyleActionSheet];
-        //Create UIAlertAction's
-        UIAlertAction *cancelAction = [UIAlertAction
-                                       actionWithTitle:NSLocalizedString(@"Відмінити", @"Cancel action on login alert")
-                                       style:UIAlertActionStyleCancel
-                                       handler:^(UIAlertAction *action)
-                                       {
-                                           NSLog(@"Cancel action");
-                                       }];
-        
-        UIAlertAction *loginAction = [UIAlertAction
-                                   actionWithTitle:NSLocalizedString(@"Вхід", @"Login action on login alert")
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction *action)
-                                   {
-                                       NSLog(@"Login action");
-                                   }];
-        
-        UIAlertAction *loginWithFacebookAction = [UIAlertAction
-                                   actionWithTitle:NSLocalizedString(@"Війти з Facebook", @"Loin with Facebook action on login alert")
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction *action)
-                                   {
-                                       NSLog(@"loginWithFacebook action");
-                                   }];
-        
-        //add actions to alertController
-        [alertController addAction:cancelAction];
-        [alertController addAction:loginAction];
-        [alertController addAction:loginWithFacebookAction];
-        
-        //Present ActionSheet
-        [self presentViewController:alertController animated:YES completion:nil];
-
-                                              
-        }
+        //show action sheet to login
+        [InfoActions showLogitActionSheetFromSender:sender
+                           actionAfterSuccseccLogin:^{
+                               [self buttonToAddImagePressed:sender];
+                           }];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -307,12 +223,14 @@
                withImageDescriptions:(NSArray *)imageDescriptions
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [InfoActions startActivityIndicatorWithUserInteractionEnabled:YES];
     [EcomapFetcher addPhotos:imageDescriptions
                    toProblem:self.problemDetails.problemID
                         user:[EcomapLoggedUser currentLoggedUser]
                 OnCompletion:^(NSString *result, NSError *error) {
+                    [InfoActions stopActivityIndicator];
                     if(error)
-                        DDLogVerbose(@"%@", error);
+                        [InfoActions showAlertOfError:error];
                     else
                         [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
                 }];

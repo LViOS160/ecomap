@@ -9,6 +9,7 @@
 #import "ChangePasswordViewController.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapUserFetcher.h"
+#import "InfoActions.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
@@ -38,39 +39,27 @@
     NSString *oldPasswod = self.oldPasswordTextField.text;
     NSString *password = self.passwordTextField.text;
     
-    //Check if fields are empty
-    if ([self isAnyTextFieldEmpty]) {
-        [self showAlertViewWithTitile:@"Неповна інформація"
-                           andMessage:@"\nБудь-ласка заповніть усі поля"];
-        return;
-    } else if (![self isPasswordsEqual]) //check if passwords are equal
-    {
-        [self showAlertViewWithTitile:@"Помилка"
-                           andMessage:@"\nВведені паролі не співпадають"];
-        return;
-    }
+    //Check if all information is ready to be send to Ecomap server
+    if (![self canSendRequest]) return;
     
-    [self spinerShouldShow:YES];
+    [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     //Try to change password
     [EcomapUserFetcher changePassword:oldPasswod
                         toNewPassword:password
                          OnCompletion:^(NSError *error) {
-                             [self spinerShouldShow:NO];
+                             [InfoActions stopActivityIndicator];
                              if (!error) {
                                  [self.navigationController popViewControllerAnimated:YES];
-                                 [self showAlertViewWithTitile:@""
-                                                    andMessage:@"Ваш пароль змінено"];
+                                 [InfoActions showPopupWithMesssage:NSLocalizedString(@"Ваш пароль змінено", @"Password changed") ];
                              } else if (error.code == 400) {
                                  //Change checkmarks image
                                  [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
-                                 [self showAlertViewWithTitile:@"Помилка"
-                                                    andMessage:@"\nВи ввели невірний пароль"];
+                                 [InfoActions showAlertOfError:NSLocalizedString(@"\nВи ввели невірний пароль", @"Your password is incorrect")];
                              } else {
-                                 [self showAlertViewWithTitile:@"Помилка"
-                                                    andMessage:[error localizedDescription]];
+                                 [InfoActions showAlertOfError:error];
                              }
     
-                             }];
+                             }]; //end of change password block
 }
 
 @end

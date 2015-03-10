@@ -12,6 +12,7 @@
 #import "EcomapFetcher+PostProblem.h"
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
+#import "InfoActions.h"
 
 @interface AddProblemViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
@@ -30,6 +31,7 @@
 
 @property (nonatomic) UIBarButtonItem *closeButton;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceToButton;
 
 //AddProblemViews
 @property (nonatomic) UIView* addProblemNavigationView;
@@ -114,7 +116,12 @@
 }
 
 - (void)closeButtonTap:(id *)sender {
-    self.addProblemButton.enabled = YES;
+    self.marker.map = nil;
+    self.topSpaceToButton.constant = 77;
+    [self.addProblemButton setNeedsUpdateConstraints];
+    
+    self.mapView.settings.myLocationButton = YES;
+    self.addProblemButton.hidden = NO;
     [self slideViewToRight:self.curView.view];
     [self slideViewToRight:self.addProblemNavigationView];
     self.navigationItem.rightBarButtonItem = nil;
@@ -131,13 +138,13 @@
         case 1:
             self.nextView = self.addProblemType;
             self.prevView = self.addProblemLocation;
-            self.addProblemButton.enabled = NO;
+            self.addProblemButton.hidden = YES;
             [self.addProblemButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
             break;
         case 2:
             self.nextView = self.addProblemDescription;
             self.prevView = self.addProblemName;
-            self.addProblemButton.enabled = YES;
+            self.addProblemButton.hidden = NO;
             [self.addProblemButton setImage:[UIImage imageNamed:@"ok"] forState:UIControlStateNormal];
             
             break;
@@ -226,6 +233,8 @@
 - (void)showAddProblemView {
     
     // Close button SetUp
+    self.mapView.settings.myLocationButton = NO;
+    
     self.closeButton = [[UIBarButtonItem alloc] init];
     self.closeButton.title = @"Close";
     [self.closeButton setAction:@selector(closeButtonTap:)];
@@ -246,23 +255,46 @@
 }
 
 - (IBAction)addProblemButtonTap:(UIButton *)sender {
-    if (!self.userIsInTheMiddleOfAddingProblem) {
-        [self loadNibs];
-        [self showAddProblemView];
-        self.nextButton.hidden = NO;
-        UIButton *button = sender;
-        button.enabled = NO;
-        self.userIsInTheMiddleOfAddingProblem = true;
-        self.mapView.userInteractionEnabled = YES;
+    if([EcomapLoggedUser currentLoggedUser]) {
+        if (!self.userIsInTheMiddleOfAddingProblem) {
+            [self loadNibs];
+            [self showAddProblemView];
+            self.addProblemPhoto.rootController = self;
+            self.nextButton.hidden = NO;
+            UIButton *button = sender;
+            button.hidden = YES;
+            CGRect buttonFrame = button.frame;
+            buttonFrame.origin.y += 50;
+            NSLog(@"%@", button.constraints);
+            
+            self.topSpaceToButton.constant = 10;
+            [button setNeedsUpdateConstraints];
+            
+            [button setFrame:buttonFrame];
+            self.userIsInTheMiddleOfAddingProblem = true;
+            self.mapView.userInteractionEnabled = YES;
+            
+            
+        } else {
+            
+            self.topSpaceToButton.constant = 77;
+            [self.addProblemButton setNeedsUpdateConstraints];
+            
+            [self postProblem];                     // not implemented
+            self.userIsInTheMiddleOfAddingProblem = false;
+            [self closeButtonTap:nil];
+            [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+        }
 
-        
     } else {
-        [self postProblem];                     // not implemented
-        self.userIsInTheMiddleOfAddingProblem = false;
-        [self closeButtonTap:nil];
-        [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+        //show action sheet to login
+        [InfoActions showLogitActionSheetFromSender:sender
+                           actionAfterSuccseccLogin:^{
+                               [self addProblemButtonTap:sender];
+                           }];
     }
-}
+
+    }
 
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
