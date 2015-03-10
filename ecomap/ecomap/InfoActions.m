@@ -17,6 +17,7 @@
 @interface InfoActions ()
 @property (nonatomic, strong) UIView *activityIndicatorView;
 @property (nonatomic, strong) UILabel *popupLabel;
+@property (nonatomic, strong) NSMutableArray *popupLabels; //Of UILabels
 @property (nonatomic) BOOL userInteraction;
 @end
 
@@ -194,6 +195,12 @@
     //Get keyWindos
     UIWindow *appKeyWindow = [[UIApplication sharedApplication] keyWindow];
     
+    [sharedActions.popupLabels addObject:[self createLabelWithText:message]];
+    
+//    for (UILabel *popupLabel in sharedActions.popupLabels){
+//        popupLabel.center = appKeyWindow.center
+//    }
+    
     //Position in center
     sharedActions.popupLabel.center = [appKeyWindow center];
     
@@ -210,19 +217,20 @@
     }];
     
     //Dismiss popup after delay
-    [self performSelector:@selector(dismissPopup:) withObject:nil afterDelay:POPUP_DELAY];
+    [self performSelector:@selector(dismissPopup:) withObject:sharedActions.popupLabel afterDelay:POPUP_DELAY];
 }
 
 + (void)dismissPopup:(UIView *)sender {
     
     InfoActions *sharedActions = [self sharedActions];
+    __block UILabel *label = (UILabel *)sender;
     // Fade out the message and destroy popup
     [UIView animateWithDuration:0.3
                      animations:^  {
-                         sharedActions.popupLabel.transform = CGAffineTransformMakeScale(1.3, 1.3);
-                         sharedActions.popupLabel.alpha = 0; }
+                         label.transform = CGAffineTransformMakeScale(1.3, 1.3);
+                         label.alpha = 0; }
                      completion:^ (BOOL finished) {
-                         sharedActions.popupLabel = nil;
+                         label = nil;
                          DDLogVerbose(@"Popup dismissed");
                          [sender removeFromSuperview];
                      }];
