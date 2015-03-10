@@ -50,6 +50,14 @@
     [self customSetup];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Reload table view to clear all selection
+    [self.tableView reloadData];
+}
+
 - (void)customSetup
 {
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
@@ -119,7 +127,7 @@
     }];
 }
 
-#pragma mark - UITableView Data Source
+#pragma mark - UITableView Data Source & Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
