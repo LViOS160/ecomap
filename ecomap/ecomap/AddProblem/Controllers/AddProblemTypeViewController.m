@@ -20,7 +20,7 @@
     [super viewDidLoad];
     self.problemTypes = [NSArray arrayWithObjects:@"Проблеми лісів", @"Сміттєзвалища", @"Незаконна забудова",
                      @"Проблеми водойм", @"Загрози біорізноманіттю", @"Браконьєрство", @"Інші проблеми", nil];
-    [self.pickerView selectRow:4 inComponent:0 animated:NO];
+    [self.pickerView selectRow:6 inComponent:0 animated:NO];
 }
 
 #pragma mark - PickerView

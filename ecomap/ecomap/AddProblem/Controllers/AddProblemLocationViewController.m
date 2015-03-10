@@ -10,4 +10,8 @@
 
 @implementation AddProblemLocationViewController
 
+- (IBAction)locateMeTap:(UIButton *)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LocateMeDidTap" object:self];
+}
+
 @end

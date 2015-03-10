@@ -10,4 +10,6 @@
 
 @interface AddProblemLocationViewController : UIViewController
 
+- (IBAction)locateMeTap:(UIButton *)sender;
+
 @end

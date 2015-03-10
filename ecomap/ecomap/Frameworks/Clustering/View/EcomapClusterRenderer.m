@@ -48,7 +48,7 @@
 - (GMSMarker*)markerFromProblem:(EcomapProblem *)problem
 {
     GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
+    marker.position = CLLocationCoordinate2DMake(problem.latitude, problem.longitude);
     marker.title = problem.title;
     marker.snippet = problem.problemTypeTitle;
     marker.icon = [self iconForMarkerType:problem.problemTypesID];

@@ -21,7 +21,7 @@
                              @"content"    : problemDetails.content,
                              @"proposal" : problemDetails.proposal,
                              @"latitude" : @(problem.latitude),
-                             @"longtitude" : @(problem.longtitude),
+                             @"longitude" : @(problem.longitude),
                              @"type" : @(problem.problemTypesID),
                              @"userId" : user ? @(user.userID) : @"",
                              @"userName" : user ? user.name : @"",

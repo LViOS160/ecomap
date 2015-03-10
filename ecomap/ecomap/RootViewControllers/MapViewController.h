@@ -15,6 +15,8 @@
 @interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>
 
 @property (nonatomic, strong) GMSMapView *mapView;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+-(void)loadProblems;
 
 @end
 
