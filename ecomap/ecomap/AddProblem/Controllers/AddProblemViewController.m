@@ -325,8 +325,8 @@
 }
 
 - (void)locateMeDidTap {
-    if(![CLLocationManager locationServicesEnabled]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ до геопозицiї" message:@"Для доступу до вашої геопозиції необхидно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції" preferredStyle:UIAlertControllerStyleAlert];
+    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ до геопозицiї" message:@"Для використання цієї функції необхiдно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Вiдмiнити" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *openAction = [UIAlertAction actionWithTitle:@"Вiдкрити налаштування" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
