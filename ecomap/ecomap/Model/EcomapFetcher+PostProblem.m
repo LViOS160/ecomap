@@ -61,12 +61,17 @@
                                               NSLog(@"Postet");
                                               if (error) {
                                                   DDLogVerbose(@"error = %@", error);
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      completionHandler(nil, error);
+                                                  });
                                                   return;
                                               }
                                               
                                               NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                               DDLogVerbose(@"result = %@", result);
-                                              completionHandler(result, error);
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  completionHandler(result, error);
+                                              });
                                           }];
     [task resume];
     
@@ -116,7 +121,6 @@
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                       completionHandler(nil, error);
                                                   });
-                                                  completionHandler(nil, error);
                                                   return;
                                               }
                                               NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -124,7 +128,6 @@
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   completionHandler(result, error);
                                               });
-                                              
                                           }];
     [task resume];
 }
