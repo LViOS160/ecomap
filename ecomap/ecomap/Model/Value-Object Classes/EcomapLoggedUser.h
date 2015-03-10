@@ -17,10 +17,11 @@
 @property (nonatomic, strong, readonly) NSString *token;
 @property (nonatomic, strong, readonly) NSString *email;
 
+//To login user
++ (EcomapLoggedUser *)loginUserWithInfo:(NSDictionary *)userInfo; //userInfo is response from Ecomap server
+
 //Get current logged user object
 //Return nil if no user is currently logged in
 +(EcomapLoggedUser *)currentLoggedUser;
 
-//Designated initializer
--(instancetype)initWithUserInfo:(NSDictionary *)userInfo;
 @end

@@ -48,7 +48,7 @@ static BOOL calledFacebookCloseSession = NO;
                                //Parse JSON
                                userInfo = [JSONParser parseJSONtoDictionary:JSON];
                                //Create EcomapLoggedUser object
-                               loggedUser = [[EcomapLoggedUser alloc] initWithUserInfo:userInfo];
+                               loggedUser = [EcomapLoggedUser loginUserWithInfo:userInfo];
                                
                                if (loggedUser) {
                                    DDLogVerbose(@"LogIN to ecomap success! %@", loggedUser.description);
@@ -286,10 +286,10 @@ static BOOL calledFacebookCloseSession = NO;
                              [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
                          }
                          
-                         //Set userDefaults @"isUserLogged" key to NO to delete EcomapLoggedUser object
+                         //post Logout notification
                          if (loggedUser) {
-                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                             [defaults setObject:@"NO" forKey:@"isUserLogged"];
+                             NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+                             [nc postNotificationName:@"LogoutFromEcomapNotification" object:nil];
                          }
                      } else {
                          DDLogError(@"Error to logout from ecomap server: %@", [error localizedDescription]);

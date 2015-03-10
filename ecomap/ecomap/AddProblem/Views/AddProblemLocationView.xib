@@ -39,6 +39,9 @@
                                 <state key="normal" title="Знайти мене">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="locateMeTap:" destination="-1" eventType="touchUpInside" id="LfJ-LQ-sR4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
