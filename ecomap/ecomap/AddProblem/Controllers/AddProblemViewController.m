@@ -13,7 +13,7 @@
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
 #import "InfoActions.h"
-
+#import "EcomapLocalPhoto.h"
 @interface AddProblemViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     CGFloat padding;
@@ -242,7 +242,7 @@
 }
 - (void)leftSwipe {
     NSLog(@"Left");
-    if (self.pageControl.currentPage < 6)
+    if (self.pageControl.currentPage < 5)
         [self nextButtonTap:nil];
 }
 
@@ -372,6 +372,7 @@
 
 
 - (void)postProblem {
+    NSArray *photos = self.addProblemPhoto.photos;
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : self.addProblemName.problemName.text,
                              ECOMAP_PROBLEM_CONTENT    : self.addProblemDescription.textView.text ? self.addProblemDescription.textView.text : @"",
                              ECOMAP_PROBLEM_PROPOSAL : self.addProblemSolution.textView.text ? self.addProblemSolution.textView.text : @"",
@@ -383,7 +384,15 @@
     
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
-
+//
+//    NSMutableArray *photosArray = [[NSMutableArray alloc] initWithCapacity:photos.count-1];
+//    NSMutableArray *descriptionsArray = [[NSMutableArray alloc] initWithCapacity:photos.count-1];
+//    for (EcomapLocalPhoto *photo in photos ){
+//        [photosArray addObject:photo.image];
+//        [descriptionsArray addObject:photo.imageDescription];
+//    }
+//    details.comments = descriptionsArray;
+    details.photos = photos;
     [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
 //        NSLog(@"YEY");
         [self loadProblems];

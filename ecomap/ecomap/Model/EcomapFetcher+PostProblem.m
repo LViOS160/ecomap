@@ -27,11 +27,12 @@
                              @"userName" : user ? user.name : @"",
                              @"userSurname" : user ? user.surname : @""
                              };
+    
     // Determine the path for the image
     NSMutableArray *localPhotos = [NSMutableArray arrayWithCapacity:problemDetails.photos.count];
-    for (EcomapPhoto *photo in problemDetails.photos) {
-        [localPhotos addObject:[[EcomapLocalPhoto alloc] initWithImage:[UIImage imageWithContentsOfFile:photo.link]
-                                                           description:photo.description]];
+    for (EcomapLocalPhoto *photo in problemDetails.photos) {
+        [localPhotos addObject:[[EcomapLocalPhoto alloc] initWithImage:photo.image
+                                                           description:photo.imageDescription]];
     }
     
     
