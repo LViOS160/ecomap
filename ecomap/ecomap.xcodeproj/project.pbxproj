@@ -386,6 +386,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90F0C92F1AAF47C700C6B105 /* FilterProblem */ = {
+			isa = PBXGroup;
+			children = (
+				90490DEB1AA880AC001069BB /* ProblemFilterTVC.h */,
+				90490DEC1AA880AC001069BB /* ProblemFilterTVC.m */,
+			);
+			name = FilterProblem;
+			sourceTree = "<group>";
+		};
 		974CFB529DD12C6EEAD3199D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -912,8 +921,7 @@
 				B3738BCB1A9DDC4B0077F604 /* Resources */,
 				B3738BFC1A9DDC4B0077F604 /* SWReveal */,
 				CA7B3C891AA654AD005AF277 /* Shared */,
-				90490DEB1AA880AC001069BB /* ProblemFilterTVC.h */,
-				90490DEC1AA880AC001069BB /* ProblemFilterTVC.m */,
+				90F0C92F1AAF47C700C6B105 /* FilterProblem */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
