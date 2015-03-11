@@ -16,7 +16,6 @@
 
 @interface InfoActions ()
 @property (nonatomic, strong) UIView *activityIndicatorView;
-@property (nonatomic, strong) UILabel *popupLabel;
 @property (nonatomic, strong) NSMutableArray *popupLabels; //Of UILabels
 @property (nonatomic) BOOL userInteraction;
 @end
@@ -31,23 +30,34 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        sharedActions = [[InfoActions alloc] init];
-        
-        if (sharedActions) {
-            sharedActions.popupLabels = [[NSMutableArray alloc] init];
-            
-            //Add observer to listen when device chages orientation
-            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-            [nc addObserver:sharedActions
-                   selector:@selector(orientationChanged:)
-                       name:UIDeviceOrientationDidChangeNotification
-                     object:nil];
-        }
-        
+        sharedActions = [[InfoActions alloc] initPrivate];
     });
     
     return sharedActions;
     
+}
+
+-(instancetype)initPrivate
+{
+    self = [super init];
+    if (self) {
+        self.popupLabels = [[NSMutableArray alloc] init];
+        //Add observer to listen when device chages orientation
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self
+               selector:@selector(orientationChanged:)
+                   name:UIDeviceOrientationDidChangeNotification
+                 object:nil];
+    }
+    
+    return self;
+}
+
+//Disable init method
+-(instancetype)init
+{
+    @throw [NSException exceptionWithName:@"Error" reason:@"Can't create instanse of this class. To login to server use EcomapUserFetcher class" userInfo:nil];
+    return nil;
 }
 
 //Center all action views here
@@ -258,14 +268,17 @@
         }];
     } else firstPopup.center = appWindowCenter;
     
-    
-    
     //set vertical offset for other popups
     for (int i = 1; i < [[self popupLabels] count]; i++) {
         UILabel *nextPopup = (UILabel *)[[self popupLabels] objectAtIndex:i];
         appWindowCenter.y += POPUP_HEIGHT + POPUP_VERTICAL_OFFSET;
-
-        nextPopup.center = appWindowCenter;
+        
+        //animate offset
+        if ( i != ([[self popupLabels] count] - 1)) {
+            [UIView animateWithDuration:0.3 animations:^{
+                nextPopup.center = appWindowCenter;
+            }];
+        } else nextPopup.center = appWindowCenter;
 
     }
 
