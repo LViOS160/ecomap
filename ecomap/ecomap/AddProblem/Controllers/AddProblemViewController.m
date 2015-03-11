@@ -338,9 +338,7 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     else {
-        [self.locationManager startUpdatingLocation];
-
-        CLLocation *location = self.locationManager.location;
+        CLLocation *location = self.mapView.myLocation;
         CLLocationCoordinate2D coordinate = [location coordinate];
         
         if (self.userIsInTheMiddleOfAddingProblem) {
