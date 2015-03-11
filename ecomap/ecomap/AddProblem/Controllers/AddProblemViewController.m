@@ -37,7 +37,8 @@
 @property (nonatomic) BOOL userIsInTheMiddleOfAddingProblem;
 
 // Views
-
+//adsasdasd
+//asdadasd
 @property (nonatomic) UIView* addProblemNavigationView;
 @property (nonatomic) AddProblemDescriptionViewController *addProblemDescription;
 @property (nonatomic) AddProblemLocationViewController *addProblemLocation;
