@@ -21,6 +21,7 @@
 #import "GlobalLoggerLevel.h"
 #import "Reachability.h"
 #import "CustomInfoWindow.h"
+#import "ProblemFilterTVC.h"
 
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 #define FILTER_ON NO
@@ -37,6 +38,12 @@
 @property (nonatomic, strong) SRWebSocket *socket;
 @property (nonatomic) Reachability *hostReachability;
 
+// Filtering mask. We get it through NSNotificationCenter
+@property (nonatomic, strong) EcomapProblemFilteringMask *filteringMask;
+
+// Set which contains problems after applying filter.
+@property (nonatomic, strong) NSSet *filteredProblems;
+
 @end
 
 @implementation MapViewController
@@ -47,6 +54,26 @@
     [self mapSetup];
     [self socketInit];
     [self reachabilitySetup];
+    [self filteringSetup];
+}
+
+- (void)filteringSetup
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(filteringMaskChanged:)
+                                                 name:@"Filtering Notification"
+                                               object:nil];
+}
+
+- (void)filteringMaskChanged:(NSNotification *)notification
+{
+    if([[notification object] isKindOfClass:[EcomapProblemFilteringMask class]]) {
+        self.filteringMask = [notification object];
+    } else {
+        self.filteringMask = nil;
+    }
+    [self applyFilter];
+    
 }
 
 -(void)reachabilitySetup {
@@ -152,6 +179,27 @@
             }
         }
     }];
+}
+
+#pragma mark - Utility Methods
+
+- (void)applyFilter
+{
+    NSArray *arrProblems;
+    NSArray *filteredProblems;
+    
+    if(self.problems) {
+        arrProblems = [self.problems allObjects];
+        
+        if(self.filteringMask) {
+            filteredProblems = [EcomapFilter filterProblemsArray:arrProblems usingFilteringMask:self.filteringMask];
+            self.filteredProblems = [NSSet setWithArray:filteredProblems];
+        } else {
+            self.filteredProblems = self.problems;
+        }
+    }
+    
+    [self renewMap:self.filteredProblems];
 }
 
 #pragma mark - GMAP
@@ -260,6 +308,13 @@
                 EcomapProblem *problem = (EcomapProblem *)((GMSMarker *)sender).userData;
                 problemVC.problemID = problem.problemID;
             }
+        }
+    } else if([segue.identifier isEqualToString:@"Filter Problem"]) {
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        if([navController.topViewController isKindOfClass:[ProblemFilterTVC class]]) {
+            ProblemFilterTVC *dvc = (ProblemFilterTVC *)navController.topViewController;
+            dvc.filteringMask = self.filteringMask;
+            NSLog(@"It's kind of class!");
         }
     }
 }

@@ -295,12 +295,16 @@
                                 <action selector="touchHideButton:" destination="D1l-xQ-zXa" id="wtq-qi-hQZ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Додати" id="LQ2-aK-GIv"/>
+                        <barButtonItem key="rightBarButtonItem" title="Додати" id="LQ2-aK-GIv">
+                            <connections>
+                                <action selector="touchApplyButton:" destination="D1l-xQ-zXa" id="eQh-Bh-tgh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lRI-cc-FcL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-795" y="1346"/>
+            <point key="canvasLocation" x="2548" y="-2022"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="d5K-EI-X9c">
@@ -2569,6 +2573,7 @@
         <!--Navigation Controller-->
         <scene sceneID="sB4-DJ-fa6">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zGM-p1-OJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ePc-ly-kdW" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AdW-Zc-UkR">
@@ -2580,9 +2585,8 @@
                         <segue destination="D1l-xQ-zXa" kind="relationship" relationship="rootViewController" id="etq-Ff-JT4"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zGM-p1-OJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1637" y="1346"/>
+            <point key="canvasLocation" x="1826" y="-2022"/>
         </scene>
     </scenes>
     <resources>

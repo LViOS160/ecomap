@@ -8,7 +8,6 @@
 
 #import "ProblemFilterTVC.h"
 #import "EcomapPathDefine.h"
-#import "EcomapProblemFilteringMask.h"
 
 static NSInteger numberOfSections = 3;
 
@@ -26,8 +25,6 @@ static NSString *kProblemStatusCellID = @"problemStatusCell";
 static NSString *kDatePickerCellID = @"datePickerCell";
 
 @interface ProblemFilterTVC ()
-
-@property (strong, nonatomic) EcomapProblemFilteringMask *filteringMask;
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSIndexPath *datePickerIndexPath;
@@ -258,7 +255,14 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 - (IBAction)touchHideButton:(UIBarButtonItem *)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Filtering Notification" object:nil]; }];
+}
+
+- (IBAction)touchApplyButton:(UIBarButtonItem *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Filtering Notification" object:self.filteringMask]; }];
 }
 
 #pragma mark - Table View Data Source
