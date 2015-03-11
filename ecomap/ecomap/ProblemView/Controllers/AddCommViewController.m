@@ -173,9 +173,7 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(!self.comments.count)
-        NSLog(@"EMPTY");
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section { 
     return self.comments.count;
 }
 
