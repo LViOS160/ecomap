@@ -39,13 +39,8 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
     [self createDateFormatter];
     
-    NSLog(@"View load successfully");
-    NSLog(@"Start date: %@", self.filteringMask.fromDate);
-    NSLog(@"End date: %@", self.filteringMask.toDate);
 }
 
 #pragma mark - Properties
@@ -145,8 +140,8 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     // Check either filtering mask contains type of the problem of the current row
     // Depending on answer show image.
     UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
-    checkmarkImage.image = (indexPath.row == 0) ? [self checkmarkImage:self.filteringMask.showSolved]
-                                                : [self checkmarkImage:self.filteringMask.showUnsolved];
+    checkmarkImage.image = (indexPath.row == 0) ? [self checkmarkImage:self.filteringMask.showUnsolved]
+                                                : [self checkmarkImage:self.filteringMask.showSolved];
     
     return cell;
 }
@@ -158,6 +153,9 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     // Configure cell data
     UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:kDatePickerTag];
+    
+    targetedDatePicker.minimumDate = [self.dateFormatter dateFromString:@"2014-02-18"];
+    targetedDatePicker.maximumDate = [NSDate date];
     
     [targetedDatePicker setDate:[self dateFromIndexPath:indexPath] animated:YES];
     
@@ -228,9 +226,9 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 - (void)handleTappingStatusSection:(NSIndexPath *)indexPath
 {
     if(indexPath.row == 0) {
-        self.filteringMask.showSolved = !self.filteringMask.showSolved;
-    } else {
         self.filteringMask.showUnsolved = !self.filteringMask.showUnsolved;
+    } else {
+        self.filteringMask.showSolved = !self.filteringMask.showSolved;
     }
     
     [self.tableView reloadData];
@@ -316,6 +314,17 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     }
     
     return [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch(section) {
+        case 0: return @"Фільтрація за датою";
+        case 1: return @"Типи проблем";
+        case 2: return @"Статус проблеми";
+    }
+    
+    return @"";
 }
 
 #pragma mark - Table View Delegate

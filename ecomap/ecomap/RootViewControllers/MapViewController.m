@@ -199,6 +199,8 @@
         }
     }
     
+    DDLogVerbose(@"Filtering mask: %@", self.filteringMask);
+    
     [self renewMap:self.filteredProblems];
 }
 
@@ -314,7 +316,6 @@
         if([navController.topViewController isKindOfClass:[ProblemFilterTVC class]]) {
             ProblemFilterTVC *dvc = (ProblemFilterTVC *)navController.topViewController;
             dvc.filteringMask = self.filteringMask;
-            NSLog(@"It's kind of class!");
         }
     }
 }

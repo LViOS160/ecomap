@@ -45,14 +45,10 @@
 {
     if(mask.showSolved && mask.showUnsolved) {
         return YES;
-    } else if(mask.showSolved && !mask.showUnsolved) {
-        if(problem.isSolved) {
-            return YES;
-        }
-    } else if(!mask.showSolved && mask.showUnsolved) {
-        if(!problem.isSolved) {
-            return YES;
-        }
+    } else if(mask.showSolved && !mask.showUnsolved && problem.isSolved) {
+        return YES;
+    } else if(!mask.showSolved && mask.showUnsolved && !problem.isSolved) {
+        return YES;
     }
     return NO;
 }
