@@ -64,8 +64,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 - (void)createDateFormatter
 {
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
 }
 
 - (BOOL)datePickerIsShown
@@ -255,6 +254,11 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:sender.date];
     
     [self setDate:sender.date forIndexPath:parentCellIndexPath];
+}
+
+- (IBAction)touchHideButton:(UIBarButtonItem *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table View Data Source

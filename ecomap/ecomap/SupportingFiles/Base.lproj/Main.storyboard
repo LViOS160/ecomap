@@ -290,7 +290,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="SbI-lW-ocf">
-                        <barButtonItem key="rightBarButtonItem" title="Apply" id="LQ2-aK-GIv"/>
+                        <barButtonItem key="leftBarButtonItem" title="Відмінити" id="fA0-QO-mZw">
+                            <connections>
+                                <action selector="touchHideButton:" destination="D1l-xQ-zXa" id="wtq-qi-hQZ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Додати" id="LQ2-aK-GIv"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lRI-cc-FcL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -524,10 +529,25 @@
                                     <action selector="addProblemButtonTap:" destination="bov-97-S05" eventType="touchUpInside" id="Snh-OI-cRc"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RnJ-vU-07S" userLabel="Filter Button">
+                                <rect key="frame" x="16" y="520" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="njt-yb-5kS"/>
+                                    <constraint firstAttribute="width" constant="60" id="upq-sy-l36"/>
+                                </constraints>
+                                <state key="normal" image="filter-button-beta">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ePc-ly-kdW" kind="custom" identifier="Filter Problem" customClass="SWRevealModalSegue" id="KOA-a8-0yx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="RnJ-vU-07S" firstAttribute="leading" secondItem="WRP-KO-eoO" secondAttribute="leading" constant="16" id="9cn-51-sk7"/>
                             <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="Vm5-Cq-zWt" secondAttribute="bottom" constant="77" id="FFa-3E-dEE"/>
+                            <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="RnJ-vU-07S" secondAttribute="bottom" constant="20" id="HTV-ZV-D2K"/>
                             <constraint firstAttribute="trailing" secondItem="Vm5-Cq-zWt" secondAttribute="trailing" constant="7" id="S9y-3g-6fY"/>
                         </constraints>
                     </view>
@@ -2584,12 +2604,13 @@
         <image name="UsernameField" width="282" height="41"/>
         <image name="add" width="102" height="102"/>
         <image name="cameraButton" width="30" height="30"/>
+        <image name="filter-button-beta" width="102" height="102"/>
         <image name="galleryButton" width="30" height="30"/>
         <image name="logo" width="125" height="180"/>
         <image name="reveal-icon" width="22" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WgQ-oX-LnI"/>
-        <segue reference="Tb6-3i-OMj"/>
+        <segue reference="p0L-Um-XQx"/>
     </inferredMetricsTieBreakers>
 </document>

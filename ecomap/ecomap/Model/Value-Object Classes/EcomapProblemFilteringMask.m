@@ -29,7 +29,8 @@
     return @[@1, @2, @3, @4, @5, @6, @7];
 }
 
-// Very simple method :)
+// Check wether Problem type array consists type ID.
+// If not add it, in other case remove it from array.
 - (void)markProblemType:(NSInteger)problemTypeID
 {
     if([self.problemTypes containsObject:@(problemTypeID)]) {

@@ -123,50 +123,22 @@
     [NSKeyedArchiver archiveRootObject:problems toFile:[self getPath]];
 }
 
-- (void)renewMap:(NSSet*)problems {
+- (void)renewMap:(NSSet*)problems
+{
     [self startStandardUpdates];
     [self.clusterManager removeItems];
     [self.mapView clear];
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
                                                     algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                      renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
-#warning Filtering demo
-    if(FILTER_ON) {
-        
-        // Filtering demo
-        
-        NSArray *arrayOfProblems = [problems allObjects];
-        
-        EcomapProblemFilteringMask *mask = [[EcomapProblemFilteringMask alloc] init];
-        
-        mask.problemTypes = @[@1, @3, @7];
-        NSString *startDate = @"2015-01-01";
-        NSString *endDate = @"2015-02-08";
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        mask.fromDate = [dateFormatter dateFromString:startDate];
-        mask.toDate = [dateFormatter dateFromString:endDate];
-        mask.showSolved = NO;
-        mask.showUnsolved = YES;
-        
-        NSArray *filteredProblems = [EcomapFilter filterProblemsArray:arrayOfProblems usingFilteringMask:mask];
-       for(EcomapProblem *problem in filteredProblems) {
-            if([problem isKindOfClass:[EcomapProblem class]]){
-                Spot* spot = [self generateSpot:problem];
-                [self.clusterManager addItem:spot];
-            }
+    
+    for(EcomapProblem *problem in problems) {
+        if([problem isKindOfClass:[EcomapProblem class]]) {
+            Spot* spot = [self generateSpot:problem];
+            [self.clusterManager addItem:spot];
         }
-        [self.clusterManager cluster];
-        
-    } else {
-       for(EcomapProblem *problem in problems) {
-            if([problem isKindOfClass:[EcomapProblem class]]){
-                Spot* spot = [self generateSpot:problem];
-                [self.clusterManager addItem:spot];
-            }
-        }
-        [self.clusterManager cluster];
     }
+    [self.clusterManager cluster];
  }
 
 
