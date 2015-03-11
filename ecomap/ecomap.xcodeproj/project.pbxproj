@@ -10,6 +10,7 @@
 		03B1BC005E13B3CDC884086F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC970330F7C53C912ED19D0D /* libPods.a */; };
 		2DB8150B1AA854DA0011AFA1 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DB8150A1AA854DA0011AFA1 /* InfoWindow.xib */; };
 		2DB8150E1AA856490011AFA1 /* CustomInfoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */; };
+		513A41CB1AB0F9E4000B9180 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 513A41CD1AB0F9E4000B9180 /* Localizable.strings */; };
 		518F30961AA1E36E0094DA14 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518F30951AA1E36E0094DA14 /* FacebookSDK.framework */; };
 		518F30A41AA269E50094DA14 /* DataTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A31AA269E50094DA14 /* DataTasks.m */; };
 		518F30A71AA26BF40094DA14 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A61AA26BF40094DA14 /* JSONParser.m */; };
@@ -149,6 +150,12 @@
 		2DB8150C1AA856490011AFA1 /* CustomInfoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomInfoWindow.h; sourceTree = "<group>"; };
 		2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomInfoWindow.m; sourceTree = "<group>"; };
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		513A41C51AB0F300000B9180 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		513A41C61AB0F329000B9180 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/Main.strings"; sourceTree = "<group>"; };
+		513A41C81AB0F340000B9180 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		513A41CC1AB0F9E4000B9180 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		513A41CF1AB0FCF6000B9180 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		513A41D01AB0FCF8000B9180 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		518F30951AA1E36E0094DA14 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		518F30A21AA269E50094DA14 /* DataTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTasks.h; sourceTree = "<group>"; };
 		518F30A31AA269E50094DA14 /* DataTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTasks.m; sourceTree = "<group>"; };
@@ -802,6 +809,7 @@
 				B3738BEA1A9DDC4B0077F604 /* Info.plist */,
 				B3738BEB1A9DDC4B0077F604 /* kyiv.gpx */,
 				B3738BEC1A9DDC4B0077F604 /* main.m */,
+				513A41CD1AB0F9E4000B9180 /* Localizable.strings */,
 				B3738BF91A9DDC4B0077F604 /* Resources */,
 			);
 			name = SupportingFiles;
@@ -1053,6 +1061,8 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
+				"uk-UA",
 			);
 			mainGroup = B35343101A7F73ED00DD2F03;
 			productRefGroup = B353431A1A7F73ED00DD2F03 /* Products */;
@@ -1087,6 +1097,7 @@
 				B3738C551A9DDC4B0077F604 /* reveal-icon.png in Resources */,
 				B3738C441A9DDC4B0077F604 /* Main.storyboard in Resources */,
 				B33437FB1A9DE683007ACD82 /* AddProblemLocationView.xib in Resources */,
+				513A41CB1AB0F9E4000B9180 /* Localizable.strings in Resources */,
 				B3738C501A9DDC4B0077F604 /* OpenSans-Light.ttf in Resources */,
 				B3738C481A9DDC4B0077F604 /* kyiv.gpx in Resources */,
 				B3738C541A9DDC4B0077F604 /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -1247,6 +1258,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		513A41CD1AB0F9E4000B9180 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				513A41CC1AB0F9E4000B9180 /* en */,
+				513A41CF1AB0FCF6000B9180 /* ru */,
+				513A41D01AB0FCF8000B9180 /* uk-UA */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		B3738BE31A9DDC4B0077F604 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1260,6 +1281,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				B3738BE61A9DDC4B0077F604 /* Base */,
+				513A41C51AB0F300000B9180 /* ru */,
+				513A41C61AB0F329000B9180 /* uk-UA */,
+				513A41C81AB0F340000B9180 /* en */,
 			);
 			name = Main.storyboard;
 			path = ecomap/SupportingFiles;
