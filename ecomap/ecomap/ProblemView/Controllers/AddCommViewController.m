@@ -48,8 +48,11 @@
     }];
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
+    
+    
+    
     [self updateUI];
-   
+
     // Do any additional setup after loading the view.
 }
 
@@ -64,6 +67,8 @@
     self.textField.textColor = [UIColor lightGrayColor];
     //[self.myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.myTableView.tableFooterView =[[UIView alloc] initWithFrame:CGRectZero];
+    
+    
    
 }
 
@@ -169,13 +174,31 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+   
     
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section { 
-    return self.comments.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(!self.comments.count)
+        
+    {
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
+        
+        messageLabel.text = @"Коментарі відсутні.";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:30];
+        [messageLabel sizeToFit];
+        self.myTableView.backgroundView = messageLabel;
+        //[self.view addSubview:messageLabel];
+       
+    }
+    else self.myTableView.backgroundView = nil;
+        return self.comments.count;
 }
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -183,6 +206,10 @@
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
     if(!cell)
         cell = [[CommentCell alloc] init];
+    
+        
+    
+    
     EcomapComments *commentaires = [self.comments objectAtIndex:indexPath.row];
     cell.commentContent.text= commentaires.problemContent;
     NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
