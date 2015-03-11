@@ -23,8 +23,8 @@
 
 @implementation PhotoViewController
 
-static const NSInteger _textFieldsStartTag = 100;
-static const NSUInteger _defaultMaxPhotos = 5;
+static const NSInteger TextFieldsStartTag = 100;
+static const NSUInteger DefaultMaxPhotos = 5;
 
 - (void)viewDidLoad
 {
@@ -37,7 +37,7 @@ static const NSUInteger _defaultMaxPhotos = 5;
     tap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tap];
     if (self.maxPhotos == 0) {
-        self.maxPhotos = _defaultMaxPhotos;
+        self.maxPhotos = DefaultMaxPhotos;
     }
 }
 
@@ -219,7 +219,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
     descriptionText.text = descr.imageDescription;
     descriptionText.placeholder = @"Додати опис";
-    descriptionText.tag = _textFieldsStartTag + indexPath.row;
+    descriptionText.tag = TextFieldsStartTag + indexPath.row;
     
     return cell;
 }
@@ -239,7 +239,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSUInteger index = textField.tag - _textFieldsStartTag;
+    NSUInteger index = textField.tag - TextFieldsStartTag;
     if (index < self.imageDescriptions.count) {
         EcomapLocalPhoto *descr = self.imageDescriptions[index];
         descr.imageDescription = textField.text;
