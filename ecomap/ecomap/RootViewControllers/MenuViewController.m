@@ -31,7 +31,7 @@
 
 -(BOOL)showLogin
 {
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isUserLogged"] isEqualToString:@"NO"]) {
+    if (![EcomapLoggedUser currentLoggedUser]) {
         return YES;
     }
     return NO;

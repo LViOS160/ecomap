@@ -12,8 +12,11 @@
 
 @property (nonatomic, strong) NSDate *fromDate;
 @property (nonatomic, strong) NSDate *toDate;
-@property (nonatomic, strong) NSArray *problemTypes; // of NSUInteger Problem's Type ID
+@property (nonatomic, strong) NSMutableArray *problemTypes; // of NSUInteger Problem's Type ID
 @property (nonatomic) BOOL showSolved;
 @property (nonatomic) BOOL showUnsolved;
+
+// Apply showing/hidding problem type with ID.
+- (void)markProblemType:(NSInteger)problemTypeID;
 
 @end

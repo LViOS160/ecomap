@@ -29,7 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
-@property (nonatomic, strong) CLLocationManager *locationManager;
+
 
 @property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
@@ -200,6 +200,8 @@
     if (self.problems)
         [self renewMap:self.problems];
     [self loadProblems];
+
+//    self.mapView.camera
 }
 
 - (void)customSetup
@@ -241,7 +243,7 @@
 {
     Spot* spot = [[Spot alloc] init];
     spot.problem = problem;
-    spot.location = CLLocationCoordinate2DMake(problem.latitude, problem.longtitude);
+    spot.location = CLLocationCoordinate2DMake(problem.latitude, problem.longitude);
     return spot;
 }
 

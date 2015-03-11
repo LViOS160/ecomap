@@ -36,7 +36,9 @@ static const NSUInteger _defaultMaxPhotos = 5;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpinside:)];
     tap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tap];
-    self.maxPhotos = _defaultMaxPhotos;
+    if (self.maxPhotos == 0) {
+        self.maxPhotos = _defaultMaxPhotos;
+    }
 }
 
 - (void)setMaxPhotos:(NSUInteger)maxPhotos
@@ -57,6 +59,7 @@ static const NSUInteger _defaultMaxPhotos = 5;
     
     //setup keyboard notifications
     [self registerForKeyboardNotifications];
+    [self updateUI];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

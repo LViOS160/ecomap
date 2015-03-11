@@ -27,6 +27,7 @@
 		90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */; };
 		90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */; };
 		90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */; };
+		90F0C9351AAF4AC000C6B105 /* ProblemFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F0C9341AAF4AC000C6B105 /* ProblemFilterTVC.m */; };
 		B30E2DBC1A9DDD340039DBBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBB1A9DDD340039DBBD /* Foundation.framework */; };
 		B30E2DBE1A9DDD3A0039DBBD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */; };
 		B30E2DC01A9DDD410039DBBD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DBF1A9DDD410039DBBD /* Security.framework */; };
@@ -179,6 +180,8 @@
 		90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapAdminFetcher.m; sourceTree = "<group>"; };
 		90C868A11AA4746B0001E448 /* EcomapEditableProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapEditableProblem.h; sourceTree = "<group>"; };
 		90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapEditableProblem.m; sourceTree = "<group>"; };
+		90F0C9331AAF4AC000C6B105 /* ProblemFilterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemFilterTVC.h; sourceTree = "<group>"; };
+		90F0C9341AAF4AC000C6B105 /* ProblemFilterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemFilterTVC.m; sourceTree = "<group>"; };
 		B30E2DBB1A9DDD340039DBBD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B30E2DBD1A9DDD3A0039DBBD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B30E2DBF1A9DDD410039DBBD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -394,6 +397,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90F0C92F1AAF47C700C6B105 /* FilterProblem */ = {
+			isa = PBXGroup;
+			children = (
+				90F0C9331AAF4AC000C6B105 /* ProblemFilterTVC.h */,
+				90F0C9341AAF4AC000C6B105 /* ProblemFilterTVC.m */,
+			);
+			name = FilterProblem;
+			sourceTree = "<group>";
+		};
 		974CFB529DD12C6EEAD3199D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -922,6 +934,7 @@
 				B3738BCB1A9DDC4B0077F604 /* Resources */,
 				B3738BFC1A9DDC4B0077F604 /* SWReveal */,
 				CA7B3C891AA654AD005AF277 /* Shared */,
+				90F0C92F1AAF47C700C6B105 /* FilterProblem */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1185,6 +1198,7 @@
 				9096C98D1A91E8DA00A61CDB /* (null) in Sources */,
 				B3738C311A9DDC4B0077F604 /* EcomapProblemDetails.m in Sources */,
 				B3738C211A9DDC4B0077F604 /* EcomapFetcher.m in Sources */,
+				90F0C9351AAF4AC000C6B105 /* ProblemFilterTVC.m in Sources */,
 				518F30C01AA4D82D0094DA14 /* ProfileViewController.m in Sources */,
 				B3738C581A9DDC4B0077F604 /* SWRevealViewController.m in Sources */,
 				B3738C1A1A9DDC4B0077F604 /* GQTPointQuadTreeChild.m in Sources */,

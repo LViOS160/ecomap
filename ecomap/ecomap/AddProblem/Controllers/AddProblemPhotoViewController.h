@@ -11,5 +11,6 @@
 @interface AddProblemPhotoViewController : UIViewController
 
 @property (nonatomic, assign) UIViewController *rootController;
+@property (nonatomic, strong, readonly) NSArray *photos;
 
 @end

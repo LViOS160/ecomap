@@ -13,44 +13,43 @@
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
 #import "InfoActions.h"
-
-@interface AddProblemViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#import "EcomapLocalPhoto.h"
+@interface AddProblemViewController ()
 {
     CGFloat padding;
     CGFloat paddingWithNavigationView;
     CGFloat screenWidth;
 }
 
-//AddProblemProperties
+// Outlets
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *prevButton;
-
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-
 @property (weak, nonatomic) IBOutlet UIButton *addProblemButton;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceToButton;
 @property (nonatomic) UIBarButtonItem *closeButton;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceToButton;
-
-//AddProblemViews
-@property (nonatomic) UIView* addProblemNavigationView;
-
-
+// NavigationViews
 
 @property (nonatomic) UIViewController* curView;
 @property (nonatomic) UIViewController* prevView;
 @property (nonatomic) UIViewController* nextView;
-
 @property (nonatomic) BOOL userIsInTheMiddleOfAddingProblem;
 
+// Views
+
+@property (nonatomic) UIView* addProblemNavigationView;
 @property (nonatomic) AddProblemDescriptionViewController *addProblemDescription;
 @property (nonatomic) AddProblemLocationViewController *addProblemLocation;
 @property (nonatomic) AddProblemNameViewController *addProblemName;
 @property (nonatomic) AddProblemPhotoViewController *addProblemPhoto;
 @property (nonatomic) AddProblemSolutionViewController *addProblemSolution;
 @property (nonatomic) AddProblemTypeViewController *addProblemType;
+
+// MapMarker
+
 @property (nonatomic) GMSMarker *marker;
+
 @end
 
 @implementation AddProblemViewController
@@ -63,6 +62,8 @@
                                                object:nil];
 }
 
+
+// If field filled allow switch to next page
 
 - (BOOL)checkWetherCurrentFieldFilled {
     BOOL fieldFilled = YES;
@@ -90,7 +91,47 @@
     return fieldFilled;
 }
 
-#pragma mark - PageControlViewButtons
+#pragma mark - Buttons
+
+- (IBAction)addProblemButtonTap:(UIButton *)sender {
+    if([EcomapLoggedUser currentLoggedUser]) {
+        if (!self.userIsInTheMiddleOfAddingProblem) {
+            [self loadNibs];
+            [self showAddProblemView];
+            self.addProblemPhoto.rootController = self;
+            self.nextButton.hidden = NO;
+            UIButton *button = sender;
+            button.hidden = YES;
+            CGRect buttonFrame = button.frame;
+            buttonFrame.origin.y += 50;
+            
+            self.topSpaceToButton.constant = 10;
+            
+            [button setNeedsUpdateConstraints];
+            [button setFrame:buttonFrame];
+            self.userIsInTheMiddleOfAddingProblem = true;
+            self.mapView.userInteractionEnabled = YES;
+            
+        } else {
+            
+            self.topSpaceToButton.constant = 77;
+            [self.addProblemButton setNeedsUpdateConstraints];
+            
+            [self postProblem];                     // not implemented
+            self.userIsInTheMiddleOfAddingProblem = false;
+            [self closeButtonTap:nil];
+            [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+        }
+        
+    } else {
+        //show action sheet to login
+        [InfoActions showLogitActionSheetFromSender:sender
+                           actionAfterSuccseccLogin:^{
+                               [self addProblemButtonTap:sender];
+                           }];
+    }
+    
+}
 
 - (IBAction)nextButtonTap:(UIButton *)sender {
     if (![self checkWetherCurrentFieldFilled]) {
@@ -116,8 +157,11 @@
 }
 
 - (void)closeButtonTap:(id *)sender {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.marker.map = nil;
+    self.marker = nil;
     self.topSpaceToButton.constant = 77;
+    
     [self.addProblemButton setNeedsUpdateConstraints];
     
     self.mapView.settings.myLocationButton = YES;
@@ -127,6 +171,7 @@
     self.navigationItem.rightBarButtonItem = nil;
     self.pageControl.currentPage = 0;
     self.userIsInTheMiddleOfAddingProblem = NO;
+    [self.addProblemButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
 }
 
 - (void)switchPage{
@@ -230,13 +275,37 @@
     [self layoutView:self.addProblemNavigationView];
 }
 
+#pragma mark - SwipesGesures
+
+- (void)rightSwipe {
+    if (self.pageControl.currentPage > 0)
+        [self prevButtonTap:nil];
+    
+}
+- (void)leftSwipe {
+    if (self.pageControl.currentPage < 5)
+        [self nextButtonTap:nil];
+}
+
+
+
 - (void)showAddProblemView {
+
+    UISwipeGestureRecognizer *swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(rightSwipe)];
+    UISwipeGestureRecognizer *swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftSwipe)];
+    
+    swipeRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    [self.view addGestureRecognizer:swipeRecognizerRight];
+    [self.view addGestureRecognizer:swipeRecognizerLeft];
+    
     
     // Close button SetUp
     self.mapView.settings.myLocationButton = NO;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locateMeDidTap) name:@"LocateMeDidTap" object:nil];
     self.closeButton = [[UIBarButtonItem alloc] init];
-    self.closeButton.title = @"Close";
+    self.closeButton.title = @"Вiдмiнити";
     [self.closeButton setAction:@selector(closeButtonTap:)];
     [self.closeButton setTarget:self];
     self.navigationItem.rightBarButtonItem = self.closeButton;
@@ -251,81 +320,78 @@
     self.prevView = nil;
     self.nextView = self.addProblemName;
     self.prevButton.hidden = YES;
+
     
 }
 
-- (IBAction)addProblemButtonTap:(UIButton *)sender {
-    if([EcomapLoggedUser currentLoggedUser]) {
-        if (!self.userIsInTheMiddleOfAddingProblem) {
-            [self loadNibs];
-            [self showAddProblemView];
-            self.addProblemPhoto.rootController = self;
-            self.nextButton.hidden = NO;
-            UIButton *button = sender;
-            button.hidden = YES;
-            CGRect buttonFrame = button.frame;
-            buttonFrame.origin.y += 50;
-            NSLog(@"%@", button.constraints);
-            
-            self.topSpaceToButton.constant = 10;
-            [button setNeedsUpdateConstraints];
-            
-            [button setFrame:buttonFrame];
-            self.userIsInTheMiddleOfAddingProblem = true;
-            self.mapView.userInteractionEnabled = YES;
-            
-            
-        } else {
-            
-            self.topSpaceToButton.constant = 77;
-            [self.addProblemButton setNeedsUpdateConstraints];
-            
-            [self postProblem];                     // not implemented
-            self.userIsInTheMiddleOfAddingProblem = false;
-            [self closeButtonTap:nil];
-            [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+- (void)locateMeDidTap {
+    if(![CLLocationManager locationServicesEnabled]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ до геопозицiї" message:@"Для доступу до вашої геопозиції необхидно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Вiдмiнити" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *openAction = [UIAlertAction actionWithTitle:@"Вiдкрити налаштування" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            [[UIApplication sharedApplication] openURL:url];
+        }];
+        [alert addAction:cancelAction];
+        [alert addAction:openAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    else {
+        [self.locationManager startUpdatingLocation];
+
+        CLLocation *location = self.locationManager.location;
+        CLLocationCoordinate2D coordinate = [location coordinate];
+        
+        if (self.userIsInTheMiddleOfAddingProblem) {
+            if ([self.curView isKindOfClass:[AddProblemLocationViewController class]]) {
+                if (!self.marker) {
+                    self.marker = [[GMSMarker alloc] init];
+                    self.marker.title = @"Мiсцезнаходження проблеми";
+                    self.marker.map = self.mapView;
+                }
+                [self.marker setPosition:coordinate];
+            }
         }
 
-    } else {
-        //show action sheet to login
-        [InfoActions showLogitActionSheetFromSender:sender
-                           actionAfterSuccseccLogin:^{
-                               [self addProblemButtonTap:sender];
-                           }];
     }
 
-    }
+}
+
+#pragma mark - ProblemPost
 
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
 
-    if ([self.curView isKindOfClass:[AddProblemLocationViewController class]]) {
-        if (!self.marker) {
-            self.marker = [[GMSMarker alloc] init];
-            self.marker.title = @"Мiсцезнаходження проблеми";
-            self.marker.map = self.mapView;
+    if (self.userIsInTheMiddleOfAddingProblem) {
+        if ([self.curView isKindOfClass:[AddProblemLocationViewController class]]) {
+            if (!self.marker) {
+                self.marker = [[GMSMarker alloc] init];
+                self.marker.title = @"Мiсцезнаходження проблеми";
+                self.marker.map = self.mapView;
+            }
+            [self.marker setPosition:coordinate];
         }
-        [self.marker setPosition:coordinate];
     }
 
 }
 
 
 - (void)postProblem {
+    
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : self.addProblemName.problemName.text,
                              ECOMAP_PROBLEM_CONTENT    : self.addProblemDescription.textView.text ? self.addProblemDescription.textView.text : @"",
                              ECOMAP_PROBLEM_PROPOSAL : self.addProblemSolution.textView.text ? self.addProblemSolution.textView.text : @"",
                              ECOMAP_PROBLEM_LATITUDE : @(self.marker.position.latitude),
                              ECOMAP_PROBLEM_LONGITUDE : @(self.marker.position.longitude),
                              ECOMAP_PROBLEM_ID : @(4),
-                             ECOMAP_PROBLEM_TYPE_ID : @([self.addProblemType.pickerView selectedRowInComponent:0])
+                             ECOMAP_PROBLEM_TYPE_ID : @([self.addProblemType.pickerView selectedRowInComponent:0] + 1)
                              };
     
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
-    
-    [EcomapFetcher problemPost:problem problemDetails:details user:nil OnCompletion:^(NSString *result, NSError *error) {
-        
+    details.photos = self.addProblemPhoto.photos;;
+    [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
+        [self loadProblems];
     }];
 }
 

@@ -21,17 +21,18 @@
                              @"content"    : problemDetails.content,
                              @"proposal" : problemDetails.proposal,
                              @"latitude" : @(problem.latitude),
-                             @"longtitude" : @(problem.longtitude),
+                             @"longitude" : @(problem.longitude),
                              @"type" : @(problem.problemTypesID),
                              @"userId" : user ? @(user.userID) : @"",
                              @"userName" : user ? user.name : @"",
                              @"userSurname" : user ? user.surname : @""
                              };
+    
     // Determine the path for the image
     NSMutableArray *localPhotos = [NSMutableArray arrayWithCapacity:problemDetails.photos.count];
-    for (EcomapPhoto *photo in problemDetails.photos) {
-        [localPhotos addObject:[[EcomapLocalPhoto alloc] initWithImage:[UIImage imageWithContentsOfFile:photo.link]
-                                                           description:photo.description]];
+    for (EcomapLocalPhoto *photo in problemDetails.photos) {
+        [localPhotos addObject:[[EcomapLocalPhoto alloc] initWithImage:photo.image
+                                                           description:photo.imageDescription]];
     }
     
     
@@ -61,12 +62,17 @@
                                               NSLog(@"Postet");
                                               if (error) {
                                                   DDLogVerbose(@"error = %@", error);
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      completionHandler(nil, error);
+                                                  });
                                                   return;
                                               }
                                               
                                               NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                               DDLogVerbose(@"result = %@", result);
-                                              completionHandler(result, error);
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  completionHandler(result, error);
+                                              });
                                           }];
     [task resume];
     
@@ -116,7 +122,6 @@
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                       completionHandler(nil, error);
                                                   });
-                                                  completionHandler(nil, error);
                                                   return;
                                               }
                                               NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -124,7 +129,6 @@
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   completionHandler(result, error);
                                               });
-                                              
                                           }];
     [task resume];
 }

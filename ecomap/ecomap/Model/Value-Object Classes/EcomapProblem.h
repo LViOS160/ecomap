@@ -13,7 +13,7 @@
 @property (nonatomic, readonly) NSUInteger problemID;
 @property (nonatomic, strong, readonly) NSString *title;
 @property (nonatomic, readonly) double latitude;
-@property (nonatomic, readonly) double longtitude;
+@property (nonatomic, readonly) double longitude;
 @property (nonatomic, readonly) NSUInteger problemTypesID;
 @property (nonatomic, strong, readonly) NSString *problemTypeTitle;
 @property (nonatomic, readonly) BOOL isSolved;

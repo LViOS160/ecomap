@@ -13,7 +13,7 @@
 @property (nonatomic, readwrite) NSUInteger problemID;
 @property (nonatomic, strong, readwrite) NSString *title;
 @property (nonatomic, readwrite) double latitude;
-@property (nonatomic, readwrite) double longtitude;
+@property (nonatomic, readwrite) double longitude;
 @property (nonatomic, readwrite) NSUInteger problemTypesID;
 @property (nonatomic, strong, readwrite) NSString *problemTypeTitle;
 @property (nonatomic, readwrite) BOOL isSolved;
@@ -27,7 +27,7 @@
     [coder encodeInteger:self.problemID forKey:@"problemID"];
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];
-    [coder encodeDouble:self.longtitude forKey:@"longtitude"];
+    [coder encodeDouble:self.longitude forKey:@"longtitude"];
     [coder encodeInteger:self.problemTypesID forKey:@"problemTypesID"];
     [coder encodeObject:self.problemTypeTitle forKey:@"problemTypeTitle"];
     [coder encodeBool:self.isSolved forKey:@"isSolved"];
@@ -39,7 +39,7 @@
     self.problemID =[coder decodeIntegerForKey:@"problemID"];
     self.title = [coder decodeObjectForKey:@"title"];
     self.latitude = [coder decodeDoubleForKey:@"latitude"];
-    self.longtitude = [coder decodeDoubleForKey:@"longtitude"];
+    self.longitude = [coder decodeDoubleForKey:@"longtitude"];
     self.problemTypesID = [coder decodeIntegerForKey:@"problemTypesID"];
     self.problemTypeTitle = [coder decodeObjectForKey:@"problemTypeTitle"];
     self.isSolved = [coder decodeBoolForKey:@"isSolved"];
@@ -57,7 +57,7 @@
         self.problemID = ![[problem valueForKey:ECOMAP_PROBLEM_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue] : 0;
         self.title = ![[problem valueForKey:ECOMAP_PROBLEM_TITLE] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_TITLE] : nil;
         self.latitude = ![[problem valueForKey:ECOMAP_PROBLEM_LATITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LATITUDE] doubleValue] : 0;
-        self.longtitude = ![[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] doubleValue] : 0;
+        self.longitude = ![[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] doubleValue] : 0;
         self.problemTypesID = ![[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] integerValue] : 0;
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:(self.problemTypesID - 1)];
         NSInteger isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_STATUS] integerValue] : 0;

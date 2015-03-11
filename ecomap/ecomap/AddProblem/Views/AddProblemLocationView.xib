@@ -39,6 +39,9 @@
                                 <state key="normal" title="Знайти мене">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="locateMeTap:" destination="-1" eventType="touchUpInside" id="LfJ-LQ-sR4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -51,7 +54,6 @@
                     <blurEffect style="light"/>
                 </visualEffectView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="z77-pW-9ry" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ny1-Wn-w5O"/>
                 <constraint firstAttribute="bottom" secondItem="z77-pW-9ry" secondAttribute="bottom" id="wYi-p1-6vP"/>
