@@ -349,6 +349,9 @@
                     self.marker.map = self.mapView;
                 }
                 [self.marker setPosition:coordinate];
+                GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:17];
+                GMSCameraUpdate *update = [GMSCameraUpdate setCamera:position];
+                [self.mapView moveCamera:update];
             }
         }
 
