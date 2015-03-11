@@ -20,7 +20,7 @@
 #import "EcomapProblemDetails.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapPhoto.h"
-#import "EcomapComments.h"
+#import "EcomapActivity.h"
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
 #import "EcomapCommentaries.h"

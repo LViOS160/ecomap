@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import "EcomapComments.h"
+#import "EcomapActivity.h"
 #import "EcomapPathDefine.h"
 #import "EcomapFetcher.h"
 
-@interface EcomapComments ()
+@interface EcomapActivity ()
 
 @property (nonatomic, readwrite) NSUInteger commentID;
 @property (nonatomic, strong, readwrite) NSString *content;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation EcomapComments
+@implementation EcomapActivity
 
 -(instancetype)initWithInfo:(NSDictionary *)problem
 {

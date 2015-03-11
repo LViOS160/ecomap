@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface EcomapComments : NSObject
+@interface EcomapActivity : NSObject
 
 @property (nonatomic, readonly) NSUInteger commentID;
 @property (nonatomic, strong, readonly) NSString *content;

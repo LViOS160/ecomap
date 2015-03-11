@@ -243,7 +243,7 @@
                             comments = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_COMMENTS];
                             problemComments = [NSMutableArray array];
                             for(NSDictionary *comment in comments){
-                                id ecoComment = [[EcomapComments alloc] initWithInfo:comment];
+                                id ecoComment = [[EcomapActivity alloc] initWithInfo:comment];
                                 if(ecoComment)
                                     [problemComments addObject:ecoComment];
                             }
@@ -267,7 +267,7 @@
 {
     BOOL canVote = YES;
     if(user) {
-        for(EcomapComments *comment in problemDetails.comments) {
+        for(EcomapActivity *comment in problemDetails.comments) {
             if (comment.activityTypes_Id == 3) { // vote activity type
                 canVote &= comment.usersID != user.userID;
             }

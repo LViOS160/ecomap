@@ -10,7 +10,7 @@
 #import "CommentCell.h"
 #import "EcomapFetcher.h"
 #import "ContainerViewController.h"
-#import "EcomapComments.h"
+#import "EcomapActivity.h"
 #import "EcomapCommentaries.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapProblemDetails.h"
@@ -72,7 +72,7 @@
 -(void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
     NSMutableArray *comments = [NSMutableArray array];
-     for(EcomapComments *oneComment in problemDetails.comments )
+     for(EcomapActivity *oneComment in problemDetails.comments )
     {
         if(oneComment.activityTypes_Id ==5)
         {
@@ -183,7 +183,7 @@
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
     if(!cell)
         cell = [[CommentCell alloc] init];
-    EcomapComments *commentaires = [self.comments objectAtIndex:indexPath.row];
+    EcomapActivity *commentaires = [self.comments objectAtIndex:indexPath.row];
     cell.commentContent.text= commentaires.problemContent;
     NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
     formatter.dateStyle = NSDateFormatterMediumStyle;      //
@@ -219,7 +219,7 @@
 {
           if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-         EcomapComments *commentaries = [self.comments objectAtIndex:indexPath.row];
+         EcomapActivity *commentaries = [self.comments objectAtIndex:indexPath.row];
         NSUInteger number = commentaries.commentID;
         [ EcomapAdminFetcher deleteComment:number onCompletion:^(NSError *error) {
             if(!error)

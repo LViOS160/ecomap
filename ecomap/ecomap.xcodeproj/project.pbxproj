@@ -77,7 +77,7 @@
 		B3738C291A9DDC4B0077F604 /* MapSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BA41A9DDC4B0077F604 /* MapSegue.m */; };
 		B3738C2A1A9DDC4B0077F604 /* SWRevealModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BA61A9DDC4B0077F604 /* SWRevealModalSegue.m */; };
 		B3738C2B1A9DDC4B0077F604 /* EcomapAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BA91A9DDC4B0077F604 /* EcomapAlias.m */; };
-		B3738C2C1A9DDC4B0077F604 /* EcomapComments.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BAB1A9DDC4B0077F604 /* EcomapComments.m */; };
+		B3738C2C1A9DDC4B0077F604 /* EcomapActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BAB1A9DDC4B0077F604 /* EcomapActivity.m */; };
 		B3738C2D1A9DDC4B0077F604 /* EcomapCommentaries.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BAD1A9DDC4B0077F604 /* EcomapCommentaries.m */; };
 		B3738C2E1A9DDC4B0077F604 /* EcomapLoggedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BAF1A9DDC4B0077F604 /* EcomapLoggedUser.m */; };
 		B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BB11A9DDC4B0077F604 /* EcomapPhoto.m */; };
@@ -268,8 +268,8 @@
 		B3738BA61A9DDC4B0077F604 /* SWRevealModalSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealModalSegue.m; sourceTree = "<group>"; };
 		B3738BA81A9DDC4B0077F604 /* EcomapAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAlias.h; sourceTree = "<group>"; };
 		B3738BA91A9DDC4B0077F604 /* EcomapAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapAlias.m; sourceTree = "<group>"; };
-		B3738BAA1A9DDC4B0077F604 /* EcomapComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapComments.h; sourceTree = "<group>"; };
-		B3738BAB1A9DDC4B0077F604 /* EcomapComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapComments.m; sourceTree = "<group>"; };
+		B3738BAA1A9DDC4B0077F604 /* EcomapActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapActivity.h; sourceTree = "<group>"; };
+		B3738BAB1A9DDC4B0077F604 /* EcomapActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapActivity.m; sourceTree = "<group>"; };
 		B3738BAC1A9DDC4B0077F604 /* EcomapCommentaries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapCommentaries.h; sourceTree = "<group>"; };
 		B3738BAD1A9DDC4B0077F604 /* EcomapCommentaries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapCommentaries.m; sourceTree = "<group>"; };
 		B3738BAE1A9DDC4B0077F604 /* EcomapLoggedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapLoggedUser.h; sourceTree = "<group>"; };
@@ -662,8 +662,8 @@
 				90C868A21AA4746B0001E448 /* EcomapEditableProblem.m */,
 				B3738BB41A9DDC4B0077F604 /* EcomapProblemDetails.h */,
 				B3738BB51A9DDC4B0077F604 /* EcomapProblemDetails.m */,
-				B3738BAA1A9DDC4B0077F604 /* EcomapComments.h */,
-				B3738BAB1A9DDC4B0077F604 /* EcomapComments.m */,
+				B3738BAA1A9DDC4B0077F604 /* EcomapActivity.h */,
+				B3738BAB1A9DDC4B0077F604 /* EcomapActivity.m */,
 				B3738BAC1A9DDC4B0077F604 /* EcomapCommentaries.h */,
 				B3738BAD1A9DDC4B0077F604 /* EcomapCommentaries.m */,
 				B3738BB01A9DDC4B0077F604 /* EcomapPhoto.h */,
@@ -1146,7 +1146,7 @@
 				90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */,
 				B3738C231A9DDC4B0077F604 /* EcomapStatsParser.m in Sources */,
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,
-				B3738C2C1A9DDC4B0077F604 /* EcomapComments.m in Sources */,
+				B3738C2C1A9DDC4B0077F604 /* EcomapActivity.m in Sources */,
 				B3738C3A1A9DDC4B0077F604 /* CommentCell.m in Sources */,
 				B3738C2D1A9DDC4B0077F604 /* EcomapCommentaries.m in Sources */,
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,

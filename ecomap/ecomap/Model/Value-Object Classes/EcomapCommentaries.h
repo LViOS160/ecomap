@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import "EcomapComments.h"
+#import "EcomapActivity.h"
 
-@interface EcomapCommentaries : EcomapComments
+@interface EcomapCommentaries : EcomapActivity
 
 @end

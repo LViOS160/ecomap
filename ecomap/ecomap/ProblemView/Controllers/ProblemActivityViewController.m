@@ -7,7 +7,7 @@
 //
 
 #import "ProblemActivityViewController.h"
-#import "EcomapComments.h"
+#import "EcomapActivity.h"
 
 @interface ProblemActivityViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -28,7 +28,7 @@
 - (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
     NSMutableArray *activities = [NSMutableArray array];
-    for(EcomapComments *comment in problemDetails.comments) {
+    for(EcomapActivity *comment in problemDetails.comments) {
         if (comment.activityTypes_Id != 5) {
             [activities addObject:comment];
         }
@@ -57,7 +57,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    EcomapComments *comment = [self.activities objectAtIndex:indexPath.row];
+    EcomapActivity *comment = [self.activities objectAtIndex:indexPath.row];
     cell.textLabel.text = comment.problemContent;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
