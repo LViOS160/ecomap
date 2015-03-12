@@ -32,17 +32,6 @@
     
     dispatch_once(&onceToken, ^{
         sharedAccount = [[EcomapLoggedUser alloc] initPrivate];
-        
-        if (sharedAccount) {
-            //Add observer to listen when to performe logout
-            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-            [nc addObserver:sharedAccount
-                   selector:@selector(logout)
-                       name:@"LogoutFromEcomapNotification"
-                     object:nil];
-            
-        }
-        
     });
     
     return sharedAccount;
@@ -51,7 +40,17 @@
 
 -(instancetype)initPrivate
 {
-    return [super init];
+    self = [super init];
+    if (self) {
+        //Add observer to listen when to performe logout
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self
+               selector:@selector(logout)
+                   name:@"LogoutFromEcomapNotification"
+                 object:nil];
+    }
+    
+    return self;
 }
 
 //Disable init method

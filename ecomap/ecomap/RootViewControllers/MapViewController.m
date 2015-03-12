@@ -25,7 +25,7 @@
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 #define FILTER_ON NO
 
-@interface MapViewController () <CLLocationManagerDelegate>
+@interface MapViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
@@ -124,7 +124,6 @@
 }
 
 - (void)renewMap:(NSSet*)problems {
-    [self startStandardUpdates];
     [self.clusterManager removeItems];
     [self.mapView clear];
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
@@ -190,7 +189,7 @@
                                                             longitude:30.52173614501953
                                                                  zoom:6];
     
-    self.mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
+    self.mapView = [GMSMapView mapWithFrame:self.view.frame camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.compassButton = YES;
@@ -214,29 +213,6 @@
         [self.revealButtonItem setAction: @selector( revealToggle: )];
         [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
     }
-}
-
-- (void)startStandardUpdates
-{
-    if (self.locationManager == nil)
-        self.locationManager = [[CLLocationManager alloc] init];
-    
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
-    self.locationManager.distanceFilter = 3000; // meters
-    [self.locationManager requestWhenInUseAuthorization];
-    [self.locationManager startUpdatingLocation];
-    
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations
-{
-    CLLocation *location = [locations lastObject];
-    GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:17];
-    GMSCameraUpdate *update = [GMSCameraUpdate setCamera:position];
-    [self.mapView moveCamera:update];
-    
 }
 
 - (Spot*)generateSpot:(EcomapProblem *)problem
@@ -276,8 +252,6 @@
         [self performSegueWithIdentifier:@"Show problem" sender:marker];
     }
 }
-
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

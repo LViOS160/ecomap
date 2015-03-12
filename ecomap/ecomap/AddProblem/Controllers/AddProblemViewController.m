@@ -338,9 +338,7 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     else {
-        [self.locationManager startUpdatingLocation];
-
-        CLLocation *location = self.locationManager.location;
+        CLLocation *location = self.mapView.myLocation;
         CLLocationCoordinate2D coordinate = [location coordinate];
         
         if (self.userIsInTheMiddleOfAddingProblem) {
@@ -351,6 +349,9 @@
                     self.marker.map = self.mapView;
                 }
                 [self.marker setPosition:coordinate];
+                GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:17];
+                GMSCameraUpdate *update = [GMSCameraUpdate setCamera:position];
+                [self.mapView moveCamera:update];
             }
         }
 
