@@ -1505,8 +1505,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emailTextField" destination="BvX-4d-c5g" id="Y0G-rp-VFs"/>
+                        <outlet property="loginButton" destination="ivG-Ru-VCF" id="ZK5-lz-02M"/>
+                        <outlet property="loginWithFacebookButton" destination="iHN-wP-dCd" id="Aug-XS-19z"/>
                         <outlet property="passwordTextField" destination="CNL-Cg-M9H" id="v5t-h3-Osf"/>
                         <outlet property="scrollView" destination="ceB-AQ-0mj" id="HMC-zW-bqm"/>
+                        <outlet property="separatorImage" destination="fBX-dD-DQA" id="79J-iP-Gxf"/>
                         <outletCollection property="checkmarks" destination="G8Y-Tq-SbE" id="e89-N2-vUb"/>
                         <outletCollection property="checkmarks" destination="IlK-tB-NSV" id="Yzu-xr-gtB"/>
                         <outletCollection property="textFields" destination="BvX-4d-c5g" id="gxR-Ks-Jgw"/>
@@ -1730,6 +1733,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emailLabel" destination="6dw-35-OpN" id="iDC-DT-U4G"/>
+                        <outlet property="logoutButton" destination="iaH-d3-ael" id="PqF-Af-DPM"/>
                         <outlet property="nameLabel" destination="EV4-hX-TzL" id="hkI-AN-XO9"/>
                         <outlet property="roleLabel" destination="glc-GU-xYI" id="kWY-JM-kBl"/>
                         <outlet property="surmaneLabel" destination="Jnp-Rk-hQF" id="nyg-Pc-nQF"/>
@@ -1912,6 +1916,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Зміна паролю" id="7zG-fa-HBv"/>
                     <connections>
+                        <outlet property="changePasswordButton" destination="4Wj-6l-Y3Q" id="cst-pX-GyW"/>
                         <outlet property="confirmPasswordTextField" destination="P9X-3g-b4K" id="qjY-vZ-HTF"/>
                         <outlet property="oldPasswordTextField" destination="3om-3o-SAB" id="vIF-EA-N3x"/>
                         <outlet property="passwordTextField" destination="emG-sH-AjN" id="S1q-Ug-Ft7"/>
@@ -2186,6 +2191,7 @@
                         <outlet property="emailTextField" destination="46V-NT-9Zo" id="9Ry-xO-kFA"/>
                         <outlet property="nameTextField" destination="ASV-Hd-1eg" id="lgn-15-iew"/>
                         <outlet property="passwordTextField" destination="QEY-MB-NV0" id="qtP-8h-Q0W"/>
+                        <outlet property="registerButton" destination="XrI-Fk-EFb" id="qjd-5A-AfD"/>
                         <outlet property="scrollView" destination="o7I-iL-C8H" id="kRU-n6-13e"/>
                         <outlet property="surnameTextField" destination="EQh-DG-JZg" id="VXJ-RA-UF3"/>
                         <outletCollection property="checkmarks" destination="6Ef-Fn-0V9" id="UWv-2Y-2YE"/>
@@ -2435,7 +2441,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AddComment" width="102" height="32"/>
+        <image name="AddCommentButtonUKR" width="97" height="52"/>
         <image name="Bad" width="20" height="20"/>
         <image name="ChangePasswordButtonURK" width="282" height="52"/>
         <image name="EmailField" width="282" height="41"/>

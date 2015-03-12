@@ -51,6 +51,15 @@ typedef enum {
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *checkmarks; //add all ckeckmarks here
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;  //add all textFields here
 
+//Button for image localozations
+@property (weak, nonatomic) IBOutlet UIButton *loginWithFacebookButton;
+@property (weak, nonatomic) IBOutlet UIImageView *separatorImage;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
+@property (weak, nonatomic) IBOutlet UIButton *changePasswordButton;
+@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
+
+
 //Other priperties
 @property(nonatomic, strong) UITextField *activeField; //currnet active textField.
 @property(nonatomic, strong) UITextField *textFieldToScrollUPWhenKeyboadAppears; //set only to achieve another behavior

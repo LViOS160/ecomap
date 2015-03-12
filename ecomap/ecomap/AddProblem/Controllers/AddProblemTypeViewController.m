@@ -7,6 +7,7 @@
 //
 
 #import "AddProblemTypeViewController.h"
+#import "EcomapPathDefine.h"
 
 @interface AddProblemTypeViewController ()
 
@@ -23,8 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.problemTypes = [NSArray arrayWithObjects:@"Проблеми лісів", @"Сміттєзвалища", @"Незаконна забудова",
-                     @"Проблеми водойм", @"Загрози біорізноманіттю", @"Браконьєрство", @"Інші проблеми", nil];
+    self.problemTypes = ECOMAP_PROBLEM_TYPES_ARRAY;
     [self.pickerView selectRow:6 inComponent:0 animated:NO];
 }
 

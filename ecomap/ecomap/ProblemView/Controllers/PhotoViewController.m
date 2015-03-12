@@ -49,7 +49,7 @@ static const NSUInteger DefaultMaxPhotos = 5;
 
 - (void)updateUI
 {
-    self.maxPhotoLabel.text = [NSString stringWithFormat:@"Ви можете додати ще %lu фото",
+    self.maxPhotoLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Ви можете додати ще %lu фото", @"You can add {numbeer} more photo"),
                                (unsigned long)(self.maxPhotos - self.imageDescriptions.count)];
 }
 
@@ -92,9 +92,8 @@ static const NSUInteger DefaultMaxPhotos = 5;
         uiipc.allowsEditing = NO;
         [self presentViewController:uiipc animated:YES completion:NULL];
     } else {
-        [InfoActions showAlertWithTitile:@"Увага!"
-                              andMessage:[NSString stringWithFormat:@"Ви можете додати не більше %lu фото",
-                                          (unsigned long)self.maxPhotos]];
+        [InfoActions showAlertWithTitile:NSLocalizedString(@"Увага!", @"Attention!")
+                              andMessage:[NSString stringWithFormat:NSLocalizedString(@"Ви можете додати не більше %lu фото", @"You can add maximum {number} photos"), (unsigned long)self.maxPhotos]];
     }
     return canAddPhotos;
 }

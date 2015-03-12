@@ -24,6 +24,26 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpinside:)];
     tap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tap];
+    
+    //Buttons images localozation
+    UIImage *loginWithFacebookButtonImage = [UIImage imageNamed:NSLocalizedString(@"FacebookLogButtonURK", @"Facebook button image")];
+    UIImage *separatorImg = [UIImage imageNamed:NSLocalizedString(@"SeparatorURK", @"Separator image")];
+    UIImage *loginButtonImage = [UIImage imageNamed:NSLocalizedString(@"LogInButtonURK", @"Login button button image")];
+    UIImage *registerButtonImage = [UIImage imageNamed:NSLocalizedString(@"RegisterButtonURK", @"Register comment button image")];
+    UIImage *changePasswordButtonImage = [UIImage imageNamed:NSLocalizedString(@"ChangePasswordButtonURK", @"Change pass button button image")];
+    UIImage *logoutButtonImage = [UIImage imageNamed:NSLocalizedString(@"LogoutButtonURK", @"Logout button button image")];
+
+    [self.loginWithFacebookButton setImage:loginWithFacebookButtonImage
+                                  forState:UIControlStateNormal];
+    [self.separatorImage setImage:separatorImg];
+    [self.loginButton setImage:loginButtonImage
+                      forState:UIControlStateNormal];
+    [self.registerButton setImage:registerButtonImage
+                         forState:UIControlStateNormal];
+    [self.changePasswordButton setImage:changePasswordButtonImage
+                               forState:UIControlStateNormal];
+    [self.logoutButton setImage:logoutButtonImage
+                       forState:UIControlStateNormal];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -149,17 +169,14 @@
     //BOOL result = YES;
     //Check if fields are empty
     if ([self isAnyTextFieldEmpty]) {
-        [InfoActions showAlertWithTitile:@"Неповна інформація"
-                              andMessage:@"\nБудь-ласка заповніть усі поля"];
+        [InfoActions showAlertOfError:NSLocalizedString(@"\nБудь-ласка заповніть усі поля", @"Please, fill all fields")];
         return NO;
     } else if (self.emailTextField && ![self isValidMail:self.emailTextField.text]) { //check if email is valid
-        [InfoActions showAlertWithTitile:@"Помилка"
-                              andMessage:@"\nБудь-ласка введіть дійсну email-адресу"];
+        [InfoActions showAlertOfError:NSLocalizedString(@"\nБудь-ласка введіть дійсну email-адресу", @"Bad e-mail")];
         return NO;
     } else if (self.confirmPasswordTextField && ![self isPasswordsEqual]) //check if passwords are equal
     {
-        [InfoActions showAlertWithTitile:@"Помилка"
-                              andMessage:@"\nВведені паролі не співпадають"];
+        [InfoActions showAlertOfError:NSLocalizedString(@"\nВведені паролі не співпадають", @"Passwords are not equal")];
         return NO;
     }
     

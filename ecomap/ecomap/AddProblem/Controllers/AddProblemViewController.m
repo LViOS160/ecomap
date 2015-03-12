@@ -94,13 +94,13 @@
         case 0:
             if (!self.marker) {
                 fieldFilled = NO;
-                alertText = @"Необхiдно обрати мiсцезнаходження проблеми";
+                alertText = NSLocalizedString(@"Необхiдно обрати мiсцезнаходження проблеми", @"You have to add problem location");
             }
             break;
         case 1:
             if ([self.addProblemName.problemName.text isEqualToString:@""]) {
                 fieldFilled = NO;
-                alertText = @"Необхiдно ввести назву проблеми";
+                alertText = NSLocalizedString(@"Необхiдно ввести назву проблеми", @"You have to enter the name of the problem");
             }
             break;
         default:
@@ -246,7 +246,7 @@
     self.mapView.settings.myLocationButton = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locateMeDidTap) name:@"LocateMeDidTap" object:nil];
     self.closeButton = [[UIBarButtonItem alloc] init];
-    self.closeButton.title = @"Вiдмiнити";
+    self.closeButton.title = NSLocalizedString(@"Відмініти", @"Cancel bar button");
     [self.closeButton setAction:@selector(closeButtonTap:)];
     [self.closeButton setTarget:self];
     self.navigationItem.rightBarButtonItem = self.closeButton;
@@ -265,6 +265,7 @@
     
 }
 
+#define PROBLEM_LOCATION_STRING NSLocalizedString(@"Мiсцезнаходження проблеми", @"Problem location")
 - (void)locateMeDidTap {
     if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ до геопозицiї" message:@"Для використання цієї функції необхiдно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції" preferredStyle:UIAlertControllerStyleAlert];
@@ -285,7 +286,7 @@
             if ([self.curView isKindOfClass:[AddProblemLocationViewController class]]) {
                 if (!self.marker) {
                     self.marker = [[GMSMarker alloc] init];
-                    self.marker.title = @"Мiсцезнаходження проблеми";
+                    self.marker.title = PROBLEM_LOCATION_STRING;
                     self.marker.map = self.mapView;
                 }
                 [self.marker setPosition:coordinate];
@@ -308,7 +309,7 @@
         if ([self.curView isKindOfClass:[AddProblemLocationViewController class]]) {
             if (!self.marker) {
                 self.marker = [[GMSMarker alloc] init];
-                self.marker.title = @"Мiсцезнаходження проблеми";
+                self.marker.title = PROBLEM_LOCATION_STRING;
                 self.marker.map = self.mapView;
             }
             [self.marker setPosition:coordinate];

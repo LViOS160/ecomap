@@ -32,10 +32,10 @@
     NSString *name = @"";
     
     switch(number) {
-        case 0: name = @"Проблем"; break;
-        case 1: name = @"Голосів"; break;
-        case 2: name = @"Коментарів"; break;
-        case 3: name = @"Фотографій"; break;
+        case 0: name = NSLocalizedString(@"Проблем", @"Problems"); break;
+        case 1: name = NSLocalizedString(@"Голосів", @"Votes"); break;
+        case 2: name = NSLocalizedString(@"Коментарів", @"Comments"); break;
+        case 3: name = NSLocalizedString(@"Фотографій", @"Photos"); break;
     }
     
     return name;
