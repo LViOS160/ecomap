@@ -150,7 +150,7 @@
         mask.showUnsolved = YES;
         
         NSArray *filteredProblems = [EcomapFilter filterProblemsArray:arrayOfProblems usingFilteringMask:mask];
-       for(EcomapProblem *problem in filteredProblems) {
+        for(EcomapProblem *problem in filteredProblems) {
             if([problem isKindOfClass:[EcomapProblem class]]){
                 Spot* spot = [self generateSpot:problem];
                 [self.clusterManager addItem:spot];

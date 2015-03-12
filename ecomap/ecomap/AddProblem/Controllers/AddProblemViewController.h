@@ -13,9 +13,12 @@
 #import "AddProblemPhotoViewController.h"
 #import "AddProblemSolutionViewController.h"
 #import "AddProblemTypeViewController.h"
-
+#import "AddProblemNvatigationDelegate.h"
+#import "AddProblemNavigationViewController.h"
 #import "Defines.h"
 
-@interface AddProblemViewController : MapViewController
+
+@interface AddProblemViewController : MapViewController <AddProblemNvatigationDelegate>
+
 
 @end

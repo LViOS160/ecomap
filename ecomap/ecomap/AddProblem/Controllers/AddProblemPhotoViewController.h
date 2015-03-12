@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConstHeightViewController.h"
 
-@interface AddProblemPhotoViewController : UIViewController
+@interface AddProblemPhotoViewController : ConstHeightViewController
 
 @property (nonatomic, assign) UIViewController *rootController;
 @property (nonatomic, strong, readonly) NSArray *photos;
+
+- (float)viewHeight;
 
 @end

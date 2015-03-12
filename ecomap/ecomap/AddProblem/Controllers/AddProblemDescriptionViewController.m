@@ -23,6 +23,8 @@
     [self.textView resignFirstResponder];
 }
 
-
+- (float)viewHeight {
+    return 170.0;
+}
 
 @end

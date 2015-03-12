@@ -32,6 +32,10 @@ static const NSUInteger _maxPhotos = 5;
     [self updateUI];
 }
 
+- (float)viewHeight {
+    return 140.0;
+}
+
 - (void)addPhotoTap:(id)sender {
     if (self.rootController) {
         if (self.photos.count < _maxPhotos) {
@@ -41,7 +45,7 @@ static const NSUInteger _maxPhotos = 5;
             [self.rootController presentViewController:viewController animated:YES completion:nil];
         } else {
            [InfoActions showAlertWithTitile:@"Увага!"
-                                 andMessage:[NSString stringWithFormat:@"Ви можете додати максимум %lu фото", _maxPhotos]];
+                                 andMessage:[NSString stringWithFormat:@"Ви можете додати максимум %lu фото", (unsigned long)_maxPhotos]];
         }
     }
 }

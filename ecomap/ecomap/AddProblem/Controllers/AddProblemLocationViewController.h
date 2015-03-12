@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConstHeightViewController.h"
 
-@interface AddProblemLocationViewController : UIViewController
+@interface AddProblemLocationViewController : ConstHeightViewController
 
 - (IBAction)locateMeTap:(UIButton *)sender;
+
+- (float)viewHeight;
 
 @end

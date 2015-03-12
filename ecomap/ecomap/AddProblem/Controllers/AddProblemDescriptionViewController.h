@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConstHeightViewController.h"
+#import "Defines.h"
 
-@interface AddProblemDescriptionViewController : UIViewController <UITextViewDelegate>
+@interface AddProblemDescriptionViewController : ConstHeightViewController <UITextViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+
+- (float)viewHeight;
 
 @end

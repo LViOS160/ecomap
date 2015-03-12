@@ -52,6 +52,8 @@
 		B33437FE1A9DE683007ACD82 /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F71A9DE683007ACD82 /* AddProblemPhotoView.xib */; };
 		B33438001A9DE683007ACD82 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F91A9DE683007ACD82 /* AddProblemTypeView.xib */; };
 		B33438011A9DE726007ACD82 /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F81A9DE683007ACD82 /* AddProblemSolutionView.xib */; };
+		B34D3CD81AB18F7D0094D043 /* ConstHeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */; };
+		B34D3CDB1AB19B040094D043 /* SlideAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = B34D3CDA1AB19B040094D043 /* SlideAnimator.m */; };
 		B353433C1A7F73ED00DD2F03 /* ecomapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B353433B1A7F73ED00DD2F03 /* ecomapTests.m */; };
 		B3738C0D1A9DDC4B0077F604 /* AddProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B5D1A9DDC4B0077F604 /* AddProblemViewController.m */; };
 		B3738C151A9DDC4B0077F604 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B6C1A9DDC4B0077F604 /* GQuadItem.m */; };
@@ -122,6 +124,7 @@
 		B3738C571A9DDC4B0077F604 /* EcomapRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738BFE1A9DDC4B0077F604 /* EcomapRevealViewController.m */; };
 		B3738C581A9DDC4B0077F604 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */; };
 		B3738C591A9DDC4B0077F604 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */; };
+		B39FCE031AB045C5002B96CE /* AddProblemNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39FCE021AB045C5002B96CE /* AddProblemNavigationViewController.m */; };
 		B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */; };
 		B3ACA3E51AA7524A003BD9EF /* AddProblemDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3DA1AA7524A003BD9EF /* AddProblemDescriptionViewController.m */; };
 		B3ACA3E61AA7524A003BD9EF /* AddProblemLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3DC1AA7524A003BD9EF /* AddProblemLocationViewController.m */; };
@@ -206,6 +209,10 @@
 		B33437F71A9DE683007ACD82 /* AddProblemPhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemPhotoView.xib; sourceTree = "<group>"; };
 		B33437F81A9DE683007ACD82 /* AddProblemSolutionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionView.xib; sourceTree = "<group>"; };
 		B33437F91A9DE683007ACD82 /* AddProblemTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemTypeView.xib; sourceTree = "<group>"; };
+		B34D3CD61AB18F7D0094D043 /* ConstHeightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstHeightViewController.h; sourceTree = "<group>"; };
+		B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstHeightViewController.m; sourceTree = "<group>"; };
+		B34D3CD91AB19B040094D043 /* SlideAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideAnimator.h; sourceTree = "<group>"; };
+		B34D3CDA1AB19B040094D043 /* SlideAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideAnimator.m; sourceTree = "<group>"; };
 		B35343191A7F73ED00DD2F03 /* ecomap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ecomap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35343351A7F73ED00DD2F03 /* ecomapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ecomapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B353433A1A7F73ED00DD2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -341,6 +348,9 @@
 		B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProblemsTopListTVC.h; path = ../../TopProblemsVIewController/ProblemsTopListTVC.h; sourceTree = "<group>"; };
 		B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProblemsTopListTVC.m; path = ../../TopProblemsVIewController/ProblemsTopListTVC.m; sourceTree = "<group>"; };
+		B39FCE011AB045C5002B96CE /* AddProblemNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddProblemNavigationViewController.h; path = ../Views/AddProblemNavigationViewController.h; sourceTree = "<group>"; };
+		B39FCE021AB045C5002B96CE /* AddProblemNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddProblemNavigationViewController.m; path = ../Views/AddProblemNavigationViewController.m; sourceTree = "<group>"; };
+		B39FCE041AB04756002B96CE /* AddProblemNvatigationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemNvatigationDelegate.h; sourceTree = "<group>"; };
 		B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EcomapFetcher+PostProblem.m"; sourceTree = "<group>"; };
 		B3ACA3C51AA70701003BD9EF /* EcomapFetcher+PostProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EcomapFetcher+PostProblem.h"; sourceTree = "<group>"; };
 		B3ACA3D91AA7524A003BD9EF /* AddProblemDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemDescriptionViewController.h; sourceTree = "<group>"; };
@@ -496,6 +506,11 @@
 		B3738B5B1A9DDC4B0077F604 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B39FCE041AB04756002B96CE /* AddProblemNvatigationDelegate.h */,
+				B34D3CD61AB18F7D0094D043 /* ConstHeightViewController.h */,
+				B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */,
+				B39FCE011AB045C5002B96CE /* AddProblemNavigationViewController.h */,
+				B39FCE021AB045C5002B96CE /* AddProblemNavigationViewController.m */,
 				B3ACA3D91AA7524A003BD9EF /* AddProblemDescriptionViewController.h */,
 				B3ACA3DA1AA7524A003BD9EF /* AddProblemDescriptionViewController.m */,
 				B3ACA3DB1AA7524A003BD9EF /* AddProblemLocationViewController.h */,
@@ -510,6 +525,8 @@
 				B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */,
 				B3738B5C1A9DDC4B0077F604 /* AddProblemViewController.h */,
 				B3738B5D1A9DDC4B0077F604 /* AddProblemViewController.m */,
+				B34D3CD91AB19B040094D043 /* SlideAnimator.h */,
+				B34D3CDA1AB19B040094D043 /* SlideAnimator.m */,
 				B3738B5E1A9DDC4B0077F604 /* Defines.h */,
 			);
 			path = Controllers;
@@ -1152,6 +1169,7 @@
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,
 				B3738C2C1A9DDC4B0077F604 /* EcomapComments.m in Sources */,
 				B3738C3A1A9DDC4B0077F604 /* CommentCell.m in Sources */,
+				B34D3CDB1AB19B040094D043 /* SlideAnimator.m in Sources */,
 				B3738C2D1A9DDC4B0077F604 /* EcomapCommentaries.m in Sources */,
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,
 				B3738C161A9DDC4B0077F604 /* GStaticCluster.m in Sources */,
@@ -1216,6 +1234,7 @@
 				518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */,
 				518F30A71AA26BF40094DA14 /* JSONParser.m in Sources */,
 				B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */,
+				B34D3CD81AB18F7D0094D043 /* ConstHeightViewController.m in Sources */,
 				B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */,
 				B3738C361A9DDC4B0077F604 /* PhotoViewController.m in Sources */,
 				B3738C201A9DDC4B0077F604 /* XYPieChart.m in Sources */,
@@ -1224,6 +1243,7 @@
 				B3738C1E1A9DDC4B0077F604 /* Spot.m in Sources */,
 				B3738C381A9DDC4B0077F604 /* ProblemDetailsViewController.m in Sources */,
 				B3738C3E1A9DDC4B0077F604 /* MapViewController.m in Sources */,
+				B39FCE031AB045C5002B96CE /* AddProblemNavigationViewController.m in Sources */,
 				518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
