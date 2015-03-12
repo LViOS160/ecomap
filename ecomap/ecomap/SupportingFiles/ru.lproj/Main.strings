@@ -1,11 +1,11 @@
 
-/* Class = "IBUISegmentedControl"; 0qm-vi-3sa.segmentTitles[0] = "Популярні"; ObjectID = "0qm-vi-3sa"; */
+/* Class = "IBUISegmentedControl"; 0qm-vi-3sa.segmentTitles[0] = "Популярые"; ObjectID = "0qm-vi-3sa"; */
 "0qm-vi-3sa.segmentTitles[0]" = "Популярые";
 
-/* Class = "IBUISegmentedControl"; 0qm-vi-3sa.segmentTitles[1] = "Важливі"; ObjectID = "0qm-vi-3sa"; */
+/* Class = "IBUISegmentedControl"; 0qm-vi-3sa.segmentTitles[1] = "Важные"; ObjectID = "0qm-vi-3sa"; */
 "0qm-vi-3sa.segmentTitles[1]" = "Важные";
 
-/* Class = "IBUISegmentedControl"; 0qm-vi-3sa.segmentTitles[2] = "Обговорювані"; ObjectID = "0qm-vi-3sa"; */
+/* Class = "IBUISegmentedControl"; 0qm-vi-3sa.segmentTitles[2] = "Обсуждаемые"; ObjectID = "0qm-vi-3sa"; */
 "0qm-vi-3sa.segmentTitles[2]" = "Обсуждаемые";
 
 /* Class = "IBUILabel"; text = "Кількість доданих проблем за останній"; ObjectID = "2tp-Qg-V45"; */
@@ -69,7 +69,7 @@
 "KAk-Qp-v7a.text" = "Label";
 
 /* Class = "IBUIBarButtonItem"; title = "Apply"; ObjectID = "LQ2-aK-GIv"; */
-"LQ2-aK-GIv.title" = "Apply";
+"LQ2-aK-GIv.title" = "Фильтровать";
 
 /* Class = "IBUILabel"; text = "Немаєте облікового запису?"; ObjectID = "Lht-8s-JZ9"; */
 "Lht-8s-JZ9.text" = "Немаєте облікового запису?";
@@ -158,6 +158,9 @@
 /* Class = "IBUIViewController"; title = "LoginVC"; ObjectID = "f9f-d4-qVJ"; */
 "f9f-d4-qVJ.title" = "LoginVC";
 
+/* Class = "IBUIBarButtonItem"; title = "Сховати"; ObjectID = "fA0-QO-mZw"; */
+"fA0-QO-mZw.title" = "Отмена";
+
 /* Class = "IBUINavigationItem"; title = "Статистика"; ObjectID = "fps-eh-5lf"; */
 "fps-eh-5lf.title" = "Статистика";
 
@@ -184,6 +187,9 @@
 
 /* Class = "IBUITextField"; placeholder = "Підтвердіть пароль"; ObjectID = "lhz-Ed-eSh"; */
 "lhz-Ed-eSh.placeholder" = "Підтвердіть пароль";
+
+/* Class = "IBUITextView"; text = "123123"; ObjectID = "mv9-t4-j95"; */
+"mv9-t4-j95.text" = "123123";
 
 /* Class = "IBUIButton"; normalTitle = "Відмінити"; ObjectID = "nah-bw-nRo"; */
 "nah-bw-nRo.normalTitle" = "Відмінити";

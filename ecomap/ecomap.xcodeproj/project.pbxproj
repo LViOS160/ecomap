@@ -53,9 +53,6 @@
 		B30E2DDA1A9DDDDB0039DBBD /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */; };
 		B33437ED1A9DE178007ACD82 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */; };
 		B33437FD1A9DE683007ACD82 /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F61A9DE683007ACD82 /* AddProblemNavigationView.xib */; };
-		B33437FE1A9DE683007ACD82 /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F71A9DE683007ACD82 /* AddProblemPhotoView.xib */; };
-		B33438001A9DE683007ACD82 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F91A9DE683007ACD82 /* AddProblemTypeView.xib */; };
-		B33438011A9DE726007ACD82 /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F81A9DE683007ACD82 /* AddProblemSolutionView.xib */; };
 		B34D3CD81AB18F7D0094D043 /* ConstHeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */; };
 		B34D3CDB1AB19B040094D043 /* SlideAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = B34D3CDA1AB19B040094D043 /* SlideAnimator.m */; };
 		B353433C1A7F73ED00DD2F03 /* ecomapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B353433B1A7F73ED00DD2F03 /* ecomapTests.m */; };
@@ -154,9 +151,9 @@
 		2DB8150C1AA856490011AFA1 /* CustomInfoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomInfoWindow.h; sourceTree = "<group>"; };
 		2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomInfoWindow.m; sourceTree = "<group>"; };
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		513A41C51AB0F300000B9180 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		513A41C61AB0F329000B9180 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/Main.strings"; sourceTree = "<group>"; };
-		513A41C81AB0F340000B9180 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		512F76381AB1C53900E5A23F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		512F763A1AB1C60700E5A23F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		512F763C1AB1C6C100E5A23F /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/Main.strings"; sourceTree = "<group>"; };
 		513A41CC1AB0F9E4000B9180 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		513A41CF1AB0FCF6000B9180 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		513A41D01AB0FCF8000B9180 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -235,9 +232,6 @@
 		B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		B33437F61A9DE683007ACD82 /* AddProblemNavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNavigationView.xib; sourceTree = "<group>"; };
-		B33437F71A9DE683007ACD82 /* AddProblemPhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemPhotoView.xib; sourceTree = "<group>"; };
-		B33437F81A9DE683007ACD82 /* AddProblemSolutionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionView.xib; sourceTree = "<group>"; };
-		B33437F91A9DE683007ACD82 /* AddProblemTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemTypeView.xib; sourceTree = "<group>"; };
 		B34D3CD61AB18F7D0094D043 /* ConstHeightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstHeightViewController.h; sourceTree = "<group>"; };
 		B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstHeightViewController.m; sourceTree = "<group>"; };
 		B34D3CD91AB19B040094D043 /* SlideAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideAnimator.h; sourceTree = "<group>"; };
@@ -1122,7 +1116,6 @@
 				51F9246D1AB18FF000523557 /* AddProblemTypeView.xib in Resources */,
 				B33437FD1A9DE683007ACD82 /* AddProblemNavigationView.xib in Resources */,
 				51F9245B1AB18FDD00523557 /* AddProblemPhotoView.xib in Resources */,
-				CA3C8C021AACA943008EAB32 /* PhotoViewController.xib in Resources */,
 				2DB8150B1AA854DA0011AFA1 /* InfoWindow.xib in Resources */,
 				B3738C4F1A9DDC4B0077F604 /* OpenSans-Italic.ttf in Resources */,
 				B3738C511A9DDC4B0077F604 /* OpenSans-LightItalic.ttf in Resources */,
@@ -1382,9 +1375,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				B3738BE61A9DDC4B0077F604 /* Base */,
-				513A41C51AB0F300000B9180 /* ru */,
-				513A41C61AB0F329000B9180 /* uk-UA */,
-				513A41C81AB0F340000B9180 /* en */,
+				512F76381AB1C53900E5A23F /* en */,
+				512F763A1AB1C60700E5A23F /* ru */,
+				512F763C1AB1C6C100E5A23F /* uk-UA */,
 			);
 			name = Main.storyboard;
 			path = ecomap/SupportingFiles;

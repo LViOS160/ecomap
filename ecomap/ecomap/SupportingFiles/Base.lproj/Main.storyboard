@@ -351,12 +351,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="SbI-lW-ocf">
-                        <barButtonItem key="leftBarButtonItem" title="Сховати" id="fA0-QO-mZw">
+                        <barButtonItem key="leftBarButtonItem" title="Відміна" id="fA0-QO-mZw">
                             <connections>
                                 <action selector="touchHideButton:" destination="D1l-xQ-zXa" id="wtq-qi-hQZ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Примінити" id="LQ2-aK-GIv">
+                        <barButtonItem key="rightBarButtonItem" title="Фільтрувати" id="LQ2-aK-GIv">
                             <connections>
                                 <action selector="touchApplyButton:" destination="D1l-xQ-zXa" id="xnT-TQ-iZ7"/>
                             </connections>
