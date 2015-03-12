@@ -268,9 +268,12 @@
 #define PROBLEM_LOCATION_STRING NSLocalizedString(@"Мiсцезнаходження проблеми", @"Problem location")
 - (void)locateMeDidTap {
     if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ до геопозицiї" message:@"Для використання цієї функції необхiдно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Вiдмiнити" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *openAction = [UIAlertAction actionWithTitle:@"Вiдкрити налаштування" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Доступ до геопозицiї", @"Location Services access")
+                                                                       message:NSLocalizedString(@"Для доступу до вашої геопозиції необхидно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції", @"Please allow the application access to your location service to locate your current pisition")
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Вiдмiнити", @"Cancel") style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *openAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Вiдкрити налаштування", @"Open settings")
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             [[UIApplication sharedApplication] openURL:url];
         }];

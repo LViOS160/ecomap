@@ -217,7 +217,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     cell.accessoryType = UITableViewCellAccessoryNone;
 
     descriptionText.text = descr.imageDescription;
-    descriptionText.placeholder = @"Додати опис";
+    descriptionText.placeholder = NSLocalizedString(@"Додати опис", @"Add description");
     descriptionText.tag = TextFieldsStartTag + indexPath.row;
     
     return cell;
