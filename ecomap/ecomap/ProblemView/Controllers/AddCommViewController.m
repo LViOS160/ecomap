@@ -50,7 +50,6 @@
     self.addCommentButton.enabled = NO;
     
     
-    
     [self updateUI];
 
     // Do any additional setup after loading the view.
@@ -68,8 +67,6 @@
     //[self.myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.myTableView.tableFooterView =[[UIView alloc] initWithFrame:CGRectZero];
     
-    
-   
 }
 
 
@@ -115,6 +112,7 @@
                      DDLogError(@"Error adding comment:%@", [error localizedDescription]);
                  else
                      [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+                 
                  [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
                  
              }];
@@ -173,45 +171,33 @@
 #pragma mark - Table View
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-   
-    
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(!self.comments.count)
-        
-    {
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
-        
-        messageLabel.text = @"Коментарі відсутні.";
-        messageLabel.textColor = [UIColor blackColor];
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:30];
-        [messageLabel sizeToFit];
-        self.myTableView.backgroundView = messageLabel;
-        //[self.view addSubview:messageLabel];
-       
-    }
-    else self.myTableView.backgroundView = nil;
-        return self.comments.count;
+    if(self.comments.count == 0)
+         return 1;
+    else    return self.comments.count;
+ 
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     
-    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-    if(!cell)
-        cell = [[CommentCell alloc] init];
-    
-        
-    
-    
-    EcomapComments *commentaires = [self.comments objectAtIndex:indexPath.row];
-    cell.commentContent.text= commentaires.problemContent;
+     if(self.comments.count == 0)
+     {
+         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+       
+                     cell.textLabel.text = @"Коментарі відсутні";
+         
+         return cell;
+     }
+    else
+    {EcomapComments *commentair = [self.comments objectAtIndex:indexPath.row];
+        CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+       
+
+    cell.commentContent.text= commentair.problemContent;
     NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
     formatter.dateStyle = NSDateFormatterMediumStyle;      //
     formatter.timeStyle = NSDateFormatterShortStyle;       //
@@ -219,15 +205,16 @@
     NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
     [formatter setLocale:ukraineLocale];                   //
     
-    NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentaires.userName, commentaires.userSurname];
-    NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentaires.date]];
+    NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentair.userName, commentair.userSurname];
+    NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentair.date]];
     cell.personInfo.text = personalInfo;
     cell.dateInfo.text = dateInfo;
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
+        return cell;
+    }
     
-    
-    return cell;
+   
 }
 
 
@@ -235,7 +222,7 @@
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    if([userIdent.role isEqualToString:@"administrator"])
+    if([userIdent.role isEqualToString:@"administrator"] && self.comments.count >0)
         return YES;
     else
         return NO;
