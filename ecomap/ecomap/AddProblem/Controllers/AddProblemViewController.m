@@ -72,7 +72,7 @@
         case 0:
             if (!self.marker) {
                 fieldFilled = NO;
-                alertText = NSLocalizedString(@"Необхiдно обрати мiсцезнаходження проблеми", ) ;
+                alertText = NSLocalizedString(@"Необхiдно обрати мiсцезнаходження проблеми", @"You have to add problem location");
             }
             break;
         case 1:
@@ -305,7 +305,7 @@
     self.mapView.settings.myLocationButton = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locateMeDidTap) name:@"LocateMeDidTap" object:nil];
     self.closeButton = [[UIBarButtonItem alloc] init];
-    self.closeButton.title = @"Вiдмiнити";
+    self.closeButton.title = NSLocalizedString(@"Відмініти", @"Cancel bar button");
     [self.closeButton setAction:@selector(closeButtonTap:)];
     [self.closeButton setTarget:self];
     self.navigationItem.rightBarButtonItem = self.closeButton;
