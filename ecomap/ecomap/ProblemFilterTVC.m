@@ -80,7 +80,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 - (void)createDateFormatter
 {
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
 }
 
 // Helper method using to capitalize only the first letter in the string.
@@ -164,7 +164,8 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     // Configure cell label depending on problem type.
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
-    titleLabel.text = [self uppercaseFirstLetter:(NSString *)[ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:indexPath.row]];
+    titleLabel.text = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:indexPath.row];
+    //[self uppercaseFirstLetter:(NSString *)[ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:indexPath.row]];
     
     // Check either filtering mask contains type of the problem of the current row
     // Depending on answer show image.
@@ -199,7 +200,14 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     // Configure cell data
     UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:kDatePickerTag];
     
-    targetedDatePicker.minimumDate = [self.dateFormatter dateFromString:@"18-02-2014"];
+    //Create date 18-02-2014 (first problem added on Ecomap)
+    NSDateComponents *minDate = [[NSDateComponents alloc] init];
+    minDate.day = 18;
+    minDate.month = 02;
+    minDate.year = 2014;
+    
+    targetedDatePicker.minimumDate = [[NSCalendar currentCalendar] dateFromComponents:minDate];
+    //[self.dateFormatter dateFromString:@"18-02-2014"];
     targetedDatePicker.maximumDate = [NSDate date];
     
     [targetedDatePicker setDate:[self dateForIndexPath:indexPath] animated:YES];

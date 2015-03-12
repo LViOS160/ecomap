@@ -329,7 +329,6 @@
                                             <date key="date" timeIntervalSinceReferenceDate="447603294.787745">
                                                 <!--2015-03-09 14:14:54 +0000-->
                                             </date>
-                                            <locale key="locale" localeIdentifier="uk_UA"/>
                                             <connections>
                                                 <action selector="dateChanged:" destination="D1l-xQ-zXa" eventType="valueChanged" id="F4Y-km-IFQ"/>
                                             </connections>
