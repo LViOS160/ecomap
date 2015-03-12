@@ -67,7 +67,6 @@
 		B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B8A1A9DDC4B0077F604 /* SRWebSocket.m */; };
 		B3738C201A9DDC4B0077F604 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B8D1A9DDC4B0077F604 /* XYPieChart.m */; };
 		B3738C211A9DDC4B0077F604 /* EcomapFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */; };
-		B3738C221A9DDC4B0077F604 /* EcomapFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B921A9DDC4B0077F604 /* EcomapFilter.m */; };
 		B3738C231A9DDC4B0077F604 /* EcomapStatsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */; };
 		B3738C241A9DDC4B0077F604 /* EcomapURLFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B981A9DDC4B0077F604 /* EcomapURLFetcher.m */; };
 		B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B9A1A9DDC4B0077F604 /* EMThumbnailImageStore.m */; };
@@ -247,8 +246,6 @@
 		B3738B8D1A9DDC4B0077F604 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
 		B3738B8F1A9DDC4B0077F604 /* EcomapFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapFetcher.h; sourceTree = "<group>"; };
 		B3738B901A9DDC4B0077F604 /* EcomapFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapFetcher.m; sourceTree = "<group>"; };
-		B3738B911A9DDC4B0077F604 /* EcomapFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapFilter.h; sourceTree = "<group>"; };
-		B3738B921A9DDC4B0077F604 /* EcomapFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapFilter.m; sourceTree = "<group>"; };
 		B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsParser.h; sourceTree = "<group>"; };
 		B3738B941A9DDC4B0077F604 /* EcomapStatsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsParser.m; sourceTree = "<group>"; };
 		B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapPathDefine.h; path = "ecomap/Model/Fetcher-helper Classes/EcomapPathDefine.h"; sourceTree = "<group>"; };
@@ -915,8 +912,6 @@
 		CA7B3C871AA6545A005AF277 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				B3738B911A9DDC4B0077F604 /* EcomapFilter.h */,
-				B3738B921A9DDC4B0077F604 /* EcomapFilter.m */,
 				B3738BB61A9DDC4B0077F604 /* EcomapProblemFilteringMask.h */,
 				B3738BB71A9DDC4B0077F604 /* EcomapProblemFilteringMask.m */,
 			);
@@ -1173,7 +1168,6 @@
 				B3738C2A1A9DDC4B0077F604 /* SWRevealModalSegue.m in Sources */,
 				B3738C191A9DDC4B0077F604 /* GQTPointQuadTree.m in Sources */,
 				B3738C411A9DDC4B0077F604 /* GeneralStatsTopLabelView.m in Sources */,
-				B3738C221A9DDC4B0077F604 /* EcomapFilter.m in Sources */,
 				B3738C421A9DDC4B0077F604 /* AppDelegate.m in Sources */,
 				B3738C3F1A9DDC4B0077F604 /* MenuViewController.m in Sources */,
 				B3738C321A9DDC4B0077F604 /* EcomapProblemFilteringMask.m in Sources */,

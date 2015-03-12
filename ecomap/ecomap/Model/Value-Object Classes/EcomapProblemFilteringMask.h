@@ -19,4 +19,7 @@
 // Apply showing/hidding problem type with ID.
 - (void)markProblemType:(NSInteger)problemTypeID;
 
+// Apply itself on problems array and return filtered array.
+- (NSArray *)applyOnArray:(NSArray *)problems;
+
 @end

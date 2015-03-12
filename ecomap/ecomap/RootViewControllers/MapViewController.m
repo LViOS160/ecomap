@@ -17,14 +17,12 @@
 #import "EcomapClusterRenderer.h"
 #import "ProblemViewController.h"
 #import "EcomapProblemFilteringMask.h"
-#import "EcomapFilter.h"
 #import "GlobalLoggerLevel.h"
 #import "Reachability.h"
 #import "CustomInfoWindow.h"
 #import "ProblemFilterTVC.h"
 
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
-#define FILTER_ON NO
 
 @interface MapViewController () <CLLocationManagerDelegate>
 
@@ -192,7 +190,7 @@
         arrProblems = [self.problems allObjects];
         
         if(self.filteringMask) {
-            filteredProblems = [EcomapFilter filterProblemsArray:arrProblems usingFilteringMask:self.filteringMask];
+            filteredProblems = [self.filteringMask applyOnArray:arrProblems];
             self.filteredProblems = [NSSet setWithArray:filteredProblems];
         } else {
             self.filteredProblems = self.problems;

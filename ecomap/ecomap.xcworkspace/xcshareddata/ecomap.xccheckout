@@ -6,15 +6,19 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>67B99587-1E76-467B-BD69-1F9C0645846E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ecomap</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>32C10C684621B85AC38705270BFB54C4DA0F9073</key>
 		<string>https://github.com/ITsvetkoFF/KV006.git</string>
 	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ecomap/ecomap.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>32C10C684621B85AC38705270BFB54C4DA0F9073</key>
-		<string>kv006/</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/ITsvetkoFF/KV006.git</string>
@@ -30,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>32C10C684621B85AC38705270BFB54C4DA0F9073</string>
 			<key>IDESourceControlWCCName</key>
-			<string>kv006</string>
+			<string>KV006</string>
 		</dict>
 	</array>
 </dict>
