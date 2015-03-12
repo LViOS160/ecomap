@@ -2314,7 +2314,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vay-VA-L6N">
-                                <rect key="frame" x="0.0" y="133" width="600" height="467"/>
+                                <rect key="frame" x="0.0" y="137" width="600" height="463"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="48" id="zUX-sf-j0X" customClass="CommentCell">
@@ -2377,7 +2377,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zCU-V7-5nW" firstAttribute="top" secondItem="vay-VA-L6N" secondAttribute="bottom" id="3k0-Ab-NAp"/>
-                            <constraint firstItem="vay-VA-L6N" firstAttribute="top" secondItem="eOu-yg-kuz" secondAttribute="bottom" constant="21" id="62Z-Ou-Lfg"/>
+                            <constraint firstItem="vay-VA-L6N" firstAttribute="top" secondItem="eOu-yg-kuz" secondAttribute="bottom" constant="25" id="62Z-Ou-Lfg"/>
                             <constraint firstItem="eOu-yg-kuz" firstAttribute="trailing" secondItem="gkE-F0-7Vy" secondAttribute="trailingMargin" id="Au4-sf-ZrS"/>
                             <constraint firstItem="KbB-6e-LFw" firstAttribute="centerY" secondItem="oct-51-iem" secondAttribute="centerY" id="DlI-5C-g9H"/>
                             <constraint firstItem="icq-xc-ded" firstAttribute="leading" secondItem="mv9-t4-j95" secondAttribute="trailing" id="ITx-qW-dRf"/>
@@ -2426,7 +2426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XnL-km-NzL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3789" y="-304"/>
+            <point key="canvasLocation" x="3789" y="-316"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sB4-DJ-fa6">
