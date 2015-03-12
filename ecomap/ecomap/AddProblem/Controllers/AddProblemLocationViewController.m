@@ -14,4 +14,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"LocateMeDidTap" object:self];
 }
 
+- (float)viewHeight {
+    return 137.0f;
+}
+
 @end

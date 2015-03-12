@@ -32,6 +32,10 @@ static const NSUInteger MaxPhotos = 5;
     [self updateUI];
 }
 
+- (float)viewHeight {
+    return 140.0;
+}
+
 - (void)addPhotoTap:(id)sender {
     if (self.rootController) {
         if (self.photos.count < MaxPhotos) {

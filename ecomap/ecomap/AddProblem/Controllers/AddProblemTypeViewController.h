@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConstHeightViewController.h"
 
-@interface AddProblemTypeViewController : UIViewController
+@interface AddProblemTypeViewController : ConstHeightViewController
+
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+
+- (float)viewHeight;
 
 @end

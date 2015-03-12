@@ -16,6 +16,11 @@
 
 @implementation AddProblemTypeViewController
 
+
+- (float)viewHeight {
+    return 202.0f;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.problemTypes = [NSArray arrayWithObjects:@"Проблеми лісів", @"Сміттєзвалища", @"Незаконна забудова",
