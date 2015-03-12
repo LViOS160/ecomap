@@ -29,4 +29,8 @@
     return YES;
 }
 
+- (float)viewHeight {
+    return 72.0f;
+}
+
 @end

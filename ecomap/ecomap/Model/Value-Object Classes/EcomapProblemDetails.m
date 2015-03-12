@@ -9,7 +9,7 @@
 #import "EcomapProblemDetails.h"
 #import "EcomapPathDefine.h"
 #import "EcomapLoggedUser.h"
-#import "EcomapComments.h"
+#import "EcomapActivity.h"
 
 @interface EcomapProblemDetails ()
 @property (nonatomic, strong, readwrite) NSString *content;
@@ -50,7 +50,7 @@
 {
     BOOL canVote = YES;
     if(loggedUser) {
-        for(EcomapComments *comment in self.comments) {
+        for(EcomapActivity *comment in self.comments) {
             if (comment.activityTypes_Id == 3) { // vote activity type
                 canVote &= comment.usersID != loggedUser.userID;
             }

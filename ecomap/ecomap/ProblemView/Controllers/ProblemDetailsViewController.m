@@ -195,22 +195,15 @@
 {
     DDLogVerbose(@"Add image buton pressed");
     if([EcomapLoggedUser currentLoggedUser]) {
-        [self performSegueWithIdentifier:@"PhotoPicker" sender:sender];
+        PhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
+        vc.delegate = self;
+        [self presentViewController:vc animated:YES completion:nil];
     } else {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
                            actionAfterSuccseccLogin:^{
                                [self buttonToAddImagePressed:sender];
                            }];
-    }
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqual:@"PhotoPicker"]) {
-        PhotoViewController *vc = segue.destinationViewController;
-        vc.delegate = self;
-        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 

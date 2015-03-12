@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConstHeightViewController.h"
 
-@interface AddProblemNameViewController : UIViewController <UITextFieldDelegate>
+@interface AddProblemNameViewController : ConstHeightViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *problemName;
+
+- (float)viewHeight;
 
 @end

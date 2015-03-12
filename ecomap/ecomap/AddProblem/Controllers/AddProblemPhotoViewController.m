@@ -20,11 +20,11 @@
 
 @implementation AddProblemPhotoViewController
 
-static const double _buttonXOffset = 8.0;
-static const double _buttonYOffset = 8.0;
-static const double _buttonWidth = 80.0;
-static const double _buttonHeight = 80.0;
-static const NSUInteger _maxPhotos = 5;
+static const double ButtonXOffset = 8.0;
+static const double ButtonYOffset = 8.0;
+static const double ButtonWidth = 80.0;
+static const double ButtonHeight = 80.0;
+static const NSUInteger MaxPhotos = 5;
 
 - (void)viewDidLoad
 {
@@ -32,16 +32,20 @@ static const NSUInteger _maxPhotos = 5;
     [self updateUI];
 }
 
+- (float)viewHeight {
+    return 140.0;
+}
+
 - (void)addPhotoTap:(id)sender {
     if (self.rootController) {
-        if (self.photos.count < _maxPhotos) {
-            PhotoViewController *viewController = [[PhotoViewController alloc] initWithNibName:@"PhotoViewController" bundle:nil];
+        if (self.photos.count < MaxPhotos) {
+            PhotoViewController *viewController = [self.rootController.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
             viewController.delegate = self;
-            viewController.maxPhotos = _maxPhotos - self.photos.count;
+            viewController.maxPhotos = MaxPhotos - self.photos.count;
             [self.rootController presentViewController:viewController animated:YES completion:nil];
         } else {
            [InfoActions showAlertWithTitile:@"Увага!"
-                                 andMessage:[NSString stringWithFormat:@"Ви можете додати максимум %lu фото", _maxPhotos]];
+                                 andMessage:[NSString stringWithFormat:@"Ви можете додати максимум %lu фото", MaxPhotos]];
         }
     }
 }
@@ -76,7 +80,7 @@ static const NSUInteger _maxPhotos = 5;
         [self.scrollView addSubview:button];
     }];
     self.scrollView.contentSize =
-        CGSizeMake((_buttonXOffset + _buttonWidth) * (self.photos.count + 1),
+        CGSizeMake((ButtonXOffset + ButtonWidth) * (self.photos.count + 1),
                    self.scrollView.frame.size.height);
 }
 
@@ -104,7 +108,7 @@ static const NSUInteger _maxPhotos = 5;
 
 - (CGRect)frameForIndex:(NSInteger)index
 {
-    return CGRectMake(_buttonXOffset + (_buttonXOffset + _buttonWidth) * index, _buttonYOffset, _buttonWidth, _buttonHeight);
+    return CGRectMake(ButtonXOffset + (ButtonXOffset + ButtonWidth) * index, ButtonYOffset, ButtonWidth, ButtonHeight);
 }
 
 
