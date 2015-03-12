@@ -271,7 +271,7 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Доступ до геопозицiї", @"Location Services access")
                                                                        message:NSLocalizedString(@"Для доступу до вашої геопозиції необхидно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції", @"Please allow the application access to your location service to locate your current pisition")
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Вiдмiнити", @"Cancel") style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Відмініти", @"Cancel") style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *openAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Вiдкрити налаштування", @"Open settings")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];

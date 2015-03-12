@@ -12,9 +12,9 @@
 
 // Titles for "Top Of The Problems" charts
 
-#define ECOMAP_MOST_VOTED_PROBLEMS_CHART_TITLE @"ТОП 10 популярних проблем"
-#define ECOMAP_MOST_SEVERE_PROBLEMS_CHART_TITLE @"ТОП 10 важливих проблем"
-#define ECOMAP_MOST_COMMENTED_PROBLEMS_CHART_TITLE @"ТОП 10 обговорюваних проблем"
+#define ECOMAP_MOST_VOTED_PROBLEMS_CHART_TITLE NSLocalizedString(@"ТОП 10 популярних проблем", @"TOP 10 popular problems")
+#define ECOMAP_MOST_SEVERE_PROBLEMS_CHART_TITLE NSLocalizedString(@"ТОП 10 важливих проблем", @"TOP 10 important problems")
+#define ECOMAP_MOST_COMMENTED_PROBLEMS_CHART_TITLE NSLocalizedString(@"ТОП 10 обговорюваних проблем", @"TOP 10 problems under discussion")
 
 typedef enum {
     EcomapMostVotedProblemsTopList,
