@@ -13,7 +13,5 @@
 @interface AddCommViewController : UIViewController <EcomapProblemDetailsHolder>
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UITextView *textField;
-//-(IBAction)editingChanged;
-@property (weak, nonatomic) IBOutlet UILabel *labelOnOf;
 @end
 
