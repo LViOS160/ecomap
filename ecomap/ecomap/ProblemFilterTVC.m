@@ -148,7 +148,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
     
     // Configure cell data
-    cell.textLabel.text = (indexPath.row == 0) ? @"Показати з:" : @"Показати до:";
+    cell.textLabel.text = (indexPath.row == 0) ? NSLocalizedString(@"Показати з:", @"Show from")  : NSLocalizedString(@"Показати до:", @"Show up to");
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[self dateForIndexPath:indexPath]];
     return cell;
 }
@@ -160,7 +160,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     // Configure cell image.
     UIImageView *problemTypeImageView = (UIImageView *)[cell viewWithTag:kProblemTypeImageTag];
-    problemTypeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"problem-type-%ld", indexPath.row + 1]];
+    problemTypeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"problem-type-%d", indexPath.row + 1]];
     
     // Configure cell label depending on problem type.
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
@@ -180,7 +180,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProblemStatusCellID];
     
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
-    titleLabel.text = (indexPath.row == 0) ? @"Нова" : @"Вирішена";
+    titleLabel.text = (indexPath.row == 0) ? NSLocalizedString(@"Нова", @"New") : NSLocalizedString(@"Вирішена", @"Solved");
     
     // Check either filtering mask contains type of the problem of the current row
     // Depending on answer show image.
@@ -280,7 +280,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
             [[NSNotificationCenter defaultCenter] postNotificationName:@"Filtering Notification" object:self.filteringMask];
         }];
     } else {
-        [InfoActions showAlertWithTitile:@"Увага!" andMessage:@"Дата початку періоду повинна бути більшою за дату кінця періоду"];
+        [InfoActions showAlertWithTitile:NSLocalizedString(@"Увага!", @"Attention") andMessage:NSLocalizedString(@"Дата початку періоду повинна бути більшою за дату кінця періоду", @"Starting date of the period must be greater than the date of the end of the period")];
     }
 }
 
@@ -340,9 +340,9 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     switch(section) {
-        case 0: return @"Фільтрація за датою";
-        case 1: return @"Типи проблем";
-        case 2: return @"Статус проблеми";
+        case 0: return NSLocalizedString(@"Фільтрація за датою", @"Filter by date");
+        case 1: return NSLocalizedString(@"Типи проблем", @"Problem types");
+        case 2: return NSLocalizedString(@"Статус проблеми", @"Problem status");
     }
     
     return @"";
