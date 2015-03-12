@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "RegisterButton.png"
+      "filename" : "changePasswordButtonEN.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "RegisterButton@2x.png"
+      "filename" : "changePasswordButtonEN@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "RegisterButton@3x.png"
+      "filename" : "changePasswordButtonEN@3x.png"
     }
   ],
   "info" : {

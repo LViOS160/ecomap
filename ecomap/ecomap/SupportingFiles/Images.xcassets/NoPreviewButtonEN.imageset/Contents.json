@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "FacebookLogButton.png"
+      "filename" : "NoPreviewButtonEN.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "FacebookLogButton@2x.png"
+      "filename" : "NoPreviewButtonEN@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "FacebookLogButton@3x.png"
+      "filename" : "NoPreviewButtonEN@3x.png"
     }
   ],
   "info" : {

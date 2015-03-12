@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "AddComment.png"
+      "filename" : "LogoutButtonEN.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "AddComment@2x.png"
+      "filename" : "LogoutButtonEN@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "AddComment@3x.png"
+      "filename" : "LogoutButtonEN@3x.png"
     }
   ],
   "info" : {

@@ -49,6 +49,11 @@
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
     [self updateUI];
+    
+    //Buttons images localozation
+    UIImage *addButtonImage = [UIImage imageNamed:NSLocalizedString(@"AddCommentButtonUKR", @"Add comment button image")];
+    [self.addCommentButton setImage:addButtonImage
+                           forState:UIControlStateNormal];
    
     // Do any additional setup after loading the view.
 }
