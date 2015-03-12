@@ -24,6 +24,12 @@
 		518F30CB1AAA5C180094DA14 /* UIViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30CA1AAA5C180094DA14 /* UIViewController+Utils.m */; };
 		518F30DB1AAB19540094DA14 /* InfoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30DA1AAB19540094DA14 /* InfoActions.m */; };
 		518F30EA1AAB34F20094DA14 /* LoginWithFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30E91AAB34F20094DA14 /* LoginWithFacebook.m */; };
+		51F924401AB18F7800523557 /* AddProblemDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F924421AB18F7800523557 /* AddProblemDescriptionView.xib */; };
+		51F924491AB18FAA00523557 /* AddProblemLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9244B1AB18FAA00523557 /* AddProblemLocationView.xib */; };
+		51F924521AB18FB800523557 /* AddProblemNameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F924541AB18FB800523557 /* AddProblemNameView.xib */; };
+		51F9245B1AB18FDD00523557 /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9245D1AB18FDD00523557 /* AddProblemPhotoView.xib */; };
+		51F924641AB18FE700523557 /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F924661AB18FE700523557 /* AddProblemSolutionView.xib */; };
+		51F9246D1AB18FF000523557 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */; };
 		90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */; };
@@ -46,13 +52,7 @@
 		B30E2DD81A9DDDB20039DBBD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DD71A9DDDB20039DBBD /* MapKit.framework */; };
 		B30E2DDA1A9DDDDB0039DBBD /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */; };
 		B33437ED1A9DE178007ACD82 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */; };
-		B33437FA1A9DE683007ACD82 /* AddProblemDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F31A9DE683007ACD82 /* AddProblemDescriptionView.xib */; };
-		B33437FB1A9DE683007ACD82 /* AddProblemLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F41A9DE683007ACD82 /* AddProblemLocationView.xib */; };
-		B33437FC1A9DE683007ACD82 /* AddProblemNameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F51A9DE683007ACD82 /* AddProblemNameView.xib */; };
 		B33437FD1A9DE683007ACD82 /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F61A9DE683007ACD82 /* AddProblemNavigationView.xib */; };
-		B33437FE1A9DE683007ACD82 /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F71A9DE683007ACD82 /* AddProblemPhotoView.xib */; };
-		B33438001A9DE683007ACD82 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F91A9DE683007ACD82 /* AddProblemTypeView.xib */; };
-		B33438011A9DE726007ACD82 /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F81A9DE683007ACD82 /* AddProblemSolutionView.xib */; };
 		B353433C1A7F73ED00DD2F03 /* ecomapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B353433B1A7F73ED00DD2F03 /* ecomapTests.m */; };
 		B3738C0D1A9DDC4B0077F604 /* AddProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B5D1A9DDC4B0077F604 /* AddProblemViewController.m */; };
 		B3738C151A9DDC4B0077F604 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B6C1A9DDC4B0077F604 /* GQuadItem.m */; };
@@ -181,6 +181,30 @@
 		518F30DA1AAB19540094DA14 /* InfoActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoActions.m; sourceTree = "<group>"; };
 		518F30E81AAB34F20094DA14 /* LoginWithFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWithFacebook.h; sourceTree = "<group>"; };
 		518F30E91AAB34F20094DA14 /* LoginWithFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWithFacebook.m; sourceTree = "<group>"; };
+		51F924431AB18F9100523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemDescriptionView.xib; sourceTree = "<group>"; };
+		51F924441AB18F9800523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemDescriptionView.strings; sourceTree = "<group>"; };
+		51F924461AB18F9A00523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemDescriptionView.strings; sourceTree = "<group>"; };
+		51F924481AB18F9E00523557 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/AddProblemDescriptionView.strings"; sourceTree = "<group>"; };
+		51F9244A1AB18FAA00523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemLocationView.xib; sourceTree = "<group>"; };
+		51F9244D1AB18FAC00523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemLocationView.strings; sourceTree = "<group>"; };
+		51F9244F1AB18FAE00523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemLocationView.strings; sourceTree = "<group>"; };
+		51F924511AB18FAE00523557 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/AddProblemLocationView.strings"; sourceTree = "<group>"; };
+		51F924561AB18FC100523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemNameView.strings; sourceTree = "<group>"; };
+		51F924581AB18FC400523557 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/AddProblemNameView.strings"; sourceTree = "<group>"; };
+		51F924591AB18FCA00523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemNameView.xib; sourceTree = "<group>"; };
+		51F9245A1AB18FCE00523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemNameView.strings; sourceTree = "<group>"; };
+		51F9245C1AB18FDD00523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemPhotoView.xib; sourceTree = "<group>"; };
+		51F9245F1AB18FE000523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemPhotoView.strings; sourceTree = "<group>"; };
+		51F924611AB18FE100523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemPhotoView.strings; sourceTree = "<group>"; };
+		51F924631AB18FE200523557 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/AddProblemPhotoView.strings"; sourceTree = "<group>"; };
+		51F924651AB18FE700523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemSolutionView.xib; sourceTree = "<group>"; };
+		51F924681AB18FE900523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemSolutionView.strings; sourceTree = "<group>"; };
+		51F9246A1AB18FEA00523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemSolutionView.strings; sourceTree = "<group>"; };
+		51F9246C1AB18FEC00523557 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/AddProblemSolutionView.strings"; sourceTree = "<group>"; };
+		51F9246E1AB18FF000523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemTypeView.xib; sourceTree = "<group>"; };
+		51F924711AB18FF200523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
+		51F924731AB18FF300523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
+		51F924751AB18FF400523557 /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/AddProblemTypeView.strings"; sourceTree = "<group>"; };
 		90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
 		90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
 		90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAdminFetcher.h; sourceTree = "<group>"; };
@@ -206,13 +230,7 @@
 		B30E2DD71A9DDDB20039DBBD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
-		B33437F31A9DE683007ACD82 /* AddProblemDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemDescriptionView.xib; sourceTree = "<group>"; };
-		B33437F41A9DE683007ACD82 /* AddProblemLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemLocationView.xib; sourceTree = "<group>"; };
-		B33437F51A9DE683007ACD82 /* AddProblemNameView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNameView.xib; sourceTree = "<group>"; };
 		B33437F61A9DE683007ACD82 /* AddProblemNavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNavigationView.xib; sourceTree = "<group>"; };
-		B33437F71A9DE683007ACD82 /* AddProblemPhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemPhotoView.xib; sourceTree = "<group>"; };
-		B33437F81A9DE683007ACD82 /* AddProblemSolutionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemSolutionView.xib; sourceTree = "<group>"; };
-		B33437F91A9DE683007ACD82 /* AddProblemTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemTypeView.xib; sourceTree = "<group>"; };
 		B35343191A7F73ED00DD2F03 /* ecomap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ecomap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35343351A7F73ED00DD2F03 /* ecomapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ecomapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B353433A1A7F73ED00DD2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -525,13 +543,13 @@
 		B3738B5F1A9DDC4B0077F604 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B33437F31A9DE683007ACD82 /* AddProblemDescriptionView.xib */,
-				B33437F41A9DE683007ACD82 /* AddProblemLocationView.xib */,
-				B33437F51A9DE683007ACD82 /* AddProblemNameView.xib */,
+				51F924421AB18F7800523557 /* AddProblemDescriptionView.xib */,
+				51F9244B1AB18FAA00523557 /* AddProblemLocationView.xib */,
+				51F924541AB18FB800523557 /* AddProblemNameView.xib */,
 				B33437F61A9DE683007ACD82 /* AddProblemNavigationView.xib */,
-				B33437F71A9DE683007ACD82 /* AddProblemPhotoView.xib */,
-				B33437F81A9DE683007ACD82 /* AddProblemSolutionView.xib */,
-				B33437F91A9DE683007ACD82 /* AddProblemTypeView.xib */,
+				51F9245D1AB18FDD00523557 /* AddProblemPhotoView.xib */,
+				51F924661AB18FE700523557 /* AddProblemSolutionView.xib */,
+				51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1080,15 +1098,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B33438011A9DE726007ACD82 /* AddProblemSolutionView.xib in Resources */,
+				51F924641AB18FE700523557 /* AddProblemSolutionView.xib in Resources */,
 				B33437ED1A9DE178007ACD82 /* GoogleMaps.bundle in Resources */,
 				B3738C4C1A9DDC4B0077F604 /* OpenSans-BoldItalic.ttf in Resources */,
 				B3738C461A9DDC4B0077F604 /* Images.xcassets in Resources */,
 				B3738C531A9DDC4B0077F604 /* OpenSans-Semibold.ttf in Resources */,
 				B3738C4A1A9DDC4B0077F604 /* LICENSE.txt in Resources */,
-				B33438001A9DE683007ACD82 /* AddProblemTypeView.xib in Resources */,
+				51F9246D1AB18FF000523557 /* AddProblemTypeView.xib in Resources */,
 				B33437FD1A9DE683007ACD82 /* AddProblemNavigationView.xib in Resources */,
-				B33437FE1A9DE683007ACD82 /* AddProblemPhotoView.xib in Resources */,
+				51F9245B1AB18FDD00523557 /* AddProblemPhotoView.xib in Resources */,
 				CA3C8C021AACA943008EAB32 /* PhotoViewController.xib in Resources */,
 				2DB8150B1AA854DA0011AFA1 /* InfoWindow.xib in Resources */,
 				B3738C4F1A9DDC4B0077F604 /* OpenSans-Italic.ttf in Resources */,
@@ -1096,16 +1114,16 @@
 				B3738C4E1A9DDC4B0077F604 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				B3738C551A9DDC4B0077F604 /* reveal-icon.png in Resources */,
 				B3738C441A9DDC4B0077F604 /* Main.storyboard in Resources */,
-				B33437FB1A9DE683007ACD82 /* AddProblemLocationView.xib in Resources */,
+				51F924491AB18FAA00523557 /* AddProblemLocationView.xib in Resources */,
 				513A41CB1AB0F9E4000B9180 /* Localizable.strings in Resources */,
 				B3738C501A9DDC4B0077F604 /* OpenSans-Light.ttf in Resources */,
 				B3738C481A9DDC4B0077F604 /* kyiv.gpx in Resources */,
 				B3738C541A9DDC4B0077F604 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				B3738C521A9DDC4B0077F604 /* OpenSans-Regular.ttf in Resources */,
-				B33437FA1A9DE683007ACD82 /* AddProblemDescriptionView.xib in Resources */,
+				51F924401AB18F7800523557 /* AddProblemDescriptionView.xib in Resources */,
 				B3738C4B1A9DDC4B0077F604 /* OpenSans-Bold.ttf in Resources */,
 				B3738C4D1A9DDC4B0077F604 /* OpenSans-ExtraBold.ttf in Resources */,
-				B33437FC1A9DE683007ACD82 /* AddProblemNameView.xib in Resources */,
+				51F924521AB18FB800523557 /* AddProblemNameView.xib in Resources */,
 				B3738C431A9DDC4B0077F604 /* LaunchScreen.xib in Resources */,
 				B3738C561A9DDC4B0077F604 /* reveal-icon@2x.png in Resources */,
 			);
@@ -1266,6 +1284,72 @@
 				513A41D01AB0FCF8000B9180 /* uk-UA */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		51F924421AB18F7800523557 /* AddProblemDescriptionView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51F924431AB18F9100523557 /* Base */,
+				51F924441AB18F9800523557 /* en */,
+				51F924461AB18F9A00523557 /* ru */,
+				51F924481AB18F9E00523557 /* uk-UA */,
+			);
+			name = AddProblemDescriptionView.xib;
+			sourceTree = "<group>";
+		};
+		51F9244B1AB18FAA00523557 /* AddProblemLocationView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51F9244A1AB18FAA00523557 /* Base */,
+				51F9244D1AB18FAC00523557 /* en */,
+				51F9244F1AB18FAE00523557 /* ru */,
+				51F924511AB18FAE00523557 /* uk-UA */,
+			);
+			name = AddProblemLocationView.xib;
+			sourceTree = "<group>";
+		};
+		51F924541AB18FB800523557 /* AddProblemNameView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51F924561AB18FC100523557 /* ru */,
+				51F924581AB18FC400523557 /* uk-UA */,
+				51F924591AB18FCA00523557 /* Base */,
+				51F9245A1AB18FCE00523557 /* en */,
+			);
+			name = AddProblemNameView.xib;
+			sourceTree = "<group>";
+		};
+		51F9245D1AB18FDD00523557 /* AddProblemPhotoView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51F9245C1AB18FDD00523557 /* Base */,
+				51F9245F1AB18FE000523557 /* en */,
+				51F924611AB18FE100523557 /* ru */,
+				51F924631AB18FE200523557 /* uk-UA */,
+			);
+			name = AddProblemPhotoView.xib;
+			sourceTree = "<group>";
+		};
+		51F924661AB18FE700523557 /* AddProblemSolutionView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51F924651AB18FE700523557 /* Base */,
+				51F924681AB18FE900523557 /* en */,
+				51F9246A1AB18FEA00523557 /* ru */,
+				51F9246C1AB18FEC00523557 /* uk-UA */,
+			);
+			name = AddProblemSolutionView.xib;
+			sourceTree = "<group>";
+		};
+		51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51F9246E1AB18FF000523557 /* Base */,
+				51F924711AB18FF200523557 /* en */,
+				51F924731AB18FF300523557 /* ru */,
+				51F924751AB18FF400523557 /* uk-UA */,
+			);
+			name = AddProblemTypeView.xib;
 			sourceTree = "<group>";
 		};
 		B3738BE31A9DDC4B0077F604 /* LaunchScreen.xib */ = {
