@@ -8,17 +8,17 @@
 
 #import "ProblemFilterTVC.h"
 #import "EcomapPathDefine.h"
-#import "EcomapProblemFilteringMask.h"
+#import "InfoActions.h"
 
-static NSInteger numberOfSections = 3;
+static const NSInteger numberOfSections = 3;
 
-static float standardRowHeight = 44.0;
-static float datePickerRowHeight = 164;
+static const float standardRowHeight = 44.0;
+static const float datePickerRowHeight = 164;
 
-static int kDatePickerTag = 101;
-static int kProblemTypeImageTag = 102;
-static int kTitleTag = 103;
-static int kCheckmarkImageTag = 104;
+static const int kDatePickerTag = 101;
+static const int kProblemTypeImageTag = 102;
+static const int kTitleTag = 103;
+static const int kCheckmarkImageTag = 104;
 
 static NSString *kDateCellID = @"dateCell";
 static NSString *kProblemTypeCellID = @"problemTypeCell";
@@ -26,8 +26,6 @@ static NSString *kProblemStatusCellID = @"problemStatusCell";
 static NSString *kDatePickerCellID = @"datePickerCell";
 
 @interface ProblemFilterTVC ()
-
-@property (strong, nonatomic) EcomapProblemFilteringMask *filteringMask;
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSIndexPath *datePickerIndexPath;
@@ -43,12 +41,8 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 {
     [super viewDidLoad];
     
-    
     [self createDateFormatter];
     
-    NSLog(@"View load successfully");
-    NSLog(@"Start date: %@", self.filteringMask.fromDate);
-    NSLog(@"End date: %@", self.filteringMask.toDate);
 }
 
 #pragma mark - Properties
@@ -59,18 +53,34 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     return _filteringMask;
 }
 
+// Get date for index path from filtering mask.
+- (NSDate *)dateForIndexPath:(NSIndexPath *)indexPath
+{
+    NSIndexPath *parentCellIndexPath = indexPath;
+    
+    if([self datePickerIsShown]) {
+        parentCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    }
+    
+    return (parentCellIndexPath.row == 0) ? self.filteringMask.fromDate : self.filteringMask.toDate;
+}
+
+// Set date in filtering mask from index path.
+- (void)setDate:(NSDate *)date fromIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == 0) {
+        self.filteringMask.fromDate = date;
+    } else {
+        self.filteringMask.toDate = date;
+    }
+}
+
 #pragma mark - Helper Methods
 
 - (void)createDateFormatter
 {
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-}
-
-- (BOOL)datePickerIsShown
-{
-    return self.datePickerIndexPath != nil;
+    [self.dateFormatter setDateFormat:@"dd-MM-yyyy"];
 }
 
 // Helper method using to capitalize only the first letter in the string.
@@ -86,86 +96,19 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     return isCheckmarkSet ? [UIImage imageNamed:@"Good"] : nil;
 }
 
-- (NSDate *)dateFromIndexPath:(NSIndexPath *)indexPath
+// Check dates validity.
+- (BOOL)isDatesValid
 {
-    NSIndexPath *parentCellIndexPath = indexPath;
-    
-    if([self datePickerIsShown]) {
-        parentCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    if(self.filteringMask.fromDate.timeIntervalSince1970 < self.filteringMask.toDate.timeIntervalSince1970) {
+        return YES;
     }
     
-    return (parentCellIndexPath.row == 0) ? self.filteringMask.fromDate : self.filteringMask.toDate;
+    return NO;
 }
 
-- (void)setDate:(NSDate *)date forIndexPath:(NSIndexPath *)indexPath
+- (BOOL)datePickerIsShown
 {
-    if(indexPath.row == 0) {
-        self.filteringMask.fromDate = date;
-    } else {
-        self.filteringMask.toDate = date;
-    }
-}
-
-- (UITableViewCell *)createDateCellForIndexPath:(NSIndexPath *)indexPath
-{
-    // Create cell from template
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
-    
-    // Configure cell data
-    cell.textLabel.text = (indexPath.row == 0) ? @"Показати з:" : @"Показати до:";
-    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[self dateFromIndexPath:indexPath]];
-    return cell;
-}
-
-- (UITableViewCell *)createProblemTypeCellForIndexPath:(NSIndexPath *)indexPath
-{
-    // Create cell from template
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProblemTypeCellID];
-    
-    // Configure cell image.
-    UIImageView *problemTypeImageView = (UIImageView *)[cell viewWithTag:kProblemTypeImageTag];
-    problemTypeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"problem-type-%ld", indexPath.row + 1]];
-
-    // Configure cell label depending on problem type.
-    UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
-    titleLabel.text = [self uppercaseFirstLetter:(NSString *)[ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:indexPath.row]];
-    
-    // Check either filtering mask contains type of the problem of the current row
-    // Depending on answer show image.
-    UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
-    checkmarkImage.image = [self checkmarkImage:[self.filteringMask.problemTypes containsObject:@(indexPath.row + 1)]];
-    
-    return cell;
-}
-
-- (UITableViewCell *)createProblemStatusCellForIndexPath:(NSIndexPath *)indexPath
-{
-    // Create cell from template
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProblemStatusCellID];
-    
-    UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
-    titleLabel.text = (indexPath.row == 0) ? @"Нова" : @"Вирішена";
-    
-    // Check either filtering mask contains type of the problem of the current row
-    // Depending on answer show image.
-    UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
-    checkmarkImage.image = (indexPath.row == 0) ? [self checkmarkImage:self.filteringMask.showSolved]
-                                                : [self checkmarkImage:self.filteringMask.showUnsolved];
-    
-    return cell;
-}
-
-- (UITableViewCell *)createPickerCell:(NSDate *)date forIndexPath:(NSIndexPath *)indexPath
-{
-    // Create cell from template
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
-    
-    // Configure cell data
-    UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:kDatePickerTag];
-    
-    [targetedDatePicker setDate:[self dateFromIndexPath:indexPath] animated:YES];
-    
-    return cell;
+    return self.datePickerIndexPath != nil;
 }
 
 - (void)hideExistingPicker {
@@ -196,6 +139,72 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     [self.tableView insertRowsAtIndexPaths:indexPaths
                           withRowAnimation:UITableViewRowAnimationFade];
+}
+
+#pragma mark - Cell Creator Methods
+- (UITableViewCell *)createDateCellForIndexPath:(NSIndexPath *)indexPath
+{
+    // Create cell from template
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
+    
+    // Configure cell data
+    cell.textLabel.text = (indexPath.row == 0) ? @"Показати з:" : @"Показати до:";
+    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[self dateForIndexPath:indexPath]];
+    return cell;
+}
+
+- (UITableViewCell *)createProblemTypeCellForIndexPath:(NSIndexPath *)indexPath
+{
+    // Create cell from template
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProblemTypeCellID];
+    
+    // Configure cell image.
+    UIImageView *problemTypeImageView = (UIImageView *)[cell viewWithTag:kProblemTypeImageTag];
+    problemTypeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"problem-type-%ld", indexPath.row + 1]];
+    
+    // Configure cell label depending on problem type.
+    UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
+    titleLabel.text = [self uppercaseFirstLetter:(NSString *)[ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:indexPath.row]];
+    
+    // Check either filtering mask contains type of the problem of the current row
+    // Depending on answer show image.
+    UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
+    checkmarkImage.image = [self checkmarkImage:[self.filteringMask.problemTypes containsObject:@(indexPath.row + 1)]];
+    
+    return cell;
+}
+
+- (UITableViewCell *)createProblemStatusCellForIndexPath:(NSIndexPath *)indexPath
+{
+    // Create cell from template
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProblemStatusCellID];
+    
+    UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
+    titleLabel.text = (indexPath.row == 0) ? @"Нова" : @"Вирішена";
+    
+    // Check either filtering mask contains type of the problem of the current row
+    // Depending on answer show image.
+    UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
+    checkmarkImage.image = (indexPath.row == 0) ? [self checkmarkImage:self.filteringMask.showUnsolved]
+    : [self checkmarkImage:self.filteringMask.showSolved];
+    
+    return cell;
+}
+
+- (UITableViewCell *)createPickerCell:(NSDate *)date forIndexPath:(NSIndexPath *)indexPath
+{
+    // Create cell from template
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    
+    // Configure cell data
+    UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:kDatePickerTag];
+    
+    targetedDatePicker.minimumDate = [self.dateFormatter dateFromString:@"18-02-2014"];
+    targetedDatePicker.maximumDate = [NSDate date];
+    
+    [targetedDatePicker setDate:[self dateForIndexPath:indexPath] animated:YES];
+    
+    return cell;
 }
 
 #pragma mark - Event Handlers
@@ -232,9 +241,9 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 - (void)handleTappingStatusSection:(NSIndexPath *)indexPath
 {
     if(indexPath.row == 0) {
-        self.filteringMask.showSolved = !self.filteringMask.showSolved;
-    } else {
         self.filteringMask.showUnsolved = !self.filteringMask.showUnsolved;
+    } else {
+        self.filteringMask.showSolved = !self.filteringMask.showSolved;
     }
     
     [self.tableView reloadData];
@@ -254,7 +263,25 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:parentCellIndexPath];
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:sender.date];
     
-    [self setDate:sender.date forIndexPath:parentCellIndexPath];
+    [self setDate:sender.date fromIndexPath:parentCellIndexPath];
+}
+
+// Hide view controller
+- (IBAction)touchHideButton:(UIBarButtonItem *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// Send new Filtering mask through NSNotificationCenter
+- (IBAction)touchApplyButton:(UIBarButtonItem *)sender
+{
+    if([self isDatesValid]) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"Filtering Notification" object:self.filteringMask];
+        }];
+    } else {
+        [InfoActions showAlertWithTitile:@"Увага!" andMessage:@"Дата початку періоду повинна бути більшою за дату кінця періоду"];
+    }
 }
 
 #pragma mark - Table View Data Source
@@ -308,6 +335,17 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     }
     
     return [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch(section) {
+        case 0: return @"Фільтрація за датою";
+        case 1: return @"Типи проблем";
+        case 2: return @"Статус проблеми";
+    }
+    
+    return @"";
 }
 
 #pragma mark - Table View Delegate

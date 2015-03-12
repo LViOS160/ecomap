@@ -7,7 +7,10 @@
 ///
 
 #import <UIKit/UIKit.h>
+#import "EcomapProblemFilteringMask.h"
 
 @interface ProblemFilterTVC : UITableViewController
+
+@property (strong, nonatomic) EcomapProblemFilteringMask *filteringMask;
 
 @end

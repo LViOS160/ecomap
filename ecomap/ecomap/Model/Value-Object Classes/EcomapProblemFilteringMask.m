@@ -8,20 +8,21 @@
 
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapPathDefine.h"
+#import "EcomapProblem.h"
 
 @implementation EcomapProblemFilteringMask
 
-- (instancetype)init
-{
-    self = [super init];
-    
-    self.fromDate = [NSDate dateWithTimeIntervalSince1970:0];
-    self.toDate = [NSDate date];
-    self.problemTypes = [[EcomapProblemFilteringMask validProblemTypeIDs] mutableCopy];
-    self.showSolved = YES;
-    self.showUnsolved = YES;
+#pragma mark - Properties
 
-    return self;
+// Check wether Problem type array consists type ID.
+// If not add it, in other case remove it from array.
+- (void)markProblemType:(NSInteger)problemTypeID
+{
+    if([self.problemTypes containsObject:@(problemTypeID)]) {
+        [self.problemTypes removeObject:@(problemTypeID)];
+    } else {
+        [self.problemTypes addObject:@(problemTypeID)];
+    }
 }
 
 + (NSArray *)validProblemTypeIDs
@@ -29,13 +30,95 @@
     return @[@1, @2, @3, @4, @5, @6, @7];
 }
 
-// Very simple method :)
-- (void)markProblemType:(NSInteger)problemTypeID
+#pragma mark - Overridden Methods
+
+- (instancetype)init
 {
-    if([self.problemTypes containsObject:@(problemTypeID)]) {
-        [self.problemTypes removeObject:@(problemTypeID)];
+    self = [super init];
+    
+    // By default set mask so it could permit any problem.
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    self.fromDate = [dateFormatter dateFromString:@"2014-02-18"];
+    self.toDate = [NSDate date];
+    self.problemTypes = [[EcomapProblemFilteringMask validProblemTypeIDs] mutableCopy];
+    self.showSolved = YES;
+    self.showUnsolved = YES;
+    
+    return self;
+}
+
+
+// To ease logging override description.
+- (NSString *)description
+{
+    NSLog(@"Start date: %@", self.fromDate);
+    NSLog(@"End date: %@", self.toDate);
+    NSLog(@"Problem types: %@", self.problemTypes);
+    NSLog(@"Show solved: %@", self.showSolved ? @"YES" : @"NO");
+    return [NSString stringWithFormat:@"Show unsolved: %@", self.showUnsolved ? @"YES" : @"NO"];
+}
+
+#pragma mark - Applying Filter
+
+// Apply filtering mask (itself) on problems array and return filtered array.
+- (NSArray *)applyOnArray:(NSArray *)problems
+{
+    NSMutableArray *filteredProblems = [[NSMutableArray alloc] init];
+    
+    for(id problem in problems) {
+        if([problem isKindOfClass:[EcomapProblem class]]) {
+            EcomapProblem *ecoProblem = (EcomapProblem *)problem;
+            if([self checkProblem:ecoProblem]) {
+                [filteredProblems addObject:ecoProblem];
+            }
+        }
+    }
+    
+    return filteredProblems;
+}
+
+
+// Check problem validity.
+- (BOOL)checkProblem:(EcomapProblem *)problem
+{
+    if([self.problemTypes containsObject:[NSNumber numberWithInteger:problem.problemTypesID]]) {
+        if([self isDate:problem.dateCreated inRangeFromDate:self.fromDate toDate:self.toDate]) {
+            if([self checkStatusOfProblem:problem]) {
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
+// Check problem status validity.
+- (BOOL)checkStatusOfProblem:(EcomapProblem *)problem
+{
+    if(self.showSolved && self.showUnsolved) {
+        return YES;
+    } else if(self.showSolved && !self.showUnsolved && problem.isSolved) {
+        return YES;
+    } else if(!self.showSolved && self.showUnsolved && !problem.isSolved) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+// Check problem date of creation on validity.
+- (BOOL)isDate:(NSDate *)date inRangeFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
+{
+    NSTimeInterval intervalFromBeginOfTheRangeToDate = [date timeIntervalSinceDate:fromDate];
+    NSTimeInterval intervalFromDateToEndOfTheRange = [toDate timeIntervalSinceDate:date];
+    
+    if((intervalFromBeginOfTheRangeToDate > 0) && intervalFromDateToEndOfTheRange > 0) {
+        return YES;
     } else {
-        [self.problemTypes addObject:@(problemTypeID)];
+        return NO;
     }
 }
 
