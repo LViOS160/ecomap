@@ -183,25 +183,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    
-    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-    if(!cell)
-        cell = [[CommentCell alloc] init];
-    EcomapActivity *commentaires = [self.comments objectAtIndex:indexPath.row];
-    cell.commentContent.text= commentaires.problemContent;
-    NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
-    formatter.dateStyle = NSDateFormatterMediumStyle;      //
-    formatter.timeStyle = NSDateFormatterShortStyle;       //
-    formatter.doesRelativeDateFormatting = YES;            //
-    NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
-    [formatter setLocale:ukraineLocale];                   //
-    
-    NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentair.userName, commentair.userSurname];
-    NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentair.date]];
-    cell.personInfo.text = personalInfo;
-    cell.dateInfo.text = dateInfo;
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
+    if(self.comments.count == 0)
+    {
+        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        
+        cell.textLabel.text = @"Коментарі відсутні";
+        
+        return cell;
+    }
+    else
+    {EcomapCommentaries *commentair = [self.comments objectAtIndex:indexPath.row];
+        CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+        
+        
+        cell.commentContent.text= commentair.problemContent;
+        NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
+        formatter.dateStyle = NSDateFormatterMediumStyle;      //
+        formatter.timeStyle = NSDateFormatterShortStyle;       //
+        formatter.doesRelativeDateFormatting = YES;            //
+        NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
+        [formatter setLocale:ukraineLocale];                   //
+        
+        NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentair.userName, commentair.userSurname];
+        NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentair.date]];
+        cell.personInfo.text = personalInfo;
+        cell.dateInfo.text = dateInfo;
+        [cell setNeedsUpdateConstraints];
+        [cell updateConstraintsIfNeeded];
         return cell;
     }
     
