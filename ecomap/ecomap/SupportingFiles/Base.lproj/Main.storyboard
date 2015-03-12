@@ -846,23 +846,11 @@
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=compact" misplaced="YES">
-                                            <rect key="frame" x="34" y="3" width="166" height="18"/>
-                                        </variation>
-                                        <variation key="widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="117" y="3" width="166" height="18"/>
-                                        </variation>
-                                        <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
-                                            <rect key="frame" x="26" y="3" width="183" height="21"/>
-                                        </variation>
                                     </label>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="YpS-d2-1M6">
                                         <rect key="frame" x="273" y="12" width="55" height="37"/>
                                         <color key="pageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="currentPageIndicatorTintColor" red="0.0" green="0.0021728257680000002" blue="0.75132275130000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        <variation key="heightClass=compact" misplaced="YES">
-                                            <rect key="frame" x="90" y="12" width="55" height="37"/>
-                                        </variation>
                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="173" y="13" width="55" height="37"/>
                                         </variation>
@@ -926,12 +914,6 @@
                                         <rect key="frame" x="144" y="3" width="312" height="21"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
-                                            <rect key="frame" x="38" y="3" width="291" height="18"/>
-                                        </variation>
-                                        <variation key="widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="55" y="3" width="291" height="18"/>
-                                        </variation>
                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="45" y="3" width="312" height="21"/>
                                         </variation>
@@ -945,12 +927,6 @@
                                             <segment title="рік"/>
                                             <segment title="за весь час"/>
                                         </segments>
-                                        <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
-                                            <rect key="frame" x="38" y="24" width="291" height="29"/>
-                                        </variation>
-                                        <variation key="widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="55" y="24" width="291" height="29"/>
-                                        </variation>
                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="45" y="27" width="312" height="29"/>
                                         </variation>
@@ -968,15 +944,6 @@
                                                     <constraint firstAttribute="width" constant="37" id="h9C-id-aOn"/>
                                                 </constraints>
                                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
-                                                    <rect key="frame" x="166" y="120" width="37" height="37"/>
-                                                </variation>
-                                                <variation key="widthClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="182" y="150" width="37" height="37"/>
-                                                </variation>
-                                                <variation key="heightClass=compact-widthClass=regular" ambiguous="YES" misplaced="YES">
-                                                    <rect key="frame" x="266" y="107" width="37" height="37"/>
-                                                </variation>
                                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                     <rect key="frame" x="182" y="249" width="37" height="37"/>
                                                 </variation>
@@ -987,15 +954,6 @@
                                             <constraint firstAttribute="centerY" secondItem="RQU-7K-8cI" secondAttribute="centerY" id="BRF-nR-CdQ"/>
                                             <constraint firstAttribute="centerX" secondItem="RQU-7K-8cI" secondAttribute="centerX" id="nui-7a-gXH"/>
                                         </constraints>
-                                        <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="60" width="367" height="276"/>
-                                        </variation>
-                                        <variation key="widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="60" width="400" height="336"/>
-                                        </variation>
-                                        <variation key="heightClass=compact-widthClass=regular" ambiguous="YES" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="60" width="567" height="276"/>
-                                        </variation>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -1013,32 +971,60 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Ldd-rU-wCs" secondAttribute="bottom" id="7hj-vy-Y1g"/>
+                            <constraint firstItem="Ldd-rU-wCs" firstAttribute="top" secondItem="98y-hi-jAn" secondAttribute="bottom" id="7u0-vX-RRA"/>
+                            <constraint firstItem="Ldd-rU-wCs" firstAttribute="leading" secondItem="rEK-99-bfh" secondAttribute="trailing" id="CZb-XV-BI5"/>
+                            <constraint firstItem="Ldd-rU-wCs" firstAttribute="top" secondItem="98y-hi-jAn" secondAttribute="bottom" id="Eks-cl-DCE"/>
                             <constraint firstItem="rEK-99-bfh" firstAttribute="top" secondItem="98y-hi-jAn" secondAttribute="bottom" id="EzP-wk-0HP"/>
                             <constraint firstItem="Ldd-rU-wCs" firstAttribute="top" secondItem="98y-hi-jAn" secondAttribute="bottom" id="FVi-Po-961"/>
                             <constraint firstAttribute="trailing" secondItem="Ldd-rU-wCs" secondAttribute="trailing" id="Jjt-49-eMM"/>
                             <constraint firstItem="rEK-99-bfh" firstAttribute="leading" secondItem="KVK-JH-AXk" secondAttribute="leading" id="OSn-gQ-LKN"/>
                             <constraint firstItem="XhD-rt-Q9u" firstAttribute="top" secondItem="rEK-99-bfh" secondAttribute="bottom" id="Rcd-iH-vQg"/>
                             <constraint firstItem="Ldd-rU-wCs" firstAttribute="leading" secondItem="KVK-JH-AXk" secondAttribute="leading" id="S79-AG-lPH"/>
+                            <constraint firstAttribute="trailing" secondItem="Ldd-rU-wCs" secondAttribute="trailing" id="THs-6V-Q7n"/>
                             <constraint firstAttribute="trailing" secondItem="rEK-99-bfh" secondAttribute="trailing" id="UXz-sp-41L"/>
                             <constraint firstItem="XhD-rt-Q9u" firstAttribute="top" secondItem="Ldd-rU-wCs" secondAttribute="bottom" id="b2K-Tw-zxZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Ldd-rU-wCs" secondAttribute="trailing" id="d77-qa-NyJ"/>
                             <constraint firstItem="Ldd-rU-wCs" firstAttribute="leading" secondItem="rEK-99-bfh" secondAttribute="trailing" id="lxK-rd-daM"/>
+                            <constraint firstAttribute="bottom" secondItem="Ldd-rU-wCs" secondAttribute="bottom" id="mc1-hr-C86"/>
                             <constraint firstItem="Ldd-rU-wCs" firstAttribute="top" secondItem="rEK-99-bfh" secondAttribute="bottom" id="tGT-0G-RAS"/>
+                            <constraint firstItem="Ldd-rU-wCs" firstAttribute="leading" secondItem="rEK-99-bfh" secondAttribute="trailing" id="tex-zo-YSS"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="7hj-vy-Y1g"/>
+                                <exclude reference="7u0-vX-RRA"/>
+                                <exclude reference="CZb-XV-BI5"/>
+                                <exclude reference="Eks-cl-DCE"/>
                                 <exclude reference="FVi-Po-961"/>
+                                <exclude reference="THs-6V-Q7n"/>
+                                <exclude reference="d77-qa-NyJ"/>
                                 <exclude reference="lxK-rd-daM"/>
+                                <exclude reference="mc1-hr-C86"/>
+                                <exclude reference="tex-zo-YSS"/>
                                 <exclude reference="Rcd-iH-vQg"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="constraints">
                                 <exclude reference="UXz-sp-41L"/>
+                                <include reference="7hj-vy-Y1g"/>
+                                <include reference="7u0-vX-RRA"/>
                                 <exclude reference="FVi-Po-961"/>
                                 <exclude reference="S79-AG-lPH"/>
+                                <include reference="THs-6V-Q7n"/>
                                 <include reference="lxK-rd-daM"/>
                                 <exclude reference="tGT-0G-RAS"/>
+                                <include reference="tex-zo-YSS"/>
                                 <include reference="Rcd-iH-vQg"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="CZb-XV-BI5"/>
+                                <include reference="Eks-cl-DCE"/>
+                                <include reference="d77-qa-NyJ"/>
+                                <include reference="mc1-hr-C86"/>
                             </mask>
                         </variation>
                     </view>
@@ -1067,7 +1053,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1063" y="135"/>
+            <point key="canvasLocation" x="1062.75" y="135"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OZ0-nX-FNF">
@@ -2250,10 +2236,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MiddleCommentField" translatesAutoresizingMaskIntoConstraints="NO" id="KbB-6e-LFw">
                                 <rect key="frame" x="60" y="25" width="507" height="40"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="66" y="14" width="298" height="49"/>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=regular" ambiguous="YES" misplaced="YES">
+                                <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                     <rect key="frame" x="66" y="14" width="523" height="49"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
@@ -2266,10 +2249,7 @@
                                     <constraint firstAttribute="width" constant="17" id="rXC-p6-pvg"/>
                                     <constraint firstAttribute="height" constant="40" id="z2Z-Np-PLR"/>
                                 </constraints>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="364" y="14" width="20" height="49"/>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=regular" ambiguous="YES" misplaced="YES">
+                                <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                     <rect key="frame" x="588" y="14" width="20" height="49"/>
                                 </variation>
                             </imageView>
@@ -2281,12 +2261,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="66" y="24" width="298" height="29"/>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="66" y="24" width="523" height="29"/>
-                                </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="66" y="24" width="298" height="29"/>
                                 </variation>
@@ -2297,9 +2271,6 @@
                                     <constraint firstAttribute="width" constant="44" id="6ZU-Cu-70x"/>
                                     <constraint firstAttribute="height" constant="40" id="zQU-3T-xhg"/>
                                 </constraints>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="14" width="50" height="49"/>
-                                </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="16" y="14" width="50" height="49"/>
                                 </variation>
@@ -2325,10 +2296,7 @@
                                         <include reference="g7K-e9-aIl"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="149" y="80" width="102" height="32"/>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=regular" ambiguous="YES" misplaced="YES">
+                                <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                     <rect key="frame" x="651" y="24" width="102" height="32"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
@@ -2385,14 +2353,8 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="131" width="400" height="469"/>
-                                </variation>
                                 <variation key="widthClass=regular" ambiguous="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=regular" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="93" width="800" height="307"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="131" width="400" height="669"/>
@@ -2503,7 +2465,7 @@
         <image name="user25" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Tb6-3i-OMj"/>
         <segue reference="WgQ-oX-LnI"/>
+        <segue reference="p0L-Um-XQx"/>
     </inferredMetricsTieBreakers>
 </document>
