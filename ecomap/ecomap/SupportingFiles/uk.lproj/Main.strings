@@ -51,10 +51,10 @@
 "EQh-DG-JZg.placeholder" = "Прізвище";
 
 /* Class = "IBUILabel"; text = "Name"; ObjectID = "EV4-hX-TzL"; */
-"EV4-hX-TzL.text" = "Name";
+"EV4-hX-TzL.text" = "Ім'я";
 
 /* Class = "IBUIBarButtonItem"; title = "Close"; ObjectID = "F9C-FB-M9k"; */
-"F9C-FB-M9k.title" = "Close";
+"F9C-FB-M9k.title" = "Закрити";
 
 /* Class = "IBUILabel"; text = "0000"; ObjectID = "FwP-tJ-tqP"; */
 "FwP-tJ-tqP.text" = "0000";
@@ -63,7 +63,7 @@
 "JSW-UX-MD0.text" = "Ecomap";
 
 /* Class = "IBUILabel"; text = "Surname"; ObjectID = "Jnp-Rk-hQF"; */
-"Jnp-Rk-hQF.text" = "Surname";
+"Jnp-Rk-hQF.text" = "Прізвище";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "KAk-Qp-v7a"; */
 "KAk-Qp-v7a.text" = "Label";

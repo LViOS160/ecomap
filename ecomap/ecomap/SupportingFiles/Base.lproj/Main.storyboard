@@ -2275,37 +2275,6 @@
                                     <rect key="frame" x="16" y="14" width="50" height="49"/>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOu-yg-kuz">
-                                <rect key="frame" x="249" y="80" width="102" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="102" id="IWp-i6-mpl"/>
-                                    <constraint firstAttribute="height" constant="32" id="g7K-e9-aIl"/>
-                                </constraints>
-                                <state key="normal" image="AddComment">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="IWp-i6-mpl"/>
-                                        <exclude reference="g7K-e9-aIl"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="IWp-i6-mpl"/>
-                                        <include reference="g7K-e9-aIl"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="651" y="24" width="102" height="32"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="149" y="80" width="102" height="32"/>
-                                </variation>
-                                <connections>
-                                    <action selector="pressAddComment:" destination="PJs-Mk-k8Q" eventType="touchUpInside" id="QKu-hI-fLf"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vay-VA-L6N">
                                 <rect key="frame" x="0.0" y="137" width="600" height="463"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2360,6 +2329,37 @@
                                     <rect key="frame" x="0.0" y="131" width="400" height="669"/>
                                 </variation>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOu-yg-kuz">
+                                <rect key="frame" x="252" y="80" width="97" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="102" id="IWp-i6-mpl"/>
+                                    <constraint firstAttribute="height" constant="32" id="g7K-e9-aIl"/>
+                                </constraints>
+                                <state key="normal" image="AddCommentButtonUKR">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="IWp-i6-mpl"/>
+                                        <exclude reference="g7K-e9-aIl"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="IWp-i6-mpl"/>
+                                        <include reference="g7K-e9-aIl"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="651" y="24" width="102" height="32"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="149" y="80" width="102" height="32"/>
+                                </variation>
+                                <connections>
+                                    <action selector="pressAddComment:" destination="PJs-Mk-k8Q" eventType="touchUpInside" id="QKu-hI-fLf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2435,7 +2435,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AddComment" width="102" height="32"/>
+        <image name="AddCommentButtonUKR" width="97" height="32"/>
         <image name="Bad" width="20" height="20"/>
         <image name="ChangePasswordButtonURK" width="282" height="52"/>
         <image name="EmailField" width="282" height="41"/>

@@ -43,9 +43,9 @@
 
 - (void)viewDidLoad {
     
-    [EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+    //[EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
         
-    }];
+    //}];
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
     
