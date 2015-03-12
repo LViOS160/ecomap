@@ -117,8 +117,7 @@
         //Change checkmarks image
         [self showCheckmarks:@[[NSNumber numberWithInt:checkmarkTypeEmail], [NSNumber numberWithInt:checkmarkTypePassword]] withImage:CHECKMARK_BAD_IMAGE];
     } else if (error) {
-        [InfoActions showAlertWithTitile:loginErrorTitle
-                              andMessage:[error localizedDescription]];
+        [InfoActions showAlertOfError:error];
     }
 }
 

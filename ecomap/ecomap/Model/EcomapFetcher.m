@@ -8,6 +8,7 @@
 
 #import "EcomapFetcher.h"
 #import "EcomapLocalPhoto.h"
+#import "InfoActions.h"
 
 @implementation EcomapFetcher
 
@@ -37,45 +38,10 @@
                             }
                             
                         }
-                    } else {
-                        DDLogVerbose(@"Error loading all problems JSON from ecomap server: %@", [error localizedDescription]);
-                        if ((error.code / 100 == 5) || (abs(error.code / 100) == 10)) [self showAlertViewOfError:error]; //Check for 5XX error and -1004 error (problem with internet)
-                    }
+                    } else [InfoActions showAlertOfError:error];
         
                     //set up completionHandler
                     completionHandler(problems, error);
-                }];
-    
-}
-
-#pragma mark - Load All Problem Types
-+ (void)loadAllPorblemTypes:(void (^)(NSArray *problemTypes, NSError *error))completionHandler {
-   
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAllProblems]]
-             sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
-                completionHandler:^(NSData *JSON, NSError *error) {
-                    NSMutableArray *problemTypes = nil;
-                    NSArray *problemsFromJSON = nil;
-                    if (!error) {
-                        //Extract received data
-                        if (JSON != nil) {
-                            //Parse JSON
-                            problemsFromJSON = [JSONParser parseJSONtoArray:JSON];
-                            
-                            //Fill problems array
-                            if (problemsFromJSON) {
-                                problemTypes = [NSMutableArray array];
-                                //Fill array with EcomapProblem
-                                for (NSDictionary *problem in problemsFromJSON) {
-                                    EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblem:problem];
-                                    [problemTypes addObject:ecoProblem];
-                                }
-                            }
-                            
-                        }
-                    }
-                    //set up completionHandler
-                    completionHandler(problemTypes, error);
                 }];
     
 }
@@ -115,7 +81,7 @@
                           else
                               difComment = nil;
                           
-                      }
+                      } else [InfoActions showAlertOfError:error];
                       
                       completionHandler(difComment,error);
                       
@@ -153,7 +119,8 @@
                             [alias addObject:ecoAl];
                             
                         }
-                    }
+                    } else [InfoActions showAlertOfError:error];
+                    
                     completionHandler(alias,error);
                     
                 }];
@@ -186,7 +153,8 @@
                             // DDLogVerbose(@"%@",resources);
                             
                         }
-                    }
+                    } else [InfoActions showAlertOfError:error];
+                    
                     completionHandler(resources,error);
                     
                 }];
@@ -250,7 +218,7 @@
                             problemDetails.photos = problemPhotos;
                             problemDetails.comments = problemComments;
                         }
-                    }
+                    } else [InfoActions showAlertOfError:error];
                     
                     //Return problemDetails
                     completionHandler(problemDetails, error);
@@ -323,7 +291,8 @@
                               }
                               [userDefaults setObject:votedPosts forKey:@"votedPosts"];
                           }
-                      }
+                      } else [InfoActions showAlertOfError:error];
+                      
                       completionHandler(error);
                   }];
 }
@@ -350,31 +319,6 @@
                            completionHandler([jsonString valueForKey:@"err"], error);
                        }];
     
-}
-
-#pragma mark - Alert View
-//Show error to the user in UIAlertView
-+ (void)showAlertViewOfError:(NSError *)error
-{
-    NSString *alertTitle = nil;
-    NSString *errorMessage = nil;  //human-readable dwscription of the error
-    switch (error.code / 100) {
-        case 5:
-            alertTitle = @"Ecomap server error!";
-            errorMessage = @"Could not connet to ecomap server. \nThere are technical problems on the server. We are working to fix it. Please try again later.";
-            break;
-            
-        default:
-            alertTitle = @"Error";
-            errorMessage = [error localizedDescription];  //human-readable dwscription of the error
-            break;
-    }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle
-                                                    message:errorMessage
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
 }
 
 @end

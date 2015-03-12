@@ -116,4 +116,6 @@
 #define ECOMAP_GENERAL_STATS_PHOTOS @"photos"
 #define ECOMAP_GENERAL_STATS_COMMENTS @"comments"
 
+#define NO_INTERNET_CODE 666
+
 #endif

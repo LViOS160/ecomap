@@ -8,6 +8,9 @@
 
 #import "DataTasks.h"
 #import "NetworkActivityIndicator.h"
+#import "EcomapPathDefine.h"
+
+#import "Reachability.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
@@ -16,6 +19,12 @@
 //Data task
 +(void)dataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
 {
+    //Ckeck internet connection
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0) {
+        completionHandler (nil, [self errorForStatusCode:NO_INTERNET_CODE]);
+        return;
+    }
+
     [[NetworkActivityIndicator sharedManager] startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
@@ -51,6 +60,12 @@
 //Download data task
 +(void)downloadDataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *data, NSError *error))completionHandler
 {
+    //Ckeck internet connection
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0) {
+        completionHandler (nil, [self errorForStatusCode:NO_INTERNET_CODE]);
+        return;
+    }
+    
     [[NetworkActivityIndicator sharedManager] startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
@@ -85,6 +100,12 @@
 //Upload data task
 +(void)uploadDataTaskWithRequest:(NSURLRequest *)request fromData:(NSData *)data sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
 {
+    //Ckeck internet connection
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0) {
+        completionHandler (nil, [self errorForStatusCode:NO_INTERNET_CODE]);
+        return;
+    }
+    
     [[NetworkActivityIndicator sharedManager] startActivity];
     //Create new session to download JSON file
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
@@ -152,6 +173,11 @@
         case 510:
         case 511:
             error = [[NSError alloc] initWithDomain:@"Server Error" code:statusCode userInfo:@{@"error" : @"Server Error"}];
+            break;
+        
+        //custome code for no Internet
+        case NO_INTERNET_CODE:
+            error = [[NSError alloc] initWithDomain:@"No internet connection" code:statusCode userInfo:@{@"error" : @"No internet connection"}];
             break;
             
         default:

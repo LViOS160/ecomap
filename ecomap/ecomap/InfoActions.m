@@ -11,6 +11,7 @@
 #import "UIViewController+Utils.h"
 #import "LoginViewController.h"
 #import "LoginWithFacebook.h"
+#import "EcomapPathDefine.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
@@ -92,7 +93,15 @@
 {
     NSString *errorMessage = nil;
     if ([error isKindOfClass:[NSError class]]) {
-        errorMessage = [error localizedDescription]; //human-readable dwscription of the error
+        NSError *err = (NSError *)error;
+        if (err.code / 100 == 5) { //5XX error from server
+            errorMessage = NSLocalizedString(@"Є проблеми на сервері. Ми працюємо над їх вирішенням!", @"Alert message: There are problems on the server. We are working to resolve them!");
+        } else if (err.code == NO_INTERNET_CODE) {
+            errorMessage = NSLocalizedString(@"Не вдається підключитися до Ecomap. Перевірте налаштування мережі Інтернет", @"Alert message: Can't connect to Ecomap. Check your internet connection!");
+        } else {
+            errorMessage = [error localizedDescription]; //human-readable dwscription of the error
+        }
+        
     } else if ([error isKindOfClass:[NSString class]]) {
         errorMessage = (NSString *)error;
     } else errorMessage = @"";

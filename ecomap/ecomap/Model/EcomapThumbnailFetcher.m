@@ -10,6 +10,7 @@
 #import "DataTasks.h"
 #import "EMThumbnailImageStore.h"
 #import "EcomapURLFetcher.h"
+#import "InfoActions.h"
 
 @implementation EcomapThumbnailFetcher
 
