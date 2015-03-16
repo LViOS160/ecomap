@@ -10,6 +10,12 @@
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
 
+@protocol EcomapProblemViewDelegate <NSObject>
+
+- (void)showEcomapProblem:(EcomapProblem *)problem;
+
+@end
+
 @interface ProblemViewController : UIViewController
 
 @property (nonatomic) NSUInteger problemID;
