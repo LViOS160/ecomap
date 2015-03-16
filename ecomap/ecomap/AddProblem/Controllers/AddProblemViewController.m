@@ -156,7 +156,8 @@
 }
 
 - (void)closeButtonTap:(id *)sender {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"LocateMeDidTap" object:nil];
     self.marker.map = nil;
     self.marker = nil;
     self.topSpaceToButton.constant = 77;

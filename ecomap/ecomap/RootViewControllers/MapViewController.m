@@ -21,6 +21,7 @@
 #import "Reachability.h"
 #import "CustomInfoWindow.h"
 #import "ProblemFilterTVC.h"
+#import "Defines.h"
 
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
@@ -53,6 +54,10 @@
     [self socketInit];
     [self reachabilitySetup];
     [self filteringSetup];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(allProblemsChanged:)
+                                                 name:ALL_PROBLEMS_CHANGED
+                                               object:nil];
 }
 
 - (void)filteringSetup
@@ -71,7 +76,11 @@
         self.filteringMask = nil;
     }
     [self applyFilter];
-    
+}
+
+- (void)allProblemsChanged:(NSNotification*)notification
+{
+    [self loadProblems];
 }
 
 -(void)reachabilitySetup {
@@ -303,6 +312,11 @@
         infoWindow.snippet.text = problem.problemTypeTitle;
     }
     return infoWindow;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

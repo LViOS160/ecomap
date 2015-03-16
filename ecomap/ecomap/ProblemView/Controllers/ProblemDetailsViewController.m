@@ -98,10 +98,10 @@
 - (IBAction)deleteProblem:(id)sender
 {
     [ EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
         if(!error)
-            [self removeFromParentViewController];
+           [self.navigationController popViewControllerAnimated:YES]; 
     }];
-   
 }
 
 #pragma mark - Scroll View Gallery setup
