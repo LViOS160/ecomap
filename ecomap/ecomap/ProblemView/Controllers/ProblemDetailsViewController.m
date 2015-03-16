@@ -18,6 +18,7 @@
 #import "EcomapLoggedUser.h"
 #import "Defines.h"
 #import "InfoActions.h"
+#import "MapViewController.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -87,8 +88,6 @@
         self.editButton.hidden = YES;
         self.deleteButton.hidden = YES;
     }
-
-    
 }
 
 - (IBAction)editProblem:(id)sender
@@ -100,9 +99,9 @@
 {
     [ EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
         if(!error)
-            [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+            [self removeFromParentViewController];
     }];
-    
+   
 }
 
 #pragma mark - Scroll View Gallery setup
