@@ -9,6 +9,7 @@
 #import "ProblemFilterTVC.h"
 #import "EcomapPathDefine.h"
 #import "InfoActions.h"
+#import "EcomapProblemFilteringMask.h"
 
 static const NSInteger numberOfSections = 3;
 
@@ -160,12 +161,11 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     // Configure cell image.
     UIImageView *problemTypeImageView = (UIImageView *)[cell viewWithTag:kProblemTypeImageTag];
-    problemTypeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"problem-type-%d", indexPath.row + 1]];
+    problemTypeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"problem-type-%ld", indexPath.row + 1]];
     
     // Configure cell label depending on problem type.
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
     titleLabel.text = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:indexPath.row];
-    //[self uppercaseFirstLetter:(NSString *)[ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:indexPath.row]];
     
     // Check either filtering mask contains type of the problem of the current row
     // Depending on answer show image.
@@ -280,15 +280,16 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-// Send new Filtering mask through NSNotificationCenter
+// Send message userDidApplyFilteringMask: to delegate.
 - (IBAction)touchApplyButton:(UIBarButtonItem *)sender
 {
+    
     if([self isDatesValid]) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"Filtering Notification" object:self.filteringMask];
-        }];
+        [self dismissViewControllerAnimated:YES completion:^{ [self.delegate userDidApplyFilteringMask:self.filteringMask]; }];
     } else {
-        [InfoActions showAlertWithTitile:NSLocalizedString(@"Увага!", @"Attention") andMessage:NSLocalizedString(@"Дата початку періоду повинна бути більшою за дату кінця періоду", @"Starting date of the period must be greater than the date of the end of the period")];
+        [InfoActions showAlertWithTitile:NSLocalizedString(@"Увага!", @"Attention")
+                              andMessage:NSLocalizedString(@"Дата початку періоду повинна бути більшою за дату кінця періоду",
+                                                           @"Starting date of the period must be greater than the date of the end of the period")];
     }
 }
 

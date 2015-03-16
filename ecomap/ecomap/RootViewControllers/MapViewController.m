@@ -24,7 +24,7 @@
 
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
-@interface MapViewController ()
+@interface MapViewController () <ProblemFilterTVCDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
@@ -52,26 +52,6 @@
     [self mapSetup];
     [self socketInit];
     [self reachabilitySetup];
-    [self filteringSetup];
-}
-
-- (void)filteringSetup
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(filteringMaskChanged:)
-                                                 name:@"Filtering Notification"
-                                               object:nil];
-}
-
-- (void)filteringMaskChanged:(NSNotification *)notification
-{
-    if([[notification object] isKindOfClass:[EcomapProblemFilteringMask class]]) {
-        self.filteringMask = [notification object];
-    } else {
-        self.filteringMask = nil;
-    }
-    [self applyFilter];
-    
 }
 
 -(void)reachabilitySetup {
@@ -180,8 +160,10 @@
 
 #pragma mark - Utility Methods
 
-- (void)applyFilter
+- (void)userDidApplyFilteringMask:(EcomapProblemFilteringMask *)filteringMask
 {
+    self.filteringMask = filteringMask;
+    
     NSArray *arrProblems;
     NSArray *filteredProblems;
     
@@ -195,8 +177,6 @@
             self.filteredProblems = self.problems;
         }
     }
-    
-    DDLogVerbose(@"Filtering mask: %@", self.filteringMask);
     
     [self renewMap:self.filteredProblems];
 }
@@ -288,11 +268,13 @@
         if([navController.topViewController isKindOfClass:[ProblemFilterTVC class]]) {
             ProblemFilterTVC *dvc = (ProblemFilterTVC *)navController.topViewController;
             dvc.filteringMask = self.filteringMask;
+            dvc.delegate = self;
         }
     }
 }
 
-- (UIView *) mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker
+
+- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker
 {
     CustomInfoWindow *infoWindow = nil;
     EcomapProblem *problem = marker.userData;
