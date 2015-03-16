@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -738,39 +738,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCS-y7-0oj">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="430"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="430" id="mBS-Hc-P6A"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="454"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w77-Kt-PfJ">
                                 <rect key="frame" x="0.0" y="500" width="600" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="csJ-oP-ae9"/>
+                                    <constraint firstAttribute="height" constant="100" id="HBn-Rl-IKy"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iU1-ty-xPa">
-                                <rect key="frame" x="16" y="438" width="275" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iU1-ty-xPa">
+                                <rect key="frame" x="16" y="462" width="268" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="JJ2-XS-zhG"/>
+                                    <constraint firstAttribute="width" constant="268" id="vSf-Ad-2Tv"/>
                                 </constraints>
-                                <state key="normal" title="Редагувати проблему">
+                                <state key="normal" title="Редагувати">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="editProblem:" destination="RfE-R3-ExD" eventType="touchUpInside" id="Fsj-yE-WMU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUR-QN-hG8">
-                                <rect key="frame" x="309" y="438" width="275" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUR-QN-hG8">
+                                <rect key="frame" x="316" y="462" width="268" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="xAa-Gc-3qz"/>
-                                </constraints>
-                                <state key="normal" title="Видалити проблему">
+                                <state key="normal" title="Видалити">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -778,24 +772,29 @@
                                     <action selector="deleteProblem:" destination="RfE-R3-ExD" eventType="touchUpInside" id="FLI-FK-mck"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0H-Z6-NRA">
+                                <rect key="frame" x="292" y="462" width="16" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="XUR-QN-hG8" firstAttribute="top" secondItem="rCS-y7-0oj" secondAttribute="bottom" constant="8" id="1Zl-mz-bdu"/>
-                            <constraint firstItem="XUR-QN-hG8" firstAttribute="trailing" secondItem="Acz-eY-Ors" secondAttribute="trailingMargin" id="L1j-5Z-xYS"/>
-                            <constraint firstItem="iU1-ty-xPa" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leadingMargin" id="Lr2-Zs-F4H"/>
-                            <constraint firstAttribute="trailing" secondItem="w77-Kt-PfJ" secondAttribute="trailing" id="Ncx-93-1jn"/>
-                            <constraint firstItem="rCS-y7-0oj" firstAttribute="top" secondItem="bTI-c4-CnH" secondAttribute="bottom" id="R6S-eC-LLs"/>
-                            <constraint firstItem="iU1-ty-xPa" firstAttribute="top" secondItem="rCS-y7-0oj" secondAttribute="bottom" constant="8" symbolic="YES" id="SwG-gg-1ET"/>
-                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="bottom" secondItem="Mxn-h6-AKW" secondAttribute="top" id="Wkv-K6-b5U"/>
-                            <constraint firstItem="XUR-QN-hG8" firstAttribute="trailing" secondItem="Acz-eY-Ors" secondAttribute="trailingMargin" id="Ywg-0i-woT"/>
-                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="top" secondItem="XUR-QN-hG8" secondAttribute="bottom" constant="32" id="anJ-ub-oge"/>
-                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="trailing" secondItem="rCS-y7-0oj" secondAttribute="trailing" id="ayI-E6-h6d"/>
-                            <constraint firstItem="iU1-ty-xPa" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leadingMargin" id="nBj-iQ-2Ya"/>
-                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="leading" secondItem="rCS-y7-0oj" secondAttribute="leading" id="qRp-Tr-DW2"/>
-                            <constraint firstItem="XUR-QN-hG8" firstAttribute="leading" secondItem="iU1-ty-xPa" secondAttribute="trailing" constant="18" id="sfu-cF-2BP"/>
-                            <constraint firstItem="rCS-y7-0oj" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leading" id="so4-gZ-lD7"/>
-                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="top" secondItem="iU1-ty-xPa" secondAttribute="bottom" constant="32" id="yS0-Wc-6X2"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="top" secondItem="d0H-Z6-NRA" secondAttribute="bottom" constant="8" symbolic="YES" id="4zH-F1-Ixt"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="bottom" secondItem="Mxn-h6-AKW" secondAttribute="top" id="96f-KF-qJa"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="trailing" secondItem="w77-Kt-PfJ" secondAttribute="trailing" id="HMU-Vr-mkg"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leading" id="QMJ-qy-MiL"/>
+                            <constraint firstItem="d0H-Z6-NRA" firstAttribute="leading" secondItem="iU1-ty-xPa" secondAttribute="trailing" constant="8" symbolic="YES" id="QMM-cB-FIJ"/>
+                            <constraint firstItem="iU1-ty-xPa" firstAttribute="top" secondItem="rCS-y7-0oj" secondAttribute="bottom" constant="8" symbolic="YES" id="RzT-0k-VUl"/>
+                            <constraint firstItem="d0H-Z6-NRA" firstAttribute="top" secondItem="iU1-ty-xPa" secondAttribute="top" id="T4Y-6s-aOg"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="top" secondItem="bTI-c4-CnH" secondAttribute="bottom" id="Z1s-V3-uO7"/>
+                            <constraint firstItem="XUR-QN-hG8" firstAttribute="baseline" secondItem="iU1-ty-xPa" secondAttribute="baseline" id="aZz-ET-fug"/>
+                            <constraint firstItem="XUR-QN-hG8" firstAttribute="trailing" secondItem="Acz-eY-Ors" secondAttribute="trailingMargin" id="eja-DS-ckK"/>
+                            <constraint firstItem="XUR-QN-hG8" firstAttribute="leading" secondItem="d0H-Z6-NRA" secondAttribute="trailing" constant="8" symbolic="YES" id="jdv-h3-9ay"/>
+                            <constraint firstItem="d0H-Z6-NRA" firstAttribute="centerX" secondItem="w77-Kt-PfJ" secondAttribute="centerX" id="lda-Pc-ZRA"/>
+                            <constraint firstItem="iU1-ty-xPa" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leadingMargin" id="oDq-qh-7d2"/>
+                            <constraint firstAttribute="trailing" secondItem="rCS-y7-0oj" secondAttribute="trailing" id="sZM-5H-Hrh"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="top" secondItem="iU1-ty-xPa" secondAttribute="bottom" constant="8" symbolic="YES" id="wkd-q2-IYH"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="leading" secondItem="rCS-y7-0oj" secondAttribute="leading" id="wmm-gO-gZx"/>
                         </constraints>
                     </view>
                     <connections>
