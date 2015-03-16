@@ -23,7 +23,9 @@
 
 + (void)changeProblem:(NSUInteger)problemID withNewProblem:(EcomapEditableProblem *)problemData onCompletion:(void(^)(NSData *result, NSError *error))completionHandler;
 
-#pragma mark - DELETE request
+#pragma mark - DELETE requests
 + (void)deleteComment:(NSUInteger)commentID onCompletion:(void(^)(NSError *error))completionHandler;
+
++ (void)deleteProblem:(NSUInteger)problemID onCompletion:(void(^)(NSError *error))completionHandler;
 
 @end
