@@ -79,6 +79,15 @@
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
 }
 
+- (IBAction)editProblem:(id)sender
+{
+}
+
+- (IBAction)deleteProblem:(id)sender
+{
+    
+}
+
 #pragma mark - Scroll View Gallery setup
 #define HORIZONTAL_OFFSET 12.0f
 #define VERTICAL_OFFSET 10.0f

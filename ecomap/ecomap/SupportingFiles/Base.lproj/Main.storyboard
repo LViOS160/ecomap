@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -738,30 +738,61 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCS-y7-0oj">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="460"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="460" id="xbX-Zh-0AT"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w77-Kt-PfJ">
                                 <rect key="frame" x="0.0" y="500" width="600" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="jc7-J1-g8X"/>
-                                </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUR-QN-hG8">
+                                <rect key="frame" x="308" y="468" width="275" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Видалити проблему">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteProblem:" destination="RfE-R3-ExD" eventType="touchUpInside" id="FLI-FK-mck"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iU1-ty-xPa">
+                                <rect key="frame" x="16" y="468" width="275" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="275" id="xmi-O0-WZm"/>
+                                </constraints>
+                                <state key="normal" title="Редагувати проблему">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="editProblem:" destination="RfE-R3-ExD" eventType="touchUpInside" id="Fsj-yE-WMU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rCS-y7-0oj" firstAttribute="top" secondItem="bTI-c4-CnH" secondAttribute="bottom" id="5HF-cT-ooY"/>
-                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="trailing" secondItem="rCS-y7-0oj" secondAttribute="trailing" id="6jo-oY-kOy"/>
-                            <constraint firstAttribute="trailing" secondItem="rCS-y7-0oj" secondAttribute="trailing" id="Bg1-7i-4QO"/>
-                            <constraint firstItem="rCS-y7-0oj" firstAttribute="leading" secondItem="w77-Kt-PfJ" secondAttribute="leading" id="C0N-QN-POw"/>
-                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="top" secondItem="rCS-y7-0oj" secondAttribute="bottom" constant="8" symbolic="YES" id="G3E-iN-3Jf"/>
-                            <constraint firstItem="rCS-y7-0oj" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leading" id="XBv-iB-ALC"/>
-                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="bottom" secondItem="Mxn-h6-AKW" secondAttribute="top" id="eAW-k2-YTH"/>
+                            <constraint firstItem="iU1-ty-xPa" firstAttribute="top" secondItem="rCS-y7-0oj" secondAttribute="bottom" constant="8" symbolic="YES" id="2Tj-mT-Bnx"/>
+                            <constraint firstItem="XUR-QN-hG8" firstAttribute="leading" secondItem="iU1-ty-xPa" secondAttribute="trailing" constant="17" id="2Uk-WK-4xW"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leading" id="HlT-4g-4RD"/>
+                            <constraint firstItem="XUR-QN-hG8" firstAttribute="baseline" secondItem="iU1-ty-xPa" secondAttribute="baseline" id="Qfu-mR-LlC"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="bottom" secondItem="Mxn-h6-AKW" secondAttribute="top" id="TMB-4h-BkH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XUR-QN-hG8" secondAttribute="trailing" constant="1" id="VXr-i1-Wro"/>
+                            <constraint firstAttribute="trailing" secondItem="w77-Kt-PfJ" secondAttribute="trailing" id="XSK-iX-NeA"/>
+                            <constraint firstItem="iU1-ty-xPa" firstAttribute="leading" secondItem="Acz-eY-Ors" secondAttribute="leadingMargin" id="ZXx-8D-SC3"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="trailing" secondItem="w77-Kt-PfJ" secondAttribute="trailing" id="g4M-7y-ACX"/>
+                            <constraint firstItem="w77-Kt-PfJ" firstAttribute="top" secondItem="iU1-ty-xPa" secondAttribute="bottom" constant="2" id="hpf-OI-bHa"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="leading" secondItem="w77-Kt-PfJ" secondAttribute="leading" id="tEx-nw-c16"/>
+                            <constraint firstItem="rCS-y7-0oj" firstAttribute="top" secondItem="bTI-c4-CnH" secondAttribute="bottom" id="zkf-7V-ZoV"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="deleteButton" destination="XUR-QN-hG8" id="KVs-Uh-IfX"/>
                         <outlet property="descriptionText" destination="rCS-y7-0oj" id="vMb-Vk-0mf"/>
+                        <outlet property="editButton" destination="iU1-ty-xPa" id="QAp-Gv-hEN"/>
                         <outlet property="scrollViewPhotoGallary" destination="w77-Kt-PfJ" id="edW-ox-UXQ"/>
                     </connections>
                 </viewController>
