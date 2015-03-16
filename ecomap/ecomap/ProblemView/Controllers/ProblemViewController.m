@@ -14,6 +14,8 @@
 #import "EcomapEditableProblem.h"
 #import "EcomapProblemDetails.h"
 #import "InfoActions.h"
+#import "MapViewController.h"
+#import "EcomapRevealViewController.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -33,6 +35,8 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) ContainerViewController *containerViewController;
+
+@property (weak, nonatomic) id <EcomapProblemViewDelegate> delegate;
 
 // For admin purposes
 @property (nonatomic, strong) EcomapLoggedUser *user;
@@ -183,6 +187,31 @@ typedef enum : NSUInteger {
          return [NSString stringWithFormat:@"♡%lu", (unsigned long)self.problemDetails.votes];
     else
         return [NSString stringWithFormat:@"♥︎%lu", (unsigned long)self.problemDetails.votes];
+}
+
+- (IBAction)tapLocateButton:(id)sender
+{
+    // Create new instance of map with only one problem
+    // and camera position focused on it.
+    UIViewController *customMapVC = [[UIViewController alloc] init];
+    
+    GMSCameraPosition *camera =
+    [GMSCameraPosition cameraWithLatitude:self.problemDetails.latitude
+                                longitude:self.problemDetails.longitude
+                                     zoom:14.0];
+    
+    GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake(self.problemDetails.latitude, self.problemDetails.longitude);
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.icon = [UIImage imageNamed:[NSString stringWithFormat:@"%lu", (unsigned long)self.problemDetails.problemTypesID]];
+    marker.map = mapView;
+    
+    customMapVC.view = mapView;
+    
+    // Push it to the navigation stack
+    [self.navigationController pushViewController:customMapVC animated:YES];
 }
 
 

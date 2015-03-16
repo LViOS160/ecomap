@@ -61,7 +61,7 @@
 
 }
 
-- (void) reachabilityChanged:(NSNotification *)note
+- (void)reachabilityChanged:(NSNotification *)note
 {
     Reachability* curReach = [note object];
 //    NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
@@ -158,7 +158,7 @@
     }];
 }
 
-#pragma mark - Utility Methods
+#pragma mark - Problem Filter TVC Delegate
 
 - (void)userDidApplyFilteringMask:(EcomapProblemFilteringMask *)filteringMask
 {
