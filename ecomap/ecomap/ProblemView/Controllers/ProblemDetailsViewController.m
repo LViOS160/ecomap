@@ -11,6 +11,7 @@
 #import "IDMPhotoBrowser.h"
 #import "EMThumbnailImageStore.h"
 #import "EcomapFetcher+PostProblem.h"
+#import "EcomapAdminFetcher.h"
 #import "EcomapThumbnailFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "PhotoViewController.h"
@@ -77,14 +78,30 @@
     [text appendAttributedString:proposal];
     self.descriptionText.attributedText = text;
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+    if([userIdent.role isEqualToString:@"administrator"]) {
+        self.editButton.hidden = NO;
+        self.deleteButton.hidden = NO;
+    }
+    else {
+        self.editButton.hidden = YES;
+        self.deleteButton.hidden = YES;
+    }
+
+    
 }
 
 - (IBAction)editProblem:(id)sender
 {
+    
 }
 
 - (IBAction)deleteProblem:(id)sender
 {
+    [ EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
+        if(!error)
+            [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+    }];
     
 }
 
