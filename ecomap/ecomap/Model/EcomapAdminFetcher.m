@@ -77,9 +77,22 @@
            DDLogVerbose(@"ERROR: %@", error);
         completionHandler(error);
     }];
-    
-    
 }
+
++ (void)deleteProblem:(NSUInteger)problemID onCompletion:(void(^)(NSError *error))completionHandler
+{
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforDeleteProblemWithID:problemID]];
+    NSLog(@"__%@__",request);
+    [request setHTTPMethod:@"DELETE"];
+    
+    [DataTasks dataTaskWithRequest:request sessionConfiguration:sessionConfiguration completionHandler:^(NSData *JSON, NSError *error) {
+        if(error)
+            DDLogVerbose(@"ERROR: %@", error);
+        completionHandler(error);
+    }];
+}
+
 
 // Utility method. Convert BOOL to NSNumber.
 + (NSNumber *)BOOLtoInteger:(BOOL)flag

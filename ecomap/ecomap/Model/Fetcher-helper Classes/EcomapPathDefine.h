@@ -16,6 +16,7 @@
 
 #define ECOMAP_API @"api/"
 #define ECOMAP_GET_PROBLEMS_API @"problems/"
+#define ECOMAP_GET_PROBLEM_API @"problem/"
 #define ECOMAP_GET_PROBLEM_TYPES @"problems/"
 #define ECOMAP_POST_LOGIN_API @"login/"
 #define ECOMAP_POST_TOKEN_REGISTRATION @"registerToken/"

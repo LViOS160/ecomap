@@ -11,12 +11,14 @@
 #import "IDMPhotoBrowser.h"
 #import "EMThumbnailImageStore.h"
 #import "EcomapFetcher+PostProblem.h"
+#import "EcomapAdminFetcher.h"
 #import "EcomapThumbnailFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "PhotoViewController.h"
 #import "EcomapLoggedUser.h"
 #import "Defines.h"
 #import "InfoActions.h"
+#import "MapViewController.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -77,6 +79,29 @@
     [text appendAttributedString:proposal];
     self.descriptionText.attributedText = text;
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+    if([userIdent.role isEqualToString:@"administrator"]) {
+        self.editButton.hidden = NO;
+        self.deleteButton.hidden = NO;
+    }
+    else {
+        self.editButton.hidden = YES;
+        self.deleteButton.hidden = YES;
+    }
+}
+
+- (IBAction)editProblem:(id)sender
+{
+    
+}
+
+- (IBAction)deleteProblem:(id)sender
+{
+    [ EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        if(!error)
+           [self.navigationController popViewControllerAnimated:YES]; 
+    }];
 }
 
 #pragma mark - Scroll View Gallery setup

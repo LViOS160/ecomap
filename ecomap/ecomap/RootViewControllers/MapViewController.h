@@ -11,6 +11,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "GClusterManager.h"
 #import "SRWebSocket.h"
+#import "ProblemViewController.h"
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>
 

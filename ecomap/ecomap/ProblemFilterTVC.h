@@ -7,10 +7,20 @@
 ///
 
 #import <UIKit/UIKit.h>
-#import "EcomapProblemFilteringMask.h"
+
+@class EcomapProblemFilteringMask;
+
+// Declare delegate protocol.
+
+@protocol ProblemFilterTVCDelegate <NSObject>
+
+- (void)userDidApplyFilteringMask:(EcomapProblemFilteringMask *)filteringMask;
+
+@end
 
 @interface ProblemFilterTVC : UITableViewController
 
 @property (strong, nonatomic) EcomapProblemFilteringMask *filteringMask;
+@property (strong, nonatomic) id <ProblemFilterTVCDelegate> delegate;
 
 @end

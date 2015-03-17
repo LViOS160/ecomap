@@ -12,5 +12,7 @@
 @interface ProblemDetailsViewController : UIViewController <EcomapProblemDetailsHolder>
 
 @property (nonatomic, strong) EcomapProblemDetails* problemDetails;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
 @end

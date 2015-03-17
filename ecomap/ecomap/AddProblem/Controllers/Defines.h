@@ -12,5 +12,6 @@
 #define ADDPROBLEMNAVIGATIONVIEWHEIGHT 37.0
 
 #define PROBLEMS_DETAILS_CHANGED @"ProblemDetailsChanged"
+#define ALL_PROBLEMS_CHANGED @"AllProblemsChanged"
 
 #endif
