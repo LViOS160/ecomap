@@ -76,10 +76,10 @@ typedef enum {
 
 + (NSURL *)URLforEditingProblem:(NSUInteger)problemID;
 
-+ (NSURL *)URLforDeletingComment:(NSUInteger)commentID;
-
-+ (NSURL *)URLforDeleteProblemWithID:(NSUInteger)problemID;
++(NSURL *)URLforDeletingComment:(NSUInteger)commentID;
 
 +(NSURL*)URLforDeletingPhoto:(NSString*)link;
+
++ (NSURL *)URLforDeleteProblemWithID:(NSUInteger)problemID;
 
 @end

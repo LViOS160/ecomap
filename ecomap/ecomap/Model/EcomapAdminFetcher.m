@@ -92,7 +92,7 @@
         completionHandler(error);
     }];
 }
-+(void)deletePhotoWithLink:(NSString*)link onCompletion:(void(^)(NSError*))completionHandler
++(void)deletePhotoWithLink:(NSString*)link onCompletion:(void(^)(NSError *error))completionHandler
 {
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
@@ -106,7 +106,6 @@
 
     
 }
-
 
 // Utility method. Convert BOOL to NSNumber.
 + (NSNumber *)BOOLtoInteger:(BOOL)flag

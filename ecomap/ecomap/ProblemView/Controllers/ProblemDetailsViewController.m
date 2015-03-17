@@ -20,9 +20,6 @@
 #import "InfoActions.h"
 #import "MapViewController.h"
 
-//Delete
-#include "EcomapUserFetcher.h"
-
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
@@ -50,12 +47,6 @@
     [super viewWillAppear:animated];
     [self updateUI];
     [self updateScrollView];
-    
-    //delete after tests
-    [EcomapUserFetcher loginWithEmail:@"test@t.tt"
-                          andPassword:@"tt" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                              
-                          }];
 }
 
 - (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
@@ -195,8 +186,6 @@
         
         
     } else {
-        //Set background color
-        //customButton.backgroundColor = [UIColor blackColor];
         
         //Set image. First look in cache
         UIImage *thumnailImage = [[EMThumbnailImageStore sharedStore] imageForKey:link];
@@ -240,22 +229,24 @@
                forControlEvents:UIControlEventTouchUpInside];
         
         
-        //add delete phtoto button for admin
-        UIButton *deletePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [deletePhotoButton setBackgroundImage:[UIImage imageNamed:@"DeleteImageButton"] forState:UIControlStateNormal];
-        CGRect frame;
-        frame.size.width = DELETE_BUTTON_SIZE;
-        frame.size.height = DELETE_BUTTON_SIZE;
-        frame.origin.x = customButton.bounds.size.width - DELETE_BUTTON_SIZE;
-        frame.origin.y = customButton.bounds.origin.y;
-        deletePhotoButton.frame = frame;
-        deletePhotoButton.tag = tag;
-        //Add target-action
-        [deletePhotoButton addTarget:self
-                         action:@selector(buttonToDeleteImagePressed:)
-               forControlEvents:UIControlEventTouchUpInside];
-        
-        [customButton addSubview:deletePhotoButton];
+        if([[EcomapLoggedUser currentLoggedUser].role isEqualToString:@"administrator"]) {
+            //add delete phtoto button for admin
+            UIButton *deletePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [deletePhotoButton setBackgroundImage:[UIImage imageNamed:@"DeleteImageButton"] forState:UIControlStateNormal];
+            CGRect frame;
+            frame.size.width = DELETE_BUTTON_SIZE;
+            frame.size.height = DELETE_BUTTON_SIZE;
+            frame.origin.x = customButton.bounds.size.width - DELETE_BUTTON_SIZE;
+            frame.origin.y = customButton.bounds.origin.y;
+            deletePhotoButton.frame = frame;
+            deletePhotoButton.tag = tag;
+            //Add target-action
+            [deletePhotoButton addTarget:self
+                             action:@selector(buttonToDeleteImagePressed:)
+                   forControlEvents:UIControlEventTouchUpInside];
+            
+            [customButton addSubview:deletePhotoButton];
+        }
 
     }
     
@@ -265,26 +256,36 @@
 
 - (void)buttonToDeleteImagePressed:(UIButton *)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete?"
-                                                                             message:@"Are you sure?"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Увага!", nil)
+                                                                             message:NSLocalizedString(@"Дану дію неможливо відмінити", @"This action can not be undone")
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel button title on alert")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Відміна", @"Cancel button title on alert")
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Delete", @"Cancel button title on alert")
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Видалити", @"Delete button title on alert")
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *action) {
+                                                             //Get photo link to detele
                                                              NSMutableArray *photosDitailsArray = [self.problemDetails.photos mutableCopy];
                                                              EcomapPhoto *photoDitails = photosDitailsArray[sender.tag - 1];
                                                              NSString *photoLink = photoDitails.link;
                                                              
-                                                             //Delete photo from UI
-                                                             [photosDitailsArray removeObjectAtIndex:(sender.tag - 1)];
-                                                             self.problemDetails.photos = photosDitailsArray;
-                                                             [self updateScrollView];
+                                                             //delete photo pfom server
+                                                             [EcomapAdminFetcher deletePhotoWithLink:photoLink
+                                                                                        onCompletion:^(NSError *error) {
+                                                                                            if (!error) {
+                                                                                                //Delete photo fromscroll view UI
+                                                                                                [photosDitailsArray removeObjectAtIndex:(sender.tag - 1)];
+                                                                                                self.problemDetails.photos = photosDitailsArray;
+                                                                                                [self updateScrollView];
+                                                                                                
+                                                                                                [InfoActions showPopupWithMesssage:NSLocalizedString(@"Фото видалене", @"Photo deleted")];
+                                                                                            } else {
+                                                                                                [InfoActions showAlertOfError:error];
+                                                                                            }
+                                                                                        }];
                                                              
-                                                             [InfoActions showPopupWithMesssage:@"Photo deleted"];
                                                          }];
     [alertController addAction:cancelAction];
     [alertController addAction:deleteAction];
