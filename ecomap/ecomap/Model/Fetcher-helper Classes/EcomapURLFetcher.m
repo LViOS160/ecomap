@@ -161,4 +161,9 @@
     NSString *query = [ECOMAP_DELETING_COMMENT stringByAppendingString:[NSString stringWithFormat:@"%u",commentID]];
     return [self URLForAPIQuery:query];
 }
++(NSURL*)URLforDeletingPhoto:(NSString*)link
+{
+    NSString *query = [ECOMAP_POST_PHOTO stringByAppendingString:link];
+                       return [self URLForAPIQuery:query];
+}
 @end

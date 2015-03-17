@@ -134,12 +134,18 @@
         //Set background color
         //customButton.backgroundColor = [UIColor clearColor];
         //Set image
-        [customButton setBackgroundImage:[UIImage imageNamed:@"addButtonImage.png"]
-                                forState:UIControlStateNormal];
+
+            [customButton setBackgroundImage:[UIImage imageNamed:@"addButtonImage.png"]
+                                    forState:UIControlStateNormal];
+
+            
+    
         //Add target-action
         [customButton addTarget:self
                          action:@selector(buttonToAddImagePressed:)
                forControlEvents:UIControlEventTouchUpInside];
+        
+        
     } else {
         //Set background color
         //customButton.backgroundColor = [UIColor blackColor];
@@ -195,9 +201,12 @@
 {
     DDLogVerbose(@"Add image buton pressed");
     if([EcomapLoggedUser currentLoggedUser]) {
-        PhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
-        vc.delegate = self;
-        [self presentViewController:vc animated:YES completion:nil];
+        
+            PhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
+            vc.delegate = self;
+            [self presentViewController:vc animated:YES completion:nil];
+        
+        
     } else {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
