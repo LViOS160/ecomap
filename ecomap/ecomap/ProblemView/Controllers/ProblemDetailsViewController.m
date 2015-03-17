@@ -20,6 +20,9 @@
 #import "InfoActions.h"
 #import "MapViewController.h"
 
+//Delete
+#include "EcomapUserFetcher.h"
+
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
@@ -27,16 +30,32 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPhotoGallary;
+@property (nonatomic, strong) NSMutableArray *buttonsOnScrollView; //of UIButtons
 
 @end
 
 @implementation ProblemDetailsViewController
+
+-(NSMutableArray *)buttonsOnScrollView
+{
+    if (!_buttonsOnScrollView) {
+        _buttonsOnScrollView = [[NSMutableArray alloc] init];
+    }
+    
+    return _buttonsOnScrollView;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self updateUI];
     [self updateScrollView];
+    
+    //delete after tests
+    [EcomapUserFetcher loginWithEmail:@"test@t.tt"
+                          andPassword:@"tt" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                              
+                          }];
 }
 
 - (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
@@ -109,9 +128,13 @@
 #define VERTICAL_OFFSET 10.0f
 #define BUTTON_HEIGHT 80.0f
 #define BUTTON_WIDTH 80.0f
+#define DELETE_BUTTON_SIZE 20.0f
 
 - (void)updateScrollView
 {
+    for (UIButton *button in self.buttonsOnScrollView){
+        [button removeFromSuperview];
+    }
     //Set ScrollView Initial offset
     CGFloat contentOffSet = 0;
     
@@ -209,11 +232,60 @@
         [customButton addTarget:self
                          action:@selector(buttonWithImageOnScreenPressed:)
                forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        //add delete phtoto button for admin
+        UIButton *deletePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [deletePhotoButton setBackgroundImage:[UIImage imageNamed:@"DeleteImageButton"] forState:UIControlStateNormal];
+        CGRect frame;
+        frame.size.width = DELETE_BUTTON_SIZE;
+        frame.size.height = DELETE_BUTTON_SIZE;
+        frame.origin.x = customButton.bounds.size.width - DELETE_BUTTON_SIZE;
+        frame.origin.y = customButton.bounds.origin.y;
+        deletePhotoButton.frame = frame;
+        deletePhotoButton.tag = tag;
+        //Add target-action
+        [deletePhotoButton addTarget:self
+                         action:@selector(buttonToDeleteImagePressed:)
+               forControlEvents:UIControlEventTouchUpInside];
+        
+        [customButton addSubview:deletePhotoButton];
+
     }
     
-    
-    
     [self.scrollViewPhotoGallary addSubview:customButton];
+    [self.buttonsOnScrollView addObject:customButton];
+}
+
+- (void)buttonToDeleteImagePressed:(UIButton *)sender
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete?"
+                                                                             message:@"Are you sure?"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel button title on alert")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Delete", @"Cancel button title on alert")
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction *action) {
+                                                             NSMutableArray *photosDitailsArray = [self.problemDetails.photos mutableCopy];
+                                                             EcomapPhoto *photoDitails = photosDitailsArray[sender.tag - 1];
+                                                             NSString *photoLink = photoDitails.link;
+                                                             
+                                                             //Delete photo from UI
+                                                             [photosDitailsArray removeObjectAtIndex:(sender.tag - 1)];
+                                                             self.problemDetails.photos = photosDitailsArray;
+                                                             [self updateScrollView];
+                                                             
+                                                             [InfoActions showPopupWithMesssage:@"Photo deleted"];
+                                                         }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:deleteAction];
+
+    //Present Alert
+    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 - (void)buttonToAddImagePressed:(UIButton *)sender
