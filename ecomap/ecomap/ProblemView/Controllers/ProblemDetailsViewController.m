@@ -27,10 +27,20 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPhotoGallary;
+@property (nonatomic, strong) NSMutableArray *buttonsOnScrollView; //of UIButtons
 
 @end
 
 @implementation ProblemDetailsViewController
+
+-(NSMutableArray *)buttonsOnScrollView
+{
+    if (!_buttonsOnScrollView) {
+        _buttonsOnScrollView = [[NSMutableArray alloc] init];
+    }
+    
+    return _buttonsOnScrollView;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -109,9 +119,13 @@
 #define VERTICAL_OFFSET 10.0f
 #define BUTTON_HEIGHT 80.0f
 #define BUTTON_WIDTH 80.0f
+#define DELETE_BUTTON_SIZE 20.0f
 
 - (void)updateScrollView
 {
+    for (UIButton *button in self.buttonsOnScrollView){
+        [button removeFromSuperview];
+    }
     //Set ScrollView Initial offset
     CGFloat contentOffSet = 0;
     
@@ -159,15 +173,19 @@
         //Set background color
         //customButton.backgroundColor = [UIColor clearColor];
         //Set image
-        [customButton setBackgroundImage:[UIImage imageNamed:@"addButtonImage.png"]
-                                forState:UIControlStateNormal];
+
+            [customButton setBackgroundImage:[UIImage imageNamed:@"addButtonImage.png"]
+                                    forState:UIControlStateNormal];
+
+            
+    
         //Add target-action
         [customButton addTarget:self
                          action:@selector(buttonToAddImagePressed:)
                forControlEvents:UIControlEventTouchUpInside];
+        
+        
     } else {
-        //Set background color
-        //customButton.backgroundColor = [UIColor blackColor];
         
         //Set image. First look in cache
         UIImage *thumnailImage = [[EMThumbnailImageStore sharedStore] imageForKey:link];
@@ -209,20 +227,84 @@
         [customButton addTarget:self
                          action:@selector(buttonWithImageOnScreenPressed:)
                forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        if([[EcomapLoggedUser currentLoggedUser].role isEqualToString:@"administrator"]) {
+            //add delete phtoto button for admin
+            UIButton *deletePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [deletePhotoButton setBackgroundImage:[UIImage imageNamed:@"DeleteImageButton"] forState:UIControlStateNormal];
+            CGRect frame;
+            frame.size.width = DELETE_BUTTON_SIZE;
+            frame.size.height = DELETE_BUTTON_SIZE;
+            frame.origin.x = customButton.bounds.size.width - DELETE_BUTTON_SIZE;
+            frame.origin.y = customButton.bounds.origin.y;
+            deletePhotoButton.frame = frame;
+            deletePhotoButton.tag = tag;
+            //Add target-action
+            [deletePhotoButton addTarget:self
+                             action:@selector(buttonToDeleteImagePressed:)
+                   forControlEvents:UIControlEventTouchUpInside];
+            
+            [customButton addSubview:deletePhotoButton];
+        }
+
     }
     
-    
-    
     [self.scrollViewPhotoGallary addSubview:customButton];
+    [self.buttonsOnScrollView addObject:customButton];
+}
+
+- (void)buttonToDeleteImagePressed:(UIButton *)sender
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Увага!", nil)
+                                                                             message:NSLocalizedString(@"Дану дію неможливо відмінити", @"This action can not be undone")
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Відміна", @"Cancel button title on alert")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Видалити", @"Delete button title on alert")
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction *action) {
+                                                             //Get photo link to detele
+                                                             NSMutableArray *photosDitailsArray = [self.problemDetails.photos mutableCopy];
+                                                             EcomapPhoto *photoDitails = photosDitailsArray[sender.tag - 1];
+                                                             NSString *photoLink = photoDitails.link;
+                                                             
+                                                             //delete photo pfom server
+                                                             [EcomapAdminFetcher deletePhotoWithLink:photoLink
+                                                                                        onCompletion:^(NSError *error) {
+                                                                                            if (!error) {
+                                                                                                //Delete photo fromscroll view UI
+                                                                                                [photosDitailsArray removeObjectAtIndex:(sender.tag - 1)];
+                                                                                                self.problemDetails.photos = photosDitailsArray;
+                                                                                                [self updateScrollView];
+                                                                                                
+                                                                                                [InfoActions showPopupWithMesssage:NSLocalizedString(@"Фото видалене", @"Photo deleted")];
+                                                                                            } else {
+                                                                                                [InfoActions showAlertOfError:error];
+                                                                                            }
+                                                                                        }];
+                                                             
+                                                         }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:deleteAction];
+
+    //Present Alert
+    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 - (void)buttonToAddImagePressed:(UIButton *)sender
 {
     DDLogVerbose(@"Add image buton pressed");
     if([EcomapLoggedUser currentLoggedUser]) {
-        PhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
-        vc.delegate = self;
-        [self presentViewController:vc animated:YES completion:nil];
+        
+            PhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
+            vc.delegate = self;
+            [self presentViewController:vc animated:YES completion:nil];
+        
+        
     } else {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender

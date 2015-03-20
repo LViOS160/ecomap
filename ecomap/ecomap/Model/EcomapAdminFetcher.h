@@ -28,4 +28,6 @@
 
 + (void)deleteProblem:(NSUInteger)problemID onCompletion:(void(^)(NSError *error))completionHandler;
 
++ (void)deletePhotoWithLink:(NSString*)link onCompletion:(void(^)(NSError *error))completionHandler;
+
 @end
