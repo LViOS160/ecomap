@@ -577,30 +577,37 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VX7-lQ-WSG">
                                         <rect key="frame" x="8" y="0.0" width="46" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="46" id="QQw-BM-dmf"/>
+                                            <constraint firstAttribute="width" constant="46" id="08B-va-Sar"/>
                                         </constraints>
-                                        <state key="normal" title="Button">
+                                        <state key="normal" title="-">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="subSeverityTap:" destination="Qjk-2v-YMQ" eventType="touchUpInside" id="8vk-9c-nbt"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDX-3P-67F">
                                         <rect key="frame" x="546" y="0.0" width="46" height="30"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal" title="+">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="addSeverityTap:" destination="Qjk-2v-YMQ" eventType="touchUpInside" id="GNk-u2-bss"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="GDX-3P-67F" firstAttribute="top" secondItem="vs6-d2-Ay3" secondAttribute="top" id="2bX-8B-Rl0"/>
-                                    <constraint firstItem="VX7-lQ-WSG" firstAttribute="bottom" secondItem="2KK-m1-zsD" secondAttribute="bottom" id="6Sn-8B-IWa"/>
-                                    <constraint firstItem="GDX-3P-67F" firstAttribute="leading" secondItem="2KK-m1-zsD" secondAttribute="trailing" constant="8" symbolic="YES" id="EO0-cc-oiF"/>
-                                    <constraint firstItem="VX7-lQ-WSG" firstAttribute="baseline" secondItem="GDX-3P-67F" secondAttribute="baseline" id="R48-JT-3Ra"/>
-                                    <constraint firstItem="VX7-lQ-WSG" firstAttribute="leading" secondItem="vs6-d2-Ay3" secondAttribute="leadingMargin" id="RIt-uI-m3g"/>
-                                    <constraint firstItem="2KK-m1-zsD" firstAttribute="centerX" secondItem="vs6-d2-Ay3" secondAttribute="centerX" id="bAe-f7-wHK"/>
-                                    <constraint firstAttribute="bottom" secondItem="VX7-lQ-WSG" secondAttribute="bottom" id="dnF-2h-vee"/>
-                                    <constraint firstItem="2KK-m1-zsD" firstAttribute="leading" secondItem="VX7-lQ-WSG" secondAttribute="trailing" constant="8" symbolic="YES" id="iuR-b2-UgU"/>
-                                    <constraint firstItem="VX7-lQ-WSG" firstAttribute="top" secondItem="2KK-m1-zsD" secondAttribute="top" id="oW5-pF-u7p"/>
+                                    <constraint firstItem="2KK-m1-zsD" firstAttribute="bottom" secondItem="VX7-lQ-WSG" secondAttribute="bottom" id="EaB-O1-c0K"/>
+                                    <constraint firstItem="VX7-lQ-WSG" firstAttribute="baseline" secondItem="GDX-3P-67F" secondAttribute="baseline" id="LvB-FF-aJl"/>
+                                    <constraint firstItem="2KK-m1-zsD" firstAttribute="centerX" secondItem="vs6-d2-Ay3" secondAttribute="centerX" id="aA5-7W-mcf"/>
+                                    <constraint firstItem="GDX-3P-67F" firstAttribute="trailing" secondItem="vs6-d2-Ay3" secondAttribute="trailingMargin" id="edx-cC-gT4"/>
+                                    <constraint firstItem="VX7-lQ-WSG" firstAttribute="leading" secondItem="vs6-d2-Ay3" secondAttribute="leadingMargin" id="i3J-RJ-ZBo"/>
+                                    <constraint firstItem="GDX-3P-67F" firstAttribute="top" secondItem="vs6-d2-Ay3" secondAttribute="top" id="ie1-RG-XfO"/>
+                                    <constraint firstItem="VX7-lQ-WSG" firstAttribute="top" secondItem="2KK-m1-zsD" secondAttribute="top" id="on3-re-wWv"/>
+                                    <constraint firstItem="GDX-3P-67F" firstAttribute="leading" secondItem="2KK-m1-zsD" secondAttribute="trailing" constant="8" symbolic="YES" id="s8s-i2-Rlx"/>
+                                    <constraint firstAttribute="bottom" secondItem="VX7-lQ-WSG" secondAttribute="bottom" id="zBL-I1-apI"/>
+                                    <constraint firstItem="2KK-m1-zsD" firstAttribute="leading" secondItem="VX7-lQ-WSG" secondAttribute="trailing" constant="8" symbolic="YES" id="zfa-kQ-i1T"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5f-07-FpU">
@@ -683,6 +690,9 @@
                                 <rect key="frame" x="16" y="8" width="440" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="titleChanged:" destination="Qjk-2v-YMQ" eventType="editingDidEnd" id="Fbs-05-WNG"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITc-hP-Py3">
                                 <rect key="frame" x="464" y="8" width="120" height="30"/>
@@ -692,6 +702,9 @@
                                 <state key="normal" title="Не вирішена">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="isSolvedTap:" destination="Qjk-2v-YMQ" eventType="touchUpInside" id="PI2-YZ-eTw"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -710,6 +723,13 @@
                             <constraint firstItem="I5f-07-FpU" firstAttribute="centerX" secondItem="vs6-d2-Ay3" secondAttribute="centerX" id="tNz-ga-cLl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="content" destination="oLe-bG-73X" id="pYW-qj-kwF"/>
+                        <outlet property="isSolved" destination="ITc-hP-Py3" id="cHF-Ob-mQT"/>
+                        <outlet property="proposal" destination="i76-cM-js3" id="11t-sI-X5d"/>
+                        <outlet property="severity" destination="2KK-m1-zsD" id="XgB-5J-yoM"/>
+                        <outlet property="titleField" destination="KwZ-26-6bn" id="vMy-Fo-h6v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKz-Bs-xZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
