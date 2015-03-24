@@ -372,10 +372,10 @@
 		B381D81B1AC16FE60047F4C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		B381D81D1AC170510047F4C8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		B381D81F1AC170780047F4C8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
-		B39FC4121ABC9DD500D40417 /* PieChartLegendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieChartLegendViewController.h; path = ecomap/PieChartLegendViewController.h; sourceTree = "<group>"; };
-		B39FC4131ABC9DD500D40417 /* PieChartLegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartLegendViewController.m; path = ecomap/PieChartLegendViewController.m; sourceTree = "<group>"; };
-		B39FC4151ABC9E9C00D40417 /* PieChartLegendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartLegendTableViewCell.h; sourceTree = "<group>"; };
-		B39FC4161ABC9E9C00D40417 /* PieChartLegendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartLegendTableViewCell.m; sourceTree = "<group>"; };
+		B39FC4121ABC9DD500D40417 /* PieChartLegendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieChartLegendViewController.h; path = ../../PieChartLegendViewController.h; sourceTree = "<group>"; };
+		B39FC4131ABC9DD500D40417 /* PieChartLegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartLegendViewController.m; path = ../../PieChartLegendViewController.m; sourceTree = "<group>"; };
+		B39FC4151ABC9E9C00D40417 /* PieChartLegendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieChartLegendTableViewCell.h; path = ../../../PieChartLegendTableViewCell.h; sourceTree = "<group>"; };
+		B39FC4161ABC9E9C00D40417 /* PieChartLegendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartLegendTableViewCell.m; path = ../../../PieChartLegendTableViewCell.m; sourceTree = "<group>"; };
 		B39FCE011AB045C5002B96CE /* AddProblemNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddProblemNavigationViewController.h; path = ../Views/AddProblemNavigationViewController.h; sourceTree = "<group>"; };
 		B39FCE021AB045C5002B96CE /* AddProblemNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddProblemNavigationViewController.m; path = ../Views/AddProblemNavigationViewController.m; sourceTree = "<group>"; };
 		B39FCE041AB04756002B96CE /* AddProblemNvatigationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemNvatigationDelegate.h; sourceTree = "<group>"; };
@@ -474,10 +474,6 @@
 				B3738BE21A9DDC4B0077F604 /* AppDelegate.m */,
 				B3738BE31A9DDC4B0077F604 /* LaunchScreen.xib */,
 				B3738BE51A9DDC4B0077F604 /* Main.storyboard */,
-				B39FC4121ABC9DD500D40417 /* PieChartLegendViewController.h */,
-				B39FC4131ABC9DD500D40417 /* PieChartLegendViewController.m */,
-				B39FC4151ABC9E9C00D40417 /* PieChartLegendTableViewCell.h */,
-				B39FC4161ABC9E9C00D40417 /* PieChartLegendTableViewCell.m */,
 				B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */,
 				B3738B591A9DDC4B0077F604 /* Classes */,
 				B3738BE01A9DDC4B0077F604 /* SupportingFiles */,
@@ -826,6 +822,8 @@
 			children = (
 				B3738BDB1A9DDC4B0077F604 /* PieChartViewController.h */,
 				B3738BDC1A9DDC4B0077F604 /* PieChartViewController.m */,
+				B39FC4121ABC9DD500D40417 /* PieChartLegendViewController.h */,
+				B39FC4131ABC9DD500D40417 /* PieChartLegendViewController.m */,
 				B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */,
 				B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */,
 			);
@@ -835,6 +833,8 @@
 		B3738BDD1A9DDC4B0077F604 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B39FC4151ABC9E9C00D40417 /* PieChartLegendTableViewCell.h */,
+				B39FC4161ABC9E9C00D40417 /* PieChartLegendTableViewCell.m */,
 				B3738BDE1A9DDC4B0077F604 /* GeneralStatsTopLabelView.h */,
 				B3738BDF1A9DDC4B0077F604 /* GeneralStatsTopLabelView.m */,
 			);
@@ -973,11 +973,11 @@
 		CA7B3C881AA6548B005AF277 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B3738BD91A9DDC4B0077F604 /* Statistic */,
 				B3738BD41A9DDC4B0077F604 /* Root */,
 				B3738C041A9DDC4B0077F604 /* Account */,
 				B3738BBA1A9DDC4B0077F604 /* ShowProblem */,
 				B3738B5A1A9DDC4B0077F604 /* AddProblem */,
-				B3738BD91A9DDC4B0077F604 /* Statistic */,
 				B3738BCB1A9DDC4B0077F604 /* Resources */,
 				B3738BFC1A9DDC4B0077F604 /* SWReveal */,
 				CA7B3C891AA654AD005AF277 /* Shared */,

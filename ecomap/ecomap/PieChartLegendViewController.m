@@ -51,7 +51,7 @@
              NSLocalizedString(@"Сміттєзвалища", nil),
              NSLocalizedString(@"Незаконна забудова", nil),
              NSLocalizedString(@"Проблеми водойм", nil),
-             NSLocalizedString(@"Загрози біорізнаманіттю", nil),
+             NSLocalizedString(@"Загрози біорізноманіттю", nil),
              NSLocalizedString(@"Браконьєрство", nil)];
 }
 
