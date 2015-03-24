@@ -1129,7 +1129,7 @@
             </objects>
             <point key="canvasLocation" x="1023" y="839"/>
         </scene>
-        <!--Pie Chart Legend-->
+        <!--Легенда до графіку-->
         <scene sceneID="mEX-51-FdD">
             <objects>
                 <tableViewController id="Weo-eM-8pk" customClass="PieChartLegendViewController" sceneMemberID="viewController">
@@ -1177,8 +1177,8 @@
                             <outlet property="delegate" destination="Weo-eM-8pk" id="oxR-eL-jNd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Pie Chart Legend" id="OCq-BZ-ffn">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="yP9-M4-5ae">
+                    <navigationItem key="navigationItem" title="Легенда до графіку" id="OCq-BZ-ffn">
+                        <barButtonItem key="leftBarButtonItem" title="Зачинити" id="yP9-M4-5ae">
                             <connections>
                                 <action selector="closeLegend:" destination="Weo-eM-8pk" id="EFR-8c-HEz"/>
                             </connections>

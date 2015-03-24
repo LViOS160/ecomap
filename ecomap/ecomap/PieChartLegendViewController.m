@@ -46,13 +46,13 @@
 
 - (NSArray*)createLabelsArray {
     
-    return @[@"Інші проблеми",
-             @"Проблеми лісів",
-             @"Сміттєзвалища",
-             @"Незаконна забудова",
-             @"Проблеми водойм",
-             @"Загрози біорізнаманіттю",
-             @"Браконьєрство"];
+    return @[NSLocalizedString(@"Інші проблеми", nil),
+             NSLocalizedString(@"Проблеми лісів", nil),
+             NSLocalizedString(@"Сміттєзвалища", nil),
+             NSLocalizedString(@"Незаконна забудова", nil),
+             NSLocalizedString(@"Проблеми водойм", nil),
+             NSLocalizedString(@"Загрози біорізнаманіттю", nil),
+             NSLocalizedString(@"Браконьєрство", nil)];
 }
 
 
