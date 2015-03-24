@@ -19,6 +19,7 @@
 #import "Defines.h"
 #import "InfoActions.h"
 #import "MapViewController.h"
+#import "EditProblemViewController.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -54,6 +55,16 @@
     _problemDetails = problemDetails;
     [self updateUI];
     [self updateScrollView];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"EditProblemSegue"]) {
+        EditProblemViewController *editVC = segue.destinationViewController;
+        if ([editVC isKindOfClass:[EditProblemViewController class]]) {
+            editVC.problem = self.problemDetails;
+        }
+    }
 }
 
 - (void)updateUI

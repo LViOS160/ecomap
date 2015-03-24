@@ -133,6 +133,7 @@
 		B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */; };
 		B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */; };
 		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
+		CA9E53131AB8BFBA009E05FB /* EditProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9E53121AB8BFBA009E05FB /* EditProblemViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -389,6 +390,8 @@
 		B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemTypeViewController.m; sourceTree = "<group>"; };
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CA9E53111AB8BFBA009E05FB /* EditProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProblemViewController.h; sourceTree = "<group>"; };
+		CA9E53121AB8BFBA009E05FB /* EditProblemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProblemViewController.m; sourceTree = "<group>"; };
 		DC970330F7C53C912ED19D0D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -743,6 +746,8 @@
 				B3738BC31A9DDC4B0077F604 /* ProblemActivityViewController.m */,
 				B3738BBC1A9DDC4B0077F604 /* AddCommViewController.h */,
 				B3738BBD1A9DDC4B0077F604 /* AddCommViewController.m */,
+				CA9E53111AB8BFBA009E05FB /* EditProblemViewController.h */,
+				CA9E53121AB8BFBA009E05FB /* EditProblemViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1195,6 +1200,7 @@
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,
 				B3738C161A9DDC4B0077F604 /* GStaticCluster.m in Sources */,
 				90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */,
+				CA9E53131AB8BFBA009E05FB /* EditProblemViewController.m in Sources */,
 				B3738C331A9DDC4B0077F604 /* EcomapResources.m in Sources */,
 				518F30A41AA269E50094DA14 /* DataTasks.m in Sources */,
 				B3738C1B1A9DDC4B0077F604 /* SphericalMercatorProjection.m in Sources */,
