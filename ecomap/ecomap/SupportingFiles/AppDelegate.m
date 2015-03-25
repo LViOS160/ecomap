@@ -40,7 +40,7 @@
     //~/Library/Application Support/iPhone Simulator//Applications//Library/Caches/. As you can see, the path might be slightly different depending on which version of the iOS Simulator you are using/
     //It should now have a folder named Logs containing one text file named log-XXXXXX.txt.
     //Keep in mind that he Caches directory can be emptied by the operating system at any time. If you want to store your application's log files in a safer location, then I suggest storing them in the application's Documents directory.
-    
+
     return YES;
 }
 

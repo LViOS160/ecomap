@@ -203,6 +203,7 @@
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
     self.mapView.settings.compassButton = YES;
+    
     [self.mapView setDelegate:self];
     [self.view insertSubview:self.mapView atIndex:0];
     self.problems = [self loadLocalJSON];

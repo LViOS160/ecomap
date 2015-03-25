@@ -1497,7 +1497,7 @@
 					"$(PROJECT_DIR)/ecomap/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ecomap/SupportingFiles/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1522,7 +1522,7 @@
 					"$(PROJECT_DIR)/ecomap/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ecomap/SupportingFiles/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
