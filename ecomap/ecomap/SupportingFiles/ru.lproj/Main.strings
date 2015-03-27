@@ -114,7 +114,7 @@
 "R7H-LP-LE7.text" = "Email-адрес";
 
 /* Class = "UILabel"; text = "Топы проблем"; ObjectID = "S6e-Sb-usr"; */
-"S6e-Sb-usr.text" = "Топы проблем";
+"S6e-Sb-usr.text" = "ТОП проблем";
 
 /* Class = "UINavigationItem"; title = "Фото"; ObjectID = "SnU-YB-r7J"; */
 "SnU-YB-r7J.title" = "Фото";
