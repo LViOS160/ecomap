@@ -74,6 +74,7 @@
 + (NSString *)serverDomain
 {
     NSString *domain = [ECOMAP_ADDRESS stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+    domain = [domain stringByReplacingOccurrencesOfString:@":8090" withString:@""];
     
     return [domain stringByReplacingOccurrencesOfString:@"/" withString:@""];
 }

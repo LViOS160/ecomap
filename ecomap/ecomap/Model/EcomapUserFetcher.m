@@ -340,10 +340,12 @@ static BOOL calledFacebookCloseSession = NO;
     if (userData) {
         //Form userName value
         NSString *userName = userData.name ? userData.name : @"null";
+        userName = [userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *userNameValue = [NSString stringWithFormat:@"userName=%@", userName];
         
         //Form userSurname value
         NSString *userSurname = userData.surname ? userData.surname : @"null";
+        userSurname = [userSurname stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *userSurnameValue = [NSString stringWithFormat:@"userSurname=%@", userSurname];
         
         //Form userRole value
