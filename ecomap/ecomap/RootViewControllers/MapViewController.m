@@ -22,6 +22,9 @@
 #import "CustomInfoWindow.h"
 #import "ProblemFilterTVC.h"
 #import "Defines.h"
+#import "EcomapUserFetcher.h"
+#import "EcomapLoggedUser.h"
+#import "InfoActions.h"
 
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
@@ -53,10 +56,23 @@
     [self mapSetup];
     [self socketInit];
     [self reachabilitySetup];
+    [self login];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(allProblemsChanged:)
                                                  name:ALL_PROBLEMS_CHANGED
                                                object:nil];
+}
+
+- (void)login {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *isLogged = [ud objectForKey:@"isLogged"];
+    if ([isLogged isEqualToString:@"YES"]) {
+        [EcomapUserFetcher loginWithEmail:[ud objectForKey:@"email"]
+                              andPassword:[ud objectForKey:@"password"] OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                  //show greeting for logged user
+                                  [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо, %@!", @"Welcome, {User Name}"), loggedUser.name]];
+                              }];
+    }
 }
 
 - (void)allProblemsChanged:(NSNotification*)notification

@@ -25,6 +25,11 @@ static BOOL calledFacebookCloseSession = NO;
 #pragma mark - Login
 + (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(EcomapLoggedUser *loggedUser, NSError *error))completionHandler
 {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:@"YES" forKey:@"isLogged"];
+    [ud setObject:email forKey:@"email"];
+    [ud setObject:password forKey:@"password"];
+    
     //Set up session configuration
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
@@ -275,6 +280,8 @@ static BOOL calledFacebookCloseSession = NO;
                  completionHandler:^(NSData *JSON, NSError *error) {
                      BOOL result = NO;
                      if (!error) {
+                         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+                         [ud setObject:@"NO" forKey:@"isLogged"];
                          //Read response Data (it is not JSON actualy, just plain text)
                          NSString *statusResponse =[[NSString alloc]initWithData:JSON encoding:NSUTF8StringEncoding];
                          result = [statusResponse isEqualToString:@"OK"] ? YES : NO;
