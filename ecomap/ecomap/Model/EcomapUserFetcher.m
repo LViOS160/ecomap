@@ -33,16 +33,19 @@ static BOOL calledFacebookCloseSession = NO;
     //Set up session configuration
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    //[sessionConfiguration setHTTPAdditionalHeaders:[request setValue:@"application/xml" forHTTPHeaderField:@"content-type"];]
     
     //Set up request
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforLogin]];
     [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
     
     //Create JSON data to send to  server
     NSDictionary *loginData = @{@"email" : email, @"password" : password};
     NSData *data = [NSJSONSerialization dataWithJSONObject:loginData
                                                    options:0
                                                      error:nil];
+    
     [DataTasks uploadDataTaskWithRequest:request
                                 fromData:data
                     sessionConfiguration:sessionConfiguration
