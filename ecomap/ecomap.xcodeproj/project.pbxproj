@@ -10,6 +10,7 @@
 		03B1BC005E13B3CDC884086F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC970330F7C53C912ED19D0D /* libPods.a */; };
 		2DB8150B1AA854DA0011AFA1 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DB8150A1AA854DA0011AFA1 /* InfoWindow.xib */; };
 		2DB8150E1AA856490011AFA1 /* CustomInfoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */; };
+		511BF3D81B27519B007664F9 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 511BF3D71B27519B007664F9 /* AboutViewController.m */; };
 		513A41CB1AB0F9E4000B9180 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 513A41CD1AB0F9E4000B9180 /* Localizable.strings */; };
 		518F30961AA1E36E0094DA14 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 518F30951AA1E36E0094DA14 /* FacebookSDK.framework */; };
 		518F30A41AA269E50094DA14 /* DataTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 518F30A31AA269E50094DA14 /* DataTasks.m */; };
@@ -154,6 +155,8 @@
 		2DB8150C1AA856490011AFA1 /* CustomInfoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomInfoWindow.h; sourceTree = "<group>"; };
 		2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomInfoWindow.m; sourceTree = "<group>"; };
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		511BF3D61B27519B007664F9 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		511BF3D71B27519B007664F9 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		513A41CC1AB0F9E4000B9180 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		513A41CF1AB0FCF6000B9180 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		517EB5A71AB21BA700BFC411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -437,6 +440,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		511BF3D51B275174007664F9 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				511BF3D61B27519B007664F9 /* AboutViewController.h */,
+				511BF3D71B27519B007664F9 /* AboutViewController.m */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
 		90F0C92F1AAF47C700C6B105 /* FilterProblem */ = {
 			isa = PBXGroup;
 			children = (
@@ -978,6 +990,7 @@
 		CA7B3C881AA6548B005AF277 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				511BF3D51B275174007664F9 /* About */,
 				B3738BD91A9DDC4B0077F604 /* Statistic */,
 				B3738BD41A9DDC4B0077F604 /* Root */,
 				B3738C041A9DDC4B0077F604 /* Account */,
@@ -1266,6 +1279,7 @@
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
 				B3ACA3E61AA7524A003BD9EF /* AddProblemLocationViewController.m in Sources */,
+				511BF3D81B27519B007664F9 /* AboutViewController.m in Sources */,
 				518F30DB1AAB19540094DA14 /* InfoActions.m in Sources */,
 				B3738C401A9DDC4B0077F604 /* PieChartViewController.m in Sources */,
 				B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */,

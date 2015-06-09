@@ -64,7 +64,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     // Return the number of rows in the section.
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,6 +90,10 @@
             break;
             
         case 4:
+            CellIdentifier = @"about";
+            break;
+        
+        case 5:
             CellIdentifier = self.showLogin ? @"login" : @"logout";
             break;
     }
