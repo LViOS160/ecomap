@@ -43,6 +43,7 @@
         // Set up request
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforEditingProblem:problemID]];
         [request setHTTPMethod:@"PUT"];
+        [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
         
         [DataTasks uploadDataTaskWithRequest:request
                                     fromData:JSONData

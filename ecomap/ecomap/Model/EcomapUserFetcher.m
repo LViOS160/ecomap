@@ -248,6 +248,7 @@ static BOOL calledFacebookCloseSession = NO;
     //Set up request
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforChangePassword]];
     [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
     
     //Create JSON data to send to  server
     NSDictionary *loginData = @{@"userId": [NSNumber numberWithInteger:[[EcomapLoggedUser currentLoggedUser] userID]],
@@ -322,6 +323,7 @@ static BOOL calledFacebookCloseSession = NO;
     //Set up request
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforRegister]];
     [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
     
     //Create JSON data to send to  server
     NSDictionary *loginData = @{@"first_name": name, @"last_name":surname, @"email" : email, @"password" : password};

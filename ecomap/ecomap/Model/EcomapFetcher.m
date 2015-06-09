@@ -56,6 +56,8 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforComments:probId]];
     [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
+    
     NSLog(@"%@;%@;%@",userId,name,surname);
     //Create JSON data for send to server
     NSDictionary *commentData = @{@"data": @{@"userId":userId,@"userName":name, @"userSurname":surname, @"Content":content} };
@@ -271,6 +273,7 @@
     //Set up request
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforPostVotes]];
     [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
     
    [DataTasks uploadDataTaskWithRequest:request
                            fromData:data
@@ -306,6 +309,7 @@
     //Set up request
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforTokenRegistration]];
     [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
     
     //Create JSON data to send to  server
     NSDictionary *loginData = @{@"token" : token};
