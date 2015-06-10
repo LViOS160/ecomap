@@ -9,17 +9,27 @@
 #import "AboutViewController.h"
 #import "EcomapRevealViewController.h"
 
-@interface AboutViewController ()
+@interface AboutViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
+@property (weak, nonatomic) IBOutlet UITextView *aboutTextView;
 
 @end
+
+#define ENGLISH_LANGUAGE_CODE @"en"
+#define UKRAINIAN_LANGUAGE_CODE @"uk"
+#define RUSSIAN_LANGUAGE_CODE @"ru"
 
 @implementation AboutViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+    //    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //self.navigationController.navigationBar.translucent = NO;
+    //[self setEdgesForExtendedLayout:UIRectEdgeNone];
     [self customSetup];
+    [self setupAboutText];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,4 +47,88 @@
         [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
     }
 }
+
+- (void)setupAboutText
+{
+    NSString *aboutText = NSLocalizedString(@"about_text", @"about text");
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:aboutText];
+    
+    NSRange textRange = NSMakeRange(0, [aboutText length]);
+   
+    //add font
+    UIFont *font = [UIFont systemFontOfSize:16.0];
+    UIFont *boldfont = [UIFont boldSystemFontOfSize:16.0];
+    
+    [attrString addAttribute:NSFontAttributeName
+                       value:font
+                       range:textRange];
+    
+    //get current language letters
+    NSString *languageCode = [[NSLocale preferredLanguages] objectAtIndex:0];
+    
+    //add bold
+    NSRange boldRange = [aboutText rangeOfString:NSLocalizedString(@"Ecomap", nil)];
+    [attrString addAttribute:NSFontAttributeName
+                       value:boldfont
+                       range:boldRange];
+    
+    NSRange firstOcured;
+    
+    NSString *boldText = NSLocalizedString(@"Ministry of Ecology and Natural Resources", nil);
+    if ([languageCode isEqualToString:ENGLISH_LANGUAGE_CODE]) {
+        firstOcured = [aboutText rangeOfString:boldText];
+        textRange = NSMakeRange(firstOcured.location + firstOcured.length, ([aboutText length] - (firstOcured.location + firstOcured.length)));
+    }
+    
+    boldRange = [aboutText rangeOfString:boldText
+                 options:0
+                 range:textRange];
+    
+    //apply bold
+    [attrString addAttribute:NSFontAttributeName
+                       value:boldfont
+                       range:boldRange];
+    
+    boldText = NSLocalizedString(@"SoftServe", nil);
+    firstOcured = [aboutText rangeOfString:boldText];
+    textRange = NSMakeRange(firstOcured.location + firstOcured.length, ([aboutText length] - (firstOcured.location + firstOcured.length)));
+    boldRange = [aboutText rangeOfString:boldText
+                                 options:0
+                                   range:textRange];
+    
+    //aplly bold
+    [attrString addAttribute:NSFontAttributeName
+                       value:boldfont
+                       range:boldRange];
+    
+    boldText = NSLocalizedString(@"WWF", nil);
+    if ([languageCode isEqualToString:ENGLISH_LANGUAGE_CODE]) {
+        firstOcured = [aboutText rangeOfString:boldText];
+        textRange = NSMakeRange(firstOcured.location + firstOcured.length, ([aboutText length] - (firstOcured.location + firstOcured.length)));
+    }
+    
+    boldRange = [aboutText rangeOfString:boldText
+                                 options:0
+                                   range:textRange];
+    
+    //aplly bold
+    boldText = NSLocalizedString(@"Developers:", nil);
+    [attrString addAttribute:NSFontAttributeName
+                       value:boldfont
+                       range:boldRange];
+    
+    boldRange = [aboutText rangeOfString:boldText];
+    
+    //aplly bold
+    [attrString addAttribute:NSFontAttributeName
+                       value:boldfont
+                       range:boldRange];
+    
+    
+    self.aboutTextView.attributedText = attrString;
+    [self.aboutTextView scrollRangeToVisible:NSMakeRange(0, 0)];
+}
+
+
+
 @end

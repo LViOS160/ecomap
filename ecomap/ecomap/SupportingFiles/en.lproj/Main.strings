@@ -8,6 +8,9 @@
 /* Class = "UISegmentedControl"; 0qm-vi-3sa.segmentTitles[2] = "Discussed"; ObjectID = "0qm-vi-3sa"; */
 "0qm-vi-3sa.segmentTitles[2]" = "Discussed";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "2KK-m1-zsD"; */
+"2KK-m1-zsD.text" = "Label";
+
 /* Class = "UILabel"; text = "Number of added problems in the last"; ObjectID = "2tp-Qg-V45"; */
 "2tp-Qg-V45.text" = "Number of added problems in the last";
 
@@ -44,6 +47,9 @@
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "CNL-Cg-M9H"; */
 "CNL-Cg-M9H.placeholder" = "Password";
 
+/* Class = "UILabel"; text = "Пропозиції щодо вирішення"; ObjectID = "D2w-Mn-0kf"; */
+"D2w-Mn-0kf.text" = "Пропозиції щодо вирішення";
+
 /* Class = "UIButton"; normalTitle = "Choose"; ObjectID = "DFW-mu-WEi"; */
 "DFW-mu-WEi.normalTitle" = "Choose";
 
@@ -62,6 +68,12 @@
 /* Class = "UILabel"; text = "0000"; ObjectID = "FwP-tJ-tqP"; */
 "FwP-tJ-tqP.text" = "0000";
 
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "GDX-3P-67F"; */
+"GDX-3P-67F.normalTitle" = "+";
+
+/* Class = "UIButton"; normalTitle = "Не вирішена"; ObjectID = "ITc-hP-Py3"; */
+"ITc-hP-Py3.normalTitle" = "Не вирішена";
+
 /* Class = "UILabel"; text = "Ecomap"; ObjectID = "JSW-UX-MD0"; */
 "JSW-UX-MD0.text" = "Ecomap";
 
@@ -70,6 +82,9 @@
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "KAk-Qp-v7a"; */
 "KAk-Qp-v7a.text" = "Label";
+
+/* Class = "UITextField"; text = "Test"; ObjectID = "KwZ-26-6bn"; */
+"KwZ-26-6bn.text" = "Test";
 
 /* Class = "UIBarButtonItem"; title = "Filter"; ObjectID = "LQ2-aK-GIv"; */
 "LQ2-aK-GIv.title" = "Filter";
@@ -85,6 +100,9 @@
 
 /* Class = "UILabel"; text = "Resources"; ObjectID = "N5i-c1-1Oe"; */
 "N5i-c1-1Oe.text" = "Resources";
+
+/* Class = "UITextView"; text = "dfsdfdsfsdfdsf"; ObjectID = "NY0-kY-HEv"; */
+"NY0-kY-HEv.text" = "dfsdfdsfsdfdsf";
 
 /* Class = "UINavigationItem"; title = "Pie Chart Legend"; ObjectID = "OCq-BZ-ffn"; */
 "OCq-BZ-ffn.title" = "Pie Chart Legend";
@@ -110,6 +128,9 @@
 /* Class = "UILabel"; text = "Name"; ObjectID = "QeD-hx-MaA"; */
 "QeD-hx-MaA.text" = "Name";
 
+/* Class = "UIViewController"; title = "Редагування"; ObjectID = "Qjk-2v-YMQ"; */
+"Qjk-2v-YMQ.title" = "Редагування";
+
 /* Class = "UILabel"; text = "E-mail"; ObjectID = "R7H-LP-LE7"; */
 "R7H-LP-LE7.text" = "E-mail";
 
@@ -124,6 +145,9 @@
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "V2x-G9-EXi"; */
 "V2x-G9-EXi.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "-"; ObjectID = "VX7-lQ-WSG"; */
+"VX7-lQ-WSG.normalTitle" = "-";
 
 /* Class = "UISegmentedControl"; Wq9-3K-2vu.segmentTitles[0] = "day"; ObjectID = "Wq9-3K-2vu"; */
 "Wq9-3K-2vu.segmentTitles[0]" = "day";
@@ -145,6 +169,9 @@
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "ZAM-yJ-ZHv"; */
 "ZAM-yJ-ZHv.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Про проект"; ObjectID = "aBj-A3-CXY"; */
+"aBj-A3-CXY.title" = "About project";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "c1R-4K-TSm"; */
 "c1R-4K-TSm.text" = "Detail";
@@ -191,11 +218,17 @@
 /* Class = "UILabel"; text = "Statistics"; ObjectID = "hgP-dj-liO"; */
 "hgP-dj-liO.text" = "Statistics";
 
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "i76-cM-js3"; */
+"i76-cM-js3.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
 /* Class = "UIButton"; normalTitle = "Редагувати"; ObjectID = "iU1-ty-xPa"; */
 "iU1-ty-xPa.normalTitle" = "Редагувати";
 
 /* Class = "UINavigationItem"; title = "Ecomap"; ObjectID = "k5h-KU-feq"; */
 "k5h-KU-feq.title" = "Ecomap";
+
+/* Class = "UILabel"; text = "Опис проблеми"; ObjectID = "kbS-9l-26H"; */
+"kbS-9l-26H.text" = "Опис проблеми";
 
 /* Class = "UITextField"; placeholder = "Confirm new password"; ObjectID = "lhz-Ed-eSh"; */
 "lhz-Ed-eSh.placeholder" = "Confirm new password";
@@ -209,8 +242,14 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "niN-Lg-5u9"; */
 "niN-Lg-5u9.text" = "Label";
 
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "oLe-bG-73X"; */
+"oLe-bG-73X.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
 /* Class = "UINavigationItem"; title = "Login"; ObjectID = "ofd-jx-HK2"; */
 "ofd-jx-HK2.title" = "Login";
+
+/* Class = "UILabel"; text = "Про проект"; ObjectID = "qbe-4a-5yO"; */
+"qbe-4a-5yO.text" = "About project";
 
 /* Class = "UILabel"; text = "Map"; ObjectID = "sI8-T2-iI6"; */
 "sI8-T2-iI6.text" = "Map";

@@ -157,6 +157,9 @@
 		4928809254C217F84D5D52F8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		511BF3D61B27519B007664F9 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		511BF3D71B27519B007664F9 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		511BF3DA1B282D61007664F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		511BF3DC1B282DFD007664F9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		511BF3DE1B282E0E007664F9 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
 		513A41CC1AB0F9E4000B9180 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		513A41CF1AB0FCF6000B9180 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		517EB5A71AB21BA700BFC411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -373,9 +376,6 @@
 		B3738C001A9DDC4B0077F604 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		B3738C021A9DDC4B0077F604 /* ProblemsTopListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProblemsTopListTVC.h; path = ../../TopProblemsVIewController/ProblemsTopListTVC.h; sourceTree = "<group>"; };
 		B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProblemsTopListTVC.m; path = ../../TopProblemsVIewController/ProblemsTopListTVC.m; sourceTree = "<group>"; };
-		B381D81B1AC16FE60047F4C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		B381D81D1AC170510047F4C8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		B381D81F1AC170780047F4C8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
 		B39FC4121ABC9DD500D40417 /* PieChartLegendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieChartLegendViewController.h; path = ../../PieChartLegendViewController.h; sourceTree = "<group>"; };
 		B39FC4131ABC9DD500D40417 /* PieChartLegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartLegendViewController.m; path = ../../PieChartLegendViewController.m; sourceTree = "<group>"; };
 		B39FC4151ABC9E9C00D40417 /* PieChartLegendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieChartLegendTableViewCell.h; path = ../../../PieChartLegendTableViewCell.h; sourceTree = "<group>"; };
@@ -1409,9 +1409,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				B3738BE61A9DDC4B0077F604 /* Base */,
-				B381D81B1AC16FE60047F4C8 /* en */,
-				B381D81D1AC170510047F4C8 /* ru */,
-				B381D81F1AC170780047F4C8 /* uk */,
+				511BF3DA1B282D61007664F9 /* en */,
+				511BF3DC1B282DFD007664F9 /* ru */,
+				511BF3DE1B282E0E007664F9 /* uk */,
 			);
 			name = Main.storyboard;
 			path = ecomap/SupportingFiles;

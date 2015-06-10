@@ -32,10 +32,10 @@
             </objects>
             <point key="canvasLocation" x="-1636.875" y="135.21126760563379"/>
         </scene>
-        <!--About View Controller-->
+        <!--Про проект-->
         <scene sceneID="rnu-Jt-Obm">
             <objects>
-                <viewController id="kyC-EV-Yur" customClass="AboutViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="kyC-EV-Yur" customClass="AboutViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DWx-kL-tDH"/>
                         <viewControllerLayoutGuide type="bottom" id="owL-ka-SJj"/>
@@ -43,12 +43,35 @@
                     <view key="view" contentMode="scaleToFill" id="YkV-6a-Gsj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="dfsdfdsfsdfdsf" translatesAutoresizingMaskIntoConstraints="NO" id="NY0-kY-HEv">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NY0-kY-HEv" firstAttribute="top" secondItem="YkV-6a-Gsj" secondAttribute="top" id="4Aa-cR-TSe"/>
+                            <constraint firstItem="NY0-kY-HEv" firstAttribute="leading" secondItem="YkV-6a-Gsj" secondAttribute="leading" id="6XV-EW-3A5"/>
+                            <constraint firstItem="NY0-kY-HEv" firstAttribute="top" secondItem="DWx-kL-tDH" secondAttribute="bottom" id="KRG-TY-85b"/>
+                            <constraint firstAttribute="bottom" secondItem="NY0-kY-HEv" secondAttribute="bottom" id="WpY-qJ-Jo4"/>
+                            <constraint firstItem="NY0-kY-HEv" firstAttribute="top" secondItem="DWx-kL-tDH" secondAttribute="bottom" id="olN-qu-aMY"/>
+                            <constraint firstAttribute="trailing" secondItem="NY0-kY-HEv" secondAttribute="trailing" id="yza-o6-9Kg"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4Aa-cR-TSe"/>
+                                <exclude reference="olN-qu-aMY"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="aBj-A3-CXY">
+                    <navigationItem key="navigationItem" title="Про проект" id="aBj-A3-CXY">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon" id="4fm-d0-RRS"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="aboutTextView" destination="NY0-kY-HEv" id="Cac-ni-Ye3"/>
                         <outlet property="revealButtonItem" destination="4fm-d0-RRS" id="aR5-zq-vY1"/>
                     </connections>
                 </viewController>
