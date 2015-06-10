@@ -207,7 +207,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user25" translatesAutoresizingMaskIntoConstraints="NO" id="mOY-Tn-70U">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="team" translatesAutoresizingMaskIntoConstraints="NO" id="mOY-Tn-70U">
                                             <rect key="frame" x="20" y="11" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="25" id="5pO-rt-Jiy"/>
@@ -2881,6 +2881,7 @@
         <image name="reveal-icon" width="22" height="17"/>
         <image name="sign-in25" width="25" height="25"/>
         <image name="sort-numeric-desc25" width="25" height="25"/>
+        <image name="team" width="25" height="25"/>
         <image name="user25" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
