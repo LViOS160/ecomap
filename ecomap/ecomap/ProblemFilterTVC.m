@@ -196,7 +196,7 @@ static NSString *kProblemOwnerCellID = @"problemOwnerCell";
 //myne code
 - (UITableViewCell *)createOwnPublishCellForIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier: kProblemOwnerCellID forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier: kProblemOwnerCellID];
     
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
     titleLabel.text = (indexPath.row == 0) ? NSLocalizedString(@"Нова", @"New") : NSLocalizedString(@"Вирішена", @"Solved");
@@ -299,9 +299,7 @@ static NSString *kProblemOwnerCellID = @"problemOwnerCell";
 // Hide view controller
 - (IBAction)touchHideButton:(UIBarButtonItem *)sender
 {
-    [self init];
     [self dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 // Send message userDidApplyFilteringMask: to delegate.
