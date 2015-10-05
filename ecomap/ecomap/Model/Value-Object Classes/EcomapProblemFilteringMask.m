@@ -46,6 +46,7 @@
     self.problemTypes = [[EcomapProblemFilteringMask validProblemTypeIDs] mutableCopy];
     self.showSolved = YES;
     self.showUnsolved = YES;
+    self.showMyne = NO;
     
     return self;
 }
@@ -58,6 +59,7 @@
     NSLog(@"End date: %@", self.toDate);
     NSLog(@"Problem types: %@", self.problemTypes);
     NSLog(@"Show solved: %@", self.showSolved ? @"YES" : @"NO");
+    NSLog(@"Show own problems: %@", self.showMyne ? @"YES" : @"NO");
     return [NSString stringWithFormat:@"Show unsolved: %@", self.showUnsolved ? @"YES" : @"NO"];
 }
 

@@ -11,7 +11,7 @@
 #import "InfoActions.h"
 #import "EcomapProblemFilteringMask.h"
 
-static const NSInteger numberOfSections = 3;
+static const NSInteger numberOfSections = 4;
 
 static const float standardRowHeight = 44.0;
 static const float datePickerRowHeight = 164;
@@ -25,6 +25,7 @@ static NSString *kDateCellID = @"dateCell";
 static NSString *kProblemTypeCellID = @"problemTypeCell";
 static NSString *kProblemStatusCellID = @"problemStatusCell";
 static NSString *kDatePickerCellID = @"datePickerCell";
+static NSString *kProblemOwnerCellID = @"problemOwnerCell";
 
 @interface ProblemFilterTVC ()
 
@@ -192,6 +193,27 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     return cell;
 }
 
+//myne code
+- (UITableViewCell *)createOwnPublishCellForIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier: kProblemOwnerCellID];
+    
+    UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
+    titleLabel.text = (indexPath.row == 0) ? NSLocalizedString(@"Нова", @"New") : NSLocalizedString(@"Вирішена", @"Solved");
+    UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
+    checkmarkImage.image = (indexPath.row == 0) ? [self checkmarkImage:self.filteringMask.showUnsolved]
+    : [self checkmarkImage:self.filteringMask.showSolved];
+    
+    // Check either filtering mask contains type of the problem of the current row
+    // Depending on answer show image.
+ //   UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
+//    checkmarkImage.image = (indexPath.row == 0) ? [self checkmarkImage:self.filteringMask.showUnsolved]
+//    : [self checkmarkImage:self.filteringMask.showSolved];
+
+    return cell;
+
+}
+
 - (UITableViewCell *)createPickerCell:(NSDate *)date forIndexPath:(NSIndexPath *)indexPath
 {
     // Create cell from template
@@ -341,6 +363,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
             }
         case 1: return [self createProblemTypeCellForIndexPath:indexPath];
         case 2: return [self createProblemStatusCellForIndexPath:indexPath];
+        case 3: return [self createOwnPublishCellForIndexPath:indexPath];
     }
     
     return [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -352,6 +375,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
         case 0: return NSLocalizedString(@"Фільтрація за датою", @"Filter by date");
         case 1: return NSLocalizedString(@"Типи проблем", @"Problem types");
         case 2: return NSLocalizedString(@"Статус проблеми", @"Problem status");
+        case 3: return NSLocalizedString(@"Мої проблеми", @"My problems");
     }
     
     return @"";
@@ -365,6 +389,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
         case 0: [self handleTappingDateSection:indexPath]; break;
         case 1: [self handleTappingTypeSection:indexPath]; break;
         case 2: [self handleTappingStatusSection:indexPath]; break;
+       // case 3: [self handleTappingDateSection:indexPath]; break;
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
