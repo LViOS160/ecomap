@@ -58,8 +58,6 @@
                            forState:UIControlStateNormal];
    
     // Do any additional setup after loading the view.
-    
-    //self.addCommentButton.enabled = NO;
 }
 
 -(void)updateUI
@@ -171,8 +169,7 @@
 }
 -(void)textViewDidChange:(UITextView *)textView
 {
-    //fixed bug with empty comment
-    self.addCommentButton.enabled = [textView.text length]>0;
+    self.addCommentButton.enabled = YES;
 }
 
 
