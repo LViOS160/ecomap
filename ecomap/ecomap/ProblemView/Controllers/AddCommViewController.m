@@ -226,7 +226,7 @@
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    if([userIdent.role isEqualToString:@"administrator"] && self.comments.count >0)
+    if([userIdent.role isEqualToString:@"user"] && self.comments.count >0)
         return YES;
     else
         return NO;

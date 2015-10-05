@@ -355,6 +355,8 @@
     [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
         [self loadProblems];
     }];
+    
+    params;
 }
 
 - (void)setCurView:(ConstHeightViewController *)curView {
