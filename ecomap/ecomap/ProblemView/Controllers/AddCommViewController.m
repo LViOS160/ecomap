@@ -103,9 +103,8 @@
         EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
         NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
     
-    if(userIdent) {
-        
-            
+    if(userIdent)
+    {
             [EcomapFetcher createComment:userID
                                  andName:userIdent.name
                               andSurname:userIdent.surname
@@ -114,17 +113,21 @@
              {
                  
                  if(error)
+                 {
                      DDLogError(@"Error adding comment:%@", [error localizedDescription]);
+                 }
                  else
+                 {
                      [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-                 
+                 }
                  [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
                  
              }];
             
         }
 
-     else {
+     else
+     {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
                            actionAfterSuccseccLogin:^{
@@ -133,7 +136,8 @@
         return;
     }
 
-    if ([self.textField isFirstResponder]) {
+    if ([self.textField isFirstResponder])
+    {
         self.textField.text = @"";
         [self textViewDidEndEditing:self.textField];
     }
@@ -169,7 +173,7 @@
 }
 -(void)textViewDidChange:(UITextView *)textView
 {
-    self.addCommentButton.enabled = YES;
+    self.addCommentButton.enabled = [self.textField.text length]>0;
 }
 
 
@@ -177,29 +181,34 @@
 
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if(self.comments.count == 0)
+    {
          return 1;
-    else    return self.comments.count;
+    }
+    else
+    {
+        return self.comments.count;
+    }
  
 }
 
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
 
     if(self.comments.count == 0)
     {
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        
         cell.textLabel.text = @"Коментарі відсутні";
-        
         return cell;
     }
     else
-    {EcomapCommentaries *commentair = [self.comments objectAtIndex:indexPath.row];
+    {
+        EcomapCommentaries *commentair = [self.comments objectAtIndex:indexPath.row];
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-        
         
         cell.commentContent.text= commentair.problemContent;
         NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
@@ -224,18 +233,23 @@
 
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    if([userIdent.role isEqualToString:@"administrator"] && self.comments.count >0)
+    if([userIdent.role isEqualToString:@"administrator"] && self.comments.count > 0)
+    {
         return YES;
+    }
     else
+    {
         return NO;
+    }
 }
 
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-          if(editingStyle == UITableViewCellEditingStyleDelete)
+    if(editingStyle == UITableViewCellEditingStyleDelete)
     {
          EcomapActivity *commentaries = [self.comments objectAtIndex:indexPath.row];
         NSUInteger number = commentaries.commentID;
