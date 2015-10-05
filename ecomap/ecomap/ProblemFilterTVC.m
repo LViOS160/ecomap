@@ -200,7 +200,7 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kproblemOwnerCellID];
     
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:kTitleTag];
-    titleLabel.text = (indexPath.row == 0) ? NSLocalizedString(@"Нова", @"New") : NSLocalizedString(@"Вирішена", @"Solved");
+    titleLabel.text = NSLocalizedString(@"Відображати тільки мої проблеми", @"Show only my problem");
     
     // Check either filtering mask contains type of the problem of the current row
     // Depending on answer show image.

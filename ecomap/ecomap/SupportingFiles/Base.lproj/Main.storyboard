@@ -432,13 +432,25 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ownerProblemCell" tableViewCell="GVf-Ae-pYJ" id="ypC-yg-gsR">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNx-ik-W9f">
-                                            <rect key="frame" x="17" y="8" width="311" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNx-ik-W9f">
+                                            <rect key="frame" x="15" y="8" width="280" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="280" id="dgb-Wt-6dO"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" tag="104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Good" translatesAutoresizingMaskIntoConstraints="NO" id="ud8-sh-fKi">
+                                            <rect key="frame" x="556" y="12" width="20" height="20"/>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ud8-sh-fKi" firstAttribute="top" secondItem="ypC-yg-gsR" secondAttribute="topMargin" constant="4" id="IqI-Wc-EDb"/>
+                                        <constraint firstItem="yNx-ik-W9f" firstAttribute="leading" secondItem="ypC-yg-gsR" secondAttribute="leadingMargin" constant="7" id="Uzv-dS-Bfc"/>
+                                        <constraint firstItem="yNx-ik-W9f" firstAttribute="top" secondItem="ypC-yg-gsR" secondAttribute="topMargin" id="q8K-Dr-CLe"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ud8-sh-fKi" secondAttribute="trailing" constant="16" id="xmx-hi-jCV"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
