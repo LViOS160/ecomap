@@ -35,6 +35,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) ContainerViewController *containerViewController;
+- (IBAction)loadContainerView:(UIBarButtonItem *)sender;
 
 @property (weak, nonatomic) id <EcomapProblemViewDelegate> delegate;
 
@@ -56,7 +57,7 @@ typedef enum : NSUInteger {
     UITapGestureRecognizer *tapStatusLabelGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapStatusLabelWithGestureRecognizer:)];
     [self.statusLabel addGestureRecognizer:tapStatusLabelGestureRecognizer];
     
-    self.user = [EcomapLoggedUser currentLoggedUser];
+    
     
     [self updateHeader];
     [self loadProblemDetails:nil];
@@ -75,6 +76,8 @@ typedef enum : NSUInteger {
 {
     if ([segue.identifier isEqualToString:@"embedContainer"]) {
         self.containerViewController = segue.destinationViewController;
+        self.user = [EcomapLoggedUser currentLoggedUser];
+        [self.containerViewController storeUser:self.user];
     }
 }
 
@@ -209,4 +212,8 @@ typedef enum : NSUInteger {
 }
 
 
+- (IBAction)loadContainerView:(UIBarButtonItem *)sender {
+    
+    [self performSegueWithIdentifier:@"embedContainer" sender:self];
+}
 @end

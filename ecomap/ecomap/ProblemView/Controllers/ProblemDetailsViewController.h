@@ -15,4 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
+@property (nonatomic,strong) EcomapLoggedUser *user;
+- (void)storeUser:(EcomapLoggedUser *)user;
+
 @end

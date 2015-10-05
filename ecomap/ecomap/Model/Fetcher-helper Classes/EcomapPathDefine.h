@@ -9,7 +9,7 @@
 #define EcomapFetcher_Header_h
 
 //API address1 
-//#define ECOMAP_ADDRESS @"http://176.36.11.25/"
+//#define ECOMAP_ADDRESS @"http://176.36.11.25:8090/"
 //#define ECOMAP_ADDRESS @"http://localhost:8090/"
 #define ECOMAP_ADDRESS @"http://ecomap.org/"
 //#define ECOMAP_ADDRESS @"http://192.168.2.1:8090/"
@@ -110,6 +110,7 @@
 #define ECOMAP_USER_ITA @"iat"
 #define ECOMAP_USER_TOKEN @"token"
 #define ECOMAP_USER_EMAIL @"email"
+#define ECOMAP_USER_DELETE_PROBLEM @"Delete_problem"
 
 // keys (paths) to values in a STAT dictionary in GENERAL STATS array
 #define ECOMAP_GENERAL_STATS_PROBLEMS @"problems"

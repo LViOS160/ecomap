@@ -12,6 +12,7 @@
 #import "EMThumbnailImageStore.h"
 #import "EcomapFetcher+PostProblem.h"
 #import "EcomapAdminFetcher.h"
+#import "EcomapUserFetcher.h"
 #import "EcomapThumbnailFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "PhotoViewController.h"
@@ -33,6 +34,11 @@
 @end
 
 @implementation ProblemDetailsViewController
+
+- (void)storeUser:(EcomapLoggedUser *)user
+{
+    self.user = user;
+}
 
 -(NSMutableArray *)buttonsOnScrollView
 {
@@ -94,6 +100,11 @@
                                                  NSFontAttributeName: [UIFont systemFontOfSize:13]
                                                  }];
     
+    
+    
+    
+    
+    
     [text appendAttributedString:contentHeader];
     [text appendAttributedString:content];
     [text appendAttributedString:proposalHeader];
@@ -101,7 +112,7 @@
     self.descriptionText.attributedText = text;
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    if([userIdent.role isEqualToString:@"administrator"]) {
+    if([userIdent.role isEqualToString:@"administrator"] || userIdent.userID == self.user.userID) {
         self.editButton.hidden = NO;
         self.deleteButton.hidden = NO;
     }
@@ -118,7 +129,7 @@
 
 - (IBAction)deleteProblem:(id)sender
 {
-    [ EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
+    [ EcomapUserFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
         if(!error)
            [self.navigationController popViewControllerAnimated:YES]; 
