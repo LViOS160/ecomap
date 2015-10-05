@@ -9,6 +9,7 @@
 #import "EcomapProblemFilteringMask.h"
 #import "EcomapPathDefine.h"
 #import "EcomapProblem.h"
+#import "EcomapLoggedUser.h"
 
 @implementation EcomapProblemFilteringMask
 
@@ -84,10 +85,16 @@
 // Check problem validity.
 - (BOOL)checkProblem:(EcomapProblem *)problem
 {
-    if([self.problemTypes containsObject:[NSNumber numberWithInteger:problem.problemTypesID]]) {
-        if([self isDate:problem.dateCreated inRangeFromDate:self.fromDate toDate:self.toDate]) {
-            if([self checkStatusOfProblem:problem]) {
-                return YES;
+    if([self.problemTypes containsObject:[NSNumber numberWithInteger:problem.problemTypesID]])
+    {
+        if([self isDate:problem.dateCreated inRangeFromDate:self.fromDate toDate:self.toDate])
+        {
+            if([self checkStatusOfProblem:problem])
+            {
+                if ([self isOwner:problem])
+                {
+                    return YES;
+                }
             }
         }
     }
@@ -120,6 +127,21 @@
     } else {
         return NO;
     }
+}
+
+//Check problem owner mine
+- (BOOL)isOwner:(EcomapProblem *)problem
+{
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+    if (!self.showCurrentUserProblem)
+    {
+        return YES;
+    }
+    else if (self.showCurrentUserProblem && problem.userCreator == userIdent.userID)
+    {
+        return YES;
+    }
+    return NO;
 }
 
 @end

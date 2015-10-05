@@ -8,6 +8,7 @@
 
 #import "EcomapProblem.h"
 #import "EcomapPathDefine.h"
+#import "EcomapLoggedUser.h"
 
 @interface EcomapProblem ()
 @property (nonatomic, readwrite) NSUInteger problemID;
@@ -18,6 +19,7 @@
 @property (nonatomic, strong, readwrite) NSString *problemTypeTitle;
 @property (nonatomic, readwrite) BOOL isSolved;
 @property (nonatomic, strong, readwrite) NSDate *dateCreated;
+@property (nonatomic, readwrite) NSUInteger userCreator;
 @end
 
 @implementation EcomapProblem
@@ -32,6 +34,7 @@
     [coder encodeObject:self.problemTypeTitle forKey:@"problemTypeTitle"];
     [coder encodeBool:self.isSolved forKey:@"isSolved"];
     [coder encodeObject:self.dateCreated forKey:@"dateCreated"];
+    [coder encodeInteger:self.userCreator forKey:@"userCreated"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -44,6 +47,7 @@
     self.problemTypeTitle = [coder decodeObjectForKey:@"problemTypeTitle"];
     self.isSolved = [coder decodeBoolForKey:@"isSolved"];
     self.dateCreated = [coder decodeObjectForKey:@"dateCreated"];
+    self.userCreator = [coder decodeIntegerForKey:@"usercreated"];
     return self;
 }
 
@@ -62,7 +66,10 @@
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:(self.problemTypesID - 1)];
         NSInteger isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_STATUS] integerValue] : 0;
         self.isSolved = isSolvedInt == 0 ? NO : YES;
+        //Adding userID
         self.dateCreated = [self dateCreatedOfProblem:problem];
+        EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+        self.userCreator = userIdent.userID;
     }
     return self;
 }

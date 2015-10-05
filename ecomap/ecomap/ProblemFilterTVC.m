@@ -205,8 +205,7 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
     // Check either filtering mask contains type of the problem of the current row
     // Depending on answer show image.
     UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
-    checkmarkImage.image = (indexPath.row == 0) ? [self checkmarkImage:self.filteringMask.showUnsolved]
-    : [self checkmarkImage:self.filteringMask.showSolved];
+    checkmarkImage.image = [self checkmarkImage:self.filteringMask.showCurrentUserProblem];
     
     return cell;
 }
@@ -273,6 +272,16 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
         self.filteringMask.showSolved = !self.filteringMask.showSolved;
     }
     
+    [self.tableView reloadData];
+}
+
+//handle to new filter mine
+- (void)handleTappingOwnerSection:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == 0)
+    {
+        self.filteringMask.showCurrentUserProblem= !self.filteringMask.showCurrentUserProblem;
+    }
     [self.tableView reloadData];
 }
 
@@ -388,7 +397,7 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
         case 0: [self handleTappingDateSection:indexPath]; break;
         case 1: [self handleTappingTypeSection:indexPath]; break;
         case 2: [self handleTappingStatusSection:indexPath]; break;
-        case 3: [self handleTappingStatusSection:indexPath]; break;
+        case 3: [self handleTappingOwnerSection:indexPath]; break;
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
