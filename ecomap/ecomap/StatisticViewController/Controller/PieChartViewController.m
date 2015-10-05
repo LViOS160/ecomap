@@ -57,7 +57,8 @@
     if(revealViewController) {
         [self.revealButtonItem setTarget:self.revealViewController];
         [self.revealButtonItem setAction:@selector(revealToggle:)];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     }
 }
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
