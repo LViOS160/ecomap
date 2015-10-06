@@ -9,6 +9,7 @@
 #import "EcomapFetcher.h"
 #import "EcomapLocalPhoto.h"
 #import "InfoActions.h"
+#import "AFNetworking.h"
 
 @implementation EcomapFetcher
 
@@ -167,17 +168,19 @@
 #pragma mark - Get Problem with ID
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler
 {
+
+    
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforProblemWithID:problemID]]
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
-                    NSDictionary *problem = nil;
+                   
                     NSArray *photos = nil;
                     NSArray *comments = nil;
                     
                     EcomapProblemDetails *problemDetails = nil;
                     NSMutableArray *problemPhotos = nil;
                     NSMutableArray *problemComments = nil;
-                    
+                  
                     if (!error) {
                         //Extract received data
                         if (JSON) {
@@ -185,7 +188,7 @@
                             //If there is no one, server give us back Dictionary with "error" key
                             //Parse JSON
                             NSDictionary *answerFromServer = [JSONParser parseJSONtoDictionary:JSON];
-                           /* if (answerFromServer) {
+                         /* if (answerFromServer) {
                                 DDLogError(@"There is no problem (id = %lu) on server", (unsigned long)problemID);
                                 //Return error. Form error to be passed to completionHandler
                                 NSError *error = [[NSError alloc] initWithDomain:NSMachErrorDomain
@@ -197,9 +200,13 @@
                             
                             //Extract problemDetails from JSON
                             //Parse JSON
-                            NSArray *jsonArray = [JSONParser parseJSONtoArray:JSON];
-                            problem = [[jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
+                          
+                            NSArray *jsonArray =[JSONParser parseJSONtoArray:JSON];
+                            //[JSONParser parseJSONtoArray:JSON];
+                           
+                            //problem = [[values objectAtIndex:1] firstObject];
                             problemDetails = [[EcomapProblemDetails alloc] initWithProblem:answerFromServer];
+                           
                             DDLogVerbose(@"Problem (id = %lu) loaded success from ecomap server", (unsigned long)problemDetails.problemID);
                             
                             photos = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_PHOTOS];

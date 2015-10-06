@@ -73,11 +73,11 @@
 #define ECOMAP_PROBLEM_DATE @"Date"
 
 // keys (paths) to values in a FIRST dictionary (details about problem) in PROBLEM array
-#define ECOMAP_PROBLEM_CONTENT @"Content"
-#define ECOMAP_PROBLEM_PROPOSAL @"Proposal"
-#define ECOMAP_PROBLEM_SEVERITY @"Severity"
-#define ECOMAP_PROBLEM_MODERATION @"Moderation"
-#define ECOMAP_PROBLEM_VOTES @"Votes"
+#define ECOMAP_PROBLEM_CONTENT @"content"
+#define ECOMAP_PROBLEM_PROPOSAL @"proposal"
+#define ECOMAP_PROBLEM_SEVERITY @"severity"
+#define ECOMAP_PROBLEM_MODERATION @"moderation"
+#define ECOMAP_PROBLEM_VOTES @"votes"
 #define ECOMAP_PROBLEM_VALUE @"value"
 
 // keys (paths) applicable to all types of Ecomap resources
