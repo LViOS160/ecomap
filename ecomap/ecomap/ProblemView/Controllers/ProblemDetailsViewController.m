@@ -129,7 +129,7 @@
 
 - (IBAction)deleteProblem:(id)sender
 {
-    [ EcomapUserFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
+    [ EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
         if(!error)
            [self.navigationController popViewControllerAnimated:YES]; 
