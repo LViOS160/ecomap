@@ -26,7 +26,7 @@
 #define ECOMAP_POST_CHANGEPASSWORD_API @"changePassword/"
 #define ECOMAP_GET_LARGE_PHOTOS_ADDRESS @"photos/large/"
 #define ECOMAP_GET_SMALL_PHOTOS_ADDRESS @"photos/small/"
-#define ECOMAP_POST_PROBLEM @"problems"
+#define ECOMAP_POST_PROBLEM @"allproblems"
 #define ECOMAP_GET_RESOURCES @"gettitles/"
 #define ECOMAP_GET_ALIAS @"resources/"
 #define ECOMAP_POST_VOTE @"vote/"
@@ -62,7 +62,7 @@
 #define ECOMAP_PROBLEM_TITLE @"title"
 
 #define ECOMAP_PROBLEM_LATITUDE @"latitude"
-#define ECOMAP_PROBLEM_LONGITUDE @"longtitude"
+#define ECOMAP_PROBLEM_LONGITUDE @"longitude"
 
 //#define ECOMAP_PROBLEM_TYPE_ID @"ProblemTypes_Id"
 #define ECOMAP_PROBLEM_TYPE_ID @"problem_type_id"

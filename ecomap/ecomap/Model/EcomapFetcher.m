@@ -185,7 +185,7 @@
                             //If there is no one, server give us back Dictionary with "error" key
                             //Parse JSON
                             NSDictionary *answerFromServer = [JSONParser parseJSONtoDictionary:JSON];
-                            if (answerFromServer) {
+                           /* if (answerFromServer) {
                                 DDLogError(@"There is no problem (id = %lu) on server", (unsigned long)problemID);
                                 //Return error. Form error to be passed to completionHandler
                                 NSError *error = [[NSError alloc] initWithDomain:NSMachErrorDomain
@@ -193,13 +193,13 @@
                                                                         userInfo:answerFromServer];
                                 completionHandler(problemDetails, error);
                                 return;
-                            }
+                            }*/
                             
                             //Extract problemDetails from JSON
                             //Parse JSON
                             NSArray *jsonArray = [JSONParser parseJSONtoArray:JSON];
                             problem = [[jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
-                            problemDetails = [[EcomapProblemDetails alloc] initWithProblem:problem];
+                            problemDetails = [[EcomapProblemDetails alloc] initWithProblem:answerFromServer];
                             DDLogVerbose(@"Problem (id = %lu) loaded success from ecomap server", (unsigned long)problemDetails.problemID);
                             
                             photos = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_PHOTOS];

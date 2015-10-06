@@ -356,7 +356,7 @@
         [self loadProblems];
     }];
     
-    params;
+    
 }
 
 - (void)setCurView:(ConstHeightViewController *)curView {

@@ -92,7 +92,7 @@ typedef enum : NSUInteger {
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
-    [EcomapFetcher loadProblemDetailsWithID:51//self.problemID
+    [EcomapFetcher loadProblemDetailsWithID:self.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    self.problemDetails = problemDetails;
                                    self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:problemDetails];
