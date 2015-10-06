@@ -98,12 +98,12 @@
 #define ECOMAP_PHOTO_USERS_ID @"Users_Id"
 
 // keys (paths) to values in a THIRD dictionary (comments to problems) in PROBLEM array
-#define ECOMAP_COMMENT_ID @"Id"
-#define ECOMAP_COMMENT_CONTENT @"Content"
-#define ECOMAP_COMMENT_DATE @"Date"
-#define ECOMAP_COMMENT_ACTYVITYTYPES_ID @"ActivityTypes_Id"
-#define ECOMAP_COMMENT_USERS_ID @"Users_Id"
-#define ECOMAP_COMMENT_PROBLEMS_ID @"Problems_Id"
+#define ECOMAP_COMMENT_ID @"id"
+#define ECOMAP_COMMENT_CONTENT @"content"
+#define ECOMAP_COMMENT_DATE @"created_date"
+#define ECOMAP_COMMENT_ACTYVITYTYPES_ID @"activitytypes_id"
+#define ECOMAP_COMMENT_USERS_ID @"created_by"
+#define ECOMAP_COMMENT_PROBLEMS_ID @"problems_id"
 
 //keys (paths) to value in a content dictionary of a THIRD dictionary
 

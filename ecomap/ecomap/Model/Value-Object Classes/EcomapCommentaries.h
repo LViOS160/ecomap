@@ -9,5 +9,8 @@
 #import "EcomapActivity.h"
 
 @interface EcomapCommentaries : EcomapActivity
-
++(EcomapCommentaries*)sharedInstance;
+-(void)setCommentariesArray:(NSArray*)comentArray :(NSUInteger)probId;
+@property (nonatomic, readwrite) NSArray* comInfo;
+@property (nonatomic, readwrite) NSUInteger problemsID;
 @end
