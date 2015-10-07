@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7519.1" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7513.1"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -182,15 +182,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sort-numeric-desc25" translatesAutoresizingMaskIntoConstraints="NO" id="zWq-Iz-jPa">
-                                            <rect key="frame" x="20" y="11" width="25" height="25"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ТОП проблем" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6e-Sb-usr">
-                                            <rect key="frame" x="75" y="11" width="114" height="24"/>
+                                            <rect key="frame" x="75" y="11" width="114" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sort-numeric-desc25" translatesAutoresizingMaskIntoConstraints="NO" id="zWq-Iz-jPa">
+                                            <rect key="frame" x="20" y="11" width="25" height="25"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="S6e-Sb-usr" firstAttribute="leading" secondItem="zWq-Iz-jPa" secondAttribute="trailing" constant="30" id="JKb-rI-M2o"/>
@@ -313,33 +313,6 @@
                                     <segue destination="tJd-i2-Qzv" kind="custom" identifier="profile" customClass="SWRevealModalSegue" id="qRj-5f-tsi"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="login" id="pPf-Q2-fBd" customClass="SWUITableViewCell">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pPf-Q2-fBd" id="Nrj-VQ-wQh">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вхiд" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eo4-6b-NZ9">
-                                            <rect key="frame" x="75" y="11" width="35" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign-in25" translatesAutoresizingMaskIntoConstraints="NO" id="3B5-zM-TaU">
-                                            <rect key="frame" x="20" y="11" width="25" height="25"/>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="3B5-zM-TaU" firstAttribute="leading" secondItem="Nrj-VQ-wQh" secondAttribute="leadingMargin" constant="12" id="6oY-IC-T2p"/>
-                                        <constraint firstItem="eo4-6b-NZ9" firstAttribute="top" secondItem="3B5-zM-TaU" secondAttribute="top" id="ElP-y7-S9e"/>
-                                        <constraint firstItem="eo4-6b-NZ9" firstAttribute="leading" secondItem="3B5-zM-TaU" secondAttribute="trailing" constant="30" id="Hbu-U9-FKh"/>
-                                        <constraint firstItem="eo4-6b-NZ9" firstAttribute="centerY" secondItem="Nrj-VQ-wQh" secondAttribute="centerY" id="Jd4-ZT-1PU"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="label" destination="eo4-6b-NZ9" id="EcO-7a-Dnz"/>
-                                    <segue destination="hKA-P8-oYe" kind="custom" identifier="login" customClass="SWRevealModalSegue" id="KKK-LH-uSR"/>
-                                </connections>
-                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="nMd-Ws-qMq" id="UHP-Fi-2TU"/>
@@ -349,7 +322,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PVo-yu-sQI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-799" y="135"/>
+            <point key="canvasLocation" x="-795" y="125"/>
         </scene>
         <!--Problem Filtering-->
         <scene sceneID="PtO-SL-MWX">
@@ -890,7 +863,7 @@
         <!--Ecomap-->
         <scene sceneID="Auy-CR-RWp">
             <objects>
-                <viewController storyboardIdentifier="mapvc" id="bov-97-S05" customClass="AddProblemViewController" sceneMemberID="viewController">
+                <viewController id="bov-97-S05" customClass="AddProblemViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kuJ-4W-yhv"/>
                         <viewControllerLayoutGuide type="bottom" id="HGO-LG-HWP"/>
@@ -2957,7 +2930,7 @@
         <image name="user25" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FV4-dD-aqm"/>
+        <segue reference="WgQ-oX-LnI"/>
         <segue reference="p0L-Um-XQx"/>
     </inferredMetricsTieBreakers>
 </document>
