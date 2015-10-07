@@ -29,7 +29,7 @@
     [coder encodeInteger:self.problemID forKey:@"problemID"];
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];
-    [coder encodeDouble:self.longitude forKey:@"longtitude"];
+    [coder encodeDouble:self.longitude forKey:@"longitude"];
     [coder encodeInteger:self.problemTypesID forKey:@"problemTypesID"];
     [coder encodeObject:self.problemTypeTitle forKey:@"problemTypeTitle"];
     [coder encodeBool:self.isSolved forKey:@"isSolved"];

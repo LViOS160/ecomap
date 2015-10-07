@@ -40,7 +40,7 @@
 
 + (NSURL *)URLforProblemWithID:(NSUInteger)problemID
 {
-    NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEMS_API, (unsigned long)problemID];
+    NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEMS_WITH_ID_API, (unsigned long)problemID];
     return [self URLForAPIQuery:query];
 }
 

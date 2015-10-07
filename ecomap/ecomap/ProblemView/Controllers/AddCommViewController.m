@@ -20,7 +20,7 @@
 #import "EcomapUserFetcher.h"
 #import "EcomapAdminFetcher.h"
 #import "InfoActions.h"
-
+#import "AFNetworking.h"
 
 
 @interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
@@ -57,6 +57,11 @@
     [self.addCommentButton setImage:addButtonImage
                            forState:UIControlStateNormal];
    
+    
+    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+    
+   // [self.comments initWithArray: [ob comInfo]];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -122,7 +127,9 @@
                  }
                  [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
                  
-             }];
+             }];*/
+        
+        
             
         }
 
@@ -218,12 +225,12 @@
         NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
         [formatter setLocale:ukraineLocale];                   //
         
-        NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentair.userName, commentair.userSurname];
-        NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentair.date]];
-        cell.personInfo.text = personalInfo;
-        cell.dateInfo.text = dateInfo;
-        [cell setNeedsUpdateConstraints];
-        [cell updateConstraintsIfNeeded];
+   //     NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentair.userName, commentair.userSurname];
+     // NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentair.date]];
+     //   cell.personInfo.text = personalInfo;
+       // cell.dateInfo.text = dateInfo;
+        //[cell setNeedsUpdateConstraints];
+        //[cell updateConstraintsIfNeeded];
         return cell;
     }
     
@@ -251,12 +258,36 @@
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-         EcomapActivity *commentaries = [self.comments objectAtIndex:indexPath.row];
-        NSUInteger number = commentaries.commentID;
-        [ EcomapAdminFetcher deleteComment:number onCompletion:^(NSError *error) {
+        // EcomapActivity *commentaries = [self.comments objectAtIndex:indexPath.row];
+       // NSUInteger number = commentaries.commentID;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+        [manager setRequestSerializer:jsonRequestSerializer];
+        NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
+       NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+        NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
+        
+        
+        
+        
+        [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"ura");
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            
+            NSLog(@"%@",error);
+        }];
+
+        [tableView reloadData];
+        
+        
+        /*[ EcomapAdminFetcher deleteComment:number onCompletion:^(NSError *error) {
             if(!error)
             [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-        }];
+        }];*/
         
     }
     
