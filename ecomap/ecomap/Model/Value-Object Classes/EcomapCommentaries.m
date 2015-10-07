@@ -15,24 +15,45 @@
 @property (nonatomic, strong, readwrite) NSDate *date;
 @property (nonatomic, readwrite) NSUInteger activityTypes_Id;
 @property (nonatomic, readwrite) NSUInteger usersID;
-@property (nonatomic, readwrite) NSUInteger problemsID;
+
 
 @property (nonatomic, readwrite) NSString *problemContent;
 @property (nonatomic, readwrite) NSString *userName;
 @property (nonatomic, readwrite) NSString *userSurname;
+
 
 @end
 
 @implementation EcomapCommentaries
 @synthesize  commentID, content, date, activityTypes_Id, usersID, problemsID, problemContent, userName, userSurname;
 
++(EcomapCommentaries*)sharedInstance
+{
+    static EcomapCommentaries* singleton;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{singleton = [[EcomapCommentaries alloc] init];});
+    return singleton;
+    
+}
+
+-(void)setCommentariesArray:(NSArray *)comentArray :(NSUInteger)probId
+{
+   
+    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+    ob.comInfo =comentArray;
+    ob.problemsID = probId;
+    
+}
+
 -(instancetype)initWithInfo:(NSDictionary *)problem
 {
     self = [super init];
+    
+   
     if (self) {
         if (!problem) return nil;
-        self.commentID = [[problem valueForKey:ECOMAP_COMMENT_ID] isKindOfClass:[NSNumber class]] ? [[problem valueForKey:ECOMAP_COMMENT_ID] integerValue] : 0;
-        
+        self.commentID = [[problem valueForKey:ECOMAP_COMMENT_ID]  isKindOfClass:[NSNumber class]] ? [[problem valueForKey:ECOMAP_COMMENT_ID] integerValue] : 0;
+        NSLog(@"%@",[problem valueForKey:ECOMAP_COMMENT_ID]);
         self.content = [[problem valueForKey:ECOMAP_COMMENT_CONTENT] isKindOfClass:[NSString class]] ? [problem valueForKey:ECOMAP_COMMENT_CONTENT] : @"";
         NSData *data = [self.content dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *commentDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];

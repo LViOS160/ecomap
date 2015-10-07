@@ -48,7 +48,7 @@
 "CNL-Cg-M9H.placeholder" = "Пароль";
 
 /* Class = "UILabel"; text = "Пропозиції щодо вирішення"; ObjectID = "D2w-Mn-0kf"; */
-"D2w-Mn-0kf.text" = "Пропозиції щодо вирішення";
+"D2w-Mn-0kf.text" = "Пропозиції щодо вирішення";                                          // translate
 
 /* Class = "UIButton"; normalTitle = "Выбрать"; ObjectID = "DFW-mu-WEi"; */
 "DFW-mu-WEi.normalTitle" = "Выбрать";

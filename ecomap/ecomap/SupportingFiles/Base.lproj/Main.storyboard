@@ -900,13 +900,26 @@
                                     <segue destination="ePc-ly-kdW" kind="custom" identifier="Filter Problem" customClass="SWRevealModalSegue" id="KOA-a8-0yx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4JU-dx-ZTR">
+                                <rect key="frame" x="396" y="479" width="80" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.95863093189194692" blue="0.21968255428682348" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="EWm-Cg-ISM"/>
+                                </constraints>
+                                <state key="normal" title="goToUK"/>
+                                <connections>
+                                    <action selector="showUkrainePlacement:" destination="bov-97-S05" eventType="touchUpInside" id="2Gw-qs-UEL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RnJ-vU-07S" firstAttribute="leading" secondItem="WRP-KO-eoO" secondAttribute="leading" constant="16" id="9cn-51-sk7"/>
                             <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="Vm5-Cq-zWt" secondAttribute="bottom" constant="77" id="FFa-3E-dEE"/>
                             <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="RnJ-vU-07S" secondAttribute="bottom" constant="20" id="HTV-ZV-D2K"/>
+                            <constraint firstItem="4JU-dx-ZTR" firstAttribute="centerY" secondItem="Vm5-Cq-zWt" secondAttribute="centerY" id="QXu-l2-6DF"/>
                             <constraint firstAttribute="trailing" secondItem="Vm5-Cq-zWt" secondAttribute="trailing" constant="7" id="S9y-3g-6fY"/>
+                            <constraint firstItem="Vm5-Cq-zWt" firstAttribute="leading" secondItem="4JU-dx-ZTR" secondAttribute="trailing" constant="57" id="koN-cb-NSV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Ecomap" id="k5h-KU-feq">
@@ -914,6 +927,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addProblemButton" destination="Vm5-Cq-zWt" id="X38-fM-VaU"/>
+                        <outlet property="goToUkraineButton" destination="4JU-dx-ZTR" id="KGG-4h-CbM"/>
                         <outlet property="revealButtonItem" destination="XHY-cf-hKr" id="N9D-Zi-8J0"/>
                         <outlet property="topSpaceToButton" destination="FFa-3E-dEE" id="AjH-kX-exm"/>
                         <segue destination="2UE-DX-Tsm" kind="show" identifier="Show problem" id="p0L-Um-XQx"/>
@@ -1301,6 +1315,14 @@
                                             <constraint firstAttribute="centerX" secondItem="RQU-7K-8cI" secondAttribute="centerX" id="nui-7a-gXH"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Кількість доданих проблем за останній" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-Qg-V45">
+                                        <rect key="frame" x="144" y="3" width="312" height="21"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="45" y="3" width="312" height="21"/>
+                                        </variation>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="Wq9-3K-2vu" secondAttribute="centerX" id="608-mk-PEF"/>
@@ -1411,7 +1433,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1062.75" y="135"/>
+            <point key="canvasLocation" x="1062" y="135"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OZ0-nX-FNF">
@@ -1992,7 +2014,7 @@
                                                             <constraint firstAttribute="width" constant="282" id="nwM-yU-vNg"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Роль" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHE-41-7pt">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Роль" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHE-41-7pt">
                                                         <rect key="frame" x="21" y="182" width="29" height="15"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -2005,7 +2027,7 @@
                                                             <constraint firstAttribute="height" constant="41" id="xGV-6c-F9m"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Email-адреса" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7H-LP-LE7">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email-адреса" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7H-LP-LE7">
                                                         <rect key="frame" x="21" y="250" width="77" height="15"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

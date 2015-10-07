@@ -16,7 +16,7 @@
 #import "InfoActions.h"
 #import "MapViewController.h"
 #import "EcomapRevealViewController.h"
-
+#import "AFNetworking.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 #import "Defines.h"
@@ -29,7 +29,8 @@ typedef enum : NSUInteger {
 
 @interface ProblemViewController()
 
-@property (nonatomic, strong) EcomapProblemDetails *problemDetails;
+//@property (nonatomic, strong) EcomapProblemDetails *problemDetails;
+@property EcomapProblemDetails *problemDetails;
 @property (weak, nonatomic) IBOutlet UILabel *severityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
@@ -95,9 +96,15 @@ typedef enum : NSUInteger {
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
+    
+    
+
+    
+    
     [EcomapFetcher loadProblemDetailsWithID:self.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    self.problemDetails = problemDetails;
+                                  
                                    self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:problemDetails];
                                    [self.containerViewController setProblemDetails:problemDetails];
                                    [self updateHeader];

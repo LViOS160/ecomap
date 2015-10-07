@@ -17,7 +17,7 @@
 + (NSArray *)parseJSONtoArray:(NSData *)JSON
 {
     NSArray *dataFromJSON = nil;
-    NSError *error = nil;
+    NSError *error;
     id parsedJSON = [NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
     if (!error) {
         if ([parsedJSON isKindOfClass:[NSArray class]]) {
