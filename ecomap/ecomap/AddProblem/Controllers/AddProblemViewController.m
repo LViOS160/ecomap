@@ -1,3 +1,4 @@
+
 //
 //  AddProblemViewController.m
 //  ecomap
@@ -27,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *addProblemButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceToButton;
 @property (nonatomic) UIBarButtonItem *closeButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *goToUkraineButton;
 
 // NavigationViews
 
@@ -61,6 +64,12 @@
                                                object:nil];
     screenWidth = [UIScreen mainScreen].bounds.size.width;
     padding = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    //Pavlo
+    
+    [self.view bringSubviewToFront:self.goToUkraineButton];
+    
+    
 }
 
 
@@ -112,6 +121,13 @@
         [alert show];
     }
     return fieldFilled;
+}
+
+
+- (IBAction)showUkrainePlacement:(id)sender {
+   self.mapView.camera = [GMSCameraPosition cameraWithLatitude:50
+                longitude:30
+                     zoom:5];
 }
 
 #pragma mark - Buttons
@@ -340,6 +356,8 @@
     [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
         [self loadProblems];
     }];
+    
+    
 }
 
 - (void)setCurView:(ConstHeightViewController *)curView {

@@ -326,7 +326,7 @@ static BOOL calledFacebookCloseSession = NO;
     [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
     
     //Create JSON data to send to  server
-    NSDictionary *loginData = @{@"first_name": name, @"last_name":surname, @"email" : email, @"password" : password};
+    NSDictionary *loginData = @{@"password" : password, @"first_name": name, @"last_name":surname, @"email" : email};
     NSData *data = [NSJSONSerialization dataWithJSONObject:loginData
                                                    options:0
                                                      error:nil];
