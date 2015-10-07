@@ -47,7 +47,7 @@
     self.problemTypeTitle = [coder decodeObjectForKey:@"problemTypeTitle"];
     self.isSolved = [coder decodeBoolForKey:@"isSolved"];
     self.dateCreated = [coder decodeObjectForKey:@"dateCreated"];
-    self.userCreator = [coder decodeIntegerForKey:@"usercreated"];
+    self.userCreator = [coder decodeIntegerForKey:@"userCreated"];
     return self;
 }
 
@@ -64,13 +64,12 @@
         self.longitude = ![[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] doubleValue] : 0;
         self.problemTypesID = ![[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] integerValue] : 0;
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:(self.problemTypesID - 1)];
-        NSInteger isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_STATUS] integerValue] : 0;
-        self.isSolved = isSolvedInt == 0 ? NO : YES;
-        //Adding userID
+        NSString *isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_STATUS]  : 0;
+        self.isSolved = [isSolvedInt isEqualToString:@"UNSOLVED"] ? NO : YES;
         self.dateCreated = [self dateCreatedOfProblem:problem];
-        EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-        self.userCreator = userIdent.userID;
-    }
+        //Adding userID
+        self.userCreator = ![[problem valueForKey:@"user_id"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"user_id"] integerValue] : 0;
+            }
     return self;
 }
 

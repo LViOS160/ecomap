@@ -27,7 +27,7 @@
 #define ECOMAP_GET_LARGE_PHOTOS_ADDRESS @"photos/large/"
 #define ECOMAP_GET_SMALL_PHOTOS_ADDRESS @"photos/small/"
 #define ECOMAP_POST_PROBLEM @"allproblems"
-#define ECOMAP_GET_RESOURCES @"gettitles/"
+#define ECOMAP_GET_RESOURCES @"getTitles/"
 #define ECOMAP_GET_ALIAS @"resources/"
 #define ECOMAP_POST_VOTE @"vote/"
 #define ECOMAP_POST_COMMENT @"comment/"
@@ -70,7 +70,7 @@
 #define ECOMAP_PROBLEM_STATUS @"status"
 
 // keys (paths) to values in a PROBLEM dictionary of PROBLEMS array
-#define ECOMAP_PROBLEM_DATE @"Date"
+#define ECOMAP_PROBLEM_DATE @"datetime"
 
 // keys (paths) to values in a FIRST dictionary (details about problem) in PROBLEM array
 #define ECOMAP_PROBLEM_CONTENT @"content"
