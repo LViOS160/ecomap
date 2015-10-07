@@ -108,8 +108,48 @@
         EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
         NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
     
-    if(userIdent)
-    {
+    if(userIdent) {
+        
+#warning Roma has to remove this dispatching
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+            [[NetworkActivityIndicator sharedManager] startActivity];
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+            [manager setRequestSerializer:jsonRequestSerializer];
+            NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
+            NSString *middle = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)[ob problemsID]];
+            NSString *final = [middle stringByAppendingString:@"/comments"];
+           
+            NSDictionary *cont = @{ @"content":fromTextField};
+            
+            [manager POST:final parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"ura");
+                
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+                
+                NSLog(@"%@",error);
+            }];
+            
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[NetworkActivityIndicator sharedManager]endActivity];
+        });
+        
+    
+        
+
+        
+        
+        
+        
+        /*
             [EcomapFetcher createComment:userID
                                  andName:userIdent.name
                               andSurname:userIdent.surname
@@ -190,34 +230,37 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(self.comments.count == 0)
+    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+    if(ob.comInfo.count == 0)
     {
          return 1;
     }
     else
     {
-        return self.comments.count;
+        return ob.comInfo.count;
     }
- 
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    if(self.comments.count == 0)
+    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+    if(ob.comInfo.count == 0)
     {
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = @"Коментарі відсутні";
         return cell;
     }
     else
-    {
-        EcomapCommentaries *commentair = [self.comments objectAtIndex:indexPath.row];
-        CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+    {//EcomapCommentaries *commentair = [self.comments objectAtIndex:indexPath.row];
+         EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
         
-        cell.commentContent.text= commentair.problemContent;
+        
+        CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+        NSInteger row = indexPath.row;
+        
+        cell.commentContent.text= [[ob.comInfo  objectAtIndex:row] valueForKey:@"content"];
         NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
         formatter.dateStyle = NSDateFormatterMediumStyle;      //
         formatter.timeStyle = NSDateFormatterShortStyle;       //
@@ -243,20 +286,22 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    if([userIdent.role isEqualToString:@"administrator"] && self.comments.count > 0)
-    {
+ /*   if([userIdent.role isEqualToString:@"user"] && self.comments.count >0)
+        return YES;
+    else*/
+    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+    if([userIdent.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]]){
         return YES;
     }
-    else
-    {
+    
         return NO;
-    }
 }
 
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(editingStyle == UITableViewCellEditingStyleDelete)
+    EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+          if(editingStyle == UITableViewCellEditingStyleDelete)
     {
         // EcomapActivity *commentaries = [self.comments objectAtIndex:indexPath.row];
        // NSUInteger number = commentaries.commentID;
