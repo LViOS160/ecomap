@@ -92,21 +92,23 @@ enum : NSInteger {
     [self.proposal resignFirstResponder];
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     
-    
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-    [manager setRequestSerializer:jsonRequestSerializer];
+    //AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    //[manager setRequestSerializer:jsonRequestSerializer];
     
-    NSDictionary *dictionary = @{ @"Content" : self.editableProblem.content,
-                                  @"ProblemStatus" : [self stringFromIsSolved:self.editableProblem.isSolved],
-                                  @"Proposal" : self.editableProblem.proposal,
-                                  @"Severity" : [self stringFromSeverity:self.editableProblem.severity],
-                                  @"Title" : self.editableProblem.title
+    NSDictionary *dictionary = @{
+                                 @"status" : [self stringFromIsSolved:self.editableProblem.isSolved],
+                                 @"severity" : [self stringFromSeverity:self.editableProblem.severity],
+                                 @"title" : self.editableProblem.title,
+                                 @"problem_type_id" : [NSString stringWithFormat:@"%lu", (unsigned long)self.problem.problemID ],
+                                 @"content" : self.editableProblem.content,
+                                 @"proposal" : self.editableProblem.proposal,
+                                 @"latitude" : @(self.problem.latitude),
+                                 @"longitude" : @(self.problem.longitude)
                                   };
 
     
-    NSString *baseUrl = @"http://176.36.11.25:8000/api/editProblem/";
+    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
     
