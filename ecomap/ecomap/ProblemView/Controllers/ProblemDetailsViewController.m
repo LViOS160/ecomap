@@ -12,7 +12,6 @@
 #import "EMThumbnailImageStore.h"
 #import "EcomapFetcher+PostProblem.h"
 #import "EcomapAdminFetcher.h"
-#import "EcomapUserFetcher.h"
 #import "EcomapThumbnailFetcher.h"
 #import "EcomapURLFetcher.h"
 #import "PhotoViewController.h"
@@ -112,7 +111,16 @@
     self.descriptionText.attributedText = text;
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    if([userIdent.role isEqualToString:@"administrator"] || userIdent.userID == self.user.userID) {
+    
+    
+    NSDictionary *userInfo = [JSONParser parseJSONtoDictionary:self.problemDetails];
+    EcomapLoggedUser *user = [EcomapLoggedUser loginUserWithInfo:userInfo];
+    
+
+
+    
+    
+    if(([userIdent.role isEqualToString:@"administrator"] ) && userIdent) {
         self.editButton.hidden = NO;
         self.deleteButton.hidden = NO;
     }
@@ -129,11 +137,24 @@
 
 - (IBAction)deleteProblem:(id)sender
 {
-    [ EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setRequestSerializer:jsonRequestSerializer];
+    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSUInteger num = self.problemDetails.problemID;
+    NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
+    
+    
+    
+    [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
-        if(!error)
-           [self.navigationController popViewControllerAnimated:YES]; 
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        [self.navigationController popViewControllerAnimated:YES];
     }];
+
 }
 
 #pragma mark - Scroll View Gallery setup
