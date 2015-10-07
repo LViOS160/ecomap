@@ -11,6 +11,7 @@
 #import "EcomapAdminFetcher.h"
 #import "Defines.h"
 #import "InfoActions.h"
+#import "AFNetworking.h"
 
 enum : NSInteger {
     TextFieldTag_Content = 1,
@@ -90,17 +91,38 @@ enum : NSInteger {
     [self.content resignFirstResponder];
     [self.proposal resignFirstResponder];
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
-    [EcomapAdminFetcher changeProblem:self.problem.problemID
-                       withNewProblem:self.editableProblem
-                         onCompletion:^(NSData *result, NSError *error) {
-                             [InfoActions stopActivityIndicator];
-                             [self.navigationController popViewControllerAnimated:YES];
-                             if (error) {
-                                 [InfoActions showAlertOfError:error];
-                             } else {
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:nil];
-                             }
-                         }];
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setRequestSerializer:jsonRequestSerializer];
+    
+    NSDictionary *dictionary = @{ @"Content" : self.editableProblem.content,
+                                  @"ProblemStatus" : [self stringFromIsSolved:self.editableProblem.isSolved],
+                                  @"Proposal" : self.editableProblem.proposal,
+                                  @"Severity" : [self stringFromSeverity:self.editableProblem.severity],
+                                  @"Title" : self.editableProblem.title
+                                  };
+
+    
+    NSString *baseUrl = @"http://176.36.11.25:8000/api/editProblem/";
+    NSUInteger num = self.problem.problemID;
+    NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
+    
+    [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [InfoActions stopActivityIndicator];
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        [InfoActions showAlertOfError:error];
+    }];
+ 
+    
 }
 
 - (void)closeButtonTouch:(id)sender
