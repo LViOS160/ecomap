@@ -15,6 +15,7 @@
 #import "InfoActions.h"
 #import "EcomapLocalPhoto.h"
 #import "SlideAnimator.h"
+#import "MenuViewController.h"
 
 @interface AddProblemViewController () {
     CGFloat padding;

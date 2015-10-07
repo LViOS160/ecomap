@@ -25,6 +25,7 @@
 #import "EcomapUserFetcher.h"
 #import "EcomapLoggedUser.h"
 #import "InfoActions.h"
+#import "MenuViewController.h"
 
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
@@ -46,6 +47,7 @@
 // Set which contains problems after applying filter.
 @property (nonatomic, strong) NSSet *filteredProblems;
 
+
 @end
 
 @implementation MapViewController
@@ -61,6 +63,7 @@
                                              selector:@selector(allProblemsChanged:)
                                                  name:ALL_PROBLEMS_CHANGED
                                                object:nil];
+   
 }
 
 - (void)login {
@@ -236,9 +239,11 @@
     if ( revealViewController )
     {
         revealViewController.mapViewController = self.navigationController;
+        
         [self.revealButtonItem setTarget: self.revealViewController];
         [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer: self.revealViewController.tapGestureRecognizer];
     }
 }
 
@@ -260,16 +265,16 @@
                                         0);
 }
 
-- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
-    assert(mapView == self.mapView);
+- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {   
+
+      assert(mapView == self.mapView);
     
     // Don't re-compute clusters if the map has just been panned/tilted/rotated.
     GMSCameraPosition *position = [mapView camera];
     if (self.previousCameraPosition != nil && self.previousCameraPosition.zoom == position.zoom) {
         return;
     }
-    self.previousCameraPosition = [mapView camera];
-    
+    self.previousCameraPosition = [mapView camera];    
     [self.clusterManager cluster];
 }
 

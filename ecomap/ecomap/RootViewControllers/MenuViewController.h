@@ -10,7 +10,6 @@
 
 @interface SWUITableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *label;
-
 @end
 
 @interface SWUIUserTableViewCell : UITableViewCell
@@ -20,4 +19,5 @@
 
 
 @interface MenuViewController : UITableViewController
+
 @end
