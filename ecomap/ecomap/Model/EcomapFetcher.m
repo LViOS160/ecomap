@@ -9,6 +9,7 @@
 #import "EcomapFetcher.h"
 #import "EcomapLocalPhoto.h"
 #import "InfoActions.h"
+#import "AFNetworking.h"
 
 @implementation EcomapFetcher
 
@@ -167,17 +168,77 @@
 #pragma mark - Get Problem with ID
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler
 {
+
+    
+    
+  // [[NetworkActivityIndicator sharedManager] startActivity];
+    
+
+    NSArray *jsonArray;// =[JSONParser parseJSONtoArray:JSON];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+   // AFJSONRequestSerializer *jsonRequestSerializer = [AFHTTPResponseSerializer serializer];
+    
+    //[manager setRequestSerializer:jsonRequestSerializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    NSString* baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
+    NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
+    
+    [manager GET:finalUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // EcomapCommentaries *coments = [[EcomapCommentaries alloc] initWithInfo:responseObject];
+        
+        NSArray* tmp = [responseObject valueForKey:@"data"];
+        NSLog(@"%@", [tmp valueForKey:@"id"]);
+        
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmp options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        NSError *jsonError;
+        NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:objectData
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:&jsonError];
+        
+        NSArray *ar = [JSONParser parseJSONtoArray:objectData];
+        
+        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+        [ob setCommentariesArray:ar :problemID];
+        ob.problemsID = problemID;
+        
+        
+        
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+
+        ob.problemsID = problemID;
+        NSLog(@"%@",error);
+    }];
+    
+
+
+
+
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforProblemWithID:problemID]]
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
-                    NSDictionary *problem = nil;
+                   
+                    
+                    
+                    
+                    
                     NSArray *photos = nil;
                     NSArray *comments = nil;
                     
                     EcomapProblemDetails *problemDetails = nil;
                     NSMutableArray *problemPhotos = nil;
                     NSMutableArray *problemComments = nil;
-                    
+                  
                     if (!error) {
                         //Extract received data
                         if (JSON) {
@@ -185,7 +246,9 @@
                             //If there is no one, server give us back Dictionary with "error" key
                             //Parse JSON
                             NSDictionary *answerFromServer = [JSONParser parseJSONtoDictionary:JSON];
-                            if (answerFromServer) {
+                            NSString* newStr = [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding];
+                       
+                         /* if (answerFromServer) {
                                 DDLogError(@"There is no problem (id = %lu) on server", (unsigned long)problemID);
                                 //Return error. Form error to be passed to completionHandler
                                 NSError *error = [[NSError alloc] initWithDomain:NSMachErrorDomain
@@ -193,13 +256,17 @@
                                                                         userInfo:answerFromServer];
                                 completionHandler(problemDetails, error);
                                 return;
-                            }
+                            }*/
                             
                             //Extract problemDetails from JSON
                             //Parse JSON
-                            NSArray *jsonArray = [JSONParser parseJSONtoArray:JSON];
-                            problem = [[jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_DESCRIPTION] firstObject];
-                            problemDetails = [[EcomapProblemDetails alloc] initWithProblem:problem];
+                        
+                            
+                            //[JSONParser parseJSONtoArray:JSON];
+                           
+                            //problem = [[values objectAtIndex:1] firstObject];
+                            problemDetails = [[EcomapProblemDetails alloc] initWithProblem:answerFromServer];
+                           
                             DDLogVerbose(@"Problem (id = %lu) loaded success from ecomap server", (unsigned long)problemDetails.problemID);
                             
                             photos = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_PHOTOS];
@@ -209,6 +276,7 @@
                                 if(photo)
                                     [problemPhotos addObject:ecoPhoto];
                             }
+                            // DUMYAK CHANGE THERE
                             
                             comments = [jsonArray objectAtIndex:ECOMAP_PROBLEM_DETAILS_COMMENTS];
                             problemComments = [NSMutableArray array];

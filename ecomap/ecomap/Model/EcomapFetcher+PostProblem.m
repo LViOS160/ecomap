@@ -8,6 +8,7 @@
 
 #import "EcomapFetcher+PostProblem.h"
 #import "EcomapLocalPhoto.h"
+#import "AFNetworking.h"
 
 @implementation EcomapFetcher (PostProblem)
 
@@ -17,19 +18,76 @@
      problemDetails:(EcomapProblemDetails*)problemDetails
                user:(EcomapLoggedUser*)user
        OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler {
-    NSDictionary *params = @{@"title"     : problem.title,
+    NSDictionary *params = @{
+                          // @"severity" : @(problemDetails.severity),
+                             @"title"     : problem.title,
                              @"content"    : problemDetails.content,
                              @"proposal" : problemDetails.proposal,
                              @"latitude" : @(problem.latitude),
                              @"longitude" : @(problem.longitude),
-                             @"type" : @(problem.problemTypesID),
-                             @"userId" : user ? @(user.userID) : @"",
-                             @"userName" : user ? user.name : @"",
-                             @"userSurname" : user ? user.surname : @""
+                             @"problem_type_id" : @(problem.problemTypesID)
+                             
                              };
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        
+        
+        
+        [[NetworkActivityIndicator sharedManager] startActivity];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+        [manager setRequestSerializer:jsonRequestSerializer];
+        
+        
+        
+        [manager POST:@"http://176.36.11.25:8000/api/problems" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"ura");
+          //  EcomapLoggedUser *loggedUser = nil;
+            // NSDictionary *userInfo;
+            //userInfo = [JSONParser parseJSONtoDictionary:responseObject];
+           /* loggedUser = [EcomapLoggedUser loginUserWithInfo:responseObject];
+            if (loggedUser) {
+                
+                loggedUser = [EcomapLoggedUser loginUserWithInfo:responseObject];
+                
+                DDLogVerbose(@"LogIN to ecomap success! %@", loggedUser.description);}
+            //[[NetworkActivityIndicator sharedManager] endActivity];
+            
+            
+            
+            //Create cookie
+            NSHTTPCookie *cookie = [self createCookieForUser:[EcomapLoggedUser currentLoggedUser]];
+            if (cookie) {
+                DDLogVerbose(@"Cookies created success!");
+                //Put cookie to NSHTTPCookieStorage
+                [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+                [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:@[cookie]
+                                                                   forURL:[EcomapURLFetcher URLforServer]
+                                                          mainDocumentURL:nil];}*/
+            NSLog(@"ura!");
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            
+            NSLog(@"%@",error);
+        }];
+        
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[NetworkActivityIndicator sharedManager]endActivity];
+    });
+    
+    
+
+    
+    
+    /*
+    
     // Determine the path for the image
-    NSMutableArray *localPhotos = [NSMutableArray arrayWithCapacity:problemDetails.photos.count];
+   NSMutableArray *localPhotos = [NSMutableArray arrayWithCapacity:problemDetails.photos.count];
     for (EcomapLocalPhoto *photo in problemDetails.photos) {
         [localPhotos addObject:[[EcomapLocalPhoto alloc] initWithImage:photo.image
                                                            description:photo.imageDescription]];
@@ -75,7 +133,7 @@
                                               });
                                           }];
     [task resume];
-    
+    */
 }
 
 + (void)addPhotos:(NSArray*)photos

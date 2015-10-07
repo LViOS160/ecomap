@@ -39,6 +39,7 @@
                                                         //Log to console
                                                         DDLogVerbose(@"Data task performed success from URL: %@", request.URL);
                                                         JSON = data;
+                                                        error = 0;
                                                     } else {
                                                         //Create error message
                                                         error = [self errorForStatusCode:[self statusCodeFromResponse:response]];

@@ -87,6 +87,8 @@
         sharedAccount.token = ![[userInfo valueForKey:ECOMAP_USER_TOKEN] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_TOKEN] : 0;
         sharedAccount.email = ![[userInfo valueForKey:ECOMAP_USER_EMAIL] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_EMAIL] : nil;
     }
+    NSLog(@"%@",sharedAccount.name);
+    
 }
 
 //Return current logged user
@@ -111,6 +113,7 @@
 //Override
 - (NSString *)description
 {
+    
     return [NSString stringWithFormat:@"Logged user: %@ %@ (id = %lu)", self.name, self.surname, (unsigned long)self.userID];
 }
 
