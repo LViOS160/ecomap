@@ -41,6 +41,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) id <EcomapProblemViewDelegate> delegate;
 
 // For admin purposes
+
 @property (nonatomic, strong) EcomapLoggedUser *user;
 @property (nonatomic, strong) EcomapEditableProblem *editableProblem;
 
@@ -59,7 +60,7 @@ typedef enum : NSUInteger {
     [self.statusLabel addGestureRecognizer:tapStatusLabelGestureRecognizer];
     
     
-    
+    self.user = [EcomapLoggedUser currentLoggedUser];
     [self updateHeader];
     [self loadProblemDetails:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -77,8 +78,7 @@ typedef enum : NSUInteger {
 {
     if ([segue.identifier isEqualToString:@"embedContainer"]) {
         self.containerViewController = segue.destinationViewController;
-        self.user = [EcomapLoggedUser currentLoggedUser];
-        [self.containerViewController storeUser:self.user];
+        [self.containerViewController setProblemDetails:self.problemDetails];
     }
 }
 
@@ -96,11 +96,7 @@ typedef enum : NSUInteger {
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
-    
-    
-
-    
-    
+   
     [EcomapFetcher loadProblemDetailsWithID:self.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    self.problemDetails = problemDetails;

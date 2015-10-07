@@ -13,8 +13,5 @@
 
 - (void)showViewAtIndex:(NSUInteger)index;
 
-@property (nonatomic,strong) EcomapLoggedUser *user;
-
-- (void)storeUser:(EcomapLoggedUser *)user;
 
 @end

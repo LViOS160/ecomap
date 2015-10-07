@@ -34,10 +34,6 @@
 
 @implementation ProblemDetailsViewController
 
-- (void)storeUser:(EcomapLoggedUser *)user
-{
-    self.user = user;
-}
 
 -(NSMutableArray *)buttonsOnScrollView
 {
@@ -112,15 +108,8 @@
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     
-    
-    NSDictionary *userInfo = [JSONParser parseJSONtoDictionary:self.problemDetails];
-    EcomapLoggedUser *user = [EcomapLoggedUser loginUserWithInfo:userInfo];
-    
-
-
-    
-    
-    if(([userIdent.role isEqualToString:@"administrator"] ) && userIdent) {
+   
+    if(([userIdent.role isEqualToString:@"administrator"] || self.problemDetails.userCreator == userIdent.userID ) && userIdent && self.problemDetails.userCreator) {
         self.editButton.hidden = NO;
         self.deleteButton.hidden = NO;
     }
@@ -143,8 +132,6 @@
     NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
     NSUInteger num = self.problemDetails.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
-    
-    
     
     [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];

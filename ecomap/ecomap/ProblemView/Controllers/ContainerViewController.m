@@ -18,10 +18,7 @@
 @implementation ContainerViewController
 
 
-- (void)storeUser:(EcomapLoggedUser *)user
-{
-    self.user = user;
-}
+
 
 + (NSArray *)availableSegues
 {
@@ -73,8 +70,7 @@
             [self.view addSubview:((UIViewController *)segue.destinationViewController).view];
             [segue.destinationViewController didMoveToParentViewController:self];
         }
-        [segue.destinationViewController storeUser:self.user];
-        
+       
     }
 }
 
