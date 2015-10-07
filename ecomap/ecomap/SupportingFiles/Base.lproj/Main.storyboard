@@ -1481,7 +1481,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Легенда до графіку" id="OCq-BZ-ffn">
-                        <barButtonItem key="leftBarButtonItem" title="Зачинити" id="yP9-M4-5ae">
+                        <barButtonItem key="leftBarButtonItem" title="Заити" id="yP9-M4-5ae">
                             <connections>
                                 <action selector="closeLegend:" destination="Weo-eM-8pk" id="EFR-8c-HEz"/>
                             </connections>
