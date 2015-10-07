@@ -57,15 +57,22 @@
 
 - (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position
 {
-      if(position == FrontViewPositionRight)
+    if (![revealController.frontViewController isKindOfClass:[UINavigationController class]])
     {
-       revealController.frontViewController.view.userInteractionEnabled = NO;
+        return;
+    }
+    
+    UINavigationController *front = (UINavigationController *)revealController.frontViewController;
+    UIViewController *topView = front.topViewController;
+    
+    if(position == FrontViewPositionRight)
+    {
+        topView.view.userInteractionEnabled = NO;
     }
     else
-      {
-          revealController.frontViewController.view.userInteractionEnabled = YES;
-      }
-
+    {
+        topView.view.userInteractionEnabled = YES;
+    }
 }
 
 
