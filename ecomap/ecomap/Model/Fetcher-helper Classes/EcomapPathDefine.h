@@ -27,7 +27,7 @@
 #define ECOMAP_GET_LARGE_PHOTOS_ADDRESS @"photos/large/"
 #define ECOMAP_GET_SMALL_PHOTOS_ADDRESS @"photos/small/"
 #define ECOMAP_POST_PROBLEM @"allproblems"
-#define ECOMAP_GET_RESOURCES @"getTitles/"
+#define ECOMAP_GET_RESOURCES @"pages"
 #define ECOMAP_GET_ALIAS @"resources/"
 #define ECOMAP_POST_VOTE @"vote/"
 #define ECOMAP_POST_COMMENT @"comment/"
@@ -81,13 +81,13 @@
 #define ECOMAP_PROBLEM_VALUE @"value"
 
 // keys (paths) applicable to all types of Ecomap resources
-#define ECOMAP_RESOURCE_TITLE @"Title"
-#define ECOMAP_RESOURCE_ALIAS @"Alias"
-#define ECOMAP_RESOURCE_ID @"Id"
-#define ECOMAP_RESOURCE_ISRESOURCE @"IsResource"
+#define ECOMAP_RESOURCE_TITLE @"title"
+#define ECOMAP_RESOURCE_ALIAS @"alias"
+#define ECOMAP_RESOURCE_ID @"id"
+#define ECOMAP_RESOURCE_ISRESOURCE @"is_resource"
 
 // keys (paths) applicable to some type of  ecomap.org/resources/alias
-#define ECOMAP_RESOURCE_ALIAS_CONTENT @"Content"
+#define ECOMAP_RESOURCE_ALIAS_CONTENT @"id"
 
 // keys (paths) to values in a SECOND dictionary (photos of a problem) in PROBLEM array
 #define ECOMAP_PHOTO_ID @"Id"
