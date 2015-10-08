@@ -19,6 +19,7 @@
 @property (nonatomic, readwrite) BOOL isSolved;
 @property (nonatomic, strong, readwrite) NSDate *dateCreated;
 @property (nonatomic, readwrite) NSUInteger userCreator;
+//@property (nonatomic, readwrite) NSUInteger regionID;
 @end
 
 @implementation EcomapProblem
@@ -34,6 +35,7 @@
     [coder encodeBool:self.isSolved forKey:@"isSolved"];
     [coder encodeObject:self.dateCreated forKey:@"dateCreated"];
     [coder encodeInteger:self.userCreator forKey:@"userCreated"];
+    //[coder encodeInteger:self.regionID forKey:@"region_id"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -47,6 +49,7 @@
     self.isSolved = [coder decodeBoolForKey:@"isSolved"];
     self.dateCreated = [coder decodeObjectForKey:@"dateCreated"];
     self.userCreator = [coder decodeIntegerForKey:@"userCreated"];
+    //self.regionID = [coder decodeIntegerForKey:@"region_id"];
     return self;
 }
 
@@ -67,6 +70,7 @@
         self.isSolved = [isSolvedInt isEqualToString:@"UNSOLVED"] ? NO : YES;
         self.dateCreated = [self dateCreatedOfProblem:problem];
         self.userCreator = ![[problem valueForKey:@"user_id"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"user_id"] integerValue] : 0;
+        //self.regionID = ![[problem valueForKey:@"region_id"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"region_id"] integerValue] : 0;
     }
     return self;
 }

@@ -20,6 +20,7 @@
 @property (nonatomic, readonly) BOOL isSolved;
 @property (nonatomic, strong, readonly) NSDate *dateCreated;
 @property (nonatomic, readonly) NSUInteger userCreator;
+//@property (nonatomic, readonly) NSUInteger regionID;
 
 //Designated initializer
 - (instancetype)initWithProblem:(NSDictionary *)problem;

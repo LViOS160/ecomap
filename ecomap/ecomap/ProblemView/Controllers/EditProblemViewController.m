@@ -93,18 +93,21 @@ enum : NSInteger {
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-    //[manager setRequestSerializer:jsonRequestSerializer];
+    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
+    // This will make the AFJSONResponseSerializer accept any content type
+    jsonReponseSerializer.acceptableContentTypes = nil;
+    manager.responseSerializer = jsonReponseSerializer;
     
     NSDictionary *dictionary = @{
                                  @"status" : [self stringFromIsSolved:self.editableProblem.isSolved],
+                                 //@"region_id": @(self.problem.regionID),
+                                 @"problem_type_id" : @(self.problem.problemTypesID),
                                  @"severity" : [self stringFromSeverity:self.editableProblem.severity],
                                  @"title" : self.editableProblem.title,
-                                 @"problem_type_id" : [NSString stringWithFormat:@"%lu", (unsigned long)self.problem.problemID ],
+                                 @"longitude" : @(self.problem.longitude),
                                  @"content" : self.editableProblem.content,
-                                 @"proposal" : self.editableProblem.proposal,
                                  @"latitude" : @(self.problem.latitude),
-                                 @"longitude" : @(self.problem.longitude)
+                                 @"proposal" : self.editableProblem.proposal                                 
                                   };
 
     
@@ -123,8 +126,7 @@ enum : NSInteger {
         NSLog(@"%@",error);
         [InfoActions showAlertOfError:error];
     }];
- 
-    
+
 }
 
 - (void)closeButtonTouch:(id)sender
