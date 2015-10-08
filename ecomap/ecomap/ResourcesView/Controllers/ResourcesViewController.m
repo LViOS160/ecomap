@@ -125,7 +125,7 @@
 
 -(void)webrefreshingOnCompletion:(void (^)(NSString *descriptionRes, NSError *error))completionHandler     // return the content of recource/alias .....
 {
-    
+    //self.currentPath = @"id";
     
     [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
         if(!error)
