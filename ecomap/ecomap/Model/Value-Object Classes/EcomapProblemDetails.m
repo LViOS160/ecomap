@@ -18,6 +18,7 @@
 @property (nonatomic, readwrite) NSUInteger moderation;
 @property (nonatomic, readwrite) NSUInteger votes;
 
+
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
 @end
 

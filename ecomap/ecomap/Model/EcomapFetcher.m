@@ -439,4 +439,53 @@
     
 }
 
+
++(void)deleteComment:(NSString*)userId andName:(NSString*)name
+          andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
+        OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler
+{
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforComments:probId]];
+    [request setHTTPMethod:@"DELETE"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
+    
+    NSLog(@"%@;%@;%@",userId,name,surname);
+    //Create JSON data for send to server
+    NSDictionary *commentData = @{@"data": @{@"userId":userId,@"userName":name, @"userSurname":surname, @"Content":content} };
+    NSLog(@"%@",commentData);
+    NSData *data = [NSJSONSerialization dataWithJSONObject:commentData options:0 error:nil];
+    [DataTasks uploadDataTaskWithRequest:request fromData:data
+                    sessionConfiguration:sessionConfiguration
+                       completionHandler:^(NSData *JSON, NSError *error) {
+                           NSDictionary *commentsInfo;
+                           // EcomapLoggedUser * check = [[EcomapLoggedUser alloc]init];
+                           EcomapCommentaries * difComment = nil;
+                           
+                           if(!error)
+                               
+                           {    difComment = [[EcomapCommentaries alloc]initWithInfo:commentsInfo];
+                               if([EcomapLoggedUser currentLoggedUser])
+                               {
+                                   
+                                   commentsInfo = [JSONParser parseJSONtoDictionary:JSON];
+                                   
+                                   
+                               }
+                               else
+                                   difComment = nil;
+                               
+                           } else [InfoActions showAlertOfError:error];
+                           
+                           completionHandler(difComment,error);
+                           
+                           
+                           
+                       }];
+
+}
+
+
+
 @end

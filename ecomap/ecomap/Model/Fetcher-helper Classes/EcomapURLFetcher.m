@@ -150,7 +150,7 @@
     return [NSURL URLWithString:query];
 }
 #pragma mark - Ask URL for Comments
-+(NSURL*)URLforComments:(NSString *)query
++ (NSURL*) URLforComments:(NSString *)query
 { query =[NSString stringWithFormat:@"%@%@",[self URLForAPIQuery:ECOMAP_POST_COMMENT],query];
     query = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return [NSURL URLWithString:query];

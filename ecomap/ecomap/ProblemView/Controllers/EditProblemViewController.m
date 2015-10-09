@@ -11,6 +11,7 @@
 #import "EcomapAdminFetcher.h"
 #import "Defines.h"
 #import "InfoActions.h"
+#import "AFNetworking.h"
 
 enum : NSInteger {
     TextFieldTag_Content = 1,
@@ -90,17 +91,43 @@ enum : NSInteger {
     [self.content resignFirstResponder];
     [self.proposal resignFirstResponder];
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
-    [EcomapAdminFetcher changeProblem:self.problem.problemID
-                       withNewProblem:self.editableProblem
-                         onCompletion:^(NSData *result, NSError *error) {
-                             [InfoActions stopActivityIndicator];
-                             [self.navigationController popViewControllerAnimated:YES];
-                             if (error) {
-                                 [InfoActions showAlertOfError:error];
-                             } else {
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:nil];
-                             }
-                         }];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSDictionary *dictionary = @{
+                                 @"status" : @"UNSOLVED",
+                                 //@"region_id": @("0"),
+                                 @"problem_type_id" : @(self.problem.problemTypesID),
+                                 @"severity" : [NSString stringWithFormat:@"%lu", self.editableProblem.severity],
+                                 @"title" : self.editableProblem.title,
+                                 @"longitude" : @(self.problem.longitude),
+                                 @"content" : self.editableProblem.content,
+                                 @"latitude" : @(self.problem.latitude),
+                                 @"proposal" : self.editableProblem.proposal                                 
+                                  };
+
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSUInteger num = self.problem.problemID;
+    NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
+    //NSString *url = [middle stringByAppendingString:@"/comments"];
+    
+    [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [InfoActions stopActivityIndicator];
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        [InfoActions showAlertOfError:error];
+    }];
+
 }
 
 - (void)closeButtonTouch:(id)sender

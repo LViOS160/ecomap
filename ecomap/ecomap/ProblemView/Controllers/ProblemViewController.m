@@ -36,10 +36,12 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) ContainerViewController *containerViewController;
+- (IBAction)loadContainerView:(UIBarButtonItem *)sender;
 
 @property (weak, nonatomic) id <EcomapProblemViewDelegate> delegate;
 
 // For admin purposes
+
 @property (nonatomic, strong) EcomapLoggedUser *user;
 @property (nonatomic, strong) EcomapEditableProblem *editableProblem;
 
@@ -57,8 +59,8 @@ typedef enum : NSUInteger {
     UITapGestureRecognizer *tapStatusLabelGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapStatusLabelWithGestureRecognizer:)];
     [self.statusLabel addGestureRecognizer:tapStatusLabelGestureRecognizer];
     
-    self.user = [EcomapLoggedUser currentLoggedUser];
     
+    self.user = [EcomapLoggedUser currentLoggedUser];
     [self updateHeader];
     [self loadProblemDetails:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -76,6 +78,7 @@ typedef enum : NSUInteger {
 {
     if ([segue.identifier isEqualToString:@"embedContainer"]) {
         self.containerViewController = segue.destinationViewController;
+        [self.containerViewController setProblemDetails:self.problemDetails];
     }
 }
 
@@ -93,11 +96,7 @@ typedef enum : NSUInteger {
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
-    
-    
-
-    
-    
+   
     [EcomapFetcher loadProblemDetailsWithID:self.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    self.problemDetails = problemDetails;
@@ -216,4 +215,8 @@ typedef enum : NSUInteger {
 }
 
 
+- (IBAction)loadContainerView:(UIBarButtonItem *)sender {
+    
+    [self performSegueWithIdentifier:@"embedContainer" sender:self];
+}
 @end

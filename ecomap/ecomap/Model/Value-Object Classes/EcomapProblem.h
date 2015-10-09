@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EcomapLoggedUser.h"
 
 @interface EcomapProblem : NSObject <NSCoding>
 

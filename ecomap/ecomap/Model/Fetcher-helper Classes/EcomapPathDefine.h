@@ -124,6 +124,7 @@
 #define ECOMAP_USER_ITA @"iat"
 #define ECOMAP_USER_TOKEN @"token"
 #define ECOMAP_USER_EMAIL @"email"
+#define ECOMAP_USER_DELETE_PROBLEM @"Delete_problem"
 
 // keys (paths) to values in a STAT dictionary in GENERAL STATS array
 #define ECOMAP_GENERAL_STATS_PROBLEMS @"problems"
