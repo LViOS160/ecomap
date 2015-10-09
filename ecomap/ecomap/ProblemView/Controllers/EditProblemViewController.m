@@ -93,16 +93,12 @@ enum : NSInteger {
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
-    // This will make the AFJSONResponseSerializer accept any content type
-    jsonReponseSerializer.acceptableContentTypes = nil;
-    manager.responseSerializer = jsonReponseSerializer;
     
     NSDictionary *dictionary = @{
-                                 @"status" : [self stringFromIsSolved:self.editableProblem.isSolved],
-                                 //@"region_id": @(self.problem.regionID),
+                                 @"status" : @"UNSOLVED",
+                                 //@"region_id": @("0"),
                                  @"problem_type_id" : @(self.problem.problemTypesID),
-                                 @"severity" : [self stringFromSeverity:self.editableProblem.severity],
+                                 @"severity" : [NSString stringWithFormat:@"%lu", self.editableProblem.severity],
                                  @"title" : self.editableProblem.title,
                                  @"longitude" : @(self.problem.longitude),
                                  @"content" : self.editableProblem.content,
@@ -110,10 +106,15 @@ enum : NSInteger {
                                  @"proposal" : self.editableProblem.proposal                                 
                                   };
 
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
+    //NSString *url = [middle stringByAppendingString:@"/comments"];
     
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
