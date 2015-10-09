@@ -77,7 +77,7 @@
 #define ECOMAP_PROBLEM_PROPOSAL @"proposal"
 #define ECOMAP_PROBLEM_SEVERITY @"severity"
 #define ECOMAP_PROBLEM_MODERATION @"moderation"
-#define ECOMAP_PROBLEM_VOTES @"votes"
+#define ECOMAP_PROBLEM_VOTES @"number_of_votes"
 #define ECOMAP_PROBLEM_VALUE @"value"
 
 // keys (paths) applicable to all types of Ecomap resources
@@ -127,7 +127,7 @@
 
 // keys (paths) to values in a STAT dictionary in GENERAL STATS array
 #define ECOMAP_GENERAL_STATS_PROBLEMS @"problems"
-#define ECOMAP_GENERAL_STATS_VOTES @"votes"
+#define ECOMAP_GENERAL_STATS_VOTES @"votes"      // "number_of_votes"?
 #define ECOMAP_GENERAL_STATS_PHOTOS @"photos"
 #define ECOMAP_GENERAL_STATS_COMMENTS @"comments"
 
