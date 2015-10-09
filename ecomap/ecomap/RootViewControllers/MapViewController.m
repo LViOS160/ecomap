@@ -26,6 +26,8 @@
 #import "EcomapLoggedUser.h"
 #import "InfoActions.h"
 
+
+#import "Statistics.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
 @interface MapViewController () <ProblemFilterTVCDelegate>
@@ -42,6 +44,8 @@
 
 
 @property  NSSet* currentAllProblems;
+
+@property NSArray* arrayWithProblems;
 
 
 // Filtering mask. We get it through NSNotificationCenter
@@ -160,6 +164,9 @@
 
 - (void)renewMap:(NSSet*)problems
 {
+    Statistics *ob = [Statistics sharedInstanceStatistics];
+    [ob setAllProblems:self.arrayWithProblems	];
+    
     [self.clusterManager removeItems];
     [self.mapView clear];
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
@@ -178,6 +185,11 @@
 
 -(void)loadProblems {
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+      
+        self.arrayWithProblems = [NSArray arrayWithArray:problems];
+        
+        
+       // [ob countAllProblemsCategory];
         if (!error) {
             NSSet *set = [[NSSet alloc] initWithArray:problems];
             
