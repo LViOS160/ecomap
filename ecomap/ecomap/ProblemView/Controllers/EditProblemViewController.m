@@ -93,10 +93,6 @@ enum : NSInteger {
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
-    // This will make the AFJSONResponseSerializer accept any content type
-    jsonReponseSerializer.acceptableContentTypes = nil;
-    manager.responseSerializer = jsonReponseSerializer;
     
     NSDictionary *dictionary = @{
                                  @"status" : [self stringFromIsSolved:self.editableProblem.isSolved],
@@ -109,11 +105,18 @@ enum : NSInteger {
                                  @"latitude" : @(self.problem.latitude),
                                  @"proposal" : self.editableProblem.proposal                                 
                                   };
-
+    
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    //[manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
+    
     
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -126,6 +129,7 @@ enum : NSInteger {
         NSLog(@"%@",error);
         [InfoActions showAlertOfError:error];
     }];
+
 
 }
 
