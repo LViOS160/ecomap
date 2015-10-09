@@ -41,7 +41,7 @@
 {
     
     
-    [super viewDidLoad];
+    [super viewDidLoad];		
     
     // Download data from Ecomap server to draw General Stats Top Labels
     [self fetchGeneralStats];
