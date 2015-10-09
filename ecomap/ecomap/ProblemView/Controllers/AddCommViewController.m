@@ -29,6 +29,8 @@
 @property (nonatomic,strong) NSString *problemma;
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 
+@property AddCommViewController *ob;
+
 @end
 
 @implementation AddCommViewController
@@ -41,7 +43,14 @@
 }
 
 
+
+
+
+
+
 - (void)viewDidLoad {
+    
+    self.ob = self;
     
     //[EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
         
@@ -65,6 +74,12 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)reload
+{
+    [self updateUI];
+}
+
+
 -(void)updateUI
 {   self.myTableView.allowsMultipleSelectionDuringEditing = NO;
     self.myTableView.delegate = self;
@@ -76,7 +91,7 @@
     self.textField.textColor = [UIColor lightGrayColor];
     //[self.myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.myTableView.tableFooterView =[[UIView alloc] initWithFrame:CGRectZero];
-    
+    [self.myTableView reloadData];
 }
 
 
@@ -112,7 +127,7 @@
         
 #warning Roma has to remove this dispatching
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     //   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
             [[NetworkActivityIndicator sharedManager] startActivity];
@@ -127,7 +142,9 @@
             
             [manager POST:final parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"ura");
+                [EcomapFetcher updateComments:[ob problemsID] controller:self];
                 
+               
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
@@ -135,7 +152,7 @@
                 NSLog(@"%@",error);
             }];
             
-        });
+     //   });
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -143,7 +160,7 @@
         });
         
     
-        
+       [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
 
         
         
@@ -318,7 +335,16 @@
         
         [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"ura");
-            
+           
+            [EcomapFetcher updateComments:ob.problemsID controller:self];
+            [UIView transitionWithView:tableView
+                              duration:2
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void)
+             {
+                 [tableView reloadData];
+             }
+                            completion:nil];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -326,7 +352,7 @@
             NSLog(@"%@",error);
         }];
 
-        [tableView reloadData];
+       // [tableView reloadData];
         
         
         /*[ EcomapAdminFetcher deleteComment:number onCompletion:^(NSError *error) {

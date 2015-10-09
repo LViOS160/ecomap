@@ -13,5 +13,8 @@
 @interface AddCommViewController : UIViewController <EcomapProblemDetailsHolder>
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UITextView *textField;
+
+-(void)reload;
+
 @end
 

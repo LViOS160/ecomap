@@ -9,6 +9,7 @@
 #import "EcomapFetcher+PostProblem.h"
 #import "EcomapLocalPhoto.h"
 #import "AFNetworking.h"
+#import "MapViewController.h"
 
 @implementation EcomapFetcher (PostProblem)
 
@@ -17,6 +18,7 @@
 + (void)problemPost:(EcomapProblem*)problem
      problemDetails:(EcomapProblemDetails*)problemDetails
                user:(EcomapLoggedUser*)user
+                map:(MapViewController*)map
        OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler {
     NSDictionary *params = @{
                           // @"severity" : @(problemDetails.severity),
@@ -29,9 +31,6 @@
                              
                              };
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        
         
         
         [[NetworkActivityIndicator sharedManager] startActivity];
@@ -43,28 +42,8 @@
         
         [manager POST:@"http://176.36.11.25:8000/api/problems" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"ura");
-          //  EcomapLoggedUser *loggedUser = nil;
-            // NSDictionary *userInfo;
-            //userInfo = [JSONParser parseJSONtoDictionary:responseObject];
-           /* loggedUser = [EcomapLoggedUser loginUserWithInfo:responseObject];
-            if (loggedUser) {
-                
-                loggedUser = [EcomapLoggedUser loginUserWithInfo:responseObject];
-                
-                DDLogVerbose(@"LogIN to ecomap success! %@", loggedUser.description);}
-            //[[NetworkActivityIndicator sharedManager] endActivity];
-            
-            
-            
-            //Create cookie
-            NSHTTPCookie *cookie = [self createCookieForUser:[EcomapLoggedUser currentLoggedUser]];
-            if (cookie) {
-                DDLogVerbose(@"Cookies created success!");
-                //Put cookie to NSHTTPCookieStorage
-                [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-                [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:@[cookie]
-                                                                   forURL:[EcomapURLFetcher URLforServer]
-                                                          mainDocumentURL:nil];}*/
+           
+            [map loadProblems];
             NSLog(@"ura!");
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -73,7 +52,7 @@
             NSLog(@"%@",error);
         }];
         
-    });
+   
     
     dispatch_async(dispatch_get_main_queue(), ^{
         

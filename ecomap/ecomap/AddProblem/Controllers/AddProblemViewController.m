@@ -186,6 +186,7 @@
     self.addProblemNavigation.pageControl.currentPage = 0;
     self.userIsInTheMiddleOfAddingProblem = NO;
     [self.addProblemButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+    [self loadProblems];
 }
 
 - (void)switchPage{
@@ -352,10 +353,10 @@
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
     details.photos = self.addProblemPhoto.photos;;
-    [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
+    [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] map:self OnCompletion:^(NSString *result, NSError *error) {
         [self loadProblems];
     }];
-    
+    [self loadProblems];
     
 }
 
