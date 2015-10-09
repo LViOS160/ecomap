@@ -105,26 +105,35 @@
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
                     DDLogVerbose(@"%@",str);
-                    NSMutableArray *alias = nil;
-                    NSArray *aliasFromJSON = nil;
+                    
+                    NSMutableArray *aliases = [NSMutableArray array];
                     
                     if(!error)
                     {
-                        //Parse JSON
-                        aliasFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
-                        alias = [NSMutableArray array];
-                        
-                        //Fill array with ECOMAPRESOURCES
-                        for(NSDictionary *aliases in aliasFromJSON)
+                        id value = [NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
+                        if ([value isKindOfClass:[NSArray class]])
                         {
-                            EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:aliases];
-                            //  DDLogVerbose(@"%@",ecoAl.content);
-                            [alias addObject:ecoAl];
+                            NSArray *aliasFromJSON = (NSArray*)value;
                             
+                            //Fill array with ECOMAPRESOURCES
+                            for (NSDictionary *singleAlias in aliasFromJSON)
+                            {
+                                EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:singleAlias];
+                                [aliases addObject:ecoAl];
+                            }
                         }
-                    } else [InfoActions showAlertOfError:error];
+                        else if ([value isKindOfClass:[NSDictionary class]])
+                        {
+                            EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:value];
+                            [aliases addObject:ecoAl];
+                        }
+                    }
+                    else
+                    {
+                        [InfoActions showAlertOfError:error];
+                    }
                     
-                    completionHandler(alias,error);
+                    completionHandler(aliases, error);
                     
                 }];
     
