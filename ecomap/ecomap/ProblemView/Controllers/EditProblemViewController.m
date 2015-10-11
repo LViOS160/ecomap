@@ -95,10 +95,10 @@ enum : NSInteger {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *dictionary = @{
-                                 @"status" : [self stringFromIsSolved:self.editableProblem.isSolved],
-                                 //@"region_id": @(self.problem.regionID),
+                                 @"status" : @"UNSOLVED",
+                                 //@"region_id": @("0"),
                                  @"problem_type_id" : @(self.problem.problemTypesID),
-                                 @"severity" : [self stringFromSeverity:self.editableProblem.severity],
+                                 @"severity" : [NSString stringWithFormat:@"%lu", self.editableProblem.severity],
                                  @"title" : self.editableProblem.title,
                                  @"longitude" : @(self.problem.longitude),
                                  @"content" : self.editableProblem.content,
@@ -116,6 +116,7 @@ enum : NSInteger {
     NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
+    //NSString *url = [middle stringByAppendingString:@"/comments"];
     
     
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
