@@ -43,45 +43,26 @@
 
 - (void)viewDidLoad
 {
-    
-    
-    [super viewDidLoad];		
-
+    [super viewDidLoad];
     self.names = @[@"Проблем", @"Голосів", @"Коментарів", @"Фотографій"];
-    
-    // Download data from Ecomap server to draw General Stats Top Labels
-    //[self fetchGeneralStats];
-    
-    // Download data from Ecomap server to draw the Pie Chart
-   // [self fetchStatsForPieChart];
-
-    // Set up reveal button
-  [self customSetup];
-    
+   [self customSetup];
     Statistics *ob = [Statistics sharedInstanceStatistics];
-    
-    
     [ob countAllProblemsCategory];
     self.statsForPieChart = ob.forDay;
     [self setSlices:ob.forDay];
     self.generalStats = ob.test;
-    
-    
-    
-    
     [self generateTopLabelViews];
-    //[self setSlices:[ob countAllProblemsCategory]];
-    //self.slices = [NSMutableArray arrayWithArray: ob.allProblemsPieChart];
-    //[self fetchStatsForPieChart];
     [self.pieChartSpinner stopAnimating];
-  //[self drawPieChart];
     [self resizeTopLabelViews];
-        self.segmentNavigator.selectedSegmentIndex = 0;
+    self.segmentNavigator.selectedSegmentIndex = 0;
     [self changeRangeOfShowingStats:self.segmentNavigator];
-    
+}
 
-   // [self drawPieChart];
-  
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self resizeTopLabelViews];
+    [self drawPieChart];
 }
 
 - (void)customSetup
@@ -96,9 +77,9 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [self resizeTopLabelViews];
-   // self.pieChartView.pieRadius = [self pieChartRadius];
+    self.pieChartView.pieRadius = [self pieChartRadius];
     [self drawPieChart];
-   // [self switchPage];
+    [self switchPage];
 }
 
 #pragma mark - Properties
@@ -146,6 +127,9 @@
 
 - (IBAction)changeRangeOfShowingStats:(UISegmentedControl *)sender
 {
+    
+    
+    [self resizeTopLabelViews];
     self.pieChartView.pieRadius = [self pieChartRadius];
     Statistics *ob = [Statistics sharedInstanceStatistics];
     switch (sender.selectedSegmentIndex) {
