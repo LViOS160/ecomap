@@ -165,7 +165,7 @@
 - (void)renewMap:(NSSet*)problems
 {
     Statistics *ob = [Statistics sharedInstanceStatistics];
-    [ob setAllProblems:self.arrayWithProblems	];
+    [ob setAllProblems:self.arrayWithProblems];
     
     [self.clusterManager removeItems];
     [self.mapView clear];
