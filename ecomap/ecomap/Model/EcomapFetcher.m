@@ -303,69 +303,110 @@
 #pragma mark -
 + (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler
 {
-    BOOL canVote = YES;
-    if(user) {
-        for(EcomapActivity *comment in problemDetails.comments) {
-            if (comment.activityTypes_Id == 3) { // vote activity type
-                canVote &= comment.usersID != user.userID;
-            }
-        }
-    } else {
-        if([[[NSUserDefaults standardUserDefaults] arrayForKey:@"votedPosts"] containsObject:@(problemDetails.problemID)])
-            canVote = NO;
-    }
-    
-    if (!canVote) {
-        completionHandler([NSError errorWithDomain:@"EcomapVote" code:1 userInfo:nil]);
+    if(![problemDetails canVote:user])
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                       message:NSLocalizedString(@"Будь ласка, увійдіть до системи для голосування", @"Please, login to vote!")
+                                                      delegate:nil cancelButtonTitle:@"Ok"
+                                             otherButtonTitles:nil];
+        [alert show];
         return;
+        
     }
     
     NSDictionary *voteData = nil;
-    if(user) {
+    if(user)
+    {
         voteData = @{
                      @"idProblem":@(problemDetails.problemID),
                      @"userId":@(user.userID),
-                     @"userName":user.name? user.name : @"",
-                     @"userSurname":user.surname? user.surname : @""
-                     };
-    } else {
-        voteData = @{
-                     @"idProblem":@(problemDetails.problemID)
+                     @"userName":user.name ? user.name : @"",
+                     @"userSurname":user.surname ? user.surname : @""
                      };
     }
-    NSData *data = [NSJSONSerialization dataWithJSONObject:voteData options:0 error:nil];
-    //Set up session configuration
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+//    else
+//    {
+//        voteData = @{
+//                     @"idProblem":@(problemDetails.problemID) /// for unregistered users?
+//                     };
+//    }
     
-    //Set up request
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforPostVotes]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
     
-   [DataTasks uploadDataTaskWithRequest:request
-                           fromData:data
-               sessionConfiguration:sessionConfiguration
-                  completionHandler:^(NSData *JSON, NSError *error) {
-                      NSDictionary *voteResponse = nil;
-                      if (!error) {
-                          voteResponse = [JSONParser parseJSONtoDictionary:JSON];
-                          if (!voteResponse[@"json"]) {
-                              error = [NSError errorWithDomain:@"EcomapVote" code:2 userInfo:nil];
-                          } else {
-                              NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                              NSArray *votedPosts = [userDefaults arrayForKey:@"votedPosts"];
-                              if(!votedPosts){
-                                  votedPosts = [NSArray arrayWithObject:@(problemDetails.problemID)];
-                              } else {
-                                  votedPosts = [votedPosts arrayByAddingObject:@(problemDetails.problemID)];
-                              }
-                              [userDefaults setObject:votedPosts forKey:@"votedPosts"];
-                          }
-                      } else [InfoActions showAlertOfError:error];
-                      
-                      completionHandler(error);
-                  }];
+    
+   
+            
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+        [[NetworkActivityIndicator sharedManager] startActivity];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+        [manager setRequestSerializer:jsonRequestSerializer];
+        NSString *baseUrl = @"http:176.36.11.25:8000/api/problems/";
+        NSString *middle = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)[ob problemsID]];
+        NSString *final = [middle stringByAppendingString:@"/vote"];
+        
+        NSDictionary *parameters = [[NSDictionary alloc]init];
+        
+        parameters = [NSDictionary dictionaryWithObjectsAndKeys:user.email, @"email" , user.token, @"password", nil];  
+        
+        [manager POST:final parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+        {
+            NSLog(@"vote is added");
+            
+        }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error)
+        {
+            NSLog(@"%@",error);
+        }];
+        
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[NetworkActivityIndicator sharedManager]endActivity];
+    });
+    
+    
+    
+    ////////
+    
+//    NSData *data = [NSJSONSerialization dataWithJSONObject:voteData options:0 error:nil];
+//    //Set up session configuration
+//    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+//    
+//    //Set up request
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforPostVotes]];
+//    [request setHTTPMethod:@"POST"];
+//    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
+//    
+//   [DataTasks uploadDataTaskWithRequest:request
+//                           fromData:data
+//               sessionConfiguration:sessionConfiguration
+//                  completionHandler:^(NSData *JSON, NSError *error) {
+//                      NSDictionary *voteResponse = nil;
+//                      if (!error) {
+//                          voteResponse = [JSONParser parseJSONtoDictionary:JSON];
+//                          if (!voteResponse[@"json"]) {
+//                              error = [NSError errorWithDomain:@"EcomapVote" code:2 userInfo:nil];
+//                          } else {
+//                              NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//                              NSArray *votedPosts = [userDefaults arrayForKey:@"votedPosts"];
+//                              if(!votedPosts){
+//                                  votedPosts = [NSArray arrayWithObject:@(problemDetails.problemID)];
+//                              } else {
+//                                  votedPosts = [votedPosts arrayByAddingObject:@(problemDetails.problemID)];
+//                              }
+//                              [userDefaults setObject:votedPosts forKey:@"votedPosts"];
+//                          }
+//                      } else [InfoActions showAlertOfError:error];
+//                      
+//                      completionHandler(error);
+//                  }];
+//    
+
 }
 
 + (void)registerToken:(NSString *)token

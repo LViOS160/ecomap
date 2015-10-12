@@ -131,11 +131,23 @@ typedef enum : NSUInteger {
                                 if (!error) {
                                     [self loadProblemDetails:^{
                                         sender.enabled = YES;
-                                        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Голос додано", @"Vote added")];
+                                        
+                                        NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Шановний, %@!", @"Dear, %@"), [[EcomapLoggedUser currentLoggedUser] name]];
+                                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:alertTitle
+                                                                                       message:NSLocalizedString(@"Голос додано", @"Vote added")
+                                                                                      delegate:nil cancelButtonTitle:@"Ok"
+                                                                             otherButtonTitles:nil];
+                                        [alert show];
                                     }];
                                 } else {
                                     sender.enabled = YES;
-                                    [InfoActions showPopupWithMesssage:NSLocalizedString(@"Ви вже голосували за дану проблему", @"You have already voted for this problem")];
+                                    
+                                    NSString *alertTitle = [NSString stringWithFormat:@"Dear, %@!", [[EcomapLoggedUser currentLoggedUser] name]];
+                                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:alertTitle
+                                                                                   message:NSLocalizedString(@"Ви вже голосували за дану проблему", @"You have already voted for this problem")
+                                                                                  delegate:nil cancelButtonTitle:@"Ok"
+                                                                         otherButtonTitles:nil];
+                                    [alert show];
                                 }
                             }];
     }
