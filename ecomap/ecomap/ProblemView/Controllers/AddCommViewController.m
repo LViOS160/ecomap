@@ -285,10 +285,11 @@
         NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
         [formatter setLocale:ukraineLocale];                   //
         
-   //     NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentair.userName, commentair.userSurname];
-     // NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentair.date]];
-     //   cell.personInfo.text = personalInfo;
-       // cell.dateInfo.text = dateInfo;
+       NSString *personalInfo = [NSString stringWithFormat:@"%@", [[ob.comInfo  objectAtIndex:row] valueForKey:@"created_by"]];
+                                 
+     NSString *dateInfo = [NSString stringWithFormat:@"%@",[[ob.comInfo  objectAtIndex:row] valueForKey:@"created_date"]];
+       cell.personInfo.text = personalInfo;
+       cell.dateInfo.text = dateInfo;
         //[cell setNeedsUpdateConstraints];
         //[cell updateConstraintsIfNeeded];
         return cell;
