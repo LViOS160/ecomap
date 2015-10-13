@@ -108,7 +108,6 @@ enum : NSInteger {
     
     NSDictionary *dictionary = @{
                                  @"status" : [self stringFromIsSolvedForRequest:self.editableProblem.isSolved],
-                                 //@"region_id": @("0"),
                                  @"problem_type_id" : @(self.problem.problemTypesID),
                                  @"severity" : [NSString stringWithFormat:@"%lu", self.editableProblem.severity],
                                  @"title" : self.editableProblem.title,
@@ -131,9 +130,8 @@ enum : NSInteger {
         
 
         [InfoActions stopActivityIndicator];
-        //[self.navigationController popToRootViewControllerAnimated:YES];
         [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

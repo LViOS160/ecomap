@@ -16,6 +16,7 @@
 #import "InfoActions.h"
 #import "EcomapLocalPhoto.h"
 #import "SlideAnimator.h"
+#import "AFNetworking.h"
 
 @interface AddProblemViewController () {
     CGFloat padding;
@@ -189,6 +190,7 @@
 }
 
 - (void)switchPage{
+    
     switch (self.addProblemNavigation.pageControl.currentPage) {
         case 0:
             self.addProblemNavigation.prevButton.hidden = YES;
@@ -340,6 +342,7 @@
 
 - (void)postProblem {
     
+   
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : self.addProblemName.problemName.text,
                              ECOMAP_PROBLEM_CONTENT    : self.addProblemDescription.textView.text ? self.addProblemDescription.textView.text : @"",
                              ECOMAP_PROBLEM_PROPOSAL : self.addProblemSolution.textView.text ? self.addProblemSolution.textView.text : @"",
@@ -353,11 +356,13 @@
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
     details.photos = self.addProblemPhoto.photos;
     
-    
+  
     [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
-        [self loadProblems];
+        NSLog(@"%@",error);
     }];
     
+    
+    [self loadProblems];
     
 }
 
