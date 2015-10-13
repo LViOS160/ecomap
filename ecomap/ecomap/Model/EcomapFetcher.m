@@ -26,7 +26,8 @@
                         if (JSON) {
                             DDLogVerbose(@"All problems loaded success from ecomap server");
                             //Parse JSON
-                            problemsFromJSON = [JSONParser parseJSONtoArray:JSON];
+                            NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                            problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
                             
                             //Fill problems array
                             if (problemsFromJSON) {

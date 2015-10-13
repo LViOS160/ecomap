@@ -17,6 +17,7 @@
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
+#import "TOP10.h"
 
 @interface ProblemsTopListTVC ()
 
@@ -48,6 +49,11 @@
     
     // Set up reveal button
     [self customSetup];
+    
+    TOP10 *obj = [TOP10 sharedInstanceTOP10];
+   // NSArray *chart = obj.allProblems;
+    [obj sortAllProblems];
+    self.currentChart = obj.problemComment;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,9 +110,21 @@
 
 - (void)changeChart
 {
-    NSArray *chart = [EcomapStatsParser paticularTopChart:self.kindOfTopChart
-                                                           from:self.charts];
-    self.currentChart = chart;
+    TOP10 *obj = [TOP10 sharedInstanceTOP10];
+    [obj sortAllProblems];
+    if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
+    {
+        self.charts = obj.problemComment;
+    }
+    else if (self.kindOfTopChart == EcomapMostSevereProblemsTopList)
+    {
+        self.charts = obj.problemSeverity;
+    }
+    else if (self.kindOfTopChart == EcomapMostVotedProblemsTopList)
+    {
+        self.charts = obj.problemVote;
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - Fetching
@@ -114,9 +132,9 @@
 - (void)fetchChartsOfTheTopProblems
 {
     [self.tableSpinner startAnimating];
-    [EcomapStatsFetcher loadTopChartsOnCompletion:^(NSArray *charts, NSError *error) {
-        if(!error) {
-            self.charts = charts;
+    //[EcomapStatsFetcher loadTopChartsOnCompletion:^(NSArray *charts, NSError *error) {
+        if(!self.currentChart) {
+            self.charts = self.currentChart;
             [self.tableSpinner stopAnimating];
             
             // Show the table
@@ -124,7 +142,8 @@
             
             [self changeChart];
         }
-    }];
+   // }];
+
 }
 
 #pragma mark - UITableView Data Source & Delegate
@@ -149,23 +168,39 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    
     // Display data in the cell
     
-    NSDictionary *problem = self.currentChart[indexPath.row];
+    EcomapProblem *problem = (EcomapProblem*)self.charts[indexPath.row];
     
     UILabel *problemTitleLabel = (UILabel *)[cell viewWithTag:100];
-    problemTitleLabel.text = [NSString stringWithFormat:@"%@", [problem valueForKey: ECOMAP_PROBLEM_TITLE]];
-    
+    problemTitleLabel.text = [NSString stringWithFormat:@"%@", problem.title];
     UILabel *problemScoreLabel = (UILabel *)[cell viewWithTag:101];
-    problemScoreLabel.text = [EcomapStatsParser scoreOfProblem:problem forChartType:self.kindOfTopChart];
-    
+    NSString* cont;
+    cont =[self scoreOfProblem:problem];
+    problemScoreLabel.text = cont;
     UIImageView *problemScoreImageView = (UIImageView *)[cell viewWithTag:102];
     problemScoreImageView.image = [EcomapStatsParser scoreImageOfProblem:problem forChartType:self.kindOfTopChart];
     
     return cell;
 }
 
+- (NSString*) scoreOfProblem: (EcomapProblem*)problem
+{
+    NSString* scoreOfProblem;
+    if (self.kindOfTopChart == EcomapMostVotedProblemsTopList)
+    {
+        scoreOfProblem = [NSString stringWithFormat:@"%lu",problem.vote];
+    }
+    else if (self.kindOfTopChart == EcomapMostSevereProblemsTopList)
+    {
+         scoreOfProblem = [NSString stringWithFormat:@"%lu",problem.severity];
+    }
+    else if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
+    {
+        scoreOfProblem = [NSString stringWithFormat:@"%lu",problem.numberOfComments];
+    }
+    return scoreOfProblem;
+}
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -177,8 +212,8 @@
     if ([segue.identifier isEqualToString:@"Show Problem"]) {
         if([segue.destinationViewController isKindOfClass:[ProblemViewController class]]) {
             ProblemViewController *problemVC = segue.destinationViewController;
-            NSDictionary *problem = self.currentChart[indexPath.row];
-            problemVC.problemID = [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue];
+            EcomapProblem *problem = self.currentChart[indexPath.row];
+            problemVC.problemID = problem.problemID;
         }
     }
 }

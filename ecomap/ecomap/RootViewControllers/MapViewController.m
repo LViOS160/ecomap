@@ -28,6 +28,7 @@
 
 
 #import "Statistics.h"
+#import "TOP10.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
 @interface MapViewController () <ProblemFilterTVCDelegate>
@@ -165,7 +166,10 @@
 - (void)renewMap:(NSSet*)problems
 {
     Statistics *ob = [Statistics sharedInstanceStatistics];
+    TOP10 *obj = [TOP10 sharedInstanceTOP10];
+    
     [ob setAllProblems:self.arrayWithProblems	];
+    [obj setAllProblems:self.arrayWithProblems];
     
     [self.clusterManager removeItems];
     [self.mapView clear];
