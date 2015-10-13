@@ -8,6 +8,7 @@
 
 #import "EcomapStatsParser.h"
 #import "EcomapPathDefine.h"
+#import "EcomapProblem.h"
 
 @implementation EcomapStatsParser
 
@@ -76,7 +77,7 @@
 }
 
 // Get an image to draw in "Top Of The Problems" chart depending on its type.
-+ (UIImage *)scoreImageOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
++ (UIImage *)scoreImageOfProblem:(EcomapProblem *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
 {
     switch(kindOfChart) {
         case EcomapMostCommentedProblemsTopList: return [UIImage imageNamed:@"12"];

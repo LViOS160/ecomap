@@ -30,7 +30,7 @@
 #pragma mark - Ask URL methods
 + (NSURL *)URLforAllProblems
 {
-    return [self URLForAPIQuery:ECOMAP_GET_PROBLEMS_API];
+    return [self URLForAPIQuery:ECOMAP_GET_PROBLEM_API];
 }
 
 + (NSURL *)URLforAllProblemsTypes
