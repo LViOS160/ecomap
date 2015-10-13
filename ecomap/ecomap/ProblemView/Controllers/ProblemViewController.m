@@ -65,7 +65,7 @@ typedef enum : NSUInteger {
     [self loadProblemDetails:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(problemsDetailsChanged)
-                                                 name:PROBLEMS_DETAILS_CHANGED
+                                                 name:ALL_PROBLEMS_CHANGED
                                                object:nil];
 }
 
