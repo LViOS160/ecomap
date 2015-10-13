@@ -128,22 +128,24 @@ typedef enum : NSUInteger {
         [EcomapFetcher addVoteForProblem:self.problemDetails
                                 withUser:[EcomapLoggedUser currentLoggedUser]
                             OnCompletion:^(NSError *error) {
-                                if (!error) {
+                                if (!error)
+                                {
                                     [self loadProblemDetails:^{
                                         sender.enabled = YES;
-                                        
-                                        NSString *alertTitle = [NSString stringWithFormat:NSLocalizedString(@"Шановний, %@!", @"Dear, %@"), [[EcomapLoggedUser currentLoggedUser] name]];
-                                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:alertTitle
-                                                                                       message:NSLocalizedString(@"Голос додано", @"Vote added")
+                                       
+                                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                                                       message:NSLocalizedString(@"Голос додано", @"Vote is added")
                                                                                       delegate:nil cancelButtonTitle:@"Ok"
                                                                              otherButtonTitles:nil];
                                         [alert show];
                                     }];
-                                } else {
-                                    sender.enabled = YES;
                                     
-                                    NSString *alertTitle = [NSString stringWithFormat:@"Dear, %@!", [[EcomapLoggedUser currentLoggedUser] name]];
-                                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:alertTitle
+                                    
+                                }
+                                else
+                                {
+                                    sender.enabled = YES;
+                                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
                                                                                    message:NSLocalizedString(@"Ви вже голосували за дану проблему", @"You have already voted for this problem")
                                                                                   delegate:nil cancelButtonTitle:@"Ok"
                                                                          otherButtonTitles:nil];

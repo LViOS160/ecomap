@@ -303,7 +303,7 @@
 #pragma mark -
 + (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler
 {
-    if(![problemDetails canVote:user])
+    if(![problemDetails canVote:user])               // work
     {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
                                                        message:NSLocalizedString(@"Будь ласка, увійдіть до системи для голосування", @"Please, login to vote!")
@@ -347,18 +347,21 @@
         NSString *middle = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)[ob problemsID]];
         NSString *final = [middle stringByAppendingString:@"/vote"];
         
-        NSDictionary *parameters = [[NSDictionary alloc]init];
-        
-        parameters = [NSDictionary dictionaryWithObjectsAndKeys:user.email, @"email" , user.token, @"password", nil];  
-        
-        [manager POST:final parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+        [manager POST:final parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
         {
             NSLog(@"vote is added");
-            
+
+            if (completionHandler)
+            {
+                completionHandler(nil);
+            }
         }
               failure:^(AFHTTPRequestOperation *operation, NSError *error)
         {
-            NSLog(@"%@",error);
+            if (completionHandler)
+            {
+                completionHandler(error);
+            }
         }];
         
     });

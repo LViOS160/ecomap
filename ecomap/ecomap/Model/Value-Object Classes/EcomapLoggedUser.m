@@ -16,7 +16,6 @@
 @property (nonatomic, strong, readwrite) NSString *role;
 @property (nonatomic, readwrite) NSUInteger iat;
 @property (nonatomic, strong, readwrite) NSString *token;
-@property (nonatomic, strong, readwrite) NSString *email;
 
 @property (nonatomic, strong) EcomapLoggedUser *curretLoggedUser;
 @end
@@ -84,8 +83,6 @@
         sharedAccount.surname = ![[userInfo valueForKey:ECOMAP_USER_SURNAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_SURNAME] : @"";
         sharedAccount.role = ![[userInfo valueForKey:ECOMAP_USER_ROLE] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_ROLE] : nil;
         sharedAccount.iat = ![[userInfo valueForKey:ECOMAP_USER_ITA] isKindOfClass:[NSNull class]] ? [[userInfo valueForKey:ECOMAP_USER_ITA] integerValue] : 0;
-        sharedAccount.token = ![[userInfo valueForKey:ECOMAP_USER_TOKEN] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_TOKEN] : 0;
-        sharedAccount.email = ![[userInfo valueForKey:ECOMAP_USER_EMAIL] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_EMAIL] : nil;
     }
     NSLog(@"%@",sharedAccount.name);
     

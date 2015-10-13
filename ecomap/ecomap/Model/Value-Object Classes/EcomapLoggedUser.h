@@ -15,7 +15,7 @@
 @property (nonatomic, strong, readonly) NSString *role;
 @property (nonatomic, readonly) NSUInteger iat; //timeInterval since 1970
 @property (nonatomic, strong, readonly) NSString *token;
-@property (nonatomic, strong, readonly) NSString *email;
+@property (nonatomic, strong) NSString *email;
 
 //To login user
 + (EcomapLoggedUser *)loginUserWithInfo:(NSDictionary *)userInfo; //userInfo is response from Ecomap server

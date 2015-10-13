@@ -57,8 +57,12 @@ static BOOL calledFacebookCloseSession = NO;
                                userInfo = [JSONParser parseJSONtoDictionary:JSON];
                                //Create EcomapLoggedUser object
                                loggedUser = [EcomapLoggedUser loginUserWithInfo:userInfo];
+
                                
                                if (loggedUser) {
+                                   loggedUser.email = email;
+                                 //  loggedUser
+                                   
                                    DDLogVerbose(@"LogIN to ecomap success! %@", loggedUser.description);
                                    
                                    //Create cookie
