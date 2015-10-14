@@ -28,6 +28,11 @@
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
+@property (nonatomic,strong) UIAlertView *alertView;
+@property (nonatomic) NSUInteger currentIDInButton;
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+-(IBAction)editComment:(id)sender;
 
 @end
 
@@ -43,9 +48,7 @@
 
 - (void)viewDidLoad {
     
-    //[EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-        
-    //}];
+
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
     
@@ -59,6 +62,11 @@
    
     
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+    
+    
+    self.alertView = [[UIAlertView alloc] initWithTitle:@"Editing comment..." message:@"Edit your comment:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+
     
    // [self.comments initWithArray: [ob comInfo]];
     
@@ -106,9 +114,8 @@
     
         NSString * fromTextField = self.textField.text;
         EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-        NSString * userID = [NSString stringWithFormat:@"%lu",(unsigned long)userIdent.userID];
-    
-    if(userIdent) {
+
+        if(userIdent) {
         
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -141,31 +148,7 @@
             [[NetworkActivityIndicator sharedManager]endActivity];
         });
         
-    
-        
-
-        
-        
-        
-        
-        /*
-            [EcomapFetcher createComment:userID
-                                 andName:userIdent.name
-                              andSurname:userIdent.surname
-                              andContent:fromTextField
-                            andProblemId:self.problemma OnCompletion:^(EcomapCommentaries *obj, NSError *error)
-             {
-                 
-                 if(error)
-                     DDLogError(@"Error adding comment:%@", [error localizedDescription]);
-                 else
-                     [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-                 
-                 [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
-                 
-             }];*/
-        
-        
+         
             
         }
 
@@ -233,51 +216,114 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+    
+
+    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
     if(ob.comInfo.count == 0)
     {
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         
         cell.textLabel.text = @"Коментарі відсутні";
-        
+       
         return cell;
     }
     else
-    {//EcomapCommentaries *commentair = [self.comments objectAtIndex:indexPath.row];
-         EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-        
+    {
         
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
         NSInteger row = indexPath.row;
         
         cell.commentContent.text= [[ob.comInfo  objectAtIndex:row] valueForKey:@"content"];
         NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
-        formatter.dateStyle = NSDateFormatterMediumStyle;      //
-        formatter.timeStyle = NSDateFormatterShortStyle;       //
-        formatter.doesRelativeDateFormatting = YES;            //
+        formatter.dateStyle = NSDateFormatterMediumStyle;
+        formatter.timeStyle = NSDateFormatterShortStyle;
+        formatter.doesRelativeDateFormatting = YES;
         NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
-        [formatter setLocale:ukraineLocale];                   //
+        [formatter setLocale:ukraineLocale];
         
-   //     NSString *personalInfo = [NSString stringWithFormat:@"%@ %@",commentair.userName, commentair.userSurname];
-     // NSString *dateInfo = [NSString stringWithFormat:@" %@",[formatter stringFromDate:commentair.date]];
-     //   cell.personInfo.text = personalInfo;
-       // cell.dateInfo.text = dateInfo;
-        //[cell setNeedsUpdateConstraints];
-        //[cell updateConstraintsIfNeeded];
+        [self makeButtonForCell:cell];
+        
+        //[tableView reloadData];
+        
         return cell;
     }
     
-   
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1){
+        
+        NSString *content = [self.alertView textFieldAtIndex:0].text;
+        
+        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+        
+        NSDictionary *dictionary = @{
+                                     @"content" : content,
+                                     };
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        
+        NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
+        NSNumber *num = [[ob.comInfo objectAtIndex:0] valueForKey:@"id"];
+        NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
+        
+        [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            NSLog(@"%@",error);
+        }];
+        
+    }
+    
+}
+
+
+-(IBAction)editComment:(id)sender
+{
+    
+    UIButton *senderButton = (UIButton *)sender;
+    UITableViewCell *buttonCell = (UITableViewCell *)[senderButton superview];
+    NSIndexPath* pathOfTheCell = [self.myTableView indexPathForCell:buttonCell];
+    self.currentIDInButton = [pathOfTheCell row];
+    
+    UITextField *textField = [self.alertView textFieldAtIndex:0];
+    [textField setText:[self.comments objectAtIndex:self.currentIDInButton]];
+    
+    [self.alertView show];
+    
+
+}
+
+
+
+- (void)makeButtonForCell:(UITableViewCell *)cell
+{
+    
+    UIButton *addFriendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    addFriendButton.frame = CGRectMake(225.0f, 5.0f, 75.0f, 30.0f);
+    [addFriendButton setTitle:@"Edit" forState:UIControlStateNormal];
+    [cell addSubview:addFriendButton];
+    [addFriendButton addTarget:self
+                        action:@selector(editComment:)
+              forControlEvents:UIControlEventTouchUpInside];
 }
 
 
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
- /*   if([userIdent.role isEqualToString:@"user"] && self.comments.count >0)
-        return YES;
-    else*/
+
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
     if([userIdent.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]]){
         return YES;
@@ -287,13 +333,13 @@
 }
 
 
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-          if(editingStyle == UITableViewCellEditingStyleDelete)
+
+    if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-        // EcomapActivity *commentaries = [self.comments objectAtIndex:indexPath.row];
-       // NSUInteger number = commentaries.commentID;
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
@@ -301,8 +347,6 @@
         NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
        NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
         NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
-        
-        
         
         
         [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -316,12 +360,6 @@
         }];
 
         [tableView reloadData];
-        
-        
-        /*[ EcomapAdminFetcher deleteComment:number onCompletion:^(NSError *error) {
-            if(!error)
-            [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-        }];*/
         
     }
     
