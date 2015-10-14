@@ -12,6 +12,8 @@
 #import "Defines.h"
 #import "InfoActions.h"
 #import "AFNetworking.h"
+#import "EcomapFetcher.h"
+#import "ProblemViewController.h"
 
 enum : NSInteger {
     TextFieldTag_Content = 1,
@@ -108,23 +110,25 @@ enum : NSInteger {
     
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    //[manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
      manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
-    //NSString *url = [middle stringByAppendingString:@"/comments"];
     
     
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+
         [InfoActions stopActivityIndicator];
+        //[self.navigationController popViewControllerAnimated:YES];
+        //[self.navigationController popToRootViewControllerAnimated:YES];
         [self.navigationController popViewControllerAnimated:YES];
+        //self.navigationController.presentedViewController
         [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
         
+       
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"%@",error);
