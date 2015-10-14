@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EcomapLoggedUser.h"
 
 @interface EcomapProblem : NSObject <NSCoding>
 
@@ -18,6 +19,10 @@
 @property (nonatomic, strong, readonly) NSString *problemTypeTitle;
 @property (nonatomic, readonly) BOOL isSolved;
 @property (nonatomic, strong, readonly) NSDate *dateCreated;
+@property (nonatomic, readonly) NSUInteger userCreator;
+@property (nonatomic, readonly) NSUInteger vote;
+@property (nonatomic, readonly) NSUInteger severity;
+@property (nonatomic, readonly) NSUInteger numberOfComments;
 
 //Designated initializer
 - (instancetype)initWithProblem:(NSDictionary *)problem;

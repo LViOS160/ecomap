@@ -26,4 +26,5 @@
 //Registration.
 + (void)registerWithName:(NSString*)name andSurname:(NSString*) surname andEmail: (NSString *)email andPassword:(NSString *)password OnCompletion:(void (^)(NSError *error))completionHandler;
 
+
 @end

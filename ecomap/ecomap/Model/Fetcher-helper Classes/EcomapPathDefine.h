@@ -13,7 +13,7 @@
 //#define ECOMAP_ADDRESS @"http://localhost:8090/"
 //#define ECOMAP_ADDRESS @"http://ecomap.org/"
 //#define ECOMAP_ADDRESS @"http://192.168.2.1:8090/"
-
+//eded
 #define ECOMAP_API @"api/"
 #define ECOMAP_GET_PROBLEMS_API @"allproblems"
 #define ECOMAP_GET_PROBLEMS_WITH_ID_API @"problems/"
@@ -27,8 +27,8 @@
 #define ECOMAP_GET_LARGE_PHOTOS_ADDRESS @"photos/large/"
 #define ECOMAP_GET_SMALL_PHOTOS_ADDRESS @"photos/small/"
 #define ECOMAP_POST_PROBLEM @"allproblems"
-#define ECOMAP_GET_RESOURCES @"gettitles/"
-#define ECOMAP_GET_ALIAS @"resources/"
+#define ECOMAP_GET_RESOURCES @"pages"
+#define ECOMAP_GET_ALIAS @"pages/"
 #define ECOMAP_POST_VOTE @"vote/"
 #define ECOMAP_POST_COMMENT @"comment/"
 #define ECOMAP_POST_PHOTO @"photo/"
@@ -70,7 +70,7 @@
 #define ECOMAP_PROBLEM_STATUS @"status"
 
 // keys (paths) to values in a PROBLEM dictionary of PROBLEMS array
-#define ECOMAP_PROBLEM_DATE @"Date"
+#define ECOMAP_PROBLEM_DATE @"datetime"
 
 // keys (paths) to values in a FIRST dictionary (details about problem) in PROBLEM array
 #define ECOMAP_PROBLEM_CONTENT @"content"
@@ -81,13 +81,13 @@
 #define ECOMAP_PROBLEM_VALUE @"value"
 
 // keys (paths) applicable to all types of Ecomap resources
-#define ECOMAP_RESOURCE_TITLE @"Title"
-#define ECOMAP_RESOURCE_ALIAS @"Alias"
-#define ECOMAP_RESOURCE_ID @"Id"
-#define ECOMAP_RESOURCE_ISRESOURCE @"IsResource"
+#define ECOMAP_RESOURCE_TITLE @"title"
+#define ECOMAP_RESOURCE_ALIAS @"alias"
+#define ECOMAP_RESOURCE_ID @"id"
+#define ECOMAP_RESOURCE_ISRESOURCE @"is_resource"
 
 // keys (paths) applicable to some type of  ecomap.org/resources/alias
-#define ECOMAP_RESOURCE_ALIAS_CONTENT @"Content"
+#define ECOMAP_RESOURCE_ALIAS_CONTENT @"content"
 
 // keys (paths) to values in a SECOND dictionary (photos of a problem) in PROBLEM array
 #define ECOMAP_PHOTO_ID @"Id"
@@ -124,6 +124,7 @@
 #define ECOMAP_USER_ITA @"iat"
 #define ECOMAP_USER_TOKEN @"token"
 #define ECOMAP_USER_EMAIL @"email"
+#define ECOMAP_USER_DELETE_PROBLEM @"Delete_problem"
 
 // keys (paths) to values in a STAT dictionary in GENERAL STATS array
 #define ECOMAP_GENERAL_STATS_PROBLEMS @"problems"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7519.1" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7513.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -447,6 +447,33 @@
                                         <constraint firstAttribute="trailing" secondItem="LWf-Y1-AyT" secondAttribute="trailing" constant="2" id="FNY-l9-gKg"/>
                                         <constraint firstItem="LWf-Y1-AyT" firstAttribute="top" secondItem="YYU-VT-rlu" secondAttribute="top" constant="2" id="R51-IL-ktS"/>
                                         <constraint firstItem="LWf-Y1-AyT" firstAttribute="leading" secondItem="YYU-VT-rlu" secondAttribute="leading" constant="2" id="X2T-0E-htN"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ownerProblemCell" id="GVf-Ae-pYJ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ownerProblemCell" tableViewCell="GVf-Ae-pYJ" id="ypC-yg-gsR">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNx-ik-W9f">
+                                            <rect key="frame" x="15" y="8" width="280" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="280" id="dgb-Wt-6dO"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" tag="104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Good" translatesAutoresizingMaskIntoConstraints="NO" id="ud8-sh-fKi">
+                                            <rect key="frame" x="556" y="12" width="20" height="20"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ud8-sh-fKi" firstAttribute="top" secondItem="ypC-yg-gsR" secondAttribute="topMargin" constant="4" id="IqI-Wc-EDb"/>
+                                        <constraint firstItem="yNx-ik-W9f" firstAttribute="leading" secondItem="ypC-yg-gsR" secondAttribute="leadingMargin" constant="7" id="Uzv-dS-Bfc"/>
+                                        <constraint firstItem="yNx-ik-W9f" firstAttribute="top" secondItem="ypC-yg-gsR" secondAttribute="topMargin" id="q8K-Dr-CLe"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ud8-sh-fKi" secondAttribute="trailing" constant="16" id="xmx-hi-jCV"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -2931,6 +2958,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WgQ-oX-LnI"/>
-        <segue reference="p0L-Um-XQx"/>
+        <segue reference="Tb6-3i-OMj"/>
     </inferredMetricsTieBreakers>
 </document>

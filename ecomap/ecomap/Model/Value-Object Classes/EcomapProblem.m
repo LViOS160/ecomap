@@ -8,6 +8,7 @@
 
 #import "EcomapProblem.h"
 #import "EcomapPathDefine.h"
+#import "EcomapLoggedUser.h"
 
 @interface EcomapProblem ()
 @property (nonatomic, readwrite) NSUInteger problemID;
@@ -18,6 +19,11 @@
 @property (nonatomic, strong, readwrite) NSString *problemTypeTitle;
 @property (nonatomic, readwrite) BOOL isSolved;
 @property (nonatomic, strong, readwrite) NSDate *dateCreated;
+@property (nonatomic, readwrite) NSUInteger userCreator;
+//@property (nonatomic, readwrite) NSUInteger regionID;
+@property (nonatomic, readwrite) NSUInteger vote;
+@property (nonatomic, readwrite) NSUInteger severity;
+@property (nonatomic, readwrite) NSUInteger numberOfComments;
 @end
 
 @implementation EcomapProblem
@@ -32,6 +38,11 @@
     [coder encodeObject:self.problemTypeTitle forKey:@"problemTypeTitle"];
     [coder encodeBool:self.isSolved forKey:@"isSolved"];
     [coder encodeObject:self.dateCreated forKey:@"dateCreated"];
+    [coder encodeInteger:self.userCreator forKey:@"userCreated"];
+    //[coder encodeInteger:self.regionID forKey:@"region_id"];
+    [coder encodeInteger:self.userCreator forKey:@"vote"];
+    [coder encodeInteger:self.userCreator forKey:@"severity"];
+    [coder encodeInteger:self.userCreator forKey:@"numberOfComments"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -44,6 +55,11 @@
     self.problemTypeTitle = [coder decodeObjectForKey:@"problemTypeTitle"];
     self.isSolved = [coder decodeBoolForKey:@"isSolved"];
     self.dateCreated = [coder decodeObjectForKey:@"dateCreated"];
+    self.userCreator = [coder decodeIntegerForKey:@"userCreated"];
+    //self.regionID = [coder decodeIntegerForKey:@"region_id"];
+    self.vote = [coder decodeIntegerForKey:@"vote"];
+    self.severity = [coder decodeIntegerForKey:@"severity"];
+    self.numberOfComments = [coder decodeIntegerForKey:@"numberOfComments"];
     return self;
 }
 
@@ -52,7 +68,8 @@
 -(instancetype)initWithProblem:(NSDictionary *)problem
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         if (!problem) return nil;
         self.problemID = ![[problem valueForKey:ECOMAP_PROBLEM_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_ID] integerValue] : 0;
         self.title = ![[problem valueForKey:ECOMAP_PROBLEM_TITLE] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_TITLE] : nil;
@@ -60,9 +77,15 @@
         self.longitude = ![[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] doubleValue] : 0;
         self.problemTypesID = ![[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] integerValue] : 0;
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:(self.problemTypesID - 1)];
-        NSInteger isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_STATUS] integerValue] : 0;
-        self.isSolved = isSolvedInt == 0 ? NO : YES;
+        NSString *isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_STATUS]  : 0;
+        self.isSolved = [isSolvedInt isEqualToString:@"UNSOLVED"] ? NO : YES;
         self.dateCreated = [self dateCreatedOfProblem:problem];
+        //Adding userID
+        self.userCreator = ![[problem valueForKey:@"user_id"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"user_id"] integerValue] : 0;
+        
+        self.vote = ![[problem valueForKey:@"number_of_votes"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_votes"] integerValue] : 0;
+        self.numberOfComments = ![[problem valueForKey:@"number_of_comments"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_comments"] integerValue] : 0;
+        self.severity =![[problem valueForKey:@"severity"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"severity"] integerValue] : 0;
     }
     return self;
 }

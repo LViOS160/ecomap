@@ -18,6 +18,7 @@
 @property (nonatomic, readwrite) NSUInteger moderation;
 @property (nonatomic, readwrite) NSUInteger votes;
 
+
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
 @end
 
@@ -50,8 +51,10 @@
 {
     BOOL canVote = YES;
     if(loggedUser) {
-        for(EcomapActivity *comment in self.comments) {
-            if (comment.activityTypes_Id == 3) { // vote activity type
+        for(EcomapActivity *comment in self.comments)
+        {
+            if (comment.activityTypes_Id == 3)
+            { // vote activity type
                 canVote &= comment.usersID != loggedUser.userID;
             }
         }

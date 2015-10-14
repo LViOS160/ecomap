@@ -39,7 +39,9 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    
+    
+    [super viewDidLoad];		
     
     // Download data from Ecomap server to draw General Stats Top Labels
     [self fetchGeneralStats];
@@ -49,6 +51,14 @@
 
     // Set up reveal button
     [self customSetup];
+    
+    Statistics *ob = [Statistics sharedInstanceStatistics];
+    
+    [self setSlices:[ob countAllProblemsCategory]];
+    //self.slices = [NSMutableArray arrayWithArray: ob.allProblemsPieChart];
+    
+    
+   [self drawPieChart];
 }
 
 - (void)customSetup
@@ -188,14 +198,15 @@
 
 - (void)drawPieChart
 {
+    self.slices;
     // Set data to draw the Pie Chart
-    self.slices = [[NSMutableArray alloc] init];
+  /*  self.slices = [[NSMutableArray alloc] init];
     
     for(int i = 0; i < [self.statsForPieChart count]; i++) {
         NSDictionary *problems = self.statsForPieChart[i];
         NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
         [self.slices addObject:number];
-    }
+    }*/
     
     [self.pieChartView setDelegate:self];
     [self.pieChartView setDataSource:self];
@@ -279,7 +290,7 @@
 
 - (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index
 {
-    return [self.sliceColors objectAtIndex:(index % self.sliceColors.count)];
+    return [UIColor blueColor];
 }
 
 #pragma mark - XYPieChart Delegate

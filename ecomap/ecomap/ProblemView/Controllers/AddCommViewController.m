@@ -29,6 +29,8 @@
 @property (nonatomic,strong) NSString *problemma;
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 
+@property AddCommViewController *ob;
+
 @end
 
 @implementation AddCommViewController
@@ -37,11 +39,18 @@
 
 - (void)didReceiveMemoryWarning
 {
-[super didReceiveMemoryWarning];
+    [super didReceiveMemoryWarning];
 }
 
 
+
+
+
+
+
 - (void)viewDidLoad {
+    
+    self.ob = self;
     
     //[EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
         
@@ -65,6 +74,12 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)reload
+{
+    [self updateUI];
+}
+
+
 -(void)updateUI
 {   self.myTableView.allowsMultipleSelectionDuringEditing = NO;
     self.myTableView.delegate = self;
@@ -76,7 +91,7 @@
     self.textField.textColor = [UIColor lightGrayColor];
     //[self.myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.myTableView.tableFooterView =[[UIView alloc] initWithFrame:CGRectZero];
-    
+    [self.myTableView reloadData];
 }
 
 
@@ -110,8 +125,9 @@
     
     if(userIdent) {
         
+#warning Roma has to remove this dispatching
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     //   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
             [[NetworkActivityIndicator sharedManager] startActivity];
@@ -126,7 +142,9 @@
             
             [manager POST:final parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"ura");
+                [EcomapFetcher updateComments:[ob problemsID] controller:self];
                 
+               
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
@@ -134,7 +152,7 @@
                 NSLog(@"%@",error);
             }];
             
-        });
+     //   });
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -142,7 +160,7 @@
         });
         
     
-        
+       [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
 
         
         
@@ -157,10 +175,13 @@
              {
                  
                  if(error)
+                 {
                      DDLogError(@"Error adding comment:%@", [error localizedDescription]);
+                 }
                  else
+                 {
                      [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-                 
+                 }
                  [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
                  
              }];*/
@@ -169,7 +190,8 @@
             
         }
 
-     else {
+     else
+     {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
                            actionAfterSuccseccLogin:^{
@@ -178,7 +200,8 @@
         return;
     }
 
-    if ([self.textField isFirstResponder]) {
+    if ([self.textField isFirstResponder])
+    {
         self.textField.text = @"";
         [self textViewDidEndEditing:self.textField];
     }
@@ -214,7 +237,7 @@
 }
 -(void)textViewDidChange:(UITextView *)textView
 {
-    self.addCommentButton.enabled = YES;
+    self.addCommentButton.enabled = [self.textField.text length]>0;
 }
 
 
@@ -222,24 +245,28 @@
 
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
     if(ob.comInfo.count == 0)
+    {
          return 1;
-    else    return ob.comInfo.count;
- 
+    }
+    else
+    {
+        return ob.comInfo.count;
+    }
 }
 
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
     if(ob.comInfo.count == 0)
     {
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        
         cell.textLabel.text = @"Коментарі відсутні";
-        
         return cell;
     }
     else
@@ -273,7 +300,8 @@
 
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
  /*   if([userIdent.role isEqualToString:@"user"] && self.comments.count >0)
         return YES;
@@ -307,7 +335,16 @@
         
         [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"ura");
-            
+           
+            [EcomapFetcher updateComments:ob.problemsID controller:self];
+            [UIView transitionWithView:tableView
+                              duration:2
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void)
+             {
+                 [tableView reloadData];
+             }
+                            completion:nil];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -315,7 +352,7 @@
             NSLog(@"%@",error);
         }];
 
-        [tableView reloadData];
+       // [tableView reloadData];
         
         
         /*[ EcomapAdminFetcher deleteComment:number onCompletion:^(NSError *error) {

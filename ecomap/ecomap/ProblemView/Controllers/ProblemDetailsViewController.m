@@ -34,6 +34,7 @@
 
 @implementation ProblemDetailsViewController
 
+
 -(NSMutableArray *)buttonsOnScrollView
 {
     if (!_buttonsOnScrollView) {
@@ -94,6 +95,11 @@
                                                  NSFontAttributeName: [UIFont systemFontOfSize:13]
                                                  }];
     
+    
+    
+    
+    
+    
     [text appendAttributedString:contentHeader];
     [text appendAttributedString:content];
     [text appendAttributedString:proposalHeader];
@@ -101,7 +107,9 @@
     self.descriptionText.attributedText = text;
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    if([userIdent.role isEqualToString:@"administrator"]) {
+    
+   
+    if(([userIdent.role isEqualToString:@"administrator"] || self.problemDetails.userCreator == userIdent.userID ) && userIdent && self.problemDetails.userCreator) {
         self.editButton.hidden = NO;
         self.deleteButton.hidden = NO;
     }
@@ -118,11 +126,22 @@
 
 - (IBAction)deleteProblem:(id)sender
 {
-    [ EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setRequestSerializer:jsonRequestSerializer];
+    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSUInteger num = self.problemDetails.problemID;
+    NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
+    
+    [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
-        if(!error)
-           [self.navigationController popViewControllerAnimated:YES]; 
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        [self.navigationController popViewControllerAnimated:YES];
     }];
+
 }
 
 #pragma mark - Scroll View Gallery setup

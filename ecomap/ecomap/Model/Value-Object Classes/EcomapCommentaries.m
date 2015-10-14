@@ -22,10 +22,13 @@
 @property (nonatomic, readwrite) NSString *userSurname;
 
 
+@property BOOL flagComment;
+
+
 @end
 
 @implementation EcomapCommentaries
-@synthesize  commentID,content,date,activityTypes_Id,usersID,problemsID,problemContent,userName,userSurname;
+@synthesize  commentID, content, date, activityTypes_Id, usersID, problemsID, problemContent, userName, userSurname;
 
 +(EcomapCommentaries*)sharedInstance
 {

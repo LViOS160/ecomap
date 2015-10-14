@@ -27,6 +27,9 @@
 #import "InfoActions.h"
 #import "MenuViewController.h"
 
+
+#import "Statistics.h"
+#import "TOP10.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
 @interface MapViewController () <ProblemFilterTVCDelegate>
@@ -40,6 +43,12 @@
 @property (nonatomic, strong) NSSet *problems;
 @property (nonatomic, strong) SRWebSocket *socket;
 @property (nonatomic) Reachability *hostReachability;
+
+
+@property  NSSet* currentAllProblems;
+
+@property NSArray* arrayWithProblems;
+
 
 // Filtering mask. We get it through NSNotificationCenter
 @property (nonatomic, strong) EcomapProblemFilteringMask *filteringMask;
@@ -159,6 +168,12 @@
 
 - (void)renewMap:(NSSet*)problems
 {
+    Statistics *ob = [Statistics sharedInstanceStatistics];
+    TOP10 *obj = [TOP10 sharedInstanceTOP10];
+    
+    [ob setAllProblems:self.arrayWithProblems	];
+    [obj setAllProblems:self.arrayWithProblems];
+    
     [self.clusterManager removeItems];
     [self.mapView clear];
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
@@ -177,8 +192,17 @@
 
 -(void)loadProblems {
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+      
+        self.arrayWithProblems = [NSArray arrayWithArray:problems];
+        
+        
+       // [ob countAllProblemsCategory];
         if (!error) {
             NSSet *set = [[NSSet alloc] initWithArray:problems];
+            
+            self.currentAllProblems = [[NSSet alloc]initWithSet:set];
+            
+         //   NSLog(@"%@",[self.currentAllProblems valueForKey:@");
             if (![self.problems isEqualToSet:set]) {
                 [self renewMap:set];
                 [self saveLocalJSON:set];
@@ -195,9 +219,12 @@
     
     NSArray *arrProblems;
     NSArray *filteredProblems;
+    NSLog(@"%@",[self.problems valueForKey:@"latitude"]);
+    NSLog(@"%@",[self.problems valueForKey:@"longitude"]);
     
     if(self.problems) {
-        arrProblems = [self.problems allObjects];
+        arrProblems = [self.currentAllProblems allObjects];
+        //[self.problems allObjects];
         
         if(self.filteringMask) {
             filteredProblems = [self.filteringMask applyOnArray:arrProblems];

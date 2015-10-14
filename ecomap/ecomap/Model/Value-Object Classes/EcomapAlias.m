@@ -42,10 +42,12 @@
 
 - (NSString *)contOfAlias:(NSDictionary *)alias
 {
-    NSString *cont = (NSString*)[alias valueForKey:ECOMAP_RESOURCE_ALIAS_CONTENT];
-    if (cont) {
-        return cont;
+    NSString *resourceID = (NSString*)[[alias valueForKey:ECOMAP_RESOURCE_ALIAS_CONTENT] description];
+    if (resourceID)
+    {
+        return resourceID;
     }
+    
     return nil;
 }
 
