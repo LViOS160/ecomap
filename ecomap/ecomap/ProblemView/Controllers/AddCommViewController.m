@@ -30,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
-@property AddCommViewController *ob;
+//@property AddCommViewController *ob;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 -(IBAction)editComment:(id)sender;
@@ -47,18 +47,10 @@
 }
 
 
-
-
-
-
-
 - (void)viewDidLoad {
     
-    self.ob = self;
-    
-    //[EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-        
-    //}];
+    //self.ob = self;
+
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
     
@@ -78,8 +70,6 @@
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
 
     
-   // [self.comments initWithArray: [ob comInfo]];
-    
     // Do any additional setup after loading the view.
 }
 
@@ -98,7 +88,6 @@
     self.textField.delegate = self;
     self.textField.text = @"Add comment";
     self.textField.textColor = [UIColor lightGrayColor];
-    //[self.myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.myTableView.tableFooterView =[[UIView alloc] initWithFrame:CGRectZero];
     [self.myTableView reloadData];
 }
@@ -152,8 +141,6 @@
                 NSLog(@"ura");
                 [EcomapFetcher updateComments:[ob problemsID] controller:self];
                 
-               
-                
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
                 
@@ -170,31 +157,7 @@
     
        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
 
-        
-        
-        
-        
-        /*
-            [EcomapFetcher createComment:userID
-                                 andName:userIdent.name
-                              andSurname:userIdent.surname
-                              andContent:fromTextField
-                            andProblemId:self.problemma OnCompletion:^(EcomapCommentaries *obj, NSError *error)
-             {
-                 
-                 if(error)
-                 {
-                     DDLogError(@"Error adding comment:%@", [error localizedDescription]);
-                 }
-                 else
-                 {
-                     [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-                 }
-                 [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
-                 
-             }];*/
-        
-        
+   
             
         }
 
@@ -297,13 +260,12 @@
         NSString *dateInfo = [NSString stringWithFormat:@"%@",[[ob.comInfo  objectAtIndex:row] valueForKey:@"created_date"]];
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
-        //[cell setNeedsUpdateConstraints];
-        //[cell updateConstraintsIfNeeded];
+
+        EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
-        [self makeButtonForCell:cell];
         
-        //[tableView reloadData];
-        
+        if(loggedUser && [loggedUser.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]]) [self makeButtonForCell:cell];
+       
         return cell;
     }
     
@@ -330,11 +292,13 @@
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         
         NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
-        NSNumber *num = [[ob.comInfo objectAtIndex:0] valueForKey:@"id"];
+        NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
         NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
         
         [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
+            [EcomapFetcher updateComments:ob.problemsID controller:self];
+            [self.myTableView reloadData];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -352,10 +316,13 @@
     UIButton *senderButton = (UIButton *)sender;
     UITableViewCell *buttonCell = (UITableViewCell *)[senderButton superview];
     NSIndexPath* pathOfTheCell = [self.myTableView indexPathForCell:buttonCell];
-    self.currentIDInButton = [pathOfTheCell row];
+    CommentCell *cell = [self.myTableView cellForRowAtIndexPath:pathOfTheCell];
+    NSInteger row = pathOfTheCell.row;
+    self.currentIDInButton = row;
+    
     
     UITextField *textField = [self.alertView textFieldAtIndex:0];
-    [textField setText:[self.comments objectAtIndex:self.currentIDInButton]];
+    [textField setText:cell.commentContent.text];
     
     [self.alertView show];
     
@@ -367,11 +334,12 @@
 - (void)makeButtonForCell:(UITableViewCell *)cell
 {
     
-    UIButton *addFriendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    addFriendButton.frame = CGRectMake(225.0f, 5.0f, 75.0f, 30.0f);
-    [addFriendButton setTitle:@"Edit" forState:UIControlStateNormal];
-    [cell addSubview:addFriendButton];
-    [addFriendButton addTarget:self
+    UIButton *addEditButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    addEditButton.frame = CGRectMake(300.0f, 0.1f, 75.0f, 46.6f);
+    addEditButton.backgroundColor = [UIColor greenColor];
+    [addEditButton setTitle:@"Edit" forState:UIControlStateNormal];
+    [cell addSubview:addEditButton];
+    [addEditButton addTarget:self
                         action:@selector(editComment:)
               forControlEvents:UIControlEventTouchUpInside];
 }
@@ -427,7 +395,6 @@
             NSLog(@"%@",error);
         }];
 
-       // [tableView reloadData];
         
     }
     
