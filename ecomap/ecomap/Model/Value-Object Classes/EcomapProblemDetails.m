@@ -62,7 +62,8 @@
         if([[[NSUserDefaults standardUserDefaults] arrayForKey:@"votedPosts"] containsObject:@(self.problemID)])
             canVote = NO;
     }
-    return canVote;
+    
+   return YES;
 }
 
 @end

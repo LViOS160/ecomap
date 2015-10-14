@@ -127,14 +127,27 @@ typedef enum : NSUInteger {
         [EcomapFetcher addVoteForProblem:self.problemDetails
                                 withUser:[EcomapLoggedUser currentLoggedUser]
                             OnCompletion:^(NSError *error) {
-                                if (!error) {
+                                if (!error)
+                                {
                                     [self loadProblemDetails:^{
                                         sender.enabled = YES;
-                                        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Голос додано", @"Vote added")];
+                                       
+                                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                                                       message:NSLocalizedString(@"Голос додано", @"Vote is added")
+                                                                                      delegate:nil cancelButtonTitle:@"Ok"
+                                                                             otherButtonTitles:nil];
+                                        [alert show];
                                     }];
-                                } else {
+                                    
+                                }
+                                else
+                                {
                                     sender.enabled = YES;
-                                    [InfoActions showPopupWithMesssage:NSLocalizedString(@"Ви вже голосували за дану проблему", @"You have already voted for this problem")];
+                                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                                                   message:NSLocalizedString(@"Ви вже голосували за дану проблему", @"You have already voted for this problem")
+                                                                                  delegate:nil cancelButtonTitle:@"Ok"
+                                                                         otherButtonTitles:nil];
+                                    [alert show];
                                 }
                             }];
     }
