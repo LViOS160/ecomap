@@ -134,7 +134,10 @@
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
     
     [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

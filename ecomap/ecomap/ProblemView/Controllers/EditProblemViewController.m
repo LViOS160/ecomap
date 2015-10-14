@@ -12,6 +12,7 @@
 #import "Defines.h"
 #import "InfoActions.h"
 #import "AFNetworking.h"
+#import "ProblemViewController.h"
 
 enum : NSInteger {
     TextFieldTag_Content = 1,
@@ -26,6 +27,8 @@ enum : NSInteger {
 @property (weak, nonatomic) IBOutlet UITextView *content;
 @property (weak, nonatomic) IBOutlet UITextView *proposal;
 @property (strong, nonatomic) EcomapEditableProblem *editableProblem;
+
+//- (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved;
 
 @end
 
@@ -85,6 +88,15 @@ enum : NSInteger {
     return severityStr;
 }
 
+- (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved
+{
+    if (isSolved) {
+        return @"SOLVED";
+    } else {
+        return @"UNSOLVED";
+    }
+}
+
 - (void)saveButtonTouch:(id)sender
 {
     [self.titleField resignFirstResponder];
@@ -95,8 +107,7 @@ enum : NSInteger {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *dictionary = @{
-                                 @"status" : @"UNSOLVED",
-                                 //@"region_id": @("0"),
+                                 @"status" : [self stringFromIsSolvedForRequest:self.editableProblem.isSolved],
                                  @"problem_type_id" : @(self.problem.problemTypesID),
                                  @"severity" : [NSString stringWithFormat:@"%lu", self.editableProblem.severity],
                                  @"title" : self.editableProblem.title,
@@ -114,13 +125,13 @@ enum : NSInteger {
     NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
-    //NSString *url = [middle stringByAppendingString:@"/comments"];
     
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+
         [InfoActions stopActivityIndicator];
         [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
