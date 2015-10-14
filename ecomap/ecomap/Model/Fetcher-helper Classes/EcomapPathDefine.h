@@ -29,7 +29,7 @@
 #define ECOMAP_POST_PROBLEM @"allproblems"
 #define ECOMAP_GET_RESOURCES @"pages"
 #define ECOMAP_GET_ALIAS @"pages/"
-#define ECOMAP_POST_VOTE @"vote/"
+#define ECOMAP_POST_VOTE @"vote"
 #define ECOMAP_POST_COMMENT @"comment/"
 #define ECOMAP_POST_PHOTO @"photo/"
 

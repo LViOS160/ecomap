@@ -49,18 +49,9 @@
 
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser
 {
-    BOOL canVote = YES;
-    if(loggedUser) {
-        for(EcomapActivity *comment in self.comments)
-        {
-            if (comment.activityTypes_Id == 3)
-            { // vote activity type
-                canVote &= comment.usersID != loggedUser.userID;
-            }
-        }
-    } else {
-        if([[[NSUserDefaults standardUserDefaults] arrayForKey:@"votedPosts"] containsObject:@(self.problemID)])
-            canVote = NO;
+    if(!loggedUser)
+    {
+        return NO;
     }
     
    return YES;
