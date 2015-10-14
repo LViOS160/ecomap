@@ -30,11 +30,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
+@property AddCommViewController *ob;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 -(IBAction)editComment:(id)sender;
-
-@property AddCommViewController *ob;
 
 @end
 
@@ -55,7 +54,11 @@
 
 - (void)viewDidLoad {
     
-
+    self.ob = self;
+    
+    //[EcomapUserFetcher loginWithEmail:@"admin@.com" andPassword:@"admin" OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+        
+    //}];
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
     
@@ -164,7 +167,34 @@
             [[NetworkActivityIndicator sharedManager]endActivity];
         });
         
-         
+    
+       [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
+
+        
+        
+        
+        
+        /*
+            [EcomapFetcher createComment:userID
+                                 andName:userIdent.name
+                              andSurname:userIdent.surname
+                              andContent:fromTextField
+                            andProblemId:self.problemma OnCompletion:^(EcomapCommentaries *obj, NSError *error)
+             {
+                 
+                 if(error)
+                 {
+                     DDLogError(@"Error adding comment:%@", [error localizedDescription]);
+                 }
+                 else
+                 {
+                     [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+                 }
+                 [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
+                 
+             }];*/
+        
+        
             
         }
 
@@ -238,9 +268,8 @@
 
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
     if(ob.comInfo.count == 0)
     {
@@ -262,6 +291,14 @@
         formatter.doesRelativeDateFormatting = YES;
         NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
         [formatter setLocale:ukraineLocale];
+        
+        NSString *personalInfo = [NSString stringWithFormat:@"%@", [[ob.comInfo  objectAtIndex:row] valueForKey:@"created_by"]];
+        
+        NSString *dateInfo = [NSString stringWithFormat:@"%@",[[ob.comInfo  objectAtIndex:row] valueForKey:@"created_date"]];
+        cell.personInfo.text = personalInfo;
+        cell.dateInfo.text = dateInfo;
+        //[cell setNeedsUpdateConstraints];
+        //[cell updateConstraintsIfNeeded];
         
         [self makeButtonForCell:cell];
         
@@ -342,8 +379,8 @@
 
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
 
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
