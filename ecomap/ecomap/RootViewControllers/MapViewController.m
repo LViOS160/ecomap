@@ -25,7 +25,10 @@
 #import "EcomapUserFetcher.h"
 #import "EcomapLoggedUser.h"
 #import "InfoActions.h"
+#import "MenuViewController.h"
+#import "TOP10.h"
 
+#import "Statistics.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
 @interface MapViewController () <ProblemFilterTVCDelegate>
@@ -40,11 +43,18 @@
 @property (nonatomic, strong) SRWebSocket *socket;
 @property (nonatomic) Reachability *hostReachability;
 
+
+@property  NSSet* currentAllProblems;
+
+@property NSArray* arrayWithProblems;
+
+
 // Filtering mask. We get it through NSNotificationCenter
 @property (nonatomic, strong) EcomapProblemFilteringMask *filteringMask;
 
 // Set which contains problems after applying filter.
 @property (nonatomic, strong) NSSet *filteredProblems;
+
 
 @end
 
@@ -61,6 +71,7 @@
                                              selector:@selector(allProblemsChanged:)
                                                  name:ALL_PROBLEMS_CHANGED
                                                object:nil];
+   
 }
 
 - (void)login {
@@ -156,6 +167,13 @@
 
 - (void)renewMap:(NSSet*)problems
 {
+    Statistics *ob = [Statistics sharedInstanceStatistics];
+    [ob setAllProblems:self.arrayWithProblems];
+    TOP10 *obj = [TOP10 sharedInstanceTOP10];
+    
+  //  [ob setAllProblems:self.arrayWithProblems	];
+    [obj setAllProblems:self.arrayWithProblems];
+    
     [self.clusterManager removeItems];
     [self.mapView clear];
     self.clusterManager = [GClusterManager managerWithMapView:self.mapView
@@ -174,8 +192,17 @@
 
 -(void)loadProblems {
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+      
+        self.arrayWithProblems = [NSArray arrayWithArray:problems];
+        
+        
+       // [ob countAllProblemsCategory];
         if (!error) {
             NSSet *set = [[NSSet alloc] initWithArray:problems];
+            
+            self.currentAllProblems = [[NSSet alloc]initWithSet:set];
+            
+         //   NSLog(@"%@",[self.currentAllProblems valueForKey:@");
             if (![self.problems isEqualToSet:set]) {
                 [self renewMap:set];
                 [self saveLocalJSON:set];
@@ -192,9 +219,12 @@
     
     NSArray *arrProblems;
     NSArray *filteredProblems;
+    NSLog(@"%@",[self.problems valueForKey:@"latitude"]);
+    NSLog(@"%@",[self.problems valueForKey:@"longitude"]);
     
     if(self.problems) {
-        arrProblems = [self.problems allObjects];
+        arrProblems = [self.currentAllProblems allObjects];
+        //[self.problems allObjects];
         
         if(self.filteringMask) {
             filteredProblems = [self.filteringMask applyOnArray:arrProblems];
@@ -236,9 +266,11 @@
     if ( revealViewController )
     {
         revealViewController.mapViewController = self.navigationController;
+        
         [self.revealButtonItem setTarget: self.revealViewController];
         [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer: self.revealViewController.tapGestureRecognizer];
     }
 }
 
@@ -260,16 +292,16 @@
                                         0);
 }
 
-- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
-    assert(mapView == self.mapView);
+- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {   
+
+      assert(mapView == self.mapView);
     
     // Don't re-compute clusters if the map has just been panned/tilted/rotated.
     GMSCameraPosition *position = [mapView camera];
     if (self.previousCameraPosition != nil && self.previousCameraPosition.zoom == position.zoom) {
         return;
     }
-    self.previousCameraPosition = [mapView camera];
-    
+    self.previousCameraPosition = [mapView camera];    
     [self.clusterManager cluster];
 }
 

@@ -8,6 +8,10 @@
 
 #import "MenuViewController.h"
 #import "EcomapLoggedUser.h"
+#import "SWRevealViewController.h"
+#import "EcomapRevealViewController.h"
+#import "MapViewController.h"
+#import "AddProblemViewController.h"
 
 @implementation SWUITableViewCell
 
@@ -16,18 +20,61 @@
 
 @end
 
-@interface MenuViewController ()
+@interface MenuViewController () <SWRevealViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (nonatomic) BOOL showLogin;
+@property (weak,nonatomic) UIViewController *frontViewController;
 @end
 
 @implementation MenuViewController
+
+- (void)viewDidLoad
+{
+    EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
+    revealViewController.delegate = self;
+    
+    
+}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    
 }
+
+- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
+{
+
+    
+}
+
+- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress{
+    
+    
+}
+
+- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position
+{
+    if (![revealController.frontViewController isKindOfClass:[UINavigationController class]])
+    {
+        return;
+    }
+    
+    UINavigationController *front = (UINavigationController *)revealController.frontViewController;
+    UIViewController *topView = front.topViewController;
+    
+    if(position == FrontViewPositionRight)
+    {
+        topView.view.userInteractionEnabled = NO;
+    }
+    else
+    {
+        topView.view.userInteractionEnabled = YES;
+    }
+}
+
 
 -(BOOL)showLogin
 {

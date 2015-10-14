@@ -25,7 +25,7 @@
 #import "EcomapAlias.h"
 #import "EcomapCommentaries.h"
 //#import "LocalImageDescription.h"
-
+#import "AddCommViewController.h"
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 #import "DataTasks.h"
@@ -62,12 +62,10 @@
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
         OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
++(BOOL)updateComments:(NSUInteger)problemID;
 +(void)deleteComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
         OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
-
-
-
-
++(BOOL)updateComments:(NSUInteger)problemID controller:(AddCommViewController*)controller;
 @end

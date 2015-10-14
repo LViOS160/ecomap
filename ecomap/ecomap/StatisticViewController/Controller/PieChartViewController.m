@@ -19,6 +19,7 @@
 #define NUMBER_OF_TOP_LABELS 4
 
 @interface PieChartViewController () <UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentNavigator;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statsRangeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
@@ -27,9 +28,12 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *pieChartSpinner;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+@property NSArray* names;
 // Data for drawing the Pie Chart
 @property (nonatomic, strong) NSMutableArray *slices;
 @property (nonatomic, strong) NSArray *sliceColors;
+
+//@property (nonatomic) NSMutableArray
 
 @end
 
@@ -40,15 +44,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Download data from Ecomap server to draw General Stats Top Labels
-    [self fetchGeneralStats];
-    
-    // Download data from Ecomap server to draw the Pie Chart
-    [self fetchStatsForPieChart];
+    self.names = @[@"Проблем", @"Голосів", @"Коментарів", @"Фотографій"];
+   [self customSetup];
+    Statistics *ob = [Statistics sharedInstanceStatistics];
+    [ob countAllProblemsCategory];
+    self.statsForPieChart = ob.forDay;
+    [self setSlices:ob.forDay];
+    self.generalStats = ob.test;
+    [self generateTopLabelViews];
+    [self.pieChartSpinner stopAnimating];
+    [self resizeTopLabelViews];
+    self.segmentNavigator.selectedSegmentIndex = 0;
+    [self changeRangeOfShowingStats:self.segmentNavigator];
+}
 
-    // Set up reveal button
-    [self customSetup];
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self resizeTopLabelViews];
+    [self drawPieChart];
 }
 
 - (void)customSetup
@@ -57,7 +71,8 @@
     if(revealViewController) {
         [self.revealButtonItem setTarget:self.revealViewController];
         [self.revealButtonItem setAction:@selector(revealToggle:)];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     }
 }
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -113,22 +128,47 @@
 
 - (IBAction)changeRangeOfShowingStats:(UISegmentedControl *)sender
 {
-    [self fetchStatsForPieChart];
+    
+    
+    [self resizeTopLabelViews];
+    self.pieChartView.pieRadius = [self pieChartRadius];
+    Statistics *ob = [Statistics sharedInstanceStatistics];
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            self.slices = [ob forDay];
+            break;
+        case 1:
+              self.slices = [ob forWeek];
+            break;
+        case 2:
+              self.slices = [ob forMonth];
+            break;
+        case 3:
+              self.slices = [ob countAllProblemsCategory];
+            break;
+        case 4:
+            self.slices = [ob countAllProblemsCategory];
+            break;
+    }
+    
+[self.pieChartSpinner stopAnimating];
+[self drawPieChart];
 }
 
 #pragma mark - Utility Methods
 
 - (void)generateTopLabelViews
 {
-    for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++) {
+    for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++){
         GeneralStatsTopLabelView *topLabelView = [[GeneralStatsTopLabelView alloc] init];
-        topLabelView.numberOfInstances = [EcomapStatsParser integerForNumberLabelForInstanceNumber:i inGeneralStatsArray:self.generalStats];
-        topLabelView.nameOfInstances = [EcomapStatsParser stringForNameLabelForInstanceNumber:i];
         topLabelView.frame = CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
-        [self.scrollView addSubview:topLabelView];
+       topLabelView.numberOfInstances = [[self.generalStats objectAtIndex:i] doubleValue];
+       topLabelView.nameOfInstances = [self.names objectAtIndex:i];
+       [self.scrollView addSubview:topLabelView];
     }
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, self.scrollView.bounds.size.height);
+    [self resizeTopLabelViews];
 }
 
 - (void)resizeTopLabelViews
@@ -187,14 +227,8 @@
 
 - (void)drawPieChart
 {
-    // Set data to draw the Pie Chart
-    self.slices = [[NSMutableArray alloc] init];
-    
-    for(int i = 0; i < [self.statsForPieChart count]; i++) {
-        NSDictionary *problems = self.statsForPieChart[i];
-        NSNumber *number = [NSNumber numberWithInteger:[[problems valueForKey:ECOMAP_PROBLEM_VALUE] integerValue]];
-        [self.slices addObject:number];
-    }
+     self.pieChartView.pieRadius = [self pieChartRadius];
+    [self.pieChartView reloadData];
     
     [self.pieChartView setDelegate:self];
     [self.pieChartView setDataSource:self];
@@ -213,12 +247,15 @@
 {
     NSMutableArray *mutableSliceColors = [[NSMutableArray alloc] init];
     
-    for(NSDictionary *problem in self.statsForPieChart) {
-        NSUInteger problemID = [[problem valueForKey:@"id"] integerValue];
-        UIColor *sliceColor = [EcomapStatsParser colorForProblemType:problemID];
-        [mutableSliceColors addObject:sliceColor];
-    }
-    
+    [mutableSliceColors addObject:[UIColor purpleColor]];
+    [mutableSliceColors addObject:[UIColor greenColor]];
+    [mutableSliceColors addObject:[UIColor blackColor]];
+    [mutableSliceColors addObject:[UIColor brownColor]];
+    [mutableSliceColors addObject:[UIColor darkGrayColor]];
+    [mutableSliceColors addObject:[UIColor greenColor]];
+    [mutableSliceColors addObject:[UIColor yellowColor]];
+    [mutableSliceColors addObject:[UIColor blueColor]];
+    [mutableSliceColors addObject:[UIColor orangeColor]];
     return mutableSliceColors;
 }
 
@@ -228,16 +265,12 @@
 {
     [self.pieChartSpinner startAnimating];
     
-    EcomapStatsTimePeriod timePeriod = [self periodForStatsByIndex:self.statsRangeSegmentedControl.selectedSegmentIndex];
     
-    [EcomapStatsFetcher loadStatsForPeriod:timePeriod onCompletion:^(NSArray *stats, NSError *error) {
-        if(!error) {
-            self.statsForPieChart = stats;
-            [self.pieChartSpinner stopAnimating];
-        } else {
-            DDLogError(@"Error: %@", error);
-        }
-    }];
+    Statistics *ob = [Statistics sharedInstanceStatistics];
+  //  self.statsForPieChart = ob.forDay;
+    [self.pieChartSpinner stopAnimating];
+    
+    [self drawPieChart];
 }
 
 - (void)fetchGeneralStats
@@ -278,7 +311,7 @@
 
 - (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index
 {
-    return [self.sliceColors objectAtIndex:(index % self.sliceColors.count)];
+    return [self.sliceColors objectAtIndex:index];
 }
 
 #pragma mark - XYPieChart Delegate

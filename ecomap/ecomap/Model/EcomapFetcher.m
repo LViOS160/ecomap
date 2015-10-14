@@ -26,7 +26,8 @@
                         if (JSON) {
                             DDLogVerbose(@"All problems loaded success from ecomap server");
                             //Parse JSON
-                            problemsFromJSON = [JSONParser parseJSONtoArray:JSON];
+                            NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                            problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
                             
                             //Fill problems array
                             if (problemsFromJSON) {
@@ -105,26 +106,35 @@
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
                     DDLogVerbose(@"%@",str);
-                    NSMutableArray *alias = nil;
-                    NSArray *aliasFromJSON = nil;
+                    
+                    NSMutableArray *aliases = [NSMutableArray array];
                     
                     if(!error)
                     {
-                        //Parse JSON
-                        aliasFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
-                        alias = [NSMutableArray array];
-                        
-                        //Fill array with ECOMAPRESOURCES
-                        for(NSDictionary *aliases in aliasFromJSON)
+                        id value = [NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
+                        if ([value isKindOfClass:[NSArray class]])
                         {
-                            EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:aliases];
-                            //  DDLogVerbose(@"%@",ecoAl.content);
-                            [alias addObject:ecoAl];
+                            NSArray *aliasFromJSON = (NSArray*)value;
                             
+                            //Fill array with ECOMAPRESOURCES
+                            for (NSDictionary *singleAlias in aliasFromJSON)
+                            {
+                                EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:singleAlias];
+                                [aliases addObject:ecoAl];
+                            }
                         }
-                    } else [InfoActions showAlertOfError:error];
+                        else if ([value isKindOfClass:[NSDictionary class]])
+                        {
+                            EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:value];
+                            [aliases addObject:ecoAl];
+                        }
+                    }
+                    else
+                    {
+                        [InfoActions showAlertOfError:error];
+                    }
                     
-                    completionHandler(alias,error);
+                    completionHandler(aliases, error);
                     
                 }];
     
@@ -165,6 +175,89 @@
     
 }
 
+
++(BOOL)updateComments:(NSUInteger)problemID controller:(AddCommViewController*)controller
+{
+    
+    NSArray *jsonArray;// =[JSONParser parseJSONtoArray:JSON];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    NSString* baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
+    NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
+    
+    [manager GET:finalUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         
+         // EcomapCommentaries *coments = [[EcomapCommentaries alloc] initWithInfo:responseObject];
+         
+         NSArray* tmp = [responseObject valueForKey:@"data"];
+         NSLog(@"%@", [tmp valueForKey:@"id"]);
+         
+         
+         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmp options:NSJSONWritingPrettyPrinted error:nil];
+         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+         NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+         NSArray *ar = [JSONParser parseJSONtoArray:objectData];
+         EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+         [ob setCommentariesArray:ar :problemID];
+         ob.problemsID = problemID;
+         
+         [controller reload];
+         
+     }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+             ob.problemsID = problemID;
+             NSLog(@"%@",error);
+             
+         }];
+    return YES;
+}
+
+
+
+
++(BOOL)updateComments:(NSUInteger)problemID
+{
+    
+    NSArray *jsonArray;// =[JSONParser parseJSONtoArray:JSON];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    NSString* baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
+    NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
+    
+    [manager GET:finalUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        
+        // EcomapCommentaries *coments = [[EcomapCommentaries alloc] initWithInfo:responseObject];
+        
+        NSArray* tmp = [responseObject valueForKey:@"data"];
+        NSLog(@"%@", [tmp valueForKey:@"id"]);
+        
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmp options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        NSArray *ar = [JSONParser parseJSONtoArray:objectData];
+        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+        [ob setCommentariesArray:ar :problemID];
+        ob.problemsID = problemID;
+    
+      //  [con reload];
+        
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+        ob.problemsID = problemID;
+        NSLog(@"%@",error);
+        
+    }];
+    return YES;
+}
+
+
 #pragma mark - Get Problem with ID
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler
 {
@@ -175,59 +268,12 @@
     
 
     NSArray *jsonArray;// =[JSONParser parseJSONtoArray:JSON];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-   // AFJSONRequestSerializer *jsonRequestSerializer = [AFHTTPResponseSerializer serializer];
-    
-    //[manager setRequestSerializer:jsonRequestSerializer];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
-    NSString* baseUrl = @"http://176.36.11.25:8000/api/problems/";
-    NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
-    NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
-    
-    [manager GET:finalUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        // EcomapCommentaries *coments = [[EcomapCommentaries alloc] initWithInfo:responseObject];
-        
-        NSArray* tmp = [responseObject valueForKey:@"data"];
-        NSLog(@"%@", [tmp valueForKey:@"id"]);
-        
-        
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmp options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        NSError *jsonError;
-        NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:objectData
-                                                             options:NSJSONReadingMutableContainers
-                                                               error:&jsonError];
-        
-        NSArray *ar = [JSONParser parseJSONtoArray:objectData];
-        
-        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-        [ob setCommentariesArray:ar :problemID];
-        ob.problemsID = problemID;
-        
-        
-        
-        
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-
-        ob.problemsID = problemID;
-        NSLog(@"%@",error);
-    }];
-    
-
-
+    [self updateComments:problemID];
 
 
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforProblemWithID:problemID]]
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
-                   
                     
                     
                     
@@ -303,70 +349,66 @@
 #pragma mark -
 + (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler
 {
-    BOOL canVote = YES;
-    if(user) {
-        for(EcomapActivity *comment in problemDetails.comments) {
-            if (comment.activityTypes_Id == 3) { // vote activity type
-                canVote &= comment.usersID != user.userID;
-            }
-        }
-    } else {
-        if([[[NSUserDefaults standardUserDefaults] arrayForKey:@"votedPosts"] containsObject:@(problemDetails.problemID)])
-            canVote = NO;
-    }
-    
-    if (!canVote) {
-        completionHandler([NSError errorWithDomain:@"EcomapVote" code:1 userInfo:nil]);
-        return;
+    if(![problemDetails canVote:user])               // work
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                       message:NSLocalizedString(@"Будь ласка, увійдіть до системи для голосування", @"Please, login to vote!")
+                                                      delegate:nil cancelButtonTitle:@"Ok"
+                                             otherButtonTitles:nil];
+        [alert show];
+        return;        
     }
     
     NSDictionary *voteData = nil;
-    if(user) {
+    if(user)
+    {
         voteData = @{
                      @"idProblem":@(problemDetails.problemID),
                      @"userId":@(user.userID),
-                     @"userName":user.name? user.name : @"",
-                     @"userSurname":user.surname? user.surname : @""
-                     };
-    } else {
-        voteData = @{
-                     @"idProblem":@(problemDetails.problemID)
+                     @"userName":user.name ? user.name : @"",
+                     @"userSurname":user.surname ? user.surname : @""
                      };
     }
-    NSData *data = [NSJSONSerialization dataWithJSONObject:voteData options:0 error:nil];
-    //Set up session configuration
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
     
-    //Set up request
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforPostVotes]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+        [[NetworkActivityIndicator sharedManager] startActivity];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+        [manager setRequestSerializer:jsonRequestSerializer];
+        NSString *baseUrl = ECOMAP_ADDRESS;
+        baseUrl = [baseUrl stringByAppendingString:ECOMAP_API];
+        baseUrl = [baseUrl stringByAppendingString:ECOMAP_GET_PROBLEMS_WITH_ID_API];
+        //NSString *baseUrl = @"http:176.36.11.25:8000/api/problems/";
+        NSString *middle = [baseUrl stringByAppendingFormat:@"%lu/",(unsigned long)[ob problemsID]];
+        NSString *final = [middle stringByAppendingString:ECOMAP_POST_VOTE];
+        
+        [manager POST:final parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+        {
+            NSLog(@"vote is added");            
+          
+            if (completionHandler)
+            {
+                completionHandler(nil);
+            }
+        }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error)
+        {
+            if (completionHandler)
+            {
+                completionHandler(error);
+            }
+        }];
+        
+    });
     
-   [DataTasks uploadDataTaskWithRequest:request
-                           fromData:data
-               sessionConfiguration:sessionConfiguration
-                  completionHandler:^(NSData *JSON, NSError *error) {
-                      NSDictionary *voteResponse = nil;
-                      if (!error) {
-                          voteResponse = [JSONParser parseJSONtoDictionary:JSON];
-                          if (!voteResponse[@"json"]) {
-                              error = [NSError errorWithDomain:@"EcomapVote" code:2 userInfo:nil];
-                          } else {
-                              NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                              NSArray *votedPosts = [userDefaults arrayForKey:@"votedPosts"];
-                              if(!votedPosts){
-                                  votedPosts = [NSArray arrayWithObject:@(problemDetails.problemID)];
-                              } else {
-                                  votedPosts = [votedPosts arrayByAddingObject:@(problemDetails.problemID)];
-                              }
-                              [userDefaults setObject:votedPosts forKey:@"votedPosts"];
-                          }
-                      } else [InfoActions showAlertOfError:error];
-                      
-                      completionHandler(error);
-                  }];
-}
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[NetworkActivityIndicator sharedManager]endActivity];
+    });
+    
+   }
 
 + (void)registerToken:(NSString *)token
          OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler {

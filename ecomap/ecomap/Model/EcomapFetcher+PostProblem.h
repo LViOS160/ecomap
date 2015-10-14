@@ -7,7 +7,7 @@
 //
 
 #import "EcomapFetcher.h"
-
+#import "MapViewController.h"
 @interface EcomapFetcher (PostProblem)
 
 #pragma mark - POST API

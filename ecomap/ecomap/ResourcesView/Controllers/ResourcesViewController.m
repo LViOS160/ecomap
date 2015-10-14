@@ -77,7 +77,8 @@
     {
         [self.revealButtonItem setTarget: self.revealViewController];
         [self.revealButtonItem setAction: @selector( revealToggle: )];
-        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+        [self.navigationController.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     }
     
 }
@@ -100,7 +101,9 @@
              for(id result in resources)
              {    ecoResources = result;
                  [titlesOfResources addObject:ecoResources.titleRes];              // fill the array of Titles of resources
-                 [aliasesFromResources addObject:ecoResources.alias];              // fill the array of aliases
+                 NSNumber *contNum =[NSNumber numberWithInt:ecoResources.resId];
+                 [aliasesFromResources addObject:contNum];
+                 // fill the array of aliases
                  
                  
              }
@@ -125,7 +128,7 @@
 
 -(void)webrefreshingOnCompletion:(void (^)(NSString *descriptionRes, NSError *error))completionHandler     // return the content of recource/alias .....
 {
-    
+    //self.currentPath = @"id";
     
     [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
         if(!error)

@@ -16,6 +16,7 @@
 #import "InfoActions.h"
 #import "EcomapLocalPhoto.h"
 #import "SlideAnimator.h"
+#import "MenuViewController.h"
 #import "AFNetworking.h"
 
 @interface AddProblemViewController () {
@@ -187,6 +188,7 @@
     self.addProblemNavigation.pageControl.currentPage = 0;
     self.userIsInTheMiddleOfAddingProblem = NO;
     [self.addProblemButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+    [self loadProblems];
 }
 
 - (void)switchPage{
@@ -360,7 +362,7 @@
     [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
         NSLog(@"%@",error);
     }];
-    
+ 
     
     [self loadProblems];
     

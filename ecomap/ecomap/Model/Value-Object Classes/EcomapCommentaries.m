@@ -22,6 +22,9 @@
 @property (nonatomic, readwrite) NSString *userSurname;
 
 
+@property BOOL flagComment;
+
+
 @end
 
 @implementation EcomapCommentaries
