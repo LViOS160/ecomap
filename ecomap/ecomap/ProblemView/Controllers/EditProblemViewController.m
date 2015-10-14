@@ -130,13 +130,13 @@ enum : NSInteger {
     
     
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
 
         [InfoActions stopActivityIndicator];
         //[self.navigationController popViewControllerAnimated:YES];
         //[self.navigationController popToRootViewControllerAnimated:YES];
         [self.navigationController popViewControllerAnimated:YES];
-        //self.navigationController.presentedViewController
-        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
         
        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
