@@ -227,7 +227,6 @@
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforProblemWithID:problemID]]
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {
-                   
                     
                     
                     
@@ -310,8 +309,7 @@
                                                       delegate:nil cancelButtonTitle:@"Ok"
                                              otherButtonTitles:nil];
         [alert show];
-        return;
-        
+        return;        
     }
     
     NSDictionary *voteData = nil;
@@ -324,17 +322,6 @@
                      @"userSurname":user.surname ? user.surname : @""
                      };
     }
-//    else
-//    {
-//        voteData = @{
-//                     @"idProblem":@(problemDetails.problemID) /// for unregistered users?
-//                     };
-//    }
-    
-    
-    
-   
-            
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -343,14 +330,17 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         [manager setRequestSerializer:jsonRequestSerializer];
-        NSString *baseUrl = @"http:176.36.11.25:8000/api/problems/";
-        NSString *middle = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)[ob problemsID]];
-        NSString *final = [middle stringByAppendingString:@"/vote"];
+        NSString *baseUrl = ECOMAP_ADDRESS;
+        baseUrl = [baseUrl stringByAppendingString:ECOMAP_API];
+        baseUrl = [baseUrl stringByAppendingString:ECOMAP_GET_PROBLEMS_WITH_ID_API];
+        //NSString *baseUrl = @"http:176.36.11.25:8000/api/problems/";
+        NSString *middle = [baseUrl stringByAppendingFormat:@"%lu/",(unsigned long)[ob problemsID]];
+        NSString *final = [middle stringByAppendingString:ECOMAP_POST_VOTE];
         
         [manager POST:final parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
         {
-            NSLog(@"vote is added");
-
+            NSLog(@"vote is added");            
+          
             if (completionHandler)
             {
                 completionHandler(nil);
@@ -371,46 +361,7 @@
         [[NetworkActivityIndicator sharedManager]endActivity];
     });
     
-    
-    
-    ////////
-    
-//    NSData *data = [NSJSONSerialization dataWithJSONObject:voteData options:0 error:nil];
-//    //Set up session configuration
-//    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
-//    
-//    //Set up request
-//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforPostVotes]];
-//    [request setHTTPMethod:@"POST"];
-//    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
-//    
-//   [DataTasks uploadDataTaskWithRequest:request
-//                           fromData:data
-//               sessionConfiguration:sessionConfiguration
-//                  completionHandler:^(NSData *JSON, NSError *error) {
-//                      NSDictionary *voteResponse = nil;
-//                      if (!error) {
-//                          voteResponse = [JSONParser parseJSONtoDictionary:JSON];
-//                          if (!voteResponse[@"json"]) {
-//                              error = [NSError errorWithDomain:@"EcomapVote" code:2 userInfo:nil];
-//                          } else {
-//                              NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//                              NSArray *votedPosts = [userDefaults arrayForKey:@"votedPosts"];
-//                              if(!votedPosts){
-//                                  votedPosts = [NSArray arrayWithObject:@(problemDetails.problemID)];
-//                              } else {
-//                                  votedPosts = [votedPosts arrayByAddingObject:@(problemDetails.problemID)];
-//                              }
-//                              [userDefaults setObject:votedPosts forKey:@"votedPosts"];
-//                          }
-//                      } else [InfoActions showAlertOfError:error];
-//                      
-//                      completionHandler(error);
-//                  }];
-//    
-
-}
+   }
 
 + (void)registerToken:(NSString *)token
          OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler {

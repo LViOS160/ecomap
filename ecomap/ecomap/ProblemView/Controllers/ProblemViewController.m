@@ -95,8 +95,6 @@ typedef enum : NSUInteger {
 {
     
     
-
-    
     
     [EcomapFetcher loadProblemDetailsWithID:self.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
@@ -139,7 +137,6 @@ typedef enum : NSUInteger {
                                                                              otherButtonTitles:nil];
                                         [alert show];
                                     }];
-                                    
                                     
                                 }
                                 else
