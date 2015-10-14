@@ -42,7 +42,6 @@
         
         
         [manager POST:@"http://176.36.11.25:8000/api/problems" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"ura");
           //  EcomapLoggedUser *loggedUser = nil;
             // NSDictionary *userInfo;
             //userInfo = [JSONParser parseJSONtoDictionary:responseObject];

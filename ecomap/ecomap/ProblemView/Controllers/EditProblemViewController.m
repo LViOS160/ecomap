@@ -29,6 +29,8 @@ enum : NSInteger {
 @property (weak, nonatomic) IBOutlet UITextView *proposal;
 @property (strong, nonatomic) EcomapEditableProblem *editableProblem;
 
+//- (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved;
+
 @end
 
 @implementation EditProblemViewController
@@ -87,6 +89,15 @@ enum : NSInteger {
     return severityStr;
 }
 
+- (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved
+{
+    if (isSolved) {
+        return @"SOLVED";
+    } else {
+        return @"UNSOLVED";
+    }
+}
+
 - (void)saveButtonTouch:(id)sender
 {
     [self.titleField resignFirstResponder];
@@ -97,8 +108,7 @@ enum : NSInteger {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *dictionary = @{
-                                 @"status" : @"UNSOLVED",
-                                 //@"region_id": @("0"),
+                                 @"status" : [self stringFromIsSolvedForRequest:self.editableProblem.isSolved],
                                  @"problem_type_id" : @(self.problem.problemTypesID),
                                  @"severity" : [NSString stringWithFormat:@"%lu", self.editableProblem.severity],
                                  @"title" : self.editableProblem.title,
