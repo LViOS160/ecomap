@@ -17,6 +17,7 @@
 #import "EcomapLocalPhoto.h"
 #import "SlideAnimator.h"
 #import "MenuViewController.h"
+#import "AFNetworking.h"
 
 @interface AddProblemViewController () {
     CGFloat padding;
@@ -355,11 +356,13 @@
     
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
-    details.photos = self.addProblemPhoto.photos;;
-    [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] map:self OnCompletion:^(NSString *result, NSError *error) {
-        [self loadProblems];
+    details.photos = self.addProblemPhoto.photos;
+    
+  
+    [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
+        NSLog(@"%@",error);
     }];
-    [self loadProblems];
+ 
     
     [self loadProblems];
     

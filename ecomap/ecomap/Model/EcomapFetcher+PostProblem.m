@@ -18,7 +18,6 @@
 + (void)problemPost:(EcomapProblem*)problem
      problemDetails:(EcomapProblemDetails*)problemDetails
                user:(EcomapLoggedUser*)user
-                map:(MapViewController*)map
        OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler {
     NSDictionary *params = @{
                           // @"severity" : @(problemDetails.severity),
@@ -41,9 +40,9 @@
         
         
         [manager POST:@"http://176.36.11.25:8000/api/problems" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"ura");
+            NSLog(@"ura. pavlik - ne pyshy - URA");
            
-            [map loadProblems];
+            //[map loadProblems];
             NSLog(@"ura!");
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

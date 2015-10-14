@@ -14,7 +14,6 @@
 + (void)problemPost:(EcomapProblem*)problem
      problemDetails:(EcomapProblemDetails*)problemDetails
                user:(EcomapLoggedUser*)user
-                map:(MapViewController*)map
        OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler;
 
 + (void)addPhotos:(NSArray*)photos
