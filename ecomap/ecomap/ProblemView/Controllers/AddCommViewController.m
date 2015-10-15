@@ -335,7 +335,7 @@
 {
     
     UIButton *addEditButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    addEditButton.frame = CGRectMake(300.0f, 0.1f, 75.0f, 46.6f);
+    addEditButton.frame = CGRectMake(250.0f, 0.1f, 75.0f, 46.6f);
     addEditButton.backgroundColor = [UIColor greenColor];
     [addEditButton setTitle:@"Edit" forState:UIControlStateNormal];
     [cell addSubview:addEditButton];
