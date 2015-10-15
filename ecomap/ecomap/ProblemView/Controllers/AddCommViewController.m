@@ -264,7 +264,10 @@
         EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
         
-        if(loggedUser && [loggedUser.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]]) [self makeButtonForCell:cell];
+        if(loggedUser && [loggedUser.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]])
+        {
+          [self makeButtonForCell:cell];
+        }
        
         return cell;
     }
