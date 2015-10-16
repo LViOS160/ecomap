@@ -193,7 +193,7 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
     return cell;
 }
 
-//mine
+//cell for new filter
 - (UITableViewCell *)createProblemOwnerCellForIndexPath:(NSIndexPath *)indexPath
 {
     // Create cell from template

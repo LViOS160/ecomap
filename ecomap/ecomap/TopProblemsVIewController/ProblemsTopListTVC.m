@@ -213,7 +213,7 @@
     if ([segue.identifier isEqualToString:@"Show Problem"]) {
         if([segue.destinationViewController isKindOfClass:[ProblemViewController class]]) {
             ProblemViewController *problemVC = segue.destinationViewController;
-            EcomapProblem *problem = self.currentChart[indexPath.row];
+            EcomapProblem *problem = self.charts[indexPath.row];
             problemVC.problemID = problem.problemID;
         }
     }
