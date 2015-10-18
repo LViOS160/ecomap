@@ -26,9 +26,9 @@
 #import "EcomapLoggedUser.h"
 #import "InfoActions.h"
 #import "MenuViewController.h"
-#import "TOP10.h"
+#import "EcomapTOP10.h"
 
-#import "Statistics.h"
+#import "EcomapStatistics.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
 @interface MapViewController () <ProblemFilterTVCDelegate>
@@ -167,9 +167,9 @@
 
 - (void)renewMap:(NSSet*)problems
 {
-    Statistics *ob = [Statistics sharedInstanceStatistics];
+    EcomapStatistics *ob = [EcomapStatistics sharedInstanceStatistics];
     [ob setAllProblems:self.arrayWithProblems];
-    TOP10 *obj = [TOP10 sharedInstanceTOP10];
+    EcomapTOP10 *obj = [EcomapTOP10 sharedInstanceTOP10];
     
   //  [ob setAllProblems:self.arrayWithProblems	];
     [obj setAllProblems:self.arrayWithProblems];

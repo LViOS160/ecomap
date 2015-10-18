@@ -6,20 +6,20 @@
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import "TOP10.h"
-@interface TOP10()
+#import "EcomapTOP10.h"
+@interface EcomapTOP10()
 //@property (nonatomic) NSMutableArray* problemVote;
 //@property (nonatomic) NSMutableArray* problemComment;
 //@property (nonatomic) NSMutableArray* problemSeverity;
 @end
 
-@implementation TOP10
+@implementation EcomapTOP10
 +(instancetype)sharedInstanceTOP10
 {
-    static TOP10* singleton;
+    static EcomapTOP10* singleton;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        singleton = [[TOP10 alloc] init];
+        singleton = [[EcomapTOP10 alloc] init];
     });
     return singleton;
 }

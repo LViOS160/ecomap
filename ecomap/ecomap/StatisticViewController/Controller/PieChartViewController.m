@@ -46,7 +46,7 @@
     [super viewDidLoad];
     self.names = @[@"Проблем", @"Голосів", @"Коментарів", @"Фотографій"];
    [self customSetup];
-    Statistics *ob = [Statistics sharedInstanceStatistics];
+    EcomapStatistics *ob = [EcomapStatistics sharedInstanceStatistics];
     [ob countAllProblemsCategory];
     self.statsForPieChart = ob.forDay;
     [self setSlices:ob.forDay];
@@ -132,7 +132,7 @@
     
     [self resizeTopLabelViews];
     self.pieChartView.pieRadius = [self pieChartRadius];
-    Statistics *ob = [Statistics sharedInstanceStatistics];
+    EcomapStatistics *ob = [EcomapStatistics sharedInstanceStatistics];
     switch (sender.selectedSegmentIndex) {
         case 0:
             self.slices = [ob forDay];

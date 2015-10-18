@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "EcomapProblem.h"
 
-@interface TOP10 : NSObject
+@interface EcomapTOP10 : NSObject
 +(instancetype)sharedInstanceTOP10;
 -(void)sortAllProblems;
 @property (nonatomic) NSMutableArray* allProblemsPieChart;

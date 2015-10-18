@@ -17,7 +17,7 @@
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
-#import "TOP10.h"
+#import "EcomapTOP10.h"
 
 @interface ProblemsTopListTVC ()
 
@@ -50,7 +50,7 @@
     // Set up reveal button
     [self customSetup];
     
-    TOP10 *obj = [TOP10 sharedInstanceTOP10];
+    EcomapTOP10 *obj = [EcomapTOP10 sharedInstanceTOP10];
    // NSArray *chart = obj.allProblems;
     [obj sortAllProblems];
     self.currentChart = obj.problemComment;
@@ -111,7 +111,7 @@
 
 - (void)changeChart
 {
-    TOP10 *obj = [TOP10 sharedInstanceTOP10];
+    EcomapTOP10 *obj = [EcomapTOP10 sharedInstanceTOP10];
     [obj sortAllProblems];
     if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
     {

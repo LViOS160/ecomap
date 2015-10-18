@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "XYPieChart.h"
 
-#import "Statistics.h"
+#import "EcomapStatistics.h"
 @interface PieChartViewController : UIViewController <XYPieChartDelegate, XYPieChartDataSource>
 
 @property (strong, nonatomic) NSArray *statsForPieChart;

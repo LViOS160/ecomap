@@ -31,8 +31,8 @@
 		51F9245B1AB18FDD00523557 /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9245D1AB18FDD00523557 /* AddProblemPhotoView.xib */; };
 		51F924641AB18FE700523557 /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F924661AB18FE700523557 /* AddProblemSolutionView.xib */; };
 		51F9246D1AB18FF000523557 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */; };
-		84391CE61BCBED2B00130274 /* TOP10.m in Sources */ = {isa = PBXBuildFile; fileRef = 84391CE51BCBED2B00130274 /* TOP10.m */; };
-		84E68F8A1BCBD94000ADD104 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68F891BCBD94000ADD104 /* Statistics.m */; };
+		84391CE61BCBED2B00130274 /* EcomapTOP10.m in Sources */ = {isa = PBXBuildFile; fileRef = 84391CE51BCBED2B00130274 /* EcomapTOP10.m */; };
+		84E68F8A1BCBD94000ADD104 /* EcomapStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68F891BCBD94000ADD104 /* EcomapStatistics.m */; };
 		84E953CE1BD0B62A00FE8337 /* UAbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E953CD1BD0B62A00FE8337 /* UAbutton.png */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */; };
@@ -216,10 +216,10 @@
 		51F9246E1AB18FF000523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemTypeView.xib; sourceTree = "<group>"; };
 		51F924711AB18FF200523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
 		51F924731AB18FF300523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
-		84391CE41BCBED2B00130274 /* TOP10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOP10.h; sourceTree = "<group>"; };
-		84391CE51BCBED2B00130274 /* TOP10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOP10.m; sourceTree = "<group>"; };
-		84E68F881BCBD94000ADD104 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Statistics.h; path = ../../../Statistics.h; sourceTree = "<group>"; };
-		84E68F891BCBD94000ADD104 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Statistics.m; path = ../../../Statistics.m; sourceTree = "<group>"; };
+		84391CE41BCBED2B00130274 /* EcomapTOP10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapTOP10.h; path = ../../RootViewControllers/EcomapTOP10.h; sourceTree = "<group>"; };
+		84391CE51BCBED2B00130274 /* EcomapTOP10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapTOP10.m; path = ../../RootViewControllers/EcomapTOP10.m; sourceTree = "<group>"; };
+		84E68F881BCBD94000ADD104 /* EcomapStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapStatistics.h; path = ../../../../EcomapStatistics.h; sourceTree = "<group>"; };
+		84E68F891BCBD94000ADD104 /* EcomapStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapStatistics.m; path = ../../../../EcomapStatistics.m; sourceTree = "<group>"; };
 		84E953CD1BD0B62A00FE8337 /* UAbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UAbutton.png; sourceTree = "<group>"; };
 		90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
 		90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
@@ -745,6 +745,10 @@
 				B3738BA91A9DDC4B0077F604 /* EcomapAlias.m */,
 				B3738BB81A9DDC4B0077F604 /* EcomapResources.h */,
 				B3738BB91A9DDC4B0077F604 /* EcomapResources.m */,
+				84E68F881BCBD94000ADD104 /* EcomapStatistics.h */,
+				84E68F891BCBD94000ADD104 /* EcomapStatistics.m */,
+				84391CE41BCBED2B00130274 /* EcomapTOP10.h */,
+				84391CE51BCBED2B00130274 /* EcomapTOP10.m */,
 			);
 			path = "Value-Object Classes";
 			sourceTree = "<group>";
@@ -820,8 +824,6 @@
 		B3738BD41A9DDC4B0077F604 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				84E68F881BCBD94000ADD104 /* Statistics.h */,
-				84E68F891BCBD94000ADD104 /* Statistics.m */,
 				B3738BD51A9DDC4B0077F604 /* MapViewController.h */,
 				B3738BD61A9DDC4B0077F604 /* MapViewController.m */,
 				B3738BD71A9DDC4B0077F604 /* MenuViewController.h */,
@@ -829,8 +831,6 @@
 				2DB8150A1AA854DA0011AFA1 /* InfoWindow.xib */,
 				2DB8150C1AA856490011AFA1 /* CustomInfoWindow.h */,
 				2DB8150D1AA856490011AFA1 /* CustomInfoWindow.m */,
-				84391CE41BCBED2B00130274 /* TOP10.h */,
-				84391CE51BCBED2B00130274 /* TOP10.m */,
 			);
 			name = Root;
 			path = RootViewControllers;
@@ -1227,14 +1227,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84391CE61BCBED2B00130274 /* TOP10.m in Sources */,
+				84391CE61BCBED2B00130274 /* EcomapTOP10.m in Sources */,
 				90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */,
 				B3738C231A9DDC4B0077F604 /* EcomapStatsParser.m in Sources */,
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,
 				B3738C2C1A9DDC4B0077F604 /* EcomapActivity.m in Sources */,
 				B3738C3A1A9DDC4B0077F604 /* CommentCell.m in Sources */,
 				B34D3CDB1AB19B040094D043 /* SlideAnimator.m in Sources */,
-				84E68F8A1BCBD94000ADD104 /* Statistics.m in Sources */,
+				84E68F8A1BCBD94000ADD104 /* EcomapStatistics.m in Sources */,
 				B3738C2D1A9DDC4B0077F604 /* EcomapCommentaries.m in Sources */,
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,
 				B3738C161A9DDC4B0077F604 /* GStaticCluster.m in Sources */,
