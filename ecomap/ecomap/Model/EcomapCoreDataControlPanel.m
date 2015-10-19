@@ -39,11 +39,26 @@
             [self addProblemIntoCoreData];
         }
     }];
-
-    
-    
 }
 
+
+
+
+
+-(Problem*)returnDetail:(NSInteger)id1
+{
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Problem"
+                                              inManagedObjectContext:context];
+    [request setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", id1];
+    [request setPredicate:predicate];
+    NSArray *array = [context executeFetchRequest:request error:nil];
+
+    return array[0];
+}
 
 
 -(void)addProblemIntoCoreData
@@ -52,7 +67,8 @@
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error;
     NSInteger i = 0;
-    for(id object in self.allProblems )
+    
+  /*  for(id object in self.allProblems )
     {
         Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
         if([object isKindOfClass:[EcomapProblem class]])
@@ -67,13 +83,16 @@
             [ob setNumberOfVotes:[NSNumber numberWithInteger: problemDetail.votes]];
             [ob setContent:problemDetail.content];
             [ob setSeverity:[NSNumber numberWithInteger: problemDetail.severity]];
+            [ob setIdProblem:[NSNumber numberWithInteger: problem.problemID]];
+            [ob setProposal:problemDetail.proposal];
+           
             i++;
         }
     }
              [context save:&error];
     
-             
-    
+    */
+   
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
@@ -86,55 +105,16 @@
         if([object isKindOfClass:[Problem class]])
         {
           Problem* ob = (Problem*)object;
-            [context deleteObject:ob];
-            NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
-           // [context deleteObject:ob];
+        
+          //  [context deleteObject:ob];
+         //   NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
+         // [context deleteObject:ob];
             
         }
-        //[context save:nil];
+      //  [context save:nil];
     }
     
-    /*
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    
-    NSEntityDescription *entity =
-    
-    [NSEntityDescription entityForName:@"Test"
-     
-                inManagedObjectContext:context];
-    
-    [request setEntity:entity];
-    
-    
-    NSString *targetUsername =@"Pavlo";
-    
-    NSPredicate *predicate =
-    
-    [NSPredicate predicateWithFormat:@"name == %@", targetUsername];
-    
-    [request setPredicate:predicate];
-    
-    
-    
-    NSError *error1;
-    
-    NSArray *array = [context executeFetchRequest:request error:&error1];
-    
-    if (array != nil)
-    {
-        NSLog(@"%@", [array firstObject]);
-        
-    }
-    
-    else
-    {
-        
-     
-        
-    }
-
-    */
-   
+ 
     
 }
 

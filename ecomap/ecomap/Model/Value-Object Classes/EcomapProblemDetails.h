@@ -8,7 +8,7 @@
 
 #import "EcomapProblem.h"
 #import "EcomapLoggedUser.h"
-
+#import "Problem.h"
 @interface EcomapProblemDetails : EcomapProblem
 
 @property (nonatomic, strong, readonly) NSString *content;
@@ -18,9 +18,9 @@
 @property (nonatomic, readonly) NSUInteger votes;
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSArray *comments;
-
+@property (nonatomic, strong) NSString *title;
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
-
+- (EcomapProblemDetails*)detailViewProblemFromCoreData:(Problem*) data;
 @end
 
 @protocol EcomapProblemDetailsHolder

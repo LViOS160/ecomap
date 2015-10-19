@@ -26,6 +26,21 @@
 
 #pragma mark - Overriding problem init
 //Override
+
+
+
+
+- (EcomapProblemDetails*)detailViewProblemFromCoreData:(Problem*) data
+{
+    self.content = data.content;
+    self.proposal = data.proposal;
+    self.title = data.title;
+    self.votes =  [data.numberOfVotes integerValue];
+    return self;
+}
+
+
+
 -(instancetype)initWithProblem:(NSDictionary *)problem
 {
     self = [super initWithProblem:problem];
@@ -51,6 +66,9 @@
         self.votes = ![[problem valueForKey:ECOMAP_PROBLEM_VOTES] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_VOTES] integerValue] : 0;
     }
 }
+
+
+
 
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser
 {

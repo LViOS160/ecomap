@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "Problem.h"
-
+#import "EcomapProblemDetails.h"
 @interface EcomapCoreDataControlPanel : NSObject
 +(instancetype)sharedInstance;
 
 -(void)addProblemIntoCoreData;
 -(void)loadData;
+-(Problem*)returnDetail:(NSInteger)id1;
+
 
 @property (nonatomic, strong) NSArray *allProblems;
 @property (nonatomic, strong) NSArray *descr;

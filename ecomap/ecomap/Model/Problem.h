@@ -12,7 +12,7 @@
 
 @interface Problem : NSManagedObject
 
-@property (nonatomic, retain) NSDecimalNumber * id;
+@property (nonatomic, retain) NSNumber * idProblem;
 @property (nonatomic, retain) NSString * status;
 @property (nonatomic, retain) NSDecimalNumber * userID;
 @property (nonatomic, retain) NSString * content;

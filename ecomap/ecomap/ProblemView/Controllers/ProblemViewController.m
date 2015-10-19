@@ -21,6 +21,8 @@
 #import "GlobalLoggerLevel.h"
 #import "Defines.h"
 
+
+#import "EcomapCoreDataControlPanel.h"
 typedef enum : NSUInteger
 {
     DetailedViewType,
@@ -30,7 +32,7 @@ typedef enum : NSUInteger
 
 @interface ProblemViewController()
 
-@property EcomapProblemDetails *problemDetails;
+@property (weak, nonatomic) EcomapProblemDetails *problemDetails;
 @property (weak, nonatomic) IBOutlet UILabel *severityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
@@ -42,6 +44,8 @@ typedef enum : NSUInteger
 // For admin purposes
 @property (nonatomic, strong) EcomapLoggedUser *user;
 @property (nonatomic, strong) EcomapEditableProblem *editableProblem;
+
+@property (nonatomic) Problem* data;
 
 @end
 
@@ -96,7 +100,26 @@ typedef enum : NSUInteger
 - (void)loadProblemDetails:(void(^)())onFinish
 {
    
-    [EcomapFetcher loadProblemDetailsWithID:self.problemID
+    
+    EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
+    self.data =[ob returnDetail:self.problemID];
+    EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
+    [comentsID setProblemsID:self.problemID];
+    EcomapProblemDetails *obj = [EcomapProblemDetails alloc];
+    self.problemDetails = [obj detailViewProblemFromCoreData:self.data];
+    self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];
+    [self.containerViewController setProblemDetails:self.problemDetails];
+    [self updateHeader];
+
+    
+    
+    
+    
+    
+    
+    
+    
+   /* [EcomapFetcher loadProblemDetailsWithID:self.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
                                    self.problemDetails = problemDetails;
                                   
@@ -107,7 +130,7 @@ typedef enum : NSUInteger
                                    {
                                        onFinish();
                                    }
-                               }];
+                               }];*/
 }
 
 -(void)problemsDetailsChanged

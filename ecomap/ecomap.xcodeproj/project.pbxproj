@@ -31,7 +31,7 @@
 		51F9245B1AB18FDD00523557 /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9245D1AB18FDD00523557 /* AddProblemPhotoView.xib */; };
 		51F924641AB18FE700523557 /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F924661AB18FE700523557 /* AddProblemSolutionView.xib */; };
 		51F9246D1AB18FF000523557 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */; };
-		6D22181A1BD52133002386B6 /* Problem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2218191BD52133002386B6 /* Problem.m */; };
+		6D2218201BD53336002386B6 /* Problem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D22181F1BD53336002386B6 /* Problem.m */; };
 		84391CE61BCBED2B00130274 /* TOP10.m in Sources */ = {isa = PBXBuildFile; fileRef = 84391CE51BCBED2B00130274 /* TOP10.m */; };
 		84A65DA21BD444C0009A418A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A65DA01BD444C0009A418A /* Model.xcdatamodeld */; };
 		84A65DA91BD44888009A418A /* EcomapCoreDataControlPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A65DA81BD44888009A418A /* EcomapCoreDataControlPanel.m */; };
@@ -219,8 +219,8 @@
 		51F9246E1AB18FF000523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemTypeView.xib; sourceTree = "<group>"; };
 		51F924711AB18FF200523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
 		51F924731AB18FF300523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
-		6D2218181BD52133002386B6 /* Problem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Problem.h; sourceTree = "<group>"; };
-		6D2218191BD52133002386B6 /* Problem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Problem.m; sourceTree = "<group>"; };
+		6D22181E1BD53336002386B6 /* Problem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Problem.h; sourceTree = "<group>"; };
+		6D22181F1BD53336002386B6 /* Problem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Problem.m; sourceTree = "<group>"; };
 		84391CE41BCBED2B00130274 /* TOP10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TOP10.h; path = ../../RootViewControllers/TOP10.h; sourceTree = "<group>"; };
 		84391CE51BCBED2B00130274 /* TOP10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TOP10.m; path = ../../RootViewControllers/TOP10.m; sourceTree = "<group>"; };
 		84A65DA11BD444C0009A418A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -468,8 +468,8 @@
 		84A65DA61BD447E5009A418A /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				6D2218181BD52133002386B6 /* Problem.h */,
-				6D2218191BD52133002386B6 /* Problem.m */,
+				6D22181E1BD53336002386B6 /* Problem.h */,
+				6D22181F1BD53336002386B6 /* Problem.m */,
 				84A65DA01BD444C0009A418A /* Model.xcdatamodeld */,
 				84A65DA71BD44888009A418A /* EcomapCoreDataControlPanel.h */,
 				84A65DA81BD44888009A418A /* EcomapCoreDataControlPanel.m */,
@@ -1275,7 +1275,7 @@
 				2DB8150E1AA856490011AFA1 /* CustomInfoWindow.m in Sources */,
 				B3738C391A9DDC4B0077F604 /* ProblemViewController.m in Sources */,
 				B3738C0D1A9DDC4B0077F604 /* AddProblemViewController.m in Sources */,
-				6D22181A1BD52133002386B6 /* Problem.m in Sources */,
+				6D2218201BD53336002386B6 /* Problem.m in Sources */,
 				B3738C2A1A9DDC4B0077F604 /* SWRevealModalSegue.m in Sources */,
 				B3738C191A9DDC4B0077F604 /* GQTPointQuadTree.m in Sources */,
 				B3738C411A9DDC4B0077F604 /* GeneralStatsTopLabelView.m in Sources */,

@@ -11,7 +11,7 @@
 
 @implementation Problem
 
-@dynamic id;
+@dynamic idProblem;
 @dynamic status;
 @dynamic userID;
 @dynamic content;
