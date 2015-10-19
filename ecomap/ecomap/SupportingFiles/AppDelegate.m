@@ -26,7 +26,6 @@
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
@@ -78,11 +77,8 @@
     [FBAppCall handleDidBecomeActive];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    // Saves changes in the application's managed object context before the application terminates.
-}
+
+
 
 #pragma mark - Facebook
 //This one is called after the login credentials entry and app authorization have finished in Facebook app or Safari.

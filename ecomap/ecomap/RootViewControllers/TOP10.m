@@ -11,19 +11,20 @@
 
 @end
 
-@implementation EcomapTOP10
+@implementation TOP10
 +(instancetype)sharedInstanceTOP10
 {
-    static EcomapTOP10* singleton;
+    static TOP10* singleton;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        singleton = [[EcomapTOP10 alloc] init];
+        singleton = [[TOP10 alloc] init];
     });
     return singleton;
 }
 
 -(void)sortAllProblems
 {
+    
     self.problemComment = [[NSMutableArray alloc]initWithCapacity:10];
     self.problemSeverity = [[NSMutableArray alloc]initWithCapacity:10];
     self.problemVote = [[NSMutableArray alloc]initWithCapacity:10];

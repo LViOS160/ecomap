@@ -31,7 +31,7 @@
 		51F9245B1AB18FDD00523557 /* AddProblemPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9245D1AB18FDD00523557 /* AddProblemPhotoView.xib */; };
 		51F924641AB18FE700523557 /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F924661AB18FE700523557 /* AddProblemSolutionView.xib */; };
 		51F9246D1AB18FF000523557 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */; };
-		84391CE61BCBED2B00130274 /* EcomapTOP10.m in Sources */ = {isa = PBXBuildFile; fileRef = 84391CE51BCBED2B00130274 /* EcomapTOP10.m */; };
+		84391CE61BCBED2B00130274 /* TOP10.m in Sources */ = {isa = PBXBuildFile; fileRef = 84391CE51BCBED2B00130274 /* TOP10.m */; };
 		84A65DA21BD444C0009A418A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A65DA01BD444C0009A418A /* Model.xcdatamodeld */; };
 		84A65DA91BD44888009A418A /* EcomapCoreDataControlPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A65DA81BD44888009A418A /* EcomapCoreDataControlPanel.m */; };
 		84E68F8A1BCBD94000ADD104 /* EcomapStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68F891BCBD94000ADD104 /* EcomapStatistics.m */; };
@@ -218,8 +218,8 @@
 		51F9246E1AB18FF000523557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddProblemTypeView.xib; sourceTree = "<group>"; };
 		51F924711AB18FF200523557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
 		51F924731AB18FF300523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
-		84391CE41BCBED2B00130274 /* EcomapTOP10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapTOP10.h; path = ../../RootViewControllers/EcomapTOP10.h; sourceTree = "<group>"; };
-		84391CE51BCBED2B00130274 /* EcomapTOP10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapTOP10.m; path = ../../RootViewControllers/EcomapTOP10.m; sourceTree = "<group>"; };
+		84391CE41BCBED2B00130274 /* TOP10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TOP10.h; path = ../../RootViewControllers/TOP10.h; sourceTree = "<group>"; };
+		84391CE51BCBED2B00130274 /* TOP10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TOP10.m; path = ../../RootViewControllers/TOP10.m; sourceTree = "<group>"; };
 		84A65DA11BD444C0009A418A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		84A65DA71BD44888009A418A /* EcomapCoreDataControlPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapCoreDataControlPanel.h; sourceTree = "<group>"; };
 		84A65DA81BD44888009A418A /* EcomapCoreDataControlPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapCoreDataControlPanel.m; sourceTree = "<group>"; };
@@ -763,8 +763,8 @@
 				B3738BB91A9DDC4B0077F604 /* EcomapResources.m */,
 				84E68F881BCBD94000ADD104 /* EcomapStatistics.h */,
 				84E68F891BCBD94000ADD104 /* EcomapStatistics.m */,
-				84391CE41BCBED2B00130274 /* EcomapTOP10.h */,
-				84391CE51BCBED2B00130274 /* EcomapTOP10.m */,
+				84391CE41BCBED2B00130274 /* TOP10.h */,
+				84391CE51BCBED2B00130274 /* TOP10.m */,
 			);
 			path = "Value-Object Classes";
 			sourceTree = "<group>";
@@ -1243,7 +1243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84391CE61BCBED2B00130274 /* EcomapTOP10.m in Sources */,
+				84391CE61BCBED2B00130274 /* TOP10.m in Sources */,
 				90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */,
 				B3738C231A9DDC4B0077F604 /* EcomapStatsParser.m in Sources */,
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,

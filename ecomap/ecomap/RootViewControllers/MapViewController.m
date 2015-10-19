@@ -26,7 +26,7 @@
 #import "EcomapLoggedUser.h"
 #import "InfoActions.h"
 #import "MenuViewController.h"
-#import "EcomapTOP10.h"
+#import "TOP10.h"
 
 #import "EcomapStatistics.h"
 
@@ -207,6 +207,7 @@
         EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
         [ob setAllProblems:self.arrayWithProblems];
         
+        [ob addProblemIntoCoreData];
        // [ob countAllProblemsCategory];
         if (!error)
         {

@@ -15,7 +15,7 @@
 #import "EcomapStatsParser.h"
 #import "GeneralStatsTopLabelView.h"
 #import "GlobalLoggerLevel.h"
-
+#import "EcomapStatistics.h"
 #define NUMBER_OF_TOP_LABELS 4
 
 @interface PieChartViewController () <UIScrollViewDelegate>
@@ -46,7 +46,7 @@
     [super viewDidLoad];
     self.names = @[@"Проблем", @"Голосів", @"Коментарів", @"Фотографій"];
     [self customSetup];
-    Statistics *ob = [Statistics sharedInstanceStatistics];
+    EcomapStatistics *ob = [EcomapStatistics sharedInstanceStatistics];
     [ob countAllProblemsCategory];
     self.statsForPieChart = ob.forDay;
     [self setSlices:ob.forDay];
