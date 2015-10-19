@@ -172,7 +172,6 @@
     // Display data in the cell
     
     EcomapProblem *problem = (EcomapProblem*)self.charts[indexPath.row];
-    
     UILabel *problemTitleLabel = (UILabel *)[cell viewWithTag:100];
     problemTitleLabel.text = [NSString stringWithFormat:@"%@", problem.title];
     UILabel *problemScoreLabel = (UILabel *)[cell viewWithTag:101];

@@ -33,6 +33,7 @@
 		51F9246D1AB18FF000523557 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */; };
 		84391CE61BCBED2B00130274 /* TOP10.m in Sources */ = {isa = PBXBuildFile; fileRef = 84391CE51BCBED2B00130274 /* TOP10.m */; };
 		84E68F8A1BCBD94000ADD104 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68F891BCBD94000ADD104 /* Statistics.m */; };
+		84E953CE1BD0B62A00FE8337 /* UAbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E953CD1BD0B62A00FE8337 /* UAbutton.png */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */; };
 		90C868A01AA45C120001E448 /* EcomapAdminFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */; };
@@ -219,6 +220,7 @@
 		84391CE51BCBED2B00130274 /* TOP10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOP10.m; sourceTree = "<group>"; };
 		84E68F881BCBD94000ADD104 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Statistics.h; path = ../../../Statistics.h; sourceTree = "<group>"; };
 		84E68F891BCBD94000ADD104 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Statistics.m; path = ../../../Statistics.m; sourceTree = "<group>"; };
+		84E953CD1BD0B62A00FE8337 /* UAbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UAbutton.png; sourceTree = "<group>"; };
 		90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
 		90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
 		90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAdminFetcher.h; sourceTree = "<group>"; };
@@ -871,6 +873,7 @@
 		B3738BE01A9DDC4B0077F604 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				84E953CD1BD0B62A00FE8337 /* UAbutton.png */,
 				B3738BE91A9DDC4B0077F604 /* Images.xcassets */,
 				B3738B9B1A9DDC4B0077F604 /* GlobalLoggerLevel.h */,
 				B3738BE71A9DDC4B0077F604 /* ecomap.xcdatamodeld */,
@@ -1163,6 +1166,7 @@
 				B3738C441A9DDC4B0077F604 /* Main.storyboard in Resources */,
 				51F924491AB18FAA00523557 /* AddProblemLocationView.xib in Resources */,
 				513A41CB1AB0F9E4000B9180 /* Localizable.strings in Resources */,
+				84E953CE1BD0B62A00FE8337 /* UAbutton.png in Resources */,
 				B3738C501A9DDC4B0077F604 /* OpenSans-Light.ttf in Resources */,
 				B3738C481A9DDC4B0077F604 /* kyiv.gpx in Resources */,
 				B3738C541A9DDC4B0077F604 /* OpenSans-SemiboldItalic.ttf in Resources */,

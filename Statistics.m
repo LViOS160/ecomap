@@ -54,7 +54,7 @@
     self.forDay = [[NSMutableArray alloc] initWithCapacity:10];
     NSDate * now = [NSDate date];
     NSInteger arr[7] = {0};
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setDay:-1];
     NSDate *new = [gregorian dateByAddingComponents:offsetComponents toDate:now options:0];
@@ -110,9 +110,9 @@
     self.forWeek = [[NSMutableArray alloc] initWithCapacity:10];
     NSDate * now = [NSDate date];
     NSInteger arr[7] = {0};
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    [offsetComponents setWeek:-1];
+    [offsetComponents setWeekOfMonth:-1];
     NSDate *new = [gregorian dateByAddingComponents:offsetComponents toDate:now options:0];
     
     for (NSInteger i = 0; i < [self.allProblems count]; i++)
@@ -172,7 +172,7 @@
     NSDate * now = [NSDate date];
     NSInteger arr[7] = {0};
     
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setMonth:-1];
     NSDate *new = [gregorian dateByAddingComponents:offsetComponents toDate:now options:0];

@@ -264,12 +264,7 @@
 - (void)fetchStatsForPieChart
 {
     [self.pieChartSpinner startAnimating];
-    
-    
-    Statistics *ob = [Statistics sharedInstanceStatistics];
-  //  self.statsForPieChart = ob.forDay;
     [self.pieChartSpinner stopAnimating];
-    
     [self drawPieChart];
 }
 

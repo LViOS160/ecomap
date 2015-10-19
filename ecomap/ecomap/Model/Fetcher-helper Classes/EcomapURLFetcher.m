@@ -160,12 +160,12 @@
 
 + (NSURL *)URLforEditingProblem:(NSUInteger)problemID
 {
-    NSString *query = [ECOMAP_PUT_EDIT_PROBLEM stringByAppendingString:[NSString stringWithFormat:@"%u", problemID]];
+    NSString *query = [ECOMAP_PUT_EDIT_PROBLEM stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)problemID]];
     return [self URLForAPIQuery:query];
 }
 +(NSURL*)URLforDeletingComment:(NSUInteger)commentID
 {
-    NSString *query = [ECOMAP_DELETING_COMMENT stringByAppendingString:[NSString stringWithFormat:@"%u",commentID]];
+    NSString *query = [ECOMAP_DELETING_COMMENT stringByAppendingString:[NSString stringWithFormat:@"%lu",(unsigned long)commentID]];
     return [self URLForAPIQuery:query];
 }
 +(NSURL*)URLforDeletingPhoto:(NSString*)link

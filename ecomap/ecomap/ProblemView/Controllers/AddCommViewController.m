@@ -49,12 +49,9 @@
 
 - (void)viewDidLoad {
     
-    //self.ob = self;
 
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
-    
-    
     [self updateUI];
     
     //Buttons images localozation
@@ -62,10 +59,6 @@
     [self.addCommentButton setImage:addButtonImage
                            forState:UIControlStateNormal];
    
-    
-    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-    
-    
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Editing comment..." message:@"Edit your comment:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
 
@@ -121,11 +114,7 @@
         EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
 
         if(userIdent) {
-        
-#warning Roma has to remove this dispatching
-        
-     //   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
+    
             EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
             [[NetworkActivityIndicator sharedManager] startActivity];
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -137,18 +126,17 @@
            
             NSDictionary *cont = @{ @"content":fromTextField};
             
-            [manager POST:final parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [manager POST:final parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
+            {
                 NSLog(@"ura");
                 [EcomapFetcher updateComments:[ob problemsID] controller:self];
-                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                
-                
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error)
+            {
                 NSLog(@"%@",error);
             }];
             
-     //   });
-        
+    
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[NetworkActivityIndicator sharedManager]endActivity];
@@ -238,7 +226,6 @@
     {
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = @"Коментарі відсутні";
-       
         return cell;
     }
     else
@@ -246,24 +233,18 @@
         
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
         NSInteger row = indexPath.row;
-        
         cell.commentContent.text= [[ob.comInfo  objectAtIndex:row] valueForKey:@"content"];
-        NSDateFormatter *formatter = [NSDateFormatter new];    // Date Fornatter things
+        NSDateFormatter *formatter = [NSDateFormatter new];
         formatter.dateStyle = NSDateFormatterMediumStyle;
         formatter.timeStyle = NSDateFormatterShortStyle;
         formatter.doesRelativeDateFormatting = YES;
         NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
         [formatter setLocale:ukraineLocale];
-        
         NSString *personalInfo = [NSString stringWithFormat:@"%@", [[ob.comInfo  objectAtIndex:row] valueForKey:@"created_by"]];
-        
         NSString *dateInfo = [NSString stringWithFormat:@"%@",[[ob.comInfo  objectAtIndex:row] valueForKey:@"created_date"]];
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
-
         EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-        
-        
         if(loggedUser && [loggedUser.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]])
         {
           [self makeButtonForCell:cell];
@@ -322,14 +303,9 @@
     CommentCell *cell = [self.myTableView cellForRowAtIndexPath:pathOfTheCell];
     NSInteger row = pathOfTheCell.row;
     self.currentIDInButton = row;
-    
-    
     UITextField *textField = [self.alertView textFieldAtIndex:0];
     [textField setText:cell.commentContent.text];
-    
     [self.alertView show];
-    
-
 }
 
 
@@ -375,13 +351,14 @@
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         [manager setRequestSerializer:jsonRequestSerializer];
         NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
-       NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+        NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
         NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
-        
-        
         [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"ura");
-           
+            if(ob.comInfo.count ==1)
+            {
+                [ob setComInfo:nil];
+            }
             [EcomapFetcher updateComments:ob.problemsID controller:self];
             [UIView transitionWithView:tableView
                               duration:2
@@ -393,8 +370,6 @@
                             completion:nil];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            
             NSLog(@"%@",error);
         }];
 
