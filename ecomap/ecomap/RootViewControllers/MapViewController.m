@@ -26,9 +26,12 @@
 #import "EcomapLoggedUser.h"
 #import "InfoActions.h"
 #import "MenuViewController.h"
-#import "TOP10.h"
+#import "EcomapTOP10.h"
 
-#import "Statistics.h"
+#import "EcomapStatistics.h"
+
+
+#import "EcomapCoreDataControlPanel.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
 @interface MapViewController () <ProblemFilterTVCDelegate>
@@ -173,7 +176,7 @@
 
 - (void)renewMap:(NSSet*)problems
 {
-    Statistics *ob = [Statistics sharedInstanceStatistics];
+    EcomapStatistics *ob = [EcomapStatistics sharedInstanceStatistics];
     [ob setAllProblems:self.arrayWithProblems];
     TOP10 *obj = [TOP10 sharedInstanceTOP10];
   //  [ob setAllProblems:self.arrayWithProblems	];
@@ -201,6 +204,8 @@
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
       
         self.arrayWithProblems = [NSArray arrayWithArray:problems];
+        EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
+        [ob setAllProblems:self.arrayWithProblems];
         
        // [ob countAllProblemsCategory];
         if (!error)

@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
-#import "Statistics.h"
+#import "EcomapStatistics.h"
 
-@implementation Statistics
+@implementation EcomapStatistics
 
 +(instancetype)sharedInstanceStatistics
 {
-    static Statistics* singleton;
+    static EcomapStatistics* singleton;
     static dispatch_once_t token;
-    dispatch_once(&token, ^{singleton = [[Statistics alloc] init];});
+    dispatch_once(&token, ^{singleton = [[EcomapStatistics alloc] init];});
     return singleton;
 }
 

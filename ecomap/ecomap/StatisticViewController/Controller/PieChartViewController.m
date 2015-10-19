@@ -131,7 +131,7 @@
 {
     [self resizeTopLabelViews];
     self.pieChartView.pieRadius = [self pieChartRadius];
-    Statistics *ob = [Statistics sharedInstanceStatistics];
+    EcomapStatistics *ob = [EcomapStatistics sharedInstanceStatistics];
     switch (sender.selectedSegmentIndex) {
         case 0:
             self.slices = [ob forDay];

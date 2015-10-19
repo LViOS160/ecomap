@@ -11,13 +11,13 @@
 
 @end
 
-@implementation TOP10
+@implementation EcomapTOP10
 +(instancetype)sharedInstanceTOP10
 {
-    static TOP10* singleton;
+    static EcomapTOP10* singleton;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        singleton = [[TOP10 alloc] init];
+        singleton = [[EcomapTOP10 alloc] init];
     });
     return singleton;
 }
