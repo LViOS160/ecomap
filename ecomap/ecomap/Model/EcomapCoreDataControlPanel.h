@@ -13,5 +13,9 @@
 +(instancetype)sharedInstance;
 
 -(void)addProblemIntoCoreData;
+-(void)loadData;
+
 @property (nonatomic, strong) NSArray *allProblems;
+@property (nonatomic, strong) NSArray *descr;
+
 @end

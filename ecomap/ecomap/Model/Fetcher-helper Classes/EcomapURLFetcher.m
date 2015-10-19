@@ -44,6 +44,14 @@
     return [self URLForAPIQuery:query];
 }
 
++ (NSURL *)ProblemDescription;
+{
+    
+    NSString *query = [NSString stringWithFormat:@"%@", ECOMAP_GET_PROBLEM_API];
+    return [self URLForAPIQuery:query];
+}
+
+
 + (NSURL *)URLforDeleteProblemWithID:(NSUInteger)problemID
 {
     NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEM_API, (unsigned long)problemID];

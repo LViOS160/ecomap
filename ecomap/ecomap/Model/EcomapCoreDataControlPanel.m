@@ -9,6 +9,7 @@
 #import "EcomapCoreDataControlPanel.h"
 #import "AppDelegate.h"
 #import "EcomapProblem.h"
+#import "EcomapFetcher.h"
 @implementation EcomapCoreDataControlPanel
 +(instancetype)sharedInstance
 {
@@ -19,22 +20,59 @@
 }
 
 
+
+-(void)loadData
+{
+    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+        self.allProblems = [NSArray arrayWithArray:problems];
+        if (!error)
+        {
+         self.allProblems = [NSArray arrayWithArray:problems];
+                    }
+    }];
+    
+    [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error) {
+        self.allProblems = [NSArray arrayWithArray:problems];
+        if (!error)
+        {
+            self.descr = [NSArray arrayWithArray:problems];
+            [self addProblemIntoCoreData];
+        }
+    }];
+
+    
+    
+}
+
+
+
 -(void)addProblemIntoCoreData
 {
-
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error;
+    NSInteger i = 0;
     for(id object in self.allProblems )
     {
         Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
         if([object isKindOfClass:[EcomapProblem class]])
         {
             EcomapProblem *problem = (EcomapProblem*) object;
+            EcomapProblemDetails *problemDetail = self.descr[i];
             [ob setTitle:(NSString*)problem.title];
-            [context save:&error];
+            [ob setLatitude:[NSNumber numberWithFloat: problem.latitude]];
+            [ob setLongitude:[NSNumber numberWithFloat:problem.longitude]];
+            [ob setDate:problem.dateCreated];
+            [ob setNumberOfComments:[NSNumber numberWithInteger: problemDetail.numberOfComments]];
+            [ob setNumberOfVotes:[NSNumber numberWithInteger: problemDetail.votes]];
+            [ob setContent:problemDetail.content];
+            [ob setSeverity:[NSNumber numberWithInteger: problemDetail.severity]];
+            i++;
         }
     }
+             [context save:&error];
+    
+             
     
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -47,11 +85,13 @@
         
         if([object isKindOfClass:[Problem class]])
         {
-           Problem* ob = (Problem*)object;
+          Problem* ob = (Problem*)object;
             [context deleteObject:ob];
-            NSLog(@"Title:  %@", ob.title);
+            NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
+           // [context deleteObject:ob];
+            
         }
-       
+        //[context save:nil];
     }
     
     /*

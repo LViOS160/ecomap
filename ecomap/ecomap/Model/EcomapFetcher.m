@@ -48,6 +48,43 @@
     
 }
 
+
++(void)loadAllProblemsDescription:(void (^)(NSArray *problems, NSError *error))completionHandler
+{
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher ProblemDescription]]
+              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                 completionHandler:^(NSData *JSON, NSError *error) {
+                     NSMutableArray *problems = nil;
+                     NSArray *problemsFromJSON = nil;
+                     if (!error) {
+                         //Extract received data
+                         if (JSON) {
+                             DDLogVerbose(@"All problems loaded success from ecomap server");
+                             //Parse JSON
+                             NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                             problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
+                             
+                             //Fill problems array
+                             if (problemsFromJSON) {
+                                 problems = [NSMutableArray array];
+                                 //Fill array with EcomapProblem
+                                 for (NSDictionary *problem in problemsFromJSON) {
+                                     EcomapProblemDetails *ecoProblem = [[EcomapProblemDetails alloc] initWithProblem:problem];
+                                     [problems addObject:ecoProblem];
+                                 }
+                             }
+                             
+                         }
+                     } else [InfoActions showAlertOfError:error];
+                     
+                     //set up completionHandler
+                     completionHandler(problems, error);
+                 }];
+    
+}
+
+
+
 #pragma mark - Post comment
 +(void)createComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId

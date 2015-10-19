@@ -44,6 +44,10 @@
 //NSArray *problems is a collection of EcomapProblem objects;
 + (void)loadAllProblemsOnCompletion:(void (^)(NSArray *problems, NSError *error))completionHandler;
 
+
++(void)loadAllProblemsDescription:(void (^)(NSArray *problems, NSError *error))completionHandler;
+
+
 //Load problem details not blocking the main thread
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler;
 

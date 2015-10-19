@@ -82,4 +82,5 @@ typedef enum {
 
 + (NSURL *)URLforDeleteProblemWithID:(NSUInteger)problemID;
 
++ (NSURL *)ProblemDescription;
 @end

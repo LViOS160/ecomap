@@ -25,5 +25,6 @@
 @dynamic severity;
 @dynamic numberOfComments;
 @dynamic proposal;
+@dynamic longitude;
 
 @end

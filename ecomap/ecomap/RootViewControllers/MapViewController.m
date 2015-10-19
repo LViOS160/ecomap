@@ -207,9 +207,9 @@
       
         self.arrayWithProblems = [NSArray arrayWithArray:problems];
         EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
-        [ob setAllProblems:self.arrayWithProblems];
+        [ob loadData];
         
-        [ob addProblemIntoCoreData];
+        //[ob addProblemIntoCoreData];
        // [ob countAllProblemsCategory];
         if (!error)
         {
