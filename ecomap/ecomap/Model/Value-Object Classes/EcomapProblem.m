@@ -9,7 +9,7 @@
 #import "EcomapProblem.h"
 #import "EcomapPathDefine.h"
 #import "EcomapLoggedUser.h"
-
+#import "AppDelegate.h"
 @interface EcomapProblem ()
 @property (nonatomic, readwrite) NSUInteger problemID;
 @property (nonatomic, strong, readwrite) NSString *title;
@@ -30,6 +30,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
+   
     [coder encodeInteger:self.problemID forKey:@"problemID"];
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];

@@ -29,6 +29,9 @@
 #import "EcomapTOP10.h"
 
 #import "EcomapStatistics.h"
+
+
+#import "EcomapCoreDataControlPanel.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
 @interface MapViewController () <ProblemFilterTVCDelegate>
@@ -194,8 +197,10 @@
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
       
         self.arrayWithProblems = [NSArray arrayWithArray:problems];
+        EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
+        [ob setAllProblems:self.arrayWithProblems];
         
-        
+        [ob addProblemIntoCoreData];
        // [ob countAllProblemsCategory];
         if (!error) {
             NSSet *set = [[NSSet alloc] initWithArray:problems];
