@@ -8,7 +8,7 @@
 
 #import "EcomapCoreDataControlPanel.h"
 #import "AppDelegate.h"
-#import "Test.h"
+//#import "Test.h"
 #import "EcomapProblem.h"
 @implementation EcomapCoreDataControlPanel
 +(instancetype)sharedInstance
@@ -22,7 +22,7 @@
 
 -(void)addProblemIntoCoreData
 {
-
+/*
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
  
@@ -58,7 +58,7 @@
             NSLog(@"Title:  %@", ob.name);
         }
        
-    }*/
+    }
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity =
@@ -98,7 +98,7 @@
     }
 
     
-    
+    */
     
 }
 

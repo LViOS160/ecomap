@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "Test.h"
+//#import "Test.h"
 #import "EcomapCoreDataControlPanel.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
