@@ -8,7 +8,6 @@
 
 #import "EcomapCoreDataControlPanel.h"
 #import "AppDelegate.h"
-//#import "Test.h"
 #import "EcomapProblem.h"
 @implementation EcomapCoreDataControlPanel
 +(instancetype)sharedInstance
@@ -22,43 +21,40 @@
 
 -(void)addProblemIntoCoreData
 {
-/*
+
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
- 
     NSError *error;
-    
     for(id object in self.allProblems )
     {
-        Test *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Test" inManagedObjectContext:context];
+        Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
         if([object isKindOfClass:[EcomapProblem class]])
         {
             EcomapProblem *problem = (EcomapProblem*) object;
-            [ob setName:(NSString*)problem.title];
-       
-            
+            [ob setTitle:(NSString*)problem.title];
             [context save:&error];
-           
         }
     }
     
     
-  /*  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Test" inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
     [request setEntity:descr];
     //[request setResultType:NSDictionaryResultType];
     NSArray *arr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
     for(id object in arr)
     {
         
-        if([object isKindOfClass:[Test class]])
+        if([object isKindOfClass:[Problem class]])
         {
-           Test* ob = (Test*)object;
+           Problem* ob = (Problem*)object;
             [context deleteObject:ob];
-            NSLog(@"Title:  %@", ob.name);
+            NSLog(@"Title:  %@", ob.title);
         }
        
     }
+    
+    /*
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity =
@@ -97,8 +93,8 @@
         
     }
 
-    
     */
+   
     
 }
 
