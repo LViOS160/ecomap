@@ -29,8 +29,12 @@
 -(instancetype)initWithProblem:(NSDictionary *)problem
 {
     self = [super initWithProblem:problem];
-    if (self) {
-        if (!problem) return nil;
+    if (self)
+    {
+        if (!problem)
+        {
+            return nil;
+        }
         [self parseProblem:problem];
     }
     return self;
@@ -38,7 +42,8 @@
 
 -(void)parseProblem:(NSDictionary *)problem
 {
-    if (problem) {
+    if (problem)
+    {
         self.content = ![[problem valueForKey:ECOMAP_PROBLEM_CONTENT] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_CONTENT] : nil;
         self.proposal = ![[problem valueForKey:ECOMAP_PROBLEM_PROPOSAL] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_PROPOSAL] : nil;
         self.severity = ![[problem valueForKey:ECOMAP_PROBLEM_SEVERITY] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_SEVERITY] integerValue] : 0;

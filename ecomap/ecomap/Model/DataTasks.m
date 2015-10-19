@@ -20,7 +20,8 @@
 +(void)dataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
 {
     //Ckeck internet connection
-    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0) {
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0)
+    {
         completionHandler (nil, [self errorForStatusCode:NO_INTERNET_CODE]);
         return;
     }
@@ -33,14 +34,18 @@
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                 
                                                 NSData *JSON = nil;
-                                                if (!error) {
+                                                if (!error)
+                                                {
                                                     //Set data
-                                                    if ([self statusCodeFromResponse:response] == 200) {
+                                                    if ([self statusCodeFromResponse:response] == 200)
+                                                    {
                                                         //Log to console
                                                         DDLogVerbose(@"Data task performed success from URL: %@", request.URL);
                                                         JSON = data;
                                                         error = 0;
-                                                    } else {
+                                                    }
+                                                    else
+                                                    {
                                                         //Create error message
                                                         error = [self errorForStatusCode:[self statusCodeFromResponse:response]];
                                                     }
@@ -62,7 +67,8 @@
 +(void)downloadDataTaskWithRequest:(NSURLRequest *)request sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *data, NSError *error))completionHandler
 {
     //Ckeck internet connection
-    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0) {
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0)
+    {
         completionHandler (nil, [self errorForStatusCode:NO_INTERNET_CODE]);
         return;
     }
@@ -73,14 +79,19 @@
     //Perform download task on different thread
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
                                                     completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                                        
                                                         NSData *data = nil;
-                                                        if (!error) {
+                                                        if (!error)
+                                                        {
                                                             //Set data
-                                                            if ([self statusCodeFromResponse:response] == 200) {
+                                                            if ([self statusCodeFromResponse:response] == 200)
+                                                            {
                                                                 //Log to console
                                                                 DDLogVerbose(@"Download data task performed success from URL: %@", request.URL);
                                                                 data = [NSData dataWithContentsOfURL:location];;
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 //Create error message
                                                                 error = [self errorForStatusCode:[self statusCodeFromResponse:response]];
                                                             }
@@ -102,7 +113,8 @@
 +(void)uploadDataTaskWithRequest:(NSURLRequest *)request fromData:(NSData *)data sessionConfiguration:(NSURLSessionConfiguration *)configuration completionHandler:(void (^)(NSData *JSON, NSError *error))completionHandler
 {
     //Ckeck internet connection
-    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0) {
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == 0)
+    {
         completionHandler (nil, [self errorForStatusCode:NO_INTERNET_CODE]);
         return;
     }
@@ -112,14 +124,19 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     //Perform upload task on different thread
     NSURLSessionUploadTask *task = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
         NSData *JSON = nil;
-        if (!error) {
+        if (!error)
+        {
             //Set data
-            if ([self statusCodeFromResponse:response] == 200) {
+            if ([self statusCodeFromResponse:response] == 200)
+            {
                 //Log to console
                 DDLogVerbose(@"Upload task performed success to url: %@", request.URL);
                 JSON = data;
-            } else {
+            }
+            else
+            {
                 //Create error message
                 error = [self errorForStatusCode:[self statusCodeFromResponse:response]];
                 JSON = data;
@@ -148,7 +165,8 @@
 {
     
     NSError *error = nil;
-    switch (statusCode) {
+    switch (statusCode)
+    {
         case 400:
             error = [[NSError alloc] initWithDomain:@"Bad Request" code:statusCode userInfo:@{@"error" : @"Incorect email or password"}];
             break;

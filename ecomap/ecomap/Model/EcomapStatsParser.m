@@ -18,7 +18,8 @@
 {
     NSUInteger number = 0;
     
-    switch(num) {
+    switch(num)
+    {
         case 0: number = [[self valueForKey:ECOMAP_GENERAL_STATS_PROBLEMS inGeneralStatsArray:generalStats] integerValue]; break;
         case 1: number = [[self valueForKey:ECOMAP_GENERAL_STATS_VOTES inGeneralStatsArray:generalStats] integerValue]; break;
         case 2: number = [[self valueForKey:ECOMAP_GENERAL_STATS_COMMENTS inGeneralStatsArray:generalStats] integerValue]; break;
@@ -32,7 +33,8 @@
 {
     NSString *name = @"";
     
-    switch(number) {
+    switch(number)
+    {
         case 0: name = NSLocalizedString(@"Проблем", @"Problems"); break;
         case 1: name = NSLocalizedString(@"Голосів", @"Votes"); break;
         case 2: name = NSLocalizedString(@"Коментарів", @"Comments"); break;
@@ -45,15 +47,19 @@
 // Looking value for key deep inside General Stats Array which contains NSArrays with NSDictionary
 + (id)valueForKey:(NSString *)key inGeneralStatsArray:(NSArray *)generalStats
 {
-    for(NSArray *arrStats in generalStats) {
+    for(NSArray *arrStats in generalStats)
+    {
         // Pop dictionary from array.
         NSDictionary *dictStats = [arrStats firstObject];
         
         // Look for key inside dictionary.
-        if([dictStats valueForKey:key]) {
+        if([dictStats valueForKey:key])
+        {
             // If we found key return value for it.
             return [dictStats valueForKey:key];
-        } else {
+        }
+        else
+        {
             // If didn't continue looking.
             continue;
         }
@@ -69,7 +75,8 @@
 {
     NSArray *topChart = nil;
     
-    if(kindOfChart <= [topCharts count]) {
+    if(kindOfChart <= [topCharts count])
+    {
         topChart = topCharts[kindOfChart];
     }
     
@@ -79,7 +86,8 @@
 // Get an image to draw in "Top Of The Problems" chart depending on its type.
 + (UIImage *)scoreImageOfProblem:(EcomapProblem *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
 {
-    switch(kindOfChart) {
+    switch(kindOfChart)
+    {
         case EcomapMostCommentedProblemsTopList: return [UIImage imageNamed:@"12"];
         case EcomapMostSevereProblemsTopList: return [UIImage imageNamed:@"16"];
         case EcomapMostVotedProblemsTopList: return [UIImage imageNamed:@"13"];
@@ -89,7 +97,8 @@
 // Get the string with score to draw in "Top Of The Problems" chart depending on its type.
 + (NSString *)scoreOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
 {
-    switch(kindOfChart) {
+    switch(kindOfChart)
+    {
         case EcomapMostCommentedProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_VALUE]];
         case EcomapMostSevereProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_SEVERITY]];
         case EcomapMostVotedProblemsTopList: return [NSString stringWithFormat:@"%@", [problem valueForKey:ECOMAP_PROBLEM_VOTES]];
@@ -100,7 +109,8 @@
 
 + (UIColor *)colorForProblemType:(NSUInteger)typeID
 {
-    switch (typeID) {
+    switch (typeID)
+    {
         case 1: return [UIColor colorWithRed:9/255.0 green:91/255.0 blue:15/255.0 alpha:1];
         case 2: return [UIColor colorWithRed:35/255.0 green:31/255.0 blue:32/255.0 alpha:1];
         case 3: return [UIColor colorWithRed:152/255.0 green:68/255.0 blue:43/255.0 alpha:1];

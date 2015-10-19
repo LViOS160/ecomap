@@ -14,7 +14,6 @@
 @property (nonatomic, readonly) NSUInteger resId;           // id of resource
 @property (nonatomic, readonly) NSUInteger IsResource;     // 1 or 0
 
-
 //Designated initializer
 -(instancetype)initWithResource:(NSDictionary *)resource; //init
 

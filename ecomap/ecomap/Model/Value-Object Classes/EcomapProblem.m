@@ -20,7 +20,6 @@
 @property (nonatomic, readwrite) BOOL isSolved;
 @property (nonatomic, strong, readwrite) NSDate *dateCreated;
 @property (nonatomic, readwrite) NSUInteger userCreator;
-//@property (nonatomic, readwrite) NSUInteger regionID;
 @property (nonatomic, readwrite) NSUInteger vote;
 @property (nonatomic, readwrite) NSUInteger severity;
 @property (nonatomic, readwrite) NSUInteger numberOfComments;
@@ -39,7 +38,6 @@
     [coder encodeBool:self.isSolved forKey:@"isSolved"];
     [coder encodeObject:self.dateCreated forKey:@"dateCreated"];
     [coder encodeInteger:self.userCreator forKey:@"userCreated"];
-    //[coder encodeInteger:self.regionID forKey:@"region_id"];
     [coder encodeInteger:self.userCreator forKey:@"vote"];
     [coder encodeInteger:self.userCreator forKey:@"severity"];
     [coder encodeInteger:self.userCreator forKey:@"numberOfComments"];
@@ -56,7 +54,6 @@
     self.isSolved = [coder decodeBoolForKey:@"isSolved"];
     self.dateCreated = [coder decodeObjectForKey:@"dateCreated"];
     self.userCreator = [coder decodeIntegerForKey:@"userCreated"];
-    //self.regionID = [coder decodeIntegerForKey:@"region_id"];
     self.vote = [coder decodeIntegerForKey:@"vote"];
     self.severity = [coder decodeIntegerForKey:@"severity"];
     self.numberOfComments = [coder decodeIntegerForKey:@"numberOfComments"];
@@ -82,7 +79,6 @@
         self.dateCreated = [self dateCreatedOfProblem:problem];
         //Adding userID
         self.userCreator = ![[problem valueForKey:@"user_id"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"user_id"] integerValue] : 0;
-        
         self.vote = ![[problem valueForKey:@"number_of_votes"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_votes"] integerValue] : 0;
         self.numberOfComments = ![[problem valueForKey:@"number_of_comments"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_comments"] integerValue] : 0;
         self.severity =![[problem valueForKey:@"severity"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"severity"] integerValue] : 0;
@@ -101,7 +97,8 @@
 {
     NSDate *date = nil;
     NSString *dateString = [problem valueForKey:ECOMAP_PROBLEM_DATE];
-    if (dateString) {
+    if (dateString)
+    {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.'000Z'"];
         date = [dateFormatter dateFromString:dateString];

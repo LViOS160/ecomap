@@ -21,7 +21,7 @@
 @end
 
 @interface MenuViewController () <SWRevealViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (nonatomic) BOOL showLogin;
 @property (weak,nonatomic) UIViewController *frontViewController;
 @end

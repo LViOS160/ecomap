@@ -24,7 +24,8 @@
 -(instancetype)initWithInfo:(NSDictionary *)problem
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         if (!problem) return nil;
         self.photoID = ![[problem valueForKey:ECOMAP_PHOTO_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PHOTO_ID] integerValue] : 0;
         self.link = ![[problem valueForKey:ECOMAP_PHOTO_LINK] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PHOTO_LINK] : nil;
@@ -32,7 +33,7 @@
         self.caption = ![[problem valueForKey:ECOMAP_PHOTO_DESCRIPTION] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PHOTO_DESCRIPTION] : nil;
         self.problemsID = ![[problem valueForKey:ECOMAP_PHOTO_PROBLEMS_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PHOTO_PROBLEMS_ID] integerValue] : 0;
         self.usersID = ![[problem valueForKey:ECOMAP_PHOTO_USERS_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PHOTO_USERS_ID] integerValue] : 0;
-        }
+    }
     return self;
 }
 

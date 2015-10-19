@@ -24,7 +24,8 @@
 - (instancetype)initWithImage:(UIImage*)image description:(NSString*)description
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         self.image = image;
         self.imageDescription = description;
     }

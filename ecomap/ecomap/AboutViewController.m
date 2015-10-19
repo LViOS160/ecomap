@@ -21,18 +21,16 @@
 
 @implementation AboutViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-    //    self.edgesForExtendedLayout = UIRectEdgeNone;
-    //self.navigationController.navigationBar.translucent = NO;
-    //[self setEdgesForExtendedLayout:UIRectEdgeNone];
     [self customSetup];
     [self setupAboutText];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -41,7 +39,8 @@
 - (void)customSetup
 {
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if(revealViewController) {
+    if(revealViewController)
+    {
         [self.revealButtonItem setTarget:self.revealViewController];
         [self.revealButtonItem setAction:@selector(revealToggle:)];
         [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
@@ -76,7 +75,8 @@
     NSRange firstOcured;
     
     NSString *boldText = NSLocalizedString(@"Ministry of Ecology and Natural Resources", nil);
-    if ([languageCode isEqualToString:ENGLISH_LANGUAGE_CODE]) {
+    if ([languageCode isEqualToString:ENGLISH_LANGUAGE_CODE])
+    {
         firstOcured = [aboutText rangeOfString:boldText];
         textRange = NSMakeRange(firstOcured.location + firstOcured.length, ([aboutText length] - (firstOcured.location + firstOcured.length)));
     }
@@ -103,7 +103,8 @@
                        range:boldRange];
     
     boldText = NSLocalizedString(@"WWF", nil);
-    if ([languageCode isEqualToString:ENGLISH_LANGUAGE_CODE]) {
+    if ([languageCode isEqualToString:ENGLISH_LANGUAGE_CODE])
+    {
         firstOcured = [aboutText rangeOfString:boldText];
         textRange = NSMakeRange(firstOcured.location + firstOcured.length, ([aboutText length] - (firstOcured.location + firstOcured.length)));
     }

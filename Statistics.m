@@ -18,16 +18,13 @@
     return singleton;
 }
 
-
-
 -(NSInteger)dataParserVoteCommentsPhotos:(NSString*)text :(NSString *)start :(NSString *)end
 {
-    
-    
     NSInteger resultCounting = 0;
     NSScanner *textScanner = [NSScanner scannerWithString: text];
     NSString *tmp;
-    while([textScanner isAtEnd]==NO){
+    while([textScanner isAtEnd]==NO)
+    {
         [textScanner setCharactersToBeSkipped:nil];
         [textScanner scanUpToString: start intoString: NULL];
         if([textScanner scanString: start intoString: NULL]){
@@ -42,15 +39,10 @@
     }
    
     return resultCounting;
- 
 }
-
-
-
 
 -(void)statisticsForDay
 {
-    
     self.forDay = [[NSMutableArray alloc] initWithCapacity:10];
     NSDate * now = [NSDate date];
     NSInteger arr[7] = {0};
@@ -66,7 +58,6 @@
 
         if(result == NSOrderedAscending)
         {
-            
             switch (self.currentProblem.problemTypesID)
             {
                 case 1:
@@ -99,14 +90,11 @@
         NSNumber *tmp = [NSNumber numberWithInteger:arr[i]];
         [self.forDay addObject:tmp];
     }
-
 }
 
 
 -(void)statisticsForWeek
 {
-    
-    
     self.forWeek = [[NSMutableArray alloc] initWithCapacity:10];
     NSDate * now = [NSDate date];
     NSInteger arr[7] = {0};
@@ -118,15 +106,10 @@
     for (NSInteger i = 0; i < [self.allProblems count]; i++)
     {
         self.currentProblem =  self.allProblems[i];
-        
-        
         NSComparisonResult result = [new compare: self.currentProblem.dateCreated];
-        
-        
         
         if(result == NSOrderedAscending)
         {
-            
             switch (self.currentProblem.problemTypesID)
             {
                 case 1:
@@ -151,9 +134,7 @@
                     arr[6]++;
                     break;
             }
-            
         }
-        
     }
     
     for( NSInteger i = 0; i<7; i++)
@@ -163,10 +144,8 @@
     }
 }
 
-
 -(void)statisticsForMonth
 {
-    
     self.forMonth = [[NSMutableArray alloc] initWithCapacity:10];
     
     NSDate * now = [NSDate date];
@@ -180,15 +159,10 @@
     for (NSInteger i = 0; i < [self.allProblems count]; i++)
     {
         self.currentProblem =  self.allProblems[i];
-        
-        
         NSComparisonResult result = [new compare: self.currentProblem.dateCreated];
-        
-        
         
         if(result == NSOrderedAscending)
         {
-            
             switch (self.currentProblem.problemTypesID)
             {
                 case 1:
@@ -213,31 +187,14 @@
                     arr[6]++;
                     break;
             }
-            
         }
- 
     }
-    
     for( NSInteger i = 0; i<7; i++)
     {
         NSNumber *tmp = [NSNumber numberWithInteger:arr[i]];
         [self.forMonth addObject:tmp];
     }
-
-    
-    
-    }
-
-    
-    
-    
-    
-    
-    
-
-
-
-
+}
 
 -(NSMutableArray*)countAllProblemsCategory
 {
@@ -259,7 +216,6 @@
     [self.test addObject:[NSString  stringWithFormat:@"%ld",self.countComment]];
     [self.test addObject:[NSString  stringWithFormat:@"%ld",self.self.countPhotos]];
    
-    
     NSInteger arr[7];
  
     for (NSInteger i = 0; i < 7; i++)
@@ -269,8 +225,7 @@
     for (NSInteger i = 0; i < [self.allProblems count]; i++)
     {
         self.currentProblem =  self.allProblems[i];
-        
-        
+
        switch (self.currentProblem.problemTypesID)
         {
             case 1:
@@ -295,9 +250,7 @@
                 arr[6]++;
                 break;
        }
-    
     }
-    
     for( NSInteger i = 0; i<7; i++)
     {
         NSNumber *tmp = [NSNumber numberWithInteger:arr[i]];
@@ -306,6 +259,5 @@
     
     return self.allProblemsPieChart;
 }
-
 
 @end

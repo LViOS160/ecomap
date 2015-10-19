@@ -18,14 +18,16 @@
 
 @implementation EcomapResources
 
-
-
 #pragma mark - Designated initializer
 -(instancetype)initWithResource:(NSDictionary *)resource
 {
     self = [super init];
-    if (self) {
-        if (!resource) return nil;
+    if (self)
+    {
+        if (!resource)
+        {
+           return nil;
+        }
         [self parseResources:resource];
     }
     return self;
@@ -39,16 +41,12 @@
 #pragma mark - Parsing problem
 -(void)parseResources:(NSDictionary *)resource
 {
-    if (resource) {
-      
+    if (resource)
+    {
         self.titleRes = [self titleOfRes:resource];
         self.alias = [self titleOfAlias:resource];
         self.IsResource = [self IsRes:resource];
         self.resId = [self IDOfResource:resource];
-      
-    
-  
-   
     }
 }
 
@@ -65,15 +63,18 @@
 - (NSString *)titleOfAlias:(NSDictionary *)resource
 {
     NSString *titleAlias = (NSString *)[resource valueForKey:ECOMAP_RESOURCE_ALIAS];
-    if(titleAlias)
+    if (titleAlias)
+    {
         return titleAlias;
+    }
     return nil;
 }
 
 - (NSUInteger)IDOfResource:(NSDictionary *)resource
 {
     NSUInteger resourceID = [[resource valueForKey:ECOMAP_RESOURCE_ID] integerValue];
-    if (resourceID) {
+    if (resourceID)
+    {
         return resourceID;
     }
     return NSNotFound;
@@ -82,7 +83,8 @@
 - (NSUInteger)IsRes:(NSDictionary *)resource
 {
     NSUInteger resIs = [[resource valueForKey:ECOMAP_RESOURCE_ISRESOURCE] integerValue];
-    if (resIs) {
+    if (resIs)
+    {
         return resIs;
     }
     return NSNotFound;

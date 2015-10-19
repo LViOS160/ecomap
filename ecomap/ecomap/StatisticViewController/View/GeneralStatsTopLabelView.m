@@ -46,28 +46,20 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    
-    /* For debuging
-     
-     UIBezierPath *path = [UIBezierPath bezierPathWithRect:rect];
-     
-     [[UIColor blackColor] setStroke];
-     [path stroke];
-     
-     */
-    
     [self drawLabel];
 }
 
 - (void)drawLabel
 {
     // Drawing number of instances
-    
     UIFont *numberFont = nil; // default font
     
-    if([UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]]) {
+    if ([UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]])
+    {
         numberFont = [UIFont fontWithName:@"OpenSans-Light" size:[self numberFontSize]];
-    } else {
+    }
+    else
+    {
         numberFont = [UIFont fontWithName:@"Helvetica-Light" size:[self numberFontSize]];
     }
     
@@ -78,22 +70,24 @@
     numberTextBounds.size = [numberText size];
     numberTextBounds.origin = CGPointMake((self.bounds.size.width - numberTextBounds.size.width) / 2, [self offsetFromTop]);
     
-    if(self.numberOfInstances) { // Not drawing whith empty properties
+    if (self.numberOfInstances)
+    { // Not drawing whith empty properties
         [numberText drawInRect:numberTextBounds];
     }
-    
     // Drawing name of instances
     
     UIFont *nameFont = nil; // default font;
     
-    if([UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]]) {
+    if([UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]])
+    {
         nameFont = [UIFont fontWithName:@"OpenSans-Semibold" size:[self nameFontSize]];
-    } else {
+    }
+    else
+    {
         nameFont = [UIFont fontWithName:@"Helvetica" size:[self nameFontSize]];
     }
     
     UIColor *fontColor = [UIColor lightGrayColor];
-    
     NSAttributedString *nameText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", self.nameOfInstances]
                                                                    attributes:@{ NSFontAttributeName : nameFont,
                                                                                  NSForegroundColorAttributeName: fontColor}];
@@ -102,7 +96,9 @@
     nameTextBounds.size = [nameText size];
     nameTextBounds.origin = CGPointMake((self.bounds.size.width - nameTextBounds.size.width) / 2, numberTextBounds.size.height + [self offsetBetweenNumberAndName]);
     
-    if(self.nameOfInstances) { // Not drawing whith empty properties
+    if (self.nameOfInstances)
+    {
+        // Not drawing whith empty properties
         [nameText drawInRect:nameTextBounds];
     }
 }
@@ -125,7 +121,8 @@
 {
     self = [super initWithFrame:frame];
     
-    if(self) {
+    if (self)
+    {
         // Initialization code
         [self setup];
     }

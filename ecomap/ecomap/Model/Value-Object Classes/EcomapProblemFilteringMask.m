@@ -19,9 +19,12 @@
 // If not add it, in other case remove it from array.
 - (void)markProblemType:(NSInteger)problemTypeID
 {
-    if([self.problemTypes containsObject:@(problemTypeID)]) {
+    if([self.problemTypes containsObject:@(problemTypeID)])
+    {
         [self.problemTypes removeObject:@(problemTypeID)];
-    } else {
+    }
+    else
+    {
         [self.problemTypes addObject:@(problemTypeID)];
     }
 }
@@ -69,10 +72,13 @@
 {
     NSMutableArray *filteredProblems = [[NSMutableArray alloc] init];
     
-    for(id problem in problems) {
-        if([problem isKindOfClass:[EcomapProblem class]]) {
+    for(id problem in problems)
+    {
+        if([problem isKindOfClass:[EcomapProblem class]])
+        {
             EcomapProblem *ecoProblem = (EcomapProblem *)problem;
-            if([self checkProblem:ecoProblem]) {
+            if([self checkProblem:ecoProblem])
+            {
                 [filteredProblems addObject:ecoProblem];
             }
         }
@@ -105,11 +111,16 @@
 // Check problem status validity.
 - (BOOL)checkStatusOfProblem:(EcomapProblem *)problem
 {
-    if(self.showSolved && self.showUnsolved) {
+    if (self.showSolved && self.showUnsolved)
+    {
         return YES;
-    } else if(self.showSolved && !self.showUnsolved && problem.isSolved) {
+    }
+    else if (self.showSolved && !self.showUnsolved && problem.isSolved)
+    {
         return YES;
-    } else if(!self.showSolved && self.showUnsolved && !problem.isSolved) {
+    }
+    else if (!self.showSolved && self.showUnsolved && !problem.isSolved)
+    {
         return YES;
     }
     
@@ -122,14 +133,17 @@
     NSTimeInterval intervalFromBeginOfTheRangeToDate = [date timeIntervalSinceDate:fromDate];
     NSTimeInterval intervalFromDateToEndOfTheRange = [toDate timeIntervalSinceDate:date];
     
-    if((intervalFromBeginOfTheRangeToDate > 0) && intervalFromDateToEndOfTheRange > 0) {
+    if((intervalFromBeginOfTheRangeToDate > 0) && intervalFromDateToEndOfTheRange > 0)
+    {
         return YES;
-    } else {
+    }
+    else
+    {
         return NO;
     }
 }
 
-//Check problem owner mine
+//Check problem owner
 - (BOOL)isOwner:(EcomapProblem *)problem
 {
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];

@@ -45,7 +45,7 @@
 {
     [super viewDidLoad];
     self.names = @[@"Проблем", @"Голосів", @"Коментарів", @"Фотографій"];
-   [self customSetup];
+    [self customSetup];
     Statistics *ob = [Statistics sharedInstanceStatistics];
     [ob countAllProblemsCategory];
     self.statsForPieChart = ob.forDay;
@@ -68,7 +68,8 @@
 - (void)customSetup
 {
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if(revealViewController) {
+    if (revealViewController)
+    {
         [self.revealButtonItem setTarget:self.revealViewController];
         [self.revealButtonItem setAction:@selector(revealToggle:)];
         [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
@@ -128,8 +129,6 @@
 
 - (IBAction)changeRangeOfShowingStats:(UISegmentedControl *)sender
 {
-    
-    
     [self resizeTopLabelViews];
     self.pieChartView.pieRadius = [self pieChartRadius];
     Statistics *ob = [Statistics sharedInstanceStatistics];
@@ -159,14 +158,14 @@
 
 - (void)generateTopLabelViews
 {
-    for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++){
+    for(int i = 0; i < NUMBER_OF_TOP_LABELS; i++)
+    {
         GeneralStatsTopLabelView *topLabelView = [[GeneralStatsTopLabelView alloc] init];
         topLabelView.frame = CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
-       topLabelView.numberOfInstances = [[self.generalStats objectAtIndex:i] doubleValue];
-       topLabelView.nameOfInstances = [self.names objectAtIndex:i];
-       [self.scrollView addSubview:topLabelView];
+        topLabelView.numberOfInstances = [[self.generalStats objectAtIndex:i] doubleValue];
+        topLabelView.nameOfInstances = [self.names objectAtIndex:i];
+        [self.scrollView addSubview:topLabelView];
     }
-    
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, self.scrollView.bounds.size.height);
     [self resizeTopLabelViews];
 }
@@ -175,15 +174,15 @@
 {
     int i = 0;
     
-    for(UIView *subView in self.scrollView.subviews) {
-            if([subView isKindOfClass:[GeneralStatsTopLabelView class]]) {
+    for(UIView *subView in self.scrollView.subviews)
+    {
+        if ([subView isKindOfClass:[GeneralStatsTopLabelView class]])
+        {
             [subView setFrame:CGRectMake(0 + i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height)];
             i++;
         }
     }
-    
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width * NUMBER_OF_TOP_LABELS, self.scrollView.bounds.size.height);
-
 }
 
 - (void)switchPage
@@ -198,7 +197,8 @@
 // Convert NSInteger to EcomapStatsTimePeriod
 - (EcomapStatsTimePeriod)periodForStatsByIndex:(NSInteger)index
 {
-    switch(index) {
+    switch(index)
+    {
         case 0: return EcomapStatsForLastDay;
         case 1: return EcomapStatsForLastWeek;
         case 2: return EcomapStatsForLastMonth;
@@ -213,23 +213,27 @@
 #define DEFAULT_DIAMETER_OF_PIE_CHART_FRAME 375.00
 #define DEFAULT_RADIUS_OF_PIE_CHART 148.00
 
-- (CGFloat)radiusScaleFactor {
-    if(self.pieChartView.bounds.size.height < self.pieChartView.bounds.size.width) {
+- (CGFloat)radiusScaleFactor
+{
+    if (self.pieChartView.bounds.size.height < self.pieChartView.bounds.size.width)
+    {
         return self.pieChartView.bounds.size.height / DEFAULT_DIAMETER_OF_PIE_CHART_FRAME;
-    } else {
+    }
+    else
+    {
         return self.pieChartView.bounds.size.width / DEFAULT_DIAMETER_OF_PIE_CHART_FRAME;
     }
 }
 
-- (CGFloat)pieChartRadius {
+- (CGFloat)pieChartRadius
+{
     return [self radiusScaleFactor] * DEFAULT_RADIUS_OF_PIE_CHART;
 }
 
 - (void)drawPieChart
 {
-     self.pieChartView.pieRadius = [self pieChartRadius];
+    self.pieChartView.pieRadius = [self pieChartRadius];
     [self.pieChartView reloadData];
-    
     [self.pieChartView setDelegate:self];
     [self.pieChartView setDataSource:self];
     [self.pieChartView setAnimationSpeed:1.0];
@@ -237,9 +241,7 @@
     [self.pieChartView setPieCenter:CGPointMake(self.pieChartView.bounds.size.width /2 , self.pieChartView.bounds.size.height / 2)];
     [self.pieChartView setUserInteractionEnabled:NO];
     [self.pieChartView setLabelColor:[UIColor whiteColor]];
-    
     self.sliceColors = [self sliceColors];
-    
     [self.pieChartView reloadData];
 }
 
@@ -274,11 +276,14 @@
     [self.topLabelSpinner startAnimating];
     
     [EcomapStatsFetcher loadGeneralStatsOnCompletion:^(NSArray *stats, NSError *error) {
-        if(!error) {
+        if (!error)
+        {
             self.generalStats = stats;
             [self.topLabelSpinner stopAnimating];
             [self generateTopLabelViews];
-        } else {
+        }
+        else
+        {
             DDLogError(@"Error: %@", error);
         }
     }];

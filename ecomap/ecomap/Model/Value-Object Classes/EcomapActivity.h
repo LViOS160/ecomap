@@ -16,7 +16,6 @@
 @property (nonatomic, readonly) NSUInteger activityTypes_Id;
 @property (nonatomic, readonly) NSUInteger usersID;
 @property (nonatomic, readonly) NSUInteger problemsID;
-
 @property (nonatomic, readonly) NSString *problemContent;
 @property (nonatomic, readonly) NSString *userName;
 @property (nonatomic, readonly) NSString *userSurname;

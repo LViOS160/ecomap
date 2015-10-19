@@ -21,7 +21,8 @@
 {
     self = [super init];
     
-    if(self) {
+    if(self)
+    {
         self.content = problem.content;
         self.solved = problem.isSolved;
         self.proposal = problem.proposal;
@@ -37,7 +38,8 @@
 {
     self = [super init];
     
-    if(self) {
+    if(self)
+    {
         self.content = @"";
         self.solved = NO;
         self.proposal = @"";

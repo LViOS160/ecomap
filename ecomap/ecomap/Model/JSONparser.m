@@ -19,11 +19,15 @@
     NSArray *dataFromJSON = nil;
     NSError *error;
     id parsedJSON = [NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
-    if (!error) {
-        if ([parsedJSON isKindOfClass:[NSArray class]]) {
+    if (!error)
+    {
+        if ([parsedJSON isKindOfClass:[NSArray class]])
+        {
             dataFromJSON = (NSArray *)parsedJSON;
         }
-    } else {
+    }
+    else
+    {
         DDLogError(@"Error parsing JSON data: %@", [error localizedDescription]);
     }
     
@@ -36,11 +40,15 @@
     NSDictionary *dataFromJSON = nil;
     NSError *error = nil;
     id parsedJSON = [NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
-    if (!error) {
-        if ([parsedJSON isKindOfClass:[NSDictionary class]]) {
+    if (!error)
+    {
+        if ([parsedJSON isKindOfClass:[NSDictionary class]])
+        {
             dataFromJSON = (NSDictionary *)parsedJSON;
         }
-    } else {
+    }
+    else
+    {
         DDLogError(@"Error parsing JSON data: %@", [error localizedDescription]);
     }
     

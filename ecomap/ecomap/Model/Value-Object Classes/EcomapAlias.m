@@ -16,13 +16,16 @@
 -(instancetype)initWithAlias:(NSDictionary *)alias
 {
     self = [super init];
-    if (self) {
-        if (!alias) return nil;
+    if (self)
+    {
+        if (!alias)
+        {
+            return nil;
+        }
         [self parseAlias:alias];     //gained string of html
     }
     return self;
 }
-
 
 - (instancetype)init
 {
@@ -33,10 +36,9 @@
 #pragma mark - Parsing problem
 -(void)parseAlias:(NSDictionary *)alias
 {
-    if (alias) {
-        
+    if (alias)
+    {
         self.content= [self contOfAlias:alias];
-        
     }
 }
 

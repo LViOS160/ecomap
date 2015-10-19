@@ -25,7 +25,6 @@
 #pragma mark - Singleton
 + (instancetype)sharedAccount
 {
-    
     static EcomapLoggedUser *sharedAccount = nil;
     static dispatch_once_t onceToken;
     
@@ -34,13 +33,13 @@
     });
     
     return sharedAccount;
-    
 }
 
 -(instancetype)initPrivate
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         //Add observer to listen when to performe logout
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self
@@ -48,7 +47,6 @@
                    name:@"LogoutFromEcomapNotification"
                  object:nil];
     }
-    
     return self;
 }
 
@@ -62,11 +60,13 @@
 #pragma mark - Login
 + (EcomapLoggedUser *)loginUserWithInfo:(NSDictionary *)userInfo
 {
-    if (userInfo){
+    if (userInfo)
+    {
         [self parseUser:userInfo];
         EcomapLoggedUser *sharedAccount = [EcomapLoggedUser sharedAccount];
         sharedAccount.curretLoggedUser = sharedAccount;
-    } else return nil;
+    }
+    else return nil;
     
     return [EcomapLoggedUser sharedAccount];
 }
@@ -77,7 +77,8 @@
     EcomapLoggedUser *sharedAccount = [self sharedAccount];
     
     //Parse userInfo
-    if (userInfo) {
+    if (userInfo)
+    {
         sharedAccount.userID = ![[userInfo valueForKey:ECOMAP_USER_ID] isKindOfClass:[NSNull class]] ? [[userInfo valueForKey:ECOMAP_USER_ID] integerValue] : 0;
         sharedAccount.name = ![[userInfo valueForKey:ECOMAP_USER_NAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_NAME] : nil;
         sharedAccount.surname = ![[userInfo valueForKey:ECOMAP_USER_SURNAME] isKindOfClass:[NSNull class]] ? [userInfo valueForKey:ECOMAP_USER_SURNAME] : @"";
@@ -91,7 +92,8 @@
 //Return current logged user
 +(EcomapLoggedUser *)currentLoggedUser
 {
-    if (![[EcomapLoggedUser sharedAccount] curretLoggedUser]) {
+    if (![[EcomapLoggedUser sharedAccount] curretLoggedUser])
+    {
         return nil;
     }
     
@@ -101,7 +103,8 @@
 #pragma mark - Logout
 - (void)logout
 {
-    if ([[EcomapLoggedUser sharedAccount] curretLoggedUser]) {
+    if ([[EcomapLoggedUser sharedAccount] curretLoggedUser])
+    {
         [[EcomapLoggedUser sharedAccount] setCurretLoggedUser:nil];
     }
 }
@@ -110,7 +113,6 @@
 //Override
 - (NSString *)description
 {
-    
     return [NSString stringWithFormat:@"Logged user: %@ %@ (id = %lu)", self.name, self.surname, (unsigned long)self.userID];
 }
 

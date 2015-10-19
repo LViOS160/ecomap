@@ -16,7 +16,8 @@
 #define ECOMAP_MOST_SEVERE_PROBLEMS_CHART_TITLE NSLocalizedString(@"ТОП 10 важливих проблем", @"TOP 10 important problems")
 #define ECOMAP_MOST_COMMENTED_PROBLEMS_CHART_TITLE NSLocalizedString(@"ТОП 10 обговорюваних проблем", @"TOP 10 problems under discussion")
 
-typedef enum {
+typedef enum
+{
     EcomapMostVotedProblemsTopList,
     EcomapMostSevereProblemsTopList,
     EcomapMostCommentedProblemsTopList

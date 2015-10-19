@@ -50,7 +50,8 @@
 #import <netinet/in.h>
 
 
-typedef enum : NSInteger {
+typedef enum : NSInteger
+{
 	NotReachable = 0,
 	ReachableViaWiFi,
 	ReachableViaWWAN

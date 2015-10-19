@@ -34,7 +34,8 @@
 
 #pragma mark - Initialization
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     // We're starting with hidden table, because we don't have data to populate it
@@ -89,7 +90,8 @@
 
 - (IBAction)changeKindOfTopChart:(UISegmentedControl *)sender
 {
-    switch(sender.selectedSegmentIndex) {
+    switch(sender.selectedSegmentIndex)
+    {
         case 0:
             self.kindOfTopChart = EcomapMostVotedProblemsTopList;
             self.navigationItem.title = ECOMAP_MOST_VOTED_PROBLEMS_CHART_TITLE;
@@ -133,8 +135,8 @@
 - (void)fetchChartsOfTheTopProblems
 {
     [self.tableSpinner startAnimating];
-    //[EcomapStatsFetcher loadTopChartsOnCompletion:^(NSArray *charts, NSError *error) {
-        if(!self.currentChart) {
+           if(!self.currentChart)
+        {
             self.charts = self.currentChart;
             [self.tableSpinner stopAnimating];
             
@@ -143,30 +145,32 @@
             
             [self changeChart];
         }
-   // }];
-
 }
 
 #pragma mark - UITableView Data Source & Delegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     // Return the number of rows in the section.
     return [self.currentChart count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     static NSString *cellIdentifier = @"Top Problem Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
     
-    if(!cell) {
+    if (!cell)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     // Display data in the cell
@@ -203,14 +207,17 @@
 }
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     
-    if ([segue.identifier isEqualToString:@"Show Problem"]) {
-        if([segue.destinationViewController isKindOfClass:[ProblemViewController class]]) {
+    if ([segue.identifier isEqualToString:@"Show Problem"])
+    {
+        if ([segue.destinationViewController isKindOfClass:[ProblemViewController class]])
+        {
             ProblemViewController *problemVC = segue.destinationViewController;
             EcomapProblem *problem = self.charts[indexPath.row];
             problemVC.problemID = problem.problemID;
