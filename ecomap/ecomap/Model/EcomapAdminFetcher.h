@@ -21,7 +21,9 @@
 
 #pragma mark - PUT Requests
 
-+ (void)changeProblem:(NSUInteger)problemID withNewProblem:(EcomapEditableProblem *)problemData onCompletion:(void(^)(NSData *result, NSError *error))completionHandler;
++ (void)changeProblem:(EcomapProblemDetails *)problem withNewProblem:(EcomapEditableProblem *)editableProblem onCompletion:(void(^)(NSData *, NSError *))completionHandler;
+
++ (void)changeComment:(NSUInteger)commentID withNewContent:(NSString *)content onCompletion:(void(^)(NSData *, NSError *))completionHandler;
 
 #pragma mark - DELETE requests
 + (void)deleteComment:(NSUInteger)commentID onCompletion:(void(^)(NSError *error))completionHandler;

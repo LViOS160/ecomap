@@ -38,17 +38,18 @@
     return [self URLForAPIQuery:ECOMAP_GET_PROBLEM_TYPES];
 }
 
-+ (NSURL *)URLforProblemWithID:(NSUInteger)problemID
++ (NSString *)URLforProblemWithID:(NSUInteger)problemID
+{
+    NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEMS_WITH_ID_API, (unsigned long)problemID];
+    return query;
+}
+
++ (NSURL *)URLforProblemWithIDWithQuery:(NSUInteger)problemID
 {
     NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEMS_WITH_ID_API, (unsigned long)problemID];
     return [self URLForAPIQuery:query];
 }
 
-+ (NSURL *)URLforDeleteProblemWithID:(NSUInteger)problemID
-{
-    NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEM_API, (unsigned long)problemID];
-    return [self URLForAPIQuery:query];
-}
 
 + (NSURL *)URLforLogin
 {
@@ -156,18 +157,12 @@
     return [NSURL URLWithString:query];
 }
 
-#pragma mark - Admin API URLs
++(NSString *)URLforCommentWithID:(NSUInteger)commentID
+{
+    NSString *query = [ECOMAP_GET_COMMENTS_WITH_ID_API stringByAppendingString:[NSString stringWithFormat:@"%lu",commentID]];
+    return query;
+}
 
-+ (NSURL *)URLforEditingProblem:(NSUInteger)problemID
-{
-    NSString *query = [ECOMAP_PUT_EDIT_PROBLEM stringByAppendingString:[NSString stringWithFormat:@"%u", problemID]];
-    return [self URLForAPIQuery:query];
-}
-+(NSURL*)URLforDeletingComment:(NSUInteger)commentID
-{
-    NSString *query = [ECOMAP_DELETING_COMMENT stringByAppendingString:[NSString stringWithFormat:@"%u",commentID]];
-    return [self URLForAPIQuery:query];
-}
 +(NSURL*)URLforDeletingPhoto:(NSString*)link
 {
     NSString *query = [ECOMAP_POST_PHOTO stringByAppendingString:link];

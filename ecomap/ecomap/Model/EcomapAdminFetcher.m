@@ -11,87 +11,119 @@
 #import "EcomapURLFetcher.h"
 #import "DataTasks.h"
 #import "JSONParser.h"
+#import "AFNetworking.h"
+#import "EcomapProblemDetails.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 
 @implementation EcomapAdminFetcher
 
-+ (void)changeProblem:(NSUInteger)problemID withNewProblem:(EcomapEditableProblem *)problemData onCompletion:(void(^)(NSData *, NSError *))completionHandler;
++ (void)changeProblem:(EcomapProblemDetails *)problem withNewProblem:(EcomapEditableProblem *)editableProblem onCompletion:(void(^)(NSData *, NSError *))completionHandler
 {
-    // Get current user
-    EcomapLoggedUser *user = [EcomapLoggedUser currentLoggedUser];
     
-    // Create JSON data to PUT on the server
-    NSDictionary *dictionary = @{ @"Content" : problemData.content,
-                                  @"ProblemStatus" : [self BOOLtoInteger:problemData.isSolved],
-                                  @"Proposal" : problemData.proposal,
-                                  @"Severity" : [NSNumber numberWithInteger:problemData.severity],
-                                  @"Title" : problemData.title
-                                };
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:dictionary
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:nil];
+    NSDictionary *dictionary = @{
+                                 ECOMAP_PROBLEM_STATUS : editableProblem.isSolved ? @"SOLVED" : @"UNSOLVED",
+                                 ECOMAP_PROBLEM_TYPE_ID : @(problem.problemTypesID),
+                                 ECOMAP_PROBLEM_SEVERITY : [NSString stringWithFormat:@"%lu", editableProblem.severity],
+                                 ECOMAP_PROBLEM_TITLE : editableProblem.title,
+                                 ECOMAP_PROBLEM_LONGITUDE : @(problem.longitude),
+                                 ECOMAP_PROBLEM_CONTENT : editableProblem.content,
+                                 ECOMAP_PROBLEM_LATITUDE : @(problem.latitude),
+                                 ECOMAP_PROBLEM_PROPOSAL : editableProblem.proposal
+                                 };
     
-    // Send data only if user is administrator and logged in
-    if(user && [user.role isEqualToString:@"administrator"]) {
-        // Set up configuration
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        [configuration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
-        
-        // Set up request
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforEditingProblem:problemID]];
-        [request setHTTPMethod:@"PUT"];
-        [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
-        
-        [DataTasks uploadDataTaskWithRequest:request
-                                    fromData:JSONData
-                        sessionConfiguration:configuration
-                           completionHandler:^(NSData *JSON, NSError *error) {
-                               if(error) {
-                                   DDLogVerbose(@"ERROR: %@", error);
-                               }
-                               
-                               // Set up completion handler
-                               completionHandler(JSON, error);
-                           }];
-        
-    } else {
-        DDLogVerbose(@"Error! You should be logged in and have administrator permissions!");
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    NSString *baseUrl = [ECOMAP_ADDRESS stringByAppendingString:ECOMAP_API];
+    NSString *urlForRequest = [baseUrl stringByAppendingString:[EcomapURLFetcher URLforProblemWithID:problem.problemID]];
+    
+    [manager PUT:urlForRequest parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        NSLog(@"OK request for updating problem");
     }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
+        
+        DDLogVerbose(@"ERROR: %@", error);
+        completionHandler((NSData *)dictionary,error);
+    }];
 }
 
++ (void)changeComment:(NSUInteger)commentID withNewContent:(NSString *)content onCompletion:(void(^)(NSData *, NSError *))completionHandler
+{
+    
+    NSDictionary *dictionary = @{  @"content" : content  };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    NSString *baseUrl = [ECOMAP_ADDRESS stringByAppendingString:ECOMAP_API];
+    NSString *urlForRequest = [baseUrl stringByAppendingString:[EcomapURLFetcher URLforCommentWithID:commentID]];
+    
+    [manager PUT:urlForRequest parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        NSLog(@"OK request for updating comment");
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
+        DDLogVerbose(@"ERROR: %@", error);
+        completionHandler((NSData *)dictionary,error);
+    }];
+    
+}
 
 + (void)deleteComment:(NSUInteger)commentID onCompletion:(void (^)(NSError *))completionHandler
 {
     
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setRequestSerializer:jsonRequestSerializer];
     
-    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforDeletingComment:commentID]];
-    NSLog(@"__%@__",request);
-    [request setHTTPMethod:@"DELETE"];
+    NSString *baseUrl = [ECOMAP_ADDRESS stringByAppendingString:ECOMAP_API];
+    NSString *urlForRequest = [baseUrl stringByAppendingString:[EcomapURLFetcher URLforCommentWithID:commentID]];
     
-    [DataTasks dataTaskWithRequest:request sessionConfiguration:sessionConfiguration completionHandler:^(NSData *JSON, NSError *error) {
-        if(error)
-           DDLogVerbose(@"ERROR: %@", error);
+    [manager DELETE:urlForRequest parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        NSLog(@"OK request for deleting comment");
+    }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
+        DDLogVerbose(@"ERROR: %@", error);
         completionHandler(error);
     }];
 }
 
 + (void)deleteProblem:(NSUInteger)problemID onCompletion:(void(^)(NSError *error))completionHandler
 {
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforDeleteProblemWithID:problemID]];
-    NSLog(@"__%@__",request);
-    [request setHTTPMethod:@"DELETE"];
+  
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setRequestSerializer:jsonRequestSerializer];
     
-    [DataTasks dataTaskWithRequest:request sessionConfiguration:sessionConfiguration completionHandler:^(NSData *JSON, NSError *error) {
-        if(error)
-            DDLogVerbose(@"ERROR: %@", error);
+    NSString *baseUrl = [ECOMAP_ADDRESS stringByAppendingString:ECOMAP_API];
+    NSString *urlForRequest = [baseUrl stringByAppendingString:[EcomapURLFetcher URLforProblemWithID:problemID]];
+    
+    [manager DELETE:urlForRequest parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        NSLog(@"OK request for deleting problem");
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
+        DDLogVerbose(@"ERROR: %@", error);
         completionHandler(error);
     }];
+    
+    
 }
 +(void)deletePhotoWithLink:(NSString*)link onCompletion:(void(^)(NSError *error))completionHandler
 {

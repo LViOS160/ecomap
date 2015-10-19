@@ -31,6 +31,7 @@
 #define ECOMAP_GET_ALIAS @"pages/"
 #define ECOMAP_POST_VOTE @"vote"
 #define ECOMAP_POST_COMMENT @"comment/"
+#define ECOMAP_GET_COMMENTS_WITH_ID_API @"comments/"
 #define ECOMAP_POST_PHOTO @"photo/"
 
 //Queries for statistics
@@ -42,9 +43,7 @@
 #define ECOMAP_GET_STATS_FOR_LAST_WEEK @"getStats2/W"
 #define ECOMAP_GET_STATS_FOR_LAST_DAY @"getStats2/D"
 
-// Queries for admin's API
 
-#define ECOMAP_PUT_EDIT_PROBLEM @"editProblem/"
 #define ECOMAP_DELETING_COMMENT @"comments/"
 //Problems types descripton
 #define ECOMAP_PROBLEM_TYPES_ARRAY @[NSLocalizedString(@"Проблеми лісів", @"Forest problems"), NSLocalizedString(@"Сміттєзвалища", @"Landfills"), NSLocalizedString(@"Незаконна забудова", @"Illegal construction"), NSLocalizedString(@"Проблеми водойм", @"Ponds problems"), NSLocalizedString(@"Загрози біорізноманіттю",@"Threats to biodiversity"), NSLocalizedString(@"Браконьєрство", @"Poaching"), NSLocalizedString(@"Інші проблеми", @"Other problems")]
@@ -55,18 +54,11 @@
 #define ECOMAP_PROBLEM_DETAILS_COMMENTS 2
 
 // keys (paths) applicable to all types of Ecomap problems dictionaries
-//#define ECOMAP_PROBLEM_ID @"Id"
 #define ECOMAP_PROBLEM_ID @"id"
-
-//#define ECOMAP_PROBLEM_TITLE @"Title"
 #define ECOMAP_PROBLEM_TITLE @"title"
-
 #define ECOMAP_PROBLEM_LATITUDE @"latitude"
 #define ECOMAP_PROBLEM_LONGITUDE @"longitude"
-
-//#define ECOMAP_PROBLEM_TYPE_ID @"ProblemTypes_Id"
 #define ECOMAP_PROBLEM_TYPE_ID @"problem_type_id"
-
 #define ECOMAP_PROBLEM_STATUS @"status"
 
 // keys (paths) to values in a PROBLEM dictionary of PROBLEMS array

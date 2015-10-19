@@ -95,11 +95,6 @@
                                                  NSFontAttributeName: [UIFont systemFontOfSize:13]
                                                  }];
     
-    
-    
-    
-    
-    
     [text appendAttributedString:contentHeader];
     [text appendAttributedString:content];
     [text appendAttributedString:proposalHeader];
@@ -107,13 +102,14 @@
     self.descriptionText.attributedText = text;
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-    
    
-    if(([userIdent.role isEqualToString:@"administrator"] || self.problemDetails.userCreator == userIdent.userID ) && userIdent && self.problemDetails.userCreator) {
+    if(([userIdent.role isEqualToString:@"administrator"] || self.problemDetails.userCreator == userIdent.userID ) && userIdent && self.problemDetails.userCreator)
+    {
         self.editButton.hidden = NO;
         self.deleteButton.hidden = NO;
     }
-    else {
+    else
+    {
         self.editButton.hidden = YES;
         self.deleteButton.hidden = YES;
     }
@@ -126,25 +122,15 @@
 
 - (IBAction)deleteProblem:(id)sender
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-    [manager setRequestSerializer:jsonRequestSerializer];
-    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
-    NSUInteger num = self.problemDetails.problemID;
-    NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
-    
-    [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [EcomapAdminFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error)
+    {
         [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        return;
         
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%@",error);
-        [self.navigationController popViewControllerAnimated:YES];
     }];
-
+    
+     [self.navigationController popViewControllerAnimated:YES];
+     [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
 }
 
 #pragma mark - Scroll View Gallery setup

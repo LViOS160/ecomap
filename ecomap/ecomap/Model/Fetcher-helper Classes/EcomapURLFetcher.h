@@ -31,7 +31,9 @@ typedef enum {
 + (NSURL *)URLforAllProblems;
 
 //Return API URL to get problem with ID
-+ (NSURL *)URLforProblemWithID:(NSUInteger)problemID;
++ (NSString *)URLforProblemWithID:(NSUInteger)problemID;
+
++ (NSURL *)URLforProblemWithIDWithQuery:(NSUInteger)problemID;
 
 //Return API URL to logIn
 + (NSURL *)URLforLogin;
@@ -74,12 +76,8 @@ typedef enum {
 
 + (NSURL *)URLforPostPhoto;
 
-+ (NSURL *)URLforEditingProblem:(NSUInteger)problemID;
-
-+(NSURL *)URLforDeletingComment:(NSUInteger)commentID;
++ (NSString *)URLforCommentWithID:(NSUInteger)commentID;
 
 +(NSURL*)URLforDeletingPhoto:(NSString*)link;
-
-+ (NSURL *)URLforDeleteProblemWithID:(NSUInteger)problemID;
 
 @end

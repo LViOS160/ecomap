@@ -88,14 +88,6 @@ enum : NSInteger {
     return severityStr;
 }
 
-- (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved
-{
-    if (isSolved) {
-        return @"SOLVED";
-    } else {
-        return @"UNSOLVED";
-    }
-}
 
 - (void)saveButtonTouch:(id)sender
 {
@@ -104,40 +96,18 @@ enum : NSInteger {
     [self.proposal resignFirstResponder];
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSDictionary *dictionary = @{
-                                 @"status" : [self stringFromIsSolvedForRequest:self.editableProblem.isSolved],
-                                 @"problem_type_id" : @(self.problem.problemTypesID),
-                                 @"severity" : [NSString stringWithFormat:@"%lu", self.editableProblem.severity],
-                                 @"title" : self.editableProblem.title,
-                                 @"longitude" : @(self.problem.longitude),
-                                 @"content" : self.editableProblem.content,
-                                 @"latitude" : @(self.problem.latitude),
-                                 @"proposal" : self.editableProblem.proposal                                 
-                                  };
-
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
-    NSUInteger num = self.problem.problemID;
-    NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
-    
-    [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [EcomapAdminFetcher changeProblem:self.problem withNewProblem:self.editableProblem onCompletion:^(NSData *result, NSError *error) {
         
-
-        [InfoActions stopActivityIndicator];
-        [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%@",error);
-        [InfoActions showAlertOfError:error];
+        if (error)
+        {
+            [InfoActions showAlertOfError:error];
+            return;
+        }
     }];
+    
+    [InfoActions stopActivityIndicator];
+    [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
 
 }
 
@@ -176,7 +146,8 @@ enum : NSInteger {
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    switch (textView.tag) {
+    switch (textView.tag)
+    {
         case TextFieldTag_Content:
             self.editableProblem.content = textView.text;
             break;

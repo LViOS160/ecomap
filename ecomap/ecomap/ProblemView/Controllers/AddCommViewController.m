@@ -234,6 +234,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+    
     if(ob.comInfo.count == 0)
     {
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -273,7 +274,10 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1){
+    
+    
+    if (buttonIndex == 1)
+    {
         
         NSString *content = [self.alertView textFieldAtIndex:0].text;
         
@@ -300,13 +304,15 @@
             [EcomapFetcher updateComments:ob.problemsID controller:self];
             [self.myTableView reloadData];
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error)
+        {
             
             NSLog(@"%@",error);
         }];
         
     }
-    
+
 }
 
 
@@ -325,8 +331,7 @@
     [textField setText:cell.commentContent.text];
     
     [self.alertView show];
-    
-
+ 
 }
 
 
@@ -335,8 +340,8 @@
 {
     
     UIButton *addEditButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    addEditButton.frame = CGRectMake(250.0f, 0.1f, 75.0f, 46.6f);
-    addEditButton.backgroundColor = [UIColor greenColor];
+    addEditButton.frame = CGRectMake(260.0f, 0.0f, 50.0f, 24.0f);
+    addEditButton.backgroundColor = [UIColor yellowColor];
     [addEditButton setTitle:@"Edit" forState:UIControlStateNormal];
     [cell addSubview:addEditButton];
     [addEditButton addTarget:self
@@ -372,13 +377,13 @@
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         [manager setRequestSerializer:jsonRequestSerializer];
         NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
-       NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+        NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
         NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
         
         
         [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"ura");
-           
+            
             [EcomapFetcher updateComments:ob.problemsID controller:self];
             [UIView transitionWithView:tableView
                               duration:2
@@ -394,11 +399,7 @@
             
             NSLog(@"%@",error);
         }];
-
-        
     }
-    
-    
 }
 
 
