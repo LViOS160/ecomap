@@ -12,6 +12,4 @@
 
 @property (nonatomic) UINavigationController *mapViewController;
 
-
-
 @end

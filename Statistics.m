@@ -23,7 +23,7 @@
     NSInteger resultCounting = 0;
     NSScanner *textScanner = [NSScanner scannerWithString: text];
     NSString *tmp;
-    while([textScanner isAtEnd]==NO)
+    while ([textScanner isAtEnd]==NO)
     {
         [textScanner setCharactersToBeSkipped:nil];
         [textScanner scanUpToString: start intoString: NULL];
@@ -56,7 +56,7 @@
         self.currentProblem =  self.allProblems[i];
         NSComparisonResult result = [new compare: self.currentProblem.dateCreated];
 
-        if(result == NSOrderedAscending)
+        if (result == NSOrderedAscending)
         {
             switch (self.currentProblem.problemTypesID)
             {
@@ -108,7 +108,7 @@
         self.currentProblem =  self.allProblems[i];
         NSComparisonResult result = [new compare: self.currentProblem.dateCreated];
         
-        if(result == NSOrderedAscending)
+        if (result == NSOrderedAscending)
         {
             switch (self.currentProblem.problemTypesID)
             {
@@ -137,7 +137,7 @@
         }
     }
     
-    for( NSInteger i = 0; i<7; i++)
+    for ( NSInteger i = 0; i<7; i++)
     {
         NSNumber *tmp = [NSNumber numberWithInteger:arr[i]];
         [self.forWeek addObject:tmp];
@@ -161,7 +161,7 @@
         self.currentProblem =  self.allProblems[i];
         NSComparisonResult result = [new compare: self.currentProblem.dateCreated];
         
-        if(result == NSOrderedAscending)
+        if (result == NSOrderedAscending)
         {
             switch (self.currentProblem.problemTypesID)
             {
@@ -189,7 +189,7 @@
             }
         }
     }
-    for( NSInteger i = 0; i<7; i++)
+    for (NSInteger i = 0; i<7; i++)
     {
         NSNumber *tmp = [NSNumber numberWithInteger:arr[i]];
         [self.forMonth addObject:tmp];
@@ -251,7 +251,7 @@
                 break;
        }
     }
-    for( NSInteger i = 0; i<7; i++)
+    for (NSInteger i = 0; i<7; i++)
     {
         NSNumber *tmp = [NSNumber numberWithInteger:arr[i]];
         [self.allProblemsPieChart addObject:tmp];

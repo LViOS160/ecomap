@@ -36,7 +36,8 @@ static const NSUInteger DefaultMaxPhotos = 5;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpinside:)];
     tap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tap];
-    if (self.maxPhotos == 0) {
+    if (self.maxPhotos == 0)
+    {
         self.maxPhotos = DefaultMaxPhotos;
     }
 }
@@ -84,14 +85,17 @@ static const NSUInteger DefaultMaxPhotos = 5;
 - (BOOL)showImagePickerWithType:(UIImagePickerControllerSourceType)sourceType
 {
     BOOL canAddPhotos = self.imageDescriptions.count < self.maxPhotos;
-    if (canAddPhotos) {
+    if (canAddPhotos)
+    {
         UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];
         uiipc.delegate = self;
         uiipc.mediaTypes = @[(NSString *)kUTTypeImage];
         uiipc.sourceType = sourceType;
         uiipc.allowsEditing = NO;
         [self presentViewController:uiipc animated:YES completion:NULL];
-    } else {
+    }
+    else
+    {
         [InfoActions showAlertWithTitile:NSLocalizedString(@"Увага!", @"Attention!")
                               andMessage:[NSString stringWithFormat:NSLocalizedString(@"Ви можете додати не більше %lu фото", @"You can add maximum {number} photos"), (unsigned long)self.maxPhotos]];
     }
@@ -116,20 +120,26 @@ static const NSUInteger DefaultMaxPhotos = 5;
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = info[UIImagePickerControllerEditedImage];
-    if(!image) image = info[UIImagePickerControllerOriginalImage];
+    if (!image)
+    {
+        image = info[UIImagePickerControllerOriginalImage];
+    }
     
     float actualHeight = image.size.height;
     float actualWidth = image.size.width;
     float imgRatio = actualWidth/actualHeight;
     float maxRatio = 640.0/480.0;
     
-    if(imgRatio!=maxRatio){
-        if(imgRatio < maxRatio){
+    if (imgRatio!=maxRatio)
+    {
+        if (imgRatio < maxRatio)
+        {
             imgRatio = 480.0 / actualHeight;
             actualWidth = imgRatio * actualWidth;
             actualHeight = 480.0;
         }
-        else{
+        else
+        {
             imgRatio = 640.0 / actualWidth;
             actualHeight = imgRatio * actualHeight;
             actualWidth = 640.0;
@@ -166,7 +176,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
         [self.imageDescriptions removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
         [self updateUI];
@@ -191,14 +202,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     UITextField *descriptionText = nil;
-    if ([cell.accessoryView isKindOfClass:[UITextField class]]) {
+    if ([cell.accessoryView isKindOfClass:[UITextField class]])
+    {
         descriptionText = (UITextField*)cell.accessoryView;
-    } else {
+    }
+    else
+    {
         descriptionText = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width * 0.8, cell.contentView.frame.size.height)];
         descriptionText.adjustsFontSizeToFitWidth = NO;
         descriptionText.backgroundColor = [UIColor clearColor];
@@ -239,7 +254,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     NSUInteger index = textField.tag - TextFieldsStartTag;
-    if (index < self.imageDescriptions.count) {
+    if (index < self.imageDescriptions.count)
+    {
         EcomapLocalPhoto *descr = self.imageDescriptions[index];
         descr.imageDescription = textField.text;
     }

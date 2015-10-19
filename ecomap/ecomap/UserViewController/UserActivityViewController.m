@@ -17,7 +17,8 @@
 @implementation UserActivityViewController
 
 #pragma mark - view life cycle
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     //Set gesture recognizer
@@ -110,11 +111,10 @@
     CGPoint textFieldLeftBottomPoint = [self.view convertPoint:CGPointMake(textFied.frame.origin.x, (textFied.frame.origin.y + textFieldHieght))
                                                         fromView:textFied.superview];
     
-    if (!CGRectContainsPoint(visibleRect, textFieldLeftBottomPoint) ) {
-        
+    if (!CGRectContainsPoint(visibleRect, textFieldLeftBottomPoint) )
+    {
         [self.scrollView setContentOffset:CGPointMake(0.0, self.scrollView.contentOffset.y + textFieldLeftBottomPoint.y - visibleRect.size.height + KEYBOARD_TO_TEXTFIELD_SPACE) animated:YES];
     }
-    
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
@@ -125,7 +125,8 @@
 }
 
 //Manage tap gesture
-- (void)touchUpinside:(UITapGestureRecognizer *)sender {
+- (void)touchUpinside:(UITapGestureRecognizer *)sender
+{
     [self.activeField resignFirstResponder];
 }
 
@@ -153,12 +154,15 @@
 -(void)editingChanged:(UITextField *)textField
 {
     //consider "taxtField.tag" value is equal to appropriative checkmarkType value
-    
     if ((textField.tag == checkmarkTypeEmail && [self isValidMail:textField.text]) ||  //validation for email
         (textField.tag == checkmarkTypeNewPassword && [self isPasswordsEqual]) || //validation for passwords (newPassword and confirdPasswor)
-        ([self isTypeOfSimpleTextOfTextField:textField] && ![textField.text isEqualToString:@""])) { //validation for name, surname, oldPassword
+        ([self isTypeOfSimpleTextOfTextField:textField] && ![textField.text isEqualToString:@""]))
+    {
+        //validation for name, surname, oldPassword
         [self showCheckmarks:@[[NSNumber numberWithInt:textField.tag]] withImage:CHECKMARK_GOOD_IMAGE];
-    } else {
+    }
+    else
+    {
         [self showCheckmarks:@[[NSNumber numberWithInt:textField.tag]] withImage:CHECKMARK_BAD_IMAGE];
     }
 }
@@ -168,13 +172,18 @@
 {
     //BOOL result = YES;
     //Check if fields are empty
-    if ([self isAnyTextFieldEmpty]) {
+    if ([self isAnyTextFieldEmpty])
+    {
         [InfoActions showAlertOfError:NSLocalizedString(@"\nБудь-ласка заповніть усі поля", @"Please, fill all fields")];
         return NO;
-    } else if (self.emailTextField && ![self isValidMail:self.emailTextField.text]) { //check if email is valid
+    }
+    else if (self.emailTextField && ![self isValidMail:self.emailTextField.text])
+    {
+        //check if email is valid
         [InfoActions showAlertOfError:NSLocalizedString(@"\nБудь-ласка введіть дійсну email-адресу", @"Bad e-mail")];
         return NO;
-    } else if (self.confirmPasswordTextField && ![self isPasswordsEqual]) //check if passwords are equal
+    }
+    else if (self.confirmPasswordTextField && ![self isPasswordsEqual]) //check if passwords are equal
     {
         [InfoActions showAlertOfError:NSLocalizedString(@"\nВведені паролі не співпадають", @"Passwords are not equal")];
         return NO;
@@ -196,18 +205,22 @@
 }
 
 //compare NewPasswordField and confirmPasswordField
-- (BOOL)isPasswordsEqual {
+- (BOOL)isPasswordsEqual
+{
     BOOL equal = NO;
-    if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text] && ![self.passwordTextField.text isEqualToString:@""]) {
+    if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text] && ![self.passwordTextField.text isEqualToString:@""])
+    {
         equal = YES;
     }
     return equal;
 }
 
 //Consider name, surname and password field are "simple text" text fields (because the only validation for them is not to be empty field)
-- (BOOL)isTypeOfSimpleTextOfTextField:(UITextField *)textField{
+- (BOOL)isTypeOfSimpleTextOfTextField:(UITextField *)textField
+{
     BOOL simple = NO;
-    if (textField.tag == checkmarkTypeName || textField.tag == checkmarkTypeSurname || textField.tag == checkmarkTypePassword) {
+    if (textField.tag == checkmarkTypeName || textField.tag == checkmarkTypeSurname || textField.tag == checkmarkTypePassword)
+    {
         simple = YES;
     }
     return simple;
@@ -216,8 +229,10 @@
 -(BOOL)isAnyTextFieldEmpty
 {
     BOOL empty = NO;
-    for (UITextField *textField in self.textFields) {
-        if ([textField.text isEqualToString:@""]) {
+    for (UITextField *textField in self.textFields)
+    {
+        if ([textField.text isEqualToString:@""])
+        {
             empty = YES;
             break;
         }
@@ -228,9 +243,12 @@
 
 - (void)showCheckmarks:(NSArray *)checkmarkTypes withImage:(UIImage *)image
 {
-    for (UIImageView *imageView in self.checkmarks) {
-        for (NSNumber *number in checkmarkTypes) {
-            if (imageView.tag == [number integerValue]) {
+    for (UIImageView *imageView in self.checkmarks)
+    {
+        for (NSNumber *number in checkmarkTypes)
+        {
+            if (imageView.tag == [number integerValue])
+            {
                 imageView.alpha = 1.0;
                 imageView.image = image;
             }
@@ -239,7 +257,8 @@
     }
 }
 
-- (void)showGreetingForUser:(EcomapLoggedUser *)user{
+- (void)showGreetingForUser:(EcomapLoggedUser *)user
+{
     [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо, %@!", @"Welcome, {User Name}"), user.name]];
 }
 

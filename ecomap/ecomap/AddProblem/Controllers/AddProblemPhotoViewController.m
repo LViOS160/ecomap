@@ -32,18 +32,24 @@ static const NSUInteger MaxPhotos = 5;
     [self updateUI];
 }
 
-- (float)viewHeight {
+- (float)viewHeight
+{
     return 140.0;
 }
 
-- (void)addPhotoTap:(id)sender {
-    if (self.rootController) {
-        if (self.photos.count < MaxPhotos) {
+- (void)addPhotoTap:(id)sender
+{
+    if (self.rootController)
+    {
+        if (self.photos.count < MaxPhotos)
+        {
             PhotoViewController *viewController = [self.rootController.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
             viewController.delegate = self;
             viewController.maxPhotos = MaxPhotos - self.photos.count;
             [self.rootController presentViewController:viewController animated:YES completion:nil];
-        } else {
+        }
+        else
+        {
            [InfoActions showAlertWithTitile:NSLocalizedString(@"Увага!", @"Attention!")
                                  andMessage:[NSString stringWithFormat:NSLocalizedString(@"Ви можете додати максимум %lu фото", @"You can add maximum {number} photos") , MaxPhotos]];
         }
@@ -58,9 +64,12 @@ static const NSUInteger MaxPhotos = 5;
 - (void)photoViewControllerDidFinish:(PhotoViewController *)viewController withImageDescriptions:(NSArray *)imageDescriptions
 {
     [self.rootController dismissViewControllerAnimated:YES completion:nil];
-    if (self.photos == nil) {
+    if (self.photos == nil)
+    {
         self.photos = imageDescriptions;
-    } else {
+    }
+    else
+    {
         self.photos = [self.photos arrayByAddingObjectsFromArray:imageDescriptions];
     }
     [self updateUI];
@@ -73,7 +82,8 @@ static const NSUInteger MaxPhotos = 5;
                                                        tag:-1
                                                      frame:[self frameForIndex:0]];
     [self.scrollView addSubview:addButton];
-    [self.photos enumerateObjectsUsingBlock:^(EcomapLocalPhoto *imageDescription, NSUInteger idx, BOOL *stop) {
+    [self.photos enumerateObjectsUsingBlock:^(EcomapLocalPhoto *imageDescription, NSUInteger idx, BOOL *stop)
+    {
         UIButton *button = [self buttonWithImageDescription:imageDescription
                                                         tag:idx
                                                       frame:[self frameForIndex:idx+1]];
@@ -93,10 +103,13 @@ static const NSUInteger MaxPhotos = 5;
     customButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     customButton.frame = frame;
     customButton.tag = tag;
-    if (photo) {
+    if (photo)
+    {
         [customButton setBackgroundImage:photo.image
                                 forState:UIControlStateNormal];
-    } else {
+    }
+    else
+    {
         [customButton setBackgroundImage:[UIImage imageNamed:@"addButtonImage.png"]
                                 forState:UIControlStateNormal];
         [customButton addTarget:self

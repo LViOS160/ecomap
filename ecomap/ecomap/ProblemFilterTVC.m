@@ -42,7 +42,6 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self createDateFormatter];
     
 }
@@ -51,7 +50,10 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 
 - (EcomapProblemFilteringMask *)filteringMask
 {
-    if(!_filteringMask) _filteringMask = [[EcomapProblemFilteringMask alloc] init];
+    if (!_filteringMask)
+    {
+        _filteringMask = [[EcomapProblemFilteringMask alloc] init];
+    }
     return _filteringMask;
 }
 
@@ -60,7 +62,8 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 {
     NSIndexPath *parentCellIndexPath = indexPath;
     
-    if([self datePickerIsShown]) {
+    if ([self datePickerIsShown])
+    {
         parentCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
     }
     
@@ -70,9 +73,12 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 // Set date in filtering mask from index path.
 - (void)setDate:(NSDate *)date fromIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row == 0) {
+    if (indexPath.row == 0)
+    {
         self.filteringMask.fromDate = date;
-    } else {
+    }
+    else
+    {
         self.filteringMask.toDate = date;
     }
 }
@@ -101,7 +107,8 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 // Check dates validity.
 - (BOOL)isDatesValid
 {
-    if(self.filteringMask.fromDate.timeIntervalSince1970 < self.filteringMask.toDate.timeIntervalSince1970) {
+    if (self.filteringMask.fromDate.timeIntervalSince1970 < self.filteringMask.toDate.timeIntervalSince1970)
+    {
         return YES;
     }
     
@@ -113,7 +120,8 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
     return self.datePickerIndexPath != nil;
 }
 
-- (void)hideExistingPicker {
+- (void)hideExistingPicker
+{
     
     [self.tableView deleteRowsAtIndexPaths:@[self.datePickerIndexPath]
                           withRowAnimation:UITableViewRowAnimationFade];
@@ -122,23 +130,25 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 }
 
 
-- (NSIndexPath *)calculateIndexPathForNewPicker:(NSIndexPath *)selectedIndexPath {
-    
+- (NSIndexPath *)calculateIndexPathForNewPicker:(NSIndexPath *)selectedIndexPath
+{
     NSIndexPath *newIndexPath;
     
-    if(([self datePickerIsShown]) && (self.datePickerIndexPath.row < selectedIndexPath.row)) {
+    if (([self datePickerIsShown]) && (self.datePickerIndexPath.row < selectedIndexPath.row))
+    {
         newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row - 1 inSection:0];
-    } else {
+    }
+    else
+    {
         newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row inSection:0];
     }
     
     return newIndexPath;
 }
 
-- (void)showNewPickerAtIndex:(NSIndexPath *)indexPath {
-    
+- (void)showNewPickerAtIndex:(NSIndexPath *)indexPath
+{
     NSArray *indexPaths = @[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0]];
-    
     [self.tableView insertRowsAtIndexPaths:indexPaths
                           withRowAnimation:UITableViewRowAnimationFade];
 }
@@ -239,25 +249,30 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 {
     [self.tableView beginUpdates];
     
-    if([self datePickerIsShown] && (self.datePickerIndexPath.row - 1 == indexPath.row)) {
+    if ([self datePickerIsShown] && (self.datePickerIndexPath.row - 1 == indexPath.row))
+    {
         [self hideExistingPicker];
-    } else {
+    }
+    else
+    {
         NSIndexPath *newPickerIndexPath = [self calculateIndexPathForNewPicker:indexPath];
         
-        if([self datePickerIsShown]) [self hideExistingPicker];
+        if ([self datePickerIsShown])
+        {
+           [self hideExistingPicker];
+        }
         
         [self showNewPickerAtIndex:newPickerIndexPath];
-        
         self.datePickerIndexPath = [NSIndexPath indexPathForRow:newPickerIndexPath.row + 1 inSection:0];
     }
-    
     [self.tableView endUpdates];
 }
 
 - (void)handleTappingTypeSection:(NSIndexPath *)indexPath
 {
     
-    if(indexPath.section == 1) {
+    if (indexPath.section == 1)
+    {
         [self.filteringMask markProblemType:indexPath.row + 1];
     }
     
@@ -266,9 +281,12 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 
 - (void)handleTappingStatusSection:(NSIndexPath *)indexPath
 {
-    if(indexPath.row == 0) {
+    if (indexPath.row == 0)
+    {
         self.filteringMask.showUnsolved = !self.filteringMask.showUnsolved;
-    } else {
+    }
+    else
+    {
         self.filteringMask.showSolved = !self.filteringMask.showSolved;
     }
     
@@ -278,7 +296,7 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 //handle to new filter mine
 - (void)handleTappingOwnerSection:(NSIndexPath *)indexPath
 {
-    if(indexPath.row == 0)
+    if (indexPath.row == 0)
     {
         self.filteringMask.showCurrentUserProblem= !self.filteringMask.showCurrentUserProblem;
     }
@@ -290,9 +308,12 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
     
     NSIndexPath *parentCellIndexPath = nil;
     
-    if([self datePickerIsShown]) {
+    if ([self datePickerIsShown])
+    {
         parentCellIndexPath = [NSIndexPath indexPathForRow:self.datePickerIndexPath.row - 1 inSection:0];
-    } else {
+    }
+    else
+    {
         return;
     }
     
@@ -312,9 +333,12 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 - (IBAction)touchApplyButton:(UIBarButtonItem *)sender
 {
     
-    if([self isDatesValid]) {
+    if ([self isDatesValid])
+    {
         [self dismissViewControllerAnimated:YES completion:^{ [self.delegate userDidApplyFilteringMask:self.filteringMask]; }];
-    } else {
+    }
+    else
+    {
         [InfoActions showAlertWithTitile:NSLocalizedString(@"Увага!", @"Attention")
                               andMessage:NSLocalizedString(@"Дата початку періоду повинна бути більшою за дату кінця періоду",
                                                            @"Starting date of the period must be greater than the date of the end of the period")];
@@ -332,7 +356,8 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 {
     NSInteger numberOfRows = 2;
     
-    switch(section) {
+    switch(section)
+    {
         case 0:
             if ([self datePickerIsShown]) numberOfRows++;
             return numberOfRows;
@@ -352,7 +377,8 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
     
     CGFloat rowHeight = standardRowHeight;
     
-    if ([self datePickerIsShown] && ([self.datePickerIndexPath isEqual:indexPath])) {
+    if ([self datePickerIsShown] && ([self.datePickerIndexPath isEqual:indexPath]))
+    {
         rowHeight = datePickerRowHeight;
     }
     
@@ -362,11 +388,15 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Table cells prototypes are different for each section.
-    switch (indexPath.section) {
+    switch (indexPath.section)
+    {
         case 0:
-            if([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row)) {
+            if ([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row))
+            {
                 return [self createPickerCell:[NSDate date] forIndexPath:indexPath];
-            } else {
+            }
+            else
+            {
                 return [self createDateCellForIndexPath:indexPath];
             }
         case 1: return [self createProblemTypeCellForIndexPath:indexPath];
@@ -379,13 +409,13 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    switch(section) {
+    switch(section)
+    {
         case 0: return NSLocalizedString(@"Фільтрація за датою", @"Filter by date");
         case 1: return NSLocalizedString(@"Типи проблем", @"Problem types");
         case 2: return NSLocalizedString(@"Статус проблеми", @"Problem status");
         case 3: return NSLocalizedString(@"Мої проблеми", @"My problems");
     }
-    
     return @"";
 }
 
@@ -393,7 +423,8 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section) {
+    switch (indexPath.section)
+    {
         case 0: [self handleTappingDateSection:indexPath]; break;
         case 1: [self handleTappingTypeSection:indexPath]; break;
         case 2: [self handleTappingStatusSection:indexPath]; break;

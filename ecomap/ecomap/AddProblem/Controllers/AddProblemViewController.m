@@ -19,7 +19,8 @@
 #import "MenuViewController.h"
 #import "AFNetworking.h"
 
-@interface AddProblemViewController () {
+@interface AddProblemViewController ()
+{
     CGFloat padding;
     CGFloat paddingWithNavigationView;
     CGFloat screenWidth;
@@ -57,7 +58,8 @@
 
 @implementation AddProblemViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.userIsInTheMiddleOfAddingProblem = false;
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)
@@ -67,7 +69,6 @@
     padding = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     
     //Pavlo
-    
     [self.view bringSubviewToFront:self.goToUkraineButton];
     
     
@@ -101,15 +102,18 @@
 - (BOOL)checkWetherCurrentFieldFilled {
     BOOL fieldFilled = YES;
     NSString *alertText;
-    switch (self.addProblemNavigation.pageControl.currentPage) {
+    switch (self.addProblemNavigation.pageControl.currentPage)
+    {
         case 0:
-            if (!self.marker) {
+            if (!self.marker)
+            {
                 fieldFilled = NO;
                 alertText = NSLocalizedString(@"Необхiдно обрати мiсцезнаходження проблеми", @"You have to add problem location");
             }
             break;
         case 1:
-            if ([self.addProblemName.problemName.text isEqualToString:@""]) {
+            if ([self.addProblemName.problemName.text isEqualToString:@""])
+            {
                 fieldFilled = NO;
                 alertText = NSLocalizedString(@"Необхiдно ввести назву проблеми", @"You have to enter the name of the problem");
             }
@@ -117,7 +121,8 @@
         default:
             break;
     }
-    if (!fieldFilled) {
+    if (!fieldFilled)
+    {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:alertText delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
     }
@@ -125,7 +130,8 @@
 }
 
 
-- (IBAction)showUkrainePlacement:(id)sender {
+- (IBAction)showUkrainePlacement:(id)sender
+{
    self.mapView.camera = [GMSCameraPosition cameraWithLatitude:50
                 longitude:30
                      zoom:5];
@@ -133,9 +139,12 @@
 
 #pragma mark - Buttons
 
-- (IBAction)addProblemButtonTap:(UIButton *)sender {
-    if([EcomapLoggedUser currentLoggedUser]) {
-        if (!self.userIsInTheMiddleOfAddingProblem) {
+- (IBAction)addProblemButtonTap:(UIButton *)sender
+{
+    if ([EcomapLoggedUser currentLoggedUser])
+    {
+        if (!self.userIsInTheMiddleOfAddingProblem)
+        {
             [self loadNibs];
             [self showAddProblemView];
             self.addProblemPhoto.rootController = self;
@@ -152,7 +161,9 @@
             self.userIsInTheMiddleOfAddingProblem = true;
             self.mapView.userInteractionEnabled = YES;
             
-        } else {
+        }
+        else
+        {
             
             self.topSpaceToButton.constant = 77;
             [self.addProblemButton setNeedsUpdateConstraints];
@@ -163,7 +174,9 @@
             [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
         }
         
-    } else {
+    }
+    else
+    {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
                            actionAfterSuccseccLogin:^{
@@ -173,7 +186,8 @@
     
 }
 
-- (void)closeButtonTap:(id *)sender {
+- (void)closeButtonTap:(id *)sender
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"LocateMeDidTap" object:nil];
     self.marker.map = nil;
@@ -191,9 +205,11 @@
     [self loadProblems];
 }
 
-- (void)switchPage{
+- (void)switchPage
+{
     
-    switch (self.addProblemNavigation.pageControl.currentPage) {
+    switch (self.addProblemNavigation.pageControl.currentPage)
+    {
         case 0:
             self.addProblemNavigation.prevButton.hidden = YES;
             self.nextView = self.addProblemName;
@@ -209,7 +225,6 @@
             self.prevView = self.addProblemName;
             self.addProblemButton.hidden = NO;
             [self.addProblemButton setImage:[UIImage imageNamed:@"ok"] forState:UIControlStateNormal];
-            
             break;
         case 3:
             self.nextView = self.addProblemSolution;
@@ -218,7 +233,6 @@
         case 4:
             self.prevView = self.addProblemDescription;
             self.nextView = self.addProblemPhoto;
-
             break;
         case 5:
             self.prevView = self.addProblemSolution;
@@ -229,7 +243,8 @@
     }
 }
 
-- (void)orientationChanged:(id *)sender {
+- (void)orientationChanged:(id *)sender
+{
     screenWidth = [UIScreen mainScreen].bounds.size.width;
     padding = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     
@@ -239,18 +254,21 @@
 
 #pragma mark - SwipesGesures
 
-- (void)rightSwipe {
+- (void)rightSwipe
+{
     if (self.addProblemNavigation.pageControl.currentPage > 0)
         [self prevPage];
     
 }
-- (void)leftSwipe {
+- (void)leftSwipe
+{
     if (self.addProblemNavigation.pageControl.currentPage < 5)
         [self nextPage];
 }
 
 
-- (void)showAddProblemView {
+- (void)showAddProblemView
+{
 
     UISwipeGestureRecognizer *swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(rightSwipe)];
     UISwipeGestureRecognizer *swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftSwipe)];
@@ -287,8 +305,10 @@
 }
 
 #define PROBLEM_LOCATION_STRING NSLocalizedString(@"Мiсцезнаходження проблеми", @"Problem location")
-- (void)locateMeDidTap {
-    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
+- (void)locateMeDidTap
+{
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied)
+    {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Доступ до геопозицiї", @"Location Services access")
                                                                        message:NSLocalizedString(@"Для доступу до вашої геопозиції необхидно зайти до налаштувань та дозволити додатку доступ до вашої геопозиції", @"Please allow the application access to your location service to locate your current pisition")
                                                                 preferredStyle:UIAlertControllerStyleAlert];
@@ -302,13 +322,16 @@
         [alert addAction:openAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
-    else {
+    else
+    {
         CLLocation *location = self.mapView.myLocation;
         CLLocationCoordinate2D coordinate = [location coordinate];
         
         if (self.userIsInTheMiddleOfAddingProblem) {
-            if ([self.curView isKindOfClass:[AddProblemLocationViewController class]]) {
-                if (!self.marker) {
+            if ([self.curView isKindOfClass:[AddProblemLocationViewController class]])
+            {
+                if (!self.marker)
+                {
                     self.marker = [[GMSMarker alloc] init];
                     self.marker.title = PROBLEM_LOCATION_STRING;
                     self.marker.map = self.mapView;
@@ -319,14 +342,10 @@
                 [self.mapView moveCamera:update];
             }
         }
-
     }
-
 }
 
 #pragma mark - ProblemPost
-
-
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
 
     if (self.userIsInTheMiddleOfAddingProblem) {
@@ -341,10 +360,8 @@
     }
 }
 
-
-- (void)postProblem {
-    
-   
+- (void)postProblem
+{
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : self.addProblemName.problemName.text,
                              ECOMAP_PROBLEM_CONTENT    : self.addProblemDescription.textView.text ? self.addProblemDescription.textView.text : @"",
                              ECOMAP_PROBLEM_PROPOSAL : self.addProblemSolution.textView.text ? self.addProblemSolution.textView.text : @"",
@@ -357,25 +374,21 @@
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
     details.photos = self.addProblemPhoto.photos;
-    
-  
     [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
         NSLog(@"%@",error);
     }];
- 
-    
     [self loadProblems];
-    
 }
 
-- (void)setCurView:(ConstHeightViewController *)curView {
+- (void)setCurView:(ConstHeightViewController *)curView
+{
     _curView = curView;
     [self.view addSubview:_curView.view];
 }
 
 #pragma mark - AddProblemNibs
-
-- (void)loadNibs {
+- (void)loadNibs
+{
     self.addProblemNavigation = [[AddProblemNavigationViewController alloc] initWithNibName:@"AddProblemNavigationView" bundle:nil];
     self.addProblemNavigation.delegate = self;
     self.addProblemLocation = [[AddProblemLocationViewController alloc] initWithNibName:@"AddProblemLocationView" bundle:nil];

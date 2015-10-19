@@ -10,12 +10,8 @@
 
 @interface ResourceDetails : UIViewController
 
-
-
-//@property (weak, nonatomic) IBOutlet UITextView *descriptionProb;
-
 @property (weak, nonatomic) IBOutlet UIWebView *myWebView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spiner;
+@property (nonatomic,strong) NSString *details;
 
-@property (nonatomic,strong) NSString *details;    
 @end

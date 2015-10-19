@@ -233,7 +233,7 @@
         arrProblems = [self.currentAllProblems allObjects];
         //[self.problems allObjects];
         
-        if(self.filteringMask)
+        if (self.filteringMask)
         {
             filteredProblems = [self.filteringMask applyOnArray:arrProblems];
             self.filteredProblems = [NSSet setWithArray:filteredProblems];
@@ -272,7 +272,7 @@
 - (void)customSetup
 {    
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
-    if ( revealViewController )
+    if (revealViewController)
     {
         revealViewController.mapViewController = self.navigationController;
         

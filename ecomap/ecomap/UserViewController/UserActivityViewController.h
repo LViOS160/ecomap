@@ -24,7 +24,8 @@
 @end
 
 //checkmarkType number is equal to ckeckmarkImageView tag. On storyboard set appropriate tag to checkmark.
-typedef enum {
+typedef enum
+{
     checkmarkTypeName = 1,
     checkmarkTypeSurname = 2,
     checkmarkTypeEmail = 3,
@@ -59,8 +60,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *changePasswordButton;
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 
-
-//Other priperties
+//Other properties
 @property(nonatomic, strong) UITextField *activeField; //currnet active textField.
 @property(nonatomic, strong) UITextField *textFieldToScrollUPWhenKeyboadAppears; //set only to achieve another behavior
 @property (nonatomic, copy) void (^dismissBlock)(BOOL isUserActionViewControllerOnScreen);

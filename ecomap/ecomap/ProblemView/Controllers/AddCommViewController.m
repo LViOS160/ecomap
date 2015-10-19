@@ -30,10 +30,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
-//@property AddCommViewController *ob;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
--(IBAction)editComment:(id)sender;
+-(void)editComment:(id)sender;
 
 @end
 
@@ -294,7 +293,7 @@
 }
 
 
--(IBAction)editComment:(id)sender
+-(void)editComment:(id)sender
 {
     
     UIButton *senderButton = (UIButton *)sender;

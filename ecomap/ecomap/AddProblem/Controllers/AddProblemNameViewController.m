@@ -10,7 +10,8 @@
 
 @implementation AddProblemNameViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.problemName.delegate = self;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -19,17 +20,20 @@
     [self.view addGestureRecognizer:tap];
 }
 
--(void)dismissKeyboard {
+-(void)dismissKeyboard
+{
     [self.problemName resignFirstResponder];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     
     [textField resignFirstResponder];
     return YES;
 }
 
-- (float)viewHeight {
+- (float)viewHeight
+{
     return 72.0f;
 }
 

@@ -21,7 +21,6 @@
 @end
 
 @interface MenuViewController () <SWRevealViewControllerDelegate>
-//@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (nonatomic) BOOL showLogin;
 @property (weak,nonatomic) UIViewController *frontViewController;
 @end
@@ -32,26 +31,12 @@
 {
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
     revealViewController.delegate = self;
-    
-    
 }
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    
-}
-
-- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
-{
-
-    
-}
-
-- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress{
-    
     
 }
 
@@ -75,10 +60,10 @@
     }
 }
 
-
 -(BOOL)showLogin
 {
-    if (![EcomapLoggedUser currentLoggedUser]) {
+    if (![EcomapLoggedUser currentLoggedUser])
+    {
         return YES;
     }
     return NO;
@@ -102,14 +87,14 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     // Return the number of rows in the section.
     return 6;
 }
@@ -146,7 +131,8 @@
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    if ([CellIdentifier isEqualToString:@"logout"]) {
+    if ([CellIdentifier isEqualToString:@"logout"])
+    {
         EcomapLoggedUser *user = [EcomapLoggedUser currentLoggedUser];
         ((SWUIUserTableViewCell *)cell).userName.text = [NSString stringWithFormat:@"(%@ %@)", user.name, user.surname];
     }

@@ -28,8 +28,10 @@
 - (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
     NSMutableArray *activities = [NSMutableArray array];
-    for(EcomapActivity *comment in problemDetails.comments) {
-        if (comment.activityTypes_Id != 5) {
+    for (EcomapActivity *comment in problemDetails.comments)
+    {
+        if (comment.activityTypes_Id != 5)
+        {
             [activities addObject:comment];
         }
     }
@@ -53,10 +55,10 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
     EcomapActivity *comment = [self.activities objectAtIndex:indexPath.row];
     cell.textLabel.text = comment.problemContent;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

@@ -45,30 +45,28 @@
     }
     [self.myWebView loadHTMLString:bodyHTML baseURL:nil];    //load html to WEBVIEW
     [self.spiner setHidden:YES];
-
-  
-   
-    
 }
 
 
 -(NSString *)details
 {
-    if(!_details)
+    if (!_details)
+    {
         _details=[[NSString alloc]init];
+    }
     return _details;
 }
 
 
-- (void)viewDidLoad {
-
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self.spiner startAnimating];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-
 }
 
 /*

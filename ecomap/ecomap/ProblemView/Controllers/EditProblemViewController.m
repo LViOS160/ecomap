@@ -34,7 +34,8 @@ enum : NSInteger {
 
 @implementation EditProblemViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     UIBarButtonItem *rbb = [[UIBarButtonItem alloc] initWithTitle:@"Зберегти" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonTouch:)];
     UIBarButtonItem *lbb = [[UIBarButtonItem alloc] initWithTitle:@"Назад" style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonTouch:)];
@@ -47,7 +48,8 @@ enum : NSInteger {
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -71,9 +73,12 @@ enum : NSInteger {
 
 - (NSString *)stringFromIsSolved:(BOOL)isSolved
 {
-    if (isSolved) {
+    if (isSolved)
+    {
         return NSLocalizedString(@"вирішена", @"вирішена");
-    } else {
+    }
+    else
+    {
         return NSLocalizedString(@"не вирішена", @"не вирішена");
     }
 }
@@ -90,9 +95,12 @@ enum : NSInteger {
 
 - (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved
 {
-    if (isSolved) {
+    if (isSolved)
+    {
         return @"SOLVED";
-    } else {
+    }
+    else
+    {
         return @"UNSOLVED";
     }
 }
@@ -127,8 +135,6 @@ enum : NSInteger {
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
     
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-
         [InfoActions stopActivityIndicator];
         [self.navigationController popViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
@@ -160,7 +166,8 @@ enum : NSInteger {
 
 - (IBAction)addSeverityTap:(id)sender
 {
-    if (self.editableProblem.severity < 5) {
+    if (self.editableProblem.severity < 5)
+    {
         self.editableProblem.severity++;
         self.severity.text = [self stringFromSeverity:self.editableProblem.severity];
     }
@@ -168,7 +175,8 @@ enum : NSInteger {
 
 - (IBAction)subSeverityTap:(id)sender
 {
-    if (self.editableProblem.severity > 0) {
+    if (self.editableProblem.severity > 0)
+    {
         self.editableProblem.severity--;
         self.severity.text = [self stringFromSeverity:self.editableProblem.severity];
     }
@@ -176,7 +184,8 @@ enum : NSInteger {
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    switch (textView.tag) {
+    switch (textView.tag)
+    {
         case TextFieldTag_Content:
             self.editableProblem.content = textView.text;
             break;

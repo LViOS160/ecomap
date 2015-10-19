@@ -14,23 +14,28 @@
 
 @implementation AddProblemNavigationViewController
 
-- (IBAction)prevButton:(UIButton *)sender {
+- (IBAction)prevButton:(UIButton *)sender
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(prevPage)]) {
         [self.delegate prevPage];
     }
 }
 
-- (IBAction)nextButton:(UIButton *)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(nextPage)]) {
+- (IBAction)nextButton:(UIButton *)sender
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(nextPage)])
+    {
         [self.delegate nextPage];
     }
 }
 
-- (float)viewHeight {
+- (float)viewHeight
+{
     return ADDPROBLEMNAVIGATIONVIEWHEIGHT;
 }
 
-- (float)getPadding:(float)padding {
+- (float)getPadding:(float)padding
+{
     return padding;
 }
 

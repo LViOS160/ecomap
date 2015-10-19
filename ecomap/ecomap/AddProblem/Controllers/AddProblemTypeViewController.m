@@ -18,11 +18,13 @@
 @implementation AddProblemTypeViewController
 
 
-- (float)viewHeight {
+- (float)viewHeight
+{
     return 202.0f;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.problemTypes = ECOMAP_PROBLEM_TYPES_ARRAY;
     [self.pickerView selectRow:6 inComponent:0 animated:NO];
@@ -30,17 +32,20 @@
 
 #pragma mark - PickerView
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
     return _problemTypes[row];
 }
 
 // returns the number of 'columns' to display.
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
     return 1;
 }
 
 // returns the # of rows in each component..
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
     return [self.problemTypes count];
 }
 

@@ -12,34 +12,42 @@
 
 #pragma mark - AddProblemAnimation
 
-+ (void)slideViewFromRight:(ConstHeightViewController *)controller withPadding:(float)padding {
++ (void)slideViewFromRight:(ConstHeightViewController *)controller withPadding:(float)padding
+{
     [SlideAnimator slideView:controller from:YES right:YES withPadding:padding];
 }
 
-+ (void)slideViewFromLeft:(ConstHeightViewController *)controller withPadding:(float)padding {
++ (void)slideViewFromLeft:(ConstHeightViewController *)controller withPadding:(float)padding
+{
     
     [SlideAnimator slideView:controller from:YES right:NO withPadding:padding];
 }
 
-+ (void)slideViewToRight:(ConstHeightViewController *)controller withPadding:(float)padding {
++ (void)slideViewToRight:(ConstHeightViewController *)controller withPadding:(float)padding
+{
     
     [SlideAnimator slideView:controller from:NO right:YES withPadding:padding];
 }
 
-+ (void)slideViewToLeft:(ConstHeightViewController *)controller withPadding:(float)padding {
++ (void)slideViewToLeft:(ConstHeightViewController *)controller withPadding:(float)padding
+{
     [SlideAnimator slideView:controller from:NO right:NO withPadding:padding];
 }
 
 
-+ (void)slideView:(ConstHeightViewController*)controller from:(BOOL)from right:(BOOL)right withPadding:(float)padding {
++ (void)slideView:(ConstHeightViewController*)controller from:(BOOL)from right:(BOOL)right withPadding:(float)padding
+{
     CGRect rectOne;
     CGRect rectTwo;
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     
-    if (from) {             // slide from
+    if (from)
+    {             // slide from
         rectOne.origin.x = right ? screenWidth*2  : -screenWidth*2 ;
         rectTwo.origin.x = 0;
-    } else {                // slide to
+    }
+    else
+    {                // slide to
         rectOne.origin.x = 0;
         rectTwo.origin.x = right ? screenWidth : -screenWidth ;
     }

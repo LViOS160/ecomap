@@ -29,7 +29,8 @@
 
 - (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
-    if([self.currentViewController conformsToProtocol:@protocol(EcomapProblemDetailsHolder)]) {
+    if ([self.currentViewController conformsToProtocol:@protocol(EcomapProblemDetailsHolder)])
+    {
         [((id<EcomapProblemDetailsHolder>)self.currentViewController) setProblemDetails:problemDetails];
     }
 }
@@ -44,9 +45,11 @@
 
 - (void)showViewAtIndex:(NSUInteger)index
 {
-    if (self.currentIndex != index) {
+    if (self.currentIndex != index)
+    {
         NSArray *segues = [ContainerViewController availableSegues];
-        if (index < segues.count) {
+        if (index < segues.count)
+        {
             self.currentIndex = index;
             [self performSegueWithIdentifier:segues[index] sender:nil];
         }
@@ -55,13 +58,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([[ContainerViewController availableSegues] containsObject:segue.identifier]) {
-        if (self.childViewControllers.count > 0) {
+    if ([[ContainerViewController availableSegues] containsObject:segue.identifier])
+    {
+        if (self.childViewControllers.count > 0)
+        {
             self.currentViewController = segue.destinationViewController;
             [self swapFromViewController:[self.childViewControllers objectAtIndex:0] toViewController:segue.destinationViewController];
-            
         }
-        else {
+        else
+        {
             self.currentViewController = segue.destinationViewController;
             [self addChildViewController:segue.destinationViewController];
             ((UIViewController *)segue.destinationViewController).view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);

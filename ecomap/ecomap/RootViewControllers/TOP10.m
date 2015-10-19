@@ -8,9 +8,7 @@
 
 #import "TOP10.h"
 @interface TOP10()
-//@property (nonatomic) NSMutableArray* problemVote;
-//@property (nonatomic) NSMutableArray* problemComment;
-//@property (nonatomic) NSMutableArray* problemSeverity;
+
 @end
 
 @implementation TOP10
@@ -23,7 +21,6 @@
     });
     return singleton;
 }
-
 
 -(void)sortAllProblems
 {
@@ -38,7 +35,6 @@
     }
     EcomapProblem *problem;
     BOOL voted = NO, commented = NO, sevrity = NO;
-    //for (problem in self.allProblems)
     for (int j = 10; j < self.allProblems.count; j++)
     {
         problem = self.allProblems[j];
@@ -69,7 +65,6 @@
         }
     }
     self.allProblemsPieChart = self.problemComment;
-    //return self.allProblemsPieChart;
 }
 
 @end

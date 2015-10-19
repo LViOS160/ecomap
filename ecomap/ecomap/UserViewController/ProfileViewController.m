@@ -40,18 +40,23 @@
 }
 
 #pragma mark - Buttons
-- (IBAction)closeButton:(id)sender {
+- (IBAction)closeButton:(id)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-- (IBAction)LogoutButton:(id)sender {
+- (IBAction)LogoutButton:(id)sender
+{
     DDLogVerbose(@"Logout button pressed");
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     [EcomapUserFetcher logoutUser:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(BOOL result, NSError *error) {
         [InfoActions stopActivityIndicator];
-        if (!error) {
+        if (!error)
+        {
             self.dismissBlock(YES);
             [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
+        }
+        else
+        {
             // In case an error to logout has occured
             [InfoActions showAlertOfError:error];
         }

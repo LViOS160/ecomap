@@ -27,13 +27,12 @@
         //Handle response
         [self handleResponseToLoginFromFacebookWithError:error
                                                        andLoggedUser:loggedUserFB];
-        if (!error && loggedUserFB) {
-            
+        if (!error && loggedUserFB)
+        {
             loginResult = YES;
             //show popup greeting for logged user
             [[[UserActivityViewController alloc] init] showGreetingForUser:loggedUserFB];
         }
-        
         //Call complitionHandler
         complitionHandler(loginResult);
         
@@ -45,13 +44,18 @@
 {
     NSString *faceboolLoginErrorTitle = NSLocalizedString(@"Помилка входу через Facebook", @"Alert title: Error to login with Facebook");
     
-    if (!error && !user) {
+    if (!error && !user)
+    {
         [InfoActions showAlertWithTitile:faceboolLoginErrorTitle
                               andMessage:NSLocalizedString(@"Неможливо отримати дані для авторизації на Ecomap", @"Alert message: Can't receive user info to login on Ecomap")];
-    } else if (error.code == 400 ) {
+    }
+    else if (error.code == 400 )
+    {
         [InfoActions showAlertWithTitile:faceboolLoginErrorTitle
                               andMessage:ERROR_MESSAGE_TO_REGISTER];
-    } else if (error) {
+    }
+    else if (error)
+    {
         [InfoActions showAlertWithTitile:faceboolLoginErrorTitle
                               andMessage:[error localizedDescription]];
     }

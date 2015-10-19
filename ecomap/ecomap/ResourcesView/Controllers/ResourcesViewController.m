@@ -30,8 +30,10 @@
 
 -(NSString *)currentPath
 {
-    if(!_currentPath)
+    if (!_currentPath)
+    {
         _currentPath=[[NSString alloc]init];
+    }
     return _currentPath;
 }
 
@@ -45,26 +47,32 @@
 -(NSMutableArray *)titleRes
 {
     
-    if(!_titleRes)
+    if (!_titleRes)
+    {
         _titleRes = [[NSMutableArray alloc]init];
+    }
     return _titleRes;
 }
 
 -(NSString *)descriptionRes
 {
-    if(!_descriptionRes)
+    if (!_descriptionRes)
+    {
         _descriptionRes = [[NSString alloc]init];
+    }
     return _descriptionRes;
 }
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self customSetup];
     [self refreshing];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -88,13 +96,13 @@
 
 // refreshing method - Spinner refreshing while data loading
 
-- (IBAction)refreshing {
+- (IBAction)refreshing
+{
     [self.refreshControl beginRefreshing];
     [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
      {
-         if(!error)
+         if (!error)
          {
-             
              NSMutableArray *titlesOfResources = [[NSMutableArray alloc]init];
              NSMutableArray *aliasesFromResources = [[NSMutableArray alloc]init];
              EcomapResources *ecoResources = nil;
@@ -104,15 +112,10 @@
                  NSNumber *contNum =[NSNumber numberWithInt:ecoResources.resId];
                  [aliasesFromResources addObject:contNum];
                  // fill the array of aliases
-                 
-                 
              }
-             
-
              self.titleRes = [[NSMutableArray alloc]initWithArray:titlesOfResources];
              self.pathes = [[NSArray alloc]initWithArray:aliasesFromResources];
              [self.refreshControl endRefreshing];
-             
          }
          else
          {
@@ -131,14 +134,15 @@
     //self.currentPath = @"id";
     
     [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
-        if(!error)
+        if (!error)
         {
             EcomapAlias *ecoal = nil;
             ecoal=alias.firstObject;
             completionHandler(ecoal.content, nil);
             
         }
-        else{
+        else
+        {
             DDLogVerbose(@"Error");
         }
         
@@ -152,7 +156,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([[segue identifier] isEqualToString:@"ShowDetails"])
+    if ([[segue identifier] isEqualToString:@"ShowDetails"])
     {
         ResourceDetails *detailviewcontroller = [segue destinationViewController];        // Choose the content depending on the number of row in TableView(and as result its find the alias)
         NSIndexPath *myIndexPath = [self.tableView indexPathForSelectedRow];

@@ -10,11 +10,13 @@
 
 @implementation AddProblemLocationViewController
 
-- (IBAction)locateMeTap:(UIButton *)sender {
+- (IBAction)locateMeTap:(UIButton *)sender
+{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"LocateMeDidTap" object:self];
 }
 
-- (float)viewHeight {
+- (float)viewHeight
+{
     return 137.0f;
 }
 

@@ -26,17 +26,18 @@
     //Get pointer to UserActionViewController
     id topViewController = [dvc topViewController];
     
-    if ([topViewController conformsToProtocol:@protocol(UserAction)]) {
+    if ([topViewController conformsToProtocol:@protocol(UserAction)])
+    {
         id <UserAction> userVC = topViewController;
         
         //Get pointer to mapViewController
         UINavigationController *mapVC = rvc.mapViewController;
         
         userVC.dismissBlock = ^(BOOL isUserActionViewControllerOnScreen){
-            if (isUserActionViewControllerOnScreen) {
+            if (isUserActionViewControllerOnScreen)
+            {
                 //Show map
                 [rvc setFrontViewController:mapVC];
-                
                 //Cloce menu
                 [rvc revealToggleAnimated:NO];
             }

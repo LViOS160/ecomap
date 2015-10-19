@@ -21,7 +21,8 @@
 #import "GlobalLoggerLevel.h"
 #import "Defines.h"
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     DetailedViewType,
     ActivityViewType,
     ComentViewType,
@@ -29,19 +30,16 @@ typedef enum : NSUInteger {
 
 @interface ProblemViewController()
 
-//@property (nonatomic, strong) EcomapProblemDetails *problemDetails;
 @property EcomapProblemDetails *problemDetails;
 @property (weak, nonatomic) IBOutlet UILabel *severityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) ContainerViewController *containerViewController;
-- (IBAction)loadContainerView:(UIBarButtonItem *)sender;
 
 @property (weak, nonatomic) id <EcomapProblemViewDelegate> delegate;
 
 // For admin purposes
-
 @property (nonatomic, strong) EcomapLoggedUser *user;
 @property (nonatomic, strong) EcomapEditableProblem *editableProblem;
 
@@ -76,7 +74,8 @@ typedef enum : NSUInteger {
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"embedContainer"]) {
+    if ([segue.identifier isEqualToString:@"embedContainer"])
+    {
         self.containerViewController = segue.destinationViewController;
         [self.containerViewController setProblemDetails:self.problemDetails];
     }
@@ -87,10 +86,10 @@ typedef enum : NSUInteger {
 - (void)handleTapStatusLabelWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer
 {
     // Handle gesture only if user is administrator
-    if(self.user && [self.user.role isEqualToString:@"administrator"]) {
+    if (self.user && [self.user.role isEqualToString:@"administrator"])
+    {
         self.editableProblem.solved = !self.editableProblem.solved;
         [self updateHeader];
-        
     }
 }
 
@@ -105,7 +104,9 @@ typedef enum : NSUInteger {
                                    [self.containerViewController setProblemDetails:problemDetails];
                                    [self updateHeader];
                                    if(onFinish)
+                                   {
                                        onFinish();
+                                   }
                                }];
 }
 
@@ -122,7 +123,7 @@ typedef enum : NSUInteger {
 
 - (IBAction)likeClick:(UIButton*)sender
 {
-    if(self.problemDetails) {
+    if (self.problemDetails) {
         sender.enabled = NO;
         [EcomapFetcher addVoteForProblem:self.problemDetails
                                 withUser:[EcomapLoggedUser currentLoggedUser]
@@ -227,9 +228,4 @@ typedef enum : NSUInteger {
     [self.navigationController pushViewController:customMapVC animated:YES];
 }
 
-
-- (IBAction)loadContainerView:(UIBarButtonItem *)sender {
-    
-    [self performSegueWithIdentifier:@"embedContainer" sender:self];
-}
 @end

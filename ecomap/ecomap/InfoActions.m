@@ -41,7 +41,8 @@
 -(instancetype)initPrivate
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         self.popupLabels = [[NSMutableArray alloc] init];
         //Add observer to listen when device chages orientation
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -92,19 +93,32 @@
 + (void)showAlertOfError:(id)error
 {
     NSString *errorMessage = nil;
-    if ([error isKindOfClass:[NSError class]]) {
+    if ([error isKindOfClass:[NSError class]])
+    {
         NSError *err = (NSError *)error;
-        if (err.code / 100 == 5) { //5XX error from server
+        if (err.code / 100 == 5)
+        {
+            //5XX error from server
             errorMessage = NSLocalizedString(@"Є проблеми на сервері. Ми працюємо над їх вирішенням!", @"Alert message: There are problems on the server. We are working to resolve them!");
-        } else if (err.code == NO_INTERNET_CODE) {
+        }
+        else if (err.code == NO_INTERNET_CODE)
+        {
             errorMessage = NSLocalizedString(@"Не вдається підключитися до Ecomap. Перевірте налаштування мережі Інтернет", @"Alert message: Can't connect to Ecomap. Check your internet connection!");
-        } else {
+        }
+        else
+        {
             errorMessage = [error localizedDescription]; //human-readable dwscription of the error
         }
         
-    } else if ([error isKindOfClass:[NSString class]]) {
+    }
+    else if ([error isKindOfClass:[NSString class]])
+    {
         errorMessage = (NSString *)error;
-    } else errorMessage = @"";
+    }
+    else
+    {
+        errorMessage = @"";
+    }
         
     [self showAlertWithTitile:NSLocalizedString(@"Помилка", @"Error title")
                         andMessage:errorMessage];
@@ -116,7 +130,8 @@
 {
     
     UIView *senderView = nil;
-    if ([sender isKindOfClass:[UIView class]]) {
+    if ([sender isKindOfClass:[UIView class]])
+    {
         senderView = sender;
     }
     
@@ -204,7 +219,8 @@
 #define POPUP_VERTICAL_OFFSET 10
 + (void)showPopupWithMesssage:(NSString *)message
 {
-    if ([message isEqualToString:@""]) {
+    if ([message isEqualToString:@""])
+    {
         DDLogError(@"Can't show popup with no text");
         return;
     }
@@ -222,10 +238,12 @@
     [sharedActions calculatePopupPosition];
     
     //show popup
-    for (UILabel *popupLabel in sharedActions.popupLabels){
+    for (UILabel *popupLabel in sharedActions.popupLabels)
+    {
         [appKeyWindow addSubview:popupLabel];
         
-        if ([[sharedActions popupLabels] lastObject] == popupLabel) {
+        if ([[sharedActions popupLabels] lastObject] == popupLabel)
+        {
             popupLabel.transform = CGAffineTransformMakeScale(1.3, 1.3);
             popupLabel.alpha = 0;
             [UIView animateWithDuration:0.3 animations:^{
@@ -241,7 +259,8 @@
     [self performSelector:@selector(dismissPopup:) withObject:popupLabel afterDelay:POPUP_DELAY];
 }
 
-+ (void)dismissPopup:(UIView *)sender {
++ (void)dismissPopup:(UIView *)sender
+{
     
     InfoActions *sharedActions = [self sharedActions];
     UILabel *label = (UILabel *)sender;
@@ -271,23 +290,34 @@
     appWindowCenter.y = appKeyWindow.center.y - (POPUP_HEIGHT/2 + POPUP_VERTICAL_OFFSET) * ([[self popupLabels] count] - 1);
     
     //animate offset
-    if ([[self popupLabels] count] > 1) {
+    if ([[self popupLabels] count] > 1)
+    {
         [UIView animateWithDuration:0.3 animations:^{
             firstPopup.center = appWindowCenter;
         }];
-    } else firstPopup.center = appWindowCenter;
+    }
+    else
+    {
+        firstPopup.center = appWindowCenter;
+    }
     
     //set vertical offset for other popups
-    for (int i = 1; i < [[self popupLabels] count]; i++) {
+    for (int i = 1; i < [[self popupLabels] count]; i++)
+    {
         UILabel *nextPopup = (UILabel *)[[self popupLabels] objectAtIndex:i];
         appWindowCenter.y += POPUP_HEIGHT + POPUP_VERTICAL_OFFSET;
         
         //animate offset
-        if ( i != ([[self popupLabels] count] - 1)) {
+        if ( i != ([[self popupLabels] count] - 1))
+        {
             [UIView animateWithDuration:0.3 animations:^{
                 nextPopup.center = appWindowCenter;
             }];
-        } else nextPopup.center = appWindowCenter;
+        }
+        else
+        {
+           nextPopup.center = appWindowCenter;
+        }
 
     }
 
@@ -307,7 +337,8 @@
     CGRect labelFrame = CGRectMake(0, 0, textWidth + 20, POPUP_HEIGHT);
     
     //To make popup not to be wider tan 170 points
-    if (textWidth > POPUP_WIDTH) {
+    if (textWidth > POPUP_WIDTH)
+    {
         labelFrame = [popupLabel textRectForBounds:CGRectMake(0, 0, POPUP_WIDTH, POPUP_HEIGHT)
                             limitedToNumberOfLines:2];
     }
@@ -331,7 +362,8 @@
     
     InfoActions *sharedActions = [self sharedActions];
     
-    if (sharedActions.activityIndicatorView) {
+    if (sharedActions.activityIndicatorView)
+    {
         DDLogError(@"Can't create 2-nd activity indicator");
         return;
     }
@@ -340,7 +372,8 @@
     UIWindow *appKeyWindow = [[UIApplication sharedApplication] keyWindow];
     
     sharedActions.userInteraction = enabled;
-    if (!enabled) {
+    if (!enabled)
+    {
         //Disable user events handling
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     }
@@ -373,11 +406,13 @@
 {
     InfoActions *sharedActions = [self sharedActions];
     
-    if (sharedActions.activityIndicatorView) {
+    if (sharedActions.activityIndicatorView)
+    {
         [sharedActions.activityIndicatorView removeFromSuperview];
         
         //Enable user events handling
-        if (!sharedActions.userInteraction) {
+        if (!sharedActions.userInteraction)
+        {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
         

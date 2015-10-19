@@ -10,7 +10,8 @@
 
 @implementation AddProblemDescriptionViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.textView.delegate = self;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -19,11 +20,13 @@
     [self.view addGestureRecognizer:tap];
 }
 
--(void)dismissKeyboard {
+-(void)dismissKeyboard
+{
     [self.textView resignFirstResponder];
 }
 
-- (float)viewHeight {
+- (float)viewHeight
+{
     return 170.0;
 }
 

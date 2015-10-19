@@ -30,13 +30,14 @@
 {    //DDLogVerbose(@"%ld",(long)self.tasks);
     @synchronized(self)
     {
-        if(self.application.isStatusBarHidden)
+        if (self.application.isStatusBarHidden)
+        {
             return;
-        if(!self.application.isNetworkActivityIndicatorVisible)
+        }
+        if (!self.application.isNetworkActivityIndicatorVisible)
         {
             self.application.networkActivityIndicatorVisible = YES;
             self.tasks = 0;
-            
         }
         self.tasks++;
     }
@@ -46,10 +47,12 @@
 {  //DDLogVerbose(@"%ld",(long)self.tasks);
     @synchronized(self)
     {
-        if(self.application.isStatusBarHidden)
+        if (self.application.isStatusBarHidden)
+        {
             return;
+        }
         self.tasks--;
-        if(self.tasks <=0)
+        if (self.tasks <=0)
         {
             self.application.networkActivityIndicatorVisible = NO;
             self.tasks = 0;
@@ -61,24 +64,26 @@
 {
     @synchronized(self)
     {
-        if(self.application.isStatusBarHidden)
+        if (self.application.isStatusBarHidden)
+        {
             return;
+        }
         self.application.networkActivityIndicatorVisible = NO;
         self.tasks = 0;
-        
     }
 }
 
 -(UIApplication*)application
 {
-    if(!_application)
+    if (!_application)
     {
         _application = [UIApplication sharedApplication];
     }
     return _application;
 }
 
--(NetworkActivityIndicator*)init {
+-(NetworkActivityIndicator*)init
+{
     self = [super init];
     self.tasks = 0;
     return self;

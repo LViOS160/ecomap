@@ -10,16 +10,18 @@
 
 @implementation ConstHeightViewController
 
-- (float)viewHeight {
+- (float)viewHeight
+{
     return 0.0f;
 }
 
-- (float)getPadding:(float)padding {
-    
+- (float)getPadding:(float)padding
+{
     return padding + ADDPROBLEMNAVIGATIONVIEWHEIGHT;
 }
 
-- (void)layoutView:(float)padding {
+- (void)layoutView:(float)padding
+{
     [self.view setFrame:CGRectMake(0, [self getPadding:padding], [UIScreen mainScreen].bounds.size.width, self.viewHeight)];
 }
 
