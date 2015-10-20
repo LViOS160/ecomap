@@ -15,7 +15,9 @@
 {
     static EcomapCoreDataControlPanel *object;
     static dispatch_once_t predicat;
-    dispatch_once(&predicat, ^{object = [[EcomapCoreDataControlPanel alloc] init];});
+    dispatch_once(&predicat, ^{
+        object = [[EcomapCoreDataControlPanel alloc] init];
+    });
     return object;
 }
 
@@ -27,13 +29,14 @@
     {
         self.allProblems = [NSArray arrayWithArray:problems];
         if (!error)
-            {
-              self.allProblems = [NSArray arrayWithArray:problems];
-            }
+        {
+            self.allProblems = [NSArray arrayWithArray:problems];
+        }
     }];
     
     
-    [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error) {
+    [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
+    {
         self.allProblems = [NSArray arrayWithArray:problems];
         if (!error)
         {
@@ -41,7 +44,6 @@
             [self addProblemIntoCoreData];
         }
     }];
-    
      [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
 }
 
@@ -60,7 +62,6 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", id1];
     [request setPredicate:predicate];
     NSArray *array = [context executeFetchRequest:request error:nil];
-
     return array[0];
 }
 
@@ -89,6 +90,8 @@
             [ob setSeverity:[NSNumber numberWithInteger: problemDetail.severity]];
             [ob setIdProblem:[NSNumber numberWithInteger: problem.problemID]];
             [ob setProposal:problemDetail.proposal];
+            [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
+            [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
             i++;
         }
     }
@@ -97,7 +100,7 @@
     
    
    
-    /*
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
     [request setEntity:descr];
@@ -112,11 +115,11 @@
         
           //  [context deleteObject:ob];
          //   NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
-         //[context deleteObject:ob];
+       //  [context deleteObject:ob];
             
         }
-      // [context save:nil];
-    }*/
+    //  [context save:nil];
+    }
     
  
     

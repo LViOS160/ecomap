@@ -27,7 +27,7 @@
 #import "InfoActions.h"
 #import "MenuViewController.h"
 #import "TOP10.h"
-
+#import "AppDelegate.h"
 #import "EcomapStatistics.h"
 
 
@@ -203,11 +203,40 @@
 
 -(void)loadProblems
 {
-    /*[EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
+    [request setEntity:descr];
+    //[request setResultType:NSDictionaryResultType];
+    NSArray *arr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
+    NSMutableArray *allProblems = [NSMutableArray array];
+    for (Problem *problem in arr) {
+        EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
+        [allProblems addObject:ecoProblem];
+    }
+
+      self.arrayWithProblems = [NSArray arrayWithArray:allProblems];
+  
+    
+    
+    NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+    self.currentAllProblems = [[NSSet alloc]initWithSet:set];
+        if (![self.problems isEqualToSet:set])
+        {
+            [self renewMap:set];
+            [self saveLocalJSON:set];
+        }
+    }
+
+    
+    
+    
+   /* [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
       
-        self.arrayWithProblems = [NSArray arrayWithArray:problems];
-        EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
-        [ob loadData];
+      //  self.arrayWithProblems = [NSArray arrayWithArray:problems];
+       // EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
+       // [ob loadData];
         
         //[ob addProblemIntoCoreData];
        // [ob countAllProblemsCategory];
@@ -224,7 +253,7 @@
         }
     }];*/
     
-}
+
 
 #pragma mark - Problem Filter TVC Delegate
 

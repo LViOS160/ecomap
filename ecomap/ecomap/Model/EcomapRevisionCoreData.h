@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface EcomapRevisionCoreData : NSObject
-+(instancetype)sharedInstance;
--(void)loadDifferance;
+
++ (instancetype)sharedInstance;
+- (void)loadDifferance;
 - (void)checkRevison;
 
 @property (nonatomic, strong) NSArray *allRevisions;

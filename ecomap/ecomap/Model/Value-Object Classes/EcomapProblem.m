@@ -27,6 +27,49 @@
 
 @implementation EcomapProblem
 
+-(instancetype)initWithProblemFromCoreData:(Problem*)data
+{
+    self = [super init];
+    
+    
+    if (self)
+    {
+        self.problemID = [data.idProblem integerValue];
+        self.title = data.title;
+        self.latitude = [data.latitude floatValue];
+        self.longitude = [data.longitude floatValue];
+        self.problemTypesID = [data.problemTypeId integerValue];
+        self.dateCreated = data.date;
+        long int typeOfProblem = [data.problemTypeId integerValue];
+        if(typeOfProblem == 0)
+        {
+            typeOfProblem = 1;
+        }
+        else
+        {
+            typeOfProblem-=1;
+        }
+        self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:typeOfProblem];
+        
+        self.userCreator = [data.userID integerValue];
+        
+        
+        //Adding userID
+     /*   self.userCreator = ![[problem valueForKey:@"user_id"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"user_id"] integerValue] : 0;
+        self.vote = ![[problem valueForKey:@"number_of_votes"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_votes"] integerValue] : 0;
+        self.numberOfComments = ![[problem valueForKey:@"number_of_comments"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_comments"] integerValue] : 0;
+        self.severity =![[problem valueForKey:@"severity"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"severity"] integerValue] : 0;
+      */
+    
+    }
+
+    
+    
+    
+    return self;
+}
+
+
 - (void)encodeWithCoder:(NSCoder *)coder
 {
    

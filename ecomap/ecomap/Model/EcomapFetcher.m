@@ -47,10 +47,10 @@
 
 +(void)loadProblemsDifferance:(void (^)(NSArray *problems, NSError *error))completionHandler
 {
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://176.36.11.25:8000/api/problems?rev=1606"]]
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://176.36.11.25:8000/api/problems?rev=1633"]]
               sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                  completionHandler:^(NSData *JSON, NSError *error) {
-                     NSMutableArray *problems = nil;
+                     NSArray *problems = nil;
                      NSArray *problemsFromJSON = nil;
                      if (!error) {
                          //Extract received data
@@ -58,19 +58,7 @@
                              DDLogVerbose(@"All problems loaded success from ecomap server");
                              //Parse JSON
                              NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
-                             problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
-                             
-                             //Fill problems array
-                             if (problemsFromJSON) {
-                                 problems = [NSMutableArray array];
-                                 //Fill array with EcomapProblem
-                                 for (NSDictionary *problem in problemsFromJSON) {
-                                     EcomapProblemDetails *ecoProblem = [[EcomapProblemDetails alloc] initWithProblem:problem];
-                                     [problems addObject:ecoProblem];
-                                 }
-                                 problems;
-                             }
-                             
+                             problems = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
                          }
                      } else [InfoActions showAlertOfError:error];
                      

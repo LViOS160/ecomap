@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EcomapLoggedUser.h"
+#import "Problem.h"
 
 @interface EcomapProblem : NSObject <NSCoding>
 
@@ -26,6 +27,11 @@
 
 //Designated initializer
 - (instancetype)initWithProblem:(NSDictionary *)problem;
+
+
+
+-(instancetype)initWithProblemFromCoreData:(Problem*)data;
+
 - (id)initWithCoder:(NSCoder *)aDecoder;
 - (void)encodeWithCoder:(NSCoder *)aCoder;
 

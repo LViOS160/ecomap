@@ -2,7 +2,7 @@
 //  Problem.m
 //  ecomap
 //
-//  Created by Pavlo Dumyak on 10/19/15.
+//  Created by Admin on 21.10.15.
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
@@ -11,20 +11,20 @@
 
 @implementation Problem
 
-@dynamic idProblem;
-@dynamic status;
-@dynamic userID;
 @dynamic content;
-@dynamic title;
-@dynamic problemTypeId;
 @dynamic date;
-@dynamic latitude;
-@dynamic lastName;
 @dynamic firstName;
-@dynamic numberOfVotes;
-@dynamic severity;
-@dynamic numberOfComments;
-@dynamic proposal;
+@dynamic idProblem;
+@dynamic lastName;
+@dynamic latitude;
 @dynamic longitude;
+@dynamic numberOfComments;
+@dynamic numberOfVotes;
+@dynamic problemTypeId;
+@dynamic proposal;
+@dynamic severity;
+@dynamic status;
+@dynamic title;
+@dynamic userID;
 
 @end

@@ -28,6 +28,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+   // [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"firstdownload"];
+  /*  AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
+    [request setEntity:descr];
+    //[request setResultType:NSDictionaryResultType];
+    NSArray *arr = [context executeFetchRequest:request error:nil];
+    for(id object in arr)
+    {
+        
+        if([object isKindOfClass:[Problem class]])
+        {
+            Problem* ob = (Problem*)object;
+            
+            //  [context deleteObject:ob];
+            //   NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
+              [context deleteObject:ob];
+            
+        }
+          [context save:nil];
+    }*/
+    
+
+    
+    
     
     EcomapCoreDataControlPanel *coreDataClass = [EcomapCoreDataControlPanel sharedInstance];
     NSString *status = [[NSUserDefaults standardUserDefaults]valueForKey:@"firstdownload"];
