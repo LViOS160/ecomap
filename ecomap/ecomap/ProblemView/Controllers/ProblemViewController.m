@@ -1,3 +1,4 @@
+
 //
 //  ProblemViewController.m
 //  ecomap
@@ -21,6 +22,8 @@
 #import "GlobalLoggerLevel.h"
 #import "Defines.h"
 
+
+#import "EcomapFetcher.h"
 
 #import "EcomapCoreDataControlPanel.h"
 typedef enum : NSUInteger
@@ -100,6 +103,12 @@ typedef enum : NSUInteger
 - (void)loadProblemDetails:(void(^)())onFinish
 {
    
+ 
+    
+    
+    
+    [EcomapFetcher updateComments: self.problemID];
+
     
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];

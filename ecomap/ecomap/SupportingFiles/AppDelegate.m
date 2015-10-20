@@ -28,8 +28,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
     
+    EcomapCoreDataControlPanel *coreDataClass = [EcomapCoreDataControlPanel sharedInstance];
+    NSString *status = [[NSUserDefaults standardUserDefaults]valueForKey:@"firstdownload"];
+    if(![status isEqualToString:@"complete"])
+    {
+       [coreDataClass loadData];
+    }
+
+    
+    // Override point for customization after application launch.
+    EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
+    [ob checkRevison];
+    
+    
+   // [ob loadData];
     self.managedObjectContext;
    
     [GMSServices provideAPIKey:@"AIzaSyC8CqCUnyZX516O08J6JUCTV03ySVQAZoI"];

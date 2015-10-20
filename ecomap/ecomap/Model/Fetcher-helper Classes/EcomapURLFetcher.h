@@ -19,6 +19,10 @@ typedef enum {
 
 @interface EcomapURLFetcher : NSObject
 
+
++ (NSURL*)URLforRevison;
+
+
 + (NSURL *)URLforTokenRegistration;
 
 //Return server domain

@@ -33,6 +33,9 @@
 #define ECOMAP_POST_COMMENT @"comment/"
 #define ECOMAP_POST_PHOTO @"photo/"
 
+#define ECOMAP_REVISION @"problems?rev="
+
+
 //Queries for statistics
 #define ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS @"getStats4"
 #define ECOMAP_GET_GENERAL_STATS @"getStats3"

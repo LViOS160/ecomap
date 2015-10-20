@@ -203,7 +203,7 @@
 
 -(void)loadProblems
 {
-    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+    /*[EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
       
         self.arrayWithProblems = [NSArray arrayWithArray:problems];
         EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
@@ -222,7 +222,8 @@
                 [self saveLocalJSON:set];
             }
         }
-    }];
+    }];*/
+    
 }
 
 #pragma mark - Problem Filter TVC Delegate

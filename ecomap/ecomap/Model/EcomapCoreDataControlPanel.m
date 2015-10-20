@@ -23,13 +23,15 @@
 
 -(void)loadData
 {
-    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
+    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
+    {
         self.allProblems = [NSArray arrayWithArray:problems];
         if (!error)
-        {
-         self.allProblems = [NSArray arrayWithArray:problems];
-                    }
+            {
+              self.allProblems = [NSArray arrayWithArray:problems];
+            }
     }];
+    
     
     [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error) {
         self.allProblems = [NSArray arrayWithArray:problems];
@@ -39,6 +41,8 @@
             [self addProblemIntoCoreData];
         }
     }];
+    
+     [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
 }
 
 
@@ -68,7 +72,7 @@
     NSError *error;
     NSInteger i = 0;
     
-  /*  for(id object in self.allProblems )
+    for(id object in self.allProblems )
     {
         Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
         if([object isKindOfClass:[EcomapProblem class]])
@@ -85,15 +89,15 @@
             [ob setSeverity:[NSNumber numberWithInteger: problemDetail.severity]];
             [ob setIdProblem:[NSNumber numberWithInteger: problem.problemID]];
             [ob setProposal:problemDetail.proposal];
-           
             i++;
         }
     }
-             [context save:&error];
     
-    */
+    [context save:&error];
+    
    
-    
+   
+    /*
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
     [request setEntity:descr];
@@ -108,11 +112,11 @@
         
           //  [context deleteObject:ob];
          //   NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
-         // [context deleteObject:ob];
+         //[context deleteObject:ob];
             
         }
-      //  [context save:nil];
-    }
+      // [context save:nil];
+    }*/
     
  
     

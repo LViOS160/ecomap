@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 //#import "Test.h"
 #import "EcomapCoreDataControlPanel.h"
+#import "EcomapRevisionCoreData.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

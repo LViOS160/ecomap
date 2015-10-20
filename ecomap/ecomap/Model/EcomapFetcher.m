@@ -13,7 +13,82 @@
 
 @implementation EcomapFetcher
 
+
+#pragma mark -- get revision
+
++(void)checkRevision:(void (^)(BOOL differance, NSError *error))completionHandler
+{
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforRevison]]
+              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                 completionHandler:^(NSData *JSON, NSError *error) {
+                     BOOL revision = NO;
+                     if (!error) {
+                         if (JSON) {
+                             NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                             NSNumber *revisionLocal = [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"];
+                             NSNumber *recieveRevison = [aJSON valueForKey:@"current_activity_revision"];
+                             if([recieveRevison isEqual:revisionLocal])
+                             {
+                                 revision = NO;
+                             }
+                             else
+                             {
+                                 [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"revision"];
+                                 [[NSUserDefaults standardUserDefaults]setObject:recieveRevison forKey:@"revision"];
+                                 revision = YES;
+                             }
+                         }
+                     }
+                     completionHandler(revision, error);
+                 }];
+}
+
+
+
++(void)loadProblemsDifferance:(void (^)(NSArray *problems, NSError *error))completionHandler
+{
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://176.36.11.25:8000/api/problems?rev=1606"]]
+              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                 completionHandler:^(NSData *JSON, NSError *error) {
+                     NSMutableArray *problems = nil;
+                     NSArray *problemsFromJSON = nil;
+                     if (!error) {
+                         //Extract received data
+                         if (JSON) {
+                             DDLogVerbose(@"All problems loaded success from ecomap server");
+                             //Parse JSON
+                             NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                             problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
+                             
+                             //Fill problems array
+                             if (problemsFromJSON) {
+                                 problems = [NSMutableArray array];
+                                 //Fill array with EcomapProblem
+                                 for (NSDictionary *problem in problemsFromJSON) {
+                                     EcomapProblemDetails *ecoProblem = [[EcomapProblemDetails alloc] initWithProblem:problem];
+                                     [problems addObject:ecoProblem];
+                                 }
+                                 problems;
+                             }
+                             
+                         }
+                     } else [InfoActions showAlertOfError:error];
+                     
+                   
+                     //set up completionHandler
+                     completionHandler(problems, error);
+                 }];
+    
+}
+
+
+
+
+
+
 #pragma mark - Get all Problems
+
+
 +(void)loadAllProblemsOnCompletion:(void (^)(NSArray *problems, NSError *error))completionHandler
 {
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAllProblems]]
@@ -21,13 +96,17 @@
                 completionHandler:^(NSData *JSON, NSError *error) {
                     NSMutableArray *problems = nil;
                     NSArray *problemsFromJSON = nil;
+                    
                     if (!error) {
                         //Extract received data
                         if (JSON) {
                             DDLogVerbose(@"All problems loaded success from ecomap server");
                             //Parse JSON
                             NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                            NSNumber *revision =  [aJSON valueForKey:@"current_activity_revision"];
                             problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
+                            [[NSUserDefaults standardUserDefaults] setObject:revision forKey:@"revision"];
+                             NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"];
                             
                             //Fill problems array
                             if (problemsFromJSON) {
@@ -82,7 +161,6 @@
                  }];
     
 }
-
 
 
 #pragma mark - Post comment

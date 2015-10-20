@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
-
+#import "EcomapFetcher.h"
 @protocol EcomapProblemViewDelegate <NSObject>
 
 - (void)showEcomapProblem:(EcomapProblem *)problem;
