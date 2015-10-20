@@ -26,21 +26,6 @@
 
 #pragma mark - Overriding problem init
 //Override
-
-
-
-
-- (EcomapProblemDetails*)detailViewProblemFromCoreData:(Problem*) data
-{
-    self.content = data.content;
-    self.proposal = data.proposal;
-    self.title = data.title;
-    self.votes =  [data.numberOfVotes integerValue];
-    return self;
-}
-
-
-
 -(instancetype)initWithProblem:(NSDictionary *)problem
 {
     self = [super initWithProblem:problem];
@@ -55,6 +40,7 @@
     return self;
 }
 
+
 -(void)parseProblem:(NSDictionary *)problem
 {
     if (problem)
@@ -67,6 +53,14 @@
     }
 }
 
+- (EcomapProblemDetails*)detailViewProblemFromCoreData:(Problem*) data
+{
+    self.content = data.content;
+    self.proposal = data.proposal;
+    self.title = data.title;
+    self.votes =  [data.numberOfVotes integerValue];
+    return self;
+}
 
 
 

@@ -10,7 +10,9 @@
 #import "AppDelegate.h"
 #import "EcomapProblem.h"
 #import "EcomapFetcher.h"
+
 @implementation EcomapCoreDataControlPanel
+
 +(instancetype)sharedInstance
 {
     static EcomapCoreDataControlPanel *object;
