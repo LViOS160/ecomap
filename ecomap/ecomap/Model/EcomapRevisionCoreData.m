@@ -53,16 +53,16 @@
     [request setEntity:entity];
     NSPredicate *predicate;
     NSArray *array;
-    Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
-  
     NSMutableArray *arrayOne = [NSMutableArray array];
     NSMutableArray *arrayTwo = [NSMutableArray array];
     
      for(int i = 0; i< [self.allRevisions count];i++)
      {
-         EcomapProblemDetails *differentPartOfProblemsDetails = [[EcomapProblemDetails alloc] initWithProblem:self.allRevisions[i]];
+         EcomapProblemDetails *differentPartOfProblemsDetails = [[EcomapProblemDetails alloc]
+                                                                 initWithProblem:self.allRevisions[i]];
          [arrayOne addObject:differentPartOfProblemsDetails];
-         EcomapProblem *differentPartOfProblemsGeneral = [[EcomapProblem alloc] initWithProblem:self.allRevisions[i]];
+         EcomapProblem *differentPartOfProblemsGeneral = [[EcomapProblem alloc]
+                                                          initWithProblem:self.allRevisions[i]];
          [arrayTwo addObject:differentPartOfProblemsGeneral];
      }
     
@@ -77,7 +77,6 @@
         predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", num];
         [request setPredicate:predicate];
         array = [context executeFetchRequest:request error:nil];
-        
         
         if([array count] == 0)
         {

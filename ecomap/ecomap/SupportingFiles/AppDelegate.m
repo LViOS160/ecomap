@@ -28,8 +28,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-   // [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"firstdownload"];
-  AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+   //[[NSUserDefaults standardUserDefaults]removeObjectForKey:@"firstdownload"];
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
@@ -45,10 +45,10 @@
             
             // [context deleteObject:ob];
                NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
-              //[context deleteObject:ob];
+            //  [context deleteObject:ob];
             
         }
-          //[context save:nil];
+       //   [context save:nil];
     }
     
 

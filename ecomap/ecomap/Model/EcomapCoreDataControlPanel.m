@@ -13,19 +13,20 @@
 
 @implementation EcomapCoreDataControlPanel
 
-+(instancetype)sharedInstance
++ (instancetype)sharedInstance
 {
     static EcomapCoreDataControlPanel *object;
     static dispatch_once_t predicat;
-    dispatch_once(&predicat, ^{
+    dispatch_once(&predicat,
+                  ^{
         object = [[EcomapCoreDataControlPanel alloc] init];
-    });
+                  });
     return object;
 }
 
 
 
--(void)loadData
+- (void)loadData
 {
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
     {
@@ -36,7 +37,6 @@
         }
     }];
     
-    
     [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
     {
         self.allProblems = [NSArray arrayWithArray:problems];
@@ -46,14 +46,12 @@
             [self addProblemIntoCoreData];
         }
     }];
+    
      [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
 }
 
 
-
-
-
--(Problem*)returnDetail:(NSInteger)id1
+- (Problem*)returnDetail:(NSInteger)id1
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
@@ -68,13 +66,12 @@
 }
 
 
--(void)addProblemIntoCoreData
+- (void)addProblemIntoCoreData
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error;
     NSInteger i = 0;
-    
     for(id object in self.allProblems )
     {
         Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
@@ -97,36 +94,7 @@
             i++;
         }
     }
-    
     [context save:&error];
-    
-   
-   
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
-    [request setEntity:descr];
-    //[request setResultType:NSDictionaryResultType];
-    NSArray *arr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
-    for(id object in arr)
-    {
-        
-        if([object isKindOfClass:[Problem class]])
-        {
-          Problem* ob = (Problem*)object;
-        
-          //  [context deleteObject:ob];
-         //   NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
-       //  [context deleteObject:ob];
-            
-        }
-    //  [context save:nil];
-    }
-    
- 
-    
 }
-
-
 
 @end
