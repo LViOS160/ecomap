@@ -20,6 +20,8 @@
 #import "InfoActions.h"
 #import "MapViewController.h"
 #import "EditProblemViewController.h"
+#import "EcomapCoreDataControlPanel.h"
+#import "Problem.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -105,8 +107,9 @@
     self.descriptionText.attributedText = text;
     [self.descriptionText setContentOffset:CGPointZero animated:YES];
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+
    
-    if(([userIdent.role isEqualToString:@"administrator"] || self.problemDetails.userCreator == userIdent.userID ) && userIdent && self.problemDetails.userCreator)
+    if(([userIdent.role isEqualToString:@"administrator"] || self.problemDetails.userID == userIdent.userID ) && userIdent && self.problemDetails.userID)
     {
         self.editButton.hidden = NO;
         self.deleteButton.hidden = NO;

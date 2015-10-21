@@ -26,15 +26,13 @@
 
 - (void)checkRevison
 {
-    
-    
-;
+
     [EcomapFetcher checkRevision:^(BOOL differance, NSError *error) {
     if (!error)
         {
             if(differance)
             {
-                [EcomapFetcher loadProblemsDifferance:^(NSArray *problems, NSError *error)
+                [EcomapFetcher loadProblemsDifference:^(NSArray *problems, NSError *error)
                 {
                     self.allRevisions = [NSArray arrayWithArray:problems];
                     if (!error)

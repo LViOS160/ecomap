@@ -45,7 +45,7 @@
 
 
 
-+(void)loadProblemsDifferance:(void (^)(NSArray *problems, NSError *error))completionHandler
++(void)loadProblemsDifference:(void (^)(NSArray *problems, NSError *error))completionHandler
 {
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://176.36.11.25:8000/api/problems?rev=1743"]]
               sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]

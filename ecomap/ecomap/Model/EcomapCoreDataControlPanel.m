@@ -72,7 +72,8 @@
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error;
     NSInteger i = 0;
-    for(id object in self.allProblems )
+    
+    for(NSManagedObject *object in self.allProblems )
     {
         Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
         if([object isKindOfClass:[EcomapProblem class]])
@@ -95,6 +96,28 @@
         }
     }
     [context save:&error];
+    
+   
+   
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
+    [request setEntity:descr];
+
+    NSArray *arr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
+    
+    for(NSManagedObject *object in arr)
+    {
+        
+        if([object isKindOfClass:[Problem class]])
+        {
+          Problem* ob = (Problem*)object;
+            
+        }
+    }
+    
+    [context save:&error];
+    
 }
 
 @end

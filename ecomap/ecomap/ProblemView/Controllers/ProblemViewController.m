@@ -108,6 +108,7 @@ typedef enum : NSUInteger
     self.data =[ob returnDetail:self.problemID];
     EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
     [comentsID setProblemsID:self.problemID];
+    
     EcomapProblemDetails *obj = [EcomapProblemDetails alloc];
     
     

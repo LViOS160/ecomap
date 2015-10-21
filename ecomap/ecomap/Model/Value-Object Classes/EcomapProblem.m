@@ -10,6 +10,9 @@
 #import "EcomapPathDefine.h"
 #import "EcomapLoggedUser.h"
 #import "AppDelegate.h"
+#import "ProblemFetchResController.h"
+
+
 @interface EcomapProblem ()
 @property (nonatomic, readwrite) NSUInteger problemID;
 @property (nonatomic, strong, readwrite) NSString *title;
@@ -53,20 +56,8 @@
         
         self.userCreator = [data.userID integerValue];
         
-        
-        //Adding userID
-     /*   self.userCreator = ![[problem valueForKey:@"user_id"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"user_id"] integerValue] : 0;
-        self.vote = ![[problem valueForKey:@"number_of_votes"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_votes"] integerValue] : 0;
-        self.numberOfComments = ![[problem valueForKey:@"number_of_comments"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_comments"] integerValue] : 0;
-        self.severity =![[problem valueForKey:@"severity"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"severity"] integerValue] : 0;
-      */
-    
     }
-
-    
-    
-    
-    return self;
+   return self;
 }
 
 
