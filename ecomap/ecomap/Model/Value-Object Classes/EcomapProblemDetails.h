@@ -18,7 +18,7 @@
 @property (nonatomic, readonly) NSUInteger votes;
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSArray *comments;
-
+@property (nonatomic, readwrite)int userCreate;
 
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
 - (EcomapProblemDetails*)detailViewProblemFromCoreData:(Problem*) data;

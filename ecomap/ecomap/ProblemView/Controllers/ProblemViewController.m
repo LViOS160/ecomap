@@ -103,19 +103,18 @@ typedef enum : NSUInteger
 - (void)loadProblemDetails:(void(^)())onFinish
 {
    
- 
-    
-    
-    
     [EcomapFetcher updateComments: self.problemID];
-
-    
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];
     EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
     [comentsID setProblemsID:self.problemID];
     EcomapProblemDetails *obj = [EcomapProblemDetails alloc];
+    
+    
     self.problemDetails = [obj detailViewProblemFromCoreData:self.data];
+    
+    
+    
     self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];
     [self.containerViewController setProblemDetails:self.problemDetails];
     [self updateHeader];
@@ -123,10 +122,7 @@ typedef enum : NSUInteger
     
     
     
-    
-    
-    
-    
+
     
    /* [EcomapFetcher loadProblemDetailsWithID:self.problemID
                                OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
