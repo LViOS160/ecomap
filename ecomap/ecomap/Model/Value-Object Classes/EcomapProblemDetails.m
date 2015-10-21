@@ -59,9 +59,8 @@
     self.proposal = data.proposal;
     self.title = data.title;
     self.votes =  [data.numberOfVotes integerValue];
-
-   
- 
+    self.userID = [data.userID integerValue];
+    
   /*  self.latitude = [data.latitude];
     self.longitude = [data longitude];
     self.userCreator = [data userID];
