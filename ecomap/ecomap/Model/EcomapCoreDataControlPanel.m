@@ -13,19 +13,20 @@
 
 @implementation EcomapCoreDataControlPanel
 
-+(instancetype)sharedInstance
++ (instancetype)sharedInstance
 {
     static EcomapCoreDataControlPanel *object;
     static dispatch_once_t predicat;
-    dispatch_once(&predicat, ^{
+    dispatch_once(&predicat,
+                  ^{
         object = [[EcomapCoreDataControlPanel alloc] init];
-    });
+                  });
     return object;
 }
 
 
 
--(void)loadData
+- (void)loadData
 {
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
     {
@@ -36,7 +37,6 @@
         }
     }];
     
-    
     [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
     {
         self.allProblems = [NSArray arrayWithArray:problems];
@@ -46,14 +46,12 @@
             [self addProblemIntoCoreData];
         }
     }];
+    
      [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
 }
 
 
-
-
-
--(Problem*)returnDetail:(NSInteger)id1
+- (Problem*)returnDetail:(NSInteger)id1
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
@@ -68,7 +66,7 @@
 }
 
 
--(void)addProblemIntoCoreData
+- (void)addProblemIntoCoreData
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
@@ -97,7 +95,6 @@
             i++;
         }
     }
-    
     [context save:&error];
     
    
@@ -122,7 +119,5 @@
     [context save:&error];
     
 }
-
-
 
 @end

@@ -18,7 +18,8 @@
 #import "SlideAnimator.h"
 #import "MenuViewController.h"
 #import "AFNetworking.h"
-
+#import "EcomapRevisionCoreData.h"
+#import "EcomapCoreDataControlPanel.h"
 @interface AddProblemViewController ()
 {
     CGFloat padding;
@@ -68,6 +69,7 @@
     screenWidth = [UIScreen mainScreen].bounds.size.width;
     padding = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     
+   
     //Pavlo
     [self.view bringSubviewToFront:self.goToUkraineButton];
     
@@ -202,7 +204,7 @@
     self.addProblemNavigation.pageControl.currentPage = 0;
     self.userIsInTheMiddleOfAddingProblem = NO;
     [self.addProblemButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
-    [self loadProblems];
+    //[self loadProblems];
 }
 
 - (void)switchPage
@@ -375,9 +377,14 @@
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
     details.photos = self.addProblemPhoto.photos;
     [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
-        NSLog(@"%@",error);
+        NSLog(@" ProblemloadCOMPLETE:  %@",error);
+        
+        EcomapRevisionCoreData *RevisionObject = [[EcomapRevisionCoreData alloc] init];
+        [RevisionObject checkRevison];
+        [self loadProblems];
     }];
-  //  [self loadProblems];
+    
+    
 }
 
 - (void)setCurView:(ConstHeightViewController *)curView

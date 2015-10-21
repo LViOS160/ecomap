@@ -12,6 +12,8 @@
 #import "GClusterManager.h"
 #import "SRWebSocket.h"
 #import "ProblemViewController.h"
+#import "EcomapRevisionCoreData.h"
+
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>
 

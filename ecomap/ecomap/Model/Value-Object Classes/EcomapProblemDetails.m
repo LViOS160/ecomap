@@ -17,8 +17,7 @@
 @property (nonatomic, readwrite) NSUInteger severity;
 @property (nonatomic, readwrite) NSUInteger moderation;
 @property (nonatomic, readwrite) NSUInteger votes;
-
-
+@property (nonatomic, strong) NSString* title;
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
 @end
 
@@ -59,6 +58,10 @@
     self.proposal = data.proposal;
     self.title = data.title;
     self.votes =  [data.numberOfVotes integerValue];
+  /*  self.latitude = [data.latitude];
+    self.longitude = [data longitude];
+    self.userCreator = [data userID];
+    self.dateCreated = [data date];*/
     return self;
 }
 

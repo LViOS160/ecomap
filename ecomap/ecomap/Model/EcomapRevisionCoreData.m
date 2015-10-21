@@ -9,6 +9,10 @@
 #import "EcomapRevisionCoreData.h"
 #import "EcomapFetcher.h"
 #import "AppDelegate.h"
+
+
+
+
 @implementation EcomapRevisionCoreData
 
 + (instancetype)sharedInstance
@@ -22,7 +26,9 @@
 
 - (void)checkRevison
 {
-  
+    
+    
+;
     [EcomapFetcher checkRevision:^(BOOL differance, NSError *error) {
     if (!error)
         {
@@ -51,11 +57,26 @@
                                               inManagedObjectContext:context];
     
     [request setEntity:entity];
+    EcomapCoreDataControlPanel *coreObject = [EcomapCoreDataControlPanel sharedInstance];
+
     NSPredicate *predicate;
     NSArray *array;
-    Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
-  
+    NSMutableArray *arrayOne = [NSMutableArray array];
+    NSMutableArray *arrayTwo = [NSMutableArray array];
     
+     for(int i = 0; i< [self.allRevisions count];i++)
+     {
+         EcomapProblemDetails *differentPartOfProblemsDetails = [[EcomapProblemDetails alloc]
+                                                                 initWithProblem:self.allRevisions[i]];
+         [arrayOne addObject:differentPartOfProblemsDetails];
+         EcomapProblem *differentPartOfProblemsGeneral = [[EcomapProblem alloc]
+                                                          initWithProblem:self.allRevisions[i]];
+         [arrayTwo addObject:differentPartOfProblemsGeneral];
+     }
+    
+    
+    
+
     for(int i = 0; i< [self.allRevisions count];i++)
     {
     
@@ -64,46 +85,56 @@
         predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", num];
         [request setPredicate:predicate];
         array = [context executeFetchRequest:request error:nil];
-      
-        if([array count]== 0)
-        {
-             [ob setTitle: [self.allRevisions[i] valueForKey:@"title"]];
-            NSLog(@"%@",[self.allRevisions[i] valueForKey:@"title"]);
-             [ob setLatitude: [self.allRevisions[i] valueForKey:@"latitude"]];
-             NSLog(@"%@",[self.allRevisions[i] valueForKey:@"latitude"]);
-             [ob setLongitude:[self.allRevisions[i] valueForKey:@"longitude"]];
-              NSLog(@"%@",[self.allRevisions[i] valueForKey:@"longitude"]);
-       // [ob setDate:[self.allRevisions[i] valueForKey:@"datetime"]];
-       // [ob setNumberOfComments:[self.allRevisions[i] valueForKey:@"number_of_comments"]];
-        //[ob setNumberOfVotes: [self.allRevisions[i] valueForKey:@"number_of_votes"]];
-             [ob setContent:[self.allRevisions[i] valueForKey:@"content"]];
-        //[ob setSeverity:[self.allRevisions[i] valueForKey:@"severity"]];
-              NSNumber *number =  [self.allRevisions[i] valueForKey:@"id"];
-             [ob setIdProblem:number];
-             NSLog(@"%@",number);
-             [ob setProposal:[self.allRevisions[i] valueForKey:@"proposal"]];
-             [context save:nil];
-    }
-    else
-       {
-        [context deleteObject:array[0]];
-        [context save:nil];
-        [ob setTitle: [self.allRevisions[i] valueForKey:@"title"]];
-        [ob setLatitude: [self.allRevisions[i] valueForKey:@"latitude"]];
-        [ob setLongitude:[self.allRevisions[i] valueForKey:@"longitude"]];
-       // [ob setDate:[self.allRevisions[i] valueForKey:@"longitude"]];
-        //[ob setNumberOfComments:[self.allRevisions[i] valueForKey:@"datetime"]];
-        //[ob setNumberOfVotes: [self.allRevisions[i] valueForKey:@"number_of_votes"]];
-        [ob setContent:[self.allRevisions[i] valueForKey:@"content"]];
-        //[ob setSeverity:[self.allRevisions[i] valueForKey:@"severity"]];
-        //[ob setIdProblem:[self.allRevisions[i] valueForKey:@"id"]];
-        NSNumber *number =  [self.allRevisions[i] valueForKey:@"id"];
-        [ob setIdProblem:number];
-        [ob setProposal:[self.allRevisions[i] valueForKey:@"proposal"]];
-        [context save:nil];
-       }
         
+        if([array count] == 0)
+        {
+                Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
+                EcomapProblem *problem = arrayTwo[i];
+                EcomapProblemDetails *problemDetail =  arrayOne[i];
+                [ob setTitle:(NSString*)problem.title];
+                [ob setLatitude:[NSNumber numberWithFloat: problem.latitude]];
+                [ob setLongitude:[NSNumber numberWithFloat:problem.longitude]];
+                [ob setDate:problem.dateCreated];
+                [ob setNumberOfComments:[NSNumber numberWithInteger: problemDetail.numberOfComments]];
+                [ob setNumberOfVotes:[NSNumber numberWithInteger: problemDetail.votes]];
+                [ob setContent:problemDetail.content];
+                [ob setSeverity:[NSNumber numberWithInteger: problemDetail.severity]];
+                [ob setIdProblem:[NSNumber numberWithInteger: problem.problemID]];
+                [ob setProposal:problemDetail.proposal];
+                [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
+                [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
+                [context save:nil];
+                [coreObject.map loadProblems];
+        }
+        else
+        {
+            [context deleteObject:array[0]];
+            [context save:nil];
+            Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
+            EcomapProblem *problem = arrayTwo[i];
+            EcomapProblemDetails *problemDetail =  arrayOne[i];
+            [ob setTitle:(NSString*)problem.title];
+            [ob setLatitude:[NSNumber numberWithFloat: problem.latitude]];
+            [ob setLongitude:[NSNumber numberWithFloat:problem.longitude]];
+            [ob setDate:problem.dateCreated];
+            [ob setNumberOfComments:[NSNumber numberWithInteger: problemDetail.numberOfComments]];
+            [ob setNumberOfVotes:[NSNumber numberWithInteger: problemDetail.votes]];
+            [ob setContent:problemDetail.content];
+            [ob setSeverity:[NSNumber numberWithInteger: problemDetail.severity]];
+            [ob setIdProblem:[NSNumber numberWithInteger: problem.problemID]];
+            [ob setProposal:problemDetail.proposal];
+            [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
+            [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
+            [context save:nil];
+            [coreObject.map loadProblems];
+            
+        }
     }
+   
+   
+    
+    
+    
 }
 
 

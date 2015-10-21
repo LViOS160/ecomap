@@ -47,26 +47,20 @@
 
 +(void)loadProblemsDifferance:(void (^)(NSArray *problems, NSError *error))completionHandler
 {
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://176.36.11.25:8000/api/problems?rev=1633"]]
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://176.36.11.25:8000/api/problems?rev=1685"]]
               sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                  completionHandler:^(NSData *JSON, NSError *error) {
                      NSArray *problems = nil;
-                     NSArray *problemsFromJSON = nil;
                      if (!error) {
                          //Extract received data
-                         if (JSON) {
-                             DDLogVerbose(@"All problems loaded success from ecomap server");
-                             //Parse JSON
-                             NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
-                             problems = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
+                         if (JSON)
+                         {
+                            NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                            problems = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
                          }
                      } else [InfoActions showAlertOfError:error];
-                     
-                   
-                     //set up completionHandler
                      completionHandler(problems, error);
                  }];
-    
 }
 
 
@@ -95,7 +89,6 @@
                             problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
                             [[NSUserDefaults standardUserDefaults] setObject:revision forKey:@"revision"];
                              NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"];
-                            
                             //Fill problems array
                             if (problemsFromJSON) {
                                 problems = [NSMutableArray array];

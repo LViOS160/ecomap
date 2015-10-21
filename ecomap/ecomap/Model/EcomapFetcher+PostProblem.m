@@ -10,6 +10,7 @@
 #import "EcomapLocalPhoto.h"
 #import "AFNetworking.h"
 #import "MapViewController.h"
+#import "EcomapRevisionCoreData.h"
 
 @implementation EcomapFetcher (PostProblem)
 
@@ -41,8 +42,9 @@
         
         [manager POST:@"http://176.36.11.25:8000/api/problems" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"ura. pavlik - ne pyshy - URA");
-           
-            //[map loadProblems];
+            EcomapRevisionCoreData *revision = [[EcomapRevisionCoreData alloc] init];
+            [revision checkRevison];
+            
             NSLog(@"ura!");
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -50,69 +52,11 @@
             
             NSLog(@"%@",error);
         }];
-        
-   
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [[NetworkActivityIndicator sharedManager]endActivity];
+     dispatch_async(dispatch_get_main_queue(), ^{
+     [[NetworkActivityIndicator sharedManager]endActivity];
     });
     
-    
-
-    
-    
-    /*
-    
-    // Determine the path for the image
-   NSMutableArray *localPhotos = [NSMutableArray arrayWithCapacity:problemDetails.photos.count];
-    for (EcomapLocalPhoto *photo in problemDetails.photos) {
-        [localPhotos addObject:[[EcomapLocalPhoto alloc] initWithImage:photo.image
-                                                           description:photo.imageDescription]];
     }
-    
-    
-    // Create the request
-    
-    NSString *boundary = [EcomapFetcher generateBoundaryString];
-    
-    // configure the request
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[EcomapURLFetcher URLforProblemPost]];
-    [request setHTTPMethod:@"POST"];
-    
-    // set content type
-    
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    // create body
-    
-    NSData *httpBody = [EcomapFetcher createBodyWithBoundary:boundary parameters:params photos:localPhotos];
-    
-    NSURLSession *session = [NSURLSession sharedSession];  // use sharedSession or create your own
-    
-    NSURLSessionTask *task = [session uploadTaskWithRequest:request
-                                                   fromData:httpBody
-                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              NSLog(@"Postet");
-                                              if (error) {
-                                                  DDLogVerbose(@"error = %@", error);
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      completionHandler(nil, error);
-                                                  });
-                                                  return;
-                                              }
-                                              
-                                              NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                              DDLogVerbose(@"result = %@", result);
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  completionHandler(result, error);
-                                              });
-                                          }];
-    [task resume];
-    */
-}
 
 + (void)addPhotos:(NSArray*)photos
         toProblem:(NSUInteger)problemId
