@@ -9,6 +9,10 @@
 #import "EcomapRevisionCoreData.h"
 #import "EcomapFetcher.h"
 #import "AppDelegate.h"
+
+
+
+
 @implementation EcomapRevisionCoreData
 
 + (instancetype)sharedInstance
@@ -22,7 +26,9 @@
 
 - (void)checkRevison
 {
-  
+    
+    
+;
     [EcomapFetcher checkRevision:^(BOOL differance, NSError *error) {
     if (!error)
         {
@@ -51,6 +57,8 @@
                                               inManagedObjectContext:context];
     
     [request setEntity:entity];
+    EcomapCoreDataControlPanel *coreObject = [EcomapCoreDataControlPanel sharedInstance];
+
     NSPredicate *predicate;
     NSArray *array;
     NSMutableArray *arrayOne = [NSMutableArray array];
@@ -96,7 +104,7 @@
                 [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
                 [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
                 [context save:nil];
-                i++;
+                [coreObject.map loadProblems];
         }
         else
         {
@@ -118,9 +126,15 @@
             [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
             [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
             [context save:nil];
-            i++;
+            [coreObject.map loadProblems];
+            
         }
     }
+   
+   
+    
+    
+    
 }
 
 

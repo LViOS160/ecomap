@@ -56,6 +56,12 @@
 
 @implementation MapViewController
 
+
+- (void)renewCurrentMapCanvas
+{
+    
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,7 +74,8 @@
                                              selector:@selector(allProblemsChanged:)
                                                  name:ALL_PROBLEMS_CHANGED
                                                object:nil];
-   
+    EcomapCoreDataControlPanel *coreObject = [EcomapCoreDataControlPanel sharedInstance];
+    [coreObject setMap:self];
 }
 
 - (void)login
@@ -208,7 +215,6 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
     [request setEntity:descr];
-    //[request setResultType:NSDictionaryResultType];
     NSArray *arr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
     NSMutableArray *allProblems = [NSMutableArray array];
     for (Problem *problem in arr) {

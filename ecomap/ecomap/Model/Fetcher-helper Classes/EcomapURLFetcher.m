@@ -18,9 +18,7 @@
 {
     NSMutableString *base = [NSMutableString stringWithFormat: @"http://176.36.11.25:8000/api/problems?rev="];
     NSString *currentRevision = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"]];
-    
     [base  appendString:currentRevision];
-    
     return [NSURL URLWithString:base];
 }
 

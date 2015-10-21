@@ -10,6 +10,7 @@
 #import "EcomapLocalPhoto.h"
 #import "AFNetworking.h"
 #import "MapViewController.h"
+#import "EcomapRevisionCoreData.h"
 
 @implementation EcomapFetcher (PostProblem)
 
@@ -41,8 +42,9 @@
         
         [manager POST:@"http://176.36.11.25:8000/api/problems" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"ura. pavlik - ne pyshy - URA");
-           
-            //[map loadProblems];
+            EcomapRevisionCoreData *revision = [[EcomapRevisionCoreData alloc] init];
+            [revision checkRevison];
+            
             NSLog(@"ura!");
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
