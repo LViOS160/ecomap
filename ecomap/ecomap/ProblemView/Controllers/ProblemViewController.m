@@ -114,6 +114,7 @@ typedef enum : NSUInteger
     self.data =[ob returnDetail:self.problemID];
     EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
     [comentsID setProblemsID:self.problemID];
+    
     EcomapProblemDetails *obj = [EcomapProblemDetails alloc];
     self.problemDetails = [obj detailViewProblemFromCoreData:self.data];
     self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];

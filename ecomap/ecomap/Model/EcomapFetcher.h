@@ -45,7 +45,7 @@
 
 + (void)loadAllProblemsOnCompletion:(void (^)(NSArray *problems, NSError *error))completionHandler;
 +(void)checkRevision:(void (^)(BOOL differance, NSError *error))completionHandler;
-+(void)loadProblemsDifferance:(void (^)(NSArray *problems, NSError *error))completionHandler;
++(void)loadProblemsDifference:(void (^)(NSArray *problems, NSError *error))completionHandler;
 +(BOOL)updateComments:(NSUInteger)problemID;
 +(void)loadAllProblemsDescription:(void (^)(NSArray *problems, NSError *error))completionHandler;
 

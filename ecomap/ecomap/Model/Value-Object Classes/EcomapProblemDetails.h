@@ -17,6 +17,7 @@
 @property (nonatomic, readonly) NSUInteger moderation;
 @property (nonatomic, readonly) NSUInteger votes;
 @property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, readonly) NSUInteger userID;
 @property (nonatomic, strong) NSArray *comments;
 
 

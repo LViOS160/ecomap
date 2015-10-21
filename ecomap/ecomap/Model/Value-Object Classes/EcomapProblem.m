@@ -56,15 +56,8 @@
         
         self.userCreator = [data.userID integerValue];
         
-        
-
-    
     }
-
-    
-    
-    
-    return self;
+   return self;
 }
 
 
