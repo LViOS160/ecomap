@@ -133,13 +133,19 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-- (void)applicationWillTerminate:(UIApplication *)application {[self saveContext];}
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [self saveContext];
+}
 
-- (void)saveContext {
+- (void)saveContext
+{
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges]&& ![managedObjectContext save:&error]) {
+    if (managedObjectContext != nil)
+    {
+        if ([managedObjectContext hasChanges]&& ![managedObjectContext save:&error])
+        {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }

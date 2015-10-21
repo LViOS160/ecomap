@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) NSString *title;
+
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
 - (EcomapProblemDetails*)detailViewProblemFromCoreData:(Problem*) data;
 @end
