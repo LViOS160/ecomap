@@ -16,6 +16,7 @@
 #import "EcomapAlias.h"
 #import "EcomapPathDefine.h"
 #import "GlobalLoggerLevel.h"
+#import "EcomapCoreDataControlPanel.h"
 @interface ResourcesViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
@@ -105,6 +106,10 @@
          {
              NSMutableArray *titlesOfResources = [[NSMutableArray alloc]init];
              NSMutableArray *aliasesFromResources = [[NSMutableArray alloc]init];
+             
+             //JO
+             NSMutableArray *allresources = [[NSMutableArray alloc] init];
+             
              EcomapResources *ecoResources = nil;
              for(id result in resources)
              {    ecoResources = result;
@@ -112,6 +117,12 @@
                  NSNumber *contNum =[NSNumber numberWithInt:ecoResources.resId];
                  [aliasesFromResources addObject:contNum];
                  // fill the array of aliases
+                 
+                 //JuliaOdynak
+                 [allresources addObject:ecoResources];
+                 EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+                 resourcesIntoCD.resourcesFromWeb = [NSArray arrayWithArray:allresources];
+                 [resourcesIntoCD loadResources];
              }
              self.titleRes = [[NSMutableArray alloc]initWithArray:titlesOfResources];
              self.pathes = [[NSArray alloc]initWithArray:aliasesFromResources];

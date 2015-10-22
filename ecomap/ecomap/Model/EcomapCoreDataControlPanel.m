@@ -120,4 +120,53 @@
     
 }
 
+
+- (void) loadResources
+{
+    // [self.refreshControl beginRefreshing];
+    //    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error) {
+    //         self.resourcesFromWeb = [NSArray arrayWithArray:resources];
+    //         if (!error)
+    //         {
+    //             self.resourcesFromWeb = [NSArray arrayWithArray:resources];
+    //             //[self addResourceIntoCD];
+    //         }
+    //
+    //     }];
+    //    [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
+    //        self.resourceContent
+    //        <#code#>
+    //    } String:<#(NSString *)#>];
+    
+}
+
+- (void) addResourceIntoCD
+{
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSError *error;
+//    for(id object in self.resourcesFromWeb )
+//    {
+//        Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
+//        if([object isKindOfClass:[EcomapResources class]])
+//        {
+//            EcomapResources *resource = (EcomapResources*) object;
+//            [currentResource setTitle:(NSString*)resource.titleRes];
+//            [currentResource setAlias:(NSString *)resource.alias];
+//            [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
+//            [currentResource setContent:(NSString *)self.resourceContent];
+//        }
+//    }
+//    [context save:&error];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
+    [request setEntity:description];
+    [request setResultType:NSDictionaryResultType];
+    NSError *requestError = nil;
+    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
+    NSLog(@"%@", requestArray);
+    
+}
+
+
 @end

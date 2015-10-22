@@ -10,6 +10,7 @@
 #import "EcomapLocalPhoto.h"
 #import "InfoActions.h"
 #import "AFNetworking.h"
+#import "EcomapCoreDataControlPanel.h"
 
 @implementation EcomapFetcher
 
@@ -223,6 +224,15 @@
                         {
                             EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:value];
                             [aliases addObject:ecoAl];
+                            
+                            //JuliaOdynak
+                            EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+                            resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
+                            NSNumber *num = [value objectForKey:@"id"];
+                            NSInteger theValue = [num intValue];
+                            //[num release];
+                            //[resourcesIntoCD putContent:theValue];
+                            [resourcesIntoCD addResourceIntoCD];
                         }
                     }
                     else
