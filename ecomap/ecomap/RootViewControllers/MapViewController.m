@@ -85,10 +85,18 @@
     if ([isLogged isEqualToString:@"YES"]) {
         [EcomapUserFetcher loginWithEmail:[ud objectForKey:@"email"]
                               andPassword:[ud objectForKey:@"password"] OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                                  //show greeting for logged user
-                                  [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо, %@!", @"Welcome, {User Name}"), loggedUser.name]];
+                                  if (loggedUser.name)
+                                  {
+                                      //show greeting for logged user
+                                      [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо, %@!", @"Welcome, {User Name}"), loggedUser.name]];
+                                  }
                               }];
     }
+    else
+    {
+        [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо!", @"Welcome!")]];       
+    }
+    
 }
 
 - (void)allProblemsChanged:(NSNotification*)notification
