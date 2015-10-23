@@ -37,7 +37,7 @@
 -(void)setCommentariesArray:(NSArray *)comentArray :(NSUInteger)probId
 {
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-    ob.comInfo =comentArray;
+    ob.comInfo = comentArray;    
     ob.problemsID = probId;
 }
 
