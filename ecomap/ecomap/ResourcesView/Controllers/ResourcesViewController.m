@@ -29,7 +29,7 @@
 
 #pragma mark - Init
 
--(NSString *)currentPath
+- (NSString *)currentPath
 {
     if (!_currentPath)
     {
@@ -39,15 +39,14 @@
 }
 
 
--(void)setTitleRes:(NSMutableArray *)titleRes
+- (void)setTitleRes:(NSMutableArray *)titleRes
 {
     _titleRes = titleRes;
     [self.tableView reloadData];
 }
 
--(NSMutableArray *)titleRes
+- (NSMutableArray *)titleRes
 {
-    
     if (!_titleRes)
     {
         _titleRes = [[NSMutableArray alloc]init];
@@ -55,7 +54,7 @@
     return _titleRes;
 }
 
--(NSString *)descriptionRes
+- (NSString *)descriptionRes
 {
     if (!_descriptionRes)
     {
@@ -80,7 +79,6 @@
 
 - (void)customSetup
 {
-    
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
     if ( revealViewController )
     {
