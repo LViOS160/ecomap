@@ -19,7 +19,7 @@
     static dispatch_once_t predicat;
     dispatch_once(&predicat,
                   ^{
-        object = [[EcomapCoreDataControlPanel alloc] init];
+                      object = [[EcomapCoreDataControlPanel alloc] init];
                   });
     return object;
 }
@@ -29,29 +29,29 @@
 - (void)loadData
 {
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
-    {
-        self.allProblems = [NSArray arrayWithArray:problems];
-        if (!error)
-        {
-            self.allProblems = [NSArray arrayWithArray:problems];
-        }
-    }];
+     {
+         self.allProblems = [NSArray arrayWithArray:problems];
+         if (!error)
+         {
+             self.allProblems = [NSArray arrayWithArray:problems];
+         }
+     }];
     
     [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
-    {
-        self.allProblems = [NSArray arrayWithArray:problems];
-        if (!error)
-        {
-            self.descr = [NSArray arrayWithArray:problems];
-            [self addProblemIntoCoreData];
-        }
-    }];
+     {
+         self.allProblems = [NSArray arrayWithArray:problems];
+         if (!error)
+         {
+             self.descr = [NSArray arrayWithArray:problems];
+             [self addProblemIntoCoreData];
+         }
+     }];
     
-     [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
 }
 
 
-- (Problem*)returnDetail:(NSInteger)id1
+- (Problem*)returnDetail:(NSInteger)identifier
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
@@ -59,7 +59,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Problem"
                                               inManagedObjectContext:context];
     [request setEntity:entity];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", id1];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", identifier];
     [request setPredicate:predicate];
     NSArray *array = [context executeFetchRequest:request error:nil];
     return array[0];
@@ -97,13 +97,13 @@
     }
     [context save:&error];
     
-   
-   
+    
+    
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
     [request setEntity:descr];
-
+    
     NSArray *arr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
     
     for(NSManagedObject *object in arr)
@@ -111,7 +111,7 @@
         
         if([object isKindOfClass:[Problem class]])
         {
-          Problem* ob = (Problem*)object;
+            Problem* ob = (Problem*)object;
             
         }
     }
@@ -123,6 +123,10 @@
 
 - (void) loadResources
 {
+    /*
+     * Please do not remove this. I think I'll use it sometime later :(
+     */
+    
     // [self.refreshControl beginRefreshing];
     //    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error) {
     //         self.resourcesFromWeb = [NSArray arrayWithArray:resources];
@@ -143,29 +147,34 @@
 - (void) addResourceIntoCD
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
-    NSError *error;
-//    for(id object in self.resourcesFromWeb )
-//    {
-//        Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
-//        if([object isKindOfClass:[EcomapResources class]])
-//        {
-//            EcomapResources *resource = (EcomapResources*) object;
-//            [currentResource setTitle:(NSString*)resource.titleRes];
-//            [currentResource setAlias:(NSString *)resource.alias];
-//            [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
-//            [currentResource setContent:(NSString *)self.resourceContent];
-//        }
-//    }
-//    [context save:&error];
+    NSError *error = nil;
+    
+    //    for(id object in self.resourcesFromWeb )
+    //    {
+    //        Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
+    //        if([object isKindOfClass:[EcomapResources class]])
+    //        {
+    //            EcomapResources *resource = (EcomapResources*) object;
+    //            [currentResource setTitle:(NSString*)resource.titleRes];
+    //            [currentResource setAlias:(NSString *)resource.alias];
+    //            [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
+    //            [currentResource setContent:(NSString *)self.resourceContent];
+    //        }
+    //    }
+    //    [context save:&error];
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
+    
     [request setEntity:description];
     [request setResultType:NSDictionaryResultType];
+    
     NSError *requestError = nil;
     NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
-    NSLog(@"%@", requestArray);
     
+    NSLog(@"%@", requestArray);
 }
 
 
