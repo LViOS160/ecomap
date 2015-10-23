@@ -16,7 +16,7 @@
 
 @end
 
-@interface ProblemViewController : UIViewController
+@interface ProblemViewController : UIViewController  <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic) NSUInteger problemID;
 

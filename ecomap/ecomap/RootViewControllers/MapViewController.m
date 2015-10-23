@@ -52,9 +52,68 @@
 // Set which contains problems after applying filter.
 @property (nonatomic, strong) NSSet *filteredProblems;
 
+
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *storeCoordinator;
+
+
 @end
 
 @implementation MapViewController
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (self.fetchedResultsController != nil) {
+        return self.fetchedResultsController;
+    }
+    
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
+    
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Problem" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                            initWithKey:@"idProblem" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
+                                                   cacheName:nil];
+    
+    self.fetchedResultsController = (NSFetchedResultsController *)theFetchedResultsController;
+    
+    self.fetchedResultsController.delegate = self;
+    
+    return self.fetchedResultsController;
+    
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert: case NSFetchedResultsChangeDelete: case NSFetchedResultsChangeUpdate:
+        {
+            [self loadProblems];
+            break;
+        }
+            
+        case NSFetchedResultsChangeMove:
+            break;
+    }
+}
+
 
 
 - (void)renewCurrentMapCanvas
