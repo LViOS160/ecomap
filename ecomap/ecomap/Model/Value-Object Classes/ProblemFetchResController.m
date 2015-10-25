@@ -12,10 +12,13 @@
 @implementation ProblemFetchResController
 
 @synthesize fetchedResultsController = _fetchedResultsController;
+//@synthesize managedObjectContext = _managedObjectContext;
+
 
 - (ProblemFetchResController *)fetchedResultsController {
     
-    if (self.fetchedResultsController != nil) {
+    if (self.fetchedResultsController != nil)
+    {
         return self.fetchedResultsController;
     }
     
