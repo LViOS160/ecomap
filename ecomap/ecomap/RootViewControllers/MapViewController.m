@@ -63,8 +63,8 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    NSSet *problemsSet = [NSSet setWithArray:self.arrayWithProblems];
-    [self renewMap:problemsSet];
+    [self renewMap:self.currentAllProblems];
+    [self saveLocalJSON:self.currentAllProblems];
     
 }
 
@@ -136,14 +136,6 @@
     [self reachabilitySetup];
     [self login];
    
-    NSError *error = nil;
-    
-    [self.fetchedResultsController performFetch:&error];
-    
-    if (error)
-    {
-        NSLog(@"%@", error);
-    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(allProblemsChanged:)
@@ -296,7 +288,21 @@
 -(void)loadProblems
 {
     
-    self.arrayWithProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+    NSError *error = nil;
+    [self.fetchedResultsController performFetch:&error];
+    
+    if (error)
+    {
+        NSLog(@"%@", error);
+    }
+    
+    if (!self.arrayWithProblems)
+    {
+        self.arrayWithProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+    }
+    
+    NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+    self.currentAllProblems = [[NSSet alloc]initWithSet:set];
     
     /*AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
@@ -323,30 +329,7 @@
         }
     }*/
 
-    
-    
-    
-   /* [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-      
-      //  self.arrayWithProblems = [NSArray arrayWithArray:problems];
-       // EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
-       // [ob loadData];
-        
-        //[ob addProblemIntoCoreData];
-       // [ob countAllProblemsCategory];
-        if (!error)
-        {
-            NSSet *set = [[NSSet alloc] initWithArray:problems];
-            self.currentAllProblems = [[NSSet alloc]initWithSet:set];
-         //   NSLog(@"%@",[self.currentAllProblems valueForKey:@");
-            if (![self.problems isEqualToSet:set])
-            {
-                [self renewMap:set];
-                [self saveLocalJSON:set];
-            }
-        }
-    }];*/
-    
+   
 }
 
 #pragma mark - Problem Filter TVC Delegate
