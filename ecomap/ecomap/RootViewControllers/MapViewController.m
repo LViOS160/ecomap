@@ -29,7 +29,7 @@
 #import "TOP10.h"
 #import "AppDelegate.h"
 #import "EcomapStatistics.h"
-#import "ProblemFetchResController.h"
+#import "EcomapFetchedResultController.h"
 
 #import "EcomapCoreDataControlPanel.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
