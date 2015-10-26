@@ -34,7 +34,7 @@
 #import "EcomapCoreDataControlPanel.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
-@interface MapViewController () <ProblemFilterTVCDelegate>
+@interface MapViewController () <ProblemFilterTVCDelegate/*, NSFetchedResultsControllerDelegate*/>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
@@ -50,14 +50,15 @@
 // Set which contains problems after applying filter.
 @property (nonatomic, strong) NSSet *filteredProblems;
 
-@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
-@property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+//@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+//@property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation MapViewController
 
 /*@synthesize fetchedResultsController = _fetchedResultsController;
+
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (self.fetchedResultsController != nil) {
@@ -122,42 +123,9 @@
         case NSFetchedResultsChangeMove:
             break;
     }
-}
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (self.fetchedResultsController)
-    {
-        return self.fetchedResultsController;
-    }
-    
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
-    
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Problem" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                              initWithKey:@"idProblem" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSFetchedResultsController *theFetchedResultsController =
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
-                                                   cacheName:nil];
-    
-    self.fetchedResultsController = (NSFetchedResultsController *)theFetchedResultsController;
-    
-    self.fetchedResultsController.delegate = self;
-    
-    return self.fetchedResultsController;
-    
 }*/
+
+
 
 - (void)viewDidLoad
 {

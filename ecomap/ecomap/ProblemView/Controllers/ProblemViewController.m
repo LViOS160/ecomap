@@ -44,11 +44,6 @@ typedef enum : NSUInteger
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) ContainerViewController *containerViewController;
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, strong) NSPersistentStoreCoordinator *storeCoordinator;
-
 @property (weak, nonatomic) id <EcomapProblemViewDelegate> delegate;
 
 // For admin purposes
@@ -62,35 +57,6 @@ typedef enum : NSUInteger
 @implementation ProblemViewController
 
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    
-  
-
-    return self.fetchedResultsController;
-    
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath  {
-    
-    
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            break;
-    }
-}
-
-
 
 #pragma mark - View Controller Life Cycle
 
@@ -102,49 +68,6 @@ typedef enum : NSUInteger
     UITapGestureRecognizer *tapStatusLabelGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapStatusLabelWithGestureRecognizer:)];
     [self.statusLabel addGestureRecognizer:tapStatusLabelGestureRecognizer];
     
-    //AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    //self.managedObjectContext = appDelegate.managedObjectContext;
-    
-    NSError *error = nil;
-    
-    if (!self.fetchedResultsController)
-    {
-        
-        AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-        self.managedObjectContext = appDelegate.managedObjectContext;
-        
-        
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"Problem" inManagedObjectContext:self.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", self.problemID];
-        [fetchRequest setPredicate:predicate];
-        
-        //NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-        //                        initWithKey:@"idProblem" ascending:NO];
-        //[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        
-        [fetchRequest setFetchBatchSize:20];
-        
-        NSFetchedResultsController *theFetchedResultsController =
-        [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                            managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
-                                                       cacheName:nil];
-        
-        self.fetchedResultsController = (NSFetchedResultsController *)theFetchedResultsController;
-        
-        self.fetchedResultsController.delegate = self;
-        [self.fetchedResultsController performFetch:&error];
-        
-        if (error)
-        {
-            NSLog(@"Unable to perform fetch.");
-            NSLog(@"%@", error);
-        }
-    }
     
     self.user = [EcomapLoggedUser currentLoggedUser];
     [self updateHeader];
@@ -153,11 +76,6 @@ typedef enum : NSUInteger
                                              selector:@selector(problemsDetailsChanged)
                                                  name:PROBLEMS_DETAILS_CHANGED
                                                object:nil];
-}
-
-- (void)viewDidUnload
-{
-    self.fetchedResultsController = nil;
 }
 
 - (void)dealloc
