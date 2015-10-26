@@ -136,21 +136,9 @@
         return _fetchedResultsController;
     }
     
-
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:self.managedObjectContext];
-    
-    [request setEntity:description];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"resourceID" ascending:YES];
-    NSArray *sortDescriptors = @[sortDescriptor];
-    
-    [request setSortDescriptors:sortDescriptors];
-    
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    
-    NSManagedObjectContext* context = appDelegate.managedObjectContext;
-    self.managedObjectContext = context;
+    NSFetchRequest *request = [EcomapFetchedResultController
+                               requestWithEntityName:@"Resource"
+                               sortBy:@"resourceID"];
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:request
@@ -163,8 +151,6 @@
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error])
     {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
