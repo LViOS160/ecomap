@@ -22,6 +22,8 @@
 #import "GlobalLoggerLevel.h"
 #import "Defines.h"
 
+#import "AppDelegate.h"
+
 
 #import "EcomapFetcher.h"
 
@@ -53,6 +55,8 @@ typedef enum : NSUInteger
 @end
 
 @implementation ProblemViewController
+
+
 
 #pragma mark - View Controller Life Cycle
 

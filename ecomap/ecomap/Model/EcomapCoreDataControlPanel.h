@@ -26,6 +26,10 @@
 
 @property (nonatomic, strong) NSArray *resourcesFromWeb;
 
+@property (nonatomic, strong) NSArray *commentsFromWeb;
+
+- (void) addCommentsIntoCoreData;
+
 - (void) addResourceIntoCD;
 - (void) loadResources;
 

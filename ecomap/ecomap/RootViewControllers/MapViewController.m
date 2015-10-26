@@ -29,14 +29,12 @@
 #import "TOP10.h"
 #import "AppDelegate.h"
 #import "EcomapStatistics.h"
-
-
-
+#import "EcomapFetchedResultController.h"
 
 #import "EcomapCoreDataControlPanel.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
-@interface MapViewController () <ProblemFilterTVCDelegate>
+@interface MapViewController () <ProblemFilterTVCDelegate/*, NSFetchedResultsControllerDelegate*/>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
@@ -46,22 +44,89 @@
 @property (nonatomic, strong) SRWebSocket *socket;
 @property (nonatomic) Reachability *hostReachability;
 @property  NSSet* currentAllProblems;
-@property NSArray* arrayWithProblems;
+@property NSMutableArray* arrayWithProblems;
 // Filtering mask. We get it through NSNotificationCenter
 @property (nonatomic, strong) EcomapProblemFilteringMask *filteringMask;
 // Set which contains problems after applying filter.
 @property (nonatomic, strong) NSSet *filteredProblems;
 
+//@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+//@property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+
 @end
 
 @implementation MapViewController
 
+/*@synthesize fetchedResultsController = _fetchedResultsController;
 
-- (void)renewCurrentMapCanvas
-{
+- (NSFetchedResultsController *)fetchedResultsController {
     
+    if (self.fetchedResultsController != nil) {
+        return self.fetchedResultsController;
+    }
+    
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
+    
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Problem" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                            initWithKey:@"idProblem" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
+                                                   cacheName:nil];
+    
+    self.fetchedResultsController = (NSFetchedResultsController *)theFetchedResultsController;
+    
+    self.fetchedResultsController.delegate = self;
+    
+    return self.fetchedResultsController;
     
 }
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self renewMap:self.currentAllProblems];
+    [self saveLocalJSON:self.currentAllProblems];
+    
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.arrayWithProblems addObject:anObject];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.arrayWithProblems removeObject:anObject];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            self.arrayWithProblems[indexPath.row] = anObject;
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            break;
+    }
+}*/
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,13 +135,18 @@
     [self socketInit];
     [self reachabilitySetup];
     [self login];
+   
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(allProblemsChanged:)
                                                  name:ALL_PROBLEMS_CHANGED
                                                object:nil];
+    
     EcomapCoreDataControlPanel *coreObject = [EcomapCoreDataControlPanel sharedInstance];
     [coreObject setMap:self];
 }
+
+
 
 - (void)login
 {
@@ -155,7 +225,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
 {
-    NSLog(@"Faild to connect %@", error);
+    NSLog(@"Failed to connect %@", error);
     [self.socket close];
 }
 
@@ -196,7 +266,6 @@
     EcomapStatistics *ob = [EcomapStatistics sharedInstanceStatistics];
     [ob setAllProblems:self.arrayWithProblems];
     TOP10 *obj = [TOP10 sharedInstanceTOP10];
-  //  [ob setAllProblems:self.arrayWithProblems	];
     [obj setAllProblems:self.arrayWithProblems];
     
     [self.clusterManager removeItems];
@@ -218,6 +287,23 @@
 
 -(void)loadProblems
 {
+    
+    /*NSError *error = nil;
+    [self.fetchedResultsController performFetch:&error];
+    
+    if (error)
+    {
+        NSLog(@"%@", error);
+    }
+    
+    if (!self.arrayWithProblems)
+    {
+        self.arrayWithProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+    }
+    
+    NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+    self.currentAllProblems = [[NSSet alloc]initWithSet:set];*/
+    
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -230,7 +316,7 @@
         [allProblems addObject:ecoProblem];
     }
 
-      self.arrayWithProblems = [NSArray arrayWithArray:allProblems];
+      self.arrayWithProblems = allProblems;
   
     
     
@@ -241,32 +327,9 @@
             [self renewMap:set];
             [self saveLocalJSON:set];
         }
-    }
+}
 
-    
-    
-    
-   /* [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-      
-      //  self.arrayWithProblems = [NSArray arrayWithArray:problems];
-       // EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
-       // [ob loadData];
-        
-        //[ob addProblemIntoCoreData];
-       // [ob countAllProblemsCategory];
-        if (!error)
-        {
-            NSSet *set = [[NSSet alloc] initWithArray:problems];
-            self.currentAllProblems = [[NSSet alloc]initWithSet:set];
-         //   NSLog(@"%@",[self.currentAllProblems valueForKey:@");
-            if (![self.problems isEqualToSet:set])
-            {
-                [self renewMap:set];
-                [self saveLocalJSON:set];
-            }
-        }
-    }];*/
-    
+   
 
 
 #pragma mark - Problem Filter TVC Delegate

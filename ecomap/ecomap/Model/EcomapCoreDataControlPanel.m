@@ -165,4 +165,42 @@
 }
 
 
+// added Iuliia Korniichuk
+
+- (void) addCommentsIntoCoreData
+{
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSError *error = nil;
+    
+    for(id object in self.commentsFromWeb)
+    {
+        Comment *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
+        NSDictionary *commentDictionary = (NSDictionary*) object;
+        [currentComment setCreated_by:(NSString*)[commentDictionary valueForKey:@"created_by"]];
+        [currentComment setContent:(NSString*)[commentDictionary valueForKey:@"content"]];
+        [currentComment setProblem_id:(NSNumber*)[commentDictionary valueForKey:@"id"]];
+        [currentComment setUser_id:(NSNumber*)[commentDictionary valueForKey:@"user_id"]];
+        [currentComment setCreated_date:(NSString*)[commentDictionary valueForKey:@"created_date"]];
+        
+        if (![[commentDictionary valueForKey:@"modified_date"] isKindOfClass:[NSNull class]])
+        {
+           [ currentComment setModified_date:(NSString*)[commentDictionary valueForKey:@"modified_date"]];
+        }
+    }
+    [context save:&error];
+
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *description = [NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context];
+    
+    [request setEntity:description];
+    [request setResultType:NSDictionaryResultType];
+    
+    NSError *requestError = nil;
+    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
+    
+    NSLog(@"%@", requestArray);    
+}
+
 @end

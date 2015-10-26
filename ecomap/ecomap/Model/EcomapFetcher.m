@@ -335,6 +335,12 @@
         EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
         [ob setCommentariesArray:ar :problemID];
         ob.problemsID = problemID;
+        
+        //added Iuliia Korniichuk
+        EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
+        commentsIntoCoreData.commentsFromWeb = (NSArray*)ar;        
+        [commentsIntoCoreData addCommentsIntoCoreData];
+        
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
