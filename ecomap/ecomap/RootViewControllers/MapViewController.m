@@ -103,9 +103,17 @@
     
     switch(type) {
             
-        case NSFetchedResultsChangeInsert: case NSFetchedResultsChangeDelete: case NSFetchedResultsChangeUpdate:
+        case NSFetchedResultsChangeInsert:
         {
-            [self loadProblems];
+            
+        }
+        case NSFetchedResultsChangeDelete:
+        {
+            
+        }
+        case NSFetchedResultsChangeUpdate:
+        {
+            
             break;
         }
             
