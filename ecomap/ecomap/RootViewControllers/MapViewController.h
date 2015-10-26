@@ -15,7 +15,7 @@
 #import "EcomapRevisionCoreData.h"
 
 
-@interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate, NSFetchedResultsControllerDelegate>
+@interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>
 
 @property (nonatomic, strong) GMSMapView *mapView;
 -(void)loadProblems;

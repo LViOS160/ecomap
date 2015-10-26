@@ -34,7 +34,7 @@
 #import "EcomapCoreDataControlPanel.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
-@interface MapViewController () <ProblemFilterTVCDelegate, NSFetchedResultsControllerDelegate>
+@interface MapViewController () <ProblemFilterTVCDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
