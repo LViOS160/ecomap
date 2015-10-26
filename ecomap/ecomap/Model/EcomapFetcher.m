@@ -277,7 +277,11 @@
                     
                     completionHandler(resources,error);
                     
+                    EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+                    resourcesIntoCD.resourcesFromWeb = resources;
+                    [resourcesIntoCD loadResources];
                 }];
+    
     
     
 }

@@ -43,32 +43,31 @@
     }
 
 }
-//
-//#pragma mark - TableView
-//
-//
-//// refreshing method - Spinner refreshing while data loading
-//
+
+#pragma mark - TableView
+// refreshing method - Spinner refreshing while data loading
 
 - (IBAction)refreshing
 {
     [self.refreshControl beginRefreshing];
-    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
-     {
-         if (!error && resources && resources.count > 0)
-         {
-             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-             resourcesIntoCD.resourcesFromWeb = resources;
-             [resourcesIntoCD loadResources];
-         }
-         else
-         {
-             DDLogVerbose(@"ERROR");
-         }
-         
-         [self.refreshControl endRefreshing];
-     }
-     ];
+//    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
+//     {
+//         if (!error && resources && resources.count > 0)
+//         {
+////             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+////             resourcesIntoCD.resourcesFromWeb = resources;
+////             [resourcesIntoCD loadResources];
+//         }
+//         else
+//         {
+//             DDLogVerbose(@"ERROR");
+//         }
+//         
+//         [self.refreshControl endRefreshing];
+//     }
+//     ];
+    [self fetchedResultsController];
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - For WebView
@@ -83,13 +82,11 @@
             EcomapAlias *ecoal = nil;
             ecoal=alias.firstObject;
             completionHandler(ecoal.content, nil);
-            
         }
         else
         {
             DDLogVerbose(@"Error");
         }
-        
         
     } String:self.currentPath];
     
@@ -111,8 +108,6 @@
         }];
         
     }
-    
-    
 }
 
 @synthesize fetchedResultsController = _fetchedResultsController;
@@ -136,21 +131,9 @@
         return _fetchedResultsController;
     }
     
-
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:self.managedObjectContext];
-    
-    [request setEntity:description];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"resourceID" ascending:YES];
-    NSArray *sortDescriptors = @[sortDescriptor];
-    
-    [request setSortDescriptors:sortDescriptors];
-    
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    
-    NSManagedObjectContext* context = appDelegate.managedObjectContext;
-    self.managedObjectContext = context;
+    NSFetchRequest *request = [EcomapFetchedResultController
+                               requestWithEntityName:@"Resource"
+                               sortBy:@"resourceID"];
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:request
@@ -163,8 +146,6 @@
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error])
     {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
