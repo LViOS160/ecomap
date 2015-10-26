@@ -50,17 +50,14 @@
 // Set which contains problems after applying filter.
 @property (nonatomic, strong) NSSet *filteredProblems;
 
-
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, strong) NSPersistentStoreCoordinator *storeCoordinator;
-
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+@property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation MapViewController
 
+/*@synthesize fetchedResultsController = _fetchedResultsController;
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (self.fetchedResultsController != nil) {
@@ -96,31 +93,36 @@
     
 }
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self renewMap:self.currentAllProblems];
+    [self saveLocalJSON:self.currentAllProblems];
     
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
     
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-        {
-            
-        }
-        case NSFetchedResultsChangeDelete:
-        {
-            
-        }
-        case NSFetchedResultsChangeUpdate:
-        {
-            
+            [self.arrayWithProblems addObject:anObject];
             break;
-        }
+            
+        case NSFetchedResultsChangeDelete:
+            [self.arrayWithProblems removeObject:anObject];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            self.arrayWithProblems[indexPath.row] = anObject;
+            break;
             
         case NSFetchedResultsChangeMove:
             break;
     }
 }
-
-
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
@@ -155,7 +157,7 @@
     
     return self.fetchedResultsController;
     
-}
+}*/
 
 - (void)viewDidLoad
 {
@@ -318,7 +320,7 @@
 -(void)loadProblems
 {
     
-    NSError *error = nil;
+    /*NSError *error = nil;
     [self.fetchedResultsController performFetch:&error];
     
     if (error)
@@ -332,9 +334,9 @@
     }
     
     NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
-    self.currentAllProblems = [[NSSet alloc]initWithSet:set];
+    self.currentAllProblems = [[NSSet alloc]initWithSet:set];*/
     
-    /*AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
@@ -357,10 +359,10 @@
             [self renewMap:set];
             [self saveLocalJSON:set];
         }
-    }*/
+}
 
    
-}
+
 
 #pragma mark - Problem Filter TVC Delegate
 
