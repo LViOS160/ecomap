@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSArray *commentsFromWeb;
 
 - (void) addCommentsIntoCoreData;
+- (void) requestForAllComments;
 
 - (void) addResourceIntoCD;
 - (void) loadResources;

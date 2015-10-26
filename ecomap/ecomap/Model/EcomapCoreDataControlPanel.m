@@ -190,7 +190,14 @@
         }
     }
     [context save:&error];
+}
 
+-(void)requestForAllComments
+{
+   
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSError *error = nil;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *description = [NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context];
     
@@ -200,7 +207,7 @@
     NSError *requestError = nil;
     NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
     
-    NSLog(@"%@", requestArray);    
+    NSLog(@"%@", requestArray);
 }
 
 @end

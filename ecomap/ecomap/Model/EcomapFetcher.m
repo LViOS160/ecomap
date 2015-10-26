@@ -11,6 +11,7 @@
 #import "InfoActions.h"
 #import "AFNetworking.h"
 #import "EcomapCoreDataControlPanel.h"
+#import "AppDelegate.h"
 
 @implementation EcomapFetcher
 
@@ -315,9 +316,9 @@
 }
 
 
+#pragma - Load comments
 
-
-+(BOOL)updateComments:(NSUInteger)problemID
++(void)updateComments:(NSUInteger)problemID
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -350,8 +351,34 @@
         NSLog(@"%@",error);
         
     }];
-    return YES;
+    
 }
+
++ (void)getProblemIdFromProblem
+{
+//    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+//    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+//    NSError *error = nil;
+//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *description = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
+//    [request setEntity:description];
+//    [request setResultType:NSDictionaryResultType];
+//    NSError *requestError = nil;
+//    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
+//    NSArray *arrayProblemId = [requestArray valueForKey:@"idProblem"];
+//    NSLog(@"Array of problems from CoreData%@", arrayProblemId);
+//    
+//        for (int i = 0; i < arrayProblemId.count; ++i)
+//        {
+//        NSInteger idProblem = [[arrayProblemId objectAtIndex:i] integerValue];
+//        [self updateComments:(NSUInteger)idProblem];
+//        }
+//    EcomapCoreDataControlPanel *allComments = [EcomapCoreDataControlPanel sharedInstance];
+//    
+//    [allComments requestForAllComments];
+    
+}
+   
 
 
 #pragma mark - Get Problem with ID

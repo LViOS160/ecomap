@@ -46,7 +46,7 @@
 + (void)loadAllProblemsOnCompletion:(void (^)(NSArray *problems, NSError *error))completionHandler;
 +(void)checkRevision:(void (^)(BOOL differance, NSError *error))completionHandler;
 +(void)loadProblemsDifference:(void (^)(NSArray *problems, NSError *error))completionHandler;
-+(BOOL)updateComments:(NSUInteger)problemID;
+//+(BOOL)updateComments:(NSUInteger)problemID;
 +(void)loadAllProblemsDescription:(void (^)(NSArray *problems, NSError *error))completionHandler;
 
 
@@ -68,10 +68,14 @@
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
         OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
-+(BOOL)updateComments:(NSUInteger)problemID;
++(void)updateComments:(NSUInteger)problemID;
 +(void)deleteComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
         OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
 +(BOOL)updateComments:(NSUInteger)problemID controller:(AddCommViewController*)controller;
+
+
+
++(void)getProblemIdFromProblem;
 @end

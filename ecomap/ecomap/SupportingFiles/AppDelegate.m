@@ -65,6 +65,8 @@ arr = [context executeFetchRequest:request error:nil];
     {
        [coreDataClass loadData];
     }
+    
+      [EcomapFetcher getProblemIdFromProblem];
 
     
     // Override point for customization after application launch.
