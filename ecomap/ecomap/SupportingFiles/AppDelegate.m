@@ -65,6 +65,15 @@ arr = [context executeFetchRequest:request error:nil];
     {
        [coreDataClass loadData];
     }
+    
+    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
+          {
+              if (error)
+              {
+                  DDLogVerbose(@"ERROR");
+              }
+          }
+          ];
 
     
     // Override point for customization after application launch.

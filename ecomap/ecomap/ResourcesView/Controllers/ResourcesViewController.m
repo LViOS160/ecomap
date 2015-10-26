@@ -43,32 +43,31 @@
     }
 
 }
-//
-//#pragma mark - TableView
-//
-//
-//// refreshing method - Spinner refreshing while data loading
-//
+
+#pragma mark - TableView
+// refreshing method - Spinner refreshing while data loading
 
 - (IBAction)refreshing
 {
     [self.refreshControl beginRefreshing];
-    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
-     {
-         if (!error && resources && resources.count > 0)
-         {
-             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-             resourcesIntoCD.resourcesFromWeb = resources;
-             [resourcesIntoCD loadResources];
-         }
-         else
-         {
-             DDLogVerbose(@"ERROR");
-         }
-         
-         [self.refreshControl endRefreshing];
-     }
-     ];
+//    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
+//     {
+//         if (!error && resources && resources.count > 0)
+//         {
+////             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+////             resourcesIntoCD.resourcesFromWeb = resources;
+////             [resourcesIntoCD loadResources];
+//         }
+//         else
+//         {
+//             DDLogVerbose(@"ERROR");
+//         }
+//         
+//         [self.refreshControl endRefreshing];
+//     }
+//     ];
+    [self fetchedResultsController];
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - For WebView
@@ -83,13 +82,11 @@
             EcomapAlias *ecoal = nil;
             ecoal=alias.firstObject;
             completionHandler(ecoal.content, nil);
-            
         }
         else
         {
             DDLogVerbose(@"Error");
         }
-        
         
     } String:self.currentPath];
     
@@ -111,8 +108,6 @@
         }];
         
     }
-    
-    
 }
 
 @synthesize fetchedResultsController = _fetchedResultsController;
