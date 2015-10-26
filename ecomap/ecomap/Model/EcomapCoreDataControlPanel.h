@@ -11,6 +11,7 @@
 #import "EcomapProblemDetails.h"
 #import "MapViewController.h"
 #import "Resource.h"
+#import "Comment.h"
 
 @interface EcomapCoreDataControlPanel : NSObject
 
