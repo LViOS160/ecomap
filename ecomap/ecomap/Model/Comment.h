@@ -12,11 +12,11 @@
 
 @interface Comment : NSManagedObject
 
-@property (nonatomic, retain) NSDate * modified_date;
+@property (nonatomic, retain) NSString * modified_date;
 @property (nonatomic, retain) NSNumber * user_id;
 @property (nonatomic, retain) NSString * created_by;
 @property (nonatomic, retain) NSString * content;
-@property (nonatomic, retain) NSDate * created_date;
+@property (nonatomic, retain) NSString * created_date;
 @property (nonatomic, retain) NSNumber * problem_id;
 
 @end

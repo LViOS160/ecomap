@@ -191,20 +191,17 @@
     {
         Comment *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
         NSDictionary *commentDictionary = (NSDictionary*) object;
-        //  if ([object isKindOfClass:[EcomapCommentaries class]]){
-        //EcomapCommentaries *comment = (EcomapCommentaries*) object;
-        
         [currentComment setCreated_by:(NSString*)[commentDictionary valueForKey:@"created_by"]];
         [currentComment setContent:(NSString*)[commentDictionary valueForKey:@"content"]];
         [currentComment setProblem_id:(NSNumber*)[commentDictionary valueForKey:@"id"]];
         [currentComment setUser_id:(NSNumber*)[commentDictionary valueForKey:@"user_id"]];
+        [currentComment setCreated_date:(NSString*)[commentDictionary valueForKey:@"created_date"]];
         
-        // problem - date - NSString
-        // [currentComment setModified_date:(NSDate*)[commentDictionary valueForKey:@"modified_date"]];
-        // [currentComment setCreated_date:(NSDate*)[commentDictionary valueForKey:@"created_date"]];
+        if (![[commentDictionary valueForKey:@"modified_date"] isKindOfClass:[NSNull class]])
+        {
+           [ currentComment setModified_date:(NSString*)[commentDictionary valueForKey:@"modified_date"]];
+        }
     }
-
-    
     [context save:&error];
 
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -216,8 +213,7 @@
     NSError *requestError = nil;
     NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
     
-    NSLog(@"%@", requestArray);
-    
+    NSLog(@"%@", requestArray);    
 }
 
 @end
