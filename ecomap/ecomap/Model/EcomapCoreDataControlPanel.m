@@ -123,25 +123,7 @@
 
 - (void) loadResources
 {
-    /*
-     * Please do not remove this. I think I'll use it sometime later :(
-     */
-    
-    // [self.refreshControl beginRefreshing];
-    //    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error) {
-    //         self.resourcesFromWeb = [NSArray arrayWithArray:resources];
-    //         if (!error)
-    //         {
-    //             self.resourcesFromWeb = [NSArray arrayWithArray:resources];
-    //             //[self addResourceIntoCD];
-    //         }
-    //
-    //     }];
-    //    [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
-    //        self.resourceContent
-    //        <#code#>
-    //    } String:<#(NSString *)#>];
-    
+    [self addResourceIntoCD];
 }
 
 - (void) addResourceIntoCD
@@ -151,20 +133,25 @@
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error = nil;
     
-    //    for(id object in self.resourcesFromWeb )
-    //    {
-    //        Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
-    //        if([object isKindOfClass:[EcomapResources class]])
-    //        {
-    //            EcomapResources *resource = (EcomapResources*) object;
-    //            [currentResource setTitle:(NSString*)resource.titleRes];
-    //            [currentResource setAlias:(NSString *)resource.alias];
-    //            [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
-    //            [currentResource setContent:(NSString *)self.resourceContent];
-    //        }
-    //    }
-    //    [context save:&error];
-    
+//    for( id object in self.resourcesFromWeb )
+//    {
+//        Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
+//        if([object isKindOfClass:[EcomapResources class]])
+//        {
+//            EcomapResources *resource = (EcomapResources*) object;
+//            
+//            [currentResource setTitle:(NSString*)resource.titleRes];
+//            [currentResource setAlias:(NSString *)resource.alias];
+//            [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
+//            [currentResource setContent:@"NO DATA"];
+//        }
+//    }
+//    [context save:&error];
+}
+
+- (void)logResourcesOnDemand
+{
+    NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
     

@@ -9,12 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "Resource.h"
 
+#include "ResourceTableViewController.h"
 
-@interface ResourcesViewController : UITableViewController
+
+@interface ResourcesViewController : ResourceTableViewController
+
 @property (nonatomic,strong) NSMutableArray *titleRes;   // titles of resources
 @property (nonatomic,strong) NSString *descriptionRes;    // description in html format from EcomapAlias Parser
 @property (nonatomic,strong) NSArray *pathes;           // array of aliases [about/ cleaning..]
 @property (nonatomic, strong) NSString *currentPath;  // current allias
 
+
+@property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 @end

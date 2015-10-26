@@ -11,6 +11,7 @@
 #import "EcomapProblemDetails.h"
 #import "MapViewController.h"
 #import "Resource.h"
+
 @interface EcomapCoreDataControlPanel : NSObject
 
 + (instancetype) sharedInstance;
@@ -24,7 +25,6 @@
 @property (nonatomic, weak) MapViewController *map;
 
 @property (nonatomic, strong) NSArray *resourcesFromWeb;
-@property (nonatomic, strong) NSString *resourceContent;
 
 - (void) addResourceIntoCD;
 - (void) loadResources;

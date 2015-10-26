@@ -10,7 +10,7 @@
 #import "EcomapPathDefine.h"
 #import "EcomapLoggedUser.h"
 #import "AppDelegate.h"
-#import "ProblemFetchResController.h"
+#import "EcomapFetchedResultController.h"
 
 
 @interface EcomapProblem ()

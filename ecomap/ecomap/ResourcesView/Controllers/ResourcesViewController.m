@@ -11,12 +11,17 @@
 #import "EcomapFetcher.h"
 #import "ResourceCell.h"
 #import "ResourceDetails.h"
-#import  "EcomapFetcher.h"
+#import "EcomapFetcher.h"
 #import "EcomapResources.h"
 #import "EcomapAlias.h"
 #import "EcomapPathDefine.h"
 #import "GlobalLoggerLevel.h"
 #import "EcomapCoreDataControlPanel.h"
+
+#import "AppDelegate.h"
+#import "Resource.h"
+
+
 @interface ResourcesViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
@@ -25,57 +30,6 @@
 
 @implementation ResourcesViewController
 
-@synthesize titleRes = _titleRes;
-
-#pragma mark - Init
-
-- (NSString *)currentPath
-{
-    if (!_currentPath)
-    {
-        _currentPath=[[NSString alloc]init];
-    }
-    return _currentPath;
-}
-
-
-- (void)setTitleRes:(NSMutableArray *)titleRes
-{
-    _titleRes = titleRes;
-    [self.tableView reloadData];
-}
-
-- (NSMutableArray *)titleRes
-{
-    if (!_titleRes)
-    {
-        _titleRes = [[NSMutableArray alloc]init];
-    }
-    return _titleRes;
-}
-
-- (NSString *)descriptionRes
-{
-    if (!_descriptionRes)
-    {
-        _descriptionRes = [[NSString alloc]init];
-    }
-    return _descriptionRes;
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self customSetup];
-    [self refreshing];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)customSetup
 {
@@ -87,53 +41,34 @@
         [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
         [self.navigationController.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     }
-    
+
 }
-
-#pragma mark - TableView
-
-
-// refreshing method - Spinner refreshing while data loading
+//
+//#pragma mark - TableView
+//
+//
+//// refreshing method - Spinner refreshing while data loading
+//
 
 - (IBAction)refreshing
 {
     [self.refreshControl beginRefreshing];
     [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
      {
-         if (!error)
+         if (!error && resources && resources.count > 0)
          {
-             NSMutableArray *titlesOfResources = [[NSMutableArray alloc]init];
-             NSMutableArray *aliasesFromResources = [[NSMutableArray alloc]init];
-             
-             //JO
-             NSMutableArray *allresources = [[NSMutableArray alloc] init];
-             
-             EcomapResources *ecoResources = nil;
-             for(id result in resources)
-             {    ecoResources = result;
-                 [titlesOfResources addObject:ecoResources.titleRes];              // fill the array of Titles of resources
-                 NSNumber *contNum =[NSNumber numberWithInt:ecoResources.resId];
-                 [aliasesFromResources addObject:contNum];
-                 // fill the array of aliases
-                 
-                 //JuliaOdynak
-                 [allresources addObject:ecoResources];
-                 EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                 resourcesIntoCD.resourcesFromWeb = [NSArray arrayWithArray:allresources];
-                 [resourcesIntoCD loadResources];
-             }
-             self.titleRes = [[NSMutableArray alloc]initWithArray:titlesOfResources];
-             self.pathes = [[NSArray alloc]initWithArray:aliasesFromResources];
-             [self.refreshControl endRefreshing];
+             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+             resourcesIntoCD.resourcesFromWeb = resources;
+             [resourcesIntoCD loadResources];
          }
          else
          {
              DDLogVerbose(@"ERROR");
-             
          }
+         
+         [self.refreshControl endRefreshing];
      }
      ];
-    
 }
 
 #pragma mark - For WebView
@@ -180,34 +115,72 @@
     
 }
 
+@synthesize fetchedResultsController = _fetchedResultsController;
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)viewDidLoad
 {
+    [super viewDidLoad];
+    [self customSetup];
+    [self refreshing];
+}
+
+- (void) didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
     
-    return 1;
-}
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
     
-    return self.titleRes.count;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:self.managedObjectContext];
+    
+    [request setEntity:description];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"resourceID" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    
+    [request setSortDescriptors:sortDescriptors];
+    
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    self.managedObjectContext = context;
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
+                                                             initWithFetchRequest:request
+                                                             managedObjectContext:self.managedObjectContext
+                                                             sectionNameKeyPath:nil
+                                                             cacheName:@"Master"];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error])
+    {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return _fetchedResultsController;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ResourceCell";
-    ResourceCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    // Configure the cell...
-    NSInteger row=[indexPath row];
-    cell.TitleLabel.text = self.titleRes[row];
-    return cell;
+    Resource *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    cell.textLabel.text = object.title;
+    cell.detailTextLabel.text = nil;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
 }
-
-
-
-
 
 @end

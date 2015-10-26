@@ -227,7 +227,7 @@
                             
                             //JuliaOdynak
                             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                            resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
+                            //resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
                             NSNumber *num = [value objectForKey:@"id"];
                             NSInteger theValue = [num intValue];
                             //[num release];

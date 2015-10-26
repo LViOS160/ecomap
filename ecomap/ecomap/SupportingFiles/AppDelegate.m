@@ -12,8 +12,12 @@
 #import "EcomapFetcher.h"
 #import <FacebookSDK/FacebookSDK.h>
 
+
+
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
+
+#import "ResourcesViewController.h"
 
 @interface AppDelegate ()
 
@@ -87,6 +91,11 @@ arr = [context executeFetchRequest:request error:nil];
     //~/Library/Application Support/iPhone Simulator//Applications//Library/Caches/. As you can see, the path might be slightly different depending on which version of the iOS Simulator you are using/
     //It should now have a folder named Logs containing one text file named log-XXXXXX.txt.
     //Keep in mind that he Caches directory can be emptied by the operating system at any time. If you want to store your application's log files in a safer location, then I suggest storing them in the application's Documents directory.
+    
+//    ResourcesViewController *vc = [[ResourcesViewController alloc] initWithStyle:UITableViewStylePlain];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//    self.window.rootViewController = nav;
+//    
 
     return YES;
 }
