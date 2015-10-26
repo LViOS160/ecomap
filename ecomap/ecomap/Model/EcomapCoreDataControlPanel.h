@@ -11,18 +11,28 @@
 #import "EcomapProblemDetails.h"
 #import "MapViewController.h"
 #import "Resource.h"
+#import "Comment.h"
+
 @interface EcomapCoreDataControlPanel : NSObject
-+ (instancetype)sharedInstance;
-- (void)addProblemIntoCoreData;
-- (void)loadData;
-- (Problem*)returnDetail:(NSInteger)id1;
+
++ (instancetype) sharedInstance;
+
+- (void) addProblemIntoCoreData;
+- (void) loadData;
+- (Problem*) returnDetail:(NSInteger)identifier;
+
 @property (nonatomic, strong) NSArray *allProblems;
 @property (nonatomic, strong) NSArray *descr;
-@property (nonatomic, strong) MapViewController *map;
+@property (nonatomic, weak) MapViewController *map;
 
 @property (nonatomic, strong) NSArray *resourcesFromWeb;
 @property (nonatomic, strong) NSString *resourceContent;
 
+@property (nonatomic, strong) NSArray *commentsFromWeb;
+
+- (void) addCommentsIntoCoreData;
+
 - (void) addResourceIntoCD;
 - (void) loadResources;
+
 @end

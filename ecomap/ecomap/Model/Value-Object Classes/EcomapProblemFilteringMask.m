@@ -19,7 +19,7 @@
 // If not add it, in other case remove it from array.
 - (void)markProblemType:(NSInteger)problemTypeID
 {
-    if([self.problemTypes containsObject:@(problemTypeID)])
+    if ([self.problemTypes containsObject:@(problemTypeID)])
     {
         [self.problemTypes removeObject:@(problemTypeID)];
     }
@@ -72,12 +72,12 @@
 {
     NSMutableArray *filteredProblems = [[NSMutableArray alloc] init];
     
-    for(id problem in problems)
+    for (id problem in problems)
     {
-        if([problem isKindOfClass:[EcomapProblem class]])
+        if ([problem isKindOfClass:[EcomapProblem class]])
         {
             EcomapProblem *ecoProblem = (EcomapProblem *)problem;
-            if([self checkProblem:ecoProblem])
+            if ([self checkProblem:ecoProblem])
             {
                 [filteredProblems addObject:ecoProblem];
             }
@@ -91,11 +91,11 @@
 // Check problem validity.
 - (BOOL)checkProblem:(EcomapProblem *)problem
 {
-    if([self.problemTypes containsObject:[NSNumber numberWithInteger:problem.problemTypesID]])
+    if ([self.problemTypes containsObject:[NSNumber numberWithInteger:problem.problemTypesID]])
     {
-        if([self isDate:problem.dateCreated inRangeFromDate:self.fromDate toDate:self.toDate])
+        if ([self isDate:problem.dateCreated inRangeFromDate:self.fromDate toDate:self.toDate])
         {
-            if([self checkStatusOfProblem:problem])
+            if ([self checkStatusOfProblem:problem])
             {
                 if ([self isOwner:problem])
                 {
@@ -133,7 +133,7 @@
     NSTimeInterval intervalFromBeginOfTheRangeToDate = [date timeIntervalSinceDate:fromDate];
     NSTimeInterval intervalFromDateToEndOfTheRange = [toDate timeIntervalSinceDate:date];
     
-    if((intervalFromBeginOfTheRangeToDate > 0) && intervalFromDateToEndOfTheRange > 0)
+    if ((intervalFromBeginOfTheRangeToDate > 0) && intervalFromDateToEndOfTheRange > 0)
     {
         return YES;
     }

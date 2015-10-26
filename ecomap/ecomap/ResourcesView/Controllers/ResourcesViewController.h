@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Resource.h"
+
 
 @interface ResourcesViewController : UITableViewController
 @property (nonatomic,strong) NSMutableArray *titleRes;   // titles of resources
