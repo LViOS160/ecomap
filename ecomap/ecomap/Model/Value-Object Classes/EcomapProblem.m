@@ -100,6 +100,9 @@
 -(instancetype)initWithProblem:(NSDictionary *)problem
 {
     self = [super init];
+    
+    
+      
     if (self)
     {
         if (!problem) return nil;

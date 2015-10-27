@@ -25,6 +25,9 @@
 @property (nonatomic, readonly) NSUInteger severity;
 @property (nonatomic, readonly) NSUInteger numberOfComments;
 
+
+@property (nonatomic, strong) NSString* action;
+
 //Designated initializer
 - (instancetype)initWithProblem:(NSDictionary *)problem;
 

@@ -34,7 +34,10 @@
                              }
                              else
                              {
+                                 
+                                 NSString *tmpOldRev = [[NSUserDefaults standardUserDefaults] valueForKey:@"revison"];
                                  [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"revision"];
+                                 [[NSUserDefaults standardUserDefaults] setObject:tmpOldRev forKey:@"oldrevision"];
                                  [[NSUserDefaults standardUserDefaults]setObject:recieveRevison forKey:@"revision"];
                                  revision = YES;
                              }
@@ -48,7 +51,21 @@
 
 +(void)loadProblemsDifference:(void (^)(NSArray *problems, NSError *error))completionHandler
 {
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://176.36.11.25:8000/api/problems?rev=1743"]]
+    NSMutableString *urlForLoadDifferance = [NSMutableString stringWithFormat:@"http://176.36.11.25:8000/api/problems?rev="];
+    NSString *tmprevision = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"revision"]];
+    NSString *oldrevision = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"revision"]];
+    
+    
+    if(oldrevision == nil)
+    {
+         [urlForLoadDifferance appendString:tmprevision];
+    }
+    else
+    {
+         [urlForLoadDifferance appendString:oldrevision];
+    }
+    
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlForLoadDifferance]]
               sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                  completionHandler:^(NSData *JSON, NSError *error) {
                      NSArray *problems = nil;

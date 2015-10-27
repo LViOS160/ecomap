@@ -26,15 +26,39 @@
 
 - (void)checkRevison
 {
+    NSMutableArray *tmpAllAction = [NSMutableArray array];
+    NSMutableArray *tmpAllRevision = [NSMutableArray array];
 
     [EcomapFetcher checkRevision:^(BOOL differance, NSError *error) {
     if (!error)
         {
-            if(differance)
+            if(1)
             {
                 [EcomapFetcher loadProblemsDifference:^(NSArray *problems, NSError *error)
                 {
-                    self.allRevisions = [NSArray arrayWithArray:problems];
+                    
+                    for (int i = 0; i<[problems count]; i++)
+                    {
+                        NSString *actionName = [problems[i] valueForKey:@"action"];
+                        
+                        if(actionName!=nil)
+                        {
+                            [tmpAllAction addObject:[problems objectAtIndex:i]];
+                        }
+                        else
+                        {
+                            [tmpAllRevision addObject:[problems objectAtIndex:i]];
+                        }
+                    }
+                    self.allActions = [NSArray arrayWithArray:tmpAllAction];
+                    self.allRevisions = [NSArray arrayWithArray:tmpAllRevision];
+                    
+                    
+                    if(self.allActions!=nil)
+                    {
+                        [self actionFetcher];
+                    }
+                    
                     if (!error)
                     {
                         [self loadDifferance];
@@ -43,6 +67,40 @@
             }
         }
     }];
+}
+
+
+
+- (void)actionFetcher
+{
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Problem"
+                                              inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    for( int i = 0; i < [self.allActions count];i++)
+    {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", [self.allActions[i] valueForKey:@"id"]];
+    [request setPredicate:predicate];
+    NSArray *array = [context executeFetchRequest:request error:nil];
+        if([array count]>0)
+        {
+            NSString *actionName = [self.allActions[i] valueForKey:@"action"];
+            
+            if([actionName isEqualToString:@"DELETED"])
+                {
+                    [context deleteObject:array[0]];
+                }
+            if( [actionName isEqualToString:@"VOTED"])
+                {
+                
+                }
+            [context save:nil];
+        }
+    }
 }
 
 
