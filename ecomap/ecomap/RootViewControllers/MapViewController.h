@@ -21,7 +21,8 @@
 @interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>
 
 @property (nonatomic, strong) GMSMapView *mapView;
--(void)loadProblems;
 
+- (void)loadProblems;
+- (void)mapSetup;
 @end
 

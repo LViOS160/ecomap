@@ -97,7 +97,7 @@
 {
      NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     
-    [self renewMap:set];
+    [self loadProblems];
     [self saveLocalJSON:set];
     
 }
@@ -144,10 +144,8 @@
                                                  name:ALL_PROBLEMS_CHANGED
                                                object:nil];
     
-    //EcomapCoreDataControlPanel *coreObject = [EcomapCoreDataControlPanel sharedInstance];
-    //[coreObject setMap:self];
+  
 }
-
 
 
 
@@ -270,6 +268,8 @@
                                                     algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                      renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
     
+    
+    
     for(EcomapProblem *problem in problems)
     {
         if([problem isKindOfClass:[EcomapProblem class]])
@@ -277,7 +277,7 @@
             Spot* spot = [self generateSpot:problem];
             [self.clusterManager addItem:spot];
         }
-    }
+   }
     [self.clusterManager cluster];
  }
 
@@ -287,19 +287,16 @@
 -(void)loadProblems
 {
     
-    if (!self.arrayWithProblems)
-    {
+   
 
         self.arrayWithProblems = [NSMutableArray new];
         NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
-        for (Problem *problem in allProblems) {
+        for (Problem *problem in allProblems)
+        {
             EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
             [self.arrayWithProblems addObject:ecoProblem];
+        
         }
-        
-;
-        
-    }
     
     NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     self.currentAllProblems = [[NSSet alloc]initWithSet:set];
@@ -316,6 +313,9 @@
 - (void)userDidApplyFilteringMask:(EcomapProblemFilteringMask *)filteringMask
 {
     self.filteringMask = filteringMask;
+    
+    
+    [self loadProblems];
     
     NSArray *arrProblems;
     NSArray *filteredProblems;

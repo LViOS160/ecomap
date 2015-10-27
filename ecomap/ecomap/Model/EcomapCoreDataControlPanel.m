@@ -28,9 +28,8 @@
 
 - (void)loadData
 {
-    MapViewController *ob = [[MapViewController alloc] init];
+  
 
-    
     
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
      {
@@ -121,6 +120,9 @@
     }
     
     [context save:&error];
+    
+   
+ 
     
 }
 

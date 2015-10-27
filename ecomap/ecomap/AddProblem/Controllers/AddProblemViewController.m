@@ -137,6 +137,7 @@
    self.mapView.camera = [GMSCameraPosition cameraWithLatitude:50
                 longitude:30
                      zoom:5];
+    [self loadProblems];
 }
 
 #pragma mark - Buttons
