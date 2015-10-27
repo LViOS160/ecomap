@@ -9,7 +9,7 @@
 #import "EcomapRevisionCoreData.h"
 #import "EcomapFetcher.h"
 #import "AppDelegate.h"
-
+#import "MapViewController.h"
 
 
 
@@ -26,13 +26,16 @@
 
 - (void)checkRevison
 {
+    
+   
+    
     NSMutableArray *tmpAllAction = [NSMutableArray array];
     NSMutableArray *tmpAllRevision = [NSMutableArray array];
 
     [EcomapFetcher checkRevision:^(BOOL differance, NSError *error) {
     if (!error)
         {
-            if(1)
+            if(differance)
             {
                 [EcomapFetcher loadProblemsDifference:^(NSArray *problems, NSError *error)
                 {
@@ -52,8 +55,6 @@
                     }
                     self.allActions = [NSArray arrayWithArray:tmpAllAction];
                     self.allRevisions = [NSArray arrayWithArray:tmpAllRevision];
-                    
-                    
                     if(self.allActions!=nil)
                     {
                         [self actionFetcher];
@@ -82,19 +83,20 @@
     
     for( int i = 0; i < [self.allActions count];i++)
     {
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", [self.allActions[i] valueForKey:@"id"]];
-    [request setPredicate:predicate];
-    NSArray *array = [context executeFetchRequest:request error:nil];
+        id idNum = [self.allActions[i] valueForKey:@"id"];
+        NSString *ID = [NSString stringWithFormat:@"%@",idNum];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", ID];
+        [request setPredicate:predicate];
+        NSArray *array = [context executeFetchRequest:request error:nil];
         if([array count]>0)
-        {
-            NSString *actionName = [self.allActions[i] valueForKey:@"action"];
+           {
+               NSString *actionName = [self.allActions[i] valueForKey:@"action"];
             
             if([actionName isEqualToString:@"DELETED"])
                 {
                     [context deleteObject:array[0]];
                 }
-            if( [actionName isEqualToString:@"VOTED"])
+            if( [actionName isEqualToString:@"VOTE"])
                 {
                 
                 }

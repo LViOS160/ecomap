@@ -150,6 +150,10 @@
 
 
 
+
+
+
+
 - (void)login
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -276,6 +280,9 @@
     }
     [self.clusterManager cluster];
  }
+
+
+
 
 -(void)loadProblems
 {

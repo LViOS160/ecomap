@@ -13,6 +13,9 @@
 #import "SRWebSocket.h"
 #import "ProblemViewController.h"
 #import "EcomapRevisionCoreData.h"
+#import "EcomapCoreDataControlPanel.h"
+
+
 
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>

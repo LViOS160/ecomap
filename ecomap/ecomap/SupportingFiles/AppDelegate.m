@@ -59,7 +59,7 @@ arr = [context executeFetchRequest:request error:nil];
     */
     
     EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
-    [ob checkRevison];
+
     
     
     EcomapCoreDataControlPanel *coreDataClass = [EcomapCoreDataControlPanel sharedInstance];
