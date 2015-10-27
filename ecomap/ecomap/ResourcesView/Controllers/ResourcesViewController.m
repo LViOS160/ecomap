@@ -72,25 +72,25 @@
 
 #pragma mark - For WebView
 
--(void)webrefreshingOnCompletion:(void (^)(NSString *descriptionRes, NSError *error))completionHandler     // return the content of recource/alias .....
-{
-    //self.currentPath = @"id";
-    
-    [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
-        if (!error)
-        {
-            EcomapAlias *ecoal = nil;
-            ecoal=alias.firstObject;
-            completionHandler(ecoal.content, nil);
-        }
-        else
-        {
-            DDLogVerbose(@"Error");
-        }
-        
-    } String:self.currentPath];
-    
-}
+//-(void)webrefreshingOnCompletion:(void (^)(NSString *descriptionRes, NSError *error))completionHandler     // return the content of recource/alias .....
+//{
+//    self.currentPath = @"id";
+//    
+//    [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
+//        if (!error)
+//        {
+//            EcomapAlias *ecoal = nil;
+//            ecoal=alias.firstObject;
+//            completionHandler(ecoal.content, nil);
+//        }
+//        else
+//        {
+//            DDLogVerbose(@"Error");
+//        }
+//        
+//    } String:self.currentPath];
+//    
+//}
 
 
 #pragma mark - Navigation
@@ -103,10 +103,7 @@
         NSIndexPath *myIndexPath = [self.tableView indexPathForSelectedRow];
         NSInteger row = [myIndexPath row];
         self.currentPath = self.pathes[row];
-        [self webrefreshingOnCompletion:^(NSString *descriptionRes, NSError *error) {
-            detailviewcontroller.details = descriptionRes;
-        }];
-        
+        detailviewcontroller.details = self.chosenResource.content;
     }
 }
 
@@ -164,4 +161,10 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.chosenResource = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"ShowDetails" sender:indexPath];
+    
+}
 @end

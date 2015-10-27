@@ -227,9 +227,11 @@
                             
                             //JuliaOdynak
                             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                            //resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
-                            NSNumber *num = [value objectForKey:@"id"];
-                            NSInteger theValue = [num intValue];
+                            resourcesIntoCD.resourceContent = ecoAl.content;
+
+                //resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
+//                            NSNumber *num = [value objectForKey:@"id"];
+//                            NSInteger theValue = [num intValue];
                             //[num release];
                             //[resourcesIntoCD putContent:theValue];
                             [resourcesIntoCD addResourceIntoCD];
@@ -278,7 +280,7 @@
                     
                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
                     resourcesIntoCD.resourcesFromWeb = resources;
-                    [resourcesIntoCD loadResources];
+                    //[resourcesIntoCD loadResources];
                 }];
     
     
