@@ -20,6 +20,7 @@
 @property (nonatomic,strong) NSArray *pathes;           // array of aliases [about/ cleaning..]
 @property (nonatomic, strong) NSString *currentPath;  // current allias
 
+@property (nonatomic, weak) Resource * chosenResource;
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;

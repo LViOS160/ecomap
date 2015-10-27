@@ -32,6 +32,7 @@
 @property (nonatomic, weak) MapViewController *map;
 
 @property (nonatomic, strong) NSArray *resourcesFromWeb;
+@property (nonatomic, strong) NSString *resourceContent;
 
 @property (nonatomic, strong) NSArray *commentsFromWeb;
 
