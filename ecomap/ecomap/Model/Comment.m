@@ -2,7 +2,7 @@
 //  Comment.m
 //  ecomap
 //
-//  Created by admin on 10/27/15.
+//  Created by admin on 10/28/15.
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
@@ -16,8 +16,9 @@
 @dynamic created_by;
 @dynamic created_date;
 @dynamic modified_date;
-@dynamic problem_id;
+@dynamic comment_id;
 @dynamic user_id;
+@dynamic id_of_problem;
 @dynamic problem;
 
 @end

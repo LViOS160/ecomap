@@ -92,6 +92,7 @@
 
 -(void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {
+        
     NSMutableArray *comments = [NSMutableArray array];
      for(EcomapActivity *oneComment in problemDetails.comments )
     {

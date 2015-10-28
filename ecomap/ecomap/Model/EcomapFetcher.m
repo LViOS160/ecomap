@@ -356,14 +356,14 @@
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSArray *ar = [JSONParser parseJSONtoArray:objectData];
-//        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-//        [ob setCommentariesArray:ar :problemID];
-//        ob.problemsID = problemID;
+        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+        [ob setCommentariesArray:ar :problemID];
+        ob.problemsID = problemID;
         
         //added Iuliia Korniichuk
         EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
         commentsIntoCoreData.commentsFromWeb = (NSArray*)ar;        
-        [commentsIntoCoreData addCommentsIntoCoreData];
+        [commentsIntoCoreData addCommentsIntoCoreData:problemID];
         
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -392,7 +392,7 @@
     NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
     NSArray *arrayProblemId = [requestArray valueForKey:@"idProblem"];
     
-    NSLog(@"Array of problems with comments from CoreData %@", arrayProblemId);
+    NSLog(@"Array of problems from CoreData %@", arrayProblemId);
     
         for (int i = 0; i < arrayProblemId.count; ++i)
         {

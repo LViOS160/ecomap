@@ -173,12 +173,15 @@
 
 // added Iuliia Korniichuk
 
-- (void) addCommentsIntoCoreData
+- (void) addCommentsIntoCoreData:(NSUInteger)problemID
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error = nil;
+    
+    NSNumber *problemId = [NSNumber numberWithInteger:problemID];
+    
     
     for(id object in self.commentsFromWeb)
     {
@@ -187,22 +190,26 @@
         
         [currentComment setCreated_by:(NSString*)[commentDictionary valueForKey:@"created_by"]];
         [currentComment setContent:(NSString*)[commentDictionary valueForKey:@"content"]];
-        [currentComment setProblem_id:(NSNumber*)[commentDictionary valueForKey:@"id"]];
+        [currentComment setComment_id:(NSNumber*)[commentDictionary valueForKey:@"id"]];
         [currentComment setUser_id:(NSNumber*)[commentDictionary valueForKey:@"user_id"]];
         [currentComment setCreated_date:(NSString*)[commentDictionary valueForKey:@"created_date"]];
+        [currentComment setId_of_problem:(NSNumber*)problemId];
         
         if (![[commentDictionary valueForKey:@"modified_date"] isKindOfClass:[NSNull class]])
         {
             [ currentComment setModified_date:(NSString*)[commentDictionary valueForKey:@"modified_date"]];
         }
-        
+
+    
+    
+
 //        NSFetchRequest *request = [[NSFetchRequest alloc] init];
 //        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Problem"
 //                                                  inManagedObjectContext:context];
 //        [request setEntity:entity];
 //        request.predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", (NSNumber*)currentComment.problem_id];
-////        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", currentComment.problem_id];
-////        [request setPredicate:predicate];
+//       NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", currentComment.problem_id];
+//       [request setPredicate:predicate];
 //        
 //        NSArray *array = [context executeFetchRequest:request error:nil];
 //        if (array[0])
@@ -214,9 +221,13 @@
 //                currentComment.problem = currentProblem;
 //                NSLog (@"\\\\\%@", currentComment.problem);
 //            }
-//        }
+//
+    
+    
+    
     }
     [context save:&error];
+
 }
 
 -(void)requestForAllComments

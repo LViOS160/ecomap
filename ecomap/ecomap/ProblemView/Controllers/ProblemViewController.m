@@ -107,11 +107,14 @@ typedef enum : NSUInteger
 - (void)loadProblemDetails:(void(^)())onFinish
 {
    
-    [EcomapFetcher loadCommentsFromWeb: self.problemID];
+  //  [EcomapFetcher loadCommentsFromWeb: self.problemID];
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];
-    EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
-    [comentsID setProblemsID:self.problemID];
+      EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
+     [comentsID setProblemsID:self.problemID];
+   // AddCommViewController *addComm = [[AddCommViewController alloc] init];
+ //   addComm.problemID = self.problemID;
+    
     
     EcomapProblemDetails *obj = [EcomapProblemDetails alloc];
     
@@ -150,8 +153,9 @@ typedef enum : NSUInteger
 
 - (IBAction)segmentControlChanged:(UISegmentedControl *)sender
 {
+    NSLog(@"%@",self.data.idProblem);
     [self.containerViewController showViewAtIndex:sender.selectedSegmentIndex];
-    [self.containerViewController setProblemDetails:self.problemDetails];
+    [self.containerViewController setProblemDetails:self.problemDetails ];
 }
 
 - (IBAction)likeClick:(UIButton*)sender

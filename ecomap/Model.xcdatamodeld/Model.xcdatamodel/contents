@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Comment" representedClassName="Comment" syncable="YES">
+        <attribute name="comment_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created_by" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created_date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_of_problem" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="modified_date" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="problem_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="user_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="problem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Problem" inverseName="comments" inverseEntity="Problem" syncable="YES"/>
     </entity>
@@ -34,7 +35,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Comment" positionX="-2286" positionY="-4338" width="128" height="148"/>
+        <element name="Comment" positionX="-2286" positionY="-4338" width="128" height="163"/>
         <element name="Problem" positionX="-2036" positionY="-4374" width="128" height="283"/>
         <element name="Resource" positionX="-1863" positionY="-4360" width="128" height="103"/>
     </elements>

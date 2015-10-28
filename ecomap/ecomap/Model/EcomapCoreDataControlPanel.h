@@ -36,7 +36,7 @@
 
 @property (nonatomic, strong) NSArray *commentsFromWeb;
 
-- (void) addCommentsIntoCoreData;
+- (void) addCommentsIntoCoreData:(NSUInteger)problemID;
 - (void) requestForAllComments;
 
 - (void) addResourceIntoCD;

@@ -59,8 +59,6 @@ arr = [context executeFetchRequest:request error:nil];
     */
     
     EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
-
-    
     
     EcomapCoreDataControlPanel *coreDataClass = [EcomapCoreDataControlPanel sharedInstance];
     NSString *status = [[NSUserDefaults standardUserDefaults]valueForKey:@"firstdownload"];
@@ -68,7 +66,6 @@ arr = [context executeFetchRequest:request error:nil];
     {
        [coreDataClass loadData];
     }
-    
     
     
     [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
@@ -92,6 +89,8 @@ arr = [context executeFetchRequest:request error:nil];
     // Override point for customization after application launch.
    // EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
     [ob checkRevison];
+    
+    
     
     [EcomapFetcher getProblemWithComments];
     
