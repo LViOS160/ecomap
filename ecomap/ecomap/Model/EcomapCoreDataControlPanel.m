@@ -26,34 +26,6 @@
 
 
 
-- (void)loadData
-{
-  
-
-    
-    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
-     {
-         self.allProblems = [NSArray arrayWithArray:problems];
-         if (!error)
-         {
-             self.allProblems = [NSArray arrayWithArray:problems];
-         }
-     }];
-    
-    [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
-     {
-         self.allProblems = [NSArray arrayWithArray:problems];
-         if (!error)
-         {
-             self.descr = [NSArray arrayWithArray:problems];
-             [self addProblemIntoCoreData];
-         }
-     }];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
-}
-
-
 - (Problem*)returnDetail:(NSInteger)identifier
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];

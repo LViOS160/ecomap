@@ -21,10 +21,7 @@
 + (instancetype) sharedInstance;
 
 - (void) addProblemIntoCoreData;
-- (void) loadData;
 - (Problem*) returnDetail:(NSInteger)identifier;
-
-
 
 @property (nonatomic, strong) NSArray *allProblems;
 @property (nonatomic, strong) NSArray *descr;
