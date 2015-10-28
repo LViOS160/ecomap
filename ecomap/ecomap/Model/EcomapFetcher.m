@@ -322,33 +322,66 @@
 +(void)loadResourcesOnCompletion:(void (^)(NSArray *resources, NSError *error))completionHandler
 {
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforResources]]
-              sessionConfiguration:[NSURLSessionConfiguration  ephemeralSessionConfiguration]
-                 completionHandler:^(NSData *JSON, NSError *error) {
-                     
-                     NSMutableArray *resources = nil;
-                     NSArray *resourcesFromJSON = nil;
-                     if(!error)
-                     {
-                         //Parse JSON
-                         resourcesFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
-                         resources = [NSMutableArray array];
-                         
-                         //Fill array with ECOMAPRESOURCES
-                         for(NSDictionary *resource in resourcesFromJSON)
-                         {
-                             EcomapResources *ecoRes = [[EcomapResources alloc] initWithResource:resource];
-                             [resources addObject:ecoRes];
-                             
-                             // DDLogVerbose(@"%@",resources);
-                             
-                         }
-                     } else [InfoActions showAlertOfError:error];
-                     
-                     completionHandler(resources,error);
-                     
-                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                     [resourcesIntoCD addResourceIntoCD:resources];
-                 }];
+             sessionConfiguration:[NSURLSessionConfiguration  ephemeralSessionConfiguration]
+                completionHandler:^(NSData *JSON, NSError *error) {
+                    
+                    NSMutableArray *resources = nil;
+                    NSArray *resourcesFromJSON = nil;
+                    if(!error)
+                    {
+                        //Parse JSON
+                        resourcesFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
+                        resources = [NSMutableArray array];
+                        
+                        //Fill array with ECOMAPRESOURCES
+                        for(NSDictionary *resource in resourcesFromJSON)
+                        {
+                            EcomapResources *ecoRes = [[EcomapResources alloc] initWithResource:resource];
+                            [resources addObject:ecoRes];
+                            
+                            // DDLogVerbose(@"%@",resources);
+                            
+                        }
+                    } else [InfoActions showAlertOfError:error];
+                    
+                    completionHandler(resources,error);
+                    
+                    NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
+                    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                    NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
+                    
+                    [request setEntity:description];
+                    NSError *requestError = nil;
+                    NSArray *coredataResources = [context executeFetchRequest:request error:&requestError];
+    
+                    NSMutableArray *resourcesToAddIntoCD = [[NSMutableArray alloc] init];
+                    
+                    for (EcomapResources *resource in resources)
+                    {
+                        BOOL resourceExistsInCD = NO;
+                        
+                        for (Resource *coreDataResource in coredataResources)
+                        {
+                            NSInteger resourceId = [coreDataResource.resourceID integerValue];
+                            if (resource.resId == resourceId)
+                            {
+                                resourceExistsInCD = YES;
+                                break;
+                            }
+                        }
+                        
+                        if (!resourceExistsInCD)
+                        {
+                            [resourcesToAddIntoCD addObject:resource];
+                        }
+                    }
+                    
+                    EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+                    [resourcesIntoCD addResourceIntoCD:resources];
+                }];
+    
+    
+    
 }
 
 
