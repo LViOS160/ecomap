@@ -75,13 +75,16 @@ arr = [context executeFetchRequest:request error:nil];
               {
                   DDLogVerbose(@"ERROR");
               }
-              [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
-                  if (error)
-                  {
-                      DDLogVerbose(@"Error");
-                  }
-                  
-              } String:@"2"];
+              for (EcomapResources *object in resources)
+              {
+                  [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
+                      if (error)
+                      {
+                          DDLogVerbose(@"Error");
+                      }
+                      
+                  } String:[NSString stringWithFormat:@"%ld", object.resId]];
+              }
           }
           ];
     

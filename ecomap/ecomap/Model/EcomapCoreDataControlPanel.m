@@ -126,12 +126,6 @@
     
 }
 
-
-- (void) loadResources
-{
-    [self addResourceIntoCD];
-}
-
 - (void) addResourceIntoCD
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
@@ -149,9 +143,9 @@
             [currentResource setTitle:(NSString*)resource.titleRes];
             [currentResource setAlias:(NSString *)resource.alias];
             [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
-            [currentResource setContent:self.resourceContent];
         }
     }
+ 
     [context save:&error];
 }
 
@@ -170,6 +164,21 @@
     NSLog(@"%@", requestArray);
 }
 
+- (void) addContentToResource: (NSNumber*) currentID
+{
+    NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceID = %@)", currentID];
+    [fetchRequest setPredicate:predicate];
+    
+    NSArray *requestArray = [context executeFetchRequest:fetchRequest error:nil];
+    Resource *res = [requestArray firstObject];
+    res.content = self.resourceContent;
+    [context save:nil];
+}
 
 // added Iuliia Korniichuk
 

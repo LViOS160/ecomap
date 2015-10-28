@@ -15,11 +15,9 @@
 
 @implementation ResourceDetails
 
-@synthesize details = _details;
-//-(void)setDetails:(NSString *)details
+
 - (void) putData
 {
-   // _details = details;
     UIFont *font = [UIFont systemFontOfSize:21];  //     FOR FONT @"helvetica"
     NSString *bodyHTML = [NSString stringWithFormat:@"<html> \n"
                                    "<head> \n"
@@ -30,8 +28,6 @@
                                    "<body>%@</body> \n"
                                    "</html>", font.familyName, [UIFont systemFontSize], self.details];
     
-
-
     NSString *haystack = bodyHTML;
     NSString *prefix = @"<p><img class=\"ta-insert-video\" ta-insert-video=\""; // string prefix, not needle prefix!
     NSString *suffix = @"\" src=\"\" allowfullscreen=\"true\" width=\"300\" frameborder=\"0\" height=\"250\"/></p>"; // string suffix, not needle suffix!
@@ -48,7 +44,6 @@
     [self.spiner setHidden:YES];
 }
 
-
 -(NSString *)details
 {
     if (!_details)
@@ -58,7 +53,6 @@
     return _details;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,20 +60,9 @@
     [self putData];
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

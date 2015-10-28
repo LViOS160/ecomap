@@ -17,10 +17,8 @@
 #import "EcomapPathDefine.h"
 #import "GlobalLoggerLevel.h"
 #import "EcomapCoreDataControlPanel.h"
-
 #import "AppDelegate.h"
 #import "Resource.h"
-
 
 @interface ResourcesViewController ()
 
@@ -29,7 +27,6 @@
 @end
 
 @implementation ResourcesViewController
-
 
 - (void)customSetup
 {
@@ -50,48 +47,9 @@
 - (IBAction)refreshing
 {
     [self.refreshControl beginRefreshing];
-//    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
-//     {
-//         if (!error && resources && resources.count > 0)
-//         {
-////             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-////             resourcesIntoCD.resourcesFromWeb = resources;
-////             [resourcesIntoCD loadResources];
-//         }
-//         else
-//         {
-//             DDLogVerbose(@"ERROR");
-//         }
-//         
-//         [self.refreshControl endRefreshing];
-//     }
-//     ];
     [self fetchedResultsController];
     [self.refreshControl endRefreshing];
 }
-
-#pragma mark - For WebView
-
-//-(void)webrefreshingOnCompletion:(void (^)(NSString *descriptionRes, NSError *error))completionHandler     // return the content of recource/alias .....
-//{
-//    self.currentPath = @"id";
-//    
-//    [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
-//        if (!error)
-//        {
-//            EcomapAlias *ecoal = nil;
-//            ecoal=alias.firstObject;
-//            completionHandler(ecoal.content, nil);
-//        }
-//        else
-//        {
-//            DDLogVerbose(@"Error");
-//        }
-//        
-//    } String:self.currentPath];
-//    
-//}
-
 
 #pragma mark - Navigation
 
@@ -150,7 +108,6 @@
     return _fetchedResultsController;
 }
 
-
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Resource *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -158,13 +115,11 @@
     cell.textLabel.text = object.title;
     cell.detailTextLabel.text = nil;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.chosenResource = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"ShowDetails" sender:indexPath];
-    
 }
 @end

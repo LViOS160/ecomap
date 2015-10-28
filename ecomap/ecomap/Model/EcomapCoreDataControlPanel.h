@@ -39,6 +39,6 @@
 - (void) addCommentsIntoCoreData;
 
 - (void) addResourceIntoCD;
-- (void) loadResources;
+- (void) addContentToResource: (NSNumber*) currentID;
 
 @end

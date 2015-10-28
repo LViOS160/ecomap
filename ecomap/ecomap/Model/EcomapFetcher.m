@@ -245,13 +245,12 @@
                             //JuliaOdynak
                             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
                             resourcesIntoCD.resourceContent = ecoAl.content;
-
-                //resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
-//                            NSNumber *num = [value objectForKey:@"id"];
-//                            NSInteger theValue = [num intValue];
-                            //[num release];
-                            //[resourcesIntoCD putContent:theValue];
-                            [resourcesIntoCD addResourceIntoCD];
+                            
+                            NSNumberFormatter *formatOfNumber = [[NSNumberFormatter alloc] init];
+                            formatOfNumber.numberStyle = NSNumberFormatterDecimalStyle;
+                            NSNumber *resourceID = [formatOfNumber numberFromString:str];
+                            
+                            [resourcesIntoCD addContentToResource:resourceID];
                         }
                     }
                     else
@@ -297,7 +296,7 @@
                     
                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
                     resourcesIntoCD.resourcesFromWeb = resources;
-                    //[resourcesIntoCD loadResources];
+                    [resourcesIntoCD addResourceIntoCD];
                 }];
     
     
