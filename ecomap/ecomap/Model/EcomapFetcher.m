@@ -15,6 +15,40 @@
 
 @implementation EcomapFetcher
 
++ (void)loadEverything
+{
+    EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
+    EcomapCoreDataControlPanel *coreDataClass = [EcomapCoreDataControlPanel sharedInstance];
+    
+    NSString *status = [[NSUserDefaults standardUserDefaults] valueForKey:@"firstdownload"];
+    if (![status isEqualToString:@"complete"])
+    {
+        [coreDataClass loadData];
+    }
+    
+    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
+     {
+         if (error)
+         {
+             DDLogVerbose(@"ERROR");
+         }
+         for (EcomapResources *object in resources)
+         {
+             [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
+                 if (error)
+                 {
+                     DDLogVerbose(@"Error");
+                 }
+                 
+             } String:[NSString stringWithFormat:@"%ld", object.resId]];
+         }
+     }
+     ];
+    
+    // Override point for customization after application launch.
+    // EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
+    [ob checkRevison];
+}
 
 #pragma mark -- get revision
 
@@ -246,13 +280,12 @@
                             //JuliaOdynak
                             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
                             resourcesIntoCD.resourceContent = ecoAl.content;
-
-                //resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
-//                            NSNumber *num = [value objectForKey:@"id"];
-//                            NSInteger theValue = [num intValue];
-                            //[num release];
-                            //[resourcesIntoCD putContent:theValue];
-                            [resourcesIntoCD addResourceIntoCD];
+                            
+                            NSNumberFormatter *formatOfNumber = [[NSNumberFormatter alloc] init];
+                            formatOfNumber.numberStyle = NSNumberFormatterDecimalStyle;
+                            NSNumber *resourceID = [formatOfNumber numberFromString:str];
+                            
+                            [resourcesIntoCD addContentToResource:resourceID];
                         }
                     }
                     else
@@ -298,7 +331,7 @@
                     
                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
                     resourcesIntoCD.resourcesFromWeb = resources;
-                    //[resourcesIntoCD loadResources];
+                    [resourcesIntoCD addResourceIntoCD];
                 }];
     
     

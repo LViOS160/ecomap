@@ -43,6 +43,8 @@
 //Load all problems to array in completionHandler not blocking the main thread
 //NSArray *problems is a collection of EcomapProblem objects;
 
++ (void)loadEverything;
+
 + (void)loadAllProblemsOnCompletion:(void (^)(NSArray *problems, NSError *error))completionHandler;
 +(void)checkRevision:(void (^)(BOOL differance, NSError *error))completionHandler;
 +(void)loadProblemsDifference:(void (^)(NSArray *problems, NSError *error))completionHandler;

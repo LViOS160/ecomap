@@ -40,6 +40,6 @@
 - (void) requestForAllComments;
 
 - (void) addResourceIntoCD;
-- (void) loadResources;
+- (void) addContentToResource: (NSNumber*) currentID;
 
 @end
