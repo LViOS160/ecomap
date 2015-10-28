@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "EcomapCoreDataControlPanel.h"
 #import "AppDelegate.h"
+#import "EcomapRevisionCoreData.h"
 
 @implementation EcomapFetcher
 
@@ -48,6 +49,8 @@
     // Override point for customization after application launch.
     // EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
     [ob checkRevison];
+    
+    [self getProblemWithComments];
 }
 
 #pragma mark -- get revision
@@ -305,37 +308,33 @@
 +(void)loadResourcesOnCompletion:(void (^)(NSArray *resources, NSError *error))completionHandler
 {
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforResources]]
-             sessionConfiguration:[NSURLSessionConfiguration  ephemeralSessionConfiguration]
-                completionHandler:^(NSData *JSON, NSError *error) {
-                    
-                    NSMutableArray *resources = nil;
-                    NSArray *resourcesFromJSON = nil;
-                    if(!error)
-                    {
-                        //Parse JSON
-                        resourcesFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
-                        resources = [NSMutableArray array];
-                        
-                        //Fill array with ECOMAPRESOURCES
-                        for(NSDictionary *resource in resourcesFromJSON)
-                        {
-                            EcomapResources *ecoRes = [[EcomapResources alloc] initWithResource:resource];
-                            [resources addObject:ecoRes];
-                            
-                            // DDLogVerbose(@"%@",resources);
-                            
-                        }
-                    } else [InfoActions showAlertOfError:error];
-                    
-                    completionHandler(resources,error);
-                    
-                    EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                    resourcesIntoCD.resourcesFromWeb = resources;
-                    [resourcesIntoCD addResourceIntoCD];
-                }];
-    
-    
-    
+              sessionConfiguration:[NSURLSessionConfiguration  ephemeralSessionConfiguration]
+                 completionHandler:^(NSData *JSON, NSError *error) {
+                     
+                     NSMutableArray *resources = nil;
+                     NSArray *resourcesFromJSON = nil;
+                     if(!error)
+                     {
+                         //Parse JSON
+                         resourcesFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
+                         resources = [NSMutableArray array];
+                         
+                         //Fill array with ECOMAPRESOURCES
+                         for(NSDictionary *resource in resourcesFromJSON)
+                         {
+                             EcomapResources *ecoRes = [[EcomapResources alloc] initWithResource:resource];
+                             [resources addObject:ecoRes];
+                             
+                             // DDLogVerbose(@"%@",resources);
+                             
+                         }
+                     } else [InfoActions showAlertOfError:error];
+                     
+                     completionHandler(resources,error);
+                     
+                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+                     [resourcesIntoCD addResourceIntoCD:resources];
+                 }];
 }
 
 
@@ -374,7 +373,7 @@
 
 #pragma - Load comments
 
-+(void)loadCommentsFromWeb:(NSUInteger)problemID
++ (void)loadCommentsFromWeb:(NSUInteger)problemID
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -388,15 +387,17 @@
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmp options:NSJSONWritingPrettyPrinted error:nil];
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        NSArray *ar = [JSONParser parseJSONtoArray:objectData];
+        
+        NSArray *comments = [JSONParser parseJSONtoArray:objectData];
+        
+        // TODO: TO REMOVE
         EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-        [ob setCommentariesArray:ar :problemID];
+        [ob setCommentariesArray:comments :problemID];
         ob.problemsID = problemID;
         
         //added Iuliia Korniichuk
         EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
-        commentsIntoCoreData.commentsFromWeb = (NSArray*)ar;        
-        [commentsIntoCoreData addCommentsIntoCoreData:problemID];
+        [commentsIntoCoreData addCommentsIntoCoreData:problemID comments:comments];
         
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -415,7 +416,8 @@
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     
-    NSError *error = nil;
+    // 1. Load problem ids which contain comments
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *description = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
     [request setEntity:description];
@@ -423,21 +425,25 @@
     request.predicate = [NSPredicate predicateWithFormat:@"numberOfComments > %d", 0];
     NSError *requestError = nil;
     NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
-    NSArray *arrayProblemId = [requestArray valueForKey:@"idProblem"];
     
-    NSLog(@"Array of problems from CoreData %@", arrayProblemId);
+    NSArray *problemIDsWithComments = [requestArray valueForKey:@"idProblem"];
     
-        for (int i = 0; i < arrayProblemId.count; ++i)
-        {
-            NSInteger idProblem = [[arrayProblemId objectAtIndex:i] integerValue];
-            [self loadCommentsFromWeb:(NSUInteger)idProblem];
-        }
+    NSLog(@"Array of problems from CoreData %@", problemIDsWithComments);
+    
+    // 2. Load & save comments
+    
+    for (id problemID in problemIDsWithComments)
+    {
+        NSInteger idProblem = [problemID integerValue];
+        [self loadCommentsFromWeb:(NSUInteger)idProblem];
+    }
+    
+    // 3. Log results
+    
     EcomapCoreDataControlPanel *allComments = [EcomapCoreDataControlPanel sharedInstance];
-    
-    [allComments requestForAllComments];
-    
+    [allComments logCommentsFromCoreData];
 }
-   
+
 
 
 #pragma mark - Get Problem with ID

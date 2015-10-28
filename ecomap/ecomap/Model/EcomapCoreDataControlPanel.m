@@ -126,14 +126,14 @@
     
 }
 
-- (void) addResourceIntoCD
+- (void) addResourceIntoCD:(NSArray *)resources
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error = nil;
     
-    for( id object in self.resourcesFromWeb )
+    for( id object in resources )
     {
         Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
         if([object isKindOfClass:[EcomapResources class]])
@@ -182,79 +182,88 @@
 
 // added Iuliia Korniichuk
 
-- (void) addCommentsIntoCoreData:(NSUInteger)problemID
+- (void) addCommentsIntoCoreData:(NSUInteger)problemID comments:(NSArray*)comments
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error = nil;
     
-    NSNumber *problemId = [NSNumber numberWithInteger:problemID];
+    NSArray *commentsFormCD = [self commentsFromCoreData];
     
-    
-    for(id object in self.commentsFromWeb)
+    for (NSDictionary* commentDictionary in comments)
     {
-        Comment *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
-        NSDictionary *commentDictionary = (NSDictionary*) object;
+        NSNumber *commentID = @([[commentDictionary valueForKey:@"id"] integerValue]);
+        NSString *commentModified = nil;
         
-        [currentComment setCreated_by:(NSString*)[commentDictionary valueForKey:@"created_by"]];
-        [currentComment setContent:(NSString*)[commentDictionary valueForKey:@"content"]];
-        [currentComment setComment_id:(NSNumber*)[commentDictionary valueForKey:@"id"]];
-        [currentComment setUser_id:(NSNumber*)[commentDictionary valueForKey:@"user_id"]];
-        [currentComment setCreated_date:(NSString*)[commentDictionary valueForKey:@"created_date"]];
-        [currentComment setId_of_problem:(NSNumber*)problemId];
-        
-        if (![[commentDictionary valueForKey:@"modified_date"] isKindOfClass:[NSNull class]])
+        if ([[commentDictionary valueForKey:@"modified_date"] isKindOfClass:[NSString class]])
         {
-            [ currentComment setModified_date:(NSString*)[commentDictionary valueForKey:@"modified_date"]];
+            commentModified = [commentDictionary valueForKey:@"modified_date"];
         }
 
-    
-    
+        BOOL needsToAdd = YES;
+        
+        for (Comment *commentFromCD in commentsFormCD)
+        {
+            if ([commentID integerValue] == [commentFromCD.comment_id integerValue])
+            {
+                needsToAdd = NO;
+                
+                if (commentFromCD.modified_date && commentModified && ![commentFromCD.modified_date isEqualToString:commentModified])
+                {
+                    [self updateComment:commentFromCD withDictionary:commentDictionary];
+                }
+                
+                break;
+            }
+        }
+        
+        if (needsToAdd)
+        {
+            Comment *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
+            [currentComment setComment_id:commentID];
+            [currentComment setId_of_problem:@(problemID)];
 
-//        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Problem"
-//                                                  inManagedObjectContext:context];
-//        [request setEntity:entity];
-//        request.predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", (NSNumber*)currentComment.problem_id];
-//       NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", currentComment.problem_id];
-//       [request setPredicate:predicate];
-//        
-//        NSArray *array = [context executeFetchRequest:request error:nil];
-//        if (array[0])
-//        {
-//            if ([array[0] isKindOfClass:[Problem class]])
-//            {
-//                Problem *currentProblem = (Problem *) array[0];
-//                NSLog (@"%@", currentProblem.idProblem);
-//                currentComment.problem = currentProblem;
-//                NSLog (@"\\\\\%@", currentComment.problem);
-//            }
-//
-    
-    
-    
+            [self updateComment:currentComment withDictionary:commentDictionary];
+        }
     }
+    
     [context save:&error];
-
 }
 
--(void)requestForAllComments
+- (void)updateComment:(Comment*)currentComment withDictionary:(NSDictionary*)commentDictionary
 {
-   
+    [currentComment setCreated_by:(NSString*)[commentDictionary valueForKey:@"created_by"]];
+    [currentComment setContent:(NSString*)[commentDictionary valueForKey:@"content"]];
+    [currentComment setUser_id:@([[commentDictionary valueForKey:@"user_id"] integerValue])];
+    [currentComment setCreated_date:(NSString*)[commentDictionary valueForKey:@"created_date"]];
+    
+    id modifiedDate = [commentDictionary valueForKey:@"modified_date"];
+    if (modifiedDate && [modifiedDate isKindOfClass:[NSString class]])
+    {
+        [currentComment setModified_date:[commentDictionary valueForKey:@"modified_date"]];
+    }
+}
+
+- (NSArray*)commentsFromCoreData
+{
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
-    NSError *error = nil;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *description = [NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context];
     
     [request setEntity:description];
-    [request setResultType:NSDictionaryResultType];
     
     NSError *requestError = nil;
     NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
     
-    NSLog(@"%@", requestArray);
+    return !requestError && requestArray ? requestArray : nil;
+}
+
+
+- (void)logCommentsFromCoreData
+{
+    NSLog(@"%@", [self commentsFromCoreData]);
 }
 
 @end

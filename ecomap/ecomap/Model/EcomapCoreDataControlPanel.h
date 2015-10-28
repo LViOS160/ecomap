@@ -31,15 +31,12 @@
 
 @property (nonatomic, strong) MapViewController *map;
 
-@property (nonatomic, strong) NSArray *resourcesFromWeb;
 @property (nonatomic, strong) NSString *resourceContent;
 
-@property (nonatomic, strong) NSArray *commentsFromWeb;
+- (void) addCommentsIntoCoreData:(NSUInteger)problemID comments:(NSArray*)comments;
+- (void) logCommentsFromCoreData;
 
-- (void) addCommentsIntoCoreData:(NSUInteger)problemID;
-- (void) requestForAllComments;
-
-- (void) addResourceIntoCD;
+- (void) addResourceIntoCD:(NSArray*)resources;
 - (void) addContentToResource: (NSNumber*) currentID;
 
 @end
