@@ -13,6 +13,7 @@
 #import "EcomapCoreDataControlPanel.h"
 #import "AppDelegate.h"
 #import "EcomapRevisionCoreData.h"
+#import "AppDelegate.h"
 
 @implementation EcomapFetcher
 
@@ -21,11 +22,24 @@
     EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
     EcomapCoreDataControlPanel *coreDataClass = [EcomapCoreDataControlPanel sharedInstance];
     
+    
     NSString *status = [[NSUserDefaults standardUserDefaults] valueForKey:@"firstdownload"];
     if (![status isEqualToString:@"complete"])
     {
-        [coreDataClass loadData];
+        [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
+         {
+                 [coreDataClass setAllProblems:problems];
+         }];
+        
+        [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
+         {
+                 [coreDataClass setDescr:problems];
+                 [coreDataClass addProblemIntoCoreData];
+         }];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
     }
+    
     
     [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
      {
