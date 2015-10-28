@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "EcomapCoreDataControlPanel.h"
 #import "EcomapRevisionCoreData.h"
+#import "AppDelegate.h"
 
 @implementation EcomapFetcher
 
@@ -329,8 +330,38 @@
                     
                     completionHandler(resources,error);
                     
+                    NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
+                    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                    NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
+                    
+                    [request setEntity:description];
+                    NSError *requestError = nil;
+                    NSArray *coredataResources = [context executeFetchRequest:request error:&requestError];
+    
+                    NSMutableArray *resourcesToAddIntoCD = [[NSMutableArray alloc] init];
+                    
+                    for (EcomapResources *resource in resources)
+                    {
+                        BOOL resourceExistsInCD = NO;
+                        
+                        for (Resource *coreDataResource in coredataResources)
+                        {
+                            NSInteger resourceId = [coreDataResource.resourceID integerValue];
+                            if (resource.resId == resourceId)
+                            {
+                                resourceExistsInCD = YES;
+                                break;
+                            }
+                        }
+                        
+                        if (!resourceExistsInCD)
+                        {
+                            [resourcesToAddIntoCD addObject:resource];
+                        }
+                    }
+                    
                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                    resourcesIntoCD.resourcesFromWeb = resources;
+                    resourcesIntoCD.resourcesFromWeb = resourcesToAddIntoCD;
                     [resourcesIntoCD addResourceIntoCD];
                 }];
     
