@@ -50,9 +50,8 @@
 }
 
 
-- (void)viewDidLoad {
-    
-
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
     [self updateUI];
@@ -64,9 +63,6 @@
    
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Editing comment..." message:@"Edit your comment:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-
-    
-    // Do any additional setup after loading the view.
 }
 
 -(void)reload
@@ -76,7 +72,8 @@
 
 
 -(void)updateUI
-{   self.myTableView.allowsMultipleSelectionDuringEditing = NO;
+{
+    self.myTableView.allowsMultipleSelectionDuringEditing = NO;
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
     self.myTableView.estimatedRowHeight = 54.0;
@@ -91,8 +88,7 @@
 
 
 -(void)setProblemDetails:(EcomapProblemDetails *)problemDetails
-{
-        
+{        
     NSMutableArray *comments = [NSMutableArray array];
      for(EcomapActivity *oneComment in problemDetails.comments )
     {
@@ -210,7 +206,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSFetchRequest *request = [EcomapFetchedResultController requestWithEntityName:@"Comment" sortBy:@"created_by"];
@@ -267,6 +262,11 @@
     }
     
 }
+
+
+
+/////////
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

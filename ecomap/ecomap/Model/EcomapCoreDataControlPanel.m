@@ -235,7 +235,11 @@
 
 - (void)logCommentsFromCoreData
 {
-    NSLog(@"%@", [self commentsFromCoreData]);
+    for (Comment *com in [self commentsFromCoreData])
+    {
+        NSLog(@"Comment ID = %@  and Problem ID = %@", com.comment_id, com.id_of_problem);
+    }
+   // NSLog(@"%@", [self commentsFromCoreData]);
 }
 
 @end

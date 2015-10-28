@@ -89,6 +89,7 @@ typedef enum : NSUInteger
     {
         self.containerViewController = segue.destinationViewController;
         [self.containerViewController setProblemDetails:self.problemDetails];
+        [self.containerViewController setProblem_id:@(self.problemID)];
     }
 }
 
@@ -112,9 +113,7 @@ typedef enum : NSUInteger
     self.data =[ob returnDetail:self.problemID];
       EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
      [comentsID setProblemsID:self.problemID];
-   // AddCommViewController *addComm = [[AddCommViewController alloc] init];
- //   addComm.problemID = self.problemID;
-    
+      
     
     EcomapProblemDetails *obj = [EcomapProblemDetails alloc];
     
@@ -126,9 +125,7 @@ typedef enum : NSUInteger
     self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];
     [self.containerViewController setProblemDetails:self.problemDetails];
     [self updateHeader];
-
-    
-    
+   
     
 
     
@@ -156,6 +153,7 @@ typedef enum : NSUInteger
     NSLog(@"%@",self.data.idProblem);
     [self.containerViewController showViewAtIndex:sender.selectedSegmentIndex];
     [self.containerViewController setProblemDetails:self.problemDetails ];
+    self.containerViewController.problem_id = self.data.idProblem;
 }
 
 - (IBAction)likeClick:(UIButton*)sender

@@ -12,5 +12,6 @@
 @interface ContainerViewController : UIViewController <EcomapProblemDetailsHolder>
 
 - (void)showViewAtIndex:(NSUInteger)index;
+@property (strong, nonatomic) NSNumber *problem_id;
 
 @end

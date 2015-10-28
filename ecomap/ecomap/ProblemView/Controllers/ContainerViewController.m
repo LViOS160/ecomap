@@ -77,6 +77,11 @@
             [self.view addSubview:((UIViewController *)segue.destinationViewController).view];
             [segue.destinationViewController didMoveToParentViewController:self];
         }
+        if ([segue.identifier isEqualToString:@"CommentsView"])
+        {
+            AddCommViewController *addComm = (AddCommViewController*)segue.destinationViewController;
+            [addComm setProblem_ID:self.problem_id];
+        }
        
     }
 }
