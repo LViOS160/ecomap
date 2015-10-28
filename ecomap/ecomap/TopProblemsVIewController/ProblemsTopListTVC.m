@@ -118,7 +118,6 @@
     [obj sortAllProblems];
     if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
     {
-        //self.charts = obj.problemComment;
         NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription
@@ -135,7 +134,6 @@
     }
     else if (self.kindOfTopChart == EcomapMostSevereProblemsTopList)
     {
-        //self.charts = obj.problemSeverity;
         NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription
@@ -152,7 +150,6 @@
     }
     else if (self.kindOfTopChart == EcomapMostVotedProblemsTopList)
     {
-       // self.charts = obj.problemVote;
         NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription
@@ -166,7 +163,6 @@
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
         [fetchRequest setFetchLimit:10];
         self.charts = [context executeFetchRequest:fetchRequest error:nil];
-
     }
     [self.tableView reloadData];
 }
@@ -260,8 +256,8 @@
         if ([segue.destinationViewController isKindOfClass:[ProblemViewController class]])
         {
             ProblemViewController *problemVC = segue.destinationViewController;
-            EcomapProblem *problem = self.charts[indexPath.row];
-            problemVC.problemID = problem.problemID;
+            Problem *problem = self.charts[indexPath.row];
+            problemVC.problemID = [problem.idProblem integerValue];
         }
     }
 }
