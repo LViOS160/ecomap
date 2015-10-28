@@ -18,6 +18,7 @@
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
 #import "TOP10.h"
+#import "AppDelegate.h"
 
 @interface ProblemsTopListTVC ()
 
@@ -117,15 +118,55 @@
     [obj sortAllProblems];
     if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
     {
-        self.charts = obj.problemComment;
+        //self.charts = obj.problemComment;
+        NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"Problem"
+                                       inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                                  initWithKey:@"numberOfComments" ascending:NO];
+        
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        [fetchRequest setFetchLimit:10];
+        self.charts = [context executeFetchRequest:fetchRequest error:nil];
     }
     else if (self.kindOfTopChart == EcomapMostSevereProblemsTopList)
     {
-        self.charts = obj.problemSeverity;
+        //self.charts = obj.problemSeverity;
+        NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"Problem"
+                                       inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                                  initWithKey:@"severity" ascending:NO];
+        
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        [fetchRequest setFetchLimit:10];
+        self.charts = [context executeFetchRequest:fetchRequest error:nil];
     }
     else if (self.kindOfTopChart == EcomapMostVotedProblemsTopList)
     {
-        self.charts = obj.problemVote;
+       // self.charts = obj.problemVote;
+        NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"Problem"
+                                       inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                                  initWithKey:@"numberOfVotes" ascending:NO];
+        
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        [fetchRequest setFetchLimit:10];
+        self.charts = [context executeFetchRequest:fetchRequest error:nil];
+
     }
     [self.tableView reloadData];
 }
@@ -175,9 +216,9 @@
     }
     // Display data in the cell
     
-    EcomapProblem *problem = (EcomapProblem*)self.charts[indexPath.row];
+    Problem *problem = (Problem*)self.charts[indexPath.row];
     UILabel *problemTitleLabel = (UILabel *)[cell viewWithTag:100];
-    problemTitleLabel.text = [NSString stringWithFormat:@"%@", problem.title];
+    problemTitleLabel.text =  problem.title;
     UILabel *problemScoreLabel = (UILabel *)[cell viewWithTag:101];
     NSString* cont;
     cont =[self scoreOfProblem:problem];
@@ -188,20 +229,20 @@
     return cell;
 }
 
-- (NSString*) scoreOfProblem: (EcomapProblem*)problem
+- (NSString*) scoreOfProblem: (Problem*)problem
 {
     NSString* scoreOfProblem;
     if (self.kindOfTopChart == EcomapMostVotedProblemsTopList)
     {
-        scoreOfProblem = [NSString stringWithFormat:@"%lu",problem.vote];
+        scoreOfProblem = [NSString stringWithFormat:@"%@",problem.numberOfVotes];
     }
     else if (self.kindOfTopChart == EcomapMostSevereProblemsTopList)
     {
-         scoreOfProblem = [NSString stringWithFormat:@"%lu",problem.severity];
+         scoreOfProblem = [NSString stringWithFormat:@"%@",problem.severity];
     }
     else if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
     {
-        scoreOfProblem = [NSString stringWithFormat:@"%lu",problem.numberOfComments];
+        scoreOfProblem = [NSString stringWithFormat:@"%@",problem.numberOfComments];
     }
     return scoreOfProblem;
 }
