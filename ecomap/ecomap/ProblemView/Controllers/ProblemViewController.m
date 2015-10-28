@@ -107,7 +107,7 @@ typedef enum : NSUInteger
 - (void)loadProblemDetails:(void(^)())onFinish
 {
    
-    [EcomapFetcher updateComments: self.problemID];
+    [EcomapFetcher loadCommentsFromWeb: self.problemID];
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];
     EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];

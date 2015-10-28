@@ -322,7 +322,7 @@
 
 #pragma - Load comments
 
-+(void)updateComments:(NSUInteger)problemID
++(void)loadCommentsFromWeb:(NSUInteger)problemID
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -337,9 +337,9 @@
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSArray *ar = [JSONParser parseJSONtoArray:objectData];
-        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-        [ob setCommentariesArray:ar :problemID];
-        ob.problemsID = problemID;
+//        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+//        [ob setCommentariesArray:ar :problemID];
+//        ob.problemsID = problemID;
         
         //added Iuliia Korniichuk
         EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
@@ -358,28 +358,31 @@
     
 }
 
-+ (void)getProblemIdFromProblem
++ (void)getProblemWithComments
 {
-//    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-//    NSManagedObjectContext* context = appDelegate.managedObjectContext;
-//    NSError *error = nil;
-//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//    NSEntityDescription *description = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
-//    [request setEntity:description];
-//    [request setResultType:NSDictionaryResultType];
-//    NSError *requestError = nil;
-//    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
-//    NSArray *arrayProblemId = [requestArray valueForKey:@"idProblem"];
-//    NSLog(@"Array of problems from CoreData%@", arrayProblemId);
-//    
-//        for (int i = 0; i < arrayProblemId.count; ++i)
-//        {
-//        NSInteger idProblem = [[arrayProblemId objectAtIndex:i] integerValue];
-//        [self updateComments:(NSUInteger)idProblem];
-//        }
-//    EcomapCoreDataControlPanel *allComments = [EcomapCoreDataControlPanel sharedInstance];
-//    
-//    [allComments requestForAllComments];
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    
+    NSError *error = nil;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *description = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
+    [request setEntity:description];
+    [request setResultType:NSDictionaryResultType];
+    request.predicate = [NSPredicate predicateWithFormat:@"numberOfComments > %d", 0];
+    NSError *requestError = nil;
+    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
+    NSArray *arrayProblemId = [requestArray valueForKey:@"idProblem"];
+    
+    NSLog(@"Array of problems with comments from CoreData %@", arrayProblemId);
+    
+        for (int i = 0; i < arrayProblemId.count; ++i)
+        {
+            NSInteger idProblem = [[arrayProblemId objectAtIndex:i] integerValue];
+            [self loadCommentsFromWeb:(NSUInteger)idProblem];
+        }
+    EcomapCoreDataControlPanel *allComments = [EcomapCoreDataControlPanel sharedInstance];
+    
+    [allComments requestForAllComments];
     
 }
    
@@ -389,7 +392,7 @@
 + (void)loadProblemDetailsWithID:(NSUInteger)problemID OnCompletion:(void (^)(EcomapProblemDetails *problemDetails, NSError *error))completionHandler
 {
 
-    [self updateComments:problemID];
+    [self loadCommentsFromWeb:problemID];
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforProblemWithID:problemID]]
              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                 completionHandler:^(NSData *JSON, NSError *error) {

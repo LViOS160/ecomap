@@ -2,13 +2,14 @@
 //  Problem.h
 //  ecomap
 //
-//  Created by Admin on 21.10.15.
+//  Created by admin on 10/27/15.
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Comment;
 
 @interface Problem : NSManagedObject
 
@@ -27,5 +28,14 @@
 @property (nonatomic, retain) NSString * status;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * userID;
+@property (nonatomic, retain) NSSet *comments;
+@end
+
+@interface Problem (CoreDataGeneratedAccessors)
+
+- (void)addCommentsObject:(Comment *)value;
+- (void)removeCommentsObject:(Comment *)value;
+- (void)addComments:(NSSet *)values;
+- (void)removeComments:(NSSet *)values;
 
 @end

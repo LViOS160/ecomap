@@ -2,11 +2,12 @@
 //  Problem.m
 //  ecomap
 //
-//  Created by Admin on 21.10.15.
+//  Created by admin on 10/27/15.
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
 #import "Problem.h"
+#import "Comment.h"
 
 
 @implementation Problem
@@ -26,5 +27,6 @@
 @dynamic status;
 @dynamic title;
 @dynamic userID;
+@dynamic comments;
 
 @end

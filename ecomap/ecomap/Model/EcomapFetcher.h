@@ -68,7 +68,7 @@
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
         OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
-+(void)updateComments:(NSUInteger)problemID;
++(void)loadCommentsFromWeb:(NSUInteger)problemID;
 +(void)deleteComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
         OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
@@ -77,5 +77,5 @@
 
 
 
-+(void)getProblemIdFromProblem;
++(void)getProblemWithComments;
 @end

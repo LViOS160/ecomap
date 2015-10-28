@@ -22,6 +22,10 @@
 #import "InfoActions.h"
 #import "AFNetworking.h"
 
+#import "EcomapFetchedResultController.h"
+#import "EcomapCoreDataControlPanel.h"
+#import "AppDelegate.h"
+
 
 @interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
 @property (nonatomic,strong) NSMutableArray* comments;
@@ -205,8 +209,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+//
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSFetchRequest *request = [EcomapFetchedResultController requestWithEntityName:@"Comment" sortBy:@"created_by"];
+    NSArray *requestArray = [context executeFetchRequest:request error:nil];
+    
+    NSLog(@"%@", requestArray);
+    
+    
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-    if(ob.comInfo.count == 0)
+    if(ob.comInfo.count == 0) // 
     {
          return 1;
     }

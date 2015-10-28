@@ -178,6 +178,7 @@
     {
         Comment *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
         NSDictionary *commentDictionary = (NSDictionary*) object;
+        
         [currentComment setCreated_by:(NSString*)[commentDictionary valueForKey:@"created_by"]];
         [currentComment setContent:(NSString*)[commentDictionary valueForKey:@"content"]];
         [currentComment setProblem_id:(NSNumber*)[commentDictionary valueForKey:@"id"]];
@@ -186,8 +187,28 @@
         
         if (![[commentDictionary valueForKey:@"modified_date"] isKindOfClass:[NSNull class]])
         {
-           [ currentComment setModified_date:(NSString*)[commentDictionary valueForKey:@"modified_date"]];
+            [ currentComment setModified_date:(NSString*)[commentDictionary valueForKey:@"modified_date"]];
         }
+        
+//        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Problem"
+//                                                  inManagedObjectContext:context];
+//        [request setEntity:entity];
+//        request.predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", (NSNumber*)currentComment.problem_id];
+////        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", currentComment.problem_id];
+////        [request setPredicate:predicate];
+//        
+//        NSArray *array = [context executeFetchRequest:request error:nil];
+//        if (array[0])
+//        {
+//            if ([array[0] isKindOfClass:[Problem class]])
+//            {
+//                Problem *currentProblem = (Problem *) array[0];
+//                NSLog (@"%@", currentProblem.idProblem);
+//                currentComment.problem = currentProblem;
+//                NSLog (@"\\\\\%@", currentComment.problem);
+//            }
+//        }
     }
     [context save:&error];
 }
