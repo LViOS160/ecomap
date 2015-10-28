@@ -32,74 +32,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    /*[[NSUserDefaults standardUserDefaults]removeObjectForKey:@"firstdownload"];
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    NSManagedObjectContext* context = appDelegate.managedObjectContext;
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
-    [request setEntity:descr];
-    //[request setResultType:NSDictionaryResultType];
-    NSArray *arr = [context executeFetchRequest:request error:nil];
-    for(id object in arr)
-    {
-        
-        if([object isKindOfClass:[Problem class]])
-        {
-            Problem* ob = (Problem*)object;
-            
-            // [context deleteObject:ob];
-               NSLog(@"Title:  %@ Content: %@  \nDate: %@ ", ob.title, ob.content , ob.date);
-            [context deleteObject:ob];
-            
-        }
-         [context save:nil];
-    }
+    [EcomapFetcher loadEverything];
     
-arr = [context executeFetchRequest:request error:nil];
-    */
-    
-    EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
-    
-    EcomapCoreDataControlPanel *coreDataClass = [EcomapCoreDataControlPanel sharedInstance];
-    NSString *status = [[NSUserDefaults standardUserDefaults]valueForKey:@"firstdownload"];
-    if(![status isEqualToString:@"complete"])
-    {
-       [coreDataClass loadData];
-    }
-    
-    
-    [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
-          {
-              if (error)
-              {
-                  DDLogVerbose(@"ERROR");
-              }
-              [EcomapFetcher loadAliasOnCompletion:^(NSArray *alias, NSError *error) {
-                  if (error)
-                  {
-                      DDLogVerbose(@"Error");
-                  }
-                  
-              } String:@"2"];
-          }
-          ];
-    
-
-    
-    // Override point for customization after application launch.
-   // EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
-    [ob checkRevison];
-    
-    
-    
-    [EcomapFetcher getProblemWithComments];
-    
-    
-   // [ob loadData];
-    self.managedObjectContext;
-   
     [GMSServices provideAPIKey:@"AIzaSyC8CqCUnyZX516O08J6JUCTV03ySVQAZoI"];
-
+    
     //Configurate lamberjack
     [DDLog addLogger:[DDASLLogger sharedInstance]]; //DDASLLogger (sends log statements to Apple System Logger, so they show up on Console.app)
     [DDLog addLogger:[DDTTYLogger sharedInstance]]; //DDTTYLogger (sends log statements to Xcode console - if available)
@@ -110,7 +46,7 @@ arr = [context executeFetchRequest:request error:nil];
     fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
     [DDLog addLogger:fileLogger];
-
+    
     return YES;
 }
 
