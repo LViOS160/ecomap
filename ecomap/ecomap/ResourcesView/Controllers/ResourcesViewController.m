@@ -38,7 +38,6 @@
         [self.navigationController.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
         [self.navigationController.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     }
-
 }
 
 #pragma mark - TableView
@@ -70,33 +69,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self customSetup];
-    [self refreshing];
-}
-
-- (void) didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
     
     NSFetchRequest *request = [EcomapFetchedResultController
                                requestWithEntityName:@"Resource"
                                sortBy:@"resourceID"];
     
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
+    self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:request
                                                              managedObjectContext:self.managedObjectContext
                                                              sectionNameKeyPath:nil
-                                                             cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
+                                                             cacheName:nil];
+    self.fetchedResultsController.delegate = self;
     
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error])
@@ -105,8 +88,10 @@
         abort();
     }
     
-    return _fetchedResultsController;
+    [self customSetup];
+    [self refreshing];
 }
+
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
