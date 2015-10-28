@@ -28,6 +28,9 @@
 
 - (void)loadData
 {
+  
+
+    
     [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
      {
          self.allProblems = [NSArray arrayWithArray:problems];
@@ -118,6 +121,9 @@
     
     [context save:&error];
     
+   
+ 
+    
 }
 
 
@@ -133,20 +139,20 @@
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error = nil;
     
-//    for( id object in self.resourcesFromWeb )
-//    {
-//        Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
-//        if([object isKindOfClass:[EcomapResources class]])
-//        {
-//            EcomapResources *resource = (EcomapResources*) object;
-//            
-//            [currentResource setTitle:(NSString*)resource.titleRes];
-//            [currentResource setAlias:(NSString *)resource.alias];
-//            [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
-//            [currentResource setContent:@"NO DATA"];
-//        }
-//    }
-//    [context save:&error];
+    for( id object in self.resourcesFromWeb )
+    {
+        Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
+        if([object isKindOfClass:[EcomapResources class]])
+        {
+            EcomapResources *resource = (EcomapResources*) object;
+            
+            [currentResource setTitle:(NSString*)resource.titleRes];
+            [currentResource setAlias:(NSString *)resource.alias];
+            [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
+            [currentResource setContent:self.resourceContent];
+        }
+    }
+    [context save:&error];
 }
 
 - (void)logResourcesOnDemand

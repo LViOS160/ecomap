@@ -13,6 +13,9 @@
 #import "Resource.h"
 #import "Comment.h"
 
+
+@class MapViewController;
+
 @interface EcomapCoreDataControlPanel : NSObject
 
 + (instancetype) sharedInstance;
@@ -21,11 +24,15 @@
 - (void) loadData;
 - (Problem*) returnDetail:(NSInteger)identifier;
 
+
+
 @property (nonatomic, strong) NSArray *allProblems;
 @property (nonatomic, strong) NSArray *descr;
-@property (nonatomic, weak) MapViewController *map;
+
+@property (nonatomic, strong) MapViewController *map;
 
 @property (nonatomic, strong) NSArray *resourcesFromWeb;
+@property (nonatomic, strong) NSString *resourceContent;
 
 @property (nonatomic, strong) NSArray *commentsFromWeb;
 

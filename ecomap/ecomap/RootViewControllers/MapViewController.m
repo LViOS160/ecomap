@@ -34,13 +34,13 @@
 #import "EcomapCoreDataControlPanel.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
-@interface MapViewController () <ProblemFilterTVCDelegate/*, NSFetchedResultsControllerDelegate*/>
+@interface MapViewController () <ProblemFilterTVCDelegate, NSFetchedResultsControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (nonatomic, strong) GClusterManager *clusterManager;
 @property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
-@property (nonatomic, strong) NSSet *problems;
+//@property (nonatomic, strong) NSSet *problems;
 @property (nonatomic, strong) SRWebSocket *socket;
 @property (nonatomic) Reachability *hostReachability;
 @property  NSSet* currentAllProblems;
@@ -50,54 +50,55 @@
 // Set which contains problems after applying filter.
 @property (nonatomic, strong) NSSet *filteredProblems;
 
-//@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
-//@property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation MapViewController
 
-/*@synthesize fetchedResultsController = _fetchedResultsController;
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
-    if (self.fetchedResultsController != nil) {
-        return self.fetchedResultsController;
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
     }
     
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
+    
+    NSString *entityName = @"Problem";
+    NSString *sortBy = @"idProblem";
     
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Problem" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                            initWithKey:@"idProblem" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
+    NSFetchRequest *fetchRequest = [EcomapFetchedResultController requestWithEntityName:entityName sortBy:sortBy];
     
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
-                                                   cacheName:nil];
+                                        managedObjectContext:appDelegate.managedObjectContext
+                                             sectionNameKeyPath:nil
+                                                   cacheName:entityName];
     
-    self.fetchedResultsController = (NSFetchedResultsController *)theFetchedResultsController;
     
+    
+    self.fetchedResultsController = theFetchedResultsController;
     self.fetchedResultsController.delegate = self;
     
-    return self.fetchedResultsController;
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error])
+    {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
     
+    return _fetchedResultsController;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self renewMap:self.currentAllProblems];
-    [self saveLocalJSON:self.currentAllProblems];
+     NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+    
+    [self loadProblems];
+    [self saveLocalJSON:set];
     
 }
 
@@ -106,8 +107,9 @@
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
     
-    switch(type) {
-            
+    switch(type)
+    {
+        
         case NSFetchedResultsChangeInsert:
             [self.arrayWithProblems addObject:anObject];
             break;
@@ -123,7 +125,7 @@
         case NSFetchedResultsChangeMove:
             break;
     }
-}*/
+ }
 
 
 
@@ -142,9 +144,11 @@
                                                  name:ALL_PROBLEMS_CHANGED
                                                object:nil];
     
-    EcomapCoreDataControlPanel *coreObject = [EcomapCoreDataControlPanel sharedInstance];
-    [coreObject setMap:self];
+  
 }
+
+
+
 
 
 
@@ -205,17 +209,7 @@
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
     NSLog(@"Data recived %@", message);
-    [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error) {
-        if (!error)
-        {
-            NSSet *set = [[NSSet alloc] initWithArray:problems];
-            if (![self.problems isEqualToSet:set])
-            {
-                [self renewMap:set];
-                [self saveLocalJSON:set];
-            }
-        }
-    }];
+
 }
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket
@@ -274,6 +268,8 @@
                                                     algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                      renderer:[[EcomapClusterRenderer alloc] initWithMapView:self.mapView]];
     
+    
+    
     for(EcomapProblem *problem in problems)
     {
         if([problem isKindOfClass:[EcomapProblem class]])
@@ -281,52 +277,32 @@
             Spot* spot = [self generateSpot:problem];
             [self.clusterManager addItem:spot];
         }
-    }
+   }
     [self.clusterManager cluster];
  }
+
+
+
 
 -(void)loadProblems
 {
     
-    /*NSError *error = nil;
-    [self.fetchedResultsController performFetch:&error];
-    
-    if (error)
-    {
-        NSLog(@"%@", error);
-    }
-    
-    if (!self.arrayWithProblems)
-    {
-        self.arrayWithProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
-    }
-    
-    NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
-    self.currentAllProblems = [[NSSet alloc]initWithSet:set];*/
-    
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    NSManagedObjectContext* context = appDelegate.managedObjectContext;
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
-    [request setEntity:descr];
-    NSArray *arr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
-    NSMutableArray *allProblems = [NSMutableArray array];
-    for (Problem *problem in arr) {
-        EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
-        [allProblems addObject:ecoProblem];
-    }
+   
 
-      self.arrayWithProblems = allProblems;
-  
-    
+        self.arrayWithProblems = [NSMutableArray new];
+        NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+        for (Problem *problem in allProblems)
+        {
+            EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
+            [self.arrayWithProblems addObject:ecoProblem];
+        
+        }
     
     NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     self.currentAllProblems = [[NSSet alloc]initWithSet:set];
-        if (![self.problems isEqualToSet:set])
-        {
-            [self renewMap:set];
-            [self saveLocalJSON:set];
-        }
+    [self renewMap:set];
+    //[self saveLocalJSON:set];
+
 }
 
    
@@ -338,12 +314,15 @@
 {
     self.filteringMask = filteringMask;
     
+    
+    [self loadProblems];
+    
     NSArray *arrProblems;
     NSArray *filteredProblems;
-    NSLog(@"%@",[self.problems valueForKey:@"latitude"]);
-    NSLog(@"%@",[self.problems valueForKey:@"longitude"]);
+    NSLog(@"%@",[self.currentAllProblems valueForKey:@"latitude"]);
+    NSLog(@"%@",[self.currentAllProblems valueForKey:@"longitude"]);
     
-    if (self.problems)
+    if (self.currentAllProblems)
     {
         arrProblems = [self.currentAllProblems allObjects];
         //[self.problems allObjects];
@@ -355,7 +334,7 @@
         }
         else
         {
-            self.filteredProblems = self.problems;
+            self.filteredProblems = self.currentAllProblems;
         }
     }
     [self renewMap:self.filteredProblems];
@@ -376,9 +355,9 @@
     
     [self.mapView setDelegate:self];
     [self.view insertSubview:self.mapView atIndex:0];
-    self.problems = [self loadLocalJSON];
-    if (self.problems)
-        [self renewMap:self.problems];
+    //self.problems = [self loadLocalJSON];
+    //if (self.problems)
+        //[self renewMap:self.problems];
     [self loadProblems];
 
 //    self.mapView.camera

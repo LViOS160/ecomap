@@ -1017,7 +1017,6 @@
 				90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */,
 				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
 				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
-				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
 				90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */,
 				518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */,
 				518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */,
@@ -1029,6 +1028,7 @@
 		CA7B3C861AA65438005AF277 /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
 				518F30A51AA26BF40094DA14 /* JSONParser.h */,
 				518F30A61AA26BF40094DA14 /* JSONParser.m */,
 				B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */,

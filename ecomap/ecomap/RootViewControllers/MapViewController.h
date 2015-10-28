@@ -13,12 +13,16 @@
 #import "SRWebSocket.h"
 #import "ProblemViewController.h"
 #import "EcomapRevisionCoreData.h"
+#import "EcomapCoreDataControlPanel.h"
+
+
 
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>
 
 @property (nonatomic, strong) GMSMapView *mapView;
--(void)loadProblems;
 
+- (void)loadProblems;
+- (void)mapSetup;
 @end
 

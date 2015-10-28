@@ -14,8 +14,8 @@
 + (instancetype)sharedInstance;
 - (void)loadDifferance;
 - (void)checkRevison;
-
+- (void)actionFetcher;
 
 @property (nonatomic, strong) NSArray *allRevisions;
-
+@property (nonatomic, strong) NSArray *allActions;
 @end

@@ -1,4 +1,4 @@
-//
+
 //  ResourceDetails.m
 //  ecomap
 //
@@ -16,9 +16,10 @@
 @implementation ResourceDetails
 
 @synthesize details = _details;
--(void)setDetails:(NSString *)details
+//-(void)setDetails:(NSString *)details
+- (void) putData
 {
-    _details = details;
+   // _details = details;
     UIFont *font = [UIFont systemFontOfSize:21];  //     FOR FONT @"helvetica"
     NSString *bodyHTML = [NSString stringWithFormat:@"<html> \n"
                                    "<head> \n"
@@ -62,7 +63,9 @@
 {
     [super viewDidLoad];
     [self.spiner startAnimating];
+    [self putData];
 }
+
 
 - (void)didReceiveMemoryWarning
 {

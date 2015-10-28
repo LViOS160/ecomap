@@ -21,6 +21,7 @@
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
                               initWithKey:sortDescriptor ascending:YES];
+    
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     [fetchRequest setFetchBatchSize:20];

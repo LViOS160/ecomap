@@ -28,6 +28,7 @@
                          if (JSON) {
                              NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
                              NSNumber *revisionLocal = [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"];
+                             [[NSUserDefaults standardUserDefaults] setObject:revisionLocal forKey:@"oldrevision"];
                              NSNumber *recieveRevison = [aJSON valueForKey:@"current_activity_revision"];
                              if([recieveRevison isEqual:revisionLocal])
                              {
@@ -35,7 +36,9 @@
                              }
                              else
                              {
+                                
                                  [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"revision"];
+                                // [[NSUserDefaults standardUserDefaults] setObject:tmpOldRev forKey:@"oldrevision"];
                                  [[NSUserDefaults standardUserDefaults]setObject:recieveRevison forKey:@"revision"];
                                  revision = YES;
                              }
@@ -49,7 +52,21 @@
 
 +(void)loadProblemsDifference:(void (^)(NSArray *problems, NSError *error))completionHandler
 {
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://176.36.11.25:8000/api/problems?rev=1743"]]
+    NSMutableString *urlForLoadDifferance = [NSMutableString stringWithFormat:@"http://176.36.11.25:8000/api/problems?rev="];
+    NSString *tmprevision = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"revision"]];
+    NSString *oldrevision = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"oldrevision"]];
+    
+    
+    if(oldrevision == nil)
+    {
+         [urlForLoadDifferance appendString:tmprevision];
+    }
+    else
+    {
+         [urlForLoadDifferance appendString:oldrevision];
+    }
+    
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlForLoadDifferance]]
               sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                  completionHandler:^(NSData *JSON, NSError *error) {
                      NSArray *problems = nil;
@@ -228,9 +245,11 @@
                             
                             //JuliaOdynak
                             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                            //resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
-                            NSNumber *num = [value objectForKey:@"id"];
-                            NSInteger theValue = [num intValue];
+                            resourcesIntoCD.resourceContent = ecoAl.content;
+
+                //resourcesIntoCD.resourceContent = [value valueForKey:@"content"];
+//                            NSNumber *num = [value objectForKey:@"id"];
+//                            NSInteger theValue = [num intValue];
                             //[num release];
                             //[resourcesIntoCD putContent:theValue];
                             [resourcesIntoCD addResourceIntoCD];
@@ -279,7 +298,7 @@
                     
                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
                     resourcesIntoCD.resourcesFromWeb = resources;
-                    [resourcesIntoCD loadResources];
+                    //[resourcesIntoCD loadResources];
                 }];
     
     
