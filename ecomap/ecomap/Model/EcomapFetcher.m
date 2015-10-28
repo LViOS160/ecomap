@@ -377,7 +377,7 @@
                     }
                     
                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                    [resourcesIntoCD addResourceIntoCD:resources];
+                    [resourcesIntoCD addResourceIntoCD:resourcesToAddIntoCD];
                 }];
     
     
