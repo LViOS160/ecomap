@@ -26,18 +26,22 @@
     NSString *status = [[NSUserDefaults standardUserDefaults] valueForKey:@"firstdownload"];
     if (![status isEqualToString:@"complete"])
     {
+    
+    
+    
         [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
          {
-                 [coreDataClass setAllProblems:problems];
+             [coreDataClass setAllProblems:problems];
+             
+         [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
+              {
+                  [coreDataClass setDescr:problems];
+                  [coreDataClass addProblemIntoCoreData];
+              }];
+
          }];
-        
-        [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
-         {
-                 [coreDataClass setDescr:problems];
-                 [coreDataClass addProblemIntoCoreData];
-         }];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
+    
+       [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
     }
     
     
