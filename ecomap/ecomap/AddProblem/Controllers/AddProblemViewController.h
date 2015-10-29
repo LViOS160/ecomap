@@ -16,9 +16,10 @@
 #import "AddProblemNvatigationDelegate.h"
 #import "AddProblemNavigationViewController.h"
 #import "Defines.h"
+#import "AddProblemModalController.h"
+@protocol updateData;
 
-
-@interface AddProblemViewController : MapViewController <AddProblemNvatigationDelegate>
+@interface AddProblemViewController : MapViewController <AddProblemNvatigationDelegate,updateData>
 
 
 

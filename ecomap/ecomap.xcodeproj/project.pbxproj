@@ -41,6 +41,7 @@
 		84A65DA21BD444C0009A418A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A65DA01BD444C0009A418A /* Model.xcdatamodeld */; };
 		84A65DA91BD44888009A418A /* EcomapCoreDataControlPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A65DA81BD44888009A418A /* EcomapCoreDataControlPanel.m */; };
 		84E68F8A1BCBD94000ADD104 /* EcomapStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68F891BCBD94000ADD104 /* EcomapStatistics.m */; };
+		84E7BA2C1BE171FC00BBCCA0 /* AddProblemModalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E7BA2B1BE171FC00BBCCA0 /* AddProblemModalController.m */; };
 		84E953CE1BD0B62A00FE8337 /* UAbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E953CD1BD0B62A00FE8337 /* UAbutton.png */; };
 		9096C98D1A91E8DA00A61CDB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		90B51C511AA5BF88008E082B /* EcomapStatsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */; };
@@ -243,6 +244,8 @@
 		84A65DA81BD44888009A418A /* EcomapCoreDataControlPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapCoreDataControlPanel.m; sourceTree = "<group>"; };
 		84E68F881BCBD94000ADD104 /* EcomapStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapStatistics.h; path = ../../../../EcomapStatistics.h; sourceTree = "<group>"; };
 		84E68F891BCBD94000ADD104 /* EcomapStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapStatistics.m; path = ../../../../EcomapStatistics.m; sourceTree = "<group>"; };
+		84E7BA2A1BE171FC00BBCCA0 /* AddProblemModalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemModalController.h; sourceTree = "<group>"; };
+		84E7BA2B1BE171FC00BBCCA0 /* AddProblemModalController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemModalController.m; sourceTree = "<group>"; };
 		84E953CD1BD0B62A00FE8337 /* UAbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UAbutton.png; sourceTree = "<group>"; };
 		90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
 		90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
@@ -597,6 +600,7 @@
 		B3738B5B1A9DDC4B0077F604 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B3738C041A9DDC4B0077F604 /* Account */,
 				B39FCE041AB04756002B96CE /* AddProblemNvatigationDelegate.h */,
 				B34D3CD61AB18F7D0094D043 /* ConstHeightViewController.h */,
 				B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */,
@@ -619,6 +623,8 @@
 				B34D3CD91AB19B040094D043 /* SlideAnimator.h */,
 				B34D3CDA1AB19B040094D043 /* SlideAnimator.m */,
 				B3738B5E1A9DDC4B0077F604 /* Defines.h */,
+				84E7BA2A1BE171FC00BBCCA0 /* AddProblemModalController.h */,
+				84E7BA2B1BE171FC00BBCCA0 /* AddProblemModalController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -991,7 +997,7 @@
 				518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */,
 			);
 			name = Account;
-			path = UserViewController;
+			path = ../../UserViewController;
 			sourceTree = "<group>";
 		};
 		CA7B3C841AA652EE005AF277 /* Network */ = {
@@ -1052,7 +1058,6 @@
 				511BF3D51B275174007664F9 /* About */,
 				B3738BD91A9DDC4B0077F604 /* Statistic */,
 				B3738BD41A9DDC4B0077F604 /* Root */,
-				B3738C041A9DDC4B0077F604 /* Account */,
 				B3738BBA1A9DDC4B0077F604 /* ShowProblem */,
 				B3738B5A1A9DDC4B0077F604 /* AddProblem */,
 				B3738BCB1A9DDC4B0077F604 /* Resources */,
@@ -1342,6 +1347,7 @@
 				B3738C261A9DDC4B0077F604 /* EcomapLocalPhoto.m in Sources */,
 				847EAD471BE0C031007B512D /* Comment.m in Sources */,
 				B3ACA3E51AA7524A003BD9EF /* AddProblemDescriptionViewController.m in Sources */,
+				84E7BA2C1BE171FC00BBCCA0 /* AddProblemModalController.m in Sources */,
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
 				B3ACA3E61AA7524A003BD9EF /* AddProblemLocationViewController.m in Sources */,

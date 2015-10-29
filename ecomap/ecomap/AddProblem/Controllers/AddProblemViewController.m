@@ -20,6 +20,7 @@
 #import "AFNetworking.h"
 #import "EcomapRevisionCoreData.h"
 #import "EcomapCoreDataControlPanel.h"
+
 @interface AddProblemViewController ()
 {
     CGFloat padding;
@@ -55,9 +56,23 @@
 
 @property (nonatomic) GMSMarker *marker;
 
+@property (nonatomic)CLLocationCoordinate2D cord;
 @end
 
 @implementation AddProblemViewController
+
+
+- (void)update:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker
+{
+    
+  
+
+    [self postProblem:problemName :problemDescription :problemSolution :marker];
+    
+    
+    NSLog(@"%@",problemName);
+}
+
 
 - (void)viewDidLoad
 {
@@ -171,7 +186,7 @@
             self.topSpaceToButton.constant = 77;
             [self.addProblemButton setNeedsUpdateConstraints];
             
-            [self postProblem];                     // not implemented
+          //  [self postProblem];                     // not implemented
             self.userIsInTheMiddleOfAddingProblem = false;
             [self closeButtonTap:nil];
             [sender setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
@@ -348,6 +363,30 @@
     }
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if([identifier isEqualToString:@"addProblem"])
+    {
+        [self performSegueWithIdentifier:@"addProblem" sender:nil];
+        
+    }
+    return YES;
+}
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"addProblem"]) {
+  
+        AddProblemModalController *modalContr = (AddProblemModalController*)segue.destinationViewController;
+        [modalContr setCord:self.cord];
+    }
+    
+   
+    
+}
+
+
 #pragma mark - ProblemPost
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
 
@@ -358,20 +397,21 @@
                 self.marker.title = PROBLEM_LOCATION_STRING;
                 self.marker.map = self.mapView;
             }
+            [self setCord:coordinate];
             [self.marker setPosition:coordinate];
         }
     }
 }
 
-- (void)postProblem
+- (void)postProblem:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker
 {
-    NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : self.addProblemName.problemName.text,
-                             ECOMAP_PROBLEM_CONTENT    : self.addProblemDescription.textView.text ? self.addProblemDescription.textView.text : @"",
-                             ECOMAP_PROBLEM_PROPOSAL : self.addProblemSolution.textView.text ? self.addProblemSolution.textView.text : @"",
-                             ECOMAP_PROBLEM_LATITUDE : @(self.marker.position.latitude),
-                             ECOMAP_PROBLEM_LONGITUDE : @(self.marker.position.longitude),
+    NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : problemName,
+                             ECOMAP_PROBLEM_CONTENT    : problemDescription,
+                             ECOMAP_PROBLEM_PROPOSAL : problemSolution,
+                             ECOMAP_PROBLEM_LATITUDE : @(marker.position.latitude),
+                             ECOMAP_PROBLEM_LONGITUDE : @(marker.position.longitude),
                              ECOMAP_PROBLEM_ID : @(4),
-                             ECOMAP_PROBLEM_TYPE_ID : @([self.addProblemType.pickerView selectedRowInComponent:0] + 1)
+                             ECOMAP_PROBLEM_TYPE_ID : @(2)
                              };
     
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
