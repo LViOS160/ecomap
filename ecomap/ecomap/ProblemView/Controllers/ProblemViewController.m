@@ -107,7 +107,7 @@ typedef enum : NSUInteger
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
-   
+    
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];
     EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
@@ -116,7 +116,6 @@ typedef enum : NSUInteger
     self.problemDetails = [[EcomapProblemDetails alloc] initViewProblemFromCoreData:self.data];
     
     self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];
-    [self.containerViewController setProblemDetails:self.problemDetails];
     [self.containerViewController setProblemDetails:self.problemDetails];
     [self updateHeader];
    

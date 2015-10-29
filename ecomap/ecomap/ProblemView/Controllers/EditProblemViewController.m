@@ -13,6 +13,7 @@
 #import "InfoActions.h"
 #import "AFNetworking.h"
 #import "ProblemViewController.h"
+#import "EcomapRevisionCoreData.h"
 
 enum : NSInteger {
     TextFieldTag_Content = 1,
@@ -134,12 +135,18 @@ enum : NSInteger {
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
     
-    [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
         [InfoActions stopActivityIndicator];
-        [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+        EcomapRevisionCoreData *revision = [[EcomapRevisionCoreData alloc] init];
+        [revision checkRevison];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
         
         NSLog(@"%@",error);
         [InfoActions showAlertOfError:error];

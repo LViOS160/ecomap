@@ -27,8 +27,6 @@
 - (void)checkRevison
 {
     
-   
-    
     NSMutableArray *tmpAllAction = [NSMutableArray array];
     NSMutableArray *tmpAllRevision = [NSMutableArray array];
 
@@ -40,7 +38,7 @@
                 [EcomapFetcher loadProblemsDifference:^(NSArray *problems, NSError *error)
                 {
                     
-                    for (int i = 0; i<[problems count]; i++)
+                    for (int i = 0; i < [problems count]; i++)
                     {
                         NSString *actionName = [problems[i] valueForKey:@"action"];
                         

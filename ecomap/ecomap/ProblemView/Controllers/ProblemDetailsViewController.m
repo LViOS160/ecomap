@@ -137,6 +137,7 @@
     
     [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        [InfoActions stopActivityIndicator];
         [self.navigationController popViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
         

@@ -97,7 +97,6 @@
 {
     self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     [self renewMap:self.currentAllProblems];
-    
 }
 
 
