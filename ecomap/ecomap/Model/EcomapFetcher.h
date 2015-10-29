@@ -44,6 +44,7 @@
 //NSArray *problems is a collection of EcomapProblem objects;
 
 + (void)loadEverything;
++ (void) updateData;
 
 + (void)loadAllProblemsOnCompletion:(void (^)(NSArray *problems, NSError *error))completionHandler;
 +(void)checkRevision:(void (^)(BOOL differance, NSError *error))completionHandler;
