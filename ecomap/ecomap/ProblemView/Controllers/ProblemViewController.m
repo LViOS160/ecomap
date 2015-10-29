@@ -37,7 +37,7 @@ typedef enum : NSUInteger
 
 @interface ProblemViewController()
 
-@property (weak, nonatomic) EcomapProblemDetails *problemDetails;
+@property (retain, nonatomic) EcomapProblemDetails *problemDetails;
 @property (weak, nonatomic) IBOutlet UILabel *severityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
@@ -108,39 +108,22 @@ typedef enum : NSUInteger
 - (void)loadProblemDetails:(void(^)())onFinish
 {
    
-  //  [EcomapFetcher loadCommentsFromWeb: self.problemID];
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];
-      EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
-     [comentsID setProblemsID:self.problemID];
-      
+    EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
+    [comentsID setProblemsID:self.problemID];
     
-    EcomapProblemDetails *obj = [EcomapProblemDetails alloc];
-    
-    
-    self.problemDetails = [obj detailViewProblemFromCoreData:self.data];
-    
-    
+    self.problemDetails = [[EcomapProblemDetails alloc] initViewProblemFromCoreData:self.data];
     
     self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];
     [self.containerViewController setProblemDetails:self.problemDetails];
+    [self.containerViewController setProblemDetails:self.problemDetails];
     [self updateHeader];
    
-    
-
-    
-   /* [EcomapFetcher loadProblemDetailsWithID:self.problemID
-                               OnCompletion:^(EcomapProblemDetails *problemDetails, NSError *error) {
-                                   self.problemDetails = problemDetails;
-                                  
-                                   self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:problemDetails];
-                                   [self.containerViewController setProblemDetails:problemDetails];
-                                   [self updateHeader];
-                                   if(onFinish)
-                                   {
-                                       onFinish();
-                                   }
-                               }];*/
+    if (onFinish)
+    {
+        onFinish();
+    }
 }
 
 -(void)problemsDetailsChanged

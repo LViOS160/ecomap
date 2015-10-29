@@ -53,19 +53,21 @@
     }
 }
 
-- (EcomapProblemDetails*)detailViewProblemFromCoreData:(Problem*) data
+- (instancetype)initViewProblemFromCoreData:(Problem*) data
 {
-    self.content = data.content;
-    self.proposal = data.proposal;
-    self.title = data.title;
-    self.votes =  [data.numberOfVotes integerValue];
-    self.userID = [data.userID integerValue];
+    self = [super initWithProblemFromCoreData:data];
     
-  /*  self.latitude = [data.latitude];
-    self.longitude = [data longitude];
-    self.userCreator = [data userID];
-    self.dateCreated = [data date];*/
+    if (self)
+    {
+        self.content = data.content;
+        self.proposal = data.proposal;
+        self.title = data.title;
+        self.votes =  [data.numberOfVotes integerValue];
+        self.userID = [data.userID integerValue];
+    }
+    
     return self;
+
 }
 
 

@@ -22,7 +22,7 @@
 @property (nonatomic, readwrite)int userCreate;
 
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
-- (EcomapProblemDetails*)detailViewProblemFromCoreData:(Problem*) data;
+- (instancetype)initViewProblemFromCoreData:(Problem*) data;
 @end
 
 @protocol EcomapProblemDetailsHolder

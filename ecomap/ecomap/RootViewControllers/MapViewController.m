@@ -43,8 +43,8 @@
 //@property (nonatomic, strong) NSSet *problems;
 @property (nonatomic, strong) SRWebSocket *socket;
 @property (nonatomic) Reachability *hostReachability;
-@property  NSSet* currentAllProblems;
-@property NSMutableArray* arrayWithProblems;
+@property (nonatomic, strong) NSSet* currentAllProblems;
+@property (nonatomic, strong) NSMutableArray* arrayWithProblems;
 // Filtering mask. We get it through NSNotificationCenter
 @property (nonatomic, strong) EcomapProblemFilteringMask *filteringMask;
 // Set which contains problems after applying filter.
@@ -95,10 +95,8 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-     NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
-    
-    [self loadProblems];
-    [self saveLocalJSON:set];
+    self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+    [self renewMap:self.currentAllProblems];
     
 }
 
@@ -107,19 +105,21 @@
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
     
+    EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:anObject];
+    
     switch(type)
     {
         
         case NSFetchedResultsChangeInsert:
-            [self.arrayWithProblems addObject:anObject];
+            [self.arrayWithProblems addObject:ecoProblem];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [self.arrayWithProblems removeObject:anObject];
+            [self.arrayWithProblems removeObject:ecoProblem];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            self.arrayWithProblems[indexPath.row] = anObject;
+            self.arrayWithProblems[indexPath.row] = ecoProblem;
             break;
             
         case NSFetchedResultsChangeMove:
@@ -229,31 +229,6 @@
     [self.socket close];
 }
 
-- (NSSet*)loadLocalJSON
-{
-    NSString *filePath = [self getPath];
-    id array = nil;
-    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath])
-    {
-        // if file is not exist, create it.
-        array = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-    }
-   return array;
-}
-
-- (NSString*)getPath
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, @"problems.json"];
-//    DDLogVerbose(@"filePath %@", filePath);
-    return filePath;
-}
-
-- (void)saveLocalJSON:(NSSet*)problems
-{
-    [NSKeyedArchiver archiveRootObject:problems toFile:[self getPath]];
-}
 
 - (void)renewMap:(NSSet*)problems
 {
@@ -287,21 +262,17 @@
 -(void)loadProblems
 {
     
-   
-
-        self.arrayWithProblems = [NSMutableArray new];
-        NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
-        for (Problem *problem in allProblems)
-        {
-            EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
-            [self.arrayWithProblems addObject:ecoProblem];
+    self.arrayWithProblems = [NSMutableArray new];
+    NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+    for (Problem *problem in allProblems)
+    {
+        EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
+        [self.arrayWithProblems addObject:ecoProblem];
         
-        }
+    }
     
-    NSSet *set = [[NSSet alloc] initWithArray:self.arrayWithProblems];
-    self.currentAllProblems = [[NSSet alloc]initWithSet:set];
-    [self renewMap:set];
-    //[self saveLocalJSON:set];
+    self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+    [self renewMap:self.currentAllProblems];
 
 }
 
@@ -313,7 +284,6 @@
 - (void)userDidApplyFilteringMask:(EcomapProblemFilteringMask *)filteringMask
 {
     self.filteringMask = filteringMask;
-    
     
     [self loadProblems];
     
