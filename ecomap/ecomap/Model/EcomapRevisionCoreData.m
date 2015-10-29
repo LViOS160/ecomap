@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "MapViewController.h"
 
-
+bool isFinished = false;
 
 @implementation EcomapRevisionCoreData
 
@@ -188,7 +188,10 @@
     }
    
    
-    
+    if (isFinished)
+    {
+        [self.loadDelegate showDetailView];
+    }
     
     
 }

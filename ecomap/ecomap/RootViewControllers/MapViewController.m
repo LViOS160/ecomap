@@ -147,10 +147,6 @@
 }
 
 
-
-
-
-
 - (void)login
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -158,6 +154,7 @@
     if ([isLogged isEqualToString:@"YES"]) {
         [EcomapUserFetcher loginWithEmail:[ud objectForKey:@"email"]
                               andPassword:[ud objectForKey:@"password"] OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                  
                                   if (loggedUser.name)
                                   {
                                       //show greeting for logged user
@@ -263,11 +260,11 @@
     
     self.arrayWithProblems = [NSMutableArray new];
     NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+    
     for (Problem *problem in allProblems)
     {
         EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
         [self.arrayWithProblems addObject:ecoProblem];
-        
     }
     
     self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];

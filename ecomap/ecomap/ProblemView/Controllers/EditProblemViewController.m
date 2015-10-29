@@ -20,7 +20,9 @@ enum : NSInteger {
     TextFieldTag_Proposal,
 };
 
-@interface EditProblemViewController () <UITextViewDelegate>
+extern bool isFinished;
+
+@interface EditProblemViewController () <UITextViewDelegate, LoadedDifferencesProtocol>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UIButton *isSolved;
@@ -28,8 +30,7 @@ enum : NSInteger {
 @property (weak, nonatomic) IBOutlet UITextView *content;
 @property (weak, nonatomic) IBOutlet UITextView *proposal;
 @property (strong, nonatomic) EcomapEditableProblem *editableProblem;
-
-//- (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved;
+@property (strong, nonatomic) EcomapRevisionCoreData *revision;
 
 @end
 
@@ -46,6 +47,10 @@ enum : NSInteger {
     self.content.delegate = self;
     self.proposal.tag = TextFieldTag_Proposal;
     self.proposal.delegate = self;
+    
+    self.revision = [[EcomapRevisionCoreData alloc] init];
+    self.revision.loadDelegate = self;
+    
     // Do any additional setup after loading the view.
 }
 
@@ -138,20 +143,25 @@ enum : NSInteger {
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
         [InfoActions stopActivityIndicator];
-        EcomapRevisionCoreData *revision = [[EcomapRevisionCoreData alloc] init];
-        [revision checkRevison];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        
+        [self.revision checkRevison];
+        isFinished = true;
+  
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
         
         NSLog(@"%@",error);
         [InfoActions showAlertOfError:error];
     }];
+    
 
+
+}
+
+- (void)showDetailView
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+    isFinished = false;
 }
 
 - (void)closeButtonTouch:(id)sender

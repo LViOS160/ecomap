@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol LoadedDifferencesProtocol <NSObject>
+
+- (void)showDetailView;
+
+@end
 
 @interface EcomapRevisionCoreData : NSObject
 
@@ -18,4 +23,10 @@
 
 @property (nonatomic, strong) NSArray *allRevisions;
 @property (nonatomic, strong) NSArray *allActions;
+
+@property (nonatomic, weak) NSObject <LoadedDifferencesProtocol> *loadDelegate;
+
 @end
+
+
+
