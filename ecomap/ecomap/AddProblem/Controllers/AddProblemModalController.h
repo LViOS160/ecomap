@@ -14,27 +14,28 @@
 #import "ProblemViewController.h"
 #import "EcomapRevisionCoreData.h"
 #import "EcomapCoreDataControlPanel.h"
-
+#import "AddProblemViewController.h"
 @protocol updateData <NSObject>
 
 - (void)update :(NSString*)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker;
 - (void)cancel;
-
 @end
 
 
-@interface AddProblemModalController : UIViewController<UIScrollViewDelegate,GMSMapViewDelegate>
+@interface AddProblemModalController : UIViewController<UIScrollViewDelegate,GMSMapViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (weak, nonatomic)NSObject <updateData>* updatedelegate;
+@property (nonatomic, strong) AddProblemViewController *Controller;
 @property (weak, nonatomic) IBOutlet UIView *mapView;
 @property (weak, nonatomic) IBOutlet UIScrollView *currentView;
 @property (weak, nonatomic) IBOutlet UITextView *nameOfProblems;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionOfProblem;
 @property (weak, nonatomic) IBOutlet UITextView *solvetion;
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerProblemView;
 @property (nonatomic, strong) GMSMapView *thisMap;
 @property (nonatomic, strong) GMSMarker *marker;
 @property (nonatomic)CLLocationCoordinate2D cord;
-@property (nonatomic) NSString *NAME;
+@property (nonatomic, strong) NSArray *problemList;
 - (IBAction)confirm:(id)sender;
 - (IBAction)cancel:(id)sender;
 @end

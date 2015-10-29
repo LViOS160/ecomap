@@ -53,12 +53,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+     self.mapView.userInteractionEnabled = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
     screenWidth = [UIScreen mainScreen].bounds.size.width;
     padding = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+    [self.propositionLable setHidden:YES];
+    [self.gotoNext setHidden:YES];
     [self.view bringSubviewToFront:self.goToUkraineButton];
+    
 }
 
 - (void)update:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker
@@ -67,9 +71,12 @@
 }
 
 - (void)cancel
+
 {
+    [self.propositionLable setHidden:YES];
+    self.gotoNext.hidden = YES;
     self.addProblemButton.hidden = NO;
-   [self.mapView clear];
+    self.propositionLable.hidden = YES;
 }
 
 
@@ -85,14 +92,27 @@
 
 - (IBAction)addProblemButtonTap:(UIButton *)sender
 {
+    if ([EcomapLoggedUser currentLoggedUser])
+    {
+        self.propositionLable.hidden = NO;
+        self.gotoNext.hidden = NO;
             UIButton *button = sender;
-            button.hidden = YES;
+            //button.hidden = YES;
             CGRect buttonFrame = button.frame;
             buttonFrame.origin.y += 50;
             self.topSpaceToButton.constant = 10;
             [button setNeedsUpdateConstraints];
             [button setFrame:buttonFrame];
             self.mapView.userInteractionEnabled = YES;
+    }
+    
+    else
+    {
+        [InfoActions showLogitActionSheetFromSender:sender
+                           actionAfterSuccseccLogin:^{
+                               [self addProblemButtonTap:sender];
+                           }];
+    }
 }
 
 - (void)closeButtonTap:(id *)sender
