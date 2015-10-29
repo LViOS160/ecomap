@@ -116,7 +116,12 @@
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:(self.problemTypesID - 1)];
         NSString *isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_STATUS]  : 0;
         self.isSolved = [isSolvedInt isEqualToString:@"UNSOLVED"] ? NO : YES;
-        self.dateCreated = [self dateCreatedOfProblem:problem];
+        //self.dateCreated = [self datetime:problem];
+        NSString * stringWithDate =[problem valueForKey:@"datetime"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *dateCreatedOfProblem = [dateFormatter dateFromString:stringWithDate];
+        self.dateCreated = dateCreatedOfProblem;
         //Adding userID
         self.userCreator = ![[problem valueForKey:@"user_id"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"user_id"] integerValue] : 0;
         self.vote = ![[problem valueForKey:@"number_of_votes"] isKindOfClass:[NSNull class]] ? [[problem valueForKey:@"number_of_votes"] integerValue] : 0;
