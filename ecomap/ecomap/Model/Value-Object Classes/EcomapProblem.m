@@ -55,7 +55,9 @@
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:typeOfProblem];
         
         self.userCreator = [data.userID integerValue];
-        
+        self.vote = [data.numberOfVotes integerValue];
+        self.severity = [data.severity integerValue];
+        self.numberOfComments = [data.numberOfComments integerValue];
     }
    return self;
 }
