@@ -25,7 +25,7 @@
 @implementation EcomapCommentaries
 @synthesize  commentID, content, date, activityTypes_Id, usersID, problemsID, problemContent, userName, userSurname;
 
-+(EcomapCommentaries*)sharedInstance
++ (EcomapCommentaries*)sharedInstance
 {
     static EcomapCommentaries* singleton;
     static dispatch_once_t token;
@@ -34,14 +34,14 @@
     return singleton;
 }
 
--(void)setCommentariesArray:(NSArray *)comentArray :(NSUInteger)probId
+- (void)setCommentariesArray:(NSArray *)comentArray :(NSUInteger)probId
 {
     EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
     ob.comInfo = comentArray;    
     ob.problemsID = probId;
 }
 
--(instancetype)initWithInfo:(NSDictionary *)problem
+- (instancetype)initWithInfo:(NSDictionary *)problem
 {
     self = [super init];
    
