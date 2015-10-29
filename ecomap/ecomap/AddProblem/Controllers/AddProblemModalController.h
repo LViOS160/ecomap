@@ -18,12 +18,12 @@
 @protocol updateData <NSObject>
 
 - (void)update :(NSString*)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker;
-
+- (void)cancel;
 
 @end
 
 
-@interface AddProblemModalController : UIViewController<UIScrollViewDelegate,GMSMapViewDelegate, SRWebSocketDelegate,UITextFieldDelegate>
+@interface AddProblemModalController : UIViewController<UIScrollViewDelegate,GMSMapViewDelegate>
 
 @property (weak, nonatomic)NSObject <updateData>* updatedelegate;
 @property (weak, nonatomic) IBOutlet UIView *mapView;
@@ -36,4 +36,5 @@
 @property (nonatomic)CLLocationCoordinate2D cord;
 @property (nonatomic) NSString *NAME;
 - (IBAction)confirm:(id)sender;
+- (IBAction)cancel:(id)sender;
 @end

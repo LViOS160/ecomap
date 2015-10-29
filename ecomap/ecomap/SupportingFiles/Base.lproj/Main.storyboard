@@ -946,6 +946,16 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePS-OE-Bnu">
+                                        <rect key="frame" x="0.0" y="657" width="368" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.077838235359999994" blue="0.16704420170000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="CANCEL">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="cbn-20-wSu" eventType="touchUpInside" id="qHq-hf-BfJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="KPP-5n-8YX" firstAttribute="centerX" secondItem="CZI-Jh-Lgp" secondAttribute="centerX" id="13J-hV-9kt"/>
@@ -953,6 +963,7 @@
                                     <constraint firstItem="epV-Uc-JFA" firstAttribute="leading" secondItem="LAC-0q-I2L" secondAttribute="leading" id="846-wu-4yS"/>
                                     <constraint firstAttribute="bottom" secondItem="LAC-0q-I2L" secondAttribute="bottom" constant="460" id="8iW-Hf-wNh"/>
                                     <constraint firstAttribute="width" secondItem="KPP-5n-8YX" secondAttribute="width" id="8tX-AT-qum"/>
+                                    <constraint firstItem="ePS-OE-Bnu" firstAttribute="top" secondItem="KPP-5n-8YX" secondAttribute="bottom" constant="3" id="A6z-BC-gmG"/>
                                     <constraint firstItem="epV-Uc-JFA" firstAttribute="top" secondItem="LAC-0q-I2L" secondAttribute="bottom" constant="16" id="Aci-uG-Nn4"/>
                                     <constraint firstItem="Ga1-c6-dVa" firstAttribute="top" secondItem="epV-Uc-JFA" secondAttribute="bottom" constant="18" id="DNa-9Z-pEa"/>
                                     <constraint firstAttribute="width" secondItem="LAC-0q-I2L" secondAttribute="width" id="GTn-AA-47p"/>
@@ -960,9 +971,11 @@
                                     <constraint firstItem="CZI-Jh-Lgp" firstAttribute="top" secondItem="Ga1-c6-dVa" secondAttribute="bottom" constant="8" symbolic="YES" id="Q98-jJ-54f"/>
                                     <constraint firstAttribute="width" secondItem="CZI-Jh-Lgp" secondAttribute="width" id="atl-IT-Yp7"/>
                                     <constraint firstItem="Ga1-c6-dVa" firstAttribute="leading" secondItem="epV-Uc-JFA" secondAttribute="leading" id="dh2-Sj-7hp"/>
+                                    <constraint firstItem="ePS-OE-Bnu" firstAttribute="centerX" secondItem="KPP-5n-8YX" secondAttribute="centerX" id="eU1-hr-D05"/>
                                     <constraint firstAttribute="trailing" secondItem="LAC-0q-I2L" secondAttribute="trailing" id="iGn-xz-eFu"/>
                                     <constraint firstItem="LAC-0q-I2L" firstAttribute="leading" secondItem="5U8-CX-dWq" secondAttribute="leading" id="jBU-pm-lns"/>
                                     <constraint firstItem="KPP-5n-8YX" firstAttribute="top" secondItem="CZI-Jh-Lgp" secondAttribute="bottom" constant="33" id="kw5-jf-RM3"/>
+                                    <constraint firstItem="ePS-OE-Bnu" firstAttribute="width" secondItem="5U8-CX-dWq" secondAttribute="width" id="nT3-BA-0wC"/>
                                     <constraint firstItem="CZI-Jh-Lgp" firstAttribute="leading" secondItem="Ga1-c6-dVa" secondAttribute="leading" id="v3b-Vj-QXE"/>
                                 </constraints>
                                 <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">

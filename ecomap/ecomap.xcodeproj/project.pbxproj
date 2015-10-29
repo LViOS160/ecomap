@@ -66,8 +66,6 @@
 		B30E2DDA1A9DDDDB0039DBBD /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */; };
 		B33437ED1A9DE178007ACD82 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */; };
 		B33437FD1A9DE683007ACD82 /* AddProblemNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33437F61A9DE683007ACD82 /* AddProblemNavigationView.xib */; };
-		B34D3CD81AB18F7D0094D043 /* ConstHeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */; };
-		B34D3CDB1AB19B040094D043 /* SlideAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = B34D3CDA1AB19B040094D043 /* SlideAnimator.m */; };
 		B353433C1A7F73ED00DD2F03 /* ecomapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B353433B1A7F73ED00DD2F03 /* ecomapTests.m */; };
 		B3738C0D1A9DDC4B0077F604 /* AddProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B5D1A9DDC4B0077F604 /* AddProblemViewController.m */; };
 		B3738C151A9DDC4B0077F604 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738B6C1A9DDC4B0077F604 /* GQuadItem.m */; };
@@ -139,14 +137,7 @@
 		B3738C591A9DDC4B0077F604 /* ProblemsTopListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3738C031A9DDC4B0077F604 /* ProblemsTopListTVC.m */; };
 		B39FC4141ABC9DD500D40417 /* PieChartLegendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39FC4131ABC9DD500D40417 /* PieChartLegendViewController.m */; };
 		B39FC4171ABC9E9C00D40417 /* PieChartLegendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B39FC4161ABC9E9C00D40417 /* PieChartLegendTableViewCell.m */; };
-		B39FCE031AB045C5002B96CE /* AddProblemNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39FCE021AB045C5002B96CE /* AddProblemNavigationViewController.m */; };
 		B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */; };
-		B3ACA3E51AA7524A003BD9EF /* AddProblemDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3DA1AA7524A003BD9EF /* AddProblemDescriptionViewController.m */; };
-		B3ACA3E61AA7524A003BD9EF /* AddProblemLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3DC1AA7524A003BD9EF /* AddProblemLocationViewController.m */; };
-		B3ACA3E71AA7524A003BD9EF /* AddProblemNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3DE1AA7524A003BD9EF /* AddProblemNameViewController.m */; };
-		B3ACA3E81AA7524A003BD9EF /* AddProblemPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E01AA7524A003BD9EF /* AddProblemPhotoViewController.m */; };
-		B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */; };
-		B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */; };
 		B3C981CD1A9E4DCB00BF034F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C981CC1A9E4DCB00BF034F /* Reachability.m */; };
 		CA9E53131AB8BFBA009E05FB /* EditProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9E53121AB8BFBA009E05FB /* EditProblemViewController.m */; };
 /* End PBXBuildFile section */
@@ -247,6 +238,7 @@
 		84E7BA2A1BE171FC00BBCCA0 /* AddProblemModalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemModalController.h; sourceTree = "<group>"; };
 		84E7BA2B1BE171FC00BBCCA0 /* AddProblemModalController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemModalController.m; sourceTree = "<group>"; };
 		84E953CD1BD0B62A00FE8337 /* UAbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UAbutton.png; sourceTree = "<group>"; };
+		84EA407F1BE1C7D5003AF97C /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapStatsFetcher.h; sourceTree = "<group>"; };
 		90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapStatsFetcher.m; sourceTree = "<group>"; };
 		90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapAdminFetcher.h; sourceTree = "<group>"; };
@@ -273,17 +265,12 @@
 		B30E2DD91A9DDDDB0039DBBD /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		B33437EC1A9DE178007ACD82 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		B33437F61A9DE683007ACD82 /* AddProblemNavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProblemNavigationView.xib; sourceTree = "<group>"; };
-		B34D3CD61AB18F7D0094D043 /* ConstHeightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstHeightViewController.h; sourceTree = "<group>"; };
-		B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstHeightViewController.m; sourceTree = "<group>"; };
-		B34D3CD91AB19B040094D043 /* SlideAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideAnimator.h; sourceTree = "<group>"; };
-		B34D3CDA1AB19B040094D043 /* SlideAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideAnimator.m; sourceTree = "<group>"; };
 		B35343191A7F73ED00DD2F03 /* ecomap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ecomap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35343351A7F73ED00DD2F03 /* ecomapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ecomapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B353433A1A7F73ED00DD2F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B353433B1A7F73ED00DD2F03 /* ecomapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ecomapTests.m; sourceTree = "<group>"; };
 		B3738B5C1A9DDC4B0077F604 /* AddProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemViewController.h; sourceTree = "<group>"; };
 		B3738B5D1A9DDC4B0077F604 /* AddProblemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemViewController.m; sourceTree = "<group>"; };
-		B3738B5E1A9DDC4B0077F604 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		B3738B6A1A9DDC4B0077F604 /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
 		B3738B6B1A9DDC4B0077F604 /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
 		B3738B6C1A9DDC4B0077F604 /* GQuadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQuadItem.m; sourceTree = "<group>"; };
@@ -414,23 +401,8 @@
 		B39FC4131ABC9DD500D40417 /* PieChartLegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartLegendViewController.m; path = ../../PieChartLegendViewController.m; sourceTree = "<group>"; };
 		B39FC4151ABC9E9C00D40417 /* PieChartLegendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieChartLegendTableViewCell.h; path = ../../../PieChartLegendTableViewCell.h; sourceTree = "<group>"; };
 		B39FC4161ABC9E9C00D40417 /* PieChartLegendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartLegendTableViewCell.m; path = ../../../PieChartLegendTableViewCell.m; sourceTree = "<group>"; };
-		B39FCE011AB045C5002B96CE /* AddProblemNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddProblemNavigationViewController.h; path = ../Views/AddProblemNavigationViewController.h; sourceTree = "<group>"; };
-		B39FCE021AB045C5002B96CE /* AddProblemNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddProblemNavigationViewController.m; path = ../Views/AddProblemNavigationViewController.m; sourceTree = "<group>"; };
-		B39FCE041AB04756002B96CE /* AddProblemNvatigationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemNvatigationDelegate.h; sourceTree = "<group>"; };
 		B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EcomapFetcher+PostProblem.m"; sourceTree = "<group>"; };
 		B3ACA3C51AA70701003BD9EF /* EcomapFetcher+PostProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EcomapFetcher+PostProblem.h"; sourceTree = "<group>"; };
-		B3ACA3D91AA7524A003BD9EF /* AddProblemDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemDescriptionViewController.h; sourceTree = "<group>"; };
-		B3ACA3DA1AA7524A003BD9EF /* AddProblemDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemDescriptionViewController.m; sourceTree = "<group>"; };
-		B3ACA3DB1AA7524A003BD9EF /* AddProblemLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemLocationViewController.h; sourceTree = "<group>"; };
-		B3ACA3DC1AA7524A003BD9EF /* AddProblemLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemLocationViewController.m; sourceTree = "<group>"; };
-		B3ACA3DD1AA7524A003BD9EF /* AddProblemNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemNameViewController.h; sourceTree = "<group>"; };
-		B3ACA3DE1AA7524A003BD9EF /* AddProblemNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemNameViewController.m; sourceTree = "<group>"; };
-		B3ACA3DF1AA7524A003BD9EF /* AddProblemPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemPhotoViewController.h; sourceTree = "<group>"; };
-		B3ACA3E01AA7524A003BD9EF /* AddProblemPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemPhotoViewController.m; sourceTree = "<group>"; };
-		B3ACA3E11AA7524A003BD9EF /* AddProblemSolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemSolutionViewController.h; sourceTree = "<group>"; };
-		B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemSolutionViewController.m; sourceTree = "<group>"; };
-		B3ACA3E31AA7524A003BD9EF /* AddProblemTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemTypeViewController.h; sourceTree = "<group>"; };
-		B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProblemTypeViewController.m; sourceTree = "<group>"; };
 		B3C981CB1A9E4DCB00BF034F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B3C981CC1A9E4DCB00BF034F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		CA9E53111AB8BFBA009E05FB /* EditProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProblemViewController.h; sourceTree = "<group>"; };
@@ -601,28 +573,8 @@
 			isa = PBXGroup;
 			children = (
 				B3738C041A9DDC4B0077F604 /* Account */,
-				B39FCE041AB04756002B96CE /* AddProblemNvatigationDelegate.h */,
-				B34D3CD61AB18F7D0094D043 /* ConstHeightViewController.h */,
-				B34D3CD71AB18F7D0094D043 /* ConstHeightViewController.m */,
-				B39FCE011AB045C5002B96CE /* AddProblemNavigationViewController.h */,
-				B39FCE021AB045C5002B96CE /* AddProblemNavigationViewController.m */,
-				B3ACA3D91AA7524A003BD9EF /* AddProblemDescriptionViewController.h */,
-				B3ACA3DA1AA7524A003BD9EF /* AddProblemDescriptionViewController.m */,
-				B3ACA3DB1AA7524A003BD9EF /* AddProblemLocationViewController.h */,
-				B3ACA3DC1AA7524A003BD9EF /* AddProblemLocationViewController.m */,
-				B3ACA3DD1AA7524A003BD9EF /* AddProblemNameViewController.h */,
-				B3ACA3DE1AA7524A003BD9EF /* AddProblemNameViewController.m */,
-				B3ACA3DF1AA7524A003BD9EF /* AddProblemPhotoViewController.h */,
-				B3ACA3E01AA7524A003BD9EF /* AddProblemPhotoViewController.m */,
-				B3ACA3E11AA7524A003BD9EF /* AddProblemSolutionViewController.h */,
-				B3ACA3E21AA7524A003BD9EF /* AddProblemSolutionViewController.m */,
-				B3ACA3E31AA7524A003BD9EF /* AddProblemTypeViewController.h */,
-				B3ACA3E41AA7524A003BD9EF /* AddProblemTypeViewController.m */,
 				B3738B5C1A9DDC4B0077F604 /* AddProblemViewController.h */,
 				B3738B5D1A9DDC4B0077F604 /* AddProblemViewController.m */,
-				B34D3CD91AB19B040094D043 /* SlideAnimator.h */,
-				B34D3CDA1AB19B040094D043 /* SlideAnimator.m */,
-				B3738B5E1A9DDC4B0077F604 /* Defines.h */,
 				84E7BA2A1BE171FC00BBCCA0 /* AddProblemModalController.h */,
 				84E7BA2B1BE171FC00BBCCA0 /* AddProblemModalController.m */,
 			);
@@ -983,6 +935,7 @@
 		B3738C041A9DDC4B0077F604 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				84EA407F1BE1C7D5003AF97C /* Defines.h */,
 				518F30BC1AA4D82D0094DA14 /* UserActivityViewController.h */,
 				518F30BD1AA4D82D0094DA14 /* UserActivityViewController.m */,
 				518F30E81AAB34F20094DA14 /* LoginWithFacebook.h */,
@@ -1284,7 +1237,6 @@
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,
 				B3738C2C1A9DDC4B0077F604 /* EcomapActivity.m in Sources */,
 				B3738C3A1A9DDC4B0077F604 /* CommentCell.m in Sources */,
-				B34D3CDB1AB19B040094D043 /* SlideAnimator.m in Sources */,
 				84E68F8A1BCBD94000ADD104 /* EcomapStatistics.m in Sources */,
 				B3738C2D1A9DDC4B0077F604 /* EcomapCommentaries.m in Sources */,
 				B3738C251A9DDC4B0077F604 /* EMThumbnailImageStore.m in Sources */,
@@ -1313,7 +1265,6 @@
 				B3738C3F1A9DDC4B0077F604 /* MenuViewController.m in Sources */,
 				8420EA5E1BDA4D9200F8EFDC /* ResourceTableViewController.m in Sources */,
 				B3738C321A9DDC4B0077F604 /* EcomapProblemFilteringMask.m in Sources */,
-				B3ACA3E71AA7524A003BD9EF /* AddProblemNameViewController.m in Sources */,
 				B3738C241A9DDC4B0077F604 /* EcomapURLFetcher.m in Sources */,
 				B3738C341A9DDC4B0077F604 /* AddCommViewController.m in Sources */,
 				518F30BF1AA4D82D0094DA14 /* LoginViewController.m in Sources */,
@@ -1342,24 +1293,18 @@
 				B3738C581A9DDC4B0077F604 /* SWRevealViewController.m in Sources */,
 				B3738C1A1A9DDC4B0077F604 /* GQTPointQuadTreeChild.m in Sources */,
 				B3738C2B1A9DDC4B0077F604 /* EcomapAlias.m in Sources */,
-				B3ACA3E81AA7524A003BD9EF /* AddProblemPhotoViewController.m in Sources */,
 				B3738C491A9DDC4B0077F604 /* main.m in Sources */,
 				B3738C261A9DDC4B0077F604 /* EcomapLocalPhoto.m in Sources */,
 				847EAD471BE0C031007B512D /* Comment.m in Sources */,
-				B3ACA3E51AA7524A003BD9EF /* AddProblemDescriptionViewController.m in Sources */,
 				84E7BA2C1BE171FC00BBCCA0 /* AddProblemModalController.m in Sources */,
 				B3738C1F1A9DDC4B0077F604 /* SRWebSocket.m in Sources */,
 				B3738C2F1A9DDC4B0077F604 /* EcomapPhoto.m in Sources */,
-				B3ACA3E61AA7524A003BD9EF /* AddProblemLocationViewController.m in Sources */,
 				511BF3D81B27519B007664F9 /* AboutViewController.m in Sources */,
 				518F30DB1AAB19540094DA14 /* InfoActions.m in Sources */,
 				B3738C401A9DDC4B0077F604 /* PieChartViewController.m in Sources */,
 				B3ACA3C61AA70701003BD9EF /* EcomapFetcher+PostProblem.m in Sources */,
 				518F30C11AA4D82D0094DA14 /* RegisterViewController.m in Sources */,
 				518F30A71AA26BF40094DA14 /* JSONParser.m in Sources */,
-				B3ACA3EA1AA7524A003BD9EF /* AddProblemTypeViewController.m in Sources */,
-				B34D3CD81AB18F7D0094D043 /* ConstHeightViewController.m in Sources */,
-				B3ACA3E91AA7524A003BD9EF /* AddProblemSolutionViewController.m in Sources */,
 				B3738C361A9DDC4B0077F604 /* PhotoViewController.m in Sources */,
 				B3738C201A9DDC4B0077F604 /* XYPieChart.m in Sources */,
 				518F30AD1AA272910094DA14 /* EcomapThumbnailFetcher.m in Sources */,
@@ -1369,7 +1314,6 @@
 				B3738C1E1A9DDC4B0077F604 /* Spot.m in Sources */,
 				B3738C381A9DDC4B0077F604 /* ProblemDetailsViewController.m in Sources */,
 				B3738C3E1A9DDC4B0077F604 /* MapViewController.m in Sources */,
-				B39FCE031AB045C5002B96CE /* AddProblemNavigationViewController.m in Sources */,
 				847EAD4A1BE0C031007B512D /* Problem.m in Sources */,
 				518F30AA1AA2721E0094DA14 /* EcomapUserFetcher.m in Sources */,
 				84A65DA21BD444C0009A418A /* Model.xcdatamodeld in Sources */,

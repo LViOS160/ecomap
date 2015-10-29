@@ -80,6 +80,14 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)cancel:(id)sender
+{
+    AddProblemViewController *ob = [[AddProblemViewController alloc] init];
+    self.updatedelegate = ob;
+    [ob cancel];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 
 - (void)didReceiveMemoryWarning
@@ -87,15 +95,6 @@
     [super didReceiveMemoryWarning];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 @end

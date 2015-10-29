@@ -30,7 +30,7 @@
 #import "AppDelegate.h"
 #import "EcomapStatistics.h"
 #import "EcomapFetchedResultController.h"
-
+#import "AddProblemModalController.h"
 #import "EcomapCoreDataControlPanel.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
@@ -417,8 +417,20 @@
     }
 }
 
+
+
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
+    if ([[segue identifier] isEqualToString:@"addProblem"])
+    {
+        AddProblemModalController *modalContr = (AddProblemModalController*)segue.destinationViewController;
+        [modalContr setCord:self.cord];
+    }
+
+    
     if ([segue.identifier isEqualToString:@"Show problem"])
     {
         if ([segue.destinationViewController isKindOfClass:[ProblemViewController class]])
