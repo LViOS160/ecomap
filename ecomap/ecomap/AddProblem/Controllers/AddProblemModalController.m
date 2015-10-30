@@ -18,7 +18,6 @@
 {
     [super viewDidLoad];
     self.thisMap.userInteractionEnabled = YES;
-    //self.currentView.contentSize = CGSizeMake(self.view.bounds.size.width, 1200.0);
     [self.view addSubview:self.currentView];
     [self setMap];
     [self.thisMap setDelegate:self];
