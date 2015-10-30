@@ -316,10 +316,6 @@
                             [resourcesIntoCD addContentToResource:resourceID];
                         }
                     }
-                    else
-                    {
-                        [InfoActions showAlertOfError:error];
-                    }
                     
                     completionHandler(aliases, error);
                     
@@ -353,7 +349,7 @@
                             // DDLogVerbose(@"%@",resources);
                             
                         }
-                    } else [InfoActions showAlertOfError:error];
+                    } //else [InfoActions showAlertOfError:error];
                     
                     completionHandler(resources,error);
                     
@@ -429,7 +425,42 @@
 }
 
 
-#pragma - Load comments
+#pragma mark - Load comments
+
+
++ (void)getProblemWithComments
+{
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    
+    // 1. Load problem ids which contain comments
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *description = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
+    [request setEntity:description];
+    [request setResultType:NSDictionaryResultType];
+    request.predicate = [NSPredicate predicateWithFormat:@"numberOfComments > %d", 0];
+    NSError *requestError = nil;
+    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
+    
+    NSArray *problemIDsWithComments = [requestArray valueForKey:@"idProblem"];
+    
+    NSLog(@"Array of problems from CoreData %@", problemIDsWithComments);
+    
+    // 2. Load & save comments
+    
+    for (id problemID in problemIDsWithComments)
+    {
+        NSInteger idProblem = [problemID integerValue];
+        [self loadCommentsFromWeb:(NSUInteger)idProblem];
+    }
+    
+    // 3. Log results
+    
+    EcomapCoreDataControlPanel *allComments = [EcomapCoreDataControlPanel sharedInstance];
+    [allComments logCommentsFromCoreData];
+}
+
 
 + (void)loadCommentsFromWeb:(NSUInteger)problemID
 {
@@ -469,38 +500,6 @@
     
 }
 
-+ (void)getProblemWithComments
-{
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    NSManagedObjectContext* context = appDelegate.managedObjectContext;
-    
-    // 1. Load problem ids which contain comments
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *description = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
-    [request setEntity:description];
-    [request setResultType:NSDictionaryResultType];
-    request.predicate = [NSPredicate predicateWithFormat:@"numberOfComments > %d", 0];
-    NSError *requestError = nil;
-    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
-    
-    NSArray *problemIDsWithComments = [requestArray valueForKey:@"idProblem"];
-    
-    NSLog(@"Array of problems from CoreData %@", problemIDsWithComments);
-    
-    // 2. Load & save comments
-    
-    for (id problemID in problemIDsWithComments)
-    {
-        NSInteger idProblem = [problemID integerValue];
-        [self loadCommentsFromWeb:(NSUInteger)idProblem];
-    }
-    
-    // 3. Log results
-    
-    EcomapCoreDataControlPanel *allComments = [EcomapCoreDataControlPanel sharedInstance];
-    [allComments logCommentsFromCoreData];
-}
 
 
 
