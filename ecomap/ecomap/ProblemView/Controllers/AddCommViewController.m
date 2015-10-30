@@ -364,12 +364,12 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-
-    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-    if([userIdent.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]]){
-        return YES;
-    }
     
+    Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
+    if([userIdent.name isEqualToString:object.created_by])
+       {
+            return YES;
+       }
         return NO;
 }
 
