@@ -18,14 +18,28 @@
 {
     [super viewDidLoad];
     self.thisMap.userInteractionEnabled = YES;
-    [self.currentView setContentSize:CGSizeMake(300, 1000)];
+    [self.currentView setContentSize:CGSizeMake(300, 2000)];
     [self.view addSubview:self.currentView];
     [self setMap];
     [self.thisMap setDelegate:self];
     [self setMarker];
-    
+    self.problemList = @[@"Сміттєзвалища", @"Проблема лісів", @"Браконьєрство"];
 }
 
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [self.problemList count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return self.problemList[row];
+}
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -71,9 +85,8 @@
 
 - (IBAction)confirm:(id)sender
 {
-    AddProblemViewController *ob = [[AddProblemViewController alloc] init];
-    self.updatedelegate = ob;
-    [ob update:self.nameOfProblems.text
+    self.updatedelegate = self.Controller;
+    [self.updatedelegate update:self.nameOfProblems.text
               :self.descriptionOfProblem.text
               :self.solvetion.text
               :self.marker];
@@ -81,10 +94,9 @@
 }
 
 - (IBAction)cancel:(id)sender
-{
-    AddProblemViewController *ob = [[AddProblemViewController alloc] init];
-    self.updatedelegate = ob;
-    [ob cancel];
+{  
+    self.updatedelegate = self.Controller;
+    [self.updatedelegate cancel];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

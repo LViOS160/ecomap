@@ -153,7 +153,7 @@
     [context save:nil];
 }
 
-// added Iuliia Korniichuk
+#pragma mark Comments
 
 - (void) addCommentsIntoCoreData:(NSUInteger)problemID comments:(NSArray*)comments
 {
@@ -240,7 +240,6 @@
     {
         NSLog(@"Comment ID = %@  and Problem ID = %@", com.comment_id, com.id_of_problem);
     }
-   // NSLog(@"%@", [self commentsFromCoreData]);
 }
 
 @end

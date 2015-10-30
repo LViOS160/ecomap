@@ -572,7 +572,6 @@
 		B3738B5B1A9DDC4B0077F604 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B3738C041A9DDC4B0077F604 /* Account */,
 				B3738B5C1A9DDC4B0077F604 /* AddProblemViewController.h */,
 				B3738B5D1A9DDC4B0077F604 /* AddProblemViewController.m */,
 				84E7BA2A1BE171FC00BBCCA0 /* AddProblemModalController.h */,
@@ -950,7 +949,7 @@
 				518F30B51AA4D82D0094DA14 /* ChangePasswordViewController.m */,
 			);
 			name = Account;
-			path = ../../UserViewController;
+			path = UserViewController;
 			sourceTree = "<group>";
 		};
 		CA7B3C841AA652EE005AF277 /* Network */ = {
@@ -1008,6 +1007,7 @@
 		CA7B3C881AA6548B005AF277 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B3738C041A9DDC4B0077F604 /* Account */,
 				511BF3D51B275174007664F9 /* About */,
 				B3738BD91A9DDC4B0077F604 /* Statistic */,
 				B3738BD41A9DDC4B0077F604 /* Root */,

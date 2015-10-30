@@ -10,6 +10,7 @@
 #import "Defines.h"
 #import "AddProblemModalController.h"
 #import "ProblemFilterTVC.h"
+
 @protocol updateData;
 
 @interface AddProblemViewController : MapViewController <updateData, ProblemFilterTVCDelegate>

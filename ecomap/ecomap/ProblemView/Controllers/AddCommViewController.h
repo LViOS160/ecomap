@@ -15,6 +15,11 @@
 @property (weak, nonatomic) IBOutlet UITextView *textField;
 @property (strong, nonatomic) NSNumber* problem_ID;
 
+@property (nonatomic, weak) Comment * chosenComment;
+@property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+
+
 -(void)reload;
 
 @end
