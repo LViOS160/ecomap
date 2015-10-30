@@ -151,6 +151,7 @@
 
 - (void)postProblem:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker :(NSInteger)problemType
 {
+    self.propositionLable.hidden = YES;
     self.addProblemButton.hidden = NO;
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : problemName,
                              ECOMAP_PROBLEM_CONTENT    : problemDescription,
