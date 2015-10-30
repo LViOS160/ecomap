@@ -333,12 +333,10 @@
     
     [self.mapView setDelegate:self];
     [self.view insertSubview:self.mapView atIndex:0];
-    //self.problems = [self loadLocalJSON];
-    //if (self.problems)
-        //[self renewMap:self.problems];
+    
     [self loadProblems];
 
-//    self.mapView.camera
+
 }
 
 - (void)customSetup

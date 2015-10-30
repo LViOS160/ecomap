@@ -222,8 +222,8 @@
 		8408EA831BDF6421009D726D /* Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resource.m; sourceTree = "<group>"; };
 		8420EA5C1BDA4D9200F8EFDC /* ResourceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceTableViewController.h; sourceTree = "<group>"; };
 		8420EA5D1BDA4D9200F8EFDC /* ResourceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceTableViewController.m; sourceTree = "<group>"; };
-		8425DEF61BD79F48001D7F41 /* EcomapFetchedResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapFetchedResultController.h; sourceTree = "<group>"; };
-		8425DEF71BD79F48001D7F41 /* EcomapFetchedResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapFetchedResultController.m; sourceTree = "<group>"; };
+		8425DEF61BD79F48001D7F41 /* EcomapFetchedResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetchedResultController.h; path = "../Value-Object Classes/EcomapFetchedResultController.h"; sourceTree = "<group>"; };
+		8425DEF71BD79F48001D7F41 /* EcomapFetchedResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapFetchedResultController.m; path = "../Value-Object Classes/EcomapFetchedResultController.m"; sourceTree = "<group>"; };
 		84391CE41BCBED2B00130274 /* TOP10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TOP10.h; path = ../../RootViewControllers/TOP10.h; sourceTree = "<group>"; };
 		84391CE51BCBED2B00130274 /* TOP10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TOP10.m; path = ../../RootViewControllers/TOP10.m; sourceTree = "<group>"; };
 		847EAD451BE0C031007B512D /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
@@ -703,6 +703,8 @@
 				B3738B981A9DDC4B0077F604 /* EcomapURLFetcher.m */,
 				B3738B991A9DDC4B0077F604 /* EMThumbnailImageStore.h */,
 				B3738B9A1A9DDC4B0077F604 /* EMThumbnailImageStore.m */,
+				8425DEF61BD79F48001D7F41 /* EcomapFetchedResultController.h */,
+				8425DEF71BD79F48001D7F41 /* EcomapFetchedResultController.m */,
 			);
 			path = "Fetcher-helper Classes";
 			sourceTree = "<group>";
@@ -748,8 +750,6 @@
 				84E68F891BCBD94000ADD104 /* EcomapStatistics.m */,
 				84391CE41BCBED2B00130274 /* TOP10.h */,
 				84391CE51BCBED2B00130274 /* TOP10.m */,
-				8425DEF61BD79F48001D7F41 /* EcomapFetchedResultController.h */,
-				8425DEF71BD79F48001D7F41 /* EcomapFetchedResultController.m */,
 			);
 			path = "Value-Object Classes";
 			sourceTree = "<group>";
@@ -975,6 +975,7 @@
 				90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */,
 				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
 				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
+				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
 				90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */,
 				518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */,
 				518F30AC1AA272910094DA14 /* EcomapThumbnailFetcher.m */,
@@ -986,7 +987,6 @@
 		CA7B3C861AA65438005AF277 /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
-				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
 				518F30A51AA26BF40094DA14 /* JSONParser.h */,
 				518F30A61AA26BF40094DA14 /* JSONParser.m */,
 				B3738B931A9DDC4B0077F604 /* EcomapStatsParser.h */,

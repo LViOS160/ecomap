@@ -88,16 +88,17 @@
         NSArray *array = [context executeFetchRequest:request error:nil];
         if([array count]>0)
            {
-               //NSString *actionName = [self.allActions[i] valueForKey:@"action"];
+               NSString *actionName = [self.allActions[i] valueForKey:@"action"];
             
-            /*if([actionName isEqualToString:@"DELETED"])
+            if([actionName isEqualToString:@"DELETED"])
                 {
                     [context deleteObject:array[0]];
                 }
             if( [actionName isEqualToString:@"VOTE"])
                 {
-                
-                }*/
+                Problem *ob = array[0];
+                ob.numberOfVotes = [self.allActions[i] valueForKey:@"count"];
+                }
             [context save:nil];
         }
     }
