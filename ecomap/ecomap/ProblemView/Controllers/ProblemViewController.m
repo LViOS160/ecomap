@@ -110,8 +110,8 @@ typedef enum : NSUInteger
    
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];
-    EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
-    [comentsID setProblemsID:self.problemID];
+//    EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
+//    [comentsID setProblemsID:self.problemID];
     
     self.problemDetails = [[EcomapProblemDetails alloc] initViewProblemFromCoreData:self.data];
     
