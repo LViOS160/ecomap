@@ -59,8 +59,7 @@
     
     //Buttons images localozation
     UIImage *addButtonImage = [UIImage imageNamed:NSLocalizedString(@"AddCommentButtonUKR", @"Add comment button image")];
-    [self.addCommentButton setImage:addButtonImage
-                           forState:UIControlStateNormal];
+    [self.addCommentButton setImage:addButtonImage forState:UIControlStateNormal];
    
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Editing comment..." message:@"Edit your comment:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -69,18 +68,16 @@
     self.managedObjectContext = appDelegate.managedObjectContext;
     
     NSLog(@"ID of the problem %@", self.problem_ID);
+   
+    NSFetchRequest *request = [EcomapFetchedResultController requestWithEntityName:@"Comment" sortBy:@"created_date"];
     
-    NSFetchRequest *request = [EcomapFetchedResultController requestWithEntityName:@"Comment" sortBy:@"created_by"];
-    
-    NSArray *requestArray = [self.managedObjectContext executeFetchRequest:request error:nil];
+  //  NSArray *requestArray = [self.managedObjectContext executeFetchRequest:request error:nil];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                      initWithFetchRequest:request
                                      managedObjectContext:self.managedObjectContext
                                      sectionNameKeyPath:nil
                                      cacheName:nil];
-    
-    
     
     self.fetchedResultsController.delegate = self;
     
@@ -99,7 +96,6 @@
     [self updateUI];
 }
 
-
 -(void)updateUI
 {
     self.myTableView.allowsMultipleSelectionDuringEditing = NO;
@@ -113,8 +109,6 @@
     self.myTableView.tableFooterView =[[UIView alloc] initWithFrame:CGRectZero];
     [self.myTableView reloadData];
 }
-
-
 
 -(void)setProblemDetails:(EcomapProblemDetails *)problemDetails
 {        
@@ -169,7 +163,6 @@
             
             [[NetworkActivityIndicator sharedManager]endActivity];
         });
-        
     
        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
             
@@ -236,6 +229,7 @@
     {
         
         NSLog(@"Problem ID from core data %@", com.id_of_problem);
+        
         if ([self.problem_ID isEqual:com.id_of_problem])
         {
             NSLog(@"Comment ID = %@  and Problem ID = %@", com.comment_id, com.id_of_problem);
@@ -254,7 +248,6 @@
     NSLog(@"Number of rows %ld", (long)self.arrayOfCommentsForParticularProblem.count);
     NSLog(@"Array of comments %@", self.arrayOfCommentsForParticularProblem);
     
-    
     return self.arrayOfCommentsForParticularProblem.count == 0 ? 1 : self.arrayOfCommentsForParticularProblem.count;
 }
 
@@ -270,12 +263,9 @@
     }
     else if (indexPath.row < self.arrayOfCommentsForParticularProblem.count)
     {
-        
         Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
         
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-
-        //cell.commentContent.text= [[ob.comInfo  objectAtIndex:row] valueForKey:@"content"];
         cell.commentContent.text = object.content;
         NSDateFormatter *formatter = [NSDateFormatter new];
         formatter.dateStyle = NSDateFormatterMediumStyle;
@@ -287,40 +277,18 @@
         NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
+        EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
-        //        EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-        //        if(loggedUser && [loggedUser.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]])
-        //        {
-        //          [self makeButtonForCell:cell];
-        //        }
-        //
-        
-     //   [self configureCell:cell atIndexPath:indexPath];
+        if(loggedUser && [loggedUser.name isEqualToString:object.created_by])
+        {
+            [self makeButtonForCell:cell];
+        }
         
         return cell;
-        
     }
     
     return nil;
 }
-
-
-
-
-
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    Comment *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-   
-    cell.textLabel.text = object.content;
-    cell.detailTextLabel.text = nil;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-}
-
-
-
-/////////
-
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

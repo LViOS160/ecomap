@@ -484,9 +484,9 @@
         NSArray *comments = [JSONParser parseJSONtoArray:objectData];
         
         // TODO: TO REMOVE
-//        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-//        [ob setCommentariesArray:comments :problemID];
-//        ob.problemsID = problemID;
+        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+        [ob setCommentariesArray:comments :problemID];
+        ob.problemsID = problemID;
         
         //added Iuliia Korniichuk
         EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
