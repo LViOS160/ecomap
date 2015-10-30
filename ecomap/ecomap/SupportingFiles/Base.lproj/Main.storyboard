@@ -900,15 +900,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irw-gL-WEs">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="800"/>
+                                <rect key="frame" x="0.0" y="16" width="400" height="784"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EvZ-2Z-Pk6">
-                                        <rect key="frame" x="0.0" y="0.0" width="400" height="112"/>
-                                        <color key="backgroundColor" red="0.97167926276677319" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="112" id="Z7S-o3-12a"/>
-                                        </constraints>
-                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Назва проблеми" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FiY-Is-JL4">
                                         <rect key="frame" x="0.0" y="120" width="400" height="21"/>
                                         <color key="backgroundColor" red="0.78112664089999995" green="1" blue="0.89239496399999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -986,6 +979,13 @@
                                             <action selector="cancel:" destination="cbn-20-wSu" eventType="touchUpInside" id="O64-fF-ANq"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EvZ-2Z-Pk6">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="112"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="112" id="Z7S-o3-12a"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="JdY-Kj-e4H" secondAttribute="trailing" id="1AG-n4-E75"/>
@@ -1026,10 +1026,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="irw-gL-WEs" firstAttribute="top" secondItem="9q5-Ef-HNy" secondAttribute="top" id="BBM-bK-4AX"/>
+                            <constraint firstItem="irw-gL-WEs" firstAttribute="top" secondItem="9q5-Ef-HNy" secondAttribute="topMargin" constant="16" id="CP4-CS-d3v"/>
                             <constraint firstAttribute="trailing" secondItem="irw-gL-WEs" secondAttribute="trailing" id="KFh-nn-mdt"/>
                             <constraint firstItem="Mhr-VO-pZH" firstAttribute="top" secondItem="irw-gL-WEs" secondAttribute="bottom" id="n6v-Ll-pkY"/>
                             <constraint firstItem="irw-gL-WEs" firstAttribute="leading" secondItem="9q5-Ef-HNy" secondAttribute="leading" id="ohl-OK-T80"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BBM-bK-4AX"/>
+                            </mask>
+                        </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="800"/>
