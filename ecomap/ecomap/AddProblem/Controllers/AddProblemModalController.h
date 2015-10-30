@@ -17,7 +17,7 @@
 #import "AddProblemViewController.h"
 @protocol updateData <NSObject>
 
-- (void)update :(NSString*)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker;
+- (void)update :(NSString*)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker :(NSInteger)typeOfProblem;
 - (void)cancel;
 @end
 

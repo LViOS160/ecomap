@@ -32,6 +32,7 @@
 		51F924641AB18FE700523557 /* AddProblemSolutionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F924661AB18FE700523557 /* AddProblemSolutionView.xib */; };
 		51F9246D1AB18FF000523557 /* AddProblemTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */; };
 		6D258BE51BD64E540039CD11 /* EcomapRevisionCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D258BE41BD64E540039CD11 /* EcomapRevisionCoreData.m */; };
+		6D4E30FB1BE3B455003C26FC /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D4E30FA1BE3B455003C26FC /* next.png */; };
 		8408EA841BDF6421009D726D /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408EA831BDF6421009D726D /* Resource.m */; };
 		8420EA5E1BDA4D9200F8EFDC /* ResourceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8420EA5D1BDA4D9200F8EFDC /* ResourceTableViewController.m */; };
 		8425DEF81BD79F48001D7F41 /* EcomapFetchedResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8425DEF71BD79F48001D7F41 /* EcomapFetchedResultController.m */; };
@@ -218,6 +219,7 @@
 		51F924731AB18FF300523557 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AddProblemTypeView.strings; sourceTree = "<group>"; };
 		6D258BE31BD64E540039CD11 /* EcomapRevisionCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapRevisionCoreData.h; sourceTree = "<group>"; };
 		6D258BE41BD64E540039CD11 /* EcomapRevisionCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapRevisionCoreData.m; sourceTree = "<group>"; };
+		6D4E30FA1BE3B455003C26FC /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = next.png; path = ../Model/next.png; sourceTree = "<group>"; };
 		8408EA821BDF6421009D726D /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
 		8408EA831BDF6421009D726D /* Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resource.m; sourceTree = "<group>"; };
 		8420EA5C1BDA4D9200F8EFDC /* ResourceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceTableViewController.h; sourceTree = "<group>"; };
@@ -827,6 +829,7 @@
 		B3738BD41A9DDC4B0077F604 /* Root */ = {
 			isa = PBXGroup;
 			children = (
+				6D4E30FA1BE3B455003C26FC /* next.png */,
 				B3738BD51A9DDC4B0077F604 /* MapViewController.h */,
 				B3738BD61A9DDC4B0077F604 /* MapViewController.m */,
 				B3738BD71A9DDC4B0077F604 /* MenuViewController.h */,
@@ -1178,6 +1181,7 @@
 				51F924401AB18F7800523557 /* AddProblemDescriptionView.xib in Resources */,
 				B3738C4B1A9DDC4B0077F604 /* OpenSans-Bold.ttf in Resources */,
 				B3738C4D1A9DDC4B0077F604 /* OpenSans-ExtraBold.ttf in Resources */,
+				6D4E30FB1BE3B455003C26FC /* next.png in Resources */,
 				51F924521AB18FB800523557 /* AddProblemNameView.xib in Resources */,
 				B3738C431A9DDC4B0077F604 /* LaunchScreen.xib in Resources */,
 				B3738C561A9DDC4B0077F604 /* reveal-icon@2x.png in Resources */,

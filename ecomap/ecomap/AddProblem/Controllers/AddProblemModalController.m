@@ -22,7 +22,7 @@
     [self setMap];
     [self.thisMap setDelegate:self];
     [self setMarker];
-    self.problemList = @[@"Сміттєзвалища", @"Проблема лісів", @"Браконьєрство"];
+    self.problemList = ECOMAP_PROBLEM_TYPES_ARRAY;
 }
 
 
@@ -46,13 +46,6 @@
 
 
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //[[self currentView] endEditing:YES];
-    //[[self view] endEditing:YES];
-
-}
-
 #pragma mark --map
 
 - (void)setMap
@@ -60,7 +53,11 @@
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
                                                             longitude:30.52173614501953
                                                                  zoom:6];
-    self.thisMap = [GMSMapView mapWithFrame:self.mapView.bounds camera:camera];
+    self.thisMap = [GMSMapView mapWithFrame:CGRectMake(self.mapView.bounds.origin.x,
+                                                       self.mapView.bounds.origin.y,
+                                                       self.mapView.bounds.size.width-25,
+                                                       self.mapView.bounds.size.height)
+                                     camera:camera];
     self.thisMap.myLocationEnabled = YES;
     self.thisMap.settings.myLocationButton = YES;
     self.thisMap.settings.compassButton = YES;
@@ -70,7 +67,8 @@
 
 - (void)setMarker
 {
-    if (!self.marker) {
+    if (!self.marker)
+    {
         self.marker = [[GMSMarker alloc] init];
         self.marker.map = self.thisMap;
     }
@@ -91,14 +89,14 @@
 
 
 
-
 - (IBAction)confirm:(id)sender
 {
     self.updatedelegate = self.Controller;
     [self.updatedelegate update:self.nameOfProblems.text
               :self.descriptionOfProblem.text
               :self.solvetion.text
-              :self.marker];
+              :self.marker
+              :[self.pickerProblemView selectedRowInComponent:0]+1];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

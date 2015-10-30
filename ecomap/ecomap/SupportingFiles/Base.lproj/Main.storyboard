@@ -576,7 +576,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubG-LU-CKa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1063" y="-560"/>
+            <point key="canvasLocation" x="1063" y="-509"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iw2-vn-DLc">
@@ -1059,10 +1059,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vm5-Cq-zWt">
-                                <rect key="frame" x="533" y="464" width="60" height="59"/>
+                                <rect key="frame" x="533" y="500" width="60" height="59"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="OIo-bU-euo"/>
-                                    <constraint firstAttribute="width" constant="60" id="P3o-W7-dKB"/>
+                                    <constraint firstAttribute="width" constant="60" id="DAc-N6-GiC"/>
+                                    <constraint firstAttribute="height" constant="59" id="KKq-rV-tE3"/>
                                 </constraints>
                                 <state key="normal" image="add">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1071,11 +1071,44 @@
                                     <action selector="addProblemButtonTap:" destination="bov-97-S05" eventType="touchUpInside" id="Snh-OI-cRc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RnJ-vU-07S" userLabel="Filter Button">
-                                <rect key="frame" x="16" y="520" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4JU-dx-ZTR">
+                                <rect key="frame" x="527" y="93" width="66" height="70"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="njt-yb-5kS"/>
-                                    <constraint firstAttribute="width" constant="60" id="upq-sy-l36"/>
+                                    <constraint firstAttribute="width" constant="66" id="SYv-kh-QUh"/>
+                                    <constraint firstAttribute="height" constant="70" id="Sdc-J8-5Pi"/>
+                                </constraints>
+                                <state key="normal" image="UAbutton.png"/>
+                                <connections>
+                                    <action selector="showUkrainePlacement:" destination="bov-97-S05" eventType="touchUpInside" id="2Gw-qs-UEL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHf-NC-D0f">
+                                <rect key="frame" x="529" y="433" width="64" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="vmE-Nq-gms"/>
+                                    <constraint firstAttribute="width" constant="64" id="zPP-hd-kym"/>
+                                </constraints>
+                                <state key="normal" image="next.png"/>
+                                <connections>
+                                    <segue destination="cbn-20-wSu" kind="presentation" identifier="addProblem" id="cRr-BZ-9cJ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вкажіть місцезнаходження" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gZ-kf-zvr">
+                                <rect key="frame" x="0.0" y="64" width="600" height="21"/>
+                                <color key="backgroundColor" red="0.78112664087450678" green="1" blue="0.89239496401678853" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="I8g-Jm-ulB"/>
+                                    <constraint firstAttribute="height" constant="21" id="tsC-aL-AWD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RnJ-vU-07S" userLabel="Filter Button">
+                                <rect key="frame" x="16" y="499" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="24k-Lv-FqY"/>
+                                    <constraint firstAttribute="width" constant="60" id="MQ5-P9-7fD"/>
                                 </constraints>
                                 <state key="normal" image="filter-button-beta">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1084,52 +1117,22 @@
                                     <segue destination="ePc-ly-kdW" kind="custom" identifier="Filter Problem" customClass="SWRevealModalSegue" id="KOA-a8-0yx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4JU-dx-ZTR">
-                                <rect key="frame" x="513" y="80" width="66" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="pPH-2o-oZg"/>
-                                    <constraint firstAttribute="width" constant="66" id="taY-tw-JR2"/>
-                                </constraints>
-                                <state key="normal" image="UAbutton.png"/>
-                                <connections>
-                                    <action selector="showUkrainePlacement:" destination="bov-97-S05" eventType="touchUpInside" id="2Gw-qs-UEL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHf-NC-D0f">
-                                <rect key="frame" x="538" y="402" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.99202269720000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="goto">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="cbn-20-wSu" kind="presentation" identifier="addProblem" id="cRr-BZ-9cJ"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вкажіть місцезнаходження" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gZ-kf-zvr">
-                                <rect key="frame" x="16" y="64" width="600" height="21"/>
-                                <color key="backgroundColor" red="0.78112664087450678" green="1" blue="0.89239496401678853" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="NbM-Kb-391"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="4JU-dx-ZTR" secondAttribute="trailing" constant="5" id="8lx-pc-vek"/>
-                            <constraint firstItem="RnJ-vU-07S" firstAttribute="leading" secondItem="WRP-KO-eoO" secondAttribute="leading" constant="16" id="9cn-51-sk7"/>
-                            <constraint firstItem="Vm5-Cq-zWt" firstAttribute="top" secondItem="DHf-NC-D0f" secondAttribute="bottom" constant="32" id="EzO-IA-Kcp"/>
-                            <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="Vm5-Cq-zWt" secondAttribute="bottom" constant="77" id="FFa-3E-dEE"/>
-                            <constraint firstItem="HGO-LG-HWP" firstAttribute="top" secondItem="RnJ-vU-07S" secondAttribute="bottom" constant="20" id="HTV-ZV-D2K"/>
-                            <constraint firstAttribute="trailing" secondItem="Vm5-Cq-zWt" secondAttribute="trailing" constant="7" id="S9y-3g-6fY"/>
-                            <constraint firstItem="6gZ-kf-zvr" firstAttribute="leading" secondItem="RnJ-vU-07S" secondAttribute="leading" id="TS8-EM-3Vi"/>
-                            <constraint firstItem="6gZ-kf-zvr" firstAttribute="top" secondItem="kuJ-4W-yhv" secondAttribute="bottom" id="eeo-SE-ec4"/>
-                            <constraint firstItem="DHf-NC-D0f" firstAttribute="trailing" secondItem="WRP-KO-eoO" secondAttribute="trailingMargin" id="jju-uH-i84"/>
+                            <constraint firstAttribute="trailing" secondItem="Vm5-Cq-zWt" secondAttribute="trailing" constant="7" id="KN2-uo-sGC"/>
+                            <constraint firstAttribute="trailing" secondItem="DHf-NC-D0f" secondAttribute="trailing" constant="7" id="NwQ-fh-GTH"/>
+                            <constraint firstItem="4JU-dx-ZTR" firstAttribute="top" secondItem="6gZ-kf-zvr" secondAttribute="bottom" constant="8" id="Qmb-0W-bR4"/>
+                            <constraint firstItem="Vm5-Cq-zWt" firstAttribute="leading" secondItem="RnJ-vU-07S" secondAttribute="trailing" constant="457" id="UKB-PM-5Pb"/>
+                            <constraint firstItem="RnJ-vU-07S" firstAttribute="top" secondItem="kuJ-4W-yhv" secondAttribute="bottom" constant="435" id="WEG-ow-gKD"/>
+                            <constraint firstAttribute="trailing" secondItem="6gZ-kf-zvr" secondAttribute="trailing" id="XPW-fP-zzb"/>
+                            <constraint firstItem="RnJ-vU-07S" firstAttribute="leading" secondItem="WRP-KO-eoO" secondAttribute="leadingMargin" id="jKr-Cg-Q7m"/>
                             <constraint firstItem="4JU-dx-ZTR" firstAttribute="trailing" secondItem="WRP-KO-eoO" secondAttribute="trailingMargin" id="loZ-TU-k4O"/>
-                            <constraint firstItem="4JU-dx-ZTR" firstAttribute="top" secondItem="kuJ-4W-yhv" secondAttribute="bottom" constant="16" id="s8q-Uh-25q"/>
-                            <constraint firstAttribute="width" secondItem="6gZ-kf-zvr" secondAttribute="width" id="zaO-7E-YYM"/>
+                            <constraint firstAttribute="trailing" secondItem="4JU-dx-ZTR" secondAttribute="trailing" constant="7" id="nDy-r3-tRo"/>
+                            <constraint firstItem="6gZ-kf-zvr" firstAttribute="leading" secondItem="WRP-KO-eoO" secondAttribute="leading" id="nFK-hi-dNu"/>
+                            <constraint firstItem="6gZ-kf-zvr" firstAttribute="top" secondItem="kuJ-4W-yhv" secondAttribute="bottom" id="nNY-t8-kk2"/>
+                            <constraint firstItem="DHf-NC-D0f" firstAttribute="top" secondItem="4JU-dx-ZTR" secondAttribute="bottom" constant="270" id="oAe-Bz-kg7"/>
+                            <constraint firstItem="Vm5-Cq-zWt" firstAttribute="top" secondItem="DHf-NC-D0f" secondAttribute="bottom" constant="8" id="qAe-lP-m0O"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -1146,7 +1149,6 @@
                         <outlet property="gotoNext" destination="DHf-NC-D0f" id="E4z-pv-hTS"/>
                         <outlet property="propositionLable" destination="6gZ-kf-zvr" id="PvH-Dh-Hbo"/>
                         <outlet property="revealButtonItem" destination="XHY-cf-hKr" id="N9D-Zi-8J0"/>
-                        <outlet property="topSpaceToButton" destination="FFa-3E-dEE" id="AjH-kX-exm"/>
                         <segue destination="2UE-DX-Tsm" kind="show" identifier="Show problem" id="p0L-Um-XQx"/>
                     </connections>
                 </viewController>
@@ -3135,6 +3137,7 @@
         <image name="info25" width="25" height="25"/>
         <image name="locate-button" width="29" height="29"/>
         <image name="logo" width="125" height="180"/>
+        <image name="next.png" width="64" height="59"/>
         <image name="pie-chart25" width="25" height="25"/>
         <image name="reveal-icon" width="22" height="17"/>
         <image name="sign-in25" width="25" height="25"/>

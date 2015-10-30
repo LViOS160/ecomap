@@ -65,9 +65,13 @@
     
 }
 
-- (void)update:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker
+- (void)update:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker :(NSInteger)typeOfProblem
 {
-    [self postProblem:problemName :problemDescription :problemSolution :marker];
+    [self postProblem:problemName
+                     :problemDescription
+                     :problemSolution
+                     :marker
+                     :typeOfProblem];
 }
 
 - (void)cancel
@@ -77,6 +81,8 @@
     self.gotoNext.hidden = YES;
     self.addProblemButton.hidden = NO;
     self.propositionLable.hidden = YES;
+    [self.mapView clear];
+    [self loadProblems];
 }
 
 
@@ -85,7 +91,7 @@
    self.mapView.camera = [GMSCameraPosition cameraWithLatitude:50
                 longitude:30
                      zoom:5];
-    [self loadProblems];
+    
 }
 
 #pragma mark - Buttons
@@ -97,7 +103,7 @@
         self.propositionLable.hidden = NO;
         self.gotoNext.hidden = NO;
             UIButton *button = sender;
-            //button.hidden = YES;
+            button.hidden = YES;
             CGRect buttonFrame = button.frame;
             buttonFrame.origin.y += 50;
             self.topSpaceToButton.constant = 10;
@@ -152,31 +158,22 @@
 
 
 
-/*-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"addProblem"])
-    {
-        AddProblemModalController *modalContr = (AddProblemModalController*)segue.destinationViewController;
-        [modalContr setCord:self.cord];
-    }
-}*/
-
-
 #pragma mark - ProblemPost
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-            if (!self.marker)
+    
+            if (!self.marker && self.addProblemButton.isHidden == YES)
             {
                 self.marker = [[GMSMarker alloc] init];
                 self.marker.title = PROBLEM_LOCATION_STRING;
                 self.marker.map = self.mapView;
+                [self setCord:coordinate];
+                [self.marker setPosition:coordinate];
             }
     
-            [self setCord:coordinate];
-            [self.marker setPosition:coordinate];
 }
 
-- (void)postProblem:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker
+- (void)postProblem:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker :(NSInteger)problemType
 {
     self.addProblemButton.hidden = NO;
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : problemName,
@@ -185,7 +182,7 @@
                              ECOMAP_PROBLEM_LATITUDE : @(marker.position.latitude),
                              ECOMAP_PROBLEM_LONGITUDE : @(marker.position.longitude),
                              ECOMAP_PROBLEM_ID : @(4),
-                             ECOMAP_PROBLEM_TYPE_ID : @(2)
+                             ECOMAP_PROBLEM_TYPE_ID : @(problemType)
                              };
     
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
