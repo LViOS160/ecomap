@@ -316,10 +316,6 @@
                             [resourcesIntoCD addContentToResource:resourceID];
                         }
                     }
-                    else
-                    {
-                        [InfoActions showAlertOfError:error];
-                    }
                     
                     completionHandler(aliases, error);
                     
@@ -353,7 +349,7 @@
                             // DDLogVerbose(@"%@",resources);
                             
                         }
-                    } else [InfoActions showAlertOfError:error];
+                    } //else [InfoActions showAlertOfError:error];
                     
                     completionHandler(resources,error);
                     
