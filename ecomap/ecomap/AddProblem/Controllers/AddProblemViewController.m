@@ -92,7 +92,6 @@
         UIButton *button = sender;
         button.hidden = YES;
         CGRect buttonFrame = button.frame;
-        buttonFrame.origin.y += 50;
         [button setFrame:buttonFrame];
         self.mapView.userInteractionEnabled = YES;
     }
