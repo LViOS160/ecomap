@@ -10,8 +10,9 @@
 #import "EcomapFetcher.h"
 #import "AppDelegate.h"
 #import "MapViewController.h"
+#import "EditProblemViewController.h"
 
-
+extern bool wasUpdate;
 
 @implementation EcomapRevisionCoreData
 
@@ -27,8 +28,6 @@
 - (void)checkRevison
 {
     
-   
-    
     NSMutableArray *tmpAllAction = [NSMutableArray array];
     NSMutableArray *tmpAllRevision = [NSMutableArray array];
 
@@ -40,7 +39,7 @@
                 [EcomapFetcher loadProblemsDifference:^(NSArray *problems, NSError *error)
                 {
                     
-                    for (int i = 0; i<[problems count]; i++)
+                    for (int i = 0; i < [problems count]; i++)
                     {
                         NSString *actionName = [problems[i] valueForKey:@"action"];
                         
@@ -190,8 +189,12 @@
         }
     }
    
-   
     
+    if ([self.loadDelegate respondsToSelector:@selector(showDetailView)])
+    {
+        [self.loadDelegate showDetailView];
+        wasUpdate = false;
+    }
     
     
 }
