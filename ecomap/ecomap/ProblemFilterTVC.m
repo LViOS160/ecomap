@@ -10,6 +10,7 @@
 #import "EcomapPathDefine.h"
 #import "InfoActions.h"
 #import "EcomapProblemFilteringMask.h"
+#import "EcomapLoggedUser.h"
 
 static const NSInteger numberOfSections = 4;
 
@@ -215,6 +216,17 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
     // Check either filtering mask contains type of the problem of the current row
     // Depending on answer show image.
     UIImageView *checkmarkImage = (UIImageView *)[cell viewWithTag:kCheckmarkImageTag];
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+    if (!userIdent)
+    {
+        self.filteringMask.showCurrentUserProblem = NO;
+        titleLabel.textColor = [UIColor grayColor];
+    }
+    else
+    {
+        titleLabel.textColor = [UIColor blackColor];
+    }
+    
     checkmarkImage.image = [self checkmarkImage:self.filteringMask.showCurrentUserProblem];
     
     return cell;
@@ -296,9 +308,15 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 //handle to new filter mine
 - (void)handleTappingOwnerSection:(NSIndexPath *)indexPath
 {
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
+    if (!userIdent)
+    {
+        return;
+    }
+    
     if (indexPath.row == 0)
     {
-        self.filteringMask.showCurrentUserProblem= !self.filteringMask.showCurrentUserProblem;
+        self.filteringMask.showCurrentUserProblem = !self.filteringMask.showCurrentUserProblem;
     }
     [self.tableView reloadData];
 }
