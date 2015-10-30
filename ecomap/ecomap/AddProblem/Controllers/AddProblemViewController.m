@@ -53,7 +53,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     self.mapView.userInteractionEnabled = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
