@@ -11,5 +11,6 @@
 @interface EcomapFetchedResultController : NSFetchedResultsController
 
 + (NSFetchRequest*)requestWithEntityName:(NSString*)entityName sortBy:(NSString*)sortDescriptor;
++ (NSFetchRequest*)requestWithEntityName:(NSString*)entityName sortBy:(NSString*)sortDescriptor limit:(NSInteger)limitNumber;
 
 @end

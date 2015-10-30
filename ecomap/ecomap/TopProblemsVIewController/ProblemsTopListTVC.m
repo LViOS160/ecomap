@@ -19,6 +19,7 @@
 #import "GlobalLoggerLevel.h"
 #import "TOP10.h"
 #import "AppDelegate.h"
+#import "EcomapFetchedResultController.h"
 
 @interface ProblemsTopListTVC ()
 
@@ -29,11 +30,92 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *tableSpinner;
 
+@property(nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+
 @end
 
 @implementation ProblemsTopListTVC
 
+@synthesize fetchedResultsController = _fetchedResultsController;
+
 #pragma mark - Initialization
+
+- (NSFetchedResultsController *)fetchedResultsController:(NSString*)sorting {
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    
+    NSString *entityName = @"Problem";
+    NSString *sortBy = sorting;
+    
+    
+    NSFetchRequest *fetchRequest = [EcomapFetchedResultController requestWithEntityName:entityName sortBy:sortBy limit:10];
+    
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:appDelegate.managedObjectContext
+                                          sectionNameKeyPath:nil
+                                                   cacheName:entityName];
+    
+    
+    
+    self.fetchedResultsController = theFetchedResultsController;
+    self.fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error])
+    {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return _fetchedResultsController;
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    switch(type)
+    {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.charts addObject:anObject];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.charts removeObject:anObject];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            self.charts[indexPath.row] = anObject;
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            break;
+    }
+}
+
+-(void)loadProblems
+{
+    
+//    self.arrayWithProblems = [NSMutableArray new];
+//    NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+//    for (Problem *problem in allProblems)
+//    {
+//        EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
+//        [self.arrayWithProblems addObject:ecoProblem];
+//        
+//    }
+//    
+//    self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+//    [self renewMap:self.currentAllProblems];
+    
+}
+
 
 - (void)viewDidLoad
 {
@@ -52,10 +134,7 @@
     // Set up reveal button
     [self customSetup];
     
-   TOP10 *obj = [TOP10 sharedInstanceTOP10];
-   // NSArray *chart = obj.allProblems;
-    [obj sortAllProblems];
-    self.currentChart = obj.problemComment;
+    self.currentChart = self.charts;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -114,8 +193,6 @@
 
 - (void)changeChart
 {
-   TOP10 *obj = [TOP10 sharedInstanceTOP10];
-    [obj sortAllProblems];
     if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
     {
         NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
