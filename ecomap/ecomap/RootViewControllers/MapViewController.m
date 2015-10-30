@@ -398,6 +398,7 @@
     {
         AddProblemModalController *modalContr = (AddProblemModalController*)segue.destinationViewController;
         [modalContr setCord:self.cord];
+        [modalContr setController:self];
     }
 
     

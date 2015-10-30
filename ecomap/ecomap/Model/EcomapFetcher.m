@@ -69,6 +69,13 @@
     [ob checkRevison];
     
     [self getProblemWithComments];
+    [self updateData];
+}
+
++ (void)updateData
+{
+    NSTimer *timer;
+    timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(loadEverything) userInfo:nil repeats:YES];
 }
 
 #pragma mark -- get revision

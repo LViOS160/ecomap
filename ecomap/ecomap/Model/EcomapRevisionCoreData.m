@@ -98,7 +98,8 @@
                 }
             if( [actionName isEqualToString:@"VOTE"])
                 {
-                
+                Problem *ob = array[0];
+                ob.numberOfVotes = [self.allActions[i] valueForKey:@"count"];
                 }
             [context save:nil];
         }

@@ -14,14 +14,15 @@
 #import "ProblemViewController.h"
 #import "EcomapRevisionCoreData.h"
 #import "EcomapCoreDataControlPanel.h"
+//#import "AddProblemViewController.h"
 
-
-
+@class AddProblemViewController;
 
 @interface MapViewController : UIViewController <GMSMapViewDelegate, SRWebSocketDelegate>
 
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic)CLLocationCoordinate2D cord;
+@property (nonatomic, strong) AddProblemViewController *problemController;
 - (void)loadProblems;
 - (void)mapSetup;
 @end
