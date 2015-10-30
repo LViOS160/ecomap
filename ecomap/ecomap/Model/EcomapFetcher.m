@@ -422,45 +422,8 @@
 }
 
 
-#pragma - Load comments
+#pragma mark - Load comments
 
-+ (void)loadCommentsFromWeb:(NSUInteger)problemID
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    NSString* baseUrl = @"http://176.36.11.25:8000/api/problems/";
-    NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
-    NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
-    [manager GET:finalUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-    {
-        NSArray* tmp = [responseObject valueForKey:@"data"];
-        NSLog(@"%@", [tmp valueForKey:@"id"]);
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmp options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        
-        NSArray *comments = [JSONParser parseJSONtoArray:objectData];
-        
-        // TODO: TO REMOVE
-        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-        [ob setCommentariesArray:comments :problemID];
-        ob.problemsID = problemID;
-        
-        //added Iuliia Korniichuk
-        EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
-        [commentsIntoCoreData addCommentsIntoCoreData:problemID comments:comments];
-        
-    }
-    failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
-        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-        ob.problemsID = problemID;
-        [ob setCommentariesArray:nil :problemID];
-        NSLog(@"%@",error);
-        
-    }];
-    
-}
 
 + (void)getProblemWithComments
 {
@@ -494,6 +457,46 @@
     EcomapCoreDataControlPanel *allComments = [EcomapCoreDataControlPanel sharedInstance];
     [allComments logCommentsFromCoreData];
 }
+
+
++ (void)loadCommentsFromWeb:(NSUInteger)problemID
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    NSString* baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
+    NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
+    [manager GET:finalUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        NSArray* tmp = [responseObject valueForKey:@"data"];
+        NSLog(@"%@", [tmp valueForKey:@"id"]);
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmp options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSArray *comments = [JSONParser parseJSONtoArray:objectData];
+        
+        // TODO: TO REMOVE
+//        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+//        [ob setCommentariesArray:comments :problemID];
+//        ob.problemsID = problemID;
+        
+        //added Iuliia Korniichuk
+        EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
+        [commentsIntoCoreData addCommentsIntoCoreData:problemID comments:comments];
+        
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
+        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+        ob.problemsID = problemID;
+        [ob setCommentariesArray:nil :problemID];
+        NSLog(@"%@",error);
+        
+    }];
+    
+}
+
 
 
 

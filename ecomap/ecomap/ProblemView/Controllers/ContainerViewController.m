@@ -65,9 +65,12 @@
         if (self.childViewControllers.count > 0)
         {
             self.currentViewController = segue.destinationViewController;
-           [self swapFromViewController:[self.childViewControllers objectAtIndex:0] toViewController:segue.destinationViewController];
-            
-            
+            if ([segue.identifier isEqualToString:@"CommentsView"])
+            {
+                AddCommViewController *addComm = (AddCommViewController*)segue.destinationViewController;
+                [addComm setProblem_ID:self.problem_id];
+            }
+            [self swapFromViewController:[self.childViewControllers objectAtIndex:0] toViewController:segue.destinationViewController];
         }
         else
         {
@@ -77,11 +80,7 @@
             [self.view addSubview:((UIViewController *)segue.destinationViewController).view];
             [segue.destinationViewController didMoveToParentViewController:self];
         }
-        if ([segue.identifier isEqualToString:@"CommentsView"])
-        {
-            AddCommViewController *addComm = (AddCommViewController*)segue.destinationViewController;
-            [addComm setProblem_ID:self.problem_id];
-        }
+        
        
     }
 }

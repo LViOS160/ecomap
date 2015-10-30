@@ -27,13 +27,15 @@
 #import "AppDelegate.h"
 
 
-@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
+@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,NSFetchedResultsControllerDelegate>
 @property (nonatomic,strong) NSMutableArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
+@property (nonatomic, strong) NSMutableArray *arrayOfCommentsForParticularProblem;
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 -(void)editComment:(id)sender;
@@ -54,7 +56,6 @@
 {
     [super viewDidLoad];
     self.addCommentButton.enabled = NO;
-    [self updateUI];
     
     //Buttons images localozation
     UIImage *addButtonImage = [UIImage imageNamed:NSLocalizedString(@"AddCommentButtonUKR", @"Add comment button image")];
@@ -63,6 +64,34 @@
    
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Editing comment..." message:@"Edit your comment:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
+    
+    NSLog(@"ID of the problem %@", self.problem_ID);
+    
+    NSFetchRequest *request = [EcomapFetchedResultController requestWithEntityName:@"Comment" sortBy:@"created_by"];
+    
+    NSArray *requestArray = [self.managedObjectContext executeFetchRequest:request error:nil];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc]
+                                     initWithFetchRequest:request
+                                     managedObjectContext:self.managedObjectContext
+                                     sectionNameKeyPath:nil
+                                     cacheName:nil];
+    
+    
+    
+    self.fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error])
+    {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    [self updateUI];
 }
 
 -(void)reload
@@ -96,7 +125,6 @@
         {
             [comments addObject:oneComment];
             NSLog(@"(%@, %@ %lu)",oneComment.userName,oneComment.userSurname,(unsigned long)oneComment.usersID);
-            
         }
         self.problemma = [NSString stringWithFormat:@"%lu",(unsigned long)oneComment.problemsID];
     }
@@ -144,8 +172,6 @@
         
     
        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
-
-   
             
         }
 
@@ -202,65 +228,93 @@
 
 #pragma mark - Table View
 
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    NSManagedObjectContext* context = appDelegate.managedObjectContext;
-    NSFetchRequest *request = [EcomapFetchedResultController requestWithEntityName:@"Comment" sortBy:@"created_by"];
-    NSArray *requestArray = [context executeFetchRequest:request error:nil];
+    [self.arrayOfCommentsForParticularProblem removeAllObjects];
     
-    NSLog(@"%@", requestArray);
-    
-    
-    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-    if(ob.comInfo.count == 0) // 
+    for (Comment *com in self.fetchedResultsController.fetchedObjects)
     {
-         return 1;
+        
+        NSLog(@"Problem ID from core data %@", com.id_of_problem);
+        if ([self.problem_ID isEqual:com.id_of_problem])
+        {
+            NSLog(@"Comment ID = %@  and Problem ID = %@", com.comment_id, com.id_of_problem);
+        
+            if (!self.arrayOfCommentsForParticularProblem)
+            {
+                self.arrayOfCommentsForParticularProblem = [[NSMutableArray alloc]initWithObjects:com, nil];
+            }
+            else
+            {
+                [self.arrayOfCommentsForParticularProblem addObject:com];
+            }
+        }
     }
-    else
-    {
-        return ob.comInfo.count;
-    }
+    
+    NSLog(@"Number of rows %ld", (long)self.arrayOfCommentsForParticularProblem.count);
+    NSLog(@"Array of comments %@", self.arrayOfCommentsForParticularProblem);
+    
+    
+    return self.arrayOfCommentsForParticularProblem.count == 0 ? 1 : self.arrayOfCommentsForParticularProblem.count;
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-    if(ob.comInfo.count == 0)
+    if (self.arrayOfCommentsForParticularProblem.count == 0)
     {
-        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = @"Коментарі відсутні";
         return cell;
     }
-    else
+    else if (indexPath.row < self.arrayOfCommentsForParticularProblem.count)
     {
         
+        Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
+        
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-        NSInteger row = indexPath.row;
-        cell.commentContent.text= [[ob.comInfo  objectAtIndex:row] valueForKey:@"content"];
+
+        //cell.commentContent.text= [[ob.comInfo  objectAtIndex:row] valueForKey:@"content"];
+        cell.commentContent.text = object.content;
         NSDateFormatter *formatter = [NSDateFormatter new];
         formatter.dateStyle = NSDateFormatterMediumStyle;
         formatter.timeStyle = NSDateFormatterShortStyle;
         formatter.doesRelativeDateFormatting = YES;
         NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
         [formatter setLocale:ukraineLocale];
-        NSString *personalInfo = [NSString stringWithFormat:@"%@", [[ob.comInfo  objectAtIndex:row] valueForKey:@"created_by"]];
-        NSString *dateInfo = [NSString stringWithFormat:@"%@",[[ob.comInfo  objectAtIndex:row] valueForKey:@"created_date"]];
+        NSString *personalInfo = [NSString stringWithFormat:@"%@", object.created_by];
+        NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
-        EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-        if(loggedUser && [loggedUser.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]])
-        {
-          [self makeButtonForCell:cell];
-        }
-       
+        
+        //        EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+        //        if(loggedUser && [loggedUser.name isEqualToString:[[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"created_by"]])
+        //        {
+        //          [self makeButtonForCell:cell];
+        //        }
+        //
+        
+     //   [self configureCell:cell atIndexPath:indexPath];
+        
         return cell;
+        
     }
     
+    return nil;
+}
+
+
+
+
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    Comment *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+   
+    cell.textLabel.text = object.content;
+    cell.detailTextLabel.text = nil;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 
