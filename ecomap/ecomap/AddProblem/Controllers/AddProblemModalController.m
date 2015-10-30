@@ -18,13 +18,15 @@
 {
     [super viewDidLoad];
     self.thisMap.userInteractionEnabled = YES;
-    [self.currentView setContentSize:CGSizeMake(300, 2000)];
     [self.view addSubview:self.currentView];
     [self setMap];
     [self.thisMap setDelegate:self];
     [self setMarker];
-    self.problemList = @[@"Сміттєзвалища", @"Проблема лісів", @"Браконьєрство"];
+    self.problemList = ECOMAP_PROBLEM_TYPES_ARRAY;
 }
+
+
+#pragma mark --pickerView
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
@@ -41,16 +43,32 @@
     return self.problemList[row];
 }
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [[self currentView] endEditing:YES];
-    [[self view] endEditing:YES];
 
+
+
+#pragma mark --map
+
+- (void)setMap
+{
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
+                                                            longitude:30.52173614501953
+                                                                 zoom:3];
+    self.thisMap = [GMSMapView mapWithFrame:CGRectMake(self.mapView.bounds.origin.x,
+                                                       self.mapView.bounds.origin.y,
+                                                       self.mapView.bounds.size.width-25,
+                                                       self.mapView.bounds.size.height)
+                                     camera:camera];
+    self.thisMap.myLocationEnabled = YES;
+    self.thisMap.settings.myLocationButton = YES;
+    self.thisMap.settings.compassButton = YES;
+    [self.mapView addSubview:self.thisMap];
 }
+
 
 - (void)setMarker
 {
-    if (!self.marker) {
+    if (!self.marker)
+    {
         self.marker = [[GMSMarker alloc] init];
         self.marker.map = self.thisMap;
     }
@@ -60,25 +78,13 @@
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-   
-            if (!self.marker) {
-                self.marker = [[GMSMarker alloc] init];
-                self.marker.map = self.thisMap;
-            }
-            [self.marker setPosition:coordinate];
-}
-
-
-- (void)setMap
-{
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
-                                                            longitude:30.52173614501953
-                                                                 zoom:6];
-    self.thisMap = [GMSMapView mapWithFrame:self.mapView.frame camera:camera];
-    self.thisMap.myLocationEnabled = YES;
-    self.thisMap.settings.myLocationButton = YES;
-    self.thisMap.settings.compassButton = YES;
-    [self.mapView addSubview:self.thisMap];
+    if (!self.marker)
+    {
+        self.marker = [[GMSMarker alloc] init];
+        self.marker.map = self.thisMap;
+    }
+    
+    [self.marker setPosition:coordinate];
 }
 
 
@@ -89,7 +95,8 @@
     [self.updatedelegate update:self.nameOfProblems.text
               :self.descriptionOfProblem.text
               :self.solvetion.text
-              :self.marker];
+              :self.marker
+              :[self.pickerProblemView selectedRowInComponent:0]+1];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -100,13 +107,21 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+   
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return NO;
+}
 
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-
-
 
 @end

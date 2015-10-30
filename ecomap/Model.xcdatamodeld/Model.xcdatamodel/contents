@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9053" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
     <entity name="Comment" representedClassName="Comment" syncable="YES">
         <attribute name="comment_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,7 +23,7 @@
         <attribute name="problemTypeId" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
         <attribute name="proposal" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="severity" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="problem" inverseEntity="Comment" syncable="YES"/>
@@ -36,7 +36,7 @@
     </entity>
     <elements>
         <element name="Comment" positionX="-2286" positionY="-4338" width="128" height="163"/>
-        <element name="Problem" positionX="-2036" positionY="-4374" width="128" height="283"/>
+        <element name="Problem" positionX="-2036" positionY="-4374" width="128" height="285"/>
         <element name="Resource" positionX="-1863" positionY="-4360" width="128" height="103"/>
     </elements>
 </model>

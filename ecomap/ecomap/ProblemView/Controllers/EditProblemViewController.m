@@ -13,22 +13,25 @@
 #import "InfoActions.h"
 #import "AFNetworking.h"
 #import "ProblemViewController.h"
+#import "EcomapRevisionCoreData.h"
 
 enum : NSInteger {
     TextFieldTag_Content = 1,
     TextFieldTag_Proposal,
 };
 
-@interface EditProblemViewController () <UITextViewDelegate>
+BOOL wasUpdate = false;
+
+@interface EditProblemViewController () <UITextViewDelegate, LoadedDifferencesProtocol>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UIButton *isSolved;
 @property (weak, nonatomic) IBOutlet UILabel *severity;
 @property (weak, nonatomic) IBOutlet UITextView *content;
 @property (weak, nonatomic) IBOutlet UITextView *proposal;
-@property (strong, nonatomic) EcomapEditableProblem *editableProblem;
 
-//- (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved;
+@property (strong, nonatomic) EcomapEditableProblem *editableProblem;
+@property (strong, nonatomic) EcomapRevisionCoreData *revision;
 
 @end
 
@@ -45,6 +48,10 @@ enum : NSInteger {
     self.content.delegate = self;
     self.proposal.tag = TextFieldTag_Proposal;
     self.proposal.delegate = self;
+    
+    self.revision = [[EcomapRevisionCoreData alloc] init];
+    self.revision.loadDelegate = self;
+    
     // Do any additional setup after loading the view.
 }
 
@@ -134,17 +141,26 @@ enum : NSInteger {
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
     
-    [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
         [InfoActions stopActivityIndicator];
-        [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.revision checkRevison];
+        wasUpdate = true;
+   
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
         
         NSLog(@"%@",error);
         [InfoActions showAlertOfError:error];
     }];
 
+}
+
+- (void)showDetailView
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+   
 }
 
 - (void)closeButtonTouch:(id)sender

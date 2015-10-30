@@ -30,9 +30,6 @@
 
 //Designated initializer
 - (instancetype)initWithProblem:(NSDictionary *)problem;
-
-
-
 -(instancetype)initWithProblemFromCoreData:(Problem*)data;
 
 - (id)initWithCoder:(NSCoder *)aDecoder;

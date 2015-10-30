@@ -17,13 +17,12 @@
 #import "AddProblemViewController.h"
 @protocol updateData <NSObject>
 
-- (void)update :(NSString*)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker;
+- (void)update :(NSString*)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker :(NSInteger)typeOfProblem;
 - (void)cancel;
 @end
 
 
 @interface AddProblemModalController : UIViewController<UIScrollViewDelegate,GMSMapViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
-
 @property (weak, nonatomic)NSObject <updateData>* updatedelegate;
 @property (nonatomic, strong) AddProblemViewController *Controller;
 @property (weak, nonatomic) IBOutlet UIView *mapView;

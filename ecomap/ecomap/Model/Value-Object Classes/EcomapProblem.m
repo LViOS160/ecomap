@@ -34,7 +34,6 @@
 {
     self = [super init];
     
-    
     if (self)
     {
         self.problemID = [data.idProblem integerValue];
@@ -58,6 +57,7 @@
         self.vote = [data.numberOfVotes integerValue];
         self.severity = [data.severity integerValue];
         self.numberOfComments = [data.numberOfComments integerValue];
+        self.isSolved = data.status;
     }
    return self;
 }

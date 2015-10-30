@@ -27,65 +27,58 @@
     CGFloat screenWidth;
 }
 
-// Outlets
 @property (weak, nonatomic) IBOutlet UIButton *addProblemButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceToButton;
 @property (nonatomic) UIBarButtonItem *closeButton;
-
 @property (weak, nonatomic) IBOutlet UIButton *goToUkraineButton;
-
-//
-
-
-
-// MapMarker
-
 @property (nonatomic) GMSMarker *marker;
-
 
 @end
 
+
 @implementation AddProblemViewController
-
-
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     self.mapView.userInteractionEnabled = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(orientationChanged:)
+         name:UIDeviceOrientationDidChangeNotification
+       object:nil];
     screenWidth = [UIScreen mainScreen].bounds.size.width;
     padding = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     [self.propositionLable setHidden:YES];
     [self.gotoNext setHidden:YES];
     [self.view bringSubviewToFront:self.goToUkraineButton];
-    
 }
 
-- (void)update:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker
+
+- (void)update:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker :(NSInteger)typeOfProblem
 {
-    [self postProblem:problemName :problemDescription :problemSolution :marker];
+    [self postProblem:problemName
+                     :problemDescription
+                     :problemSolution
+                     :marker
+                     :typeOfProblem];
 }
 
 - (void)cancel
-
 {
     [self.propositionLable setHidden:YES];
     self.gotoNext.hidden = YES;
     self.addProblemButton.hidden = NO;
     self.propositionLable.hidden = YES;
+    [self.mapView clear];
+    [self loadProblems];
 }
 
 
 - (IBAction)showUkrainePlacement:(id)sender
 {
    self.mapView.camera = [GMSCameraPosition cameraWithLatitude:50
-                longitude:30
-                     zoom:5];
-    [self loadProblems];
+                                                     longitude:30
+                                                          zoom:5];
 }
 
 #pragma mark - Buttons
@@ -96,14 +89,12 @@
     {
         self.propositionLable.hidden = NO;
         self.gotoNext.hidden = NO;
-            UIButton *button = sender;
-            //button.hidden = YES;
-            CGRect buttonFrame = button.frame;
-            buttonFrame.origin.y += 50;
-            self.topSpaceToButton.constant = 10;
-            [button setNeedsUpdateConstraints];
-            [button setFrame:buttonFrame];
-            self.mapView.userInteractionEnabled = YES;
+        UIButton *button = sender;
+        button.hidden = YES;
+        CGRect buttonFrame = button.frame;
+        buttonFrame.origin.y += 50;
+        [button setFrame:buttonFrame];
+        self.mapView.userInteractionEnabled = YES;
     }
     
     else
@@ -115,19 +106,23 @@
     }
 }
 
+
 - (void)closeButtonTap:(id *)sender
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"LocateMeDidTap" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"LocateMeDidTap"
+                                                  object:nil];
     self.marker.map = nil;
     self.marker = nil;
-    self.topSpaceToButton.constant = 77;
     [self.addProblemButton setNeedsUpdateConstraints];
     self.mapView.settings.myLocationButton = YES;
     self.addProblemButton.hidden = NO;
     self.navigationItem.rightBarButtonItem = nil;
     [self.addProblemButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
-   
 }
 
 
@@ -135,48 +130,27 @@
 {
     screenWidth = [UIScreen mainScreen].bounds.size.width;
     padding = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-    
-   
 }
-
 
 
 
 #define PROBLEM_LOCATION_STRING NSLocalizedString(@"Мiсцезнаходження проблеми", @"Problem location")
-- (void)locateMeDidTap
-{
-
-
-}
-
-
-
-
-/*-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"addProblem"])
-    {
-        AddProblemModalController *modalContr = (AddProblemModalController*)segue.destinationViewController;
-        [modalContr setCord:self.cord];
-    }
-}*/
-
-
 #pragma mark - ProblemPost
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-            if (!self.marker)
+    
+            if (!self.marker && self.addProblemButton.isHidden == YES)
             {
                 self.marker = [[GMSMarker alloc] init];
                 self.marker.title = PROBLEM_LOCATION_STRING;
                 self.marker.map = self.mapView;
+                [self setCord:coordinate];
+                [self.marker setPosition:coordinate];
             }
-    
-            [self setCord:coordinate];
-            [self.marker setPosition:coordinate];
 }
 
-- (void)postProblem:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker
+
+- (void)postProblem:(NSString *)problemName :(NSString*)problemDescription :(NSString*)problemSolution :(GMSMarker*)marker :(NSInteger)problemType
 {
     self.addProblemButton.hidden = NO;
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : problemName,
@@ -185,21 +159,20 @@
                              ECOMAP_PROBLEM_LATITUDE : @(marker.position.latitude),
                              ECOMAP_PROBLEM_LONGITUDE : @(marker.position.longitude),
                              ECOMAP_PROBLEM_ID : @(4),
-                             ECOMAP_PROBLEM_TYPE_ID : @(2)
+                             ECOMAP_PROBLEM_TYPE_ID : @(problemType)
                              };
     
     EcomapProblem *problem = [[EcomapProblem alloc] initWithProblem: params];
     EcomapProblemDetails *details = [[EcomapProblemDetails alloc] initWithProblem: params];
 
-    [EcomapFetcher problemPost:problem problemDetails:details user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
+    [EcomapFetcher problemPost:problem
+                problemDetails:details
+                          user:[EcomapLoggedUser currentLoggedUser] OnCompletion:^(NSString *result, NSError *error) {
         NSLog(@" ProblemloadCOMPLETE:  %@",error);
-        
         EcomapRevisionCoreData *RevisionObject = [[EcomapRevisionCoreData alloc] init];
         [RevisionObject checkRevison];
         [self loadProblems];
     }];
-    
-    
 }
 
 
