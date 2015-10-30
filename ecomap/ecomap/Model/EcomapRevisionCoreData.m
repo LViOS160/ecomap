@@ -30,7 +30,6 @@ extern bool wasUpdate;
     
     NSMutableArray *tmpAllAction = [NSMutableArray array];
     NSMutableArray *tmpAllRevision = [NSMutableArray array];
-
     [EcomapFetcher checkRevision:^(BOOL differance, NSError *error) {
     if (!error)
         {
@@ -38,11 +37,9 @@ extern bool wasUpdate;
             {
                 [EcomapFetcher loadProblemsDifference:^(NSArray *problems, NSError *error)
                 {
-                    
                     for (int i = 0; i < [problems count]; i++)
                     {
                         NSString *actionName = [problems[i] valueForKey:@"action"];
-                        
                         if(actionName!=nil)
                         {
                             [tmpAllAction addObject:[problems objectAtIndex:i]];
@@ -87,6 +84,7 @@ extern bool wasUpdate;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProblem == %@", ID];
         [request setPredicate:predicate];
         NSArray *array = [context executeFetchRequest:request error:nil];
+        
         if([array count]>0)
            {
                NSString *actionName = [self.allActions[i] valueForKey:@"action"];
@@ -132,12 +130,9 @@ extern bool wasUpdate;
          [arrayTwo addObject:differentPartOfProblemsGeneral];
      }
     
-    
-    
 
     for(int i = 0; i< [self.allRevisions count];i++)
     {
-    
         NSNumber *problemId =  [self.allRevisions[i] valueForKey:@"id"];
         int num = [problemId intValue];
         predicate = [NSPredicate predicateWithFormat:@"idProblem == %i", num];
@@ -146,29 +141,10 @@ extern bool wasUpdate;
         
         if([array count] == 0)
         {
-                Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
-                EcomapProblem *problem = arrayTwo[i];
-                EcomapProblemDetails *problemDetail =  arrayOne[i];
-                [ob setTitle:(NSString*)problem.title];
-                [ob setLatitude:[NSNumber numberWithFloat: problem.latitude]];
-                [ob setLongitude:[NSNumber numberWithFloat:problem.longitude]];
-                [ob setDate:problem.dateCreated];
-                [ob setNumberOfComments:[NSNumber numberWithInteger: problemDetail.numberOfComments]];
-                [ob setNumberOfVotes:[NSNumber numberWithInteger: problemDetail.votes]];
-                [ob setContent:problemDetail.content];
-                [ob setSeverity:[NSNumber numberWithInteger: problemDetail.severity]];
-                [ob setIdProblem:[NSNumber numberWithInteger: problem.problemID]];
-                [ob setProposal:problemDetail.proposal];
-                [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
-                [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
-                [context save:nil];
-                [coreObject.map loadProblems];
-        }
-        else
-        {
-            [context deleteObject:array[0]];
-            [context save:nil];
-            Problem *ob = [NSEntityDescription insertNewObjectForEntityForName:@"Problem" inManagedObjectContext:context];
+            Problem *ob = [NSEntityDescription
+                               insertNewObjectForEntityForName:@"Problem"
+                               inManagedObjectContext:context];
+            
             EcomapProblem *problem = arrayTwo[i];
             EcomapProblemDetails *problemDetail =  arrayOne[i];
             [ob setTitle:(NSString*)problem.title];
@@ -185,18 +161,39 @@ extern bool wasUpdate;
             [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
             [context save:nil];
             [coreObject.map loadProblems];
+        }
+        else
+        {
+            [context deleteObject:array[0]];
+            [context save:nil];
+            Problem *ob = [NSEntityDescription
+                           insertNewObjectForEntityForName:@"Problem"
+                           inManagedObjectContext:context];
             
+            EcomapProblem *problem = arrayTwo[i];
+            EcomapProblemDetails *problemDetail =  arrayOne[i];
+            [ob setTitle:(NSString*)problem.title];
+            [ob setLatitude:[NSNumber numberWithFloat: problem.latitude]];
+            [ob setLongitude:[NSNumber numberWithFloat:problem.longitude]];
+            [ob setDate:problem.dateCreated];
+            [ob setNumberOfComments:[NSNumber numberWithInteger: problemDetail.numberOfComments]];
+            [ob setNumberOfVotes:[NSNumber numberWithInteger: problemDetail.votes]];
+            [ob setContent:problemDetail.content];
+            [ob setSeverity:[NSNumber numberWithInteger: problemDetail.severity]];
+            [ob setIdProblem:[NSNumber numberWithInteger: problem.problemID]];
+            [ob setProposal:problemDetail.proposal];
+            [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
+            [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
+            [context save:nil];
+            [coreObject.map loadProblems];
         }
     }
    
-    
     if ([self.loadDelegate respondsToSelector:@selector(showDetailView)])
     {
         [self.loadDelegate showDetailView];
         wasUpdate = false;
     }
-    
-    
 }
 
 

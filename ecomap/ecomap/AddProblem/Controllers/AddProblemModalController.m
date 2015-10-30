@@ -52,7 +52,7 @@
 {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
                                                             longitude:30.52173614501953
-                                                                 zoom:6];
+                                                                 zoom:3];
     self.thisMap = [GMSMapView mapWithFrame:CGRectMake(self.mapView.bounds.origin.x,
                                                        self.mapView.bounds.origin.y,
                                                        self.mapView.bounds.size.width-25,
@@ -123,7 +123,5 @@
 {
     [super didReceiveMemoryWarning];
 }
-
-
 
 @end

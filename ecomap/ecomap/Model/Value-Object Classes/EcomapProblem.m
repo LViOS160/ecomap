@@ -34,7 +34,6 @@
 {
     self = [super init];
     
-    
     if (self)
     {
         self.problemID = [data.idProblem integerValue];

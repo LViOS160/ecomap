@@ -26,14 +26,11 @@
     NSString *status = [[NSUserDefaults standardUserDefaults] valueForKey:@"firstdownload"];
     if (![status isEqualToString:@"complete"])
     {
-    
-    
-    
         [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
          {
              [coreDataClass setAllProblems:problems];
              
-         [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
+             [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
               {
                   [coreDataClass setDescr:problems];
                   [coreDataClass addProblemIntoCoreData];

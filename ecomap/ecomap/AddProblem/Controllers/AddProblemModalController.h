@@ -23,7 +23,6 @@
 
 
 @interface AddProblemModalController : UIViewController<UIScrollViewDelegate,GMSMapViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
-
 @property (weak, nonatomic)NSObject <updateData>* updatedelegate;
 @property (nonatomic, strong) AddProblemViewController *Controller;
 @property (weak, nonatomic) IBOutlet UIView *mapView;
