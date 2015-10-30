@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "MapViewController.h"
 
-bool isFinished = false;
+//bool isFinished = false;
 
 @implementation EcomapRevisionCoreData
 
@@ -88,16 +88,16 @@ bool isFinished = false;
         NSArray *array = [context executeFetchRequest:request error:nil];
         if([array count]>0)
            {
-               NSString *actionName = [self.allActions[i] valueForKey:@"action"];
+               //NSString *actionName = [self.allActions[i] valueForKey:@"action"];
             
-            if([actionName isEqualToString:@"DELETED"])
+            /*if([actionName isEqualToString:@"DELETED"])
                 {
                     [context deleteObject:array[0]];
                 }
             if( [actionName isEqualToString:@"VOTE"])
                 {
                 
-                }
+                }*/
             [context save:nil];
         }
     }
@@ -187,8 +187,8 @@ bool isFinished = false;
         }
     }
    
-   
-    if (isFinished)
+    
+    if ([self.loadDelegate respondsToSelector:@selector(showDetailView)])
     {
         [self.loadDelegate showDetailView];
     }

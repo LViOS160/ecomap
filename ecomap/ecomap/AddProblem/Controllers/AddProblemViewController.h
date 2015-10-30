@@ -12,7 +12,7 @@
 #import "ProblemFilterTVC.h"
 @protocol updateData;
 
-@interface AddProblemViewController : MapViewController <updateData,ProblemFilterTVCDelegate>
+@interface AddProblemViewController : MapViewController <updateData, ProblemFilterTVCDelegate>
 
 
 

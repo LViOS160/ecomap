@@ -25,7 +25,7 @@
 @property (nonatomic, retain) NSNumber * problemTypeId;
 @property (nonatomic, retain) NSString * proposal;
 @property (nonatomic, retain) NSNumber * severity;
-@property (nonatomic, retain) NSString * status;
+@property (nonatomic, assign) bool status;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * userID;
 @property (nonatomic, retain) NSSet *comments;

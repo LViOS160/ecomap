@@ -144,7 +144,7 @@ extern bool isFinished;
     {
         [InfoActions stopActivityIndicator];
         [self.revision checkRevison];
-        isFinished = true;
+        //isFinished = true;
   
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
@@ -152,8 +152,6 @@ extern bool isFinished;
         NSLog(@"%@",error);
         [InfoActions showAlertOfError:error];
     }];
-    
-
 
 }
 
@@ -161,7 +159,7 @@ extern bool isFinished;
 {
     [self.navigationController popViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-    isFinished = false;
+    //isFinished = false;
 }
 
 - (void)closeButtonTouch:(id)sender

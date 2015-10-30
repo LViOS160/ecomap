@@ -102,9 +102,15 @@
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath {
-    
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+
     EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:anObject];
+    
+    if (!self.arrayWithProblems)
+    {
+        self.arrayWithProblems = [NSMutableArray new];
+    }
     
     switch(type)
     {
@@ -114,7 +120,8 @@
             break;
             
         case NSFetchedResultsChangeDelete:
-            [self.arrayWithProblems removeObject:ecoProblem];
+            //[self.arrayWithProblems removeObject:ecoProblem];
+            [self.arrayWithProblems removeObjectAtIndex:indexPath.row];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -142,6 +149,7 @@
                                              selector:@selector(allProblemsChanged:)
                                                  name:ALL_PROBLEMS_CHANGED
                                                object:nil];
+    
     
   
 }
@@ -258,21 +266,25 @@
 -(void)loadProblems
 {
     
-    self.arrayWithProblems = [NSMutableArray new];
-    NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
-    
-    for (Problem *problem in allProblems)
+    if (!self.arrayWithProblems)
     {
-        EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
-        [self.arrayWithProblems addObject:ecoProblem];
+        self.arrayWithProblems = [NSMutableArray new];
+        
+        NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+        
+        for (Problem *problem in allProblems)
+        {
+            EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
+            [self.arrayWithProblems addObject:ecoProblem];
+        }
     }
-    
     self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     [self renewMap:self.currentAllProblems];
 
+
 }
 
-   
+
 
 
 #pragma mark - Problem Filter TVC Delegate
