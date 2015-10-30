@@ -138,7 +138,7 @@
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     
-            if (!self.marker && self.addProblemButton.isHidden == YES)
+            if (self.addProblemButton.isHidden == YES)
             {
                 self.marker = [[GMSMarker alloc] init];
                 self.marker.title = PROBLEM_LOCATION_STRING;
