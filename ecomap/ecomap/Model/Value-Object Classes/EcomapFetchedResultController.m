@@ -29,4 +29,23 @@
     return fetchRequest;
 }
 
++ (NSFetchRequest*)requestWithEntityName:(NSString*)entityName sortBy:(NSString*)sortDescriptor limit:(NSInteger)limitNumber
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:entityName
+                                   inManagedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                              initWithKey:sortDescriptor ascending:NO];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    [fetchRequest setFetchLimit:limitNumber];
+    
+    return fetchRequest;
+}
+
 @end
