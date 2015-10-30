@@ -10,8 +10,9 @@
 #import "EcomapFetcher.h"
 #import "AppDelegate.h"
 #import "MapViewController.h"
+#import "EditProblemViewController.h"
 
-//bool isFinished = false;
+extern bool wasUpdate;
 
 @implementation EcomapRevisionCoreData
 
@@ -192,6 +193,7 @@
     if ([self.loadDelegate respondsToSelector:@selector(showDetailView)])
     {
         [self.loadDelegate showDetailView];
+        wasUpdate = false;
     }
     
     

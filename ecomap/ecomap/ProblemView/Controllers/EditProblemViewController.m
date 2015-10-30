@@ -20,7 +20,7 @@ enum : NSInteger {
     TextFieldTag_Proposal,
 };
 
-extern bool isFinished;
+BOOL wasUpdate = false;
 
 @interface EditProblemViewController () <UITextViewDelegate, LoadedDifferencesProtocol>
 
@@ -29,6 +29,7 @@ extern bool isFinished;
 @property (weak, nonatomic) IBOutlet UILabel *severity;
 @property (weak, nonatomic) IBOutlet UITextView *content;
 @property (weak, nonatomic) IBOutlet UITextView *proposal;
+
 @property (strong, nonatomic) EcomapEditableProblem *editableProblem;
 @property (strong, nonatomic) EcomapRevisionCoreData *revision;
 
@@ -144,8 +145,8 @@ extern bool isFinished;
     {
         [InfoActions stopActivityIndicator];
         [self.revision checkRevison];
-        //isFinished = true;
-  
+        wasUpdate = true;
+   
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
         
@@ -159,7 +160,7 @@ extern bool isFinished;
 {
     [self.navigationController popViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
-    //isFinished = false;
+   
 }
 
 - (void)closeButtonTouch:(id)sender

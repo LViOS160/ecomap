@@ -564,7 +564,6 @@
 			isa = PBXGroup;
 			children = (
 				B3738B5B1A9DDC4B0077F604 /* Controllers */,
-				B3738B5F1A9DDC4B0077F604 /* Views */,
 			);
 			path = AddProblem;
 			sourceTree = "<group>";
@@ -591,7 +590,8 @@
 				51F924661AB18FE700523557 /* AddProblemSolutionView.xib */,
 				51F9246F1AB18FF000523557 /* AddProblemTypeView.xib */,
 			);
-			path = Views;
+			name = Views;
+			path = ../AddProblem/Views;
 			sourceTree = "<group>";
 		};
 		B3738B671A9DDC4B0077F604 /* AdditionalFrameworks */ = {
@@ -795,6 +795,7 @@
 		B3738BCB1A9DDC4B0077F604 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B3738B5F1A9DDC4B0077F604 /* Views */,
 				B3738BCC1A9DDC4B0077F604 /* Controllers */,
 				B3738BD11A9DDC4B0077F604 /* Views */,
 			);

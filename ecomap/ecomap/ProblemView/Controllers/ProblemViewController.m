@@ -72,10 +72,12 @@ typedef enum : NSUInteger
     self.user = [EcomapLoggedUser currentLoggedUser];
     [self updateHeader];
     [self loadProblemDetails:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(problemsDetailsChanged)
                                                  name:PROBLEMS_DETAILS_CHANGED
                                                object:nil];
+
 }
 
 - (void)dealloc

@@ -32,7 +32,10 @@
 #import "EcomapFetchedResultController.h"
 #import "AddProblemModalController.h"
 #import "EcomapCoreDataControlPanel.h"
+#import "EditProblemViewController.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
+
+extern bool wasUpdate;
 
 @interface MapViewController () <ProblemFilterTVCDelegate, NSFetchedResultsControllerDelegate>
 
@@ -95,6 +98,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+   
     self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     [self renewMap:self.currentAllProblems];
 }
@@ -106,6 +110,12 @@
 {
 
     EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:anObject];
+    
+    if (wasUpdate && (type == NSFetchedResultsChangeInsert))
+    {
+        self.arrayWithProblems[indexPath.row] = ecoProblem;
+        return;
+    }
     
     if (!self.arrayWithProblems)
     {
@@ -148,9 +158,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(allProblemsChanged:)
                                                  name:ALL_PROBLEMS_CHANGED
-                                               object:nil];
-    
-    
+                                               object:nil];  
   
 }
 

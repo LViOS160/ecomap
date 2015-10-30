@@ -22,6 +22,7 @@
 #import "EditProblemViewController.h"
 #import "EcomapCoreDataControlPanel.h"
 #import "Problem.h"
+#import "EcomapRevisionCoreData.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -52,6 +53,7 @@
     [super viewWillAppear:animated];
     [self updateUI];
     [self updateScrollView];
+    
 }
 
 - (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
@@ -139,7 +141,8 @@
         
         [InfoActions stopActivityIndicator];
         [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        EcomapRevisionCoreData *revision = [EcomapRevisionCoreData new];
+        [revision checkRevison];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
