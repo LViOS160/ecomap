@@ -18,13 +18,15 @@
 {
     [super viewDidLoad];
     self.thisMap.userInteractionEnabled = YES;
-    [self.currentView setContentSize:CGSizeMake(300, 2000)];
     [self.view addSubview:self.currentView];
     [self setMap];
     [self.thisMap setDelegate:self];
     [self setMarker];
     self.problemList = @[@"Сміттєзвалища", @"Проблема лісів", @"Браконьєрство"];
 }
+
+
+#pragma mark --pickerView
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
@@ -41,12 +43,30 @@
     return self.problemList[row];
 }
 
+
+
+
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [[self currentView] endEditing:YES];
-    [[self view] endEditing:YES];
+    //[[self currentView] endEditing:YES];
+    //[[self view] endEditing:YES];
 
 }
+
+#pragma mark --map
+
+- (void)setMap
+{
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
+                                                            longitude:30.52173614501953
+                                                                 zoom:6];
+    self.thisMap = [GMSMapView mapWithFrame:self.mapView.bounds camera:camera];
+    self.thisMap.myLocationEnabled = YES;
+    self.thisMap.settings.myLocationButton = YES;
+    self.thisMap.settings.compassButton = YES;
+    [self.mapView addSubview:self.thisMap];
+}
+
 
 - (void)setMarker
 {
@@ -60,26 +80,15 @@
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-   
-            if (!self.marker) {
-                self.marker = [[GMSMarker alloc] init];
-                self.marker.map = self.thisMap;
-            }
-            [self.marker setPosition:coordinate];
+    if (!self.marker)
+    {
+        self.marker = [[GMSMarker alloc] init];
+        self.marker.map = self.thisMap;
+    }
+    
+    [self.marker setPosition:coordinate];
 }
 
-
-- (void)setMap
-{
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:50.46012686633918
-                                                            longitude:30.52173614501953
-                                                                 zoom:6];
-    self.thisMap = [GMSMapView mapWithFrame:self.mapView.frame camera:camera];
-    self.thisMap.myLocationEnabled = YES;
-    self.thisMap.settings.myLocationButton = YES;
-    self.thisMap.settings.compassButton = YES;
-    [self.mapView addSubview:self.thisMap];
-}
 
 
 
@@ -100,6 +109,16 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+   
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return NO;
+}
 
 
 - (void)didReceiveMemoryWarning
