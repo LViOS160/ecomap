@@ -35,6 +35,8 @@ typedef enum : NSUInteger
     ComentViewType,
 } ViewType;
 
+
+
 @interface ProblemViewController()
 
 @property (retain, nonatomic) EcomapProblemDetails *problemDetails;
@@ -56,6 +58,12 @@ typedef enum : NSUInteger
 
 @implementation ProblemViewController
 
+
+- (void)updateView
+{
+    [self updateHeader];
+    [self loadProblemDetails:nil];
+}
 
 
 #pragma mark - View Controller Life Cycle
@@ -156,6 +164,8 @@ typedef enum : NSUInteger
                                                                                        message:NSLocalizedString(@"Голос додано", @"Vote is added")
                                                                                       delegate:nil cancelButtonTitle:@"Ok"
                                                                              otherButtonTitles:nil];
+                                        EcomapRevisionCoreData *checkRevisionForVote = [EcomapRevisionCoreData sharedInstance];
+                                        [checkRevisionForVote checkRevison:self];
                                         [alert show];
                                     }];
                                     

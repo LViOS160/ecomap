@@ -235,6 +235,7 @@
 		84A65DA11BD444C0009A418A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		84A65DA71BD44888009A418A /* EcomapCoreDataControlPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcomapCoreDataControlPanel.h; sourceTree = "<group>"; };
 		84A65DA81BD44888009A418A /* EcomapCoreDataControlPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcomapCoreDataControlPanel.m; sourceTree = "<group>"; };
+		84DBAE2B1BE570DB00D1D0C2 /* CheckRevisionProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CheckRevisionProtocol.h; path = ecomap/ProblemView/Controllers/CheckRevisionProtocol.h; sourceTree = "<group>"; };
 		84E68F881BCBD94000ADD104 /* EcomapStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapStatistics.h; path = ../../../../EcomapStatistics.h; sourceTree = "<group>"; };
 		84E68F891BCBD94000ADD104 /* EcomapStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapStatistics.m; path = ../../../../EcomapStatistics.m; sourceTree = "<group>"; };
 		84E7BA2A1BE171FC00BBCCA0 /* AddProblemModalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProblemModalController.h; sourceTree = "<group>"; };
@@ -516,6 +517,7 @@
 				B3738BE31A9DDC4B0077F604 /* LaunchScreen.xib */,
 				B3738BE51A9DDC4B0077F604 /* Main.storyboard */,
 				B3738B961A9DDC4B0077F604 /* EcomapPathDefine.h */,
+				84DBAE2B1BE570DB00D1D0C2 /* CheckRevisionProtocol.h */,
 				B3738B591A9DDC4B0077F604 /* Classes */,
 				B3738BE01A9DDC4B0077F604 /* SupportingFiles */,
 				B3738B671A9DDC4B0077F604 /* AdditionalFrameworks */,

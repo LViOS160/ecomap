@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CheckRevisionProtocol.h"
 
 @protocol LoadedDifferencesProtocol <NSObject>
 - (void)showDetailView;
@@ -16,9 +17,10 @@
 
 + (instancetype)sharedInstance;
 - (void)loadDifferance;
-- (void)checkRevison;
-- (void)actionFetcher;
+- (void)checkRevison:(id)classType;
+- (void)actionFetcher:(id)classType;
 
+@property (nonatomic, weak) NSObject <CheckRevisionProtocol> *delegate;
 @property (nonatomic, strong) NSArray *allRevisions;
 @property (nonatomic, strong) NSArray *allActions;
 @property (nonatomic, weak) NSObject <LoadedDifferencesProtocol> *loadDelegate;
