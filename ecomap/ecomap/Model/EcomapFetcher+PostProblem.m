@@ -37,18 +37,15 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         [manager setRequestSerializer:jsonRequestSerializer];
-        
-        
-        
-        [manager POST:ECOMAP_PROBLEM_POST_ADDRESS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+        [manager POST:ECOMAP_PROBLEM_POST_ADDRESS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
+        {
             EcomapRevisionCoreData *revision = [[EcomapRevisionCoreData alloc] init];
             [revision checkRevison:nil];
-            
-            NSLog(@"ura!");
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            
+           
+        }
+        failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
             NSLog(@"%@",error);
         }];
      dispatch_async(dispatch_get_main_queue(), ^{

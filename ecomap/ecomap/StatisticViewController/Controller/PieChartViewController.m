@@ -63,6 +63,7 @@
 {
     [self resizeTopLabelViews];
     [self drawPieChart];
+    [super viewDidAppear:YES];
 }
 
 - (void)customSetup
