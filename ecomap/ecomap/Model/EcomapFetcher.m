@@ -65,7 +65,7 @@
 {
     EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
     
-    [ob checkRevison];
+    [ob checkRevison:nil];
     [self updateData];
 }
 
