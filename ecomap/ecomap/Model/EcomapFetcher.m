@@ -65,7 +65,7 @@
 {
     EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
     
-    [ob checkRevison];
+    [ob checkRevison: nil];
     [self updateData];
 }
 
@@ -73,7 +73,7 @@
 {
     NSTimer *timer;
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(keepRevision) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:180 target:self selector:@selector(keepRevision) userInfo:nil repeats:YES];
 }
 
 #pragma mark -- get revision
