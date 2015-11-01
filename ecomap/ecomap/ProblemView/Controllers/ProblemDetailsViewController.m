@@ -133,7 +133,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
     [manager setRequestSerializer:jsonRequestSerializer];
-    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString *baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
     NSUInteger num = self.problemDetails.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
     

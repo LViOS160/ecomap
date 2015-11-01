@@ -142,13 +142,9 @@
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
             [manager setRequestSerializer:jsonRequestSerializer];
-            NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
-            NSString *middle = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)[ob problemsID]];
-            NSString *final = [middle stringByAppendingString:@"/comments"];
-           
             NSDictionary *cont = @{ @"content":fromTextField};
             
-            [manager POST:final parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
+            [manager POST:[EcomapURLFetcher URLforAddComment:[ob problemsID]] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
             {
                 NSLog(@"ura");
                 [EcomapFetcher updateComments:[ob problemsID] controller:self];
@@ -309,12 +305,8 @@
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        
-        NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
         NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
-        NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
-        
-        [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager PUT:[EcomapURLFetcher URLforChangeComment:[num integerValue]] parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             [EcomapFetcher updateComments:ob.problemsID controller:self];
             [self.myTableView reloadData];
@@ -399,12 +391,9 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         [manager setRequestSerializer:jsonRequestSerializer];
-        NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
         NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
-        NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
-        [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+        [manager DELETE:[EcomapURLFetcher URLforChangeComment:[num integerValue]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
         {
-            NSLog(@"ura");
             if(ob.comInfo.count ==1)
             {
                 [ob setComInfo:nil];

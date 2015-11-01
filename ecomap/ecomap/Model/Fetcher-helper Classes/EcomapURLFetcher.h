@@ -20,8 +20,12 @@ typedef enum {
 @interface EcomapURLFetcher : NSObject
 
 
+
++(NSString*)URLforAddComment:(NSInteger)problemId;
+
 + (NSURL*)URLforRevison;
 
++(NSString*)URLforChangeComment:(NSInteger)commentId;
 
 + (NSURL *)URLforTokenRegistration;
 

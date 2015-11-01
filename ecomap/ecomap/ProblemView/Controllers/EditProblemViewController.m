@@ -137,7 +137,7 @@ BOOL wasUpdated = false;
     [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
-    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString *baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
     NSUInteger num = self.problem.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
     

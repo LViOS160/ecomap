@@ -111,7 +111,7 @@
 
 +(void)loadProblemsDifference:(void (^)(NSArray *problems, NSError *error))completionHandler
 {
-    NSMutableString *urlForLoadDifferance = [NSMutableString stringWithFormat:@"http://176.36.11.25:8000/api/problems?rev="];
+    NSMutableString *urlForLoadDifferance = [NSMutableString stringWithFormat:ECOMAP_ADDRESS_FOR_REVISON];
     NSString *tmprevision = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"revision"]];
     NSString *oldrevision = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"oldrevision"]];
     
@@ -393,7 +393,7 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    NSString* baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString* baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
     NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
     NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
     
@@ -463,7 +463,7 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    NSString* baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString* baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
     NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
     NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
     [manager GET:finalUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
@@ -609,7 +609,6 @@
         NSString *baseUrl = ECOMAP_ADDRESS;
         baseUrl = [baseUrl stringByAppendingString:ECOMAP_API];
         baseUrl = [baseUrl stringByAppendingString:ECOMAP_GET_PROBLEMS_WITH_ID_API];
-        //NSString *baseUrl = @"http:176.36.11.25:8000/api/problems/";
         NSString *middle = [baseUrl stringByAppendingFormat:@"%lu/",(unsigned long)[ob problemsID]];
         NSString *final = [middle stringByAppendingString:ECOMAP_POST_VOTE];
         
