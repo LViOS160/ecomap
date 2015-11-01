@@ -161,7 +161,6 @@ extern bool wasUpdated;
             [ob setProposal:problemDetail.proposal];
             [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
             [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
-            [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
             [ob setStatus:problem.isSolved];
             [context save:nil];
             [coreObject.map loadProblems];

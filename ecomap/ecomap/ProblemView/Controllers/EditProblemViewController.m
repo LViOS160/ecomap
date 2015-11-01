@@ -144,7 +144,7 @@ BOOL wasUpdated = false;
     [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
         [InfoActions stopActivityIndicator];
-        [self.revision checkRevison];
+        [self.revision checkRevison:nil];
         wasUpdated = true;
    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
