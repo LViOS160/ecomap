@@ -34,7 +34,6 @@
 {
     self = [super init];
     
-    
     if (self)
     {
         self.problemID = [data.idProblem integerValue];
@@ -44,20 +43,22 @@
         self.problemTypesID = [data.problemTypeId integerValue];
         self.dateCreated = data.date;
         long int typeOfProblem = [data.problemTypeId integerValue];
+        
         if(typeOfProblem == 0)
         {
             typeOfProblem = 1;
         }
         else
         {
-            typeOfProblem-=1;
+            typeOfProblem -= 1;
         }
-        self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:typeOfProblem];
         
+        self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:typeOfProblem];
         self.userCreator = [data.userID integerValue];
         self.vote = [data.numberOfVotes integerValue];
         self.severity = [data.severity integerValue];
         self.numberOfComments = [data.numberOfComments integerValue];
+        self.isSolved = data.status;
     }
    return self;
 }
@@ -102,9 +103,7 @@
 -(instancetype)initWithProblem:(NSDictionary *)problem
 {
     self = [super init];
-    
-    
-      
+
     if (self)
     {
         if (!problem) return nil;
@@ -114,8 +113,8 @@
         self.longitude = ![[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_LONGITUDE] doubleValue] : 0;
         self.problemTypesID = ![[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] isKindOfClass:[NSNull class]] ? [[problem valueForKey:ECOMAP_PROBLEM_TYPE_ID] integerValue] : 0;
         self.problemTypeTitle = [ECOMAP_PROBLEM_TYPES_ARRAY objectAtIndex:(self.problemTypesID - 1)];
-        NSString *isSolvedInt = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_STATUS]  : 0;
-        self.isSolved = [isSolvedInt isEqualToString:@"UNSOLVED"] ? NO : YES;
+        NSString *isSolvedStr = ![[problem valueForKey:ECOMAP_PROBLEM_STATUS] isKindOfClass:[NSNull class]] ? [problem valueForKey:ECOMAP_PROBLEM_STATUS]  : @"";
+        self.isSolved = [isSolvedStr isEqualToString:@"UNSOLVED"] ? NO : YES;
         //self.dateCreated = [self datetime:problem];
         NSString * stringWithDate =[problem valueForKey:@"datetime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

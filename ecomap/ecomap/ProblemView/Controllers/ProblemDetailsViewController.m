@@ -22,6 +22,7 @@
 #import "EditProblemViewController.h"
 #import "EcomapCoreDataControlPanel.h"
 #import "Problem.h"
+#import "EcomapRevisionCoreData.h"
 
 //Setup DDLog
 #import "GlobalLoggerLevel.h"
@@ -52,6 +53,7 @@
     [super viewWillAppear:animated];
     [self updateUI];
     [self updateScrollView];
+    
 }
 
 - (void)setProblemDetails:(EcomapProblemDetails *)problemDetails
@@ -131,14 +133,16 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
     [manager setRequestSerializer:jsonRequestSerializer];
-    NSString *baseUrl = @"http://176.36.11.25:8000/api/problems/";
+    NSString *baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
     NSUInteger num = self.problemDetails.problemID;
     NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
     
     [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        [InfoActions stopActivityIndicator];
         [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
+        EcomapRevisionCoreData *revision = [EcomapRevisionCoreData new];
+        [revision checkRevison:nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

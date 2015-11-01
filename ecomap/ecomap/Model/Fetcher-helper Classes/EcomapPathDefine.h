@@ -33,9 +33,12 @@
 #define ECOMAP_POST_COMMENT @"comment/"
 #define ECOMAP_POST_PHOTO @"photo/"
 
+#define ECOMAP_POST_PROBLEM_ADDRESS @"http://176.36.11.25:8000/api/problems/"
+#define ECOMAP_PROBLEM_POST_ADDRESS @"http://176.36.11.25:8000/api/problems"
 #define ECOMAP_REVISION @"problems?rev="
 
-
+#define ECOMAP_ADDRESS_FOR_REVISON @"http://176.36.11.25:8000/api/problems?rev="
+#define ECOMAP_CHANGE_COMMENTS @"comments/"
 //Queries for statistics
 #define ECOMAP_GET_TOP_CHARTS_OF_PROBLEMS @"getStats4"
 #define ECOMAP_GET_GENERAL_STATS @"getStats3"
@@ -46,7 +49,7 @@
 #define ECOMAP_GET_STATS_FOR_LAST_DAY @"getStats2/D"
 
 // Queries for admin's API
-
+#define ECOMAP_ADD_COMMENT @"/comments"
 #define ECOMAP_PUT_EDIT_PROBLEM @"editProblem/"
 #define ECOMAP_DELETING_COMMENT @"comments/"
 //Problems types descripton

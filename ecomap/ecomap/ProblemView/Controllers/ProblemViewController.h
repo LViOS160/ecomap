@@ -10,13 +10,14 @@
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
 #import "EcomapFetcher.h"
+#import "CheckRevisionProtocol.h"
 @protocol EcomapProblemViewDelegate <NSObject>
 
 - (void)showEcomapProblem:(EcomapProblem *)problem;
 
 @end
 
-@interface ProblemViewController : UIViewController
+@interface ProblemViewController : UIViewController<CheckRevisionProtocol>
 
 @property (nonatomic) NSUInteger problemID;
 

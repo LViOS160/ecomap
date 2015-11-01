@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "EcomapProblem.h"
-#define URL_PROBLEMS @"http://176.36.11.25:8000/api/problems"
 @interface EcomapStatistics : NSObject
 +(instancetype)sharedInstanceStatistics;
 -(NSMutableArray*)countAllProblemsCategory;
@@ -18,6 +17,8 @@
 -(void)statisticsForMonth;
 -(void)statisticsForDay;
 -(void)statisticsForWeek;
+
+@property (nonatomic, strong)NSArray *allProblemsFromCD;
 
 @property (nonatomic) NSMutableArray* allProblemsPieChart;
 @property (nonatomic, strong) NSArray* allProblems;

@@ -2,7 +2,7 @@
 //  EcomapCoreDataControlPanel.m
 //  ecomap
 //
-//  Created by Admin on 19.10.15.
+//  Created by Pavlo Dumyak on 19.10.15.
 //  Copyright (c) 2015 SoftServe. All rights reserved.
 //
 
@@ -25,7 +25,7 @@
 }
 
 
-
+#pragma --mark get detailed about problem
 - (Problem*)returnDetail:(NSInteger)identifier
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
@@ -40,7 +40,7 @@
     return array[0];
 }
 
-
+#pragma --mark add data into coredata after first download
 - (void)addProblemIntoCoreData
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
@@ -67,71 +67,54 @@
             [ob setProposal:problemDetail.proposal];
             [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
             [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
+            [ob setStatus:problem.isSolved];
             i++;
         }
     }
     [context save:&error];
-    
-    
-    
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *descr = [NSEntityDescription entityForName:@"Problem" inManagedObjectContext:context];
-    [request setEntity:descr];
-    
-    NSArray *arr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
-    
-    for(NSManagedObject *object in arr)
-    {
-        
-        if([object isKindOfClass:[Problem class]])
-        {
-            Problem* ob = (Problem*)object;
-            
-        }
-    }
-    
-    [context save:&error];
-    
-   
- 
-    
 }
+
+
+#pragma -mark add resource into coredata
 
 - (void) addResourceIntoCD:(NSArray *)resources
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error = nil;
     
     for( id object in resources )
     {
         Resource *currentResource = [NSEntityDescription insertNewObjectForEntityForName:@"Resource" inManagedObjectContext:context];
+        
         if([object isKindOfClass:[EcomapResources class]])
         {
             EcomapResources *resource = (EcomapResources*) object;
-            
             [currentResource setTitle:(NSString*)resource.titleRes];
             [currentResource setAlias:(NSString *)resource.alias];
             [currentResource setResourceID:[NSNumber numberWithInteger:resource.resId]];
         }
     }
- 
+    
     [context save:&error];
 }
+
 
 - (void)logResourcesOnDemand
 {
     NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
-    
+    NSEntityDescription *description = [NSEntityDescription
+                                        entityForName:@"Resource"
+                                        inManagedObjectContext:context];
     [request setEntity:description];
     [request setResultType:NSDictionaryResultType];
     
     NSError *requestError = nil;
-    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
+    NSArray *requestArray = [context
+                             executeFetchRequest:
+                             request
+                             error:&requestError];
     
     NSLog(@"%@", requestArray);
 }
@@ -140,13 +123,18 @@
 {
     NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Resource"
+                                   inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceID = %@)", currentID];
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"(resourceID = %@)", currentID];
     [fetchRequest setPredicate:predicate];
     
-    NSArray *requestArray = [context executeFetchRequest:fetchRequest error:nil];
+    NSArray *requestArray = [context
+                             executeFetchRequest:
+                             fetchRequest
+                             error:nil];
     Resource *res = [requestArray firstObject];
     res.content = self.resourceContent;
     [context save:nil];
@@ -157,10 +145,8 @@
 - (void) addCommentsIntoCoreData:(NSUInteger)problemID comments:(NSArray*)comments
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSError *error = nil;
-    
     NSArray *commentsFormCD = [self commentsFromCoreData];
     
     for (NSDictionary* commentDictionary in comments)
@@ -185,21 +171,20 @@
                 {
                     [self updateComment:commentFromCD withDictionary:commentDictionary];
                 }
-                
                 break;
             }
         }
         
         if (needsToAdd)
         {
-            Comment *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
+            Comment *currentComment = [NSEntityDescription
+                                       insertNewObjectForEntityForName:@"Comment"
+                                       inManagedObjectContext:context];
             [currentComment setComment_id:commentID];
             [currentComment setId_of_problem:@(problemID)];
-
             [self updateComment:currentComment withDictionary:commentDictionary];
         }
     }
-    
     [context save:&error];
 }
 
@@ -209,7 +194,6 @@
     [currentComment setContent:(NSString*)[commentDictionary valueForKey:@"content"]];
     [currentComment setUser_id:@([[commentDictionary valueForKey:@"user_id"] integerValue])];
     [currentComment setCreated_date:(NSString*)[commentDictionary valueForKey:@"created_date"]];
-    
     id modifiedDate = [commentDictionary valueForKey:@"modified_date"];
     if (modifiedDate && [modifiedDate isKindOfClass:[NSString class]])
     {
@@ -222,13 +206,15 @@
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *description = [NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context];
-    
+    NSEntityDescription *description = [NSEntityDescription
+                                        entityForName:@"Comment"
+                                        inManagedObjectContext:context];
     [request setEntity:description];
     
     NSError *requestError = nil;
-    NSArray *requestArray = [context executeFetchRequest:request error:&requestError];
-    
+    NSArray *requestArray = [context
+                             executeFetchRequest:request
+                             error:&requestError];
     return !requestError && requestArray ? requestArray : nil;
 }
 

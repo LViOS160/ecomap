@@ -40,10 +40,9 @@
         
         
         
-        [manager POST:@"http://176.36.11.25:8000/api/problems" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"ura. pavlik - ne pyshy - URA");
+        [manager POST:ECOMAP_PROBLEM_POST_ADDRESS parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             EcomapRevisionCoreData *revision = [[EcomapRevisionCoreData alloc] init];
-            [revision checkRevison];
+            [revision checkRevison:nil];
             
             NSLog(@"ura!");
             

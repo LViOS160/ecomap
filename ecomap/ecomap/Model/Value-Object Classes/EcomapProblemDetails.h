@@ -19,10 +19,11 @@
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, readonly) NSUInteger userID;
 @property (nonatomic, strong) NSArray *comments;
-@property (nonatomic, readwrite)int userCreate;
+@property (nonatomic, readwrite) NSUInteger userCreate;
+
 
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
-- (instancetype)initViewProblemFromCoreData:(Problem*) data;
+- (instancetype)initWithProblemFromCoreData:(Problem*) data;
 @end
 
 @protocol EcomapProblemDetailsHolder

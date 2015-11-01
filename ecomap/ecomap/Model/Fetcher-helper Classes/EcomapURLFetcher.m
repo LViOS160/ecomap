@@ -16,13 +16,31 @@
 
 + (NSURL*)URLforRevison
 {
-    NSMutableString *base = [NSMutableString stringWithFormat: @"http://176.36.11.25:8000/api/problems?rev="];
+    NSMutableString *base = [NSMutableString stringWithFormat:ECOMAP_ADDRESS_FOR_REVISON];
     NSString *currentRevision = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"]];
     [base  appendString:currentRevision];
     return [NSURL URLWithString:base];
 }
 
++ (NSString*)URLforAddComment:(NSInteger)problemId
+{
+    NSMutableString *addCommentUrl = [NSMutableString stringWithString:ECOMAP_ADDRESS];
+    [addCommentUrl appendString:ECOMAP_API];
+    [addCommentUrl appendString:ECOMAP_GET_PROBLEM_API];
+    [addCommentUrl appendFormat:@"/%ld",(long)problemId];
+    [addCommentUrl appendString:ECOMAP_ADD_COMMENT];
+    return addCommentUrl;
+}
 
++(NSString*)URLforChangeComment:(NSInteger)commentId
+{
+    NSMutableString *changeCommentUrl = [NSMutableString stringWithString:ECOMAP_ADDRESS];
+    [changeCommentUrl appendString:ECOMAP_API];
+    [changeCommentUrl appendString:ECOMAP_CHANGE_COMMENTS];
+    [changeCommentUrl appendFormat:@"/%ld",(long)commentId];
+    return changeCommentUrl;
+    
+}
 
 
 #pragma mark - Form final URL

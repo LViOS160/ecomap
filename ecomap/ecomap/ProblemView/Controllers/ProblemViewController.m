@@ -35,6 +35,8 @@ typedef enum : NSUInteger
     ComentViewType,
 } ViewType;
 
+
+
 @interface ProblemViewController()
 
 @property (retain, nonatomic) EcomapProblemDetails *problemDetails;
@@ -57,6 +59,12 @@ typedef enum : NSUInteger
 @implementation ProblemViewController
 
 
+- (void)updateView
+{
+    [self updateHeader];
+    [self loadProblemDetails:nil];
+}
+
 
 #pragma mark - View Controller Life Cycle
 
@@ -72,10 +80,12 @@ typedef enum : NSUInteger
     self.user = [EcomapLoggedUser currentLoggedUser];
     [self updateHeader];
     [self loadProblemDetails:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(problemsDetailsChanged)
                                                  name:PROBLEMS_DETAILS_CHANGED
                                                object:nil];
+
 }
 
 - (void)dealloc
@@ -107,16 +117,15 @@ typedef enum : NSUInteger
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
-   
+    
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];
     EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
     [comentsID setProblemsID:self.problemID];
     
-    self.problemDetails = [[EcomapProblemDetails alloc] initViewProblemFromCoreData:self.data];
+    self.problemDetails = [[EcomapProblemDetails alloc] initWithProblemFromCoreData:self.data];
     
     self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];
-    [self.containerViewController setProblemDetails:self.problemDetails];
     [self.containerViewController setProblemDetails:self.problemDetails];
     [self updateHeader];
    
@@ -155,6 +164,8 @@ typedef enum : NSUInteger
                                                                                        message:NSLocalizedString(@"Голос додано", @"Vote is added")
                                                                                       delegate:nil cancelButtonTitle:@"Ok"
                                                                              otherButtonTitles:nil];
+                                        EcomapRevisionCoreData *checkRevisionForVote = [EcomapRevisionCoreData sharedInstance];
+                                        [checkRevisionForVote checkRevison:self];
                                         [alert show];
                                     }];
                                     

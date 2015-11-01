@@ -32,7 +32,10 @@
 #import "EcomapFetchedResultController.h"
 #import "AddProblemModalController.h"
 #import "EcomapCoreDataControlPanel.h"
+#import "EditProblemViewController.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
+
+extern bool wasUpdated;
 
 @interface MapViewController () <ProblemFilterTVCDelegate, NSFetchedResultsControllerDelegate>
 
@@ -40,7 +43,6 @@
 @property (nonatomic, strong) GClusterManager *clusterManager;
 @property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
-//@property (nonatomic, strong) NSSet *problems;
 @property (nonatomic, strong) SRWebSocket *socket;
 @property (nonatomic) Reachability *hostReachability;
 @property (nonatomic, strong) NSSet* currentAllProblems;
@@ -95,17 +97,29 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+    if (wasUpdated) return;
+    
     self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     [self renewMap:self.currentAllProblems];
-    
 }
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath {
-    
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+
     EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:anObject];
+    
+    if (wasUpdated)
+    {
+        return;
+    }
+    
+    if (!self.arrayWithProblems)
+    {
+        self.arrayWithProblems = [NSMutableArray new];
+    }
     
     switch(type)
     {
@@ -115,11 +129,10 @@
             break;
             
         case NSFetchedResultsChangeDelete:
-            [self.arrayWithProblems removeObject:ecoProblem];
+            [self.arrayWithProblems removeObjectAtIndex:indexPath.row];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            self.arrayWithProblems[indexPath.row] = ecoProblem;
             break;
             
         case NSFetchedResultsChangeMove:
@@ -142,14 +155,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(allProblemsChanged:)
                                                  name:ALL_PROBLEMS_CHANGED
-                                               object:nil];
-    
+                                               object:nil];  
   
 }
-
-
-
-
 
 
 - (void)login
@@ -159,6 +167,7 @@
     if ([isLogged isEqualToString:@"YES"]) {
         [EcomapUserFetcher loginWithEmail:[ud objectForKey:@"email"]
                               andPassword:[ud objectForKey:@"password"] OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
+                                  
                                   if (loggedUser.name)
                                   {
                                       //show greeting for logged user
@@ -262,21 +271,28 @@
 -(void)loadProblems
 {
     
-    self.arrayWithProblems = [NSMutableArray new];
-    NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
-    for (Problem *problem in allProblems)
+    if (!self.arrayWithProblems || wasUpdated)
     {
-        EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
-        [self.arrayWithProblems addObject:ecoProblem];
+        self.arrayWithProblems = [NSMutableArray new];
+        self.fetchedResultsController = nil;
+    
+        NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
+        
+        for (Problem *problem in allProblems)
+        {
+            EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
+            [self.arrayWithProblems addObject:ecoProblem];
+        }
+    
+        self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
         
     }
-    
-    self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     [self renewMap:self.currentAllProblems];
+
 
 }
 
-   
+
 
 
 #pragma mark - Problem Filter TVC Delegate
@@ -325,12 +341,10 @@
     
     [self.mapView setDelegate:self];
     [self.view insertSubview:self.mapView atIndex:0];
-    //self.problems = [self loadLocalJSON];
-    //if (self.problems)
-        //[self renewMap:self.problems];
+    
     [self loadProblems];
 
-//    self.mapView.camera
+
 }
 
 - (void)customSetup
