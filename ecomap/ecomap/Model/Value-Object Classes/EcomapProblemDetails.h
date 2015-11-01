@@ -23,7 +23,7 @@
 
 
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
-- (instancetype)initViewProblemFromCoreData:(Problem*) data;
+- (instancetype)initWithProblemFromCoreData:(Problem*) data;
 @end
 
 @protocol EcomapProblemDetailsHolder

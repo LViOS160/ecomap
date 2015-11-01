@@ -12,7 +12,7 @@
 #import "MapViewController.h"
 #import "EditProblemViewController.h"
 
-extern bool wasUpdate;
+extern bool wasUpdated;
 
 @implementation EcomapRevisionCoreData
 
@@ -159,6 +159,8 @@ extern bool wasUpdate;
             [ob setProposal:problemDetail.proposal];
             [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
             [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
+            [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
+            [ob setStatus:problem.isSolved];
             [context save:nil];
             [coreObject.map loadProblems];
         }
@@ -184,6 +186,7 @@ extern bool wasUpdate;
             [ob setProposal:problemDetail.proposal];
             [ob setProblemTypeId:[NSNumber numberWithInteger: problemDetail.problemTypesID]];
             [ob setUserID:[NSNumber numberWithInteger: problem.userCreator]];
+            [ob setStatus:problem.isSolved];
             [context save:nil];
             [coreObject.map loadProblems];
         }
@@ -192,7 +195,7 @@ extern bool wasUpdate;
     if ([self.loadDelegate respondsToSelector:@selector(showDetailView)])
     {
         [self.loadDelegate showDetailView];
-        wasUpdate = false;
+        wasUpdated = false;
     }
 }
 

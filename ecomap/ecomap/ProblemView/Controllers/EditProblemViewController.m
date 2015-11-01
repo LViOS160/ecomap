@@ -20,7 +20,7 @@ enum : NSInteger {
     TextFieldTag_Proposal,
 };
 
-BOOL wasUpdate = false;
+BOOL wasUpdated = false;
 
 @interface EditProblemViewController () <UITextViewDelegate, LoadedDifferencesProtocol>
 
@@ -145,13 +145,12 @@ BOOL wasUpdate = false;
     {
         [InfoActions stopActivityIndicator];
         [self.revision checkRevison];
-        wasUpdate = true;
+        wasUpdated = true;
    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
         
         NSLog(@"%@",error);
-        [InfoActions showAlertOfError:error];
     }];
 
 }
@@ -160,6 +159,7 @@ BOOL wasUpdate = false;
 {
     [self.navigationController popViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:PROBLEMS_DETAILS_CHANGED object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ALL_PROBLEMS_CHANGED object:self];
    
 }
 

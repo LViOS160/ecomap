@@ -19,6 +19,7 @@
 @property (nonatomic, readwrite) NSUInteger votes;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, readwrite) NSUInteger userID;
+
 - (BOOL)canVote:(EcomapLoggedUser *)loggedUser;
 @end
 
@@ -53,7 +54,7 @@
     }
 }
 
-- (instancetype)initViewProblemFromCoreData:(Problem*) data
+- (instancetype)initWithProblemFromCoreData:(Problem*) data
 {
     self = [super initWithProblemFromCoreData:data];
     

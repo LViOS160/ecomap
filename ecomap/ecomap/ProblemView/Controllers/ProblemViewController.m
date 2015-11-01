@@ -115,7 +115,7 @@ typedef enum : NSUInteger
     EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
     [comentsID setProblemsID:self.problemID];
     
-    self.problemDetails = [[EcomapProblemDetails alloc] initViewProblemFromCoreData:self.data];
+    self.problemDetails = [[EcomapProblemDetails alloc] initWithProblemFromCoreData:self.data];
     
     self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];
     [self.containerViewController setProblemDetails:self.problemDetails];

@@ -277,11 +277,11 @@
         NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
-        EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+        //EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
-        if(loggedUser && [loggedUser.name isEqualToString:object.created_by])
+        //if(loggedUser && [loggedUser.name isEqualToString:object.created_by])
         {
-            [self makeButtonForCell:cell];
+            //[self makeButtonForCell:cell];
         }
         
         return cell;
@@ -345,7 +345,7 @@
 
 
 
-- (void)makeButtonForCell:(UITableViewCell *)cell
+/*- (void)makeButtonForCell:(UITableViewCell *)cell
 {
     
     UIButton *addEditButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -356,7 +356,7 @@
     [addEditButton addTarget:self
                         action:@selector(editComment:)
               forControlEvents:UIControlEventTouchUpInside];
-}
+}*/
 
 
 
@@ -373,22 +373,37 @@
         return NO;
 }
 
-
-
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSArray<UITableViewRowAction *> *)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-
-    if(editingStyle == UITableViewCellEditingStyleDelete)
+    UITableViewRowAction *editAction;
+    editAction = [UITableViewRowAction
+                       rowActionWithStyle:UITableViewRowActionStyleNormal
+                       title:@" Edit "
+                       handler:^(UITableViewRowAction * __nonnull action, NSIndexPath * __nonnull indexPath)
     {
-        
+        UITextField *textField = [self.alertView textFieldAtIndex:0];
+        CommentCell *cell = [self.myTableView cellForRowAtIndexPath:indexPath];
+        [textField setText:cell.commentContent.text];
+        [self.alertView show];
+    }];
+    editAction.backgroundColor = [UIColor greenColor];
+    
+    UITableViewRowAction *deleteAction;
+    deleteAction = [UITableViewRowAction
+                       rowActionWithStyle:UITableViewRowActionStyleNormal
+                       title:@"Delete"
+                       handler:^(UITableViewRowAction * __nonnull action, NSIndexPath * __nonnull indexPath)
+    {
+                           
+        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         [manager setRequestSerializer:jsonRequestSerializer];
         NSString *baseUrl = @"http://176.36.11.25:8000/api/comments/";
         NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
         NSString *middle = [baseUrl stringByAppendingFormat:@"%@",num];
-        [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+        {
             NSLog(@"ura");
             if(ob.comInfo.count ==1)
             {
@@ -404,14 +419,16 @@
              }
                             completion:nil];
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+        {
             NSLog(@"%@",error);
         }];
 
-        
-    }
+     }];
     
+    deleteAction.backgroundColor = [UIColor redColor];
     
+    return @[ deleteAction, editAction ];
 }
 
 

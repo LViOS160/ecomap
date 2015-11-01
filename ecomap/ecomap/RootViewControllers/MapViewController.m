@@ -35,7 +35,7 @@
 #import "EditProblemViewController.h"
 #define SOCKET_ADDRESS @"http://176.36.11.25:8091"
 
-extern bool wasUpdate;
+extern bool wasUpdated;
 
 @interface MapViewController () <ProblemFilterTVCDelegate, NSFetchedResultsControllerDelegate>
 
@@ -43,7 +43,6 @@ extern bool wasUpdate;
 @property (nonatomic, strong) GClusterManager *clusterManager;
 @property (nonatomic, strong) NSSet *markers;
 @property (nonatomic, strong) GMSCameraPosition *previousCameraPosition;
-//@property (nonatomic, strong) NSSet *problems;
 @property (nonatomic, strong) SRWebSocket *socket;
 @property (nonatomic) Reachability *hostReachability;
 @property (nonatomic, strong) NSSet* currentAllProblems;
@@ -98,7 +97,8 @@ extern bool wasUpdate;
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-   
+    if (wasUpdated) return;
+    
     self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     [self renewMap:self.currentAllProblems];
 }
@@ -111,9 +111,8 @@ extern bool wasUpdate;
 
     EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:anObject];
     
-    if (wasUpdate && (type == NSFetchedResultsChangeInsert))
+    if (wasUpdated)
     {
-        self.arrayWithProblems[indexPath.row] = ecoProblem;
         return;
     }
     
@@ -130,12 +129,10 @@ extern bool wasUpdate;
             break;
             
         case NSFetchedResultsChangeDelete:
-            //[self.arrayWithProblems removeObject:ecoProblem];
             [self.arrayWithProblems removeObjectAtIndex:indexPath.row];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            self.arrayWithProblems[indexPath.row] = ecoProblem;
             break;
             
         case NSFetchedResultsChangeMove:
@@ -274,10 +271,11 @@ extern bool wasUpdate;
 -(void)loadProblems
 {
     
-    if (!self.arrayWithProblems)
+    if (!self.arrayWithProblems || wasUpdated)
     {
         self.arrayWithProblems = [NSMutableArray new];
-        
+        self.fetchedResultsController = nil;
+    
         NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
         
         for (Problem *problem in allProblems)
@@ -285,8 +283,10 @@ extern bool wasUpdate;
             EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
             [self.arrayWithProblems addObject:ecoProblem];
         }
+    
+        self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+        
     }
-    self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
     [self renewMap:self.currentAllProblems];
 
 
