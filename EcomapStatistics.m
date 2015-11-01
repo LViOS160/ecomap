@@ -7,7 +7,7 @@
 //
 
 #import "EcomapStatistics.h"
-
+#import "AppDelegate.h"
 @implementation EcomapStatistics
 
 +(instancetype)sharedInstanceStatistics
@@ -18,70 +18,41 @@
     return singleton;
 }
 
--(NSInteger)dataParserVoteCommentsPhotos:(NSString*)text :(NSString *)start :(NSString *)end
+
+- (void)getDataForStatisticsFromCD
 {
-    NSInteger resultCounting = 0;
-    NSScanner *textScanner = [NSScanner scannerWithString: text];
-    NSString *tmp;
-    while ([textScanner isAtEnd]==NO)
-    {
-        [textScanner setCharactersToBeSkipped:nil];
-        [textScanner scanUpToString: start intoString: NULL];
-        if([textScanner scanString: start intoString: NULL]){
-            if([textScanner scanUpToString:end intoString:&tmp])
-            {
-                if(![tmp isEqualToString:@"null"])
-                {
-                resultCounting+=[tmp doubleValue];
-                }
-            }
-        }
-    }
-   
-    return resultCounting;
+    AppDelegate *appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Problem"
+                                              inManagedObjectContext:context];
+    [request setEntity:entity];
+    self.allProblemsFromCD = [context executeFetchRequest:request error:nil];
+    
 }
+
 
 -(void)statisticsForDay
 {
     self.forDay = [[NSMutableArray alloc] initWithCapacity:10];
     NSDate * now = [NSDate date];
     NSInteger arr[7] = {0};
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setDay:-1];
-    NSDate *new = [gregorian dateByAddingComponents:offsetComponents toDate:now options:0];
+    NSDate *new = [gregorian
+                   dateByAddingComponents:offsetComponents
+                   toDate:now
+                   options:0];
     
-    for (NSInteger i = 0; i < [self.allProblems count]; i++)
+    for (NSInteger i = 0; i < [self.allProblemsFromCD count]; i++)
     {
-        self.currentProblem =  self.allProblems[i];
-        NSComparisonResult result = [new compare: self.currentProblem.dateCreated];
-
+        Problem *problemFromCD = self.allProblemsFromCD[i];
+        NSComparisonResult result = [new compare: problemFromCD.date];
         if (result == NSOrderedAscending)
         {
-            switch (self.currentProblem.problemTypesID)
-            {
-                case 1:
-                    arr[0]++;
-                    break;
-                case 2:
-                    arr[1]++;
-                    break;
-                case 3:
-                    arr[2]++;
-                    break;
-                case 4:
-                    arr[3]++;
-                    break;
-                case 5:
-                    arr[4]++;
-                    break;
-                case 6:
-                    arr[5]++;
-                    break;
-                case 7:
-                    arr[6]++;
-                    break;
-            }
+            arr[[problemFromCD.problemTypeId integerValue]-1]++;
         }
     }
     
@@ -98,44 +69,23 @@
     self.forWeek = [[NSMutableArray alloc] initWithCapacity:10];
     NSDate * now = [NSDate date];
     NSInteger arr[7] = {0};
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setWeekOfMonth:-1];
-    NSDate *new = [gregorian dateByAddingComponents:offsetComponents toDate:now options:0];
+    NSDate *new = [gregorian dateByAddingComponents:offsetComponents
+                                             toDate:now
+                                            options:0];
     
-    for (NSInteger i = 0; i < [self.allProblems count]; i++)
+    for (NSInteger i = 0; i < [self.allProblemsFromCD count]; i++)
     {
-        self.currentProblem =  self.allProblems[i];
-        NSComparisonResult result = [new compare: self.currentProblem.dateCreated];
-        
+        Problem *problemFromCD = self.allProblemsFromCD[i];
+        NSComparisonResult result = [new compare: problemFromCD.date];
         if (result == NSOrderedAscending)
         {
-            switch (self.currentProblem.problemTypesID)
-            {
-                case 1:
-                    arr[0]++;
-                    break;
-                case 2:
-                    arr[1]++;
-                    break;
-                case 3:
-                    arr[2]++;
-                    break;
-                case 4:
-                    arr[3]++;
-                    break;
-                case 5:
-                    arr[4]++;
-                    break;
-                case 6:
-                    arr[5]++;
-                    break;
-                case 7:
-                    arr[6]++;
-                    break;
-            }
+            arr[[problemFromCD.problemTypeId integerValue]-1]++;
         }
-    }
+     }
     
     for ( NSInteger i = 0; i<7; i++)
     {
@@ -151,44 +101,24 @@
     NSDate * now = [NSDate date];
     NSInteger arr[7] = {0};
     
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setMonth:-1];
-    NSDate *new = [gregorian dateByAddingComponents:offsetComponents toDate:now options:0];
+    NSDate *new = [gregorian dateByAddingComponents:offsetComponents
+                                             toDate:now
+                                            options:0];
     
-    for (NSInteger i = 0; i < [self.allProblems count]; i++)
+    for (NSInteger i = 0; i < [self.allProblemsFromCD count]; i++)
     {
-        self.currentProblem =  self.allProblems[i];
-        NSComparisonResult result = [new compare: self.currentProblem.dateCreated];
-        
+        Problem *problemFromCD = self.allProblemsFromCD[i];
+        NSComparisonResult result = [new compare: problemFromCD.date];
         if (result == NSOrderedAscending)
         {
-            switch (self.currentProblem.problemTypesID)
-            {
-                case 1:
-                    arr[0]++;
-                    break;
-                case 2:
-                    arr[1]++;
-                    break;
-                case 3:
-                    arr[2]++;
-                    break;
-                case 4:
-                    arr[3]++;
-                    break;
-                case 5:
-                    arr[4]++;
-                    break;
-                case 6:
-                    arr[5]++;
-                    break;
-                case 7:
-                    arr[6]++;
-                    break;
-            }
+            arr[[problemFromCD.problemTypeId integerValue]-1]++;
         }
     }
+
     for (NSInteger i = 0; i<7; i++)
     {
         NSNumber *tmp = [NSNumber numberWithInteger:arr[i]];
@@ -198,23 +128,25 @@
 
 -(NSMutableArray*)countAllProblemsCategory
 {
+    [self getDataForStatisticsFromCD];
     [self statisticsForDay];
     [self statisticsForMonth];
     [self statisticsForWeek];
-    
     self.allProblemsPieChart = [[NSMutableArray alloc] initWithCapacity:10];
     self.countProblems = [self.allProblems count];
-    NSURL *url = [NSURL URLWithString:URL_PROBLEMS];
-    NSString* dataForParsing = [[NSString alloc]initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    self.countVote = [self dataParserVoteCommentsPhotos:dataForParsing :@"number_of_votes\":": @", \"datetime"];
-    self.countComment = [self dataParserVoteCommentsPhotos:dataForParsing :@"number_of_comments\":": @", \"longitude"];
-    self.countPhotos = 0;
+   
+    for (NSInteger i = 0; i < [self.allProblemsFromCD count]; i++)
+    {
+        Problem *problemFromCD = self.allProblemsFromCD[i];
+        self.countVote+=[problemFromCD.numberOfVotes integerValue];
+        self.countComment+=[problemFromCD.numberOfComments integerValue];
+    }
     
     self.test = [[NSMutableArray alloc] initWithCapacity:4];
     [self.test addObject:[NSString  stringWithFormat:@"%ld",self.countProblems]];
     [self.test addObject:[NSString  stringWithFormat:@"%ld",self.self.countVote]];
     [self.test addObject:[NSString  stringWithFormat:@"%ld",self.countComment]];
-    [self.test addObject:[NSString  stringWithFormat:@"%ld",self.self.countPhotos]];
+    [self.test addObject:[NSString  stringWithFormat:@"%d",1]];
    
     NSInteger arr[7];
  
@@ -222,34 +154,10 @@
     {
         arr[i] = 0;
     }
-    for (NSInteger i = 0; i < [self.allProblems count]; i++)
+    for (NSInteger i = 0; i < [self.allProblemsFromCD count]; i++)
     {
-        self.currentProblem =  self.allProblems[i];
-
-       switch (self.currentProblem.problemTypesID)
-        {
-            case 1:
-               arr[0]++;
-                break;
-           case 2:
-             arr[1]++;
-               break;
-           case 3:
-             arr[2]++;
-               break;
-           case 4:
-            arr[3]++;
-               break;
-           case 5:
-            arr[4]++;
-               break;
-           case 6:
-              arr[5]++;
-               break;
-           case 7:
-                arr[6]++;
-                break;
-       }
+        Problem *problemFromCD = self.allProblemsFromCD[i];
+        arr[[problemFromCD.problemTypeId integerValue]-1]++;
     }
     for (NSInteger i = 0; i<7; i++)
     {

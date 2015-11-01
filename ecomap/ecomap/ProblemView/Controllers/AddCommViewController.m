@@ -373,7 +373,7 @@
         return NO;
 }
 
-- (NSArray<UITableViewRowAction *> *)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+- (NSArray*)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     UITableViewRowAction *editAction;
     editAction = [UITableViewRowAction

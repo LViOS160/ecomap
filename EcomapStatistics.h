@@ -19,6 +19,8 @@
 -(void)statisticsForDay;
 -(void)statisticsForWeek;
 
+@property (nonatomic, strong)NSArray *allProblemsFromCD;
+
 @property (nonatomic) NSMutableArray* allProblemsPieChart;
 @property (nonatomic, strong) NSArray* allProblems;
 @property (nonatomic, assign) NSInteger countProblems;
