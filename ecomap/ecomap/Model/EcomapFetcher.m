@@ -19,31 +19,24 @@
 
 + (void)loadEverything
 {
-    EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
     EcomapCoreDataControlPanel *coreDataClass = [EcomapCoreDataControlPanel sharedInstance];
-    
-    
     NSString *status = [[NSUserDefaults standardUserDefaults] valueForKey:@"firstdownload"];
+    
     if (![status isEqualToString:@"complete"])
     {
-    
-    
-    
         [EcomapFetcher loadAllProblemsOnCompletion:^(NSArray *problems, NSError *error)
          {
              [coreDataClass setAllProblems:problems];
              
-         [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
+             [EcomapFetcher loadAllProblemsDescription:^(NSArray *problems, NSError *error)
               {
                   [coreDataClass setDescr:problems];
                   [coreDataClass addProblemIntoCoreData];
               }];
-
          }];
-    
-       [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"complete" forKey:@"firstdownload"];
     }
-    
     
     [EcomapFetcher loadResourcesOnCompletion:^(NSArray *resources, NSError *error)      //class method from ecomapFetcher
      {
@@ -64,18 +57,23 @@
      }
      ];
     
-    // Override point for customization after application launch.
-    // EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
-    [ob checkRevison];
-    
     [self getProblemWithComments];
+    [self keepRevision];
+}
+
++ (void)keepRevision
+{
+    EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
+    
+    [ob checkRevison];
     [self updateData];
 }
 
 + (void)updateData
 {
     NSTimer *timer;
-    timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(loadEverything) userInfo:nil repeats:YES];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(keepRevision) userInfo:nil repeats:YES];
 }
 
 #pragma mark -- get revision
@@ -100,7 +98,6 @@
                              {
                                 
                                  [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"revision"];
-                                // [[NSUserDefaults standardUserDefaults] setObject:tmpOldRev forKey:@"oldrevision"];
                                  [[NSUserDefaults standardUserDefaults]setObject:recieveRevison forKey:@"revision"];
                                  revision = YES;
                              }
@@ -155,62 +152,31 @@
 +(void)loadAllProblemsOnCompletion:(void (^)(NSArray *problems, NSError *error))completionHandler
 {
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAllProblems]]
-             sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
-                completionHandler:^(NSData *JSON, NSError *error) {
-                    NSMutableArray *problems = nil;
-                    NSArray *problemsFromJSON = nil;
-                    
-                    if (!error) {
-                        //Extract received data
-                        if (JSON) {
-                            DDLogVerbose(@"All problems loaded success from ecomap server");
-                            //Parse JSON
-                            NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
-                            NSNumber *revision =  [aJSON valueForKey:@"current_activity_revision"];
-                            problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
-                            [[NSUserDefaults standardUserDefaults] setObject:revision forKey:@"revision"];
-                             NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"];
-                            //Fill problems array
-                            if (problemsFromJSON) {
-                                problems = [NSMutableArray array];
-                                //Fill array with EcomapProblem
-                                for (NSDictionary *problem in problemsFromJSON) {
-                                    EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblem:problem];
-                                    [problems addObject:ecoProblem];
-                                }
-                            }
-                            
-                        }
-                    } else [InfoActions showAlertOfError:error];
-        
-                    //set up completionHandler
-                    completionHandler(problems, error);
-                }];
-    
-}
-
-
-+(void)loadAllProblemsDescription:(void (^)(NSArray *problems, NSError *error))completionHandler
-{
-    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher ProblemDescription]]
               sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                  completionHandler:^(NSData *JSON, NSError *error) {
                      NSMutableArray *problems = nil;
                      NSArray *problemsFromJSON = nil;
-                     if (!error) {
+                     
+                     if (!error)
+                     {
                          //Extract received data
-                         if (JSON) {
+                         if (JSON)
+                         {
                              DDLogVerbose(@"All problems loaded success from ecomap server");
                              //Parse JSON
                              NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                             NSNumber *revision =  [aJSON valueForKey:@"current_activity_revision"];
                              problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
-                             
+                             [[NSUserDefaults standardUserDefaults] setObject:revision forKey:@"revision"];
+                             NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"];
                              //Fill problems array
-                             if (problemsFromJSON) {
+                             if (problemsFromJSON)
+                             {
                                  problems = [NSMutableArray array];
                                  //Fill array with EcomapProblem
-                                 for (NSDictionary *problem in problemsFromJSON) {
-                                     EcomapProblemDetails *ecoProblem = [[EcomapProblemDetails alloc] initWithProblem:problem];
+                                 for (NSDictionary *problem in problemsFromJSON)
+                                 {
+                                     EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblem:problem];
                                      [problems addObject:ecoProblem];
                                  }
                              }
@@ -225,10 +191,51 @@
 }
 
 
++(void)loadAllProblemsDescription:(void (^)(NSArray *problems, NSError *error))completionHandler
+{
+    [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher ProblemDescription]]
+              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                 completionHandler:^(NSData *JSON, NSError *error) {
+                     NSMutableArray *problems = nil;
+                     NSArray *problemsFromJSON = nil;
+                     if (!error)
+                     {
+                         //Extract received data
+                         if (JSON)
+                         {
+                             DDLogVerbose(@"All problems loaded success from ecomap server");
+                             //Parse JSON
+                             NSDictionary *aJSON = [JSONParser parseJSONtoDictionary:JSON];
+                             problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
+                             
+                             //Fill problems array
+                             if (problemsFromJSON)
+                             {
+                                 problems = [NSMutableArray array];
+                                 //Fill array with EcomapProblem
+                                 for (NSDictionary *problem in problemsFromJSON)
+                                 {
+                                     EcomapProblemDetails *ecoProblem = [[EcomapProblemDetails alloc] initWithProblem:problem];
+                                     [problems addObject:ecoProblem];
+                                 }
+                             }
+                             
+                         }
+                     }
+                     else [InfoActions showAlertOfError:error];
+                     
+                     //set up completionHandler
+                     completionHandler(problems, error);
+                 }];
+    
+}
+
+
 #pragma mark - Post comment
 +(void)createComment:(NSString*)userId andName:(NSString*)name
           andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
-        OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler {
+        OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler
+{
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
@@ -243,32 +250,32 @@
     NSLog(@"%@",commentData);
     NSData *data = [NSJSONSerialization dataWithJSONObject:commentData options:0 error:nil];
     [DataTasks uploadDataTaskWithRequest:request fromData:data
-               sessionConfiguration:sessionConfiguration
-                  completionHandler:^(NSData *JSON, NSError *error) {
-                      NSDictionary *commentsInfo;
-                      // EcomapLoggedUser * check = [[EcomapLoggedUser alloc]init];
-                      EcomapCommentaries * difComment = nil;
-                      
-                      if(!error)
-                          
-                      {    difComment = [[EcomapCommentaries alloc]initWithInfo:commentsInfo];
-                          if([EcomapLoggedUser currentLoggedUser])
-                          {
-                              
-                              //commentsInfo = [JSONParser parseJSONtoDictionary:JSON];
-                              
-                              
-                          }
-                          else
-                              difComment = nil;
-                          
-                      } else [InfoActions showAlertOfError:error];
-                      
-                      completionHandler(difComment,error);
-                      
-                      
-                      
-                  }];
+                    sessionConfiguration:sessionConfiguration
+                       completionHandler:^(NSData *JSON, NSError *error) {
+                           NSDictionary *commentsInfo;
+                           // EcomapLoggedUser * check = [[EcomapLoggedUser alloc]init];
+                           EcomapCommentaries * difComment = nil;
+                           
+                           if(!error)
+                               
+                           {    difComment = [[EcomapCommentaries alloc]initWithInfo:commentsInfo];
+                               if([EcomapLoggedUser currentLoggedUser])
+                               {
+                                   
+                                   //commentsInfo = [JSONParser parseJSONtoDictionary:JSON];
+                                   
+                                   
+                               }
+                               else
+                                   difComment = nil;
+                               
+                           } else [InfoActions showAlertOfError:error];
+                           
+                           completionHandler(difComment,error);
+                           
+                           
+                           
+                       }];
     
 }
 
@@ -280,48 +287,44 @@
 {
     
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforAlias:str]]
-             sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
-                completionHandler:^(NSData *JSON, NSError *error) {
-                    DDLogVerbose(@"%@",str);
-                    
-                    NSMutableArray *aliases = [NSMutableArray array];
-                    
-                    if(!error)
-                    {
-                        id value = [NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
-                        if ([value isKindOfClass:[NSArray class]])
-                        {
-                            NSArray *aliasFromJSON = (NSArray*)value;
-                            
-                            //Fill array with ECOMAPRESOURCES
-                            for (NSDictionary *singleAlias in aliasFromJSON)
-                            {
-                                EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:singleAlias];
-                                [aliases addObject:ecoAl];
-                            }
-                        }
-                        else if ([value isKindOfClass:[NSDictionary class]])
-                        {
-                            EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:value];
-                            [aliases addObject:ecoAl];
-                            
-                            //JuliaOdynak
-                            EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                            resourcesIntoCD.resourceContent = ecoAl.content;
-                            
-                            NSNumberFormatter *formatOfNumber = [[NSNumberFormatter alloc] init];
-                            formatOfNumber.numberStyle = NSNumberFormatterDecimalStyle;
-                            NSNumber *resourceID = [formatOfNumber numberFromString:str];
-                            
-                            [resourcesIntoCD addContentToResource:resourceID];
-                        }
-                    }
-                    
-                    completionHandler(aliases, error);
-                    
-                }];
-    
-    
+              sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                 completionHandler:^(NSData *JSON, NSError *error) {
+                     DDLogVerbose(@"%@",str);
+                     
+                     NSMutableArray *aliases = [NSMutableArray array];
+                     
+                     if(!error)
+                     {
+                         id value = [NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
+                         if ([value isKindOfClass:[NSArray class]])
+                         {
+                             NSArray *aliasFromJSON = (NSArray*)value;
+                             
+                             //Fill array with ECOMAPRESOURCES
+                             for (NSDictionary *singleAlias in aliasFromJSON)
+                             {
+                                 EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:singleAlias];
+                                 [aliases addObject:ecoAl];
+                             }
+                         }
+                         else if ([value isKindOfClass:[NSDictionary class]])
+                         {
+                             EcomapAlias *ecoAl = [[EcomapAlias alloc] initWithAlias:value];
+                             [aliases addObject:ecoAl];
+                             
+                             EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+                             resourcesIntoCD.resourceContent = ecoAl.content;
+                             
+                             NSNumberFormatter *formatOfNumber = [[NSNumberFormatter alloc] init];
+                             formatOfNumber.numberStyle = NSNumberFormatterDecimalStyle;
+                             NSNumber *resourceID = [formatOfNumber numberFromString:str];
+                             
+                             [resourcesIntoCD addContentToResource:resourceID];
+                         }
+                     }
+                     completionHandler(aliases, error);
+                     
+                 }];
 }
 
 #pragma mark - Load all Resources
@@ -329,66 +332,60 @@
 +(void)loadResourcesOnCompletion:(void (^)(NSArray *resources, NSError *error))completionHandler
 {
     [DataTasks dataTaskWithRequest:[NSURLRequest requestWithURL:[EcomapURLFetcher URLforResources]]
-             sessionConfiguration:[NSURLSessionConfiguration  ephemeralSessionConfiguration]
-                completionHandler:^(NSData *JSON, NSError *error) {
-                    
-                    NSMutableArray *resources = nil;
-                    NSArray *resourcesFromJSON = nil;
-                    if(!error)
-                    {
-                        //Parse JSON
-                        resourcesFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
-                        resources = [NSMutableArray array];
-                        
-                        //Fill array with ECOMAPRESOURCES
-                        for(NSDictionary *resource in resourcesFromJSON)
-                        {
-                            EcomapResources *ecoRes = [[EcomapResources alloc] initWithResource:resource];
-                            [resources addObject:ecoRes];
-                            
-                            // DDLogVerbose(@"%@",resources);
-                            
-                        }
-                    } //else [InfoActions showAlertOfError:error];
-                    
-                    completionHandler(resources,error);
-                    
-                    NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
-                    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-                    NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
-                    
-                    [request setEntity:description];
-                    NSError *requestError = nil;
-                    NSArray *coredataResources = [context executeFetchRequest:request error:&requestError];
-    
-                    NSMutableArray *resourcesToAddIntoCD = [[NSMutableArray alloc] init];
-                    
-                    for (EcomapResources *resource in resources)
-                    {
-                        BOOL resourceExistsInCD = NO;
-                        
-                        for (Resource *coreDataResource in coredataResources)
-                        {
-                            NSInteger resourceId = [coreDataResource.resourceID integerValue];
-                            if (resource.resId == resourceId)
-                            {
-                                resourceExistsInCD = YES;
-                                break;
-                            }
-                        }
-                        
-                        if (!resourceExistsInCD)
-                        {
-                            [resourcesToAddIntoCD addObject:resource];
-                        }
-                    }
-                    
-                    EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
-                    [resourcesIntoCD addResourceIntoCD:resourcesToAddIntoCD];
-                }];
-    
-    
-    
+              sessionConfiguration:[NSURLSessionConfiguration  ephemeralSessionConfiguration]
+                 completionHandler:^(NSData *JSON, NSError *error) {
+                     
+                     NSMutableArray *resources = nil;
+                     NSArray *resourcesFromJSON = nil;
+                     if(!error)
+                     {
+                         //Parse JSON
+                         resourcesFromJSON = (NSArray*)[NSJSONSerialization JSONObjectWithData:JSON options:0 error:&error];
+                         resources = [NSMutableArray array];
+                         
+                         //Fill array with ECOMAPRESOURCES
+                         for(NSDictionary *resource in resourcesFromJSON)
+                         {
+                             EcomapResources *ecoRes = [[EcomapResources alloc] initWithResource:resource];
+                             [resources addObject:ecoRes];
+                         }
+                     }
+                     
+                     completionHandler(resources,error);
+                     
+                     NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
+                     NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                     NSEntityDescription *description = [NSEntityDescription entityForName:@"Resource" inManagedObjectContext:context];
+                     
+                     [request setEntity:description];
+                     NSError *requestError = nil;
+                     NSArray *coredataResources = [context executeFetchRequest:request error:&requestError];
+                     
+                     NSMutableArray *resourcesToAddIntoCD = [[NSMutableArray alloc] init];
+                     
+                     for (EcomapResources *resource in resources)
+                     {
+                         BOOL resourceExistsInCD = NO;
+                         
+                         for (Resource *coreDataResource in coredataResources)
+                         {
+                             NSInteger resourceId = [coreDataResource.resourceID integerValue];
+                             if (resource.resId == resourceId)
+                             {
+                                 resourceExistsInCD = YES;
+                                 break;
+                             }
+                         }
+                         
+                         if (!resourceExistsInCD)
+                         {
+                             [resourcesToAddIntoCD addObject:resource];
+                         }
+                     }
+                     
+                     EcomapCoreDataControlPanel *resourcesIntoCD = [EcomapCoreDataControlPanel sharedInstance];
+                     [resourcesIntoCD addResourceIntoCD:resourcesToAddIntoCD];
+                 }];
 }
 
 
@@ -417,7 +414,7 @@
              EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
              ob.problemsID = problemID;
              [ob setCommentariesArray:nil :problemID];
-               [controller reload];
+             [controller reload];
              NSLog(@"%@",error);
              
          }];
