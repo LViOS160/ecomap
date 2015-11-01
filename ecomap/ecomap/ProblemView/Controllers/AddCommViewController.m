@@ -146,7 +146,6 @@
             
             [manager POST:[EcomapURLFetcher URLforAddComment:[ob problemsID]] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
             {
-                NSLog(@"ura");
                 [EcomapFetcher updateComments:[ob problemsID] controller:self];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -273,11 +272,11 @@
         NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
-        //EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+        EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
-        //if(loggedUser && [loggedUser.name isEqualToString:object.created_by])
+        if(loggedUser && [loggedUser.name isEqualToString:object.created_by])
         {
-            //[self makeButtonForCell:cell];
+            [self makeButtonForCell:cell];
         }
         
         return cell;
@@ -298,9 +297,7 @@
                                      @"content" : content,
                                      };
         
-        
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
@@ -337,18 +334,17 @@
 
 
 
-/*- (void)makeButtonForCell:(UITableViewCell *)cell
+- (void)makeButtonForCell:(UITableViewCell *)cell
 {
-    
     UIButton *addEditButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    addEditButton.frame = CGRectMake(250.0f, 0.1f, 75.0f, 46.6f);
+    addEditButton.frame = CGRectMake(cell.frame.size.width*1/2, cell.frame.origin.y, cell.frame.size.width/8, cell.frame.size.height);
     addEditButton.backgroundColor = [UIColor greenColor];
     [addEditButton setTitle:@"Edit" forState:UIControlStateNormal];
     [cell addSubview:addEditButton];
     [addEditButton addTarget:self
                         action:@selector(editComment:)
               forControlEvents:UIControlEventTouchUpInside];
-}*/
+}
 
 
 
@@ -365,7 +361,46 @@
         return NO;
 }
 
-- (NSArray*)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+    
+    if(editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+        [manager setRequestSerializer:jsonRequestSerializer];
+        NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+
+        [manager DELETE:[EcomapURLFetcher URLforChangeComment:[num integerValue]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if(ob.comInfo.count ==1)
+            {
+                [ob setComInfo:nil];
+            }
+            [EcomapFetcher updateComments:ob.problemsID controller:self];
+            [UIView transitionWithView:tableView
+                              duration:2
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void)
+             {
+                 [tableView reloadData];
+             }
+                            completion:nil];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+        {
+            NSLog(@"%@",error);
+        }];
+        
+        
+    }
+    
+    
+}
+
+
+/*- (NSArray<UITableViewRowAction *>*)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     UITableViewRowAction *editAction;
     editAction = [UITableViewRowAction
@@ -418,7 +453,7 @@
     deleteAction.backgroundColor = [UIColor redColor];
     
     return @[ deleteAction, editAction ];
-}
+}*/
 
 
 

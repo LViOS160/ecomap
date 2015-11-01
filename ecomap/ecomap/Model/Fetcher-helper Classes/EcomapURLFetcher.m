@@ -37,7 +37,7 @@
     NSMutableString *changeCommentUrl = [NSMutableString stringWithString:ECOMAP_ADDRESS];
     [changeCommentUrl appendString:ECOMAP_API];
     [changeCommentUrl appendString:ECOMAP_CHANGE_COMMENTS];
-    [changeCommentUrl appendFormat:@"/%ld",(long)commentId];
+    [changeCommentUrl appendFormat:@"%ld",(long)commentId];
     return changeCommentUrl;
     
 }

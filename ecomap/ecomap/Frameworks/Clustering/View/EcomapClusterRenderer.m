@@ -90,7 +90,7 @@
     CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 18.0f, NULL);
     
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
-            (__bridge id)myFont, (id)kCTFontAttributeName,
+           CFBridgingRelease(myFont), (id)kCTFontAttributeName,
                     [UIColor whiteColor], (id)kCTForegroundColorAttributeName, nil];
 
     // create a naked string

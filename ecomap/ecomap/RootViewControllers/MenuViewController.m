@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     EcomapRevealViewController *revealViewController = (EcomapRevealViewController *)self.revealViewController;
     revealViewController.delegate = self;
 }

@@ -7,7 +7,5 @@
 //
 
 @protocol CheckRevisionProtocol <NSObject>
-
 - (void)updateView;
-
 @end
