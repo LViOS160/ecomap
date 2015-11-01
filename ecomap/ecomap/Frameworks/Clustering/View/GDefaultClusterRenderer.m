@@ -93,7 +93,7 @@
     CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 18.0f, NULL);
     
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
-            (__bridge id)myFont, (id)kCTFontAttributeName,
+            CFBridgingRelease(myFont), (id)kCTFontAttributeName,
                     [UIColor whiteColor], (id)kCTForegroundColorAttributeName, nil];
     
     // create a naked string
@@ -118,8 +118,8 @@
     CFRelease(frameSetter);
     
     //Get the position on the y axis
-    float midHeight = diameter;
-    midHeight -= suggestedSize.height;
+    //float midHeight = diameter;
+   // midHeight -= suggestedSize.height;
     
     float midWidth = diameter / 2;
     midWidth -= suggestedSize.width / 2;
@@ -130,9 +130,11 @@
     CTLineDraw(line, ctx);
 
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+
     UIGraphicsEndImageContext();
 
     return image;
+    
 }
 
 @end

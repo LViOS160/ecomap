@@ -297,9 +297,7 @@
                                      @"content" : content,
                                      };
         
-        
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];

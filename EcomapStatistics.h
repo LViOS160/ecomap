@@ -12,8 +12,6 @@
 +(instancetype)sharedInstanceStatistics;
 -(NSMutableArray*)countAllProblemsCategory;
 
--(NSInteger)dataParserVoteCommentsPhotos:(NSString*)text :(NSString*) start : (NSString*) end;
-
 -(void)statisticsForMonth;
 -(void)statisticsForDay;
 -(void)statisticsForWeek;
