@@ -63,7 +63,7 @@
     
     // Override point for customization after application launch.
     // EcomapRevisionCoreData *ob = [[EcomapRevisionCoreData alloc] init];
-    [ob checkRevison];
+    [ob checkRevison:nil];
     
     [self getProblemWithComments];
     [self updateData];

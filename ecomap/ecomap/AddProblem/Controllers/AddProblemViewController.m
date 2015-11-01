@@ -171,7 +171,7 @@
     {
         NSLog(@" ProblemloadCOMPLETE:  %@",error);
         EcomapRevisionCoreData *RevisionObject = [[EcomapRevisionCoreData alloc] init];
-        [RevisionObject checkRevison];
+                              [RevisionObject checkRevison:nil];
         [self loadProblems];
     }];
 }

@@ -142,7 +142,7 @@
         [InfoActions stopActivityIndicator];
         [self.navigationController popViewControllerAnimated:YES];
         EcomapRevisionCoreData *revision = [EcomapRevisionCoreData new];
-        [revision checkRevison];
+        [revision checkRevison:nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

@@ -25,7 +25,7 @@ extern bool wasUpdated;
 }
 
 
-- (void)checkRevison
+- (void)checkRevison:(id)classType
 {
     
     NSMutableArray *tmpAllAction = [NSMutableArray array];
@@ -53,7 +53,7 @@ extern bool wasUpdated;
                     self.allRevisions = [NSArray arrayWithArray:tmpAllRevision];
                     if(self.allActions!=nil)
                     {
-                        [self actionFetcher];
+                        [self actionFetcher:classType];
                     }
                     
                     if (!error)
@@ -68,7 +68,7 @@ extern bool wasUpdated;
 
 
 
-- (void)actionFetcher
+- (void)actionFetcher:(id)classType
 {
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSManagedObjectContext* context = appDelegate.managedObjectContext;
@@ -95,8 +95,10 @@ extern bool wasUpdated;
                 }
             if( [actionName isEqualToString:@"VOTE"])
                 {
-                Problem *ob = array[0];
-                ob.numberOfVotes = [self.allActions[i] valueForKey:@"count"];
+                    Problem *ob = array[0];
+                    ob.numberOfVotes = [self.allActions[i] valueForKey:@"count"];
+                    self.delegate = classType;
+                    [_delegate updateView];
                 }
             [context save:nil];
         }
