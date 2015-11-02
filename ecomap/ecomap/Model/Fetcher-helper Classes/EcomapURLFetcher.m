@@ -11,10 +11,7 @@
 
 @implementation EcomapURLFetcher
 
-
-
-
-+ (NSURL*)URLforRevison
++ (NSURL *)URLforRevison
 {
     NSMutableString *base = [NSMutableString stringWithFormat:ECOMAP_ADDRESS_FOR_REVISON];
     NSString *currentRevision = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"]];
@@ -22,7 +19,7 @@
     return [NSURL URLWithString:base];
 }
 
-+ (NSString*)URLforAddComment:(NSInteger)problemId
++ (NSString *)URLforAddComment:(NSInteger)problemId
 {
     NSMutableString *addCommentUrl = [NSMutableString stringWithString:ECOMAP_ADDRESS];
     [addCommentUrl appendString:ECOMAP_API];
@@ -32,15 +29,21 @@
     return addCommentUrl;
 }
 
-+(NSString*)URLforChangeComment:(NSInteger)commentId
++(NSString *)URLforChangeComment:(NSInteger)commentId
 {
     NSMutableString *changeCommentUrl = [NSMutableString stringWithString:ECOMAP_ADDRESS];
     [changeCommentUrl appendString:ECOMAP_API];
     [changeCommentUrl appendString:ECOMAP_CHANGE_COMMENTS];
-    [changeCommentUrl appendFormat:@"/%ld",(long)commentId];
+    [changeCommentUrl appendFormat:@"%ld",(long)commentId];
     return changeCommentUrl;
     
 }
+
++ (NSString *)URLforEditingProblem:(NSUInteger)problemID
+{
+    return [ECOMAP_PROBLEM_ADDRESS_WITH_ID stringByAppendingFormat:@"%lu", problemID];
+}
+
 
 
 #pragma mark - Form final URL
@@ -83,12 +86,6 @@
     return [self URLForAPIQuery:query];
 }
 
-
-+ (NSURL *)URLforDeleteProblemWithID:(NSUInteger)problemID
-{
-    NSString *query = [NSString stringWithFormat:@"%@%lu", ECOMAP_GET_PROBLEM_API, (unsigned long)problemID];
-    return [self URLForAPIQuery:query];
-}
 
 + (NSURL *)URLforLogin
 {
@@ -196,18 +193,7 @@
     return [NSURL URLWithString:query];
 }
 
-#pragma mark - Admin API URLs
 
-+ (NSURL *)URLforEditingProblem:(NSUInteger)problemID
-{
-    NSString *query = [ECOMAP_PUT_EDIT_PROBLEM stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)problemID]];
-    return [self URLForAPIQuery:query];
-}
-+(NSURL*)URLforDeletingComment:(NSUInteger)commentID
-{
-    NSString *query = [ECOMAP_DELETING_COMMENT stringByAppendingString:[NSString stringWithFormat:@"%lu",(unsigned long)commentID]];
-    return [self URLForAPIQuery:query];
-}
 +(NSURL*)URLforDeletingPhoto:(NSString*)link
 {
     NSString *query = [ECOMAP_POST_PHOTO stringByAppendingString:link];

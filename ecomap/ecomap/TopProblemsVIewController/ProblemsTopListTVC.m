@@ -24,7 +24,6 @@
 @interface ProblemsTopListTVC ()
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *kindOfTopChartSegmentedControl;
-@property (strong, nonatomic) NSArray *currentChart;
 @property (nonatomic) EcomapKindfOfTheProblemsTopList kindOfTopChart;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -38,29 +37,39 @@
 
 @synthesize fetchedResultsController = _fetchedResultsController;
 
+
 #pragma mark - Initialization
 
-- (NSFetchedResultsController *)fetchedResultsController:(NSString*)sorting {
+- (NSFetchedResultsController *)fetchedResultsController {
     
-    if (_fetchedResultsController != nil) {
+    if (_fetchedResultsController != nil)
+    {
         return _fetchedResultsController;
     }
     
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSFetchRequest *fetchRequest;
     
-    NSString *entityName = @"Problem";
-    NSString *sortBy = sorting;
-    
-    
-    NSFetchRequest *fetchRequest = [EcomapFetchedResultController requestWithEntityName:entityName sortBy:sortBy limit:10];
+    switch (self.kindOfTopChart) {
+        case 0:
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:@"Problem" sortBy:@"numberOfVotes" limit:10];
+            break;
+        case 1:
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:@"Problem" sortBy:@"severity" limit:10];
+            break;
+        case 2:
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:@"Problem" sortBy:@"numberOfComments" limit:10];
+            break;
+            
+        default:
+            break;
+    }
     
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:appDelegate.managedObjectContext
                                           sectionNameKeyPath:nil
-                                                   cacheName:entityName];
-    
-    
+                                                   cacheName:@"Problem"];
     
     self.fetchedResultsController = theFetchedResultsController;
     self.fetchedResultsController.delegate = self;
@@ -75,57 +84,13 @@
     return _fetchedResultsController;
 }
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath {
-    
-    switch(type)
-    {
-            
-        case NSFetchedResultsChangeInsert:
-            [self.charts addObject:anObject];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.charts removeObject:anObject];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            self.charts[indexPath.row] = anObject;
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            break;
-    }
-}
-
--(void)loadProblems
-{
-    
-//    self.arrayWithProblems = [NSMutableArray new];
-//    NSMutableArray *allProblems = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];
-//    for (Problem *problem in allProblems)
-//    {
-//        EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
-//        [self.arrayWithProblems addObject:ecoProblem];
-//        
-//    }
-//    
-//    self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
-//    [self renewMap:self.currentAllProblems];
-    
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    
     // We're starting with hidden table, because we don't have data to populate it
     self.tableView.hidden = YES;
-    
-    // Download data from Ecomap server to populate "Top Of The Problems" chart
-    [self fetchChartsOfTheTopProblems];
     
     // Set up kind of "Top Of The Problems" chart
     // we want to display and draw it
@@ -133,8 +98,73 @@
     
     // Set up reveal button
     [self customSetup];
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     
-    self.currentChart = self.charts;
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    [self.tableView endUpdates];
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    Problem * problem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    UILabel *problemTitleLabel = (UILabel *)[cell viewWithTag:100];
+    problemTitleLabel.text =  problem.title;
+    UILabel *problemScoreLabel = (UILabel *)[cell viewWithTag:101];
+    NSString* cont;
+    cont =[self scoreOfProblem:problem];
+    problemScoreLabel.text = cont;
+    UIImageView *problemScoreImageView = (UIImageView *)[cell viewWithTag:102];
+    problemScoreImageView.image = [EcomapStatsParser scoreImageOfProblem:problem forChartType:self.kindOfTopChart];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -142,6 +172,12 @@
     [super viewWillAppear:animated];
     
     // Reload table view to clear all selection
+    [self.tableSpinner stopAnimating];
+    
+    // Show the table
+    self.tableView.hidden = NO;
+    
+    //[self changeChart];
     [self.tableView reloadData];
 }
 
@@ -157,15 +193,6 @@
     }
 }
 
-#pragma mark - Properties
-
-- (void)setCurrentChart:(NSArray *)problems
-{
-    // Evety time when table data source is changed, redraw the table.
-    _currentChart = problems;
-    [self.tableView reloadData];
-}
-
 #pragma mark - User Interaction Handlers
 
 - (IBAction)changeKindOfTopChart:(UISegmentedControl *)sender
@@ -175,90 +202,21 @@
         case 0:
             self.kindOfTopChart = EcomapMostVotedProblemsTopList;
             self.navigationItem.title = ECOMAP_MOST_VOTED_PROBLEMS_CHART_TITLE;
+            _fetchedResultsController = nil;
             break;
         case 1:
             self.kindOfTopChart = EcomapMostSevereProblemsTopList;
             self.navigationItem.title = ECOMAP_MOST_SEVERE_PROBLEMS_CHART_TITLE;
+            _fetchedResultsController = nil;
             break;
         case 2:
             self.kindOfTopChart = EcomapMostCommentedProblemsTopList;
             self.navigationItem.title = ECOMAP_MOST_COMMENTED_PROBLEMS_CHART_TITLE;
+            _fetchedResultsController = nil;
             break;
     }
     
-    [self changeChart];
-}
-
-#pragma mark - Utility Methods
-
-- (void)changeChart
-{
-    if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
-    {
-        NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"Problem"
-                                       inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                                  initWithKey:@"numberOfComments" ascending:NO];
-        
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        [fetchRequest setFetchLimit:10];
-        self.charts = [context executeFetchRequest:fetchRequest error:nil];
-    }
-    else if (self.kindOfTopChart == EcomapMostSevereProblemsTopList)
-    {
-        NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"Problem"
-                                       inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                                  initWithKey:@"severity" ascending:NO];
-        
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        [fetchRequest setFetchLimit:10];
-        self.charts = [context executeFetchRequest:fetchRequest error:nil];
-    }
-    else if (self.kindOfTopChart == EcomapMostVotedProblemsTopList)
-    {
-        NSManagedObjectContext* context = [AppDelegate sharedAppDelegate].managedObjectContext;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"Problem"
-                                       inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                                  initWithKey:@"numberOfVotes" ascending:NO];
-        
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        [fetchRequest setFetchLimit:10];
-        self.charts = [context executeFetchRequest:fetchRequest error:nil];
-    }
     [self.tableView reloadData];
-}
-
-#pragma mark - Fetching
-
-- (void)fetchChartsOfTheTopProblems
-{
-    [self.tableSpinner startAnimating];
-           if(!self.currentChart)
-        {
-            self.charts = self.currentChart;
-            [self.tableSpinner stopAnimating];
-            
-            // Show the table
-            self.tableView.hidden = NO;
-            
-            [self changeChart];
-        }
 }
 
 #pragma mark - UITableView Data Source & Delegate
@@ -272,7 +230,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.currentChart count];
+    return [[self.fetchedResultsController fetchedObjects] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -289,7 +247,7 @@
     }
     // Display data in the cell
     
-    Problem *problem = (Problem*)self.charts[indexPath.row];
+    Problem * problem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     UILabel *problemTitleLabel = (UILabel *)[cell viewWithTag:100];
     problemTitleLabel.text =  problem.title;
     UILabel *problemScoreLabel = (UILabel *)[cell viewWithTag:101];
@@ -311,7 +269,7 @@
     }
     else if (self.kindOfTopChart == EcomapMostSevereProblemsTopList)
     {
-         scoreOfProblem = [NSString stringWithFormat:@"%@",problem.severity];
+        scoreOfProblem = [NSString stringWithFormat:@"%@",problem.severity];
     }
     else if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
     {
@@ -333,7 +291,7 @@
         if ([segue.destinationViewController isKindOfClass:[ProblemViewController class]])
         {
             ProblemViewController *problemVC = segue.destinationViewController;
-            Problem *problem = self.charts[indexPath.row];
+            Problem *problem = [self.fetchedResultsController objectAtIndexPath:indexPath];
             problemVC.problemID = [problem.idProblem integerValue];
         }
     }

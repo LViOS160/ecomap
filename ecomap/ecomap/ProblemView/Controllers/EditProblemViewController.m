@@ -100,17 +100,7 @@ BOOL wasUpdated = false;
     return severityStr;
 }
 
-- (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved
-{
-    if (isSolved)
-    {
-        return @"SOLVED";
-    }
-    else
-    {
-        return @"UNSOLVED";
-    }
-}
+
 
 - (void)saveButtonTouch:(id)sender
 {
@@ -119,38 +109,18 @@ BOOL wasUpdated = false;
     [self.proposal resignFirstResponder];
     [InfoActions startActivityIndicatorWithUserInteractionEnabled:NO];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSDictionary *dictionary = @{
-                                 @"status" : [self stringFromIsSolvedForRequest:self.editableProblem.isSolved],
-                                 @"problem_type_id" : @(self.problem.problemTypesID),
-                                 @"severity" : [NSString stringWithFormat:@"%lu", self.editableProblem.severity],
-                                 @"title" : self.editableProblem.title,
-                                 @"longitude" : @(self.problem.longitude),
-                                 @"content" : self.editableProblem.content,
-                                 @"latitude" : @(self.problem.latitude),
-                                 @"proposal" : self.editableProblem.proposal                                 
-                                  };
-
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    NSString *baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
-    NSUInteger num = self.problem.problemID;
-    NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
-    
-    [manager PUT:middle parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
+    [EcomapFetcher editProblem:self.problem withProblem:self.editableProblem onCompletion:^(NSError *error)
     {
-        [InfoActions stopActivityIndicator];
-        [self.revision checkRevison:nil];
-        wasUpdated = true;
-   
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
-        
-        NSLog(@"%@",error);
+        if (!error)
+        {
+            [InfoActions stopActivityIndicator];
+            [self.revision checkRevison:nil];
+            wasUpdated = true;
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }];
 
 }

@@ -7,16 +7,6 @@
 //
 
 #import "ResourceTableViewController.h"
-//#import "EcomapRevealViewController.h"
-//#import "EcomapFetcher.h"
-//#import "ResourceCell.h"
-//#import "ResourceDetails.h"
-//#import "EcomapFetcher.h"
-//#import "EcomapResources.h"
-//#import "EcomapAlias.h"
-//#import "EcomapPathDefine.h"
-//#import "GlobalLoggerLevel.h"
-//#import "EcomapCoreDataControlPanel.h"
 #import "AppDelegate.h"
 
 @interface ResourceTableViewController() <NSFetchedResultsControllerDelegate>

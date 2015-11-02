@@ -228,17 +228,27 @@
             }];
             
     
+    if(userIdent) {
+        
+        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+        
+        [EcomapFetcher addCommentToProblem:[ob problemsID] withContent:fromTextField onCompletion:^(NSError *error)
+         {
+             if (!error)
+             {
+                 [EcomapFetcher updateComments:[ob problemsID] controller:self];
+             }
+         }];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[NetworkActivityIndicator sharedManager]endActivity];
         });
-    
-       [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
-            
-        }
-
-     else
-     {
+        
+        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
+    }
+    else
+    {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
                            actionAfterSuccseccLogin:^{
@@ -246,13 +256,12 @@
                            }];
         return;
     }
-
+    
     if ([self.textField isFirstResponder])
     {
         self.textField.text = @"";
         [self textViewDidEndEditing:self.textField];
     }
-    
 }
 
 #pragma  -mark Placeholder
@@ -346,11 +355,11 @@
         NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
-        //EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+        EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
-        //if(loggedUser && [loggedUser.name isEqualToString:object.created_by])
+        if(loggedUser && ([loggedUser.name isEqualToString:object.created_by] || [loggedUser.role isEqualToString:@"admin"]))
         {
-            //[self makeButtonForCell:cell];
+            [self makeButtonForCell:cell];
         }
         
         return cell;
@@ -361,34 +370,21 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1){
-        
+    if (buttonIndex == 1)
+    {
         NSString *content = [self.alertView textFieldAtIndex:0].text;
-        
         EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-        
-        NSDictionary *dictionary = @{
-                                     @"content" : content,
-                                     };
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
-        [manager PUT:[EcomapURLFetcher URLforChangeComment:[num integerValue]] parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            [EcomapFetcher updateComments:ob.problemsID controller:self];
-            [self.myTableView reloadData];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            NSLog(@"%@",error);
-        }];
         
+        [EcomapFetcher editComment:[num integerValue] withContent:content onCompletion:^(NSError *error)
+        {
+            if (!error)
+            {
+                [EcomapFetcher updateComments:ob.problemsID controller:self];
+                [self.myTableView reloadData];
+            }
+        }];
     }
-    
 }
 
 
@@ -408,18 +404,17 @@
 
 
 
-/*- (void)makeButtonForCell:(UITableViewCell *)cell
+- (void)makeButtonForCell:(UITableViewCell *)cell
 {
-    
     UIButton *addEditButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    addEditButton.frame = CGRectMake(250.0f, 0.1f, 75.0f, 46.6f);
+    addEditButton.frame = CGRectMake(cell.frame.size.width*1/2, cell.frame.origin.y, cell.frame.size.width/8, cell.frame.size.height);
     addEditButton.backgroundColor = [UIColor greenColor];
     [addEditButton setTitle:@"Edit" forState:UIControlStateNormal];
     [cell addSubview:addEditButton];
     [addEditButton addTarget:self
                         action:@selector(editComment:)
               forControlEvents:UIControlEventTouchUpInside];
-}*/
+}
 
 
 
@@ -429,14 +424,49 @@
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     
     Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
-    if([userIdent.name isEqualToString:object.created_by])
+    if([userIdent.name isEqualToString:object.created_by] || [userIdent.role isEqualToString:@"admin"])
        {
             return YES;
        }
         return NO;
 }
 
-- (NSArray*)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+    
+    if(editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+        
+        [EcomapFetcher deleteComment:[num integerValue] onCompletion:^(NSError *error)
+         {
+             if (!error)
+             {
+                 if(ob.comInfo.count ==1)
+                 {
+                     [ob setComInfo:nil];
+                 }
+                 [EcomapFetcher updateComments:ob.problemsID controller:self];
+                 [UIView transitionWithView:tableView
+                                   duration:2
+                                    options:UIViewAnimationOptionTransitionCrossDissolve
+                                 animations:^(void)
+                  {
+                      [tableView reloadData];
+                  }
+                                 completion:nil];
+             }
+         }];
+    }
+ 
+}
+ 
+    
+
+
+
+/*- (NSArray<UITableViewRowAction *>*)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     UITableViewRowAction *editAction;
     editAction = [UITableViewRowAction
@@ -489,7 +519,7 @@
     deleteAction.backgroundColor = [UIColor redColor];
     
     return @[ deleteAction, editAction ];
-}
+}*/
 
 
 

@@ -22,8 +22,10 @@
     return singleton;
 }
 
+
 -(void)sortAllProblems
 {
+ 
     
     self.problemComment = [[NSMutableArray alloc]initWithCapacity:10];
     self.problemSeverity = [[NSMutableArray alloc]initWithCapacity:10];

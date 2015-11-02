@@ -19,7 +19,8 @@
 + (void)problemPost:(EcomapProblem*)problem
      problemDetails:(EcomapProblemDetails*)problemDetails
                user:(EcomapLoggedUser*)user
-       OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler {
+       OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler
+{
     NSDictionary *params = @{
                           // @"severity" : @(problemDetails.severity),
                              @"title"     : problem.title,
@@ -31,8 +32,6 @@
                              
                              };
     
-        
-        
         [[NetworkActivityIndicator sharedManager] startActivity];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
@@ -59,7 +58,8 @@
              user:(EcomapLoggedUser*)user
      OnCompletion:(void (^)(NSString *result, NSError *error))completionHandler
 {
-    if (!user || photos.count == 0) {
+    if (!user || photos.count == 0)
+    {
         completionHandler(nil, [NSError errorWithDomain:@"Fetcher"
                                                    code:2
                                                userInfo:@{
@@ -92,20 +92,22 @@
     NSURLSession *session = [NSURLSession sharedSession];  // use sharedSession or create your own
     NSURLSessionTask *task = [session uploadTaskWithRequest:request
                                                    fromData:httpBody
-                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              if (error) {
-                                                  DDLogVerbose(@"error = %@", error);
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      completionHandler(nil, error);
-                                                  });
-                                                  return;
-                                              }
-                                              NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                              DDLogVerbose(@"result = %@", result);
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  completionHandler(result, error);
-                                              });
-                                          }];
+                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+                              {
+                                  if (error)
+                                  {
+                                      DDLogVerbose(@"error = %@", error);
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          completionHandler(nil, error);
+                                      });
+                                      return;
+                                  }
+                                  NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                  DDLogVerbose(@"result = %@", result);
+                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                      completionHandler(result, error);
+                                  });
+                              }];
     [task resume];
 }
 

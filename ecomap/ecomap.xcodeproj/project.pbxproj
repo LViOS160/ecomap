@@ -979,8 +979,8 @@
 				B3ACA3C41AA70701003BD9EF /* EcomapFetcher+PostProblem.m */,
 				90B51C4F1AA5BF88008E082B /* EcomapStatsFetcher.h */,
 				90B51C501AA5BF88008E082B /* EcomapStatsFetcher.m */,
-				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
 				518F30A81AA2721E0094DA14 /* EcomapUserFetcher.h */,
+				518F30A91AA2721E0094DA14 /* EcomapUserFetcher.m */,
 				90C8689E1AA45C120001E448 /* EcomapAdminFetcher.h */,
 				90C8689F1AA45C120001E448 /* EcomapAdminFetcher.m */,
 				518F30AB1AA272910094DA14 /* EcomapThumbnailFetcher.h */,
@@ -1538,7 +1538,7 @@
 					"$(PROJECT_DIR)/ecomap/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ecomap/SupportingFiles/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1563,7 +1563,7 @@
 					"$(PROJECT_DIR)/ecomap/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ecomap/SupportingFiles/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

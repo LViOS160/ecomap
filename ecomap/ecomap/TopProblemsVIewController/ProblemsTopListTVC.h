@@ -10,6 +10,5 @@
 
 @interface ProblemsTopListTVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *charts;
 
 @end
