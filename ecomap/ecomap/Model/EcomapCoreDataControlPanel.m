@@ -186,6 +186,7 @@
         }
     }
     [context save:&error];
+    [self comentsIntoProblems];
 }
 
 - (void)updateComment:(Comment*)currentComment withDictionary:(NSDictionary*)commentDictionary
@@ -218,6 +219,45 @@
     return !requestError && requestArray ? requestArray : nil;
 }
 
+- (void)comentsIntoProblems
+{
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    NSManagedObjectContext* context = appDelegate.managedObjectContext;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *description = [NSEntityDescription
+                                        entityForName:@"Comment"
+                                        inManagedObjectContext:context];
+    [request setEntity:description];
+    
+    NSError *requestError = nil;
+    NSArray *requestArray = [context
+                             executeFetchRequest:request
+                             error:&requestError];
+    
+    
+    NSFetchRequest *problemRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *description1 = [NSEntityDescription
+                                        entityForName:@"Problem"
+                                        inManagedObjectContext:context];
+    [problemRequest setEntity:description1];
+    
+    NSError *problemRequestError = nil;
+    NSArray *problemRequestArray = [context
+                             executeFetchRequest:problemRequest
+                             error:&problemRequestError];
+    for (Problem *problem in problemRequestArray)
+    {
+        for (Comment *comment in requestArray)
+        {
+            if (problem.idProblem == comment.id_of_problem)
+            {
+                problem.comments = [problem.comments setByAddingObject:comment];
+            }
+        }
+    }
+
+
+}
 
 - (void)logCommentsFromCoreData
 {

@@ -34,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
-@property (nonatomic,strong) NSString *createdComment;
+@property (nonatomic, strong) NSString* createdComment;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
@@ -83,7 +83,6 @@
     
     NSFetchRequest *request = [EcomapFetchedResultController requestForCommentsWithProblemID:self.problem_ID];
     
-    
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                      initWithFetchRequest:request
                                      managedObjectContext:self.managedObjectContext
@@ -128,8 +127,9 @@
             [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
-        case NSFetchedResultsChangeUpdate: {
-           [self configureCell:[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+        case NSFetchedResultsChangeUpdate:
+        {
+            [self configureCell:[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
         }
         case NSFetchedResultsChangeMove:
@@ -140,31 +140,6 @@
         }
     }
 }
-
-
-- (void)insertNewComment:(NSString*) cont
-{
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
-   
-    NSManagedObject *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:self.managedObjectContext];
-    EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-    
-    
-    [currentComment setValue:loggedUser.name forKey:@"created_by"];
-    [currentComment setValue:self.problem_ID forKey:@"id_of_problem"];
-    [currentComment setValue:@(loggedUser.userID) forKey:@"user_id"];
- //   [currentComment setValue:/*(NSString*)*/@(CACurrentMediaTime())forKey:@"created_date"];
-    [currentComment setValue:(NSString*)cont forKey:@"content"];
-   
-    NSError *error = nil;
-    if(![ self.managedObjectContext save:&error])
-    {
-        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
-        abort();
-    }
-}
-
 
 -(void)reload
 {
@@ -213,8 +188,7 @@
     if(userIdent)
     {
         [[NetworkActivityIndicator sharedManager] startActivity];
-        
-        self.createdComment = fromTextField;
+            
         NSInteger problemID = [self.problem_ID integerValue];
         
         [EcomapFetcher addCommentToProblem:problemID withContent:fromTextField onCompletion:^(NSError *error)
@@ -229,7 +203,7 @@
             [[NetworkActivityIndicator sharedManager]endActivity];
         });
         
-        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
+        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment is added")];
     }
     
     else
@@ -252,7 +226,7 @@
 
 #pragma  -mark Placeholder
 
--(void)textViewDidBeginEditing:(UITextView *)textView
+- (void)textViewDidBeginEditing:(UITextView *)textView
 {
     if([self.textField.text isEqualToString:@"Add comment"])
     {
@@ -264,7 +238,7 @@
     
 }
 
--(void)textViewDidEndEditing:(UITextView *)textView
+- (void)textViewDidEndEditing:(UITextView *)textView
 {
     if([self.textField.text isEqualToString:@""])
     {
@@ -274,10 +248,9 @@
     }
     
     [self.textField resignFirstResponder];
- 
-
 }
--(void)textViewDidChange:(UITextView *)textView
+
+- (void)textViewDidChange:(UITextView *)textView
 {
     self.addCommentButton.enabled = [self.textField.text length]>0;
 }
@@ -287,31 +260,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-   // [self.arrayOfCommentsForParticularProblem removeAllObjects];
-    
-//    for (Comment *com in self.fetchedResultsController.fetchedObjects)
-//    {
-//        
-//        NSLog(@"Problem ID from core data %@", com.id_of_problem);
-//        
-//        if ([self.problem_ID isEqual:com.id_of_problem])
-//        {
-//            NSLog(@"Comment ID = %@  and Problem ID = %@", com.comment_id, com.id_of_problem);
-//        
-//            if (!self.arrayOfCommentsForParticularProblem)
-//            {
-//                self.arrayOfCommentsForParticularProblem = [[NSMutableArray alloc]initWithObjects:com, nil];
-//            }
-//            else
-//            {
-//                [self.arrayOfCommentsForParticularProblem addObject:com];
-//            }
-//        }
-//    }
-    
-//    NSLog(@"Number of rows %ld", (long)self.arrayOfCommentsForParticularProblem.count);
-//    NSLog(@"Array of comments %@", self.arrayOfCommentsForParticularProblem);
-//    
     return self.fetchedResultsController.fetchedObjects.count == 0 ? 1 : self.fetchedResultsController.fetchedObjects.count;
 }
 
@@ -319,8 +267,6 @@
 - (void)configureCell:(CommentCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
-    
-    ///CommentCell *cell = [self.myTableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
     
     cell.commentContent.text = object.content;
     NSDateFormatter *formatter = [NSDateFormatter new];
@@ -333,7 +279,6 @@
     NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
     cell.personInfo.text = personalInfo;
     cell.dateInfo.text = dateInfo;
-    //EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
 
 }
 
@@ -422,13 +367,13 @@
     
     Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
     if([userIdent.name isEqualToString:object.created_by] || [userIdent.role isEqualToString:@"admin"])
-       {
-            return YES;
-       }
-        return NO;
+    {
+        return YES;
+    }
+    return NO;
 }
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
     
@@ -467,7 +412,6 @@
          }];
                   
     }
- 
 }
  
 

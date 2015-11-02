@@ -476,26 +476,14 @@
         NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         
         NSArray *comments = [JSONParser parseJSONtoArray:objectData];
-        
-        // TODO: TO REMOVE
-//        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-//        [ob setCommentariesArray:comments :problemID];
-//        ob.problemsID = problemID;
-        
-        //added Iuliia Korniichuk
         EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
         [commentsIntoCoreData addCommentsIntoCoreData:problemID comments:comments];
         
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
-//        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-//        ob.problemsID = problemID;
-//        [ob setCommentariesArray:nil :problemID];
         NSLog(@"%@",error);
-        
-    }];
-    
+    }];    
 }
 
 
