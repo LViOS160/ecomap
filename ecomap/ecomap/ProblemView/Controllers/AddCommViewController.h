@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
+
 -(void)reload;
 
 @end

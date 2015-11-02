@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
+@property (nonatomic, strong) NSString* createdComment;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
@@ -108,6 +109,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+    
     [self.myTableView endUpdates];
 }
 
@@ -138,31 +140,6 @@
         }
     }
 }
-
-
-- (void)insertNewComment:(NSString*) cont
-{
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
-   
-    NSManagedObject *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:self.managedObjectContext];
-    EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-    
-    
-    [currentComment setValue:loggedUser.name forKey:@"created_by"];
-    [currentComment setValue:self.problem_ID forKey:@"id_of_problem"];
-    [currentComment setValue:@(loggedUser.userID) forKey:@"user_id"];
- //   [currentComment setValue:/*(NSString*)*/@(CACurrentMediaTime())forKey:@"created_date"];
-    [currentComment setValue:(NSString*)cont forKey:@"content"];
-   
-    NSError *error = nil;
-    if(![ self.managedObjectContext save:&error])
-    {
-        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
-        abort();
-    }
-}
-
 
 -(void)reload
 {
@@ -211,13 +188,22 @@
     if(userIdent)
     {
         [[NetworkActivityIndicator sharedManager] startActivity];
+            
+        NSInteger problemID = [self.problem_ID integerValue];
         
+        [EcomapFetcher addCommentToProblem:problemID withContent:fromTextField onCompletion:^(NSError *error)
+        {
+            if (!error)
+            {
+                [EcomapFetcher loadEverything];
+            }
+        }];
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[NetworkActivityIndicator sharedManager]endActivity];
         });
         
-        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
+        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment is added")];
     }
     
     else
@@ -293,7 +279,8 @@
     NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
     cell.personInfo.text = personalInfo;
     cell.dateInfo.text = dateInfo;
-    EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+    //EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -363,32 +350,13 @@
 
 -(void)editComentWithID:(NSUInteger)commentID withContent:(NSString *)content
 {
-    UIButton *senderButton = (UIButton *)sender;
-    UITableViewCell *buttonCell = (UITableViewCell *)[senderButton superview];
-    NSIndexPath* pathOfTheCell = [self.myTableView indexPathForCell:buttonCell];
-    CommentCell *cell = [self.myTableView cellForRowAtIndexPath:pathOfTheCell];
-    NSInteger row = pathOfTheCell.row;
-    self.currentIDInButton = row;
+    self.currentIDInButton = commentID;
     UITextField *textField = [self.alertView textFieldAtIndex:0];
     [textField setText:content];
     [self.alertView show];
 }
 
-
-
-- (void)makeButtonForCell:(UITableViewCell *)cell
-{
-    UIButton *addEditButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    addEditButton.frame = CGRectMake(cell.frame.size.width*1/2, cell.frame.origin.y, cell.frame.size.width/8, cell.frame.size.height);
-    addEditButton.backgroundColor = [UIColor greenColor];
-    [addEditButton setTitle:@"Edit" forState:UIControlStateNormal];
-    [cell addSubview:addEditButton];
-    [addEditButton addTarget:self
-                        action:@selector(editComment:)
-              forControlEvents:UIControlEventTouchUpInside];
-}
-
-// Override to support conditional editing of the table view.leView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row >= self.fetchedResultsController.fetchedObjects.count)
@@ -437,4 +405,66 @@
     }
 }
  
+
+
+
+/*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *reuseIdentifier = @"CommentCell";
+    CommentCell *cell = [self.offscreenCells objectForKey:reuseIdentifier];
+    if(!cell)
+    {
+        cell = [[CommentCell alloc]init];
+        [self.offscreenCells setObject:cell forKey:reuseIdentifier];
+    }
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    cell.bounds = CGRectMake(0, 0, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    height+=1;
+    return height;
+}
+
+*/
+
+
+
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 @end
