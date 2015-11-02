@@ -372,9 +372,7 @@
               forControlEvents:UIControlEventTouchUpInside];
 }
 
-
-
-// Override to support conditional editing of the table view.
+// Override to support conditional editing of the table view.leView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row >= self.fetchedResultsController.fetchedObjects.count)
