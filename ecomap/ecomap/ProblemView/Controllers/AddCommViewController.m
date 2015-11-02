@@ -279,7 +279,6 @@
     NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
     cell.personInfo.text = personalInfo;
     cell.dateInfo.text = dateInfo;
-    //EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
 
 }
 
