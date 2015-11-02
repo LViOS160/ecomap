@@ -477,9 +477,9 @@
         NSArray *comments = [JSONParser parseJSONtoArray:objectData];
         
         // TODO: TO REMOVE
-        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-        [ob setCommentariesArray:comments :problemID];
-        ob.problemsID = problemID;
+//        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+//        [ob setCommentariesArray:comments :problemID];
+//        ob.problemsID = problemID;
         
         //added Iuliia Korniichuk
         EcomapCoreDataControlPanel *commentsIntoCoreData = [EcomapCoreDataControlPanel sharedInstance];
@@ -488,9 +488,9 @@
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
-        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-        ob.problemsID = problemID;
-        [ob setCommentariesArray:nil :problemID];
+//        EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+//        ob.problemsID = problemID;
+//        [ob setCommentariesArray:nil :problemID];
         NSLog(@"%@",error);
         
     }];
@@ -578,7 +578,7 @@
 #pragma mark -
 + (void)addVoteForProblem:(EcomapProblemDetails *)problemDetails withUser:(EcomapLoggedUser *)user OnCompletion:(void (^)(NSError *error))completionHandler
 {
-    if(![problemDetails canVote:user])               // work
+    if(![problemDetails canVote:user])             
     {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
                                                        message:NSLocalizedString(@"Будь ласка, увійдіть до системи для голосування", @"Please, login to vote!")

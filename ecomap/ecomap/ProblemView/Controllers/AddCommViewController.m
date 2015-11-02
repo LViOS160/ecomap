@@ -35,6 +35,7 @@
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
 @property (nonatomic, strong) NSMutableArray *arrayOfCommentsForParticularProblem;
+@property (nonatomic,strong) NSString *createdComment;
 
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
@@ -44,6 +45,7 @@
 
 @implementation AddCommViewController
 
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 
 - (void)didReceiveMemoryWarning
@@ -64,14 +66,25 @@
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Editing comment..." message:@"Edit your comment:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
+    [self fetchedResultsController];
+    
+    [self updateUI];
+}
+
+
+
+
+- (NSFetchedResultsController *) fetchedResultsController {
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     self.managedObjectContext = appDelegate.managedObjectContext;
     
-    NSLog(@"ID of the problem %@", self.problem_ID);
-   
     NSFetchRequest *request = [EcomapFetchedResultController requestWithEntityName:@"Comment" sortBy:@"created_date"];
     
-  //  NSArray *requestArray = [self.managedObjectContext executeFetchRequest:request error:nil];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                      initWithFetchRequest:request
@@ -88,8 +101,64 @@
         abort();
     }
     
-    [self updateUI];
+    
+    return _fetchedResultsController;
 }
+
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.myTableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    
+    [self.myTableView endUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch (type) {
+        case NSFetchedResultsChangeInsert: {
+            [self.myTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        case NSFetchedResultsChangeDelete: {
+            [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        case NSFetchedResultsChangeUpdate: {
+        //   [self configureCell:(TSPToDoCell *)[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+        }
+        case NSFetchedResultsChangeMove: {
+            [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.myTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+    }
+}
+
+
+- (void)insertNewComment:(NSString*) cont {
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
+   
+    NSManagedObject *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:self.managedObjectContext];
+    EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+    
+    
+    [currentComment setValue:loggedUser.name forKey:@"created_by"];
+    [currentComment setValue:self.problem_ID forKey:@"id_of_problem"];
+    [currentComment setValue:@(loggedUser.userID) forKey:@"user_id"];
+ //   [currentComment setValue:/*(NSString*)*/@(CACurrentMediaTime())forKey:@"created_date"];
+    [currentComment setValue:(NSString*)cont forKey:@"content"];
+   
+    NSError *error = nil;
+    if(![ self.managedObjectContext save:&error]){
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
+
 
 -(void)reload
 {
@@ -137,17 +206,21 @@
 
         if(userIdent) {
     
-            EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
             [[NetworkActivityIndicator sharedManager] startActivity];
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
             [manager setRequestSerializer:jsonRequestSerializer];
             NSDictionary *cont = @{ @"content":fromTextField};
             
-            [manager POST:[EcomapURLFetcher URLforAddComment:[ob problemsID]] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
+            self.createdComment = [cont valueForKey:@"content"];
+            NSInteger problemID = [self.problem_ID integerValue];
+            
+            [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
             {
                 NSLog(@"ura");
-                [EcomapFetcher updateComments:[ob problemsID] controller:self];
+               [EcomapFetcher updateComments:problemID controller:self];
+                [self insertNewComment:self.createdComment];             
+             
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error)
             {
@@ -417,6 +490,9 @@
     
     return @[ deleteAction, editAction ];
 }
+
+
+
 
 
 
