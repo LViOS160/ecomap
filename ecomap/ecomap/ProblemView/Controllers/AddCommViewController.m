@@ -27,26 +27,23 @@
 #import "AppDelegate.h"
 
 
-@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,NSFetchedResultsControllerDelegate>
+@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,NSFetchedResultsControllerDelegate, EditCommentProtocol>
 @property (nonatomic,strong) NSMutableArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
-@property (nonatomic,strong) UIAlertView *alertView;
+//@property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
 @property (nonatomic, strong) NSMutableArray *arrayOfCommentsForParticularProblem;
 @property (nonatomic,strong) NSString *createdComment;
 
-
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
--(void)editComment:(id)sender;
 
 @end
 
 @implementation AddCommViewController
 
 @synthesize fetchedResultsController = _fetchedResultsController;
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -69,14 +66,16 @@
     [self fetchedResultsController];
     
     [self updateUI];
+    
 }
 
 
 
 
-- (NSFetchedResultsController *) fetchedResultsController {
-    
-    if (_fetchedResultsController != nil) {
+- (NSFetchedResultsController *) fetchedResultsController
+{
+    if (_fetchedResultsController != nil)
+    {
         return _fetchedResultsController;
     }
     
@@ -101,35 +100,42 @@
         abort();
     }
     
-    
     return _fetchedResultsController;
 }
 
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
     [self.myTableView beginUpdates];
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
     
     [self.myTableView endUpdates];
 }
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    switch (type) {
-        case NSFetchedResultsChangeInsert: {
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    switch (type)
+    {
+        case NSFetchedResultsChangeInsert:
+        {
             [self.myTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
-        case NSFetchedResultsChangeDelete: {
+        case NSFetchedResultsChangeDelete:
+        {
             [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
-        case NSFetchedResultsChangeUpdate: {
+        case NSFetchedResultsChangeUpdate:
+        {
         //   [self configureCell:(TSPToDoCell *)[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
         }
-        case NSFetchedResultsChangeMove: {
+        case NSFetchedResultsChangeMove:
+        {
             [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [self.myTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -138,7 +144,8 @@
 }
 
 
-- (void)insertNewComment:(NSString*) cont {
+- (void)insertNewComment:(NSString*) cont
+{
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     self.managedObjectContext = appDelegate.managedObjectContext;
    
@@ -153,7 +160,8 @@
     [currentComment setValue:(NSString*)cont forKey:@"content"];
    
     NSError *error = nil;
-    if(![ self.managedObjectContext save:&error]){
+    if(![ self.managedObjectContext save:&error])
+    {
         NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
         abort();
     }
@@ -207,26 +215,18 @@
     if(userIdent)
     {
         [[NetworkActivityIndicator sharedManager] startActivity];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-        [manager setRequestSerializer:jsonRequestSerializer];
-        NSDictionary *cont = @{ @"content":fromTextField};
         
-        self.createdComment = [cont valueForKey:@"content"];
+        self.createdComment = fromTextField;
         NSInteger problemID = [self.problem_ID integerValue];
         
-        [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
-         {
-             NSLog(@"ura");
-             [EcomapFetcher updateComments:problemID controller:self];
-             [self insertNewComment:self.createdComment];
-             
-         }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error)
-         {
-             NSLog(@"%@",error);
-         }];
-        
+        [EcomapFetcher addCommentToProblem:problemID withContent:fromTextField onCompletion:^(NSError *error)
+        {
+            if (!error)
+            {
+                [EcomapFetcher updateComments:problemID controller:self];
+                [self insertNewComment:self.createdComment];
+            }
+        }];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -332,8 +332,9 @@
     else if (indexPath.row < self.arrayOfCommentsForParticularProblem.count)
     {
         Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
-        
+         
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+        cell.delegate = self;
         cell.commentContent.text = object.content;
         NSDateFormatter *formatter = [NSDateFormatter new];
         formatter.dateStyle = NSDateFormatterMediumStyle;
@@ -345,11 +346,16 @@
         NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
+        cell.idOfRow = indexPath.row;
         EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
         if(loggedUser && ([loggedUser.name isEqualToString:object.created_by] || [loggedUser.role isEqualToString:@"admin"]))
         {
-            [self makeButtonForCell:cell];
+            cell.editButton.hidden = NO;
+        }
+        else
+        {
+            cell.editButton.hidden = YES;
         }
         
         return cell;
@@ -358,55 +364,35 @@
     return nil;
 }
 
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
     {
         NSString *content = [self.alertView textFieldAtIndex:0].text;
-        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-        NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
+        //EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+        //NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
         
-        [EcomapFetcher editComment:[num integerValue] withContent:content onCompletion:^(NSError *error)
+        Comment *object = self.arrayOfCommentsForParticularProblem[self.currentIDInButton];
+        
+        [EcomapFetcher editComment:[object.comment_id integerValue] withContent:content onCompletion:^(NSError *error)
         {
             if (!error)
             {
-                [EcomapFetcher updateComments:ob.problemsID controller:self];
+                [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];
                 [self.myTableView reloadData];
             }
         }];
     }
 }
 
-
--(void)editComment:(id)sender
+-(void)editComentWithID:(NSUInteger)commentID withContent:(NSString *)content
 {
-    
-    UIButton *senderButton = (UIButton *)sender;
-    UITableViewCell *buttonCell = (UITableViewCell *)[senderButton superview];
-    NSIndexPath* pathOfTheCell = [self.myTableView indexPathForCell:buttonCell];
-    CommentCell *cell = [self.myTableView cellForRowAtIndexPath:pathOfTheCell];
-    NSInteger row = pathOfTheCell.row;
-    self.currentIDInButton = row;
+    self.currentIDInButton = commentID;
     UITextField *textField = [self.alertView textFieldAtIndex:0];
-    [textField setText:cell.commentContent.text];
+    [textField setText:content];
     [self.alertView show];
 }
-
-
-
-- (void)makeButtonForCell:(UITableViewCell *)cell
-{
-    UIButton *addEditButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    addEditButton.frame = CGRectMake(cell.frame.size.width*1/2, cell.frame.origin.y, cell.frame.size.width/8, cell.frame.size.height);
-    addEditButton.backgroundColor = [UIColor greenColor];
-    [addEditButton setTitle:@"Edit" forState:UIControlStateNormal];
-    [cell addSubview:addEditButton];
-    [addEditButton addTarget:self
-                        action:@selector(editComment:)
-              forControlEvents:UIControlEventTouchUpInside];
-}
-
-
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -423,21 +409,22 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+    //EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
     
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-        NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+        //NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+        Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
         
-        [EcomapFetcher deleteComment:[num integerValue] onCompletion:^(NSError *error)
+        [EcomapFetcher deleteComment:[object.comment_id integerValue] onCompletion:^(NSError *error)
          {
              if (!error)
              {
-                 if(ob.comInfo.count ==1)
-                 {
-                     [ob setComInfo:nil];
-                 }
-                 [EcomapFetcher updateComments:ob.problemsID controller:self];
+                 //if(ob.comInfo.count ==1)
+                 //{
+                     //[ob setComInfo:nil];
+                 //}
+                 [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];
                  [UIView transitionWithView:tableView
                                    duration:2
                                     options:UIViewAnimationOptionTransitionCrossDissolve

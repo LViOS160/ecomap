@@ -10,10 +10,15 @@
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
 
+
+
+
 @interface AddCommViewController : UIViewController <EcomapProblemDetailsHolder>
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UITextView *textField;
 @property (strong, nonatomic) NSNumber* problem_ID;
+
+@property (nonatomic,strong) UIAlertView *alertView;
 
 @property (nonatomic, weak) Comment * chosenComment;
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
