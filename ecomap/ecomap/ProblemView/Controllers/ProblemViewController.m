@@ -116,7 +116,6 @@ typedef enum : NSUInteger
 
 - (void)loadProblemDetails:(void(^)())onFinish
 {
-    
     EcomapCoreDataControlPanel *ob = [EcomapCoreDataControlPanel sharedInstance];
     self.data =[ob returnDetail:self.problemID];
     EcomapCommentaries *comentsID = [EcomapCommentaries sharedInstance];
@@ -148,36 +147,38 @@ typedef enum : NSUInteger
 
 - (IBAction)likeClick:(UIButton*)sender
 {
-    if (self.problemDetails) {
+    if (self.problemDetails)
+    {
         sender.enabled = NO;
         [EcomapFetcher addVoteForProblem:self.problemDetails
                                 withUser:[EcomapLoggedUser currentLoggedUser]
-                            OnCompletion:^(NSError *error) {
-                                if (!error)
-                                {
-                                    [self loadProblemDetails:^{
-                                        sender.enabled = YES;
-                                       
-                                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
-                                                                                       message:NSLocalizedString(@"Голос додано", @"Vote is added")
-                                                                                      delegate:nil cancelButtonTitle:@"Ok"
-                                                                             otherButtonTitles:nil];
-                                        EcomapRevisionCoreData *checkRevisionForVote = [EcomapRevisionCoreData sharedInstance];
-                                        [checkRevisionForVote checkRevison:self];
-                                        [alert show];
-                                    }];
-                                    
-                                }
-                                else
-                                {
-                                    sender.enabled = YES;
-                                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
-                                                                                   message:NSLocalizedString(@"Ви вже голосували за дану проблему", @"You have already voted for this problem")
-                                                                                  delegate:nil cancelButtonTitle:@"Ok"
-                                                                         otherButtonTitles:nil];
-                                    [alert show];
-                                }
-                            }];
+                            OnCompletion:^(NSError *error)
+         {
+             if (!error)
+             {
+                 [self loadProblemDetails:^{
+                     sender.enabled = YES;
+                     
+                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                                    message:NSLocalizedString(@"Голос додано", @"Vote is added")
+                                                                   delegate:nil cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                     EcomapRevisionCoreData *checkRevisionForVote = [EcomapRevisionCoreData sharedInstance];
+                     [checkRevisionForVote checkRevison:self];
+                     [alert show];
+                 }];
+                 
+             }
+             else
+             {
+                 sender.enabled = YES;
+                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                                message:NSLocalizedString(@"Ви вже голосували за дану проблему", @"You have already voted for this problem")
+                                                               delegate:nil cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil];
+                 [alert show];
+             }
+         }];
     }
 }
 
@@ -208,19 +209,23 @@ typedef enum : NSUInteger
 
 - (NSAttributedString *)statusString
 {
-    if (self.editableProblem) {
-        if(self.editableProblem.isSolved) {
+    if (self.editableProblem)
+    {
+        if(self.editableProblem.isSolved)
+        {
             return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"вирішена", @"solved")
                                                    attributes:@{
                                                                 NSForegroundColorAttributeName:[UIColor greenColor]
-                                                                    }];
-        } else {
+                                                                }];
+        } else
+        {
             return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"не вирішена", @"not solved")
                                                    attributes:@{
                                                                 NSForegroundColorAttributeName:[UIColor redColor]
                                                                 }];
         }
-    } else {
+    } else
+    {
         return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Завантаження...", @"loading...")];
     }
 }
@@ -228,9 +233,13 @@ typedef enum : NSUInteger
 - (NSString *)likeString
 {
     if ([self.problemDetails canVote:[EcomapLoggedUser currentLoggedUser]])
+    {
          return [NSString stringWithFormat:@"♡%lu", (unsigned long)self.problemDetails.votes];
+    }
     else
+    {
         return [NSString stringWithFormat:@"♥︎%lu", (unsigned long)self.problemDetails.votes];
+    }
 }
 
 - (IBAction)tapLocateButton:(id)sender

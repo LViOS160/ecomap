@@ -27,7 +27,8 @@
 #import "AppDelegate.h"
 
 
-@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,NSFetchedResultsControllerDelegate, EditCommentProtocol>
+@interface AddCommViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, NSFetchedResultsControllerDelegate, EditCommentProtocol>
+
 @property (nonatomic,strong) NSMutableArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
@@ -35,8 +36,6 @@
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
 @property (nonatomic,strong) NSString *createdComment;
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end
 
@@ -386,9 +385,6 @@
     if (buttonIndex == 1)
     {
         NSString *content = [self.alertView textFieldAtIndex:0].text;
-        //EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-        //NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
-        
         Comment *object = self.fetchedResultsController.fetchedObjects[self.currentIDInButton];
         
         [EcomapFetcher editComment:[object.comment_id integerValue] withContent:content onCompletion:^(NSError *error)

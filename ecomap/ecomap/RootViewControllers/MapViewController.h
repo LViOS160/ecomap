@@ -23,6 +23,7 @@
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic)CLLocationCoordinate2D cord;
 @property (nonatomic, strong) AddProblemViewController *problemController;
+
 - (void)loadProblems;
 - (void)mapSetup;
 

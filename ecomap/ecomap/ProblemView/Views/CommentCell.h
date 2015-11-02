@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol EditCommentProtocol<NSObject>
+@protocol EditCommentProtocol <NSObject>
 
 -(void)editComentWithID:(NSUInteger)commentID withContent:(NSString *)content;
 
@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateInfo;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (assign, nonatomic) NSUInteger idOfRow;
+
 - (IBAction)editButton:(UIButton *)sender;
 
 @property (weak, nonatomic) id <EditCommentProtocol> delegate;

@@ -23,7 +23,6 @@
                               initWithKey:sortDescriptor ascending:YES];
     
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
     [fetchRequest setFetchBatchSize:20];
     
     return fetchRequest;
@@ -40,8 +39,7 @@
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
                               initWithKey:sortDescriptor ascending:NO];
     
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];    
     [fetchRequest setFetchBatchSize:20];
     [fetchRequest setFetchLimit:limitNumber];
     
@@ -64,7 +62,6 @@
                               initWithKey:@"created_date" ascending:YES];
     
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
     [fetchRequest setFetchBatchSize:20];
     
     return fetchRequest;

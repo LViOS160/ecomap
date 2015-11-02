@@ -15,7 +15,8 @@
 #import "ProblemViewController.h"
 #import "EcomapRevisionCoreData.h"
 
-enum : NSInteger {
+enum : NSInteger
+{
     TextFieldTag_Content = 1,
     TextFieldTag_Proposal,
 };
