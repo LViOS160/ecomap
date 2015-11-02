@@ -441,10 +441,19 @@
          {
              if (!error)
              {
-                 //if(ob.comInfo.count ==1)
-                 //{
-                     //[ob setComInfo:nil];
-                 //}
+                 AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+                 NSManagedObjectContext* context = appDelegate.managedObjectContext;
+                 NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"Comment"
+                                                           inManagedObjectContext:context];
+                 [request setEntity:entity];
+                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"comment_id == %i", [object.comment_id integerValue]];
+                 [request setPredicate:predicate];
+                 NSArray *obj = [context executeFetchRequest:request error:nil];
+                 Comment *a = obj[0];
+                 NSLog(@"%@",a.content);
+                 [context deleteObject:a];
+                 [context save:nil];
                  [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];
                  [UIView transitionWithView:tableView
                                    duration:2
@@ -456,6 +465,7 @@
                                  completion:nil];
              }
          }];
+                  
     }
  
 }
