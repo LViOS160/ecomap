@@ -253,7 +253,7 @@
     }
     else if (self.kindOfTopChart == EcomapMostCommentedProblemsTopList)
     {
-        scoreOfProblem = [NSString stringWithFormat:@"%@",problem.numberOfComments];
+        scoreOfProblem = [NSString stringWithFormat:@"%lu",(unsigned long)problem.comments.count];
     }
     return scoreOfProblem;
 }
