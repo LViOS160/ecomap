@@ -83,7 +83,7 @@
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     self.managedObjectContext = appDelegate.managedObjectContext;
     
-    NSFetchRequest *request = [EcomapFetchedResultController requestWithEntityName:@"Comment" sortBy:@"created_date"];
+    NSFetchRequest *request = [EcomapFetchedResultController requestForCommentsWithProblemID:self.problem_ID];
     
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
@@ -126,7 +126,7 @@
             break;
         }
         case NSFetchedResultsChangeUpdate: {
-        //   [self configureCell:(TSPToDoCell *)[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+           [self configureCell:[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
         }
         case NSFetchedResultsChangeMove: {
@@ -138,20 +138,26 @@
 }
 
 
-- (void)insertNewComment:(NSString*) cont {
+- (void)insertNewComment:(NSString*) cont
+{
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     self.managedObjectContext = appDelegate.managedObjectContext;
    
     NSManagedObject *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:self.managedObjectContext];
     EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
     
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *now = [[NSDate alloc] init];
+    NSString *dateString = [format stringFromDate:now];
+    NSLog(@"data is %@", dateString);
     
     [currentComment setValue:loggedUser.name forKey:@"created_by"];
     [currentComment setValue:self.problem_ID forKey:@"id_of_problem"];
     [currentComment setValue:@(loggedUser.userID) forKey:@"user_id"];
- //   [currentComment setValue:/*(NSString*)*/@(CACurrentMediaTime())forKey:@"created_date"];
+    [currentComment setValue:dateString forKey:@"created_date"];
     [currentComment setValue:(NSString*)cont forKey:@"content"];
-   
+    
     NSError *error = nil;
     if(![ self.managedObjectContext save:&error]){
         NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
@@ -320,6 +326,26 @@
 }
 
 
+- (void)configureCell:(CommentCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
+    
+    ///CommentCell *cell = [self.myTableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+    
+    cell.commentContent.text = object.content;
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateStyle = NSDateFormatterMediumStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    formatter.doesRelativeDateFormatting = YES;
+    NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
+    [formatter setLocale:ukraineLocale];
+    NSString *personalInfo = [NSString stringWithFormat:@"%@", object.created_by];
+    NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
+    cell.personInfo.text = personalInfo;
+    cell.dateInfo.text = dateInfo;
+    EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
