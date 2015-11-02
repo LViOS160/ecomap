@@ -99,7 +99,8 @@ extern bool wasUpdated;
     if (wasUpdated) return;
     
     self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
-    [self renewMap:self.currentAllProblems];
+    //[self renewMap:self.currentAllProblems];
+    [self userDidApplyFilteringMask:self.filteringMask];
 }
 
 
@@ -298,12 +299,12 @@ extern bool wasUpdated;
 {
     self.filteringMask = filteringMask;
     
-    [self loadProblems];
+    //[self loadProblems];
     
     NSArray *arrProblems;
     NSArray *filteredProblems;
-    NSLog(@"%@",[self.currentAllProblems valueForKey:@"latitude"]);
-    NSLog(@"%@",[self.currentAllProblems valueForKey:@"longitude"]);
+//    NSLog(@"%@",[self.currentAllProblems valueForKey:@"latitude"]);
+//    NSLog(@"%@",[self.currentAllProblems valueForKey:@"longitude"]);
     
     if (self.currentAllProblems)
     {
