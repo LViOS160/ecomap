@@ -193,9 +193,7 @@
         
         [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
-             NSLog(@"ura");
-             
-             
+             [EcomapFetcher loadEverything];
          }
               failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
