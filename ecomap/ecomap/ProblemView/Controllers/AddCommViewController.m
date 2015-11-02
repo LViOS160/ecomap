@@ -44,8 +44,6 @@
 
 @implementation AddCommViewController
 
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -132,39 +130,30 @@
 
 - (IBAction)pressAddComment:(id)sender  {
     
-        NSString * fromTextField = self.textField.text;
-        EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-
-        if(userIdent) {
+    NSString * fromTextField = self.textField.text;
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     
-            EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-            [[NetworkActivityIndicator sharedManager] startActivity];
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-            [manager setRequestSerializer:jsonRequestSerializer];
-            NSDictionary *cont = @{ @"content":fromTextField};
-            
-            [manager POST:[EcomapURLFetcher URLforAddComment:[ob problemsID]] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
-            {
-                [EcomapFetcher updateComments:[ob problemsID] controller:self];
-            }
-            failure:^(AFHTTPRequestOperation *operation, NSError *error)
-            {
-                NSLog(@"%@",error);
-            }];
-            
-    
+    if(userIdent) {
+        
+        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+        
+        [EcomapFetcher addCommentToProblem:[ob problemsID] withContent:fromTextField onCompletion:^(NSError *error)
+         {
+             if (!error)
+             {
+                 [EcomapFetcher updateComments:[ob problemsID] controller:self];
+             }
+         }];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[NetworkActivityIndicator sharedManager]endActivity];
         });
-    
-       [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
-            
-        }
-
-     else
-     {
+        
+        [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
+    }
+    else
+    {
         //show action sheet to login
         [InfoActions showLogitActionSheetFromSender:sender
                            actionAfterSuccseccLogin:^{
@@ -172,13 +161,12 @@
                            }];
         return;
     }
-
+    
     if ([self.textField isFirstResponder])
     {
         self.textField.text = @"";
         [self textViewDidEndEditing:self.textField];
     }
-    
 }
 
 #pragma  -mark Placeholder
@@ -274,7 +262,7 @@
         cell.dateInfo.text = dateInfo;
         EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
-        if(loggedUser && [loggedUser.name isEqualToString:object.created_by])
+        if(loggedUser && ([loggedUser.name isEqualToString:object.created_by] || [loggedUser.role isEqualToString:@"admin"]))
         {
             [self makeButtonForCell:cell];
         }
@@ -287,34 +275,21 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1){
-        
+    if (buttonIndex == 1)
+    {
         NSString *content = [self.alertView textFieldAtIndex:0].text;
-        
         EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-        
-        NSDictionary *dictionary = @{
-                                     @"content" : content,
-                                     };
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
-        [manager PUT:[EcomapURLFetcher URLforChangeComment:[num integerValue]] parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            [EcomapFetcher updateComments:ob.problemsID controller:self];
-            [self.myTableView reloadData];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            NSLog(@"%@",error);
-        }];
         
+        [EcomapFetcher editComment:[num integerValue] withContent:content onCompletion:^(NSError *error)
+        {
+            if (!error)
+            {
+                [EcomapFetcher updateComments:ob.problemsID controller:self];
+                [self.myTableView reloadData];
+            }
+        }];
     }
-    
 }
 
 
@@ -354,7 +329,7 @@
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     
     Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
-    if([userIdent.name isEqualToString:object.created_by])
+    if([userIdent.name isEqualToString:object.created_by] || [userIdent.role isEqualToString:@"admin"])
        {
             return YES;
        }
@@ -367,37 +342,33 @@
     
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-        [manager setRequestSerializer:jsonRequestSerializer];
         NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
-
-        [manager DELETE:[EcomapURLFetcher URLforChangeComment:[num integerValue]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if(ob.comInfo.count ==1)
-            {
-                [ob setComInfo:nil];
-            }
-            [EcomapFetcher updateComments:ob.problemsID controller:self];
-            [UIView transitionWithView:tableView
-                              duration:2
-                               options:UIViewAnimationOptionTransitionCrossDissolve
-                            animations:^(void)
+        
+        [EcomapFetcher deleteComment:[num integerValue] onCompletion:^(NSError *error)
+         {
+             if (!error)
              {
-                 [tableView reloadData];
+                 if(ob.comInfo.count ==1)
+                 {
+                     [ob setComInfo:nil];
+                 }
+                 [EcomapFetcher updateComments:ob.problemsID controller:self];
+                 [UIView transitionWithView:tableView
+                                   duration:2
+                                    options:UIViewAnimationOptionTransitionCrossDissolve
+                                 animations:^(void)
+                  {
+                      [tableView reloadData];
+                  }
+                                 completion:nil];
              }
-                            completion:nil];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-        {
-            NSLog(@"%@",error);
-        }];
-        
-        
+         }];
     }
-    
-    
+ 
 }
+ 
+    
+
 
 
 /*- (NSArray<UITableViewRowAction *>*)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath

@@ -37,7 +37,6 @@
 
 @implementation ProblemDetailsViewController
 
-
 -(NSMutableArray *)buttonsOnScrollView
 {
     if (!_buttonsOnScrollView)
@@ -111,7 +110,7 @@
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
 
    
-    if(([userIdent.role isEqualToString:@"administrator"] || self.problemDetails.userID == userIdent.userID ) && userIdent && self.problemDetails.userID)
+    if(([userIdent.role isEqualToString:@"admin"] || self.problemDetails.userID == userIdent.userID ) && userIdent && self.problemDetails.userID)
     {
         self.editButton.hidden = NO;
         self.deleteButton.hidden = NO;
@@ -125,32 +124,26 @@
 
 - (IBAction)editProblem:(id)sender
 {
-    
+    // implementation in class EditProblemViewController
 }
 
 - (IBAction)deleteProblem:(id)sender
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-    [manager setRequestSerializer:jsonRequestSerializer];
-    NSString *baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
-    NSUInteger num = self.problemDetails.problemID;
-    NSString *middle = [baseUrl stringByAppendingFormat:@"%lu", num];
-    
-    [manager DELETE:middle parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        [InfoActions stopActivityIndicator];
-        [self.navigationController popViewControllerAnimated:YES];
-        EcomapRevisionCoreData *revision = [EcomapRevisionCoreData new];
-        [revision checkRevison:nil];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%@",error);
-        [self.navigationController popViewControllerAnimated:YES];
+    [EcomapFetcher deleteProblem:self.problemDetails.problemID onCompletion:^(NSError *error)
+    {
+        if (!error)
+        {
+            [InfoActions stopActivityIndicator];
+            [self.navigationController popViewControllerAnimated:YES];
+            EcomapRevisionCoreData *revision = [EcomapRevisionCoreData new];
+            [revision checkRevison:nil];
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }];
-
-}
+ }
 
 #pragma mark - Scroll View Gallery setup
 #define HORIZONTAL_OFFSET 12.0f

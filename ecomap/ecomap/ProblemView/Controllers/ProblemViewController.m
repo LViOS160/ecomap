@@ -48,7 +48,6 @@ typedef enum : NSUInteger
 
 @property (weak, nonatomic) id <EcomapProblemViewDelegate> delegate;
 
-// For admin purposes
 @property (nonatomic, strong) EcomapLoggedUser *user;
 @property (nonatomic, strong) EcomapEditableProblem *editableProblem;
 
@@ -90,7 +89,7 @@ typedef enum : NSUInteger
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter ]removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -108,7 +107,7 @@ typedef enum : NSUInteger
 - (void)handleTapStatusLabelWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer
 {
     // Handle gesture only if user is administrator
-    if (self.user && [self.user.role isEqualToString:@"administrator"])
+    if (self.user && [self.user.role isEqualToString:@"admin"])
     {
         self.editableProblem.solved = !self.editableProblem.solved;
         [self updateHeader];
@@ -124,7 +123,6 @@ typedef enum : NSUInteger
     [comentsID setProblemsID:self.problemID];
     
     self.problemDetails = [[EcomapProblemDetails alloc] initWithProblemFromCoreData:self.data];
-    
     self.editableProblem = [[EcomapEditableProblem alloc] initWithProblem:self.problemDetails];
     [self.containerViewController setProblemDetails:self.problemDetails];
     [self updateHeader];
@@ -193,14 +191,17 @@ typedef enum : NSUInteger
 
 - (NSString*)severityString
 {
-    if (self.problemDetails) {
+    if (self.problemDetails)
+    {
         NSMutableString *severity = [[NSMutableString alloc] init];
         NSString *blackStars = [@"" stringByPaddingToLength:self.problemDetails.severity withString:@"★" startingAtIndex:0];
         NSString *whiteStars = [@"" stringByPaddingToLength:5-self.problemDetails.severity withString:@"☆" startingAtIndex:0];
         [severity appendString:blackStars];
         [severity appendString:whiteStars];
         return severity;
-    } else {
+    }
+    else
+    {
         return @"☆☆☆☆☆";
     }
 }

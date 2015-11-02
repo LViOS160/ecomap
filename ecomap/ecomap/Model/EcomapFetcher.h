@@ -18,6 +18,7 @@
 //Value-Object classes
 #import "EcomapProblem.h"
 #import "EcomapProblemDetails.h"
+#import "EcomapEditableProblem.h"
 #import "EcomapLoggedUser.h"
 #import "EcomapPhoto.h"
 #import "EcomapActivity.h"
@@ -34,6 +35,7 @@
 
 @class EcomapLoggedUser;
 @class EcomapProblemDetails;
+@class EcomapEditableProblem;
 @class EcomapProblem;
 @class EcomapCommentaries;
 
@@ -72,13 +74,18 @@
         OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
 +(void)loadCommentsFromWeb:(NSUInteger)problemID;
-+(void)deleteComment:(NSString*)userId andName:(NSString*)name
-          andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
-        OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler;
 
-+(BOOL)updateComments:(NSUInteger)problemID controller:(AddCommViewController*)controller;
++ (void)addCommentToProblem:(NSInteger)problemID withContent:(NSString *)content
+               onCompletion:(void (^)(NSError *error))completionHandler;
++ (void)deleteComment:(NSInteger)commentID onCompletion:(void (^)(NSError *error))completionHandler;
++ (void)editComment:(NSInteger)commentID withContent:(NSString *)content
+       onCompletion:(void (^)(NSError *error))completionHandler;
++ (BOOL)updateComments:(NSUInteger)problemID controller:(AddCommViewController*)controller;
++ (void)getProblemWithComments;
 
-
-
-+(void)getProblemWithComments;
++ (void)editProblem:(EcomapProblemDetails *)problem
+        withProblem:(EcomapEditableProblem *)editableProblem
+       onCompletion:(void (^)(NSError *error))completionHandler;
++ (void)deleteProblem:(NSUInteger)problemID
+         onCompletion:(void (^)(NSError *error))completionHandler;
 @end

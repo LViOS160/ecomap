@@ -33,7 +33,7 @@
 #define ECOMAP_POST_COMMENT @"comment/"
 #define ECOMAP_POST_PHOTO @"photo/"
 
-#define ECOMAP_POST_PROBLEM_ADDRESS @"http://176.36.11.25:8000/api/problems/"
+#define ECOMAP_PROBLEM_ADDRESS_WITH_ID @"http://176.36.11.25:8000/api/problems/"
 #define ECOMAP_PROBLEM_POST_ADDRESS @"http://176.36.11.25:8000/api/problems"
 #define ECOMAP_REVISION @"problems?rev="
 

@@ -168,7 +168,7 @@
                              NSNumber *revision =  [aJSON valueForKey:@"current_activity_revision"];
                              problemsFromJSON = [aJSON[@"data"] isKindOfClass:[NSArray class]] ? aJSON[@"data"] : nil;
                              [[NSUserDefaults standardUserDefaults] setObject:revision forKey:@"revision"];
-                             NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"];
+                             //NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"revision"];
                              //Fill problems array
                              if (problemsFromJSON)
                              {
@@ -182,9 +182,8 @@
                              }
                              
                          }
-                     } else [InfoActions showAlertOfError:error];
-                     
-                     //set up completionHandler
+                     } //else [InfoActions showAlertOfError:error];
+
                      completionHandler(problems, error);
                  }];
     
@@ -222,7 +221,7 @@
                              
                          }
                      }
-                     else [InfoActions showAlertOfError:error];
+                     //else [InfoActions showAlertOfError:error];
                      
                      //set up completionHandler
                      completionHandler(problems, error);
@@ -393,7 +392,7 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    NSString* baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
+    NSString* baseUrl = ECOMAP_PROBLEM_ADDRESS_WITH_ID;
     NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
     NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
     
@@ -410,14 +409,15 @@
          ob.problemsID = problemID;
          [controller reload];
      }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
-             ob.problemsID = problemID;
-             [ob setCommentariesArray:nil :problemID];
-             [controller reload];
-             NSLog(@"%@",error);
-             
-         }];
+         failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         EcomapCommentaries* ob = [EcomapCommentaries sharedInstance];
+         ob.problemsID = problemID;
+         [ob setCommentariesArray:nil :problemID];
+         [controller reload];
+         NSLog(@"%@",error);
+         
+     }];
     return YES;
 }
 
@@ -463,7 +463,7 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    NSString* baseUrl = ECOMAP_POST_PROBLEM_ADDRESS;
+    NSString* baseUrl = ECOMAP_PROBLEM_ADDRESS_WITH_ID;
     NSString* middleUrl = [baseUrl stringByAppendingFormat:@"%lu",(unsigned long)problemID];
     NSString* finalUrl = [middleUrl stringByAppendingString:@"/comments"];
     [manager GET:finalUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
@@ -521,25 +521,7 @@
                             //If there is no one, server give us back Dictionary with "error" key
                             //Parse JSON
                             NSDictionary *answerFromServer = [JSONParser parseJSONtoDictionary:JSON];
-                          
-                       
-                         /* if (answerFromServer) {
-                                DDLogError(@"There is no problem (id = %lu) on server", (unsigned long)problemID);
-                                //Return error. Form error to be passed to completionHandler
-                                NSError *error = [[NSError alloc] initWithDomain:NSMachErrorDomain
-                                                                            code:404
-                                                                        userInfo:answerFromServer];
-                                completionHandler(problemDetails, error);
-                                return;
-                            }*/
-                            
-                            //Extract problemDetails from JSON
-                            //Parse JSON
-                        
-                            
-                            //[JSONParser parseJSONtoArray:JSON];
-                           
-                            //problem = [[values objectAtIndex:1] firstObject];
+
                             problemDetails = [[EcomapProblemDetails alloc] initWithProblem:answerFromServer];
                            
                             DDLogVerbose(@"Problem (id = %lu) loaded success from ecomap server", (unsigned long)problemDetails.problemID);
@@ -663,53 +645,124 @@
     
 }
 
-
-+(void)deleteComment:(NSString*)userId andName:(NSString*)name
-          andSurname:(NSString*)surname andContent:(NSString*)content andProblemId:(NSString*)probId
-        OnCompletion:(void (^)(EcomapCommentaries *obj,NSError *error))completionHandler
++ (void)addCommentToProblem:(NSInteger)problemID withContent:(NSString *)content
+               onCompletion:(void (^)(NSError *error))completionHandler
 {
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Content-Type" : @"application/json;charset=UTF-8"}];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setRequestSerializer:jsonRequestSerializer];
+    NSDictionary *cont = @{ @"content":content };
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[EcomapURLFetcher URLforComments:probId]];
-    [request setHTTPMethod:@"DELETE"];
-    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
-    
-    NSLog(@"%@;%@;%@",userId,name,surname);
-    //Create JSON data for send to server
-    NSDictionary *commentData = @{@"data": @{@"userId":userId,@"userName":name, @"userSurname":surname, @"Content":content} };
-    NSLog(@"%@",commentData);
-    NSData *data = [NSJSONSerialization dataWithJSONObject:commentData options:0 error:nil];
-    [DataTasks uploadDataTaskWithRequest:request fromData:data
-                    sessionConfiguration:sessionConfiguration
-                       completionHandler:^(NSData *JSON, NSError *error) {
-                           NSDictionary *commentsInfo;
-                           // EcomapLoggedUser * check = [[EcomapLoggedUser alloc]init];
-                           EcomapCommentaries * difComment = nil;
-                           
-                           if(!error)
-                               
-                           {    difComment = [[EcomapCommentaries alloc]initWithInfo:commentsInfo];
-                               if([EcomapLoggedUser currentLoggedUser])
-                               {
-                                   
-                                  // commentsInfo = [JSONParser parseJSONtoDictionary:JSON];
-                                   
-                                   
-                               }
-                               else
-                                   difComment = nil;
-                               
-                           } else [InfoActions showAlertOfError:error];
-                           
-                           completionHandler(difComment,error);
-                           
-                           
-                           
-                       }];
+    [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         completionHandler(nil);
+     }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error by adding new comment: %@",error);
+         completionHandler(error);
+     }];
 
 }
 
++ (void)deleteComment:(NSInteger)commentID onCompletion:(void (^)(NSError *error))completionHandler
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setRequestSerializer:jsonRequestSerializer];
+    
+    [manager DELETE:[EcomapURLFetcher URLforChangeComment:commentID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         completionHandler(nil);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error by deleting comment: %@",error);
+         completionHandler(error);
+     }];
+}
+
++ (void)editComment:(NSInteger)commentID withContent:(NSString *)content
+       onCompletion:(void (^)(NSError *error))completionHandler
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    NSDictionary *dictionary = @{
+                                 @"content" : content,
+                                 };
+    
+    [manager PUT:[EcomapURLFetcher URLforChangeComment:commentID] parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         completionHandler(nil);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error by editing comment: %@",error);
+         completionHandler(error);
+     }];
+    
+}
+
++ (void)editProblem:(EcomapProblemDetails *)problem
+        withProblem:(EcomapEditableProblem *)editableProblem
+       onCompletion:(void (^)(NSError *error))completionHandler
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSDictionary *dictionary = @{
+                                 @"status" : [self stringFromIsSolvedForRequest:editableProblem.isSolved],
+                                 @"problem_type_id" : @(problem.problemTypesID),
+                                 @"severity" : [NSString stringWithFormat:@"%lu", editableProblem.severity],
+                                 @"title" : editableProblem.title,
+                                 @"longitude" : @(problem.longitude),
+                                 @"content" : editableProblem.content,
+                                 @"latitude" : @(problem.latitude),
+                                 @"proposal" : editableProblem.proposal
+                                 };
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager PUT:[EcomapURLFetcher URLforEditingProblem:problem.problemID] parameters:dictionary success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         completionHandler(nil);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error by editing problem: %@",error);
+         completionHandler(error);
+     }];
+
+}
+
++ (NSString *)stringFromIsSolvedForRequest:(BOOL)isSolved
+{
+    return (isSolved)? @"SOLVED" : @"UNSOLVED";
+}
+
++ (void)deleteProblem:(NSUInteger)problemID
+         onCompletion:(void (^)(NSError *error))completionHandler
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setRequestSerializer:jsonRequestSerializer];
+    
+    [manager DELETE:[EcomapURLFetcher URLforEditingProblem:problemID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        completionHandler(nil);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Error by deleting problem: %@",error);
+        completionHandler(error);
+    }];
+}
 
 
 @end

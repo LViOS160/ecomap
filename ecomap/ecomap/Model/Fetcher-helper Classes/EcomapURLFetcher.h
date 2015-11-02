@@ -19,13 +19,11 @@ typedef enum {
 
 @interface EcomapURLFetcher : NSObject
 
++ (NSString*)URLforAddComment:(NSInteger)problemId;
 
++ (NSURL *)URLforRevison;
 
-+(NSString*)URLforAddComment:(NSInteger)problemId;
-
-+ (NSURL*)URLforRevison;
-
-+(NSString*)URLforChangeComment:(NSInteger)commentId;
++ (NSString *)URLforChangeComment:(NSInteger)commentId;
 
 + (NSURL *)URLforTokenRegistration;
 
@@ -76,19 +74,15 @@ typedef enum {
 
 + (NSURL *)URLforResources;
 
-+(NSURL*)URLforAlias:(NSString*)query;
++ (NSURL *)URLforAlias:(NSString*)query;
 // Return URL for comments
-+(NSURL*)URLforComments:(NSString*)query;
++ (NSURL *)URLforComments:(NSString*)query;
 
 + (NSURL *)URLforPostPhoto;
 
-+ (NSURL *)URLforEditingProblem:(NSUInteger)problemID;
++ (NSString *)URLforEditingProblem:(NSUInteger)problemID;
 
-+(NSURL *)URLforDeletingComment:(NSUInteger)commentID;
-
-+(NSURL*)URLforDeletingPhoto:(NSString*)link;
-
-+ (NSURL *)URLforDeleteProblemWithID:(NSUInteger)problemID;
++ (NSURL *)URLforDeletingPhoto:(NSString*)link;
 
 + (NSURL *)ProblemDescription;
 @end
