@@ -36,7 +36,6 @@
 		8408EA841BDF6421009D726D /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408EA831BDF6421009D726D /* Resource.m */; };
 		8420EA5E1BDA4D9200F8EFDC /* ResourceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8420EA5D1BDA4D9200F8EFDC /* ResourceTableViewController.m */; };
 		8425DEF81BD79F48001D7F41 /* EcomapFetchedResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8425DEF71BD79F48001D7F41 /* EcomapFetchedResultController.m */; };
-		84391CE61BCBED2B00130274 /* TOP10.m in Sources */ = {isa = PBXBuildFile; fileRef = 84391CE51BCBED2B00130274 /* TOP10.m */; };
 		847EAD471BE0C031007B512D /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EAD461BE0C031007B512D /* Comment.m */; };
 		847EAD4A1BE0C031007B512D /* Problem.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EAD491BE0C031007B512D /* Problem.m */; };
 		84A65DA21BD444C0009A418A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A65DA01BD444C0009A418A /* Model.xcdatamodeld */; };
@@ -226,8 +225,6 @@
 		8420EA5D1BDA4D9200F8EFDC /* ResourceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceTableViewController.m; sourceTree = "<group>"; };
 		8425DEF61BD79F48001D7F41 /* EcomapFetchedResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EcomapFetchedResultController.h; path = "../Value-Object Classes/EcomapFetchedResultController.h"; sourceTree = "<group>"; };
 		8425DEF71BD79F48001D7F41 /* EcomapFetchedResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EcomapFetchedResultController.m; path = "../Value-Object Classes/EcomapFetchedResultController.m"; sourceTree = "<group>"; };
-		84391CE41BCBED2B00130274 /* TOP10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TOP10.h; path = ../../RootViewControllers/TOP10.h; sourceTree = "<group>"; };
-		84391CE51BCBED2B00130274 /* TOP10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TOP10.m; path = ../../RootViewControllers/TOP10.m; sourceTree = "<group>"; };
 		847EAD451BE0C031007B512D /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		847EAD461BE0C031007B512D /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		847EAD481BE0C031007B512D /* Problem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Problem.h; sourceTree = "<group>"; };
@@ -752,8 +749,6 @@
 				B3738BB91A9DDC4B0077F604 /* EcomapResources.m */,
 				84E68F881BCBD94000ADD104 /* EcomapStatistics.h */,
 				84E68F891BCBD94000ADD104 /* EcomapStatistics.m */,
-				84391CE41BCBED2B00130274 /* TOP10.h */,
-				84391CE51BCBED2B00130274 /* TOP10.m */,
 			);
 			path = "Value-Object Classes";
 			sourceTree = "<group>";
@@ -1238,7 +1233,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84391CE61BCBED2B00130274 /* TOP10.m in Sources */,
 				90C868A31AA4746B0001E448 /* EcomapEditableProblem.m in Sources */,
 				B3738C231A9DDC4B0077F604 /* EcomapStatsParser.m in Sources */,
 				B3738C281A9DDC4B0077F604 /* EmptySegue.m in Sources */,
