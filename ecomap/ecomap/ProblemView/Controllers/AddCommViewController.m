@@ -199,46 +199,34 @@
 
 
 
-- (IBAction)pressAddComment:(id)sender  {
+- (IBAction)pressAddComment:(id)sender
+{
+    NSString * fromTextField = self.textField.text;
+    EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     
-        NSString * fromTextField = self.textField.text;
-        EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
-
-        if(userIdent) {
-    
-            [[NetworkActivityIndicator sharedManager] startActivity];
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-            [manager setRequestSerializer:jsonRequestSerializer];
-            NSDictionary *cont = @{ @"content":fromTextField};
-            
-            self.createdComment = [cont valueForKey:@"content"];
-            NSInteger problemID = [self.problem_ID integerValue];
-            
-            [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
-            {
-                NSLog(@"ura");
-               [EcomapFetcher updateComments:problemID controller:self];
-                [self insertNewComment:self.createdComment];             
-             
-            }
-            failure:^(AFHTTPRequestOperation *operation, NSError *error)
-            {
-                NSLog(@"%@",error);
-            }];
-            
-    
-    if(userIdent) {
+    if(userIdent)
+    {
+        [[NetworkActivityIndicator sharedManager] startActivity];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+        [manager setRequestSerializer:jsonRequestSerializer];
+        NSDictionary *cont = @{ @"content":fromTextField};
         
-        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+        self.createdComment = [cont valueForKey:@"content"];
+        NSInteger problemID = [self.problem_ID integerValue];
         
-        [EcomapFetcher addCommentToProblem:[ob problemsID] withContent:fromTextField onCompletion:^(NSError *error)
+        [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
-             if (!error)
-             {
-                 [EcomapFetcher updateComments:[ob problemsID] controller:self];
-             }
+             NSLog(@"ura");
+             [EcomapFetcher updateComments:problemID controller:self];
+             [self insertNewComment:self.createdComment];
+             
+         }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             NSLog(@"%@",error);
          }];
+        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -247,6 +235,7 @@
         
         [InfoActions showPopupWithMesssage:NSLocalizedString(@"Коментар додано", @"Comment added")];
     }
+    
     else
     {
         //show action sheet to login
@@ -263,6 +252,7 @@
         [self textViewDidEndEditing:self.textField];
     }
 }
+
 
 #pragma  -mark Placeholder
 
