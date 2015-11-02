@@ -32,7 +32,7 @@
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
-//@property (nonatomic,strong) UIAlertView *alertView;
+@property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
 @property (nonatomic,strong) NSString *createdComment;
 
@@ -128,9 +128,8 @@
             [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
-        case NSFetchedResultsChangeUpdate:
-        {
-        //   [self configureCell:(TSPToDoCell *)[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+        case NSFetchedResultsChangeUpdate: {
+           [self configureCell:[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
         }
         case NSFetchedResultsChangeMove:
@@ -222,11 +221,9 @@
         {
             if (!error)
             {
-                [EcomapFetcher updateComments:problemID controller:self];
-                [self insertNewComment:self.createdComment];
+                [EcomapFetcher loadEverything];
             }
         }];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[NetworkActivityIndicator sharedManager]endActivity];
@@ -336,7 +333,7 @@
     NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
     cell.personInfo.text = personalInfo;
     cell.dateInfo.text = dateInfo;
-    EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+    //EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
 
 }
 
@@ -350,8 +347,8 @@
     }
     else if (indexPath.row < self.fetchedResultsController.fetchedObjects.count)
     {
-        Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
-         
+        Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
+        
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
         cell.delegate = self;
         cell.commentContent.text = object.content;
@@ -392,7 +389,7 @@
         //EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
         //NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
         
-        Comment *object = self.arrayOfCommentsForParticularProblem[self.currentIDInButton];
+        Comment *object = self.fetchedResultsController.fetchedObjects[self.currentIDInButton];
         
         [EcomapFetcher editComment:[object.comment_id integerValue] withContent:content onCompletion:^(NSError *error)
         {
@@ -438,7 +435,7 @@
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
         //NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
-        Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
+        Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
         
         [EcomapFetcher deleteComment:[object.comment_id integerValue] onCompletion:^(NSError *error)
          {
@@ -463,67 +460,6 @@
  
 }
  
-    
-
-
-
-/*- (NSArray<UITableViewRowAction *>*)tableView:(nonnull UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
-{
-    UITableViewRowAction *editAction;
-    editAction = [UITableViewRowAction
-                       rowActionWithStyle:UITableViewRowActionStyleNormal
-                       title:@" Edit "
-                       handler:^(UITableViewRowAction * __nonnull action, NSIndexPath * __nonnull indexPath)
-    {
-        UITextField *textField = [self.alertView textFieldAtIndex:0];
-        CommentCell *cell = [self.myTableView cellForRowAtIndexPath:indexPath];
-        [textField setText:cell.commentContent.text];
-        [self.alertView show];
-    }];
-    editAction.backgroundColor = [UIColor greenColor];
-    
-    UITableViewRowAction *deleteAction;
-    deleteAction = [UITableViewRowAction
-                       rowActionWithStyle:UITableViewRowActionStyleNormal
-                       title:@"Delete"
-                       handler:^(UITableViewRowAction * __nonnull action, NSIndexPath * __nonnull indexPath)
-    {
-                           
-        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-        [manager setRequestSerializer:jsonRequestSerializer];
-        NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
-        [manager DELETE:[EcomapURLFetcher URLforChangeComment:[num integerValue]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-        {
-            if(ob.comInfo.count ==1)
-            {
-                [ob setComInfo:nil];
-            }
-            [EcomapFetcher updateComments:ob.problemsID controller:self];
-            [UIView transitionWithView:tableView
-                              duration:2
-                               options:UIViewAnimationOptionTransitionCrossDissolve
-                            animations:^(void)
-             {
-                 [tableView reloadData];
-             }
-                            completion:nil];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-        {
-            NSLog(@"%@",error);
-        }];
-
-     }];
-    
-    deleteAction.backgroundColor = [UIColor redColor];
-    
-    return @[ deleteAction, editAction ];
-}*/
-
-
-
 
 
 

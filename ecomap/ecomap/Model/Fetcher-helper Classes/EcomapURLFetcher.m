@@ -41,10 +41,9 @@
 
 + (NSString *)URLforEditingProblem:(NSUInteger)problemID
 {
-    return [ECOMAP_PROBLEM_ADDRESS_WITH_ID stringByAppendingFormat:@"%lu", problemID];
+    NSString* baseUrl = [ECOMAP_ADDRESS stringByAppendingFormat:@"%@%@",ECOMAP_API,ECOMAP_GET_PROBLEM_API];
+    return [baseUrl stringByAppendingFormat:@"/%lu", problemID];
 }
-
-
 
 #pragma mark - Form final URL
 //Add Server adress
