@@ -48,4 +48,26 @@
     return fetchRequest;
 }
 
+
++ (NSFetchRequest*)requestForCommentsWithProblemID:(NSNumber*) problemID
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Comment"
+                                   inManagedObjectContext:[AppDelegate sharedAppDelegate].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(id_of_problem = %@)", problemID];
+    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                              initWithKey:@"created_date" ascending:YES];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    return fetchRequest;
+}
+
 @end

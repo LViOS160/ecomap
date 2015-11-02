@@ -11,8 +11,6 @@
 #import "EcomapFetcher.h"
 #import "ResourceCell.h"
 #import "ResourceDetails.h"
-#import "EcomapFetcher.h"
-#import "EcomapResources.h"
 #import "EcomapAlias.h"
 #import "EcomapPathDefine.h"
 #import "GlobalLoggerLevel.h"
