@@ -61,7 +61,7 @@
     [fetchRequest setPredicate:predicate];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                              initWithKey:@"id_of_problem" ascending:YES];
+                              initWithKey:@"created_date" ascending:YES];
     
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     

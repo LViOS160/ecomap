@@ -34,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 @property (nonatomic,strong) UIAlertView *alertView;
 @property (nonatomic) NSUInteger currentIDInButton;
-@property (nonatomic, strong) NSMutableArray *arrayOfCommentsForParticularProblem;
 @property (nonatomic,strong) NSString *createdComment;
 
 
@@ -138,34 +137,6 @@
 }
 
 
-- (void)insertNewComment:(NSString*) cont
-{
-    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
-    self.managedObjectContext = appDelegate.managedObjectContext;
-   
-    NSManagedObject *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:self.managedObjectContext];
-    EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
-    
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *now = [[NSDate alloc] init];
-    NSString *dateString = [format stringFromDate:now];
-    NSLog(@"data is %@", dateString);
-    
-    [currentComment setValue:loggedUser.name forKey:@"created_by"];
-    [currentComment setValue:self.problem_ID forKey:@"id_of_problem"];
-    [currentComment setValue:@(loggedUser.userID) forKey:@"user_id"];
-    [currentComment setValue:dateString forKey:@"created_date"];
-    [currentComment setValue:(NSString*)cont forKey:@"content"];
-    
-    NSError *error = nil;
-    if(![ self.managedObjectContext save:&error]){
-        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
-        abort();
-    }
-}
-
-
 -(void)reload
 {
     [self updateUI];
@@ -217,15 +188,13 @@
         AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         [manager setRequestSerializer:jsonRequestSerializer];
         NSDictionary *cont = @{ @"content":fromTextField};
-        
-        self.createdComment = [cont valueForKey:@"content"];
+
         NSInteger problemID = [self.problem_ID integerValue];
         
         [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
              NSLog(@"ura");
-             //[EcomapFetcher updateComments:problemID controller:self];
-             //[self insertNewComment:self.createdComment];
+             
              
          }
               failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -297,38 +266,38 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [self.arrayOfCommentsForParticularProblem removeAllObjects];
+   // [self.arrayOfCommentsForParticularProblem removeAllObjects];
     
-    for (Comment *com in self.fetchedResultsController.fetchedObjects)
-    {
-        
-        NSLog(@"Problem ID from core data %@", com.id_of_problem);
-        
-        if ([self.problem_ID isEqual:com.id_of_problem])
-        {
-            NSLog(@"Comment ID = %@  and Problem ID = %@", com.comment_id, com.id_of_problem);
-        
-            if (!self.arrayOfCommentsForParticularProblem)
-            {
-                self.arrayOfCommentsForParticularProblem = [[NSMutableArray alloc]initWithObjects:com, nil];
-            }
-            else
-            {
-                [self.arrayOfCommentsForParticularProblem addObject:com];
-            }
-        }
-    }
+//    for (Comment *com in self.fetchedResultsController.fetchedObjects)
+//    {
+//        
+//        NSLog(@"Problem ID from core data %@", com.id_of_problem);
+//        
+//        if ([self.problem_ID isEqual:com.id_of_problem])
+//        {
+//            NSLog(@"Comment ID = %@  and Problem ID = %@", com.comment_id, com.id_of_problem);
+//        
+//            if (!self.arrayOfCommentsForParticularProblem)
+//            {
+//                self.arrayOfCommentsForParticularProblem = [[NSMutableArray alloc]initWithObjects:com, nil];
+//            }
+//            else
+//            {
+//                [self.arrayOfCommentsForParticularProblem addObject:com];
+//            }
+//        }
+//    }
     
-    NSLog(@"Number of rows %ld", (long)self.arrayOfCommentsForParticularProblem.count);
-    NSLog(@"Array of comments %@", self.arrayOfCommentsForParticularProblem);
-    
-    return self.arrayOfCommentsForParticularProblem.count == 0 ? 1 : self.arrayOfCommentsForParticularProblem.count;
+//    NSLog(@"Number of rows %ld", (long)self.arrayOfCommentsForParticularProblem.count);
+//    NSLog(@"Array of comments %@", self.arrayOfCommentsForParticularProblem);
+//    
+    return self.fetchedResultsController.fetchedObjects.count == 0 ? 1 : self.fetchedResultsController.fetchedObjects.count;
 }
 
 
 - (void)configureCell:(CommentCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
+    Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
     
     ///CommentCell *cell = [self.myTableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
     
@@ -349,15 +318,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.arrayOfCommentsForParticularProblem.count == 0)
+    if (self.fetchedResultsController.fetchedObjects.count == 0)
     {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = @"Коментарі відсутні";
         return cell;
     }
-    else if (indexPath.row < self.arrayOfCommentsForParticularProblem.count)
+    else if (indexPath.row < self.fetchedResultsController.fetchedObjects.count)
     {
-        Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
+        Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
         
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
         cell.commentContent.text = object.content;
@@ -439,7 +408,7 @@
 {
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     
-    Comment *object = self.arrayOfCommentsForParticularProblem[indexPath.row];
+    Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
     if([userIdent.name isEqualToString:object.created_by] || [userIdent.role isEqualToString:@"admin"])
        {
             return YES;
