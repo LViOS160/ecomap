@@ -26,7 +26,6 @@
 #import "EcomapLoggedUser.h"
 #import "InfoActions.h"
 #import "MenuViewController.h"
-#import "TOP10.h"
 #import "AppDelegate.h"
 #import "EcomapStatistics.h"
 #import "EcomapFetchedResultController.h"
@@ -243,8 +242,6 @@ extern bool wasUpdated;
 {
     EcomapStatistics *ob = [EcomapStatistics sharedInstanceStatistics];
     [ob setAllProblems:self.arrayWithProblems];
-    TOP10 *obj = [TOP10 sharedInstanceTOP10];
-    [obj setAllProblems:self.arrayWithProblems];
     
     [self.clusterManager removeItems];
     [self.mapView clear];

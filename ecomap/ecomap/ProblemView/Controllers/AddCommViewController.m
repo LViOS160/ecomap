@@ -224,8 +224,8 @@
         [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
              NSLog(@"ura");
-             [EcomapFetcher updateComments:problemID controller:self];
-             [self insertNewComment:self.createdComment];
+             //[EcomapFetcher updateComments:problemID controller:self];
+             //[self insertNewComment:self.createdComment];
              
          }
               failure:^(AFHTTPRequestOperation *operation, NSError *error)

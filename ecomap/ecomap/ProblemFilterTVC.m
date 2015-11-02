@@ -313,11 +313,11 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
     {
         return;
     }
-    
     if (indexPath.row == 0)
     {
         self.filteringMask.showCurrentUserProblem = !self.filteringMask.showCurrentUserProblem;
     }
+    
     [self.tableView reloadData];
 }
 
@@ -417,9 +417,12 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
             {
                 return [self createDateCellForIndexPath:indexPath];
             }
-        case 1: return [self createProblemTypeCellForIndexPath:indexPath];
-        case 2: return [self createProblemStatusCellForIndexPath:indexPath];
-        case 3: return [self createProblemOwnerCellForIndexPath:indexPath];
+        case 1:
+            return [self createProblemTypeCellForIndexPath:indexPath];
+        case 2:
+            return [self createProblemStatusCellForIndexPath:indexPath];
+        case 3:
+            return [self createProblemOwnerCellForIndexPath:indexPath];
     }
     
     return [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -429,11 +432,16 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 {
     switch(section)
     {
-        case 0: return NSLocalizedString(@"Фільтрація за датою", @"Filter by date");
-        case 1: return NSLocalizedString(@"Типи проблем", @"Problem types");
-        case 2: return NSLocalizedString(@"Статус проблеми", @"Problem status");
-        case 3: return NSLocalizedString(@"Мої проблеми", @"My problems");
+        case 0:
+            return NSLocalizedString(@"Фільтрація за датою", @"Filter by date");
+        case 1:
+            return NSLocalizedString(@"Типи проблем", @"Problem types");
+        case 2:
+            return NSLocalizedString(@"Статус проблеми", @"Problem status");
+        case 3:
+            return NSLocalizedString(@"Мої проблеми", @"My problems");
     }
+    
     return @"";
 }
 
@@ -443,10 +451,14 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
 {
     switch (indexPath.section)
     {
-        case 0: [self handleTappingDateSection:indexPath]; break;
-        case 1: [self handleTappingTypeSection:indexPath]; break;
-        case 2: [self handleTappingStatusSection:indexPath]; break;
-        case 3: [self handleTappingOwnerSection:indexPath]; break;
+        case 0:
+            [self handleTappingDateSection:indexPath]; break;
+        case 1:
+            [self handleTappingTypeSection:indexPath]; break;
+        case 2:
+            [self handleTappingStatusSection:indexPath]; break;
+        case 3:
+            [self handleTappingOwnerSection:indexPath]; break;
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

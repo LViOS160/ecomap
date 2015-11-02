@@ -9,15 +9,9 @@
 #import "ProblemsTopListTVC.h"
 #import "EcomapStatsFetcher.h"
 #import "EcomapProblemDetails.h"
-#import "EcomapURLFetcher.h"
 #import "EcomapStatsParser.h"
 #import "EcomapPathDefine.h"
 #import "EcomapRevealViewController.h"
-#import "ProblemViewController.h"
-
-//Setup DDLog
-#import "GlobalLoggerLevel.h"
-#import "TOP10.h"
 #import "AppDelegate.h"
 #import "EcomapFetchedResultController.h"
 
@@ -40,7 +34,8 @@
 
 #pragma mark - Initialization
 
-- (NSFetchedResultsController *)fetchedResultsController {
+- (NSFetchedResultsController *)fetchedResultsController
+{
     
     if (_fetchedResultsController != nil)
     {
@@ -50,7 +45,8 @@
     AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
     NSFetchRequest *fetchRequest;
     
-    switch (self.kindOfTopChart) {
+    switch (self.kindOfTopChart)
+    {
         case 0:
             fetchRequest = [EcomapFetchedResultController requestWithEntityName:@"Problem" sortBy:@"numberOfVotes" limit:10];
             break;
@@ -88,7 +84,6 @@
 {
     [super viewDidLoad];
     
-    
     // We're starting with hidden table, because we don't have data to populate it
     self.tableView.hidden = YES;
     
@@ -100,18 +95,19 @@
     [self customSetup];
 }
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
     [self.tableView beginUpdates];
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
     UITableView *tableView = self.tableView;
     
-    switch(type) {
-            
+    switch(type)
+    {
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -132,22 +128,6 @@
             break;
     }
 }
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
