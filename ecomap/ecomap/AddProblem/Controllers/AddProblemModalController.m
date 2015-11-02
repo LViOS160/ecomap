@@ -17,6 +17,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.currentView.delegate = self;
     self.thisMap.userInteractionEnabled = YES;
     [self.view addSubview:self.currentView];
     [self setMap];
@@ -118,6 +119,13 @@
     return NO;
 }
 
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.descriptionOfProblem resignFirstResponder];
+    [self.nameOfProblems resignFirstResponder];
+    [self.solvetion resignFirstResponder];
+}
 
 - (void)didReceiveMemoryWarning
 {

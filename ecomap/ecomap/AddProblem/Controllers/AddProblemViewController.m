@@ -69,6 +69,7 @@
     self.gotoNext.hidden = YES;
     self.addProblemButton.hidden = NO;
     self.propositionLable.hidden = YES;
+    self.marker = nil;
     [self.mapView clear];
     [self loadProblems];
 }
@@ -138,7 +139,7 @@
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
     
-            if (self.addProblemButton.isHidden == YES)
+            if (!self.marker && self.addProblemButton.isHidden == YES)
             {
                 self.marker = [[GMSMarker alloc] init];
                 self.marker.title = PROBLEM_LOCATION_STRING;
@@ -146,6 +147,8 @@
                 [self setCord:coordinate];
                 [self.marker setPosition:coordinate];
             }
+              [self setCord:coordinate];
+              [self.marker setPosition:self.cord];
 }
 
 
@@ -153,6 +156,7 @@
 {
     self.propositionLable.hidden = YES;
     self.addProblemButton.hidden = NO;
+    self.marker = nil;
     NSDictionary *params = @{ECOMAP_PROBLEM_TITLE     : problemName,
                              ECOMAP_PROBLEM_CONTENT    : problemDescription,
                              ECOMAP_PROBLEM_PROPOSAL : problemSolution,
