@@ -27,7 +27,7 @@
 #import "AppDelegate.h"
 
 
-@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,NSFetchedResultsControllerDelegate>
+@interface AddCommViewController () <UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,NSFetchedResultsControllerDelegate, EditCommentProtocol>
 @property (nonatomic,strong) NSMutableArray* comments;
 @property (nonatomic,strong) EcomapProblemDetails * ecoComment;
 @property (nonatomic,strong) NSString *problemma;
@@ -36,14 +36,12 @@
 @property (nonatomic) NSUInteger currentIDInButton;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
--(void)editComment:(id)sender;
 
 @end
 
 @implementation AddCommViewController
 
 @synthesize fetchedResultsController = _fetchedResultsController;
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -66,6 +64,7 @@
     [self fetchedResultsController];
     
     [self updateUI];
+    
 }
 
 
@@ -141,6 +140,30 @@
 }
 
 
+- (void)insertNewComment:(NSString*) cont
+{
+    AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
+   
+    NSManagedObject *currentComment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:self.managedObjectContext];
+    EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
+    
+    
+    [currentComment setValue:loggedUser.name forKey:@"created_by"];
+    [currentComment setValue:self.problem_ID forKey:@"id_of_problem"];
+    [currentComment setValue:@(loggedUser.userID) forKey:@"user_id"];
+ //   [currentComment setValue:/*(NSString*)*/@(CACurrentMediaTime())forKey:@"created_date"];
+    [currentComment setValue:(NSString*)cont forKey:@"content"];
+   
+    NSError *error = nil;
+    if(![ self.managedObjectContext save:&error])
+    {
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
+
+
 -(void)reload
 {
     [self updateUI];
@@ -188,21 +211,6 @@
     if(userIdent)
     {
         [[NetworkActivityIndicator sharedManager] startActivity];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
-        [manager setRequestSerializer:jsonRequestSerializer];
-        NSDictionary *cont = @{ @"content":fromTextField};
-
-        NSInteger problemID = [self.problem_ID integerValue];
-        
-        [manager POST:[EcomapURLFetcher URLforAddComment:problemID] parameters:cont success:^(AFHTTPRequestOperation *operation, id responseObject)
-         {
-             [EcomapFetcher loadEverything];
-         }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error)
-         {
-             NSLog(@"%@",error);
-         }];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -301,6 +309,7 @@
         Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
         
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+        cell.delegate = self;
         cell.commentContent.text = object.content;
         NSDateFormatter *formatter = [NSDateFormatter new];
         formatter.dateStyle = NSDateFormatterMediumStyle;
@@ -312,11 +321,16 @@
         NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
+        cell.idOfRow = indexPath.row;
         EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
         if(loggedUser && ([loggedUser.name isEqualToString:object.created_by] || [loggedUser.role isEqualToString:@"admin"]))
         {
-            [self makeButtonForCell:cell];
+            cell.editButton.hidden = NO;
+        }
+        else
+        {
+            cell.editButton.hidden = YES;
         }
         
         return cell;
@@ -325,27 +339,29 @@
     return nil;
 }
 
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
     {
         NSString *content = [self.alertView textFieldAtIndex:0].text;
-        EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
-        NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
+        //EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+        //NSNumber *num = [[ob.comInfo objectAtIndex:self.currentIDInButton] valueForKey:@"id"];
         
-        [EcomapFetcher editComment:[num integerValue] withContent:content onCompletion:^(NSError *error)
+        Comment *object = self.fetchedResultsController.fetchedObjects[self.currentIDInButton];
+        
+        [EcomapFetcher editComment:[object.comment_id integerValue] withContent:content onCompletion:^(NSError *error)
         {
             if (!error)
             {
-                [EcomapFetcher updateComments:ob.problemsID controller:self];
+                [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];
                 [self.myTableView reloadData];
             }
         }];
     }
 }
 
-
--(void)editComment:(id)sender
+-(void)editComentWithID:(NSUInteger)commentID withContent:(NSString *)content
 {
     UIButton *senderButton = (UIButton *)sender;
     UITableViewCell *buttonCell = (UITableViewCell *)[senderButton superview];
@@ -354,7 +370,7 @@
     NSInteger row = pathOfTheCell.row;
     self.currentIDInButton = row;
     UITextField *textField = [self.alertView textFieldAtIndex:0];
-    [textField setText:cell.commentContent.text];
+    [textField setText:content];
     [self.alertView show];
 }
 
@@ -392,21 +408,22 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
+    //EcomapCommentaries *ob = [EcomapCommentaries sharedInstance];
     
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-        NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+        //NSNumber *num = [[ob.comInfo objectAtIndex:indexPath.row] valueForKey:@"id"];
+        Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
         
-        [EcomapFetcher deleteComment:[num integerValue] onCompletion:^(NSError *error)
+        [EcomapFetcher deleteComment:[object.comment_id integerValue] onCompletion:^(NSError *error)
          {
              if (!error)
              {
-                 if(ob.comInfo.count ==1)
-                 {
-                     [ob setComInfo:nil];
-                 }
-                 [EcomapFetcher updateComments:ob.problemsID controller:self];
+                 //if(ob.comInfo.count ==1)
+                 //{
+                     //[ob setComInfo:nil];
+                 //}
+                 [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];
                  [UIView transitionWithView:tableView
                                    duration:2
                                     options:UIViewAnimationOptionTransitionCrossDissolve
