@@ -404,6 +404,11 @@
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row >= self.fetchedResultsController.fetchedObjects.count)
+    {
+        return NO;
+    }
+    
     EcomapLoggedUser *userIdent = [EcomapLoggedUser currentLoggedUser];
     
     Comment *object = self.fetchedResultsController.fetchedObjects[indexPath.row];
