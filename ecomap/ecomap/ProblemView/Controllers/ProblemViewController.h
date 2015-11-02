@@ -11,6 +11,7 @@
 #import "EcomapProblemDetails.h"
 #import "EcomapFetcher.h"
 #import "CheckRevisionProtocol.h"
+
 @protocol EcomapProblemViewDelegate <NSObject>
 
 - (void)showEcomapProblem:(EcomapProblem *)problem;

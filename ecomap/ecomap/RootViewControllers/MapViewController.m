@@ -59,9 +59,11 @@ extern bool wasUpdated;
 
 @synthesize fetchedResultsController = _fetchedResultsController;
 
-- (NSFetchedResultsController *)fetchedResultsController {
+- (NSFetchedResultsController *)fetchedResultsController
+{
     
-    if (_fetchedResultsController != nil) {
+    if (_fetchedResultsController != nil)
+    {
         return _fetchedResultsController;
     }
     
@@ -70,7 +72,6 @@ extern bool wasUpdated;
     NSString *entityName = @"Problem";
     NSString *sortBy = @"idProblem";
     
-    
     NSFetchRequest *fetchRequest = [EcomapFetchedResultController requestWithEntityName:entityName sortBy:sortBy];
     
     NSFetchedResultsController *theFetchedResultsController =
@@ -78,8 +79,6 @@ extern bool wasUpdated;
                                         managedObjectContext:appDelegate.managedObjectContext
                                              sectionNameKeyPath:nil
                                                    cacheName:entityName];
-    
-    
     
     self.fetchedResultsController = theFetchedResultsController;
     self.fetchedResultsController.delegate = self;
@@ -164,20 +163,23 @@ extern bool wasUpdated;
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *isLogged = [ud objectForKey:@"isLogged"];
-    if ([isLogged isEqualToString:@"YES"]) {
+    
+    if ([isLogged isEqualToString:@"YES"])
+    {
         [EcomapUserFetcher loginWithEmail:[ud objectForKey:@"email"]
-                              andPassword:[ud objectForKey:@"password"] OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error) {
-                                  
-                                  if (loggedUser.name)
-                                  {
-                                      //show greeting for logged user
-                                      [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо, %@!", @"Welcome, {User Name}"), loggedUser.name]];
-                                  }
-                              }];
+                              andPassword:[ud objectForKey:@"password"] OnCompletion:^(EcomapLoggedUser *loggedUser, NSError *error)
+         {
+             
+             if (loggedUser.name)
+             {
+                 //show greeting for logged user
+                 [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо, %@!", @"Welcome, {User Name}"), loggedUser.name]];
+             }
+         }];
     }
     else
     {
-        [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо!", @"Welcome!")]];       
+        [InfoActions showPopupWithMesssage:[NSString stringWithFormat:NSLocalizedString(@"Вітаємо!", @"Welcome!")]];
     }
     
 }
@@ -268,7 +270,6 @@ extern bool wasUpdated;
 
 -(void)loadProblems
 {
-    
     if (!self.arrayWithProblems || wasUpdated)
     {
         self.arrayWithProblems = [NSMutableArray new];
@@ -286,8 +287,6 @@ extern bool wasUpdated;
         
     }
     [self renewMap:self.currentAllProblems];
-
-
 }
 
 
@@ -398,9 +397,6 @@ extern bool wasUpdated;
         [self performSegueWithIdentifier:@"Show problem" sender:marker];
     }
 }
-
-
-
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

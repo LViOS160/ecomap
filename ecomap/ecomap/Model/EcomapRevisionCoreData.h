@@ -10,7 +10,9 @@
 #import "CheckRevisionProtocol.h"
 
 @protocol LoadedDifferencesProtocol <NSObject>
+
 - (void)showDetailView;
+
 @end
 
 @interface EcomapRevisionCoreData : NSObject

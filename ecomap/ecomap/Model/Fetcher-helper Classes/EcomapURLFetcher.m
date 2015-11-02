@@ -41,7 +41,7 @@
 
 + (NSString *)URLforEditingProblem:(NSUInteger)problemID
 {
-    NSString* baseUrl = [ECOMAP_ADDRESS stringByAppendingFormat:@"%@%@",ECOMAP_API,ECOMAP_GET_PROBLEM_API];
+    NSString* baseUrl = [ECOMAP_ADDRESS stringByAppendingFormat:@"%@%@", ECOMAP_API, ECOMAP_GET_PROBLEM_API];
     return [baseUrl stringByAppendingFormat:@"/%lu", problemID];
 }
 

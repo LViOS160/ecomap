@@ -24,6 +24,6 @@
 - (IBAction)editButton:(UIButton *)sender
 {
     [self.delegate editComentWithID:self.idOfRow withContent:self.commentContent.text];
-
 }
+
 @end
