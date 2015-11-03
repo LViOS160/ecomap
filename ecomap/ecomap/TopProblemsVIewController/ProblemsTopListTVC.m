@@ -15,7 +15,12 @@
 #import "AppDelegate.h"
 #import "EcomapFetchedResultController.h"
 
-@interface ProblemsTopListTVC ()
+static NSString *const requestEntity = @"Problem";
+static NSString *const sortRequestByNumberOfComments = @"numberOfComments";
+static NSString *const sortRequestByNumberOfVotes = @"numberOfVotes";
+static NSString *const sortRequestBySeverity = @"severity";
+
+@interface ProblemsTopListTVC () <NSFetchedResultsControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *kindOfTopChartSegmentedControl;
 @property (nonatomic) EcomapKindfOfTheProblemsTopList kindOfTopChart;
@@ -48,13 +53,13 @@
     switch (self.kindOfTopChart)
     {
         case 0:
-            fetchRequest = [EcomapFetchedResultController requestWithEntityName:@"Problem" sortBy:@"numberOfVotes" limit:10];
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:requestEntity sortBy:sortRequestByNumberOfVotes limit:10];
             break;
         case 1:
-            fetchRequest = [EcomapFetchedResultController requestWithEntityName:@"Problem" sortBy:@"severity" limit:10];
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:requestEntity sortBy:sortRequestBySeverity limit:10];
             break;
         case 2:
-            fetchRequest = [EcomapFetchedResultController requestWithEntityName:@"Problem" sortBy:@"numberOfComments" limit:10];
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:requestEntity sortBy:sortRequestByNumberOfComments limit:10];
             break;
             
         default:
@@ -65,7 +70,7 @@
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:appDelegate.managedObjectContext
                                           sectionNameKeyPath:nil
-                                                   cacheName:@"Problem"];
+                                                   cacheName:requestEntity];
     
     self.fetchedResultsController = theFetchedResultsController;
     self.fetchedResultsController.delegate = self;

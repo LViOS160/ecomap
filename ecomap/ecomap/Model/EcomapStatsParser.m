@@ -84,7 +84,7 @@
 }
 
 // Get an image to draw in "Top Of The Problems" chart depending on its type.
-+ (UIImage *)scoreImageOfProblem:(EcomapProblem *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
++ (UIImage *)scoreImageOfProblem:(Problem *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart
 {
     switch(kindOfChart)
     {

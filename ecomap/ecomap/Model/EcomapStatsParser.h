@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "EcomapURLFetcher.h"
+#import "Problem.h"
 
 // Titles for "Top Of The Problems" charts
 
@@ -33,7 +34,7 @@ typedef enum
 
 + (NSString *)scoreOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart;
 
-+ (UIImage *)scoreImageOfProblem:(NSDictionary *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart;
++ (UIImage *)scoreImageOfProblem:(Problem *)problem forChartType:(EcomapKindfOfTheProblemsTopList)kindOfChart;
 
 + (UIColor *)colorForProblemType:(NSUInteger)problemTypeID;
 
