@@ -9,9 +9,9 @@
 #import "ResourceTableViewController.h"
 #import "AppDelegate.h"
 
+static NSString *const cellIdentifier = @"Cell";
+
 @interface ResourceTableViewController() <NSFetchedResultsControllerDelegate>
-
-
 
 @end
 
@@ -42,12 +42,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString* identifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier
                              ];
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
     
     [self configureCell:cell atIndexPath:indexPath];

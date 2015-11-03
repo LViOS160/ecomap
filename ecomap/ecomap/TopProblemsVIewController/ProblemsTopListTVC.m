@@ -15,6 +15,8 @@
 #import "AppDelegate.h"
 #import "EcomapFetchedResultController.h"
 
+static NSString *const cellIdentifier = @"Top Problem Cell";
+
 static NSString *const requestEntity = @"Problem";
 static NSString *const sortRequestByNumberOfComments = @"numberOfComments";
 static NSString *const sortRequestByNumberOfVotes = @"numberOfVotes";
@@ -220,8 +222,6 @@ static NSString *const sortRequestBySeverity = @"severity";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    static NSString *cellIdentifier = @"Top Problem Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...

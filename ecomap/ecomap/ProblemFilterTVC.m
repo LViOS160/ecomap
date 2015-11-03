@@ -271,7 +271,7 @@ static NSString *kproblemOwnerCellID = @"ownerProblemCell";
         
         if ([self datePickerIsShown])
         {
-           [self hideExistingPicker];
+            [self hideExistingPicker];
         }
         
         [self showNewPickerAtIndex:newPickerIndexPath];

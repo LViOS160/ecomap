@@ -8,7 +8,9 @@
 
 #import "EcomapResources.h"
 #import "EcomapPathDefine.h"
+
 @interface EcomapResources()
+
 @property (nonatomic, strong, readwrite) NSString *titleRes;
 @property (nonatomic, strong, readwrite) NSString *alias;
 @property (nonatomic, readwrite) NSUInteger resId;
@@ -26,7 +28,7 @@
     {
         if (!resource)
         {
-           return nil;
+            return nil;
         }
         [self parseResources:resource];
     }

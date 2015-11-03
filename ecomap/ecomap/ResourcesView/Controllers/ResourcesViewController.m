@@ -18,6 +18,9 @@
 #import "AppDelegate.h"
 #import "Resource.h"
 
+static NSString *const entityForRequest = @"Resource";
+static NSString *const sortingValue = @"resourceID";
+
 @interface ResourcesViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *revealButtonItem;
@@ -69,8 +72,8 @@
     [super viewDidLoad];
     
     NSFetchRequest *request = [EcomapFetchedResultController
-                               requestWithEntityName:@"Resource"
-                               sortBy:@"resourceID"];
+                               requestWithEntityName:entityForRequest
+                               sortBy:sortingValue];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:request

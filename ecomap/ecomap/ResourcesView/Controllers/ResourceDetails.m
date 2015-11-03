@@ -15,6 +15,12 @@
 
 @implementation ResourceDetails
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.spiner startAnimating];
+    [self putData];
+}
 
 - (void) putData
 {
@@ -51,13 +57,6 @@
         _details=[[NSString alloc]init];
     }
     return _details;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self.spiner startAnimating];
-    [self putData];
 }
 
 - (void)didReceiveMemoryWarning
