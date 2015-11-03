@@ -48,7 +48,6 @@
     [super didReceiveMemoryWarning];
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -57,7 +56,7 @@
     //Buttons images localozation
     UIImage *addButtonImage = [UIImage imageNamed:NSLocalizedString(@"AddCommentButtonUKR", @"Add comment button image")];
     [self.addCommentButton setImage:addButtonImage forState:UIControlStateNormal];
-   
+    
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Editing comment..." message:@"Edit your comment:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
@@ -66,9 +65,6 @@
     [self updateUI];
     
 }
-
-
-
 
 - (NSFetchedResultsController *) fetchedResultsController
 {
@@ -128,7 +124,7 @@
         }
         case NSFetchedResultsChangeUpdate:
         {
-            [self configureCell:[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(CommentCell*)[self.myTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
         }
         case NSFetchedResultsChangeMove:
@@ -160,9 +156,9 @@
 }
 
 -(void)setProblemDetails:(EcomapProblemDetails *)problemDetails
-{        
+{
     NSMutableArray *comments = [NSMutableArray array];
-     for(EcomapActivity *oneComment in problemDetails.comments )
+    for(EcomapActivity *oneComment in problemDetails.comments )
     {
         if(oneComment.activityTypes_Id ==5)
         {
@@ -171,9 +167,9 @@
         }
         self.problemma = [NSString stringWithFormat:@"%lu",(unsigned long)oneComment.problemsID];
     }
-        self.comments = comments;
-        DDLogVerbose(@"%lu",(unsigned long)self.comments.count);
-        [self.myTableView reloadData];
+    self.comments = comments;
+    DDLogVerbose(@"%lu",(unsigned long)self.comments.count);
+    [self.myTableView reloadData];
 }
 
 
@@ -187,16 +183,16 @@
     if(userIdent)
     {
         [[NetworkActivityIndicator sharedManager] startActivity];
-            
+        
         NSInteger problemID = [self.problem_ID integerValue];
         
         [EcomapFetcher addCommentToProblem:problemID withContent:fromTextField onCompletion:^(NSError *error)
-        {
-            if (!error)
-            {
-                [EcomapFetcher loadEverything];
-            }
-        }];
+         {
+             if (!error)
+             {
+                 [EcomapFetcher loadEverything];
+             }
+         }];
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[NetworkActivityIndicator sharedManager]endActivity];
@@ -231,7 +227,7 @@
     {
         self.textField.text = @"";
         self.textField.textColor = [UIColor blackColor];
-       // self.addCommentButton.enabled = YES;
+        // self.addCommentButton.enabled = YES;
     }
     [self.textField becomeFirstResponder];
     
@@ -275,10 +271,9 @@
     NSLocale *ukraineLocale = [[NSLocale alloc]initWithLocaleIdentifier:@"uk"];
     [formatter setLocale:ukraineLocale];
     NSString *personalInfo = [NSString stringWithFormat:@"%@", object.created_by];
-    NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
+    NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date];
     cell.personInfo.text = personalInfo;
     cell.dateInfo.text = dateInfo;
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -333,13 +328,13 @@
         Comment *object = self.fetchedResultsController.fetchedObjects[self.currentIDInButton];
         
         [EcomapFetcher editComment:[object.comment_id integerValue] withContent:content onCompletion:^(NSError *error)
-        {
-            if (!error)
-            {
-                [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];
-                [self.myTableView reloadData];
-            }
-        }];
+         {
+             if (!error)
+             {
+                 [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];
+                 [self.myTableView reloadData];
+             }
+         }];
     }
 }
 
@@ -406,70 +401,8 @@
                                  completion:nil];
              }
          }];
-                  
+        
     }
 }
- 
 
-
-
-/*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *reuseIdentifier = @"CommentCell";
-    CommentCell *cell = [self.offscreenCells objectForKey:reuseIdentifier];
-    if(!cell)
-    {
-        cell = [[CommentCell alloc]init];
-        [self.offscreenCells setObject:cell forKey:reuseIdentifier];
-    }
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
-    cell.bounds = CGRectMake(0, 0, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
-    [cell setNeedsLayout];
-    [cell layoutIfNeeded];
-    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    height+=1;
-    return height;
-}
-
-*/
-
-
-
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 @end
