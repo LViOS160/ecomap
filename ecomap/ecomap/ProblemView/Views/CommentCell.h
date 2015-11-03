@@ -10,7 +10,7 @@
 
 @protocol EditCommentProtocol <NSObject>
 
--(void)editComentWithID:(NSUInteger)commentID withContent:(NSString *)content;
+-(void)editComentWithID:(NSIndexPath *)commentIndexPath withContent:(NSString *)content;
 
 @end
 
@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *personInfo;
 @property (weak, nonatomic) IBOutlet UILabel *dateInfo;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
-@property (assign, nonatomic) NSUInteger idOfRow;
+@property (assign, nonatomic) NSIndexPath* indexPathOfRow;
 
 - (IBAction)editButton:(UIButton *)sender;
 

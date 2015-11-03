@@ -23,7 +23,7 @@
 
 - (IBAction)editButton:(UIButton *)sender
 {
-    [self.delegate editComentWithID:self.idOfRow withContent:self.commentContent.text];
+    [self.delegate editComentWithID:self.indexPathOfRow withContent:self.commentContent.text];
 }
 
 @end
