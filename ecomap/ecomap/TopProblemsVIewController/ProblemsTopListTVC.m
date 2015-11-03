@@ -15,12 +15,12 @@
 #import "AppDelegate.h"
 #import "EcomapFetchedResultController.h"
 
-static NSString *const cellIdentifier = @"Top Problem Cell";
+static NSString *const kCellIdentifier = @"Top Problem Cell";
 
-static NSString *const requestEntity = @"Problem";
-static NSString *const sortRequestByNumberOfComments = @"numberOfComments";
-static NSString *const sortRequestByNumberOfVotes = @"numberOfVotes";
-static NSString *const sortRequestBySeverity = @"severity";
+static NSString *const kRequestEntity = @"Problem";
+static NSString *const kSortRequestByNumberOfComments = @"numberOfComments";
+static NSString *const kSortRequestByNumberOfVotes = @"numberOfVotes";
+static NSString *const kSortRequestBySeverity = @"severity";
 
 @interface ProblemsTopListTVC () <NSFetchedResultsControllerDelegate>
 
@@ -55,13 +55,13 @@ static NSString *const sortRequestBySeverity = @"severity";
     switch (self.kindOfTopChart)
     {
         case 0:
-            fetchRequest = [EcomapFetchedResultController requestWithEntityName:requestEntity sortBy:sortRequestByNumberOfVotes limit:10];
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:kRequestEntity sortBy:kSortRequestByNumberOfVotes limit:10];
             break;
         case 1:
-            fetchRequest = [EcomapFetchedResultController requestWithEntityName:requestEntity sortBy:sortRequestBySeverity limit:10];
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:kRequestEntity sortBy:kSortRequestBySeverity limit:10];
             break;
         case 2:
-            fetchRequest = [EcomapFetchedResultController requestWithEntityName:requestEntity sortBy:sortRequestByNumberOfComments limit:10];
+            fetchRequest = [EcomapFetchedResultController requestWithEntityName:kRequestEntity sortBy:kSortRequestByNumberOfComments limit:10];
             break;
             
         default:
@@ -72,7 +72,7 @@ static NSString *const sortRequestBySeverity = @"severity";
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:appDelegate.managedObjectContext
                                           sectionNameKeyPath:nil
-                                                   cacheName:requestEntity];
+                                                   cacheName:kRequestEntity];
     
     self.fetchedResultsController = theFetchedResultsController;
     self.fetchedResultsController.delegate = self;
@@ -222,13 +222,13 @@ static NSString *const sortRequestBySeverity = @"severity";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
     
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
     }
     // Display data in the cell
     

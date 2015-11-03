@@ -18,8 +18,8 @@
 #import "AppDelegate.h"
 #import "Resource.h"
 
-static NSString *const entityForRequest = @"Resource";
-static NSString *const sortingValue = @"resourceID";
+static NSString *const kEntityForRequest = @"Resource";
+static NSString *const kSortingValue = @"resourceID";
 
 @interface ResourcesViewController ()
 
@@ -72,8 +72,8 @@ static NSString *const sortingValue = @"resourceID";
     [super viewDidLoad];
     
     NSFetchRequest *request = [EcomapFetchedResultController
-                               requestWithEntityName:entityForRequest
-                               sortBy:sortingValue];
+                               requestWithEntityName:kEntityForRequest
+                               sortBy:kSortingValue];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:request

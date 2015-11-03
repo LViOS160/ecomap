@@ -58,6 +58,7 @@
      ];
     
     [self getProblemWithComments];
+    [self updateData];
     [self keepRevision];
 }
 
@@ -67,7 +68,7 @@
     
     [ob checkRevison: nil];
     [self getProblemWithComments];
-    [self updateData];
+    
 }
 
 + (void)updateData
