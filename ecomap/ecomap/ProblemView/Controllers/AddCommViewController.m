@@ -34,7 +34,7 @@
 @property (nonatomic,strong) NSString *problemma;
 @property (weak, nonatomic) IBOutlet UIButton *addCommentButton;
 @property (nonatomic,strong) UIAlertView *alertView;
-@property (nonatomic) NSUInteger currentIDInButton;
+@property (nonatomic) NSIndexPath *currentIndexPath;
 @property (nonatomic, strong) NSString* createdComment;
 
 @end
@@ -301,7 +301,7 @@
         NSString *dateInfo = [NSString stringWithFormat:@"%@",object.created_date]; // or modified date
         cell.personInfo.text = personalInfo;
         cell.dateInfo.text = dateInfo;
-        cell.idOfRow = indexPath.row;
+        cell.indexPathOfRow = indexPath;
         EcomapLoggedUser *loggedUser = [EcomapLoggedUser currentLoggedUser];
         
         if(loggedUser && ([loggedUser.name isEqualToString:object.created_by] || [loggedUser.role isEqualToString:@"admin"]))
@@ -325,22 +325,35 @@
     if (buttonIndex == 1)
     {
         NSString *content = [self.alertView textFieldAtIndex:0].text;
-        Comment *object = self.fetchedResultsController.fetchedObjects[self.currentIDInButton];
+        Comment *object = self.fetchedResultsController.fetchedObjects[self.currentIndexPath.row];
         
         [EcomapFetcher editComment:[object.comment_id integerValue] withContent:content onCompletion:^(NSError *error)
          {
              if (!error)
              {
-                 [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];
+                 AppDelegate* appDelegate = [AppDelegate sharedAppDelegate];
+                 NSManagedObjectContext* context = appDelegate.managedObjectContext;
+                 NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"Comment"
+                                                           inManagedObjectContext:context];
+                 [request setEntity:entity];
+                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"comment_id == %i", [object.comment_id integerValue]];
+                 [request setPredicate:predicate];
+                 NSArray *obj = [context executeFetchRequest:request error:nil];
+                 Comment *comm = obj[0];
+                 [comm setValue:content forKey:@"content"];
+                 [context save:nil];
+
+                 [EcomapFetcher updateComments:[object.problem.idProblem integerValue] controller:self];                 
                  [self.myTableView reloadData];
              }
          }];
     }
 }
 
--(void)editComentWithID:(NSUInteger)commentID withContent:(NSString *)content
+-(void)editComentWithID:(NSIndexPath *)commentIndexPath withContent:(NSString *)content
 {
-    self.currentIDInButton = commentID;
+    self.currentIndexPath = commentIndexPath;
     UITextField *textField = [self.alertView textFieldAtIndex:0];
     [textField setText:content];
     [self.alertView show];
