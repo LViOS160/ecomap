@@ -282,11 +282,11 @@ extern bool wasUpdated;
             EcomapProblem *ecoProblem = [[EcomapProblem alloc] initWithProblemFromCoreData:problem];
             [self.arrayWithProblems addObject:ecoProblem];
         }
-    
-        self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
-        
     }
+    self.currentAllProblems = [[NSSet alloc] initWithArray:self.arrayWithProblems];
+    
     [self renewMap:self.currentAllProblems];
+    [self userDidApplyFilteringMask:self.filteringMask];
 }
 
 
