@@ -1,4 +1,4 @@
-Our team Lv-160.iOs have been working on this project for one month. 
+Our team Lv-160.iOs has been working on this project for one month. 
 While this term we have done the following:
 
 - migrated to the new backend:
